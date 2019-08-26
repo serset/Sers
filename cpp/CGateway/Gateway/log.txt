@@ -1,0 +1,26 @@
+开发环境  Ubuntu eclipse c++
+
+ubuntu 编译命令：
+cd Gateway/Debug
+make all
+
+--------------------------------------------
+todo:
+
+LongTaskHelp.Stop 销毁线程，尚未完成
+GUID
+
+
+
+--------------------------------------------
+fixed:
+
+[190618 18:49]
+1.Content-Type:application/json; charset=UTF-8
+2.跨域访问
+
+
+
+
+
+ 

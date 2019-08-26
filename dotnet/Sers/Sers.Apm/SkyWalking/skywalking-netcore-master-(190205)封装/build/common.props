@@ -1,0 +1,18 @@
+<Project>
+  <Import Project="version.props" />
+  <PropertyGroup>
+    <Authors>SkyWalking Committer Team</Authors>
+    <Product>skywalking-netcore</Product>
+    <owners>skywalking</owners>
+    <PackageIconUrl>https://avatars2.githubusercontent.com/u/32165127</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/OpenSkywalking/skywalking-netcore</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/OpenSkywalking/skywalking-netcore/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/OpenSkywalking/skywalking-netcore</RepositoryUrl>
+    <GenerateAssemblyConfigurationAttribute>True</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>True</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>True</GenerateAssemblyProductAttribute>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>  
+  </PropertyGroup>
+</Project>

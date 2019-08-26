@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>bin\Debug\netstandard2.0\Sers.ServiceStation.Module.Bearer.xml</DocumentationFile>
+    <Version>1.1.0</Version>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Sers.ServiceStation\Sers.ServiceStation.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>1.1.9</Version>
+    <Description>http://github.com/sersms</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Debug\netstandard2.0\Sers.Core.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Extensions\byte\ReadOnlySpanByteExtensions.cs" />
+    <Compile Remove="Extensions\byte\SpanByteExtensions.cs" />
+    <Compile Remove="Module\SsApiDiscovery\ApiDesc\Attribute\EValueType.cs" />
+    <Compile Remove="Module\SsApiDiscovery\ApiDesc\Attribute\SsCategoryAttribute.cs" />
+    <Compile Remove="Module\SsApiDiscovery\ApiDesc\Attribute\SsTypeAttribute.cs" />
+  </ItemGroup> 
+ 
+ 
+ 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="StackExchange.Redis" Version="2.0.519" />
+  </ItemGroup>
+ 
+
+</Project>

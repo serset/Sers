@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.1.9</Version>
+    <Description>http://github.com/sersms</Description>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Debug\netstandard2.0\Sers.Core.Station.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Module\SsApiDiscovery\ApiDesc\Attribute\Valid\delete\**" />
+    <EmbeddedResource Remove="Module\SsApiDiscovery\ApiDesc\Attribute\Valid\delete\**" />
+    <None Remove="Module\SsApiDiscovery\ApiDesc\Attribute\Valid\delete\**" />
+  </ItemGroup>
+
+ 
+ 
+  
+ 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+ 
+ 
+ 
+ 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Sers.Hardware\Sers.Hardware\Sers.Hardware.csproj" />
+    <ProjectReference Include="..\..\Sers.Mq\Socket\Sers.Mq.Socket\Sers.Mq.Socket.csproj" />
+    <ProjectReference Include="..\Sers.Core\Sers.Core.csproj" />
+  </ItemGroup>
+ 
+
+</Project>

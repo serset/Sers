@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Micro Control</title>
+
+    <script src="Script/vue.js"></script>
+    <script src="Script/jquery.min.js"></script>
+    <script src="Script/sers.apiClient.js"></script>
+
+    <script src="Script/lith.js"></script>
+
+
+    <style>
+
+        .line {
+            border: 1px solid #cccccc;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+ 
+
+        function getIframeHeight(iframe) {
+            /// <summary>获取iframe的高度</summary>
+            /// <param name="iframe" type="dom"></param>
+            /// <returns type="number"></returns> 
+            var win = iframe.contentWindow,
+                doc = win.document,
+                html = doc.documentElement,
+                body = doc.body;
+            // 获取高度 
+            return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+        }
+
+        function iframeOnload(iframe) {         
+            try {
+                var index = $(iframe).attr('ifindex');
+                var mcWidget = mcData[index];
+                if (mcWidget && iframe.contentWindow.mcInit) {                   
+                    iframe.contentWindow.mcInit(mcWidget.mcUiInitData);
+               
+                    //try {
+                    //    //自适应高度                     
+                    //    iframe.height = getIframeHeight(iframe);
+                      
+                    //} catch (ex) { }
+               
+                }
+            } catch (e) {
+            }
+        }
+        </script>
+    <h1> micro control</h1>
+
+    <div id="items">
+
+        <div v-for="(item,index) in items" style="width:300px;height:400px; float:left;margin:2px;padding:4px;word-wrap:break-word;" class="line">          
+
+            <iframe :src="item.mcUiSrc"  :ifindex="index" onload="iframeOnload(this);"  width="300" height="400" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true"></iframe>
+
+        </div>
+
+    </div>
+
+
+    <script type="text/javascript">
+        /*
+         mc ui
+
+ micro control ui
+
+         */
+
+ 
+
+        var mcData;
+
+        var items = new Vue({
+            el: '#items',
+            data: {
+                items: []
+            }
+        });
+
+      
+       //获取数据
+        sers.apiClient.post({
+            url: '/MicroControl/mcMng/GetAll',
+            onSuc: function (apiRet) {
+                
+                items.items = mcData= apiRet.data;
+            }
+        });
+ 
+
+
+
+    </script>
+</body>
+
+</html>
