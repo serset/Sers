@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <Version>1.1.8</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>bin\Debug\netcoreapp2.1\App.Robot.Station.xml</DocumentationFile>
+  </PropertyGroup>
+
+ 
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+ 
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Sers\Sers.Mq\Zmq\Sers.Mq.Zmq.ClrZmq.MqBuilder\Sers.Mq.Zmq.ClrZmq.MqBuilder.csproj" />
+    <ProjectReference Include="..\..\..\..\Sers\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />
+  </ItemGroup>
+
+ 
+
+  <ItemGroup>
+    <None Update="Data\App.Robot.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+ 
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="xcopy  &quot;$(ProjectDir)wwwroot&quot; &quot;$(TargetDir)\wwwroot&quot; /e /i /r /y&#xD;&#xA;" />
+  </Target>
+
+ 
+</Project>

@@ -1,0 +1,14 @@
+dotnet /root/netapp/DP/Sers.MySqlBackupTool/Sers.MySqlTool.dll backup
+ 
+
+-----------------------------------
+
+备份数据库：
+dotnet Sers.MySqlTool.dll backup
+
+
+还原数据库：
+dotnet Sers.MySqlTool.dll import "mysqlConnectionString" "sqliteFilePath" ["-createTable"] ["-truncate"]
+
+   "-createTable": 若指定，则在导入数据前自动创建表结构
+   "-truncate": 若指定，则在导入数据前自动清空待操作表的原始数据

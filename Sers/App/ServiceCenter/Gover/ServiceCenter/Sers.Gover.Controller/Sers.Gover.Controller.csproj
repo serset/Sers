@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>bin\Debug\netstandard2.0\Sers.Gover.Controller.xml</DocumentationFile>
+  </PropertyGroup>
+
+ 
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sers.Gover.Core\Sers.Gover.Core.csproj" />
+  </ItemGroup>
+
+</Project>

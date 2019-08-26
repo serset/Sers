@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    <ApplicationIcon />
+    <StartupObject />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Sers\Sers.Core\Sers.Core.Station\Sers.Core.Station.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Sers\Sers.Mq\Socket\Sers.Mq.Socket\Sers.Mq.Socket.csproj" />
+  </ItemGroup>
+
+</Project>

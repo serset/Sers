@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.1.8</Version>
+    <Description>http://github.com/sersms</Description>
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+    <DocumentationFile>bin\Debug\netstandard2.0\Sers.Gateway.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Sers.Core\Sers.Core.Common.WebHost\Sers.Core.Common.WebHost.csproj" />
+    <ProjectReference Include="..\..\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />
+  </ItemGroup>
+
+</Project>

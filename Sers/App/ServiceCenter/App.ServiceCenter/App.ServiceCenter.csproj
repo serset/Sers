@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Version>1.1.8</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Sers\Sers.Apm\SkyWalking\Sers.Apm.SkyWalking\Sers.Apm.SkyWalking.csproj" />
+    <ProjectReference Include="..\..\..\Sers\Sers.Mq\Zmq\Sers.Mq.Zmq.ClrZmq.MqBuilder\Sers.Mq.Zmq.ClrZmq.MqBuilder.csproj" />
+    <ProjectReference Include="..\..\..\Sers\Sers.ServiceStation\Sers.ServiceStation.Module.Bearer\Sers.ServiceStation.Module.Bearer.csproj" />
+    <ProjectReference Include="..\Gover\ServiceCenter\Sers.Gover.Controller\Sers.Gover.Controller.csproj" />
+    <ProjectReference Include="..\Sers.ServiceCenter.Controller\Sers.ServiceCenter.Controller.csproj" />
+  </ItemGroup>
+
+   
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,56 @@
+version ：v1.0.26
+last Time :[]
+
+----
+todo
+
+
+5.Api discovery  效率优化(DynamicMethod等)
+6.ServiceStation 断点调试，Ping线程阻塞，认为断开连接
+   重试机制、限流、熔断机制、负载均衡
+9.ubuntu The type initializer for 'ZeroMQ.lib.zmq' threw an exception.
+11. 最大线程数限制（Mq 的配置等地方）
+12.c# 使用指针 不安全代码等优化效率
+13.架构错误日志
+14.序列化性能优化 AvrO/PB 等
+15.APM链路追踪
+16.remote api调用失败处理机制
+17.IRpcContextData 作用域
+18.Apm.SkyWalking 启动时会启动WebHost
+19. Zmq poll 效率低
+20. 服务熔断，服务降级 ，服务限流 负载均衡
+21.网关输出回应时指定字符编码
+22. HttpUtil Exception 通常每个套接字地址(协议/网络地址/端口)只允许使用一次。
+23. SocketMq Stop没有按层调用Close函数
+24. [190328]Gove需要展示Rpc Valid信息 
+28. [190401] Gover ApiDesc GetAll逻辑有问题（没有获取所有）
+30. [190406] Gover ApiDoc example(object -> string)
+31. [190423]Sers.Hardware 嵌入的exe文件发布nuget包后在项目引用后不会还原
+
+33.[190428] 站点系统消息（站点注册、站点关闭、站点暂停、站点开始）
+
+34.[190508] Mc回调接口参数验证
+35.[190515] nuget包地址指向https://github.com/sersms/Sers_NetCore_HelloWorld
+36.[190612] ApiMng route 配置是否区分大小写
+
+
+-----------------------------------
+
+finished:
+
+--------------
+[190430]
+32. [190428]ServerStation 添加version信息
+
+--------------
+[190418]
+25. [190330]ServiceStation Socket断开后到 Ping判定断开 这段时间 ServiceCenter会高负荷
+--------------
+[190413]
+29. [190403] Gover api调用统计 没有持久化
+2.数据库字符编码 
+
+
+[190406]
+26. [190330]Gover 生成Postman 数组参数生成不正确
+27. [190401]SsModelProterty 添加属性 mode(value，object,array)

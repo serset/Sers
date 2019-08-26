@@ -1,0 +1,42 @@
+create table tb_ticket (
+    [id]            integer PRIMARY KEY autoincrement,     
+    [collectTime]         datetime,    
+	
+	[ticket_id]         INT64,
+	[ticket_level]         nvarchar (500),
+	[ticket_timeoutHours]        integer,
+	[ticket_state]         nvarchar (500),
+	
+	[ticket_log]        text, 
+
+	[when]         nvarchar (500),
+	[reason]         nvarchar (1000),
+	[errorType]         nvarchar (1000),
+	[stationName]         nvarchar (500),
+  
+	[occurTime]        datetime,
+	[description]         text,
+	[howToHandle]         text,
+	[ssError]         text,
+	[content]          text,
+	[extData]          text
+);
+
+
+
+
+
+create table tb_error (
+    [id]            integer PRIMARY KEY autoincrement,     
+    [collectTime]         datetime,    
+	[state]         nvarchar (500), 
+
+	[when]         nvarchar (500),
+	[reason]         nvarchar (1000),
+    [errorType]         nvarchar (1000),
+    [stationName]         nvarchar (500),
+    [ssError]         text,
+    [occurTime]        datetime,
+    [content]          text,
+    [extData]          text
+);

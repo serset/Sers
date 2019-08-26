@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Version>1.1.8</Version>
+  </PropertyGroup>
+ 
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Sers\Sers.Gateway\Sers.Gateway\Sers.Gateway.csproj" />
+    <ProjectReference Include="..\..\..\Sers\Sers.Mq\Zmq\Sers.Mq.Zmq.ClrZmq.MqBuilder\Sers.Mq.Zmq.ClrZmq.MqBuilder.csproj" />
+    <ProjectReference Include="..\..\..\Sers\Sers.ServiceStation\Sers.ServiceStation.Module.Bearer\Sers.ServiceStation.Module.Bearer.csproj" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
+
+</Project>

@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>ActiveApiDoc</title>
+
+
+    <link rel="stylesheet" href="Script/markdown/editormd/editormd/css/editormd.css" />
+    <script src="Script/markdown/editormd/editormd/examples/js/jquery.min.js"></script>
+    <script src="Script/markdown/editormd/editormd/lib/marked.min.js"></script>
+    <script src="Script/markdown/editormd/editormd/lib/prettify.min.js"></script>
+    <script src="Script/markdown/editormd/editormd/lib/raphael.min.js"></script>
+    <script src="Script/markdown/editormd/editormd/lib/underscore.min.js"></script>
+    <script src="Script/markdown/editormd/editormd/lib/sequence-diagram.min.js"></script>
+    <script src="Script/markdown/editormd/editormd/lib/flowchart.min.js"></script>
+    <script src="Script/markdown/editormd/editormd/lib/jquery.flowchart.min.js"></script>
+    <script src="Script/markdown/editormd/editormd/editormd.js"></script>
+
+     
+    <script src="SsApi/sers.apiClient.js"></script>
+    <script src="SsApi/sers.ssApiDescToMd.js"></script>
+    <script src="SsApi/sers.ssModel.js"></script>
+
+
+    <script src="SsApi/sers.SaveFile.js"></script>
+    <script src="SsApi/sers.postman.js"></script>
+
+
+</head>
+<body>
+
+    <h1>ApiDoc-可用的Api</h1>
+
+    postman导入文件：
+    <a id="postmanCollection" href="#" title="download postman collection File">postmanCollection</a>
+    <a id="postmanEnvironment" href="#" title="download postman environment File">postmanEnvironment</a><br />
+    markdown文档：<a id="mdDownload" href="#" title="download markdown document File">markdown文档</a>
+
+    <div id="test-editormd-view">
+    </div>
+
+    <script type="text/javascript">
+
+        var apiDescs;
+        var mdDoc;
+        sers.apiClient.apiDesc_getActive(function (apiReturn) {
+            apiDescs = apiReturn.data;
+            mdDoc = sers.ssApiDescsToMd(apiDescs);
+
+            var curMdDoc = "[TOC]\n\n" + mdDoc
+
+            editormd.markdownToHTML("test-editormd-view", {
+                markdown: curMdDoc,
+                htmlDecode: true
+            });
+        });
+
+
+
+
+        //postman
+        $('#postmanCollection').click(function () {
+            var context = sers.postman.apiDescToPostmanConfig(apiDescs);
+            context = JSON.stringify(context);
+            sers.SaveFile(context, sers.postman.collectionConfig.fileName);
+        });
+
+        $('#postmanEnvironment').click(function () {
+            var context = sers.postman.environmentConfig.value;
+            context = JSON.stringify(context);
+            sers.SaveFile(context, sers.postman.environmentConfig.fileName);
+        });
+
+        //mdDownload
+        $('#mdDownload').click(function () {
+            sers.SaveFile(mdDoc, 'SersActiveApiDoc(' + new Date().toJSON().slice(0, 10) + ').md');
+        });
+
+
+    </script>
+
+</body>
+</html>

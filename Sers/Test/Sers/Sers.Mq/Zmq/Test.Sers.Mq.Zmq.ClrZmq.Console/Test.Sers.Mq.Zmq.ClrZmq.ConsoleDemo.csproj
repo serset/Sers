@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Program - 副本.cs" />
+    <Compile Remove="Program - 复制.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Sers\Sers.Mq\Zmq\Sers.Mq.Zmq.ClrZmq\Sers.Mq.Zmq.ClrZmq.csproj" />
+  </ItemGroup>
+
+</Project>

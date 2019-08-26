@@ -1,0 +1,17 @@
+create database db_authCenter;
+
+
+use db_authCenter;
+
+
+
+/* tb_account */
+CREATE TABLE `tb_account`(
+    `userId` BIGINT NOT NULL AUTO_INCREMENT COMMENT '±êÊ¶Ö÷¼ü'
+   ,`account` NVARCHAR(200) NULL  COMMENT 'account'
+   ,`pwd` NVARCHAR(200) NULL  COMMENT 'pwd'
+   ,`name` NVARCHAR(200) NULL  COMMENT 'name'
+   ,PRIMARY KEY (`userId`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT 'tb_account';
+
+
