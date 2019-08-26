@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+    <DocumentationFile>bin\Debug\netstandard2.0\Sers.ServiceCenter.xml</DocumentationFile>
+  </PropertyGroup>
+ 
+ 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Sers.Core\Sers.Core.Station\Sers.Core.Station.csproj" />
+    <ProjectReference Include="..\..\Sers.Mq\Socket\Sers.Mq.Socket.Iocp\Sers.Mq.Socket.Iocp.csproj" />
+    <ProjectReference Include="..\..\Sers.Mq\Socket\Sers.Mq.Socket.ThreadWait\Sers.Mq.Socket.ThreadWait.csproj" />
+  </ItemGroup>
+
+</Project>

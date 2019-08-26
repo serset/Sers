@@ -1,0 +1,2 @@
+dotnet Client.dll
+pause

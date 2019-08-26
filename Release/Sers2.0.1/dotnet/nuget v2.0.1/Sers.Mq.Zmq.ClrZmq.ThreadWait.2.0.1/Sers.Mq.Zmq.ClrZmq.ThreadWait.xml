@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Sers.Mq.Zmq.ClrZmq.ThreadWait</name>
+    </assembly>
+    <members>
+        <member name="P:Sers.Mq.Zmq.ClrZmq.ThreadWait.ClientMq.secretKey">
+            <summary>
+            连接秘钥，用以验证连接安全性。服务端和客户端必须一致
+            </summary>
+        </member>
+        <member name="P:Sers.Mq.Zmq.ClrZmq.ThreadWait.ClientMq.OnGetFrame">
+            <summary>
+            请勿处理耗时操作，需立即返回。接收到客户端的数据事件
+            </summary>
+        </member>
+        <member name="F:Sers.Mq.Zmq.ClrZmq.ThreadWait.ClientMq.endpoint">
+            <summary>
+            Mq 地址。例如： "tcp://127.0.0.1:10346" 、 "ipc://10346"
+            </summary>
+        </member>
+        <member name="P:Sers.Mq.Zmq.ClrZmq.ThreadWait.MqConn.state">
+            <summary>
+            连接状态(0:waitForCertify; 2:certified; 4:waitForClose; 8:closed;)
+            </summary>
+        </member>
+        <member name="P:Sers.Mq.Zmq.ClrZmq.ThreadWait.ServerMq.Conn_OnGetFrame">
+            <summary>
+            请勿处理耗时操作，需立即返回。收到数据事件          public delegate void Conn_OnGetFrame(IMqConn conn, ArraySegment&lt;byte&gt; messageFrame);
+            </summary>
+        </member>
+        <member name="F:Sers.Mq.Zmq.ClrZmq.ThreadWait.ServerMq.connMap">
+            <summary>
+             connGuid -> MqConnect
+            </summary>
+        </member>
+        <member name="F:Sers.Mq.Zmq.ClrZmq.ThreadWait.ServerMq.endpoint">
+            <summary>
+            Mq 地址。例如： "tcp://*:10346" 、 "ipc://10346"
+            </summary>
+        </member>
+        <member name="M:Sers.Mq.Zmq.ClrZmq.ThreadWait.ServerMq.Start">
+            <summary>
+            启动服务
+            </summary>
+        </member>
+        <member name="M:Sers.Mq.Zmq.ClrZmq.ThreadWait.ServerMq.Stop">
+            <summary>
+            停止服务
+            </summary>
+        </member>
+        <member name="P:Sers.Mq.Zmq.ClrZmq.ThreadWait.SocketPoller.OnReceiveMessage">
+            <summary>
+            请勿处理耗时操作，需立即返回。接收到客户端的数据事件
+            </summary>
+        </member>
+        <member name="M:Sers.Mq.Zmq.ClrZmq.ThreadWait.SocketPoller.Start(ZeroMQ.ZSocket)">
+            <summary>
+            初始化并开启后台线程
+            </summary>
+            <param name="socket"></param>
+        </member>
+    </members>
+</doc>

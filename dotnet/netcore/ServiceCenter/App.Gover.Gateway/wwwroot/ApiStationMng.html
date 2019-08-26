@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Api站点管理</title>
+    <script src="Script/vue/vue.js"></script>
+    <script src="Script/jquery/jquery.min.js"></script>
+
+ 
+    <script src="SsApi/sers.apiClient.js"></script>
+
+    <style>
+
+        .line {
+            border: 1px solid #cccccc;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Api站点管理</h1>
+
+    <div id="stations">
+
+        <div v-for="station in stations" style="width:300px;height:400px; float:left;margin:2px;padding:4px;word-wrap:break-word;" class="line">
+            {{station.stationName}}     <br />
+            calledCount  err/sum:  {{(station.counter||{}).errorCount}}/ {{(station.counter||{}).sumCount}}<br />
+            qps:{{station.qps}}     <br />
+            apiServiceCount:{{station.apiServiceCount}}     <br />
+            apiNodeCount:{{station.apiNodeCount}}     <br />
+            activeApiNodeCount:{{station.activeApiNodeCount}}     <br />
+            状态：{{station.status}}（正常、暂停）<br />
+            操作：  <a href="#" @click="start(station)">打开</a>   <a href="#" @click="pause(station)">暂停</a><br />
+
+        </div>
+
+    </div>
+    <script>
+
+
+        var stations = new Vue({
+            el: '#stations',
+            data: {
+                stations: []
+            }, methods: {
+                start: function (station) {
+                    sers.apiClient.apiStation_start(station.stationName, function (data) {
+                        rendStations();
+                    });
+                }, pause: function (station) {
+                    sers.apiClient.apiStation_pause(station.stationName, function (data) {
+                        rendStations();
+                    });
+                }
+            }
+        });
+
+
+        function rendStations() {
+            sers.apiClient.apiStation_getAll(function (data) {
+                stations.stations = data.data;
+            });
+        }
+
+        rendStations();
+
+
+        var intervals = [];
+        function startRefreshTask() {
+            var interval = setInterval(rendStations, 2000);
+            intervals.push(interval);
+        }
+        function stopRefreshTask() {
+            for (var t in intervals) {
+                clearInterval(intervals[t]);
+            }
+            intervals = [];
+        }
+
+        startRefreshTask();
+
+    </script>
+</body>
+
+</html>

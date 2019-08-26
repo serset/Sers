@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>2.0.1</Version>
+    <Description>https://github.com/sersms/Sers/tree/2.0.1/release</Description>
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+    <DocumentationFile>bin\Debug\netstandard2.0\Sers.Mq.Socket.Iocp.xml</DocumentationFile>
+  </PropertyGroup>   
+
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Sers.Core\Sers.Core\Sers.Core.csproj" />
+  </ItemGroup>
+
+</Project>

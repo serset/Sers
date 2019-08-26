@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>2.0.1</Version>
+    <Description>https://github.com/sersms/Sers/tree/2.0.1/release</Description>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <DocumentationFile>bin\Debug\netstandard2.0\Sers.Mq.Zmq.ClrZmq.ThreadWait.xml</DocumentationFile>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Remove="SocketPoller.cs" />
+    <Compile Remove="SocketPoller2.cs" />
+    <Compile Remove="SocketPoller3.cs" />
+  </ItemGroup>
+
+ 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Sers.Core\Sers.Core\Sers.Core.csproj" />
+    <ProjectReference Include="..\clrzmq4-master\ZeroMQ.netcore.csproj" />
+  </ItemGroup>
+
+ 
+  <ItemGroup>
+    <None Update="libsodium.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="libzmq.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="libzmq.dylib">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="libzmq.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup> 
+  
+
+   
+</Project>

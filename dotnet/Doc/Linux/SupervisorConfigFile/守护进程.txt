@@ -1,0 +1,13 @@
+-------------------------------------------------------------------------
+守护进程
+192.168.1.140:8001
+
+配置文件路径:
+etc/supervisor/conf.d/xxxxxxx.conf
+
+重启命令：
+supervisorctl reread
+supervisorctl update
+
+supervisorctl restart ServiceCenter
+ 

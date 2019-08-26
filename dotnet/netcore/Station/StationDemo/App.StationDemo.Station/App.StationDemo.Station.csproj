@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Version>2.0.1</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>bin\Debug\netcoreapp2.1\App.StationDemo.Station.xml</DocumentationFile>   
+  </PropertyGroup> 
+
+ 
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+ 
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Sers\Sers.Mq\Ipc\Sers.Mq.Ipc.SharedMemory\Sers.Mq.Ipc.SharedMemory.csproj" />
+    <ProjectReference Include="..\..\..\..\Sers\Sers.Mq\Zmq\ThreadWait\Sers.Mq.Zmq.ClrZmq.ThreadWait\Sers.Mq.Zmq.ClrZmq.ThreadWait.csproj" />
+    <ProjectReference Include="..\..\..\..\Sers\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />    
+  </ItemGroup>
+
+ 
+
+</Project>

@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Sers.Mq.Ipc.SharedMemory</name>
+    </assembly>
+    <members>
+        <member name="F:Sers.Mq.Ipc.SharedMemory.MqBuilder.MqConfig.name">
+            <summary>
+            共享内存名称
+            </summary>
+        </member>
+        <member name="F:Sers.Mq.Ipc.SharedMemory.MqBuilder.MqConfig.nodeCount">
+            <summary>
+            共享内存节点个数
+            </summary>
+        </member>
+        <member name="F:Sers.Mq.Ipc.SharedMemory.MqBuilder.MqConfig.nodeBufferSize">
+            <summary>
+            共享内存节点大小
+            </summary>
+        </member>
+        <member name="F:Sers.Mq.Ipc.SharedMemory.MqBuilder.MqConfig.secretKey">
+            <summary>
+            Mq连接秘钥，用以验证连接安全性。服务端和客户端必须一致
+            </summary>
+        </member>
+        <member name="P:Sers.Mq.Ipc.SharedMemory.Mq.ClientMq.name">
+            <summary>
+            共享内存名称
+            </summary>
+        </member>
+        <member name="P:Sers.Mq.Ipc.SharedMemory.Mq.ClientMq.OnGetFrame">
+            <summary>
+            请勿处理耗时操作，需立即返回。接收到客户端的数据事件          public delegate void OnGetFrame(AsyncUserToken token, ArraySegment&lt;byte&gt; messageFrame);
+            </summary>
+        </member>
+        <member name="P:Sers.Mq.Ipc.SharedMemory.Mq.MqConn.state">
+            <summary>
+            连接状态(0:waitForCertify; 2:certified; 4:waitForClose; 8:closed;)
+            </summary>
+        </member>
+        <member name="P:Sers.Mq.Ipc.SharedMemory.Mq.ServerMq.name">
+            <summary>
+            共享内存名称
+            </summary>
+        </member>
+        <member name="P:Sers.Mq.Ipc.SharedMemory.Mq.ServerMq.nodeCount">
+            <summary>
+            共享内存节点个数
+            </summary>
+        </member>
+        <member name="P:Sers.Mq.Ipc.SharedMemory.Mq.ServerMq.nodeBufferSize">
+            <summary>
+            共享内存节点大小
+            </summary>
+        </member>
+        <member name="P:Sers.Mq.Ipc.SharedMemory.Mq.ServerMq.Conn_OnGetFrame">
+            <summary>
+            请勿处理耗时操作，需立即返回。接收到客户端的数据事件          public delegate void OnReceiveData(AsyncUserToken token, ArraySegment&lt;byte&gt; messageFrame);
+            </summary>
+        </member>
+        <member name="F:Sers.Mq.Ipc.SharedMemory.Stream.ReadStream.OnReceiveMessage">
+            <summary>
+            请勿处理耗时操作，需立即返回。接收到客户端的数据事件          public delegate void OnReceiveData(AsyncUserToken token, ArraySegment&lt;byte&gt; messageFrame);
+            </summary>
+        </member>
+        <member name="M:Sers.Mq.Ipc.SharedMemory.Stream.ReadStream.SharedMemory_Malloc(System.String,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="name">共享内存名称</param>
+            <param name="nodeCount">共享内存节点个数</param>
+            <param name="nodeBufferSize">共享内存节点大小</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sers.Mq.Ipc.SharedMemory.Stream.Util.SharedMemory_Malloc(System.String,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="name">共享内存名称</param>
+            <param name="nodeCount">共享内存节点个数</param>
+            <param name="nodeBufferSize">共享内存节点大小</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sers.Mq.Ipc.SharedMemory.Stream.WriteStream.SharedMemory_Malloc(System.String,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="name">共享内存名称</param>
+            <param name="nodeCount">共享内存节点个数</param>
+            <param name="nodeBufferSize">共享内存节点大小</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

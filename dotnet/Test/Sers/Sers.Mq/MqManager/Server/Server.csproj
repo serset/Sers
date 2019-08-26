@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Server.bat" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Server.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Sers\Sers.Mq\Ipc\Sers.Mq.Ipc.SharedMemory\Sers.Mq.Ipc.SharedMemory.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Sers\Sers.Mq\Socket\Sers.Mq.Socket.Iocp\Sers.Mq.Socket.Iocp.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Sers\Sers.Mq\Zmq\ThreadWait\Sers.Mq.Zmq.ClrZmq.ThreadWait\Sers.Mq.Zmq.ClrZmq.ThreadWait.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
