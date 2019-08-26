@@ -1,0 +1,1222 @@
+2019-02-06 00:56:13.322 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 00:56:13.366 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 00:56:13.367 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 00:56:13.367 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 00:56:13.367 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 00:56:13.399 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 00:56:13.399 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 00:56:13.659 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 00:56:13.988 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=3].
+2019-02-06 00:56:14.676 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=14].
+2019-02-06 01:40:40.699 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 01:40:40.723 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 01:40:40.724 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 01:40:40.724 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 01:40:40.724 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 01:40:40.750 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 01:40:40.751 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 01:40:40.957 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 01:40:41.314 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=3].
+2019-02-06 01:40:41.909 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=16].
+2019-02-06 01:49:25.901 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 01:49:25.925 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 01:49:25.925 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 01:49:25.926 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 01:49:25.926 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 01:49:25.955 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 01:49:25.955 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 01:49:26.178 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 01:49:26.527 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=3].
+2019-02-06 01:49:27.115 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=17].
+2019-02-06 01:54:51.596 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 01:54:51.624 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 01:54:51.625 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 01:54:51.625 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 01:54:51.625 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 01:54:51.660 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 01:54:51.661 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 01:54:51.934 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 01:54:52.224 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=3].
+2019-02-06 01:54:52.820 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=18].
+2019-02-06 02:01:30.850 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 02:01:30.875 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 02:01:30.875 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 02:01:30.875 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 02:01:30.876 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 02:01:30.904 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 02:01:30.904 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 02:01:31.116 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 02:01:31.470 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=3].
+2019-02-06 02:01:32.053 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=19].
+2019-02-06 02:09:57.943 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 02:09:57.969 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 02:09:57.970 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 02:09:57.970 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 02:09:57.970 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 02:09:58.000 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 02:09:58.001 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 02:09:58.265 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 02:09:58.568 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=3].
+2019-02-06 02:09:59.168 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=20].
+2019-02-06 02:14:56.528 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 02:14:56.556 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 02:14:56.557 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 02:14:56.558 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 02:14:56.558 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 02:14:56.587 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 02:14:56.588 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 02:14:56.783 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 02:14:57.150 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=3].
+2019-02-06 02:14:57.741 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=21].
+2019-02-06 02:46:08.003 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 02:46:08.032 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 02:46:08.033 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 02:46:08.033 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 02:46:08.033 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 02:46:08.061 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 02:46:08.062 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 02:46:08.310 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 02:46:08.632 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=3].
+2019-02-06 02:46:09.211 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=22].
+2019-02-06 10:48:21.543 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 10:48:21.583 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 10:48:21.584 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 10:48:21.584 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 10:48:21.584 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 10:48:21.614 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 10:48:21.615 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 10:48:21.892 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 10:48:22.889 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 10:48:23.511 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=2].
+2019-02-06 10:51:11.871 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 10:51:11.894 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 10:51:11.894 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 10:51:11.895 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 10:51:11.895 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 10:51:11.921 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 10:51:11.921 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 10:51:12.141 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 10:51:12.508 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 10:51:13.102 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=3].
+2019-02-06 10:55:39.212 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 10:55:39.235 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 10:55:39.235 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 10:55:39.235 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 10:55:39.235 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 10:55:39.265 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 10:55:39.265 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 10:55:39.504 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 10:55:39.840 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 10:55:40.453 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=4].
+2019-02-06 10:55:49.494 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [HttpHandlerDiagnosticListener].
+2019-02-06 10:57:43.307 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 10:57:43.335 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 10:57:43.336 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 10:57:43.336 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 10:57:43.336 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 10:57:43.364 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 10:57:43.364 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 10:57:43.638 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 10:57:43.933 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 10:57:44.526 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=5].
+2019-02-06 10:57:48.379 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [HttpHandlerDiagnosticListener].
+2019-02-06 10:59:07.106 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 10:59:07.132 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 10:59:07.132 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 10:59:07.132 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 10:59:07.132 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 10:59:07.161 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 10:59:07.161 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 10:59:07.363 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 10:59:07.722 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 10:59:08.306 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=6].
+2019-02-06 10:59:14.373 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [HttpHandlerDiagnosticListener].
+2019-02-06 11:02:12.398 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 11:02:12.423 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 11:02:12.423 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 11:02:12.423 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 11:02:12.423 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 11:02:12.454 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 11:02:12.456 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 11:02:12.700 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 11:02:13.022 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 11:02:13.619 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=7].
+2019-02-06 11:02:22.307 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [HttpHandlerDiagnosticListener].
+2019-02-06 11:04:27.000 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 11:04:27.032 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 11:04:27.032 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 11:04:27.032 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 11:04:27.032 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 11:04:27.060 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 11:04:27.060 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 11:04:27.265 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 11:04:27.618 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 11:04:28.220 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=8].
+2019-02-06 11:04:32.548 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [HttpHandlerDiagnosticListener].
+2019-02-06 11:07:48.528 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 11:07:48.550 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 11:07:48.550 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 11:07:48.550 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 11:07:48.550 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 11:07:48.555 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 11:07:48.556 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 11:07:48.633 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 11:07:49.105 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 11:07:49.660 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=10].
+2019-02-06 11:08:09.270 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 11:08:09.306 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 11:08:09.306 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 11:08:09.306 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 11:08:09.307 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 11:08:09.339 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 11:08:09.340 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 11:08:09.557 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 11:08:09.912 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 11:08:10.491 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=11].
+2019-02-06 11:08:23.315 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [HttpHandlerDiagnosticListener].
+2019-02-06 11:12:00.339 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 11:12:00.365 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 11:12:00.365 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 11:12:00.366 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 11:12:00.366 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 11:12:00.370 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 11:12:00.371 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 11:12:00.445 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 11:12:00.933 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 11:12:00.935 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [HttpHandlerDiagnosticListener].
+2019-02-06 11:12:03.051 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=12].
+2019-02-06 11:22:46.116 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 11:22:46.143 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 11:22:46.143 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 11:22:46.143 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 11:22:46.143 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 11:22:46.173 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 11:22:46.174 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 11:22:46.411 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 11:22:46.740 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 11:22:47.334 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=13].
+2019-02-06 11:22:51.612 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [HttpHandlerDiagnosticListener].
+2019-02-06 11:33:39.340 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 11:33:39.364 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 11:33:39.364 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 11:33:39.364 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 11:33:39.365 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 11:33:39.391 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 11:33:39.391 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 11:33:39.604 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 11:33:39.961 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 11:33:40.536 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=14].
+2019-02-06 11:33:43.549 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [HttpHandlerDiagnosticListener].
+2019-02-06 11:42:55.187 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 11:42:55.214 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 11:42:55.215 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 11:42:55.215 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 11:42:55.215 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 11:42:55.247 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 11:42:55.248 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 11:42:55.504 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 11:42:55.817 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 11:42:56.406 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=15].
+2019-02-06 11:43:12.017 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [HttpHandlerDiagnosticListener].
+2019-02-06 11:50:44.312 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 11:50:44.337 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 11:50:44.337 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 11:50:44.337 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 11:50:44.337 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 11:50:44.364 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 11:50:44.365 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 11:50:44.659 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 11:50:45.013 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 11:50:45.616 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=16].
+2019-02-06 11:51:03.192 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [HttpHandlerDiagnosticListener].
+2019-02-06 15:51:40.084 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 15:51:40.152 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 15:51:40.153 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 15:51:40.153 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 15:51:40.153 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 15:51:40.198 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 15:51:40.199 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 15:51:40.508 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 15:51:41.447 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 15:51:42.072 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=2].
+2019-02-06 15:53:21.800 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 15:53:21.827 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 15:53:21.827 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 15:53:21.827 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 15:53:21.827 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 15:53:21.854 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 15:53:21.855 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 15:53:22.124 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 15:53:22.417 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 15:53:23.006 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=3].
+2019-02-06 15:55:22.190 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [HttpHandlerDiagnosticListener].
+2019-02-06 17:13:12.227 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 17:13:12.250 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 17:13:12.250 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 17:13:12.250 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 17:13:12.250 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 17:13:12.280 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 17:13:12.281 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 17:13:12.469 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 17:13:12.845 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 17:13:13.452 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=5].
+2019-02-06 17:28:14.595 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 17:28:14.623 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 17:28:14.623 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 17:28:14.623 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 17:28:14.624 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 17:28:14.651 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 17:28:14.652 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 17:28:14.858 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 17:28:19.493 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 17:28:21.740 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=6].
+2019-02-06 17:29:27.861 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [HttpHandlerDiagnosticListener].
+2019-02-06 19:51:25.270 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 19:51:25.297 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 19:51:25.297 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 19:51:25.298 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 19:51:25.298 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 19:51:25.329 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 19:51:25.330 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 19:54:31.912 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 19:54:31.942 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 19:54:31.942 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 19:54:31.942 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 19:54:31.943 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 19:54:31.970 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 19:54:31.971 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 19:54:38.953 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 19:54:58.331 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 19:54:58.362 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 19:54:58.362 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 19:54:58.362 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 19:54:58.362 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 19:54:58.390 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 19:54:58.391 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 19:54:58.623 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 19:55:05.764 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 19:55:06.431 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=2].
+2019-02-06 19:57:26.390 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [HttpHandlerDiagnosticListener].
+2019-02-06 20:08:11.686 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 20:08:11.708 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 20:08:11.709 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 20:08:11.709 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 20:08:11.709 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 20:08:11.735 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 20:08:11.735 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 20:08:11.956 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 20:08:16.215 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 20:08:18.673 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=4].
+2019-02-06 20:10:00.177 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 20:10:00.200 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 20:10:00.200 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 20:10:00.200 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 20:10:00.200 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 20:10:00.227 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 20:10:00.227 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 20:10:00.440 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 20:10:35.011 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 20:10:35.011 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 20:10:36.675 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=5].
+2019-02-06 20:10:36.678 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=5].
+2019-02-06 20:10:45.170 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [HttpHandlerDiagnosticListener].
+2019-02-06 20:20:25.731 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 20:20:25.755 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 20:20:25.755 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 20:20:25.755 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 20:20:25.755 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 20:20:25.786 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 20:20:25.788 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 20:20:25.981 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 20:20:33.401 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 20:20:38.795 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=6].
+2019-02-06 20:22:18.036 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [HttpHandlerDiagnosticListener].
+2019-02-06 20:36:38.450 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 20:36:38.482 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 20:36:38.482 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 20:36:38.483 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 20:36:38.483 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 20:36:38.515 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 20:36:38.516 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 20:36:44.793 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 20:37:08.582 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 20:37:12.122 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=7].
+2019-02-06 20:40:32.284 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 20:40:32.307 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 20:40:32.307 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 20:40:32.307 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 20:40:32.308 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 20:40:32.333 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 20:40:32.333 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 20:40:32.533 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 20:40:32.903 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 20:40:33.530 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=8].
+2019-02-06 21:31:07.258 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 21:31:07.286 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 21:31:07.286 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 21:31:07.286 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 21:31:07.286 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 21:31:07.316 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 21:31:07.317 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 21:31:17.774 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 70
+2019-02-06 21:31:22.367 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[192.168.56.101:11800].
+2019-02-06 21:31:32.474 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 70
+2019-02-06 21:31:37.316 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[192.168.56.101:11800].
+2019-02-06 21:31:47.444 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 70
+2019-02-06 21:31:52.312 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[192.168.56.101:11800].
+2019-02-06 21:32:02.434 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 70
+2019-02-06 21:32:07.317 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[192.168.56.101:11800].
+2019-02-06 21:32:17.430 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 70
+2019-02-06 21:32:22.305 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[192.168.56.101:11800].
+2019-02-06 21:32:32.459 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 70
+2019-02-06 21:32:37.327 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[192.168.56.101:11800].
+2019-02-06 21:32:37.388 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 21:33:02.345 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [HttpHandlerDiagnosticListener].
+2019-02-06 21:33:09.172 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 21:33:09.724 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=2].
+2019-02-06 21:34:29.814 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 21:34:29.839 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 21:34:29.839 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 21:34:29.839 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 21:34:29.839 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 21:34:29.867 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 21:34:29.868 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 21:34:30.097 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 21:34:30.432 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 21:34:31.016 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=3].
+2019-02-06 21:37:10.364 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 21:37:10.387 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 21:37:10.387 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 21:37:10.387 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 21:37:10.387 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 21:37:10.411 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 21:37:10.412 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 21:37:10.645 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 21:37:11.007 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 21:37:11.592 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=4].
+2019-02-06 21:41:27.367 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 21:41:27.398 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 21:41:27.398 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 21:41:27.398 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 21:41:27.398 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 21:41:27.427 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 21:41:27.428 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 21:41:27.644 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 21:41:27.988 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 21:41:28.566 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=6].
+2019-02-06 21:44:46.204 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 21:44:46.227 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 21:44:46.227 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 21:44:46.227 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 21:44:46.227 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 21:44:46.255 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 21:44:46.256 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 21:44:46.463 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 21:44:46.833 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 21:44:47.423 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=7].
+2019-02-06 21:46:20.074 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 21:46:20.097 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 21:46:20.097 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 21:46:20.097 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 21:46:20.098 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 21:46:20.133 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 21:46:20.133 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 21:46:20.356 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 21:46:20.702 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 21:46:21.283 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=8].
+2019-02-06 22:10:30.510 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 22:10:30.542 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 22:10:30.542 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 22:10:30.542 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 22:10:30.543 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 22:10:30.571 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 22:10:30.572 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 22:10:30.833 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 22:10:31.138 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 22:10:31.732 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=9].
+2019-02-06 22:14:41.228 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 22:14:41.254 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 22:14:41.254 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 22:14:41.254 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 22:14:41.255 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 22:14:41.285 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 22:14:41.286 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 22:14:41.538 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 22:14:41.839 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 22:14:42.430 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=10].
+2019-02-06 22:20:07.279 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 22:20:07.306 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 22:20:07.307 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 22:20:07.307 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 22:20:07.307 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 22:20:07.335 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 22:20:07.335 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 22:20:07.596 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 22:20:07.910 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 22:20:09.909 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 22:20:09.932 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 22:20:09.932 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 22:20:09.932 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 22:20:09.933 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 22:20:09.939 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 22:20:09.940 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 22:20:10.011 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 22:20:10.505 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 22:20:11.075 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=12].
+2019-02-06 22:21:24.726 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 22:21:24.751 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 22:21:24.752 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 22:21:24.752 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 22:21:24.752 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 22:21:24.780 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 22:21:24.781 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 22:21:25.050 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 22:21:25.358 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 22:21:25.953 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=13].
+2019-02-06 22:26:52.380 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 22:26:52.403 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 22:26:52.403 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 22:26:52.403 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 22:26:52.404 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 22:26:52.429 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 22:26:52.430 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 22:26:52.637 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 22:26:53.015 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 22:26:53.605 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=14].
+2019-02-06 22:29:25.128 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 22:29:25.154 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 22:29:25.154 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 22:29:25.155 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 22:29:25.155 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 22:29:25.182 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 22:29:25.183 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 22:29:25.451 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 22:29:25.735 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 22:29:26.317 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=15].
+2019-02-06 22:30:17.569 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 22:30:17.595 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 22:30:17.596 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 22:30:17.596 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 22:30:17.596 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 22:30:17.624 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 22:30:17.625 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 22:30:17.851 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 22:30:18.184 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 22:30:18.774 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=16].
+2019-02-06 22:38:55.284 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 22:38:55.308 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 22:38:55.309 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 22:38:55.309 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 22:38:55.309 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 22:38:55.335 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 22:38:55.336 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 22:38:55.547 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 22:38:55.898 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 22:38:56.484 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=17].
+2019-02-06 22:39:34.143 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 22:39:34.169 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 22:39:34.170 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 22:39:34.170 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 22:39:34.170 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 22:39:34.197 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 22:39:34.197 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 22:39:34.401 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 22:39:34.754 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 22:39:35.338 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=18].
+2019-02-06 22:41:44.274 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 22:41:44.298 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 22:41:44.298 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 22:41:44.298 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 22:41:44.298 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 22:41:44.325 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 22:41:44.326 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 22:41:44.571 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 22:41:44.908 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 22:41:45.504 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=19].
+2019-02-06 22:45:22.698 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 22:45:22.723 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 22:45:22.724 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 22:45:22.724 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 22:45:22.724 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 22:45:22.728 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 22:45:22.729 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 22:45:22.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 22:45:23.277 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 22:45:25.416 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=20].
+2019-02-06 22:49:59.818 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 22:49:59.856 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 22:49:59.856 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 22:49:59.857 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 22:49:59.857 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 22:49:59.884 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 22:49:59.884 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 22:50:00.148 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 22:50:00.471 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 22:50:01.053 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=21].
+2019-02-06 22:55:11.542 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 22:55:11.567 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 22:55:11.567 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 22:55:11.567 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 22:55:11.567 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 22:55:11.598 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 22:55:11.599 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 22:55:11.842 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 22:55:12.162 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 22:55:12.751 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=22].
+2019-02-06 22:58:29.998 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 22:58:30.025 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 22:58:30.025 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 22:58:30.026 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 22:58:30.026 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 22:58:30.053 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 22:58:30.053 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 22:58:30.338 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 22:58:30.607 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 22:58:31.207 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=23].
+2019-02-06 23:02:43.622 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 23:02:43.649 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 23:02:43.649 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 23:02:43.650 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 23:02:43.650 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 23:02:43.680 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 23:02:43.684 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 23:02:43.948 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 23:02:44.233 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 23:02:44.831 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=24].
+2019-02-06 23:03:39.702 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 23:03:39.726 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 23:03:39.726 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 23:03:39.726 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 23:03:39.727 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 23:03:39.754 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 23:03:39.754 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 23:03:39.998 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 23:03:40.320 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 23:03:40.906 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=25].
+2019-02-06 23:04:36.037 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 23:04:36.060 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 23:04:36.060 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 23:04:36.061 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 23:04:36.061 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 23:04:36.086 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 23:04:36.087 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 23:04:36.288 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 23:04:36.643 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 23:04:37.244 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=26].
+2019-02-06 23:05:50.354 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 23:05:50.394 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 23:05:50.394 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 23:05:50.394 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 23:05:50.395 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 23:05:50.423 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 23:05:50.424 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 23:05:50.635 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 23:05:50.991 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 23:05:51.567 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=27].
+2019-02-06 23:09:29.739 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 23:09:29.763 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 23:09:29.764 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 23:09:29.764 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 23:09:29.764 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 23:09:29.789 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 23:09:29.790 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 23:09:29.994 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 23:09:30.345 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 23:09:30.929 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=28].
+2019-02-06 23:12:08.801 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 23:12:08.828 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 23:12:08.829 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 23:12:08.829 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 23:12:08.829 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 23:12:08.859 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 23:12:08.859 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 23:12:09.103 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 23:12:09.416 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 23:12:10.031 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=29].
+2019-02-06 23:19:41.391 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 23:19:41.414 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 23:19:41.414 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 23:19:41.414 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 23:19:41.414 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 23:19:41.440 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 23:19:41.441 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 23:19:41.667 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 23:19:42.016 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 23:19:42.596 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=30].
+2019-02-06 23:24:19.726 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 23:24:19.754 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 23:24:19.754 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 23:24:19.754 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 23:24:19.754 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 23:24:19.784 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 23:24:19.785 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 23:24:19.995 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 23:24:20.346 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 23:24:20.920 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=31].
+2019-02-06 23:32:14.148 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 23:32:14.176 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 23:32:14.177 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 23:32:14.177 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 23:32:14.178 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 23:32:14.210 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 23:32:14.211 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 23:32:14.457 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 23:32:14.772 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 23:32:15.372 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=32].
+2019-02-06 23:38:08.762 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 23:38:08.789 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 23:38:08.789 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 23:38:08.789 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 23:38:08.789 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 23:38:08.820 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 23:38:08.821 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 23:38:09.070 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 23:38:09.380 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 23:38:09.973 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=33].
+2019-02-06 23:40:00.914 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 23:40:00.941 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 23:40:00.942 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 23:40:00.942 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 23:40:00.942 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 23:40:00.969 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 23:40:00.970 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 23:40:01.198 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 23:40:01.549 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 23:40:02.141 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=34].
+2019-02-06 23:46:23.789 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 23:46:23.816 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 23:46:23.816 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 23:46:23.816 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 23:46:23.816 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 23:46:23.846 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 23:46:23.847 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 23:46:24.116 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 23:46:24.400 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 23:46:24.977 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=35].
+2019-02-06 23:51:14.817 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 23:51:14.840 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 23:51:14.841 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 23:51:14.841 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 23:51:14.841 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 23:51:14.867 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 23:51:14.868 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 23:51:15.082 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 23:51:15.449 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 23:51:16.036 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=36].
+2019-02-06 23:52:06.230 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-06 23:52:06.254 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-06 23:52:06.254 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-06 23:52:06.255 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-06 23:52:06.255 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-06 23:52:06.282 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-06 23:52:06.282 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-06 23:52:06.489 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-06 23:52:06.846 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=2].
+2019-02-06 23:52:07.436 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=37].

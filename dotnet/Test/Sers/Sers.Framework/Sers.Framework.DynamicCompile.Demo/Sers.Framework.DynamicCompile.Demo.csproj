@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+  </PropertyGroup>
+ 
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Sers\Sers.Framework\Sers.Framework.DynamicCompile\Sers.Framework.DynamicCompile.csproj" />
+  </ItemGroup>
+
+</Project>

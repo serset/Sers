@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>bin\Debug\netcoreapp2.1\App.Station.AuthCenter.Logical.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Sers\Sers.Core\Sers.Core\Sers.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\Sers\Sers.Framework\Sers.Framework.Orm.Dapper\Sers.Framework.Orm.Dapper.csproj" />
+  </ItemGroup>
+
+</Project>

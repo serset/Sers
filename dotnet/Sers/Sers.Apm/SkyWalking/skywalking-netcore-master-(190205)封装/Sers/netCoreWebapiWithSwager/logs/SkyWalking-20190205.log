@@ -1,0 +1,1048 @@
+2019-02-05 16:44:14.239 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 16:44:14.297 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 16:44:14.298 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 16:44:14.298 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 16:44:14.299 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 16:44:14.325 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-05 16:44:14.326 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-05 16:44:24.857 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in D:\搜狗高速下载\skywalking-netcore-master\skywalking-netcore-master - 副本\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 16:44:29.357 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 16:44:39.433 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in D:\搜狗高速下载\skywalking-netcore-master\skywalking-netcore-master - 副本\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 16:44:44.333 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 16:44:54.398 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in D:\搜狗高速下载\skywalking-netcore-master\skywalking-netcore-master - 副本\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 16:44:59.331 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 16:47:48.130 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 16:47:48.158 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 16:47:48.158 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 16:47:48.159 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 16:47:48.159 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 16:47:48.188 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-05 16:47:48.189 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-05 16:47:48.345 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 16:47:49.276 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=3].
+2019-02-05 16:47:49.910 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=5].
+2019-02-05 16:56:16.030 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 16:56:16.053 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 16:56:16.054 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 16:56:16.054 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 16:56:16.054 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 16:56:16.059 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-05 16:56:16.059 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-05 16:56:16.142 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 16:56:16.612 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=3].
+2019-02-05 16:56:17.166 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=6].
+2019-02-05 17:08:16.397 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 17:08:16.425 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 17:08:16.425 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 17:08:16.425 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 17:08:16.425 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 17:08:16.431 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-05 17:08:16.432 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-05 17:08:16.514 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 17:08:16.978 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=3].
+2019-02-05 17:08:17.541 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=7].
+2019-02-05 17:17:07.890 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 17:17:07.915 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 17:17:07.915 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 17:17:07.915 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 17:17:07.915 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 17:18:46.344 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-05 17:18:46.346 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-05 17:18:46.519 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 17:30:28.647 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 17:30:28.669 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 17:30:28.669 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 17:30:28.669 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 17:30:28.669 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 17:30:28.674 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-05 17:30:28.675 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-05 17:30:28.752 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 17:30:29.221 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=3].
+2019-02-05 17:30:29.765 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=8].
+2019-02-05 17:34:00.396 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 17:34:00.419 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 17:34:00.419 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 17:34:00.419 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 17:34:00.419 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 17:34:00.424 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-05 17:34:00.424 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-05 17:34:00.504 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 17:34:00.977 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=3].
+2019-02-05 17:34:01.533 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=9].
+2019-02-05 17:36:25.830 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 17:36:25.852 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 17:36:25.852 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 17:36:25.852 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 17:36:25.852 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 17:36:25.853 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-05 17:36:25.934 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 17:36:26.407 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=3].
+2019-02-05 17:36:26.967 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=10].
+2019-02-05 17:39:32.100 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 17:39:32.127 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 17:39:32.127 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 17:39:32.127 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 17:39:32.128 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 17:39:32.228 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 17:39:32.678 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=3].
+2019-02-05 17:39:33.245 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=11].
+2019-02-05 17:41:08.493 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 17:41:08.515 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 17:41:08.515 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 17:41:08.515 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 17:41:08.515 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 17:41:08.615 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 17:49:49.955 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 17:49:49.978 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 17:49:49.978 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 17:49:49.978 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 17:49:49.978 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 17:49:50.069 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 17:51:51.298 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 17:51:51.320 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 17:51:51.320 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 17:51:51.320 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 17:51:51.320 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 17:51:51.410 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 17:53:04.721 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 17:53:04.744 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 17:53:04.745 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 17:53:04.745 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 17:53:04.745 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 17:53:04.831 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 17:54:08.424 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 17:54:08.446 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 17:54:08.446 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 17:54:08.446 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 17:54:08.446 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 17:54:08.547 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 17:55:52.582 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 17:55:52.604 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 17:55:52.604 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 17:55:52.604 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 17:55:52.604 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 17:55:52.705 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 17:56:46.744 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 17:56:46.766 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 17:56:46.766 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 17:56:46.766 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 17:56:46.767 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 17:56:46.873 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 18:02:16.784 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 18:02:16.806 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 18:02:16.807 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 18:02:16.807 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 18:02:16.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 18:02:16.915 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 18:04:40.799 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 18:04:40.820 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 18:04:40.820 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 18:04:40.820 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 18:04:40.820 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 18:04:40.909 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 19:38:30.685 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 19:38:30.804 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 19:38:30.805 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 19:38:30.805 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 19:38:30.805 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 19:38:30.810 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-05 19:38:30.810 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-05 19:38:40.901 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:38:45.820 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:38:55.823 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:39:00.812 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:39:10.815 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:39:15.818 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:39:25.820 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:39:30.811 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:39:40.814 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:39:45.818 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:39:55.820 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:40:00.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:40:10.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:40:15.806 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:40:25.809 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:40:30.821 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:40:40.823 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:40:45.817 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:40:55.823 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:41:00.809 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:41:10.811 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:41:15.823 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:41:25.826 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:41:30.811 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:41:40.814 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:41:45.806 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:41:55.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:42:00.816 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:42:10.819 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:42:15.810 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:42:25.813 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:42:30.816 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:42:40.819 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:42:45.808 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:42:55.812 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:43:00.809 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:43:10.812 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:43:15.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:43:25.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:43:30.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:43:40.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:43:45.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:43:55.811 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:44:00.820 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:44:10.823 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:44:15.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:44:25.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:44:30.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:44:40.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:44:45.810 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:44:55.813 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:45:00.821 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:45:10.823 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:45:15.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:45:25.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:45:30.808 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:45:40.811 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:45:45.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:45:55.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:46:00.817 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:46:10.819 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:46:15.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:46:25.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:46:30.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:46:40.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:46:45.818 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:46:55.821 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:47:00.818 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:47:10.822 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:47:15.818 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:47:25.822 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:47:30.818 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:47:40.821 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:47:45.811 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:47:55.814 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:48:00.808 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:48:10.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:48:15.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:48:25.809 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:48:30.817 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:48:40.820 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:48:45.806 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:48:55.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:49:00.819 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:49:10.823 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:49:15.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:49:25.809 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:49:30.819 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:49:40.823 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:49:45.811 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:49:55.813 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:50:00.810 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:50:10.813 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:50:15.814 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:50:25.817 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:50:30.811 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:50:40.814 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:50:45.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:50:55.811 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:51:00.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:51:10.809 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:51:15.813 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:51:25.816 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:51:30.809 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:51:40.811 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:51:45.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:51:55.809 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:52:00.808 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:52:10.813 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:52:15.817 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:52:25.820 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:52:30.820 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:52:40.826 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:52:45.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:52:55.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:53:00.810 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:53:10.812 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:53:15.806 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:53:25.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:53:30.821 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:53:40.824 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:53:45.816 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:53:55.817 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:54:00.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:54:10.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:54:15.806 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:54:25.809 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:54:30.819 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:54:40.822 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:54:45.818 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:54:55.820 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:55:00.808 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:55:10.811 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:55:15.816 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:55:25.818 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:55:30.821 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:55:40.823 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:55:45.806 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:55:55.809 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:56:00.808 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:56:10.811 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:56:15.809 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:56:25.816 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:56:30.821 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:56:40.823 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:56:45.809 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:56:55.811 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:57:00.818 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:57:10.820 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:57:15.809 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:57:25.813 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:57:30.821 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:57:40.824 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:57:45.806 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:57:55.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:58:00.808 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:58:10.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:58:15.814 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:58:25.817 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:58:30.810 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:58:40.813 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:58:45.820 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:58:55.823 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:59:00.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:59:10.809 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:59:15.811 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:59:25.814 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:59:30.811 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:59:40.818 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 19:59:45.818 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 19:59:55.820 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 20:00:00.811 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 20:00:10.814 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 20:00:15.813 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 20:00:25.815 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 20:00:30.808 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 20:00:40.814 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 20:00:45.811 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 20:00:55.813 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 20:01:00.810 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 20:01:10.813 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 20:01:15.820 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 20:01:25.823 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 20:01:30.820 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 20:01:40.823 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 20:01:45.806 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 20:01:55.809 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 20:02:00.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 20:02:10.810 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 20:02:15.807 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 20:02:25.811 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 20:02:30.822 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 20:02:40.829 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 20:02:45.817 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 20:02:55.820 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 20:03:00.820 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 20:03:10.823 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 20:06:46.646 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 20:06:46.675 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 20:06:46.676 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 20:06:46.676 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 20:06:46.676 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 20:06:46.706 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-05 20:06:46.716 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-05 20:24:13.175 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 22:41:27.516 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 22:41:27.544 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 22:41:27.544 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 22:41:27.544 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 22:41:27.544 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 22:43:23.229 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-05 22:43:23.229 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-05 22:45:24.137 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 22:45:24.166 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 22:45:24.166 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 22:45:24.166 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 22:45:24.167 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 22:53:50.537 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 22:53:50.562 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 22:53:50.562 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 22:53:50.562 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 22:53:50.563 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 22:54:00.706 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-05 22:54:00.707 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-05 22:55:11.983 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 22:55:12.032 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 22:55:25.933 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 22:55:25.958 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 22:55:36.073 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 22:55:36.088 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 22:55:46.218 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 22:55:46.239 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 23:20:42.647 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 23:20:42.670 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 23:20:42.670 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 23:20:42.670 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 23:20:42.670 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 23:20:48.367 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-05 23:20:48.377 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-05 23:22:41.202 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 23:22:41.262 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 23:22:58.015 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 23:23:01.325 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 23:23:11.574 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 23:23:11.598 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 23:23:21.721 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 23:23:21.743 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 23:23:31.864 +08:00 [My_Application] [Error] SkyWalking.Transport.Grpc.ConnectionManager : Connect collector timeout.
+System.Threading.Tasks.TaskCanceledException: Reached deadline.
+   at Grpc.Core.Channel.WaitForStateChangedAsync(ChannelState lastObservedState, Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 139
+   at Grpc.Core.Channel.ConnectAsync(Nullable`1 deadline) in T:\src\github\grpc\src\csharp\Grpc.Core\Channel.cs:line 220
+   at SkyWalking.Transport.Grpc.ConnectionManager.ConnectAsync() in E:\save\svn\skywalking\源码学习(190205)\skywalking-netcore-master-demo\src\SkyWalking.Transport.Grpc\ConnectionManager.cs:line 69
+2019-02-05 23:23:31.890 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Shutdown connection[localhost:11800].
+2019-02-05 23:25:01.553 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 23:25:01.579 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 23:25:01.580 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 23:25:01.580 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 23:25:01.580 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 23:25:01.608 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-05 23:25:01.609 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-05 23:25:01.867 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 23:25:02.169 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=3].
+2019-02-05 23:25:02.765 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=12].
+2019-02-05 23:28:16.492 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Initializing ...
+
+***************************************************************
+*                                                             *
+*                Welcome to Apache SkyWalking                 *
+*                                                             *
+***************************************************************
+
+2019-02-05 23:28:16.515 +08:00 [My_Application] [Information] SkyWalking.Service.TraceSegmentTransportService : Loaded instrument service [SkyWalking.Service.TraceSegmentTransportService].
+2019-02-05 23:28:16.515 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Loaded instrument service [SkyWalking.Service.ServiceDiscoveryService].
+2019-02-05 23:28:16.515 +08:00 [My_Application] [Information] SkyWalking.Service.SamplingRefreshService : Loaded instrument service [SkyWalking.Service.SamplingRefreshService].
+2019-02-05 23:28:16.515 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.GrpcStateCheckService : Loaded instrument service [SkyWalking.Transport.Grpc.GrpcStateCheckService].
+2019-02-05 23:28:16.543 +08:00 [My_Application] [Information] SkyWalking.Diagnostics.TracingDiagnosticProcessorObserver : Loaded diagnostic listener [Microsoft.AspNetCore].
+2019-02-05 23:28:16.546 +08:00 [My_Application] [Information] SkyWalking.SkyWalkingAgentStartup : Started SkyWalking .NET Core Agent.
+2019-02-05 23:28:16.821 +08:00 [My_Application] [Information] SkyWalking.Transport.Grpc.ConnectionManager : Connected collector server[192.168.56.101:11800].
+2019-02-05 23:28:17.135 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application[Id=3].
+2019-02-05 23:28:17.738 +08:00 [My_Application] [Information] SkyWalking.Service.ServiceDiscoveryService : Registered Application Instance[Id=13].

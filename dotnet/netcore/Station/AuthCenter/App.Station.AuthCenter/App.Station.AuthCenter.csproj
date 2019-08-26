@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>bin\Debug\netcoreapp2.1\App.Station.AuthCenter.xml</DocumentationFile>
+  </PropertyGroup>   
+
+
+ 
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Sers\Sers.Mq\Zmq\Sers.Mq.Zmq.ClrZmq.MqBuilder\Sers.Mq.Zmq.ClrZmq.MqBuilder.csproj" />
+    <ProjectReference Include="..\..\..\..\Sers\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />
+    <ProjectReference Include="..\App.Station.AuthCenter.Logical\App.Station.AuthCenter.Logical.csproj" />
+  </ItemGroup>
+
+</Project>

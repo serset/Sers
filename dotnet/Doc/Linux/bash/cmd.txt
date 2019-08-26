@@ -1,0 +1,34 @@
+ -------------------------------------------------
+cd /root/sers/ServiceCenter
+dotnet App.ServiceCenter.dll
+
+chmod 777 /root/sers/ServiceCenter.bash
+/root/sers/ServiceCenter.bash
+-------------------------------------------------
+cd /root/sers/Gateway
+dotnet App.Gateway.dll
+
+chmod 777 /root/sers/Gateway.bash
+/root/sers/Gateway.bash
+-------------------------------------------------
+cd /root/sers/Gover
+dotnet App.Gover.Gateway.dll
+
+chmod 777 /root/sers/Gover.bash
+/root/sers/Gover.bash
+-------------------------------------------------
+cd /root/sers/StationDemo
+dotnet App.StationDemo.Station.dll
+
+chmod 777 /root/sers/StationDemo.bash
+/root/sers/StationDemo.bash
+-------------------------------------------------
+cd /root/sers/Robot
+dotnet App.Robot.Station.dll
+
+chmod 777 /root/sers/Robot.bash
+/root/sers/Robot.bash
+
+
+
+

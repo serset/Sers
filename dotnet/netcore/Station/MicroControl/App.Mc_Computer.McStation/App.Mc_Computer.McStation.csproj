@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Version>1.2.0</Version>
+    <Description>http://github.com/sersms/dotnet</Description>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>bin\Debug\netcoreapp2.1\App.Mc_Computer.McStation.xml</DocumentationFile>
+  </PropertyGroup> 
+
+ 
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+ 
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Sers\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />    
+  </ItemGroup>
+
+ 
+  
+</Project>

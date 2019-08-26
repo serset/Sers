@@ -1,0 +1,2 @@
+#每天的凌晨一点备份mysql数据库
+0 1 * * * root dotnet /root/netapp/DP/Sers.MySqlTool/Sers.MySqlTool.dll backup

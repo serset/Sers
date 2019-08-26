@@ -1,0 +1,22 @@
+开发环境：win10 eclipse   jdk1.8
+ 
+
+--------------------------------------------
+todo:
+
+
+2.appsettings.json 各个配置（如日志）的实现
+3. Mq Message 的实现
+
+
+--------------------------------------------
+finished:
+
+[190714 21:25]
+1.SsModel 构建 
+4. getRpcValidationsFromMethod
+
+
+
+
+ 

@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="Script/vue.js"></script>
+    <script src="Script/jquery.min.js"></script>
+    <script src="Script/sers.apiClient.js"></script>
+
+    <style type="text/css">
+        .uiBtn {
+            width:40%;
+            height:50px;
+            margin:10px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+    <div style="font-size:12px;text-align:right;">sers.singleSwitch.v1</div>
+    <div id="lblDesc" style="font-size:24px;font-weight:bold;text-align:center;"></div>
+    <!--mcKey：<label id="lblMcKey"></label><br />-->
+    设备：<label id="lblDevice"></label><br />
+    <div id="dbFunc"></div>
+
+
+    <script>
+
+        var mcUiInitData;
+        var widget_State;
+
+        function mcInit(initData) {
+
+            mcUiInitData = initData;
+            render();
+        }
+
+
+        function btnOnClick(i) {
+
+            var func = mcUiInitData.func[i];
+
+            if (!confirm('确定' + func.title + '吗？')) return;
+
+            sers.apiClient.post({
+                url: func.api, arg: func.argument,
+                onSuc: function (apiRet) {
+                    if (!apiRet.success) {
+                        alert('操作失败。请重试。' + ((apiRet.error || {}).errorMessage || ''));
+                        return;
+                    }
+
+                    if (func.onSuc) {
+                        try {
+                            var onSuc = eval('(' + func.onSuc+')');
+                            onSuc(apiRet, func);                           
+                        } catch (e) {
+                        }
+                        return;
+                    }
+
+                    render();
+                    if (null !== apiRet.data && undefined !== apiRet.data) {
+                        alert('操作成功。' + apiRet.data);
+                    }
+                }
+            });
+        }
+
+
+
+
+        function loadState(i) {
+            var func = mcUiInitData.func[i];
+
+            $('#lblState' + i).html('');
+            sers.apiClient.post({
+                url: func.api, arg: func.argument,
+                onSuc: function (apiRet) {
+                    if (!apiRet.success) {
+                        alert('操作失败。请重试。' + ((apiRet.error || {}).errorMessage || ''));
+                        return;
+                    }
+                    $('#lblState' + i).html(apiRet.data);
+                }
+            });
+
+        }
+
+        function render() {
+
+            $('#lblDesc').html(mcUiInitData.desc);
+            //$('#lblMcKey').html(mcUiInitData.mcKey);
+            $('#lblDevice').html(mcUiInitData.deviceName);
+
+
+
+            //func
+            var html = '';
+            var stateToload = [];
+            if (mcUiInitData.func) {
+
+                /*
+                 {type:'state',  title:"状态", api:'/Mc_MsOs/GetState',argument:{} },
+                {type:'button',  title:"打开", api:'/Mc_MsOs/TurnOn',argument:{} }
+                 */
+                for (var i in mcUiInitData.func) {
+                    var func = mcUiInitData.func[i];
+                    switch (func.type) {
+                        case 'state': {
+                            stateToload.push(i);
+                            html += ' ' + func.title + ': <label id="lblState' + i + '"></label> <br/>';
+                            break;
+                        }
+                        case 'button': {
+                            html += ' <input class="uiBtn" type="button" onclick="btnOnClick(\'' + i + '\');" value="' + func.title + '" /> ';
+                            break;
+                        }
+                    }
+                }
+            }
+            $('#dbFunc').html(html);
+
+            for (var i in stateToload) {
+                loadState(stateToload[i]);
+            }
+
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>

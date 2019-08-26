@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>  
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>bin\Debug\netstandard2.0\Sers.Gover.Core.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Sers.Core\Sers.Core\Sers.Core.csproj" />
+    <ProjectReference Include="..\..\Sers.ServiceCenter\Sers.ServiceCenter.csproj" />
+  </ItemGroup>
+
+ 
+
+  
+  
+  
+</Project>

@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    <ApplicationIcon />
+    <StartupObject />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Sers\Sers.Mq\Socket\Sers.Mq.Socket\Sers.Mq.Socket.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Sers\Sers.Mq\Zmq\Sers.Mq.Zmq.ClrZmq.MqBuilder\Sers.Mq.Zmq.ClrZmq.MqBuilder.csproj" />
+  </ItemGroup>
+
+</Project>

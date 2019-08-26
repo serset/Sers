@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sers.Mq.Zmq.ClrZmq\Sers.Mq.Zmq.ClrZmq.csproj" />
+  </ItemGroup>
+
+</Project>
