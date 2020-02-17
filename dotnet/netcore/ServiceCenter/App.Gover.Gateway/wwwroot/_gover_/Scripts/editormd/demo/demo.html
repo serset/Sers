@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>show</title>
+
+
+    <!-- <script src="js/zepto.min.js"></script>
+    <script>
+        var jQuery = Zepto;  // 为了避免修改flowChart.js和sequence-diagram.js的源码，所以使用Zepto.js时想支持flowChart/sequenceDiagram就得加上这一句
+    </script> -->
+    <link rel="stylesheet" href="../css/editormd.css" />
+    <script src="../examples/js/jquery.min.js"></script>
+    <script src="../lib/marked.min.js"></script>
+    <script src="../lib/prettify.min.js"></script>
+    <script src="../lib/raphael.min.js"></script>
+    <script src="../lib/underscore.min.js"></script>
+    <script src="../lib/sequence-diagram.min.js"></script>
+    <script src="../lib/flowchart.min.js"></script>
+    <script src="../lib/jquery.flowchart.min.js"></script>
+    <script src="../editormd.js"></script>
+
+
+</head>
+<body>
+
+    <textarea id="content" style="height:400px;width:600px;" onkeyup="compile()"></textarea>
+    <div id="test-editormd-view">
+    </div>
+
+    <script type="text/javascript">
+
+       
+
+        function compile() {
+            var markdown = document.getElementById("content").value;
+
+
+            $('#test-editormd-view').empty();
+
+            var testEditormdView = editormd.markdownToHTML("test-editormd-view", {
+                markdown: markdown,
+                htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
+                //htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
+          
+
+            });
+
+        }
+
+
+    </script>
+
+</body>
+</html>

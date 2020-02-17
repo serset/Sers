@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Sers-WebSocket通讯层 测试</title>
+    <script src="sers.servicestation.js"></script>
+ 
+
+
+    <script>
+        var logger = vit.logger;
+
+        //test delivery
+        (function () {
+
+            return;
+
+            var delivery = new sers.CL.DeliveryClient();
+            delivery.host = "ws://127.0.0.1:4503";
+
+            delivery.event_onDisconnected = function () {
+
+                logger.info('[sers.CL]delivery.event_onDisconnected');
+            };
+            delivery.event_onGetFrame = function (bytes) {
+
+                bytes[0]++;
+                delivery.sendFrame(bytes);
+                //logger.info('[sers.CL]delivery.event_onGetFrame');
+            };
+
+
+            delivery.connect(function () {
+
+                logger.info('[sers.CL]delivery.connected');
+            });
+
+
+            //delivery.sendFrame([1,2,3,4]);
+        })();
+    </script>
+
+
+    <script>
+        //test OrganizeClient
+
+        (function () {
+
+            //return;
+
+
+            var org = new sers.CL.OrganizeClient("ws://127.0.0.1:4503");
+            window.org = org;
+
+            //连接秘钥，用以验证连接安全性。服务端和客户端必须一致
+            org.secretKey = "SersCL";
+
+            org.event_onDisconnected = function () {
+                logger.info('[sers.CL]org.event_onDisconnected');
+            };
+
+            org.event_onGetRequest = function (requestData, callback) {
+
+                callback(requestData);
+                //logger.info('[sers.CL]org.event_onGetFrame');
+            };
+
+
+            org.connect(function (isSuccess) {
+
+                if (!isSuccess) {
+                    logger.info('[sers.CL]org cannot connect to server!');
+                    return;
+                }
+                logger.info('[sers.CL]org.connected');
+
+                var requestData = vit.stringToBytes('hello world!')
+                org.sendRequest(requestData, function (replyData, isSuccess) {
+
+                    logger.info('[sers.CL]org.sendRequest  get reply :' + vit.bytesToString(replyData));
+
+                });
+
+
+            });
+
+
+
+        })();
+    </script>
+
+
+</head>
+<body >
+     
+</body>
+</html>

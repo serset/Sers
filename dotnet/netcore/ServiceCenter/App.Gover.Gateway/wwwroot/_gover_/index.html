@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>index.html</title>
+
+    <script src="Scripts/jquery/jquery.min.js"></script>
+    <script src="Scripts/util/lith.js"></script>
+    <script type="text/javascript">
+
+        var user = lith.document.url_GetArg('user');
+        if (user) {
+            var date = new Date();
+            date.setSeconds(date.getSeconds() + 3600);
+            lith.cookie.set('user', user, date);
+        }
+
+    </script>
+    <style type="text/css">
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    login: <a href="index.html?user=admin_123456">login</a> <br />
+    1.ServiceCenterHealth:<a target="_blank" href="ServiceCenterHealth.html">ServiceCenterHealth</a> <br />
+    2.ApiDoc: <a target="_blank" href="ActiveApiDoc.html">ActiveApiDoc</a> <a target="_blank" href="ApiDoc.html">ApiDoc</a> <br />
+
+    3.ApiStationMng: <a target="_blank" href="ApiStationMng.html">ApiStationMng</a>  <br />
+    4.ServiceStationMng:<a target="_blank" href="ServiceStationMng.html">ServiceStationMng</a> <br />
+
+    5.服务限流: <a target="_blank" href="RateLimitMng.html">RateLimitMng</a><br />
+    6.robot: <a target="_blank" href="/_robot_/TaskMng.html">robot-TaskMng</a><br />
+    7.MicroControl: <a target="_blank" href="/MicroControl/mc.html">MicroControl</a><br />
+    8.JsStation: <a target="_blank" href="/JsStation/JsStation.html">JsStation</a>
+</body>
+</html>

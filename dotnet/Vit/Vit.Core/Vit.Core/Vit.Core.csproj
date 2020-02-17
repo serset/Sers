@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>2.1.1.250</Version>
+    <Description>https://github.com/sersms/Sers/tree/2.1.1/release</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup> 
+    <DocumentationFile>bin\Debug\netstandard2.0\Vit.Core.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Extensions\byte\ReadOnlySpanByteExtensions.cs" />
+    <Compile Remove="Extensions\byte\SpanByteExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="System.Buffers" Version="4.5.0" />
+  </ItemGroup> 
+
+</Project>

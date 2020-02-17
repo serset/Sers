@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>upload</title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body>
+    <input type="file" id="photo"   placeholder="选择文件" />
+    <input type="button" onclick="postData();" value="上传"  />
+    <script type="text/javascript">
+        function postData() {
+            var formData = new FormData();
+            formData.append("photo", $("#photo")[0].files[0]);
+            formData.append("token", "token" + Math.random());
+
+            $.ajax({
+                url: '/demo/v1/api/12/upload',
+                type: 'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    alert('成功');
+                    console.log(res);
+                }
+            })
+        }
+    </script>
+</body>
+</html>
+    

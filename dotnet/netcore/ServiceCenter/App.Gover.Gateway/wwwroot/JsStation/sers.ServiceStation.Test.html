@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Sers-ServiceStation 测试</title>
+
+    <script src="sers.servicestation.js"></script>
+
+
+    <script>
+
+        var serviceStation = new sers.ServiceStation();
+
+
+        //设置websocket host 地址 demo: "ws://127.0.0.1:4503"
+        serviceStation.org.setHost("ws://127.0.0.1:4503");
+
+        //连接秘钥，用以验证连接安全性。服务端和客户端必须一致
+        serviceStation.org.secretKey = "SersCL";
+
+
+        //(string route, string httpMethod, string description, Invoke Invoke)
+        //Invoke:   function(requestData_bytes,rpcData_object,reply_rpcData_object){}
+        serviceStation.localApiService.addSimpleApiNode('/jsstation/api1', 'GET', 'js作为服务站点', function (requestData_bytes, rpcData, reply_rpcData) {
+
+            //(x.1)获取参数
+            try {
+                var request_string = vit.bytesToString(requestData_bytes);
+            } catch (e) {
+            }
+
+            try {
+                var request_object = vit.bytesToObject(requestData_bytes);
+            } catch (e) {
+            }
+
+            //(x.2)处理并返回结果
+            var replyData = {
+                success: true,
+                data:
+                {
+                    request_string: request_string,
+                    request_object: request_object,
+                    _: Math.random()
+                }
+            };
+            return vit.objectSerializeToBytes(replyData);
+        });
+
+
+        serviceStation.start();
+
+    </script>
+
+
+</head>
+<body >
+    
+</body>
+</html>

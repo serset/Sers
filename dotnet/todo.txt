@@ -1,0 +1,63 @@
+CUR：
+
+
+
+
+---------------------
+TODO
+
+DeliveryClient Close 没有log
+
+编写Sers Test/Doc文档
+编写Sers微服务分层协议
+zmq 重构（底层编写  去除 ZmqClr）
+
+
+
+[t1911_08]Gateway 加载若端口已被占用，应该报错（实际没有报错）
+[t1911_09]事项中间件
+[t1907_10]单站点部署 qps只能达15万  
+[t1909_13] Api route 配置是否区分大小写
+
+[t1912_01]GatewayHelp BuildBody byte数据 可以优化
+
+---------------------
+20. 服务熔断，服务降级 ，服务限流 负载均衡
+   重试机制、限流、熔断机制、负载均衡 
+-----------------------------------
+12.c# 使用指针 不安全代码等优化效率
+5.Api discovery  效率优化(DynamicMethod等) 
+14.序列化性能优化 AvrO/PB 等
+-----------------------------------
+16.remote api调用失败处理机制
+-----------------------------------
+23. SocketMq Stop没有按层调用Close函数
+[t1907_06]IOCP 获取byte 优化
+[t1907_07] IPC SharedMemory  - cross platform,multiple client
+[t1909_12] ServiceCenter（无连接） 关闭时： [ServerMq] OnDisconnected,connTag:Sers.Mq.Socket.Iocp.MqConn
+[t1907_05] 性能优化。ServiceCenter byte[] 转换。  connGuid. Mq Request Guid。 RPC Request Guid
+---------------
+[t1911_07]zmq直接c调用
+19. Zmq poll 效率低（尤其windows）
+-----------------------------------
+[t1911_10]gover 线程安全检查
+24. [190328]Gove需要展示Rpc Valid信息   
+-----------------------------------
+[t1907_04] APM
+    "Apm": {
+      /* 若不指定，则不启用 SkyWalking */
+      "//SkyWalking": {
+        "SkyWalking:Transport:gRPC:Servers": "192.168.56.101:11800"
+      }
+    },
+18.Apm.SkyWalking 启动时会启动WebHost
+15.APM链路追踪
+-----------------------------------
+
+31. [190423]Sers.Hardware 重做
+
+34.[190508] Mc回调接口参数验证 
+-----------------------------------
+ 
+
+

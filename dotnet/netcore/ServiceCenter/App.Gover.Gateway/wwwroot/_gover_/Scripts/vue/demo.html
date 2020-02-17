@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue-列表分页</title>
+    <script src="vue.js"></script>
+    <script src="../jquery/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: "Segoe UI";
+        }
+
+        li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .pagination {
+            position: relative;
+        }
+
+            .pagination li {
+                display: inline-block;
+                margin: 0 5px;
+            }
+
+                .pagination li a {
+                    padding: .5rem 1rem;
+                    display: inline-block;
+                    border: 1px solid #ddd;
+                    background: #fff;
+                    color: #0E90D2;
+                }
+
+                    .pagination li a:hover {
+                        background: #eee;
+                    }
+
+                .pagination li.active a {
+                    background: #0E90D2;
+                    color: #fff;
+                }
+
+        table,
+        td {
+            border: 1px solid #cccccc;
+            border-collapse: collapse;
+        }
+
+        table {
+            width: 1090px;
+            margin: 20px auto;
+        }
+
+        tr {
+            line-height: 30px;
+        }
+
+        td {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script type="text/x-template" id="page">
+        <ul class="pagination">
+            <li v-show="current != 1" @click="current-- && goto(current--)">
+                <a href="#">上一页</a>
+            </li>
+            <li v-for="index in pages" @click="goto(index)" :class="{'active':current == index}" :key="index">
+                <a href="#">{{index}}</a>
+            </li>
+            <li v-show="allpage != current && allpage != 0 " @click="current++ && goto(current++)">
+                <a href="#">下一页</a>
+            </li>
+        </ul>
+    </script>
+    <div id="app">
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>书名</th>
+                <th>作者</th>
+                <th>价格</th>
+            </tr>
+            <tr v-for="book in books">
+                <td>{{book.id}}</td>
+                <td>{{book.name}}</td>
+                <td>{{book.author}}</td>
+                <td>{{book.price}}</td>
+            </tr>
+        </table>
+        <page></page>
+    </div>
+    <script>
+        Vue.component("page", {
+            template: "#page",
+            data: function () {
+                return {
+                    current: 1,
+                    showItem: 5,
+                    allpage: 20
+                }
+            },
+            computed: {
+                pages: function () {
+                    var pag = [];
+                    if (this.current < this.showItem) { //如果当前的激活的项 小于要显示的条数
+                        //总页数和要显示的条数那个大就显示多少条
+                        var i = Math.min(this.showItem, this.allpage);
+                        while (i) {
+                            pag.unshift(i--);
+                        }
+                    } else { //当前页数大于显示页数了
+                        var middle = this.current - Math.floor(this.showItem / 2), //从哪里开始
+                            i = this.showItem;
+                        if (middle > (this.allpage - this.showItem)) {
+                            middle = (this.allpage - this.showItem) + 1
+                        }
+                        while (i--) {
+                            pag.push(middle++);
+                        }
+                    }
+                    return pag
+                }
+            },
+            methods: {
+                goto: function (index) {
+                    if (index == this.current) return;
+                    this.current = index;
+                    //这里可以发送ajax请求
+                    ajaxGetBookList(index);
+
+                }
+            },
+            mounted: function () {
+                var index = 1;
+                ajaxGetBookList(index);
+            }
+        })
+
+        function ajaxGetBookList(pageIndex) {
+
+            setTimeout(function () {
+                var books = [ ];
+
+                for (var i = 0; i < 15; i++) {
+                    books.push({ id: 'id' + i + '_' + pageIndex, name: 'name' + i + '_' + pageIndex, author: 'author' + i + '_' + pageIndex, price: 'price' + i +'_' + pageIndex });
+                }
+
+                vm.books = books;
+
+            }, 50);
+
+        }
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                books: ''
+            }
+        })
+    </script>
+</body>
+
+</html>

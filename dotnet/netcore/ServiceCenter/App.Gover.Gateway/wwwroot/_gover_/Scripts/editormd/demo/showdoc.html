@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>ActiveApiDoc</title>
+
+    <link rel="stylesheet" href="../css/editormd.css" />
+    <script src="../examples/js/jquery.min.js"></script>
+    <script src="../lib/marked.min.js"></script>
+    <script src="../lib/prettify.min.js"></script>
+    <script src="../lib/raphael.min.js"></script>
+    <script src="../lib/underscore.min.js"></script>
+    <script src="../lib/sequence-diagram.min.js"></script>
+    <script src="../lib/flowchart.min.js"></script>
+    <script src="../lib/jquery.flowchart.min.js"></script>
+    <script src="../editormd.js"></script>
+</head>
+<body>
+    <div id="editormd-view" style="max-width:1024px;margin:auto;">
+    </div>
+
+    <script type="text/javascript">
+
+        // index.html?md/readmd.md
+
+        var mdUrl = location.search.slice(1);
+
+        $.ajax({
+            type: 'GET',           
+            url: mdUrl,
+            success: function (md) {
+                if (md) {
+                    var md = "[TOC]\n\n" + md
+
+                    editormd.markdownToHTML("editormd-view", {
+                        markdown: md,
+                        htmlDecode: true
+                    });
+                }
+            }
+        });
+
+    </script>
+
+</body>
+</html>

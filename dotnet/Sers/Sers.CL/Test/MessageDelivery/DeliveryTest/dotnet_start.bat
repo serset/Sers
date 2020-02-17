@@ -1,0 +1,2 @@
+dotnet DeliveryTest.dll
+pause

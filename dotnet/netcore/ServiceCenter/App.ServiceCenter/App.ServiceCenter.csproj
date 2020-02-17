@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Version>2.1.1.250</Version>
+    <Description>https://github.com/sersms/Sers/tree/2.1.1/release</Description>
+  </PropertyGroup>
+
+ 
+
+  <ItemGroup>
+    <Content Include="web.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Sers\Sers.CL\Ipc\Sers.CL.Ipc.SharedMemory\Sers.CL.Ipc.SharedMemory.csproj" />
+    <ProjectReference Include="..\..\..\Sers\Sers.CL\WebSocket\Sers.CL.WebSocket\Sers.CL.WebSocket.csproj" />
+    <ProjectReference Include="..\..\..\Sers\Sers.CL\Zmq\FullDuplex\Sers.CL.Zmq.FullDuplex\Sers.CL.Zmq.FullDuplex.csproj" />
+    <ProjectReference Include="..\..\..\Sers\Sers.CL\Zmq\ThreadWait\Sers.CL.ClrZmq.ThreadWait\Sers.CL.ClrZmq.ThreadWait.csproj" />
+    <ProjectReference Include="..\..\..\Sers\Sers.Gateway\Sers.Gateway\Sers.Gateway.csproj" />
+    <ProjectReference Include="..\..\..\Sers\Sers.ServiceCenter\Sers.Gover\Sers.Gover.csproj" />
+  </ItemGroup>
+ 
+
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="mappings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="xcopy  &quot;$(ProjectDir)..\App.Gover.Gateway\wwwroot&quot; &quot;$(TargetDir)\wwwroot&quot; /e /i /r /y" />
+  </Target>
+
+  
+</Project>

@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>服务器站点管理</title>
+    <script src="Scripts/vue/vue.js"></script>
+    <script src="Scripts/jquery/jquery.min.js"></script>
+
+    <script src="Scripts/Sers/sers.apiClient.js"></script>
+
+    <style>
+
+        .line {
+            border: 1px solid #cccccc;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>服务站点管理</h1>
+
+    <div id="stations">
+
+        <div v-for="station in stations" style="width:300px;height:500px; float:left;margin:2px;padding:4px;word-wrap:break-word;" class="line">
+            {{ (station.serviceStationInfo||{}).serviceStationName }} <br />
+            {{station.apiStationNames}} <br />
+            stationVersion：{{ (station.serviceStationInfo||{}).stationVersion }}<br />
+            状态：{{station.status}}（正常、暂停）<br />
+            操作：  <a href="#" @click="start(station)">打开</a>   <a href="#" @click="pause(station)">暂停</a><br />
+            -----------------------<br />
+            apiNodeCount:{{station.apiNodeCount}} <br />
+            activeApiNodeCount:{{station.activeApiNodeCount}}     <br />
+            calledCount  err/sum:  {{(station.counter||{}).errorCount}}/ {{(station.counter||{}).sumCount}}<br />
+            -----------------------<br />
+            MachineName：{{(station.deviceInfo||{}).MachineName}}<br />
+            cpuUsage：{{ parseInt((station.usageStatus||{}).cpuUsage)|| '-' }} %<br />
+            memoryUsage：{{parseInt((station.usageStatus||{}).memoryUsage) || '-' }} % <br />
+            -----------------------<br />
+            <table>
+                <tr>
+                    <td>deviceKey:</td>
+                    <td>  <font :title="(station.deviceInfo||{}).deviceKey">{{((station.deviceInfo||{}).deviceKey||'').substr(0,4) }} </font></td>
+                </tr>
+                <tr>
+                    <td>serviceStationKey: </td>
+                    <td><font :title="(station.serviceStationInfo||{}).serviceStationKey">{{((station.serviceStationInfo||{}).serviceStationKey||'').substr(0,4) }} </font></td>
+                </tr>
+                <tr>
+                    <td>connKey:</td>
+                    <td>  <font :title="station.connKey">{{(station.connKey||'').substr(0,4) }} </font></td>
+                </tr>
+            </table>
+            <br /> <!--{{station.deviceInfo}}-->
+        </div>
+
+    </div>
+    <script>
+
+
+        var stations = new Vue({
+            el: '#stations',
+            data: {
+                stations: [
+                    {                         
+                    }
+                ]
+            }, methods: {
+                start: function (station) {
+                    sers.apiClient.serviceStation_start(station.connKey, function (data) {
+                        rendStations();
+                    });
+                }, pause: function (station) {
+                    sers.apiClient.serviceStation_pause(station.connKey, function (data) {
+                        rendStations();
+                    });
+                }
+            }
+        });
+
+
+        function rendStations() {
+            sers.apiClient.serviceStation_getAll(function (data) {
+                stations.stations = data.data;
+            });
+        }
+
+        rendStations();
+
+
+        var intervals = [];
+        function startRefreshTask() {
+            var interval = setInterval(rendStations, 2000);
+            intervals.push(interval);
+        }
+        function stopRefreshTask() {
+            for (var t in intervals) {
+                clearInterval(intervals[t]);
+            }
+            intervals = [];
+        }
+
+        startRefreshTask();
+    </script>
+</body>
+
+</html>
