@@ -1,0 +1,37 @@
+﻿开发环境  Ubuntu eclipse c++
+
+ubuntu 编译命令：
+cd Gateway/Debug
+make all
+
+eclipse 发布：
+1.右击项目 ->Build Configurations -> Set Active -> Release
+2.右击项目 -> Clean Project
+3.右击项目 -> Build Project
+4.拷贝发布的文件  /Release/Gateway
+
+--------------------------------------------
+todo:
+
+LongTaskHelp.Stop 销毁线程，尚未完成
+
+GUID
+
+
+
+
+
+
+--------------------------------------------
+fixed:
+[190716]版本号已变更为1.2.0,请重新发布
+
+[190618 18:49]
+1.Content-Type:application/json; charset=UTF-8
+2.跨域访问
+
+
+
+
+
+ 

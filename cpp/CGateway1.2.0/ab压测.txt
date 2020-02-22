@@ -1,0 +1,12 @@
+//°²×°ÃüÁî£º 
+yum -y install httpd-tools
+--
+ 
+
+dotnet Gateway
+ ab -n 100000 -c  16 http://127.0.0.1:6022/StationDemo/demo/demo/1
+
+
+CGateway
+ ab -n 100000 -c 16 http://127.0.0.1:6008/StationDemo/demo/demo/1
+
