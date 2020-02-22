@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.1.1.280</Version>
+    <Version>2.1.1.281</Version>
     <Description>https://github.com/sersms/Sers/tree/2.1.1/release</Description>
   </PropertyGroup>
   

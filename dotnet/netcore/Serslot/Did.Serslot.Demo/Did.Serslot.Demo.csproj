@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Sers.Serslot" Version="2.1.1.280" />
+    <PackageReference Include="Sers.Serslot" Version="2.1.1.281" />
   </ItemGroup>
 
   
