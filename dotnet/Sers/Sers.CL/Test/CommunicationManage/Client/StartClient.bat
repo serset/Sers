@@ -1,0 +1,2 @@
+dotnet CLClient.dll
+pause

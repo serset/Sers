@@ -1,0 +1,44 @@
+
+--------------
+[191106]
+[t1911_01]
+	1.【ServiceCenter】添加网关功能
+	2.修改命名ApiLoader(原名ApiDiscovery)
+	3.添加支持 http statusCodes
+
+[t1911_03]BeforeCallApi 3处，优化为显式指定所处位置（Gateway、ServiceCenter、LocalApiService）
+[t1911_04]appsettings.json ServiceCenter  ApiRouteType 配置迁移到ServiceCenter路径下
+
+[t1911_05]appsettings.json SersApiDiscovery 配置文件的配置改名为 ApiLoader
+
+[t1911_02]修复Postman raw 数据不显示的bug
+
+[t1911_06]Gover Api 可按照route筛选
+
+
+[191113]抽取和微服务无关的工具类到Vit.Core类库
+
+
+[191115]完成LocalApiService处理超时强制中断功能
+
+--------------------------------------
+191119
+[t1911_12]SsApiLoader实现 httpMethod
+
+--------------------------------------
+191219
+RpcData 添加支持 http protocol
+原生支持netcore webapi作为 ServiceStation（Serslot21） 
+--------------------------------------
+[191222]
+更改Mq的命名空间为CL
+
+--------------------------------------
+[191231]
+js编写ServiceStation 
+修改默认端口号
+Gateway与IIS集成
+
+--------------------------------------
+[200210]
+ServiceStationUnqueKey 和 DeviceUnqueKey 改为异步加载并向服务中心提交修改请求

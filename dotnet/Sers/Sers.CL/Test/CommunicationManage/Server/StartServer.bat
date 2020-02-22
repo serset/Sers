@@ -1,0 +1,5 @@
+dotnet CLServer.dll
+pause
+
+
+ 

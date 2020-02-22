@@ -1,0 +1,65 @@
+﻿Sers微服务协议分层概要
+
+客户端服务端模式
+服务中心为服务端
+服务站点为客户端
+
+
+1.通信层（CL,Communication Layer）
+
+
+(1)消息投递层（Message Delivery）
+客户端和服务端可以双向收发单帧二进制数据（带长度的二进制字节数组）
+
+目前有4种实现：
+(x.1)socket 线程等待 iocp
+(x.2)zmq
+(x.3)ipc
+(x.4)WebSocket
+
+
+(2) 消息组织层（Message Organize）
+对消息进行有组织的管理。
+提供两种模式：
+(x.1)ReqRep(事项)模式（有请求和回应）
+(x.2)Message(信件)模式
+
+即
+(x.1)“服务中心”可以给“服务站点”发送事项（发送请求并获取回应），
+(x.2)“服务中心”可以给“服务站点”发送信件，
+(x.3)“服务站点”可以给“服务中心”发送事项（发送请求并获取回应），
+(x.4)“服务站点”可以给“服务中心”发送信件，
+
+
+同时提供心跳线程，监控通讯，确保没有断开。
+
+总结：提供事项和信件的双向收发功能。
+
+(3) 通信管理层(Communication Manage)
+消息管理层对（多个）消息组织进行管理
+
+
+
+2 rpc 层
+(x.1)SersFile 
+(x.2)ApiMessage(ApiRequestMessage ApiReplyMessage)
+(x.3)RpcData 格式定义
+(x.4)远程过程调用功能
+
+
+3 Api Server
+(x.1)ApiDesc
+(x.2)SersModel
+
+
+4 服务总线层
+服务中心： 服务注册 服务发现 服务转发 负载均衡 （服务熔断 服务限流 链路追踪）
+服务站点： 服务加载 服务调用
+服务网关：服务转发 （服务限流 ）
+ApiCenterService 
+LocalApiNode  LocalApiService
+范接口
+范方式(http method)
+事项中间件
+
+5 Api加载器（sers  weibapi21）
