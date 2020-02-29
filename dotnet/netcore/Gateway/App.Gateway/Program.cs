@@ -1,9 +1,9 @@
-﻿using Sers.Gateway;
+﻿using System;
+using Sers.Gateway;
 using Sers.ServiceStation;
-using System;
 using Vit.Core.Module.Log;
 
-namespace Main
+namespace App.Gateway
 {
     public class Program
     {

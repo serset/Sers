@@ -2,9 +2,9 @@
 using System.Threading;
 using Sers.Core.Module.Api.LocalApi;
 using Sers.Core.Module.Message;
-using Vit.Core.Module.Serialization;
+using Vit.Extensions;
 
-namespace Vit.Extensions
+namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions
 {
 
     public static class LocalApiMngExtensions

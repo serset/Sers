@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Threading;
-using Vit.Extensions;
- 
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading;
 using Vit.Core.Module.Log;
-using Sers.Core.CL.CommunicationManage;
 
-namespace Client
+namespace DeliveryTest
 {
     class Program
     {

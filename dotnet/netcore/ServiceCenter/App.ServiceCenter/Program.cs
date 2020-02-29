@@ -4,8 +4,7 @@ using Vit.Core.Module.Log;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Extensions;
 
-
-namespace Main
+namespace App.ServiceCenter
 {
     public class Program
     {

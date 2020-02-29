@@ -2,10 +2,9 @@
 
 using System;
 using System.Diagnostics;
-
 using Microsoft.VisualBasic.Devices;
 
-namespace Sers.Hardware.Net46
+namespace Sers.Hardware.Net46.Exe.Ms
 {
 
 

@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Threading;
-using Vit.Extensions;
-using Vit.Core.Util.Statistics;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-using Vit.Core.Module.Log;
+using System.Threading;
+using System.Threading.Tasks;
+using CLClient.Statistics;
 using Sers.Core.CL.CommunicationManage;
+using Vit.Core.Module.Log;
+using Vit.Extensions;
 
-namespace Client
+namespace CLClient
 {
     class ProgramQps
     {

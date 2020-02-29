@@ -1,11 +1,10 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Vit.Ioc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Vit.Core.Util.Ioc.MsTest
+namespace Vit.Ioc.MsTest
 {
     [TestClass]
     public class IocHelpTest

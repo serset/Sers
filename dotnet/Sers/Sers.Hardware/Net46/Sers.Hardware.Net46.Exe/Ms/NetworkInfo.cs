@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using System.Diagnostics;
+using System.Net.NetworkInformation;
 
-namespace Sers.Hardware.Net46
+namespace Sers.Hardware.Net46.Exe.Ms
 {
     internal class NetworkInfo : IDisposable
     {

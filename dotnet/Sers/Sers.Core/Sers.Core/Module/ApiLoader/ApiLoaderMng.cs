@@ -2,10 +2,8 @@
 using Vit.Extensions;
 using Sers.Core.Module.Api.LocalApi;
 using Vit.Core.Module.Log;
-using Vit.Core.Util.Common;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Sers.Core.Module.Reflection;
 
 namespace Sers.Core.Module.ApiLoader
@@ -52,8 +50,8 @@ namespace Sers.Core.Module.ApiLoader
         {
             //(x.1) get className    
             var className = config["loader_className"].ConvertToString();
-            if (string.IsNullOrEmpty(className) || className == "Sers.ApiLoader.Sers.ApiLoader")
-                return new Sers.ApiLoader.Sers.ApiLoader();
+            if (string.IsNullOrEmpty(className) || className == typeof(Sers.SersLoader.ApiLoader).FullName)
+                return new SersLoader.ApiLoader();
 
             var assemblyFile = config["loader_assemblyFile"].ConvertToString();
              

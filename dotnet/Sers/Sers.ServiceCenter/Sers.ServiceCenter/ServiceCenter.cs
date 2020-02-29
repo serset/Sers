@@ -7,7 +7,6 @@ using Sers.Core.Module.PubSub;
 using System.Collections.Generic;
 using Sers.Core.Module.Api.LocalApi;
 using Sers.Core.Module.Api;
-using Sers.Core.Module.ApiLoader;
 using Sers.ServiceCenter.ApiCenter;
 using Newtonsoft.Json.Linq;
 using Sers.Core.Module.Env;
@@ -17,6 +16,7 @@ using System.Linq;
 using Sers.Core.CL.CommunicationManage;
 using Sers.Core.CL.MessageOrganize;
 using System.Threading.Tasks;
+using Sers.SersLoader;
 
 namespace Sers.ServiceCenter
 {
@@ -176,7 +176,7 @@ namespace Sers.ServiceCenter
         /// <param name="config"></param>
         public void LoadSsApi(ApiLoaderConfig config)
         {
-            localApiService.LoadSsApi(config);
+            localApiService.LoadSersApi(config);
         }
 
 

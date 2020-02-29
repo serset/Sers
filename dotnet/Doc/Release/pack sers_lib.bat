@@ -100,17 +100,18 @@ cd /d ../../../
 
 
 echo 'pack Sers.Serslot'
-cd /d netcore\Serslot\Sers.Serslot
+cd /d Sers\ApiLoader\Sers.Serslot
 dotnet build --configuration Release
 dotnet pack --configuration Release --output ..\..\..\Doc\Release\nuget
-cd /d ../../../ 
+cd /d ../../../  
 
 
-echo 'pack Sers.ApiLoader.WebApi21'
-cd /d netcore\WebApi21\Sers.ApiLoader.WebApi21
+echo 'pack Sers.NetcoreLoader'
+cd /d Sers\ApiLoader\Sers.NetcoreLoader
 dotnet build --configuration Release
 dotnet pack --configuration Release --output ..\..\..\Doc\Release\nuget
-cd /d ../../../ 
+cd /d ../../../  
+ 
 
 cd /d Doc\Release
 

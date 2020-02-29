@@ -11,6 +11,7 @@ using Vit.Core.Util.ConfigurationManager;
 using Vit.Core.Util.Pool;
 using Vit.Core.Util.Threading;
 using System.Reflection;
+using Sers.SersLoader;
 using Sers.Core.CL.CommunicationManage;
 using Sers.Core.CL.MessageOrganize;
 using Sers.Core.Module.Message;
@@ -73,21 +74,21 @@ namespace Sers.Core.Module.Api.LocalApi
 
 
         /// <summary>
-        /// 调用SsApi加载器加载api
+        /// 调用SersApi加载器加载api
         /// </summary>
         /// <param name="config"></param>
-        public void LoadSsApi(ApiLoaderConfig config)
+        public void LoadSersApi(ApiLoaderConfig config)
         {
-            apiNodeMng.AddApiNode(new Sers.ApiLoader.Sers.ApiLoader().LoadApi(config));
+            apiNodeMng.AddApiNode(new SersLoader.ApiLoader().LoadApi(config));
         }
 
         /// <summary>
-        /// 调用SsApi加载器加载api
+        /// 调用SersApi加载器加载api
         /// </summary>
         /// <param name="assembly"></param>
-        public void LoadSsApi(Assembly assembly)
+        public void LoadSersApi(Assembly assembly)
         {
-            apiNodeMng.AddApiNode(new Sers.ApiLoader.Sers.ApiLoader().LoadApi(new ApiLoaderConfig { assembly = assembly }));
+            apiNodeMng.AddApiNode(new SersLoader.ApiLoader().LoadApi(new ApiLoaderConfig { assembly = assembly }));
         }
 
         #endregion

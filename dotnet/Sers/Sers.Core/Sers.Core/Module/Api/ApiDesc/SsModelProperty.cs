@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Sers.ApiLoader.Sers.Attribute;
 using Vit.Core.Util.ComponentModel.Model;
 
 namespace Sers.Core.Module.Api.ApiDesc

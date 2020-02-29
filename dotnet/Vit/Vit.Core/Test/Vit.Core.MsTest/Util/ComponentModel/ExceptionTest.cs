@@ -1,10 +1,8 @@
-﻿
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Core.Util.ComponentModel.SsError.Extensions;
-using Vit.Extensions;
 
-namespace Vit.Core.MsTest.Util.Error
+namespace Vit.Core.MsTest.Util.ComponentModel
 {
 
     [TestClass]

@@ -7,7 +7,6 @@ using System;
 using System.Reflection;
 using Sers.Core.Module.Api.LocalApi;
 using Sers.Core.Module.PubSub;
-using Sers.Core.Module.ApiLoader;
 using Vit.Core.Util.ConfigurationManager;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +16,7 @@ using Sers.Core.Module.Env;
 using Sers.Core.Module.Message;
 using Vit.Core.Util.ComponentModel.Data;
 using System.Threading.Tasks;
+using Sers.SersLoader;
 
 namespace Sers.ServiceStation
 {
@@ -42,8 +42,8 @@ namespace Sers.ServiceStation
             ServiceStation.Init();
 
             //(x.2) Discovery
-            //ServiceStation.Instance.LoadSsApi(typeof(Program).Assembly);
-            //ServiceStation.Instance.LoadSsApi(typeof(Program).Assembly, new Sers.Core.Module.ApiLoader.ApiLoaderConfig { apiStationName = "Demo" });
+            //ServiceStation.Instance.LoadSersApi(typeof(Program).Assembly);
+            //ServiceStation.Instance.LoadSersApi(typeof(Program).Assembly, new Sers.Core.Module.ApiLoader.ApiLoaderConfig { apiStationName = "Demo" });
             ServiceStation.Instance.LoadApi();
 
             //(x.3) Start
@@ -171,7 +171,7 @@ namespace Sers.ServiceStation
         /// <param name="config"></param>
         public void LoadSsApi(ApiLoaderConfig config)
         {
-            localApiService.LoadSsApi(config);
+            localApiService.LoadSersApi(config);
         }
 
 
