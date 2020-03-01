@@ -10,30 +10,58 @@ namespace Sers.SersLoader.ApiDesc.Attribute.RpcVerify
     {
         //{"condition":{"type":"!=","path":"caller.source"  ,  "value":"Internal"  },    "value": {"type":"_", ssError}  } 
 
-
       
 
 
         public override void GetApiRpcVerify(JArray rpcVerifySwitchBody)
-        {
+        {            
+            //(x.1)
             if (string.IsNullOrEmpty(condition)) return;
 
+            //(x.2)
             var item = new JObject();
             rpcVerifySwitchBody.Add(item);
 
-            //ssError
-            var error = ssError ?? SsError.Err_NotAllowed;
-            item["value"] = error.ConvertBySerialize<JObject>();
-            item["value"]["type"] = "_";
+            //(x.3)ssError
+            var errorValue = (ssError ?? SsError.Err_NotAllowed).ConvertBySerialize<JObject>();
+            errorValue["type"] = "_";
+            item["value"] = errorValue;
 
-            //condition
-            item["condition"]=JObject.Parse(condition);
+            #region (x.4)condition
+          
+            //(x.x.1)原始条件
+            var joCon = JObject.Parse(condition);
+            if (verifiedWhenNull) 
+            {
+                joCon["resultWhenNull"] = true;
+            }
+
+
+
+            //(x.x.2)取反
+            // {"type":"Not",  "value":SsExp    }
+            item["condition"] = new JObject
+            {
+                ["type"]="Not",
+                ["value"] = joCon
+            };
+            #endregion
+
+
+
 
         }
 
 
         /// <summary>
-        /// 例如：{"condition":{"type":"!=","path":"caller.source"  ,  "value":"Internal"  },    "value": {"type":"_", ssError}  } 
+        /// 当出现空值时，是否通过验证（默认不通过，false）
+        /// </summary>
+        public bool verifiedWhenNull { get; set; } = false;
+
+
+
+        /// <summary>
+        /// 例如：{"type":"!=","path":"caller.source"  ,  "value":"Internal"  }
         /// </summary>
         public virtual string condition { get; set; }
 
@@ -45,7 +73,7 @@ namespace Sers.SersLoader.ApiDesc.Attribute.RpcVerify
 
 
         /// <summary>
-        /// 校验不通过时的提示消息
+        /// 校验不通过时的提示消息，若不指定则使用默认提示消息
         /// </summary>
         public string errorMessage
         {
@@ -56,10 +84,13 @@ namespace Sers.SersLoader.ApiDesc.Attribute.RpcVerify
                 ssError.errorMessage = value;
             }
         }
- 
-        public int? errorCode
+
+        /// <summary>
+        /// 校验不通过时的errorCode, 如 1000。可不指定
+        /// </summary>
+        public int errorCode
         {
-            get => ssError?.errorCode;
+            get => ssError?.errorCode??0;
             set
             {
                 if (null == ssError) ssError = new SsError();

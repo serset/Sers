@@ -21,7 +21,7 @@ namespace Did.SersLoader.Demo
 
             #region (x.2)加载api
             //ServiceStation.Instance.LoadSersApi(typeof(Program).Assembly);
-            ServiceStation.Instance.LoadSsApi(typeof(Program).Assembly, new ApiLoaderConfig { apiStationName = "demo" });
+            ServiceStation.Instance.LoadSersApi(typeof(Program).Assembly, new ApiLoaderConfig { apiStationName = "demo" });
             ServiceStation.Instance.LoadApi();
             #endregion
 

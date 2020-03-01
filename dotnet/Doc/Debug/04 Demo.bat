@@ -1,7 +1,7 @@
 cd /d ..\..
 
-cd /d netcore\Station\Demo\App.Demo.Station\bin\Debug\netcoreapp2.1
-dotnet App.Demo.Station.dll
+cd /d StationDemo\SersLoader\Did.SersLoader.Demo\bin\Debug\netcoreapp2.1
+dotnet Did.SersLoader.Demo.dll
 
  
  

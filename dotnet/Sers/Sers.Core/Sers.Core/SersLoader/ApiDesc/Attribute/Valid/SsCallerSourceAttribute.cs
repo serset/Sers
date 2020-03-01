@@ -7,7 +7,10 @@ using Vit.Extensions;
 namespace Sers.SersLoader.ApiDesc.Attribute.Valid
 {
     /// <summary>
-    /// 调用来源限制(内部调用 外部调用)
+    /// 调用来源限制(内部调用 外部调用) demo:
+    /// [SsCallerSource(ECallerSource.Internal)]
+    /// [SsCallerSource(ECallerSource.OutSide, errorMessage = "只可外部调用")]
+    /// [SsCallerSource(callerSourceString = "Internal,OutSide")]
     /// </summary>
     public class SsCallerSourceAttribute : SsRpcVerifyAttribute
     {
@@ -28,7 +31,7 @@ namespace Sers.SersLoader.ApiDesc.Attribute.Valid
 
         string _callerSourceString;
         /// <summary>
-        /// 用逗号隔开的多个。例如 "Internal,Gateway"
+        /// 用逗号隔开的多个。例如 "Internal,OutSide"
         /// </summary>
         public string callerSourceString
         {
@@ -48,13 +51,13 @@ namespace Sers.SersLoader.ApiDesc.Attribute.Valid
                 }
                 else if (values.Length == 1)
                 {
-                    // { "condition":{ "type":"!=","path":"caller.source"  ,  "value":"Internal"  },    "value": { "type":"_", ssError} }
-                    condition = "{\"type\":\"!=\",\"path\":\"caller.source\",\"value\":\"" + values[0] + "\"}";
+                    // { "condition":{ "type":"==","path":"caller.source"  ,  "value":"Internal"  }  }
+                    condition = "{\"type\":\"==\",\"path\":\"caller.source\",\"value\":\"" + values[0] + "\"}";
                 }
                 else
                 {
-                    // { "condition":{ "type":"not in","path":"caller.source"  ,  "value":["Internal"]  },    "value": { "type":"_", ssError} }
-                    condition = "{\"type\":\"not in\",\"path\":\"caller.source\",\"value\":[\"" + String.Join("\",\"", values) + "\"]}";
+                    // { "condition":{ "type":"in","path":"caller.source"  ,  "value":["Internal"]  }  }
+                    condition = "{\"type\":\"in\",\"path\":\"caller.source\",\"value\":[\"" + String.Join("\",\"", values) + "\"]}";
                 }
             }
         }
@@ -64,6 +67,9 @@ namespace Sers.SersLoader.ApiDesc.Attribute.Valid
         #region callerSource
 
         ECallerSource _callerSource;
+        /// <summary>
+        /// 可多个。例如：  ECallerSource.Internal| ECallerSource.OutSide
+        /// </summary>
         public ECallerSource callerSource
         {
             get => _callerSource;

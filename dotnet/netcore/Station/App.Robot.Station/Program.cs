@@ -18,7 +18,7 @@ namespace App.Robot.Station
 
             //(x.2) Discovery
           
-            ServiceStation.Instance.LoadSsApi(typeof(Program).Assembly, new ApiLoaderConfig { apiStationName = "_robot_" });
+            ServiceStation.Instance.LoadSersApi(typeof(Program).Assembly, new ApiLoaderConfig { apiStationName = "_robot_" });
             //ServiceStation.Instance.LoadApi();
 
 

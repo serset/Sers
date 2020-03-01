@@ -169,7 +169,7 @@ namespace Sers.ServiceStation
         /// 调用SsApi加载器加载api
         /// </summary> 
         /// <param name="config"></param>
-        public void LoadSsApi(ApiLoaderConfig config)
+        public void LoadSersApi(ApiLoaderConfig config)
         {
             localApiService.LoadSersApi(config);
         }
@@ -180,11 +180,11 @@ namespace Sers.ServiceStation
         /// </summary>
         /// <param name="assembly"></param>
         /// <param name="config"></param>
-        public void LoadSsApi(Assembly assembly, ApiLoaderConfig config = null)
+        public void LoadSersApi(Assembly assembly, ApiLoaderConfig config = null)
         {
             if (null == config) config = new ApiLoaderConfig();
             config.assembly = assembly;
-            LoadSsApi(config);
+            LoadSersApi(config);
         }
 
         #endregion

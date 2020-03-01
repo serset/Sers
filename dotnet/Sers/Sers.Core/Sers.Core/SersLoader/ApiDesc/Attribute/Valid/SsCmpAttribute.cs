@@ -3,6 +3,10 @@ using Vit.Extensions;
 
 namespace Sers.SersLoader.ApiDesc.Attribute.Valid
 {
+    /// <summary>
+    /// demo:
+    /// [SsCmp(path = "http.method", type = "==" , value="PUT")]
+    /// </summary>
     public class SsCmpAttribute : SsRpcVerifyAttribute
     {
 
@@ -35,13 +39,13 @@ namespace Sers.SersLoader.ApiDesc.Attribute.Valid
 
 
         /// <summary>
-        /// == !=  等
+        /// 可为 == !=  &gt;  &gt;=  &lt; &lt;= 等
         /// </summary>
         public string type { get; set; }
 
         protected virtual void FlushCondition()
         {
-            // { "condition":{ "type":"==","path":"caller.source",  "value":SsExp  },    "value": { "type":"_", ssError} }
+            //  { "type":"==","path":"caller.source",  "value":SsExp  }  
             condition = new { type= type, path= path, value = value }.Serialize();
         }
  

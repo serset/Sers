@@ -16,7 +16,7 @@ echo 'publish ServiceCenter'
 cd /d netcore\ServiceCenter\App.ServiceCenter
 dotnet build --configuration Release
 dotnet publish --configuration Release --output ..\..\..\Doc\Release\ServiceCenter
-cd /d ../../../
+cd /d ../../../ 
 
 echo 'publish Robot'
 cd /d netcore\Station\App.Robot.Station
@@ -24,8 +24,9 @@ dotnet build --configuration Release
 dotnet publish --configuration Release --output ..\..\..\Doc\Release\Robot
 cd /d ../../../
 
+
 echo 'publish Demo'
-cd /d netcore\Station\App.Demo.Station
+cd /d StationDemo\SersLoader\Did.SersLoader.Demo
 dotnet build --configuration Release
 dotnet publish --configuration Release --output ..\..\..\Doc\Release\Demo
 cd /d ../../../

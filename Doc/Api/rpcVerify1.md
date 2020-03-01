@@ -1,4 +1,4 @@
-﻿# SsValidation
+﻿# SsValidation（已弃用）
 {"path":"user.userType","ssError":{}, "ssValid":{"type":"Equal","value":"Logined"} }
 
 

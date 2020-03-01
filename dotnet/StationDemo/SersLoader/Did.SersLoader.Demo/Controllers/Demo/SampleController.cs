@@ -586,104 +586,148 @@ namespace Did.SersLoader.Demo.Controllers.Demo
 
 
 
-        #region (x.8) Rpc Valid
+        #region (x.8) RpcVerify
 
-
-
+        #region (x.8.1) 自定义限制 SsRpcVerify
         /// <summary>
-        /// 自定义限制 SsValidation
+        /// 810自定义限制 SsRpcVerify
         /// </summary>
         /// <returns></returns>
-        [SsRoute("8/valid/1")]
-        [SsRpcVerify(errorMessage = "只接受PUT请求", condition = "{\"type\":\"!=\",\"path\":\"http.method\",\"value\":\"PUT\"}")] 
-        public ApiReturn Valid()
+        [SsRoute("810/SsRpcVerify")]
+        [SsRpcVerify( condition = "{\"type\":\"==\",\"path\":\"http.method\",\"value\":\"PUT\"}", verifiedWhenNull = false , errorMessage = "只接受PUT请求", errorCode = 1000)]
+        // condition：   SsExp,参考 rpcVerify2.md
+        // path：        RpcData中被验证的值，（参考 RpcContextData.md）。如 http.url 、http.method 、 http.headers.Authorization
+        // verifiedWhenNull: 当出现空值时，是否通过验证（默认不通过，false）。例如，为fakse时，若没有指定值http.method，则禁止调用接口，返回错误消息；
+        //                                                                      为true时，在没有指定http.method时可以调用哦接口
+        //
+        // errorMessage:    校验不通过时的提示消息，若不指定则使用默认提示消息
+        // errorCode:       校验不通过时的errorCode, 如 1000。可不指定
+        public ApiReturn SsRpcVerify()
         {
             return new ApiReturn();
         }
-
-
-        /// <summary>
-        /// SsIsNull
-        /// </summary>
-        /// <returns></returns>
-        [SsRoute("8/valid/2")]
-        [SsIsNull(path = "http.method", errorMessage = "必须指定method")]
-        [SsIsNull(path = "caller.source", errorMessage = "必须指定调用来源")]
-        [SsIsNull(path = "http.headers.Authorization", errorMessage = "必须指定Authorization")]
-        public ApiReturn Valid2()
-        {
-            return new ApiReturn();
-        }
-
-
-
-        /// <summary>
-        /// SsEqual
-        /// </summary>
-        /// <returns></returns>
-        [SsRoute("8/valid/3")]
-        [SsEqual(path = "http.method", value = "PUT", errorMessage = "只接受PUT请求")]
-        public ApiReturn Valid3()
-        {
-            return new ApiReturn();
-        }
-
-
-        /// <summary>
-        /// SsRegex
-        /// </summary>
-        /// <returns></returns>
-        [SsRoute("8/valid/4/*")]
-        [SsRegex(path = "http.url", value = "(?<!\\.html)$", errorMessage = "url后缀必须为 .html")]
-        public ApiReturn Valid4()
-        {
-            return new ApiReturn();
-        }
-
-
         #endregion
 
 
-        #region (x.9) Rpc Valid2
+
+        #region (x.8.2) CallerSource
 
         /// <summary>
-        /// 限制只可内部调用
+        /// 820限制只可内部调用
         /// </summary>
         /// <returns></returns>
-        [SsRoute("8/valid2/1")]
+        [SsRoute("820/CallerSource")]
         [SsNotEqual(path = "caller.source", value = "Internal", errorMessage = "无权限")]
         //[SsNotEqual(type="!=",path = "caller.source", value = "Internal", errorMessage = "无权限")]
-        public ApiReturn Valid2_1()
+        public ApiReturn CallerSource820()
         {
             return new ApiReturn();
         }
 
 
         /// <summary>
-        /// 限制只可内部调用
+        /// 821限制只可内部调用
         /// </summary>
         /// <returns></returns>
-        [SsRoute("8/valid2/2")]
+        [SsRoute("821/CallerSource")]
         //[SsCallerSource(ECallerSource.Internal)]
-        [SsCallerSource(callerSourceString = "Internal,GoverGateway")]
-        public ApiReturn Valid2_2()
+        //[SsCallerSource(ECallerSource.Internal| ECallerSource.OutSide)]
+        [SsCallerSource(callerSourceString = "Internal,OutSide")]
+        public ApiReturn CallerSource821()
         {
             return new ApiReturn();
         }
 
         /// <summary>
-        /// 限制只可外部调用
+        /// 822限制只可外部调用
         /// </summary>
         /// <returns></returns>
-        [SsRoute("8/valid2/3")]
+        [SsRoute("822/CallerSource")]
         [SsCallerSource(ECallerSource.OutSide, errorMessage = "只可外部调用")]
-        public ApiReturn Valid2_3()
+        public ApiReturn CallerSource822()
         {
             return new ApiReturn();
         }
 
         #endregion
 
+
+
+        #region (x.8.3) SsCmp
+        /// <summary>
+        /// 830 SsCmp
+        /// </summary>
+        /// <returns></returns>
+        [SsRoute("830/SsCmp")]
+        [SsCmp(path = "http.method", type = "==" , value="PUT")]
+        public ApiReturn SsCmp830()
+        {
+            return new ApiReturn();
+        }
+        #endregion
+
+
+        #region (x.8.4) SsEqual
+        /// <summary>
+        /// 840 SsEqual
+        /// </summary>
+        /// <returns></returns>
+        [SsRoute("840/SsEqual")]
+        [SsEqual(path = "http.method", value = "PUT")]
+        public ApiReturn SsEqual840()
+        {
+            return new ApiReturn();
+        }
+        #endregion
+
+
+        #region (x.8.5) SsNotEqual
+        /// <summary>
+        /// 850 SsNotEqual
+        /// </summary>
+        /// <returns></returns>
+        [SsRoute("850/SsNotEqual")]
+        [SsNotEqual(path = "http.method", value = "PUT",errorMessage = "不可为PUT请求")]
+        public ApiReturn SsNotEqual850()
+        {
+            return new ApiReturn();
+        }
+        #endregion
+
+
+        #region (x.8.6) SsNotNull
+        /// <summary>
+        /// 860 SsNotNull
+        /// </summary>
+        /// <returns></returns>
+        [SsRoute("860/SsNotNull")]
+        [SsNotNull(path = "http.headers.Authorization",   errorMessage = "必须指定Authorization")]
+        public ApiReturn SsNotNull860()
+        {
+            return new ApiReturn();
+        }
+        #endregion
+
+        #region (x.8.7) SsRegex
+        /// <summary>
+        /// 870 SsRegex(请求地址 /demo/v1/api/870/SsRegex/a.html )
+        /// </summary>
+        /// <returns></returns>
+        [SsRoute("870/SsRegex/*")]
+        [SsRegex(path = "http.url", value = "(?<=\\.html)$", errorMessage = "url后缀必须为 .html")]
+        public ApiReturn SsRegex870()
+        {
+            return new ApiReturn();
+        }
+        #endregion
+
+
+ 
+
+        #endregion
+
+
+     
 
         #region (x.10) 递归demo
         /// <summary>
