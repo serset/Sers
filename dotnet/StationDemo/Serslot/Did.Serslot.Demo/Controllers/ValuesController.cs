@@ -3,6 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Vit.Core.Util.ComponentModel.Data;
+using Vit.Core.Util.ComponentModel.Model;
 
 namespace Did.Serslot.Demo.Controllers
 {
@@ -30,253 +33,373 @@ namespace Did.Serslot.Demo.Controllers
         /// GET did_serslot/Values/route_x
         /// </summary>
         /// <returns></returns>
-        [HttpGet("route1")]
-        [HttpGet("route2")]
-        [HttpGet("/did_serslot/Values/route3")]
+        [HttpGet("101/route")]
+        [HttpGet("102/route")]
+        [HttpGet("/did_serslot/Values/103/route")]
         public object Route1()
         {
             return new
             {
                 Request.Path,
-                Method = Request.Method
+                Request.Method
             };
         }
 
 
         /// <summary>
-        /// GET did_serslot/Values/route4
+        /// GET did_serslot/Values/route104
         /// </summary>
         /// <returns></returns>     
         [HttpGet("[action]")]
-        public object route4()
+        public object route104()
         {
             return new
             {
-                name = "GET did_serslot/Values/route4",
+                name = "GET did_serslot/Values/route104",
                 Request.Path,
-                Method = Request.Method
+                Request.Method
             };
         }
         #endregion
 
 
-        #region (x.2) result
+        #region (x.2)Name和Desc
 
         /// <summary>
-        /// GET did_serslot/Values/result1
+        /// 演示 如何使用Name 和 Description。
+        /// 函数注释和使用SsDescription是一样的效果。
         /// </summary>
         /// <returns></returns>
-        [HttpGet("result1")]
+        [HttpGet("201/NameDesc")]
+        [SsName("NameDesc1")]
+        public ApiReturn NameDesc()
+        {
+            return new ApiReturn();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("202/NameDesc")]
+        [SsDescription("演示 如何使用Name 和 Description。\n函数注释和使用SsDescription是一样的效果。")]
+        public ApiReturn NameDesc2()
+        {
+            return new ApiReturn();
+        }
+        #endregion
+
+
+
+        #region (x.3) 参数
+
+        #region (x.x.1) 从route获取参数
+        /// <summary>
+        /// 从route获取参数
+        /// GET did_serslot/Values/301/arg/{id}/{id2}       
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("301/arg/{name}/{age}")]
+        public object Arg301(
+             [SsExample("lith"), SsDefaultValue("NoName"), SsDescription("姓名")]string name,
+             [SsExample("30"), SsDefaultValue("0"), SsDescription("年龄，请指定在16-50中间的整数")]int age)
+        {
+            return new
+            {
+                Request.Path,
+                Request.Method,
+                request = new { name, age }
+            };
+        }
+        #endregion
+
+        #region (x.x.2)从Query String获取参数
+        /// <summary>
+        /// 从Query String获取参数
+        /// GET did_serslot/Values/302/arg?name=lith&amp;age=30
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("302/arg")]
+        public object Arg302(
+             [FromQuery, SsExample("lith"),SsDescription("姓名")]string name,
+             [FromQuery, SsExample("30"), SsDescription("年龄，请指定在16-50中间的整数")]int age)
+        {
+            return new
+            {
+                Request.Path,
+                Request.Method,
+                request = new { name, age }
+            };
+        }
+        #endregion
+
+
+        #region (x.x.3)从Body获取参数
+
+        /// <summary>
+        /// 从Body获取参数
+        /// POST did_serslot/Values/303/arg
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("303/arg")]
+        public object Arg3([FromBody, SsExample("\"lith\""), SsDescription("姓名,请以双引号开始和结束")]string name)
+        {
+            return new
+            {
+                Request.Path,
+                Request.Method,
+                request = new { name }
+            };
+        }
+        #endregion
+
+        #region (x.x.4)从Body获取参数
+
+        /// <summary>
+        /// 从Body获取参数
+        /// POST did_serslot/Values/304/arg
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("304/arg")]
+        public object Arg4([FromBody] ArgModel arg)
+        {
+            return new
+            {
+                Request.Path,
+                Request.Method,
+                request = arg
+            };
+        }
+
+        public class ArgModel
+        {
+            /// <summary>
+            /// 姓名
+            /// </summary>
+            [SsExample("lith"), SsDefaultValue("NoName")]
+            [JsonProperty("arg")]
+            public string name { get; set; }
+            /// <summary>
+            /// 
+            /// </summary>
+            [SsExample("20"), SsDefaultValue("0"), SsDescription("年龄，请指定在16-50中间的整数")]
+            public int age;
+        }
+
+
+        #endregion
+
+        #endregion
+
+
+        #region (x.4) 返回值
+
+
+        #region (x.x.1)返回值注释
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("401/ret")]
+        [return: SsExample("test1"), SsDescription("返回test1")]
+        public string Return4()
+        {
+            return "test1";
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("402/ret")]
+        [return: SsExample("5"), SsDescription("返回5")]
+        public int Return5()
+        {
+            return 5;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("403/ret")]
+        [return: /*SsExample("{\"name\":\"张三\"}"),*/ SsDescription("返回模型数据")]
+        public ReturnData Return6()
+        {
+            return new ReturnData { name = "张三" };
+        }
+
+
+        /// <summary>
+        /// Return注释-FromType
+        /// </summary>
+        public class ReturnData
+        {
+
+            /// <summary>
+            /// 姓名
+            /// </summary>
+            [SsExample("lith"), SsDefaultValue("NoName")] 
+            public string name { get; set; }
+        }
+
+
+        #endregion
+
+
+        #region (x.x.2)异步返回
+
+       
+
+        /// <summary>
+        /// GET did_serslot/Values/201/result
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("420/result")]
         public object Result1()
         {
-            return "GET did_serslot/Values/result1";
+            return Request.Method + " " + Request.Path;
         }
 
         /// <summary>
-        /// GET did_serslot/Values/result2
+        /// GET did_serslot/Values/202/result
         /// </summary>
         /// <returns></returns>
-        [HttpGet("result2")]
+        [HttpGet("421/result")]
         public ActionResult<string> Result2()
         {
-            return "GET did_serslot/Values/result2";
+            return Request.Method + " " + Request.Path;
         }
 
 
         /// <summary>
-        /// GET did_serslot/Values/result3
+        /// GET did_serslot/Values/203/result
         /// </summary>
         /// <returns></returns>
-        [HttpGet("result3")]
+        [HttpGet("422/result")]
         public ActionResult<IEnumerable<string>> Result3()
         {
-            return new string[] { "GET did_serslot/Values/result3", "" };
+            return new string[] { Request.Method + " " + Request.Path, "" };
         }
 
 
         /// <summary>
-        /// GET did_serslot/Values/result4
+        /// GET did_serslot/Values/204/result
         /// </summary>
         /// <returns></returns>
-        [HttpGet("result4")]
+        [HttpGet("423/result")]
         public async Task<string> Result4()
         {
             await Task.Run(() => { Thread.Sleep(2000); });
 
-            return "GET did_serslot/Values/result4";
+            return Request.Method + " " + Request.Path;
         }
 
         /// <summary>
-        /// GET did_serslot/Values/result5
+        /// GET did_serslot/Values/205/result
         /// </summary>
         /// <returns></returns>
-        [HttpGet("result5")]
+        [HttpGet("424/result")]
         public async Task<ActionResult<string>> Result5()
         {
             await Task.Run(() => { Thread.Sleep(2000); });
 
-            return "GET did_serslot/Values/result5";
+            return Request.Method + " " + Request.Path;
         }
+
         #endregion
 
 
-        #region (x.3) HttpMethod
+        #endregion
+
+
+        #region (x.5) HttpMethod
 
         /// <summary>
-        /// GET did_serslot/Values/method
+        /// GET did_serslot/Values/500/method
         /// </summary>
         /// <returns></returns>
-        [HttpGet("method")]
+        [HttpGet("500/method")]
         public string Method_Get()
         {
-            return "GET did_serslot/Values/method";
+            return Request.Method + " " + Request.Path;
         }
 
         /// <summary>
-        /// POST did_serslot/Values/method
+        /// POST did_serslot/Values/500/method
         /// </summary>
         /// <returns></returns>
-        [HttpPost("method")]
+        [HttpPost("500/method")]
         public string Method_Post()
         {
-            return "POST did_serslot/Values/method";
+            return Request.Method + " " + Request.Path;
         }
 
         /// <summary>
-        /// Put did_serslot/Values/method
+        /// Put did_serslot/Values/500/method
         /// </summary>
         /// <returns></returns>
-        [HttpPut("method")]
+        [HttpPut("500/method")]
         public string Method_Put()
         {
-            return "Put did_serslot/Values/method";
+            return Request.Method + " " + Request.Path;
         }
 
         /// <summary>
-        /// Delete did_serslot/Values/method
+        /// Delete did_serslot/Values/500/method
         /// </summary>
         /// <returns></returns>
-        [HttpDelete("method")]
+        [HttpDelete("500/method")]
         public string Method_Delete()
         {
-            return "Delete did_serslot/Values/method";
-        }
-
-        /// <summary>
-        /// Head did_serslot/Values/method
-        /// </summary>
-        /// <returns></returns>
-        [HttpHead("method")]
-        public string Method_Head()
-        {
-            return "Head did_serslot/Values/method";
-        }
-
-        /// <summary>
-        /// Options did_serslot/Values/method
-        /// </summary>
-        /// <returns></returns>
-        [HttpOptions("method")]
-        public string Method_Options()
-        {
-            return "Options did_serslot/Values/method";
-        }
-
-        /// <summary>
-        /// Patch did_serslot/Values/method
-        /// </summary>
-        /// <returns></returns>
-        [HttpPatch("method")]
-        public string Method_Patch()
-        {
-            return "Patch did_serslot/Values/method";
-        }
-
-
-        /// <summary>
-        /// get|post did_serslot/Values/method2
-        /// </summary>
-        /// <returns></returns>
-        [Route("method2")]
-        [HttpGet, HttpPost]
-        public object Method2()
-        {
-            return new
-            {
-                Request.Path,
-                Method = Request.Method
-            };
-        }
-        #endregion
-
-
-        #region (x.4) Arg
-
-
-        /// <summary>
-        /// GET did_serslot/Values/arg1/{id}/{id2}
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("arg1/{id}/{id2}")]
-        public object Arg1(string id, string id2)
-        {
-            return new
-            {
-                route = "GET did_serslot/Values/arg1/{id}/{id2}",
-                arg = new { id, id2 }
-            };
+            return Request.Method + " " + Request.Path;
         }
 
         ///// <summary>
-        ///// GET did_serslot/Values/arg2/arg2?id={id}
+        ///// Head did_serslot/Values/500/method
         ///// </summary>
         ///// <returns></returns>
-        //[HttpGet("arg2?id={id}")]
-        //public object Arg2(string id)
+        //[HttpHead("500/method")]
+        //public string Method_Head()
         //{
-        //    return new
-        //    {
-        //        route = "GET did_serslot/Values/arg2/arg2?id={id}",
-        //        arg = new { id }
-        //    };
+        //    return Request.Method + " " + Request.Path;
         //}
 
-
         /// <summary>
-        /// POST did_serslot/Values/arg3
+        /// Options did_serslot/Values/500/method
         /// </summary>
         /// <returns></returns>
-        [HttpPost("arg3")]
-        public object Arg3([FromBody] string arg1)
+        [HttpOptions("500/method")]
+        public string Method_Options()
         {
-            return new
-            {
-                route = "POST did_serslot/Values/arg3",
-                arg = new { arg1 }
-            };
+            return Request.Method + " " + Request.Path;
+        }
+
+        /// <summary>
+        /// Patch did_serslot/Values/500/method
+        /// </summary>
+        /// <returns></returns>
+        [HttpPatch("500/method")]
+        public string Method_Patch()
+        {
+            return Request.Method + " " + Request.Path;
         }
 
 
-
         /// <summary>
-        /// POST did_serslot/Values/arg4
+        /// get|post did_serslot/Values/501/method
         /// </summary>
         /// <returns></returns>
-        [HttpPost("arg4")]
-        public object Arg4([FromBody] Arg4Model arg)
+        [Route("501/method")]
+        [HttpGet, HttpPost]
+        public string Method2()
         {
-            return new
-            {
-                route = "POST did_serslot/Values/arg4",
-                arg = arg
-            };
+            return Request.Method + " " + Request.Path;
         }
-        public class Arg4Model
-        {
-            public string arg1 { get; set; }
-            public string arg2 { get; set; }
-        };
         #endregion
+
+
 
 
     }

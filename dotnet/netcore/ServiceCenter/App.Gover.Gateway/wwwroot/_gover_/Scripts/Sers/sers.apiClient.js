@@ -3,23 +3,7 @@
 * sers.apiClient
 * Date  : 2019-02-19
 * author:lith 
-
-    <script type="text/javascript" src="lith.import.js"></script>
-
-    <script type="text/javascript" >
-         sers.apiClient.get({
-                widgetName: 'infoGet.widget'
-                , depends: [
-                    { type: 'js', src: '/xxx/xx.js' },
-                    { type: 'css', src: '/xxx/xx.css' },
-                    { type: 'css', content: '.classA{}' }
-                ]
-                , files: [
-                    { type: 'js', src: '/xxx/xx.js' }
-                ]
-            });
-    
-    </script>
+ * 
  */
 
 
@@ -37,7 +21,7 @@
 
 
     var ssConfig = {
-        apiHost: location.hostname + ':' + location.port //"127.0.0.1:6000"
+        apiHost: location.protocol+'//'+ location.hostname + ':' + location.port //   "http(s)://127.0.0.1:6000"
     };
 
     // sers.apiClient.ajax({ url:'http://a.com/a',type:'POST',header:{},data:{},onSuc:function(apiRet){ } });
@@ -48,7 +32,7 @@
 
         if (!url) {
             if (param.api) {
-                url = 'http://' + ssConfig.apiHost + param.api;
+                url =  ssConfig.apiHost + param.api;
             }
         }
 
@@ -89,7 +73,7 @@
 
         if (!url) {
             if (param.api) {
-                url = 'http://' + ssConfig.apiHost + param.api;
+                url = ssConfig.apiHost + param.api;
             }
         }
 

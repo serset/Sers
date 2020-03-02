@@ -1,7 +1,7 @@
 cd /d Demo
 
 :begin
-dotnet App.Demo.Station.dll
+dotnet Did.SersLoader.Demo.dll
 
  
  TIMEOUT /T 10

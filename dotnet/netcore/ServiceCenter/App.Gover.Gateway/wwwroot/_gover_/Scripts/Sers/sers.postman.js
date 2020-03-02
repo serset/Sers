@@ -112,6 +112,10 @@
             var rootItem = apiStationToPostmanItem(apiStations[stationName], stationName);
             root.push(rootItem);
         }
+        
+        //(x.4) 排序
+        root.sort(function (a, b) { return a.name < b.name ? -1 : 1; });
+
         return config;
     }
 

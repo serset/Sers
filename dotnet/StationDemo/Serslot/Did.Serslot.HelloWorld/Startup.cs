@@ -40,7 +40,7 @@ namespace Did.Serslot.HelloWorld
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

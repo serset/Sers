@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sers.Core.Module.App;
+using System;
 
 namespace Did.SersLoader.Demo.Controllers.PubSub.Controller
 {
@@ -10,6 +11,16 @@ namespace Did.SersLoader.Demo.Controllers.PubSub.Controller
     }
     public class UserSubController : Sers.Core.Module.PubSub.Controller.SubscriberController<MsgItem>
     {
+
+        #region (x.0) static init
+        static UserSubController()
+        {
+            SersApplication.onStart += SubscriberDemo.Subscribe;
+        }
+        #endregion
+
+
+
         public UserSubController() : base("AuthCenter.User.Login")
         {
         }

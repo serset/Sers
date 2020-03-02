@@ -40,7 +40,7 @@ namespace Did.Serslot.Demo
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

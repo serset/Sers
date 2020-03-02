@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <Version>2.1.1.288</Version>
+    <Version>2.1.1.290</Version>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <Description>https://github.com/sersms/Sers/tree/2.1.1/release</Description>
   </PropertyGroup>
@@ -11,15 +11,18 @@
   <PropertyGroup>
     <DocumentationFile>bin\Debug\netcoreapp2.1\Did.SersLoader.Demo.xml</DocumentationFile>   
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
+ 
   
   <ItemGroup>
+
+    <None Update="wwwroot\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    
     <None Update="mappings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

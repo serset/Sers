@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using Did.SersLoader.Demo.Controllers.PubSub;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Sers.Core.Module.Api;
 using Sers.Core.Module.Api.LocalApi.StaticFileTransmit;
 using Sers.Core.Module.Api.Rpc;
-using Sers.Core.Module.App;
 using Sers.Core.Module.Message;
 using Sers.Core.Module.Rpc;
 using Sers.SersLoader;
@@ -30,15 +29,6 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         : IApiController
     {
 
-        #region (x.0) static init
-        static SampleController()
-        {
-            SersApplication.onStart += SubscriberDemo.Subscribe;
-        }
-        #endregion
-
-
-
 
 
         #region (x.1)route
@@ -48,8 +38,8 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// route示例
         /// </summary>
         /// <returns></returns>
-        [SsRoute("1/route/1"), SsRoute("1/route/2")]
-        [SsRoute("/demo/v1/api/1/route/3")] //使用绝对路径路由  
+        [SsRoute("101/route"), SsRoute("102/route")]
+        [SsRoute("/demo/v1/api/103/route")] //使用绝对路径路由  
         public ApiReturn<object> Route()
         {
             return new { url = RpcContext.RpcData.http_url_Get() };
@@ -62,7 +52,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// </summary>
         /// <returns></returns>
 
-        [SsRoute("1/route/4/*")] //使用泛接口路径路由
+        [SsRoute("104/route/*")] //使用泛接口路径路由
         public ApiReturn<object> Route4()
         {
             var rpcData = RpcContext.RpcData;
@@ -88,7 +78,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// HttpMethod示例GET
         /// </summary>
         /// <returns></returns>
-        [SsRoute("1/route/5",HttpMethod ="GET")]
+        [SsRoute("105/route",HttpMethod ="GET")]
         public ApiReturn<object> Route5_Get()
         {
             return new { apiName = "Route5_Get", rpcData = RpcContext.RpcData };
@@ -98,7 +88,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// HttpMethod示例POST
         /// </summary>
         /// <returns></returns>
-        [SsRoute("1/route/5", HttpMethod = "POST")]
+        [SsRoute("105/route", HttpMethod = "POST")]
         public ApiReturn<object> Route5_POST()
         {
             return new { apiName = "Route5_POST", rpcData = RpcContext.RpcData };
@@ -116,7 +106,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// 函数注释和使用SsDescription是一样的效果。
         /// </summary>
         /// <returns></returns>
-        [SsRoute("2/NameDesc/1")]
+        [SsRoute("201/NameDesc")]
         [SsName("NameDesc1")]
         public ApiReturn NameDesc()
         {
@@ -127,7 +117,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// 
         /// </summary>
         /// <returns></returns>
-        [SsRoute("2/NameDesc/2")]
+        [SsRoute("202/NameDesc")]
         [SsDescription("演示 如何使用Name 和 Description。\n函数注释和使用SsDescription是一样的效果。")]
         public ApiReturn NameDesc2()
         {
@@ -140,11 +130,11 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         #region (x.x.1)无参
 
         /// <summary>
-        /// arg1
+        /// 无参
         /// </summary>
         /// <returns></returns>
-        [SsRoute("3/arg/10")]
-        public ApiReturn Arg10()
+        [SsRoute("310/arg")]
+        public ApiReturn Arg301()
         {
             return new ApiReturn();
         }
@@ -157,8 +147,8 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// </summary>
         /// <param name="args">arg1注释</param>
         /// <returns>ArgModelDesc-returns</returns>
-        [SsRoute("3/arg/21")]
-        public ApiReturn<Object> Arg21(
+        [SsRoute("320/arg")]
+        public ApiReturn<Object> Arg320(
              [SsExample("{\"arg\":\"arg\",\"arg2\":\"arg2\"}"), SsDefaultValue("{\"arg\":\"arg\",\"arg2\":\"arg2\"}"), SsDescription("argDescription")]ArgModel args
             )
         {
@@ -170,8 +160,8 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        [SsRoute("3/arg/22")]
-        public ApiReturn<Object> Arg22(
+        [SsRoute("321/arg")]
+        public ApiReturn<Object> Arg321(
              [SsExample("[\"arg1\",\"arg2\"]"), SsDefaultValue("[\"arg1\",\"arg2\"]"), SsDescription("argDescription")]string[] args)
         {
             return args;
@@ -182,8 +172,8 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// </summary>
         /// <param name="args">args注释</param>
         /// <returns></returns>
-        [SsRoute("3/arg/23")]
-        public ApiReturn<Object> Arg23(
+        [SsRoute("322/arg")]
+        public ApiReturn<Object> Arg322(
             [SsExample("argExample"), SsDefaultValue("argDefaultValue"), SsDescription("argDescription"),SsArgEntity]string args)
         {
             return args;
@@ -195,8 +185,8 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// <param name="args"></param>
         /// <param name="arg2"></param>
         /// <returns></returns>
-        [SsRoute("3/arg/24")]
-        public ApiReturn<Object> Arg24([SsArgEntity]string  args,string arg2)
+        [SsRoute("323/arg")]
+        public ApiReturn<Object> Arg323([SsArgEntity]string  args,string arg2)
         {
             return args;
         }
@@ -212,8 +202,8 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// </summary>
         /// <param name="arg1"></param>
         /// <returns></returns>
-        [SsRoute("3/arg/31")]
-        public ApiReturn<Object> Arg31([SsExample("argExample"), SsDefaultValue("argDefaultValue"), SsDescription("argDescription")]string arg1)
+        [SsRoute("330/arg")]
+        public ApiReturn<Object> Arg330([SsExample("argExample"), SsDefaultValue("argDefaultValue"), SsDescription("argDescription")]string arg1)
         {
             return new { arg1 };
         }
@@ -225,8 +215,8 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// <param name="arg1">arg1注释</param>
         /// <param name="arg2">arg2注释</param>
         /// <returns></returns>
-        [SsRoute("3/arg/32")]
-        public ApiReturn<Object> Arg32(
+        [SsRoute("331/arg")]
+        public ApiReturn<Object> Arg331(
             [SsExample("example1"), SsDefaultValue("default1"), SsDescription("desc1")]string arg1,
             [SsExample("6"), SsDefaultValue("1")]int arg2)
         {
@@ -243,8 +233,8 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// <param name="arg1">arg1注释</param>
         /// <param name="arg2">arg2注释</param>
         /// <returns></returns>
-        [SsRoute("3/arg/33")]
-        public ApiReturn<Object> Arg33(ArgModel arg1,
+        [SsRoute("332/arg")]
+        public ApiReturn<Object> Arg332(ArgModel arg1,
             [SsExample("6"), SsDefaultValue("1")]int arg2)
         {
             return new { arg1, arg2 };
@@ -256,8 +246,8 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// </summary>
         /// <param name="arg1">arg1注释</param>     
         /// <returns></returns>
-        [SsRoute("3/arg/34")]
-        public ApiReturn<Object> Arg34([SsArgProperty]ArgModel arg1)
+        [SsRoute("333/arg")]
+        public ApiReturn<Object> Arg333([SsArgProperty]ArgModel arg1)
         {
             return new { arg1};
         }
@@ -267,16 +257,16 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         public class ArgModel
         {
             /// <summary>
-            /// arg1Desc-xml
+            /// 姓名
             /// </summary>
-            [SsExample("example1"), SsDefaultValue("default1")]
+            [SsExample("lith"), SsDefaultValue("NoName")]
             [JsonProperty("arg")]
-            public string arg1 { get; set; }
+            public string name { get; set; }
             /// <summary>
             /// 
             /// </summary>
-            [SsExample("20"), SsDefaultValue("2"), SsDescription("desc2")]
-            public int arg2;
+            [SsExample("20"), SsDefaultValue("0"), SsDescription("年龄，请指定在16-50中间的整数")]
+            public int age;
         }
 
         #endregion
@@ -287,17 +277,17 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// Return1
         /// </summary>
         /// <returns>Return注释-FromXml</returns>
-        [SsRoute("4/ret/1")]
+        [SsRoute("401/ret")]
         public ApiReturn<ReturnData> Return1()
         {
-            return new ReturnData { arg1 ="arg1"};
+            return new ReturnData { name = "张三" };
         }
 
         /// <summary>
         /// Return2
         /// </summary>
         /// <returns></returns>
-        [SsRoute("4/ret/2")]
+        [SsRoute("402/ret")]
         [return: SsExample("{\"data\":12}"), SsDescription("成功个数")]
         public ApiReturn<int> Return2()
         {
@@ -308,7 +298,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// 
         /// </summary>
         /// <returns></returns>
-        [SsRoute("4/ret/3")]
+        [SsRoute("403/ret")]
         public ApiReturn<List<string>> Return3()
         {
             return new List<string>{ "1","2"};
@@ -319,8 +309,8 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// 
         /// </summary>
         /// <returns></returns>
-        [SsRoute("4/ret/4")]
-        [return: SsExample("test"), SsDescription("测试")]
+        [SsRoute("404/ret")]
+        [return: SsExample("test"), SsDescription("返回test1")]
         public string Return4()
         {
             return "test1";
@@ -331,8 +321,8 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// 
         /// </summary>
         /// <returns></returns>
-        [SsRoute("4/ret/5")]
-        [return: SsExample("12"), SsDescription("测试")]
+        [SsRoute("405/ret")]
+        [return: SsExample("5"), SsDescription("返回5")]
         public int Return5()
         {
             return 5;
@@ -343,11 +333,11 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// 
         /// </summary>
         /// <returns></returns>
-        [SsRoute("4/ret/6")]
-        [return: SsExample("{\"arg1\":\"arg1\"}"), SsDescription("测试")]
+        [SsRoute("406/ret")]
+        [return: /*SsExample("{\"name\":\"张三\"}"),*/ SsDescription("返回模型数据")]
         public ReturnData Return6()
         {
-            return new ReturnData { arg1 = "arg1" };
+            return new ReturnData { name = "张三" };
         }
 
 
@@ -358,10 +348,10 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         {
 
             /// <summary>
-            /// arg1Desc-xml
+            /// 姓名
             /// </summary>
-            [SsExample("example1"), SsDefaultValue("default1")]
-            public string arg1 { get; set; }
+            [SsExample("lith"), SsDefaultValue("NoName")]
+            public string name { get; set; }
         }
 
         #endregion
@@ -374,7 +364,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// </summary>
         /// <returns></returns>
 
-        [SsRoute("5/rpc/GetRpcOriData")]
+        [SsRoute("501/GetRpcOriData")]
         public ApiReturn<Object> GetRpcOriData()
         {
             return new ApiReturn<Object>(RpcContext.RpcData);
@@ -385,7 +375,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// rpc示例
         /// </summary>
         /// <returns></returns>
-        [SsRoute("5/rpc/RpcDemo")]
+        [SsRoute("502/RpcDemo")]
         public ApiReturn<Object> RpcDemo()
         {
             var rpcData = RpcContext.RpcData;
@@ -407,7 +397,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// </summary>
         /// <returns></returns>
 
-        [SsRoute("5/rpc/RpcReplyDemo")]
+        [SsRoute("503/RpcReplyDemo")]
         public ApiReturn<Object> RpcReplyDemo([SsArgEntity,SsExample("requestContent")]string request)
         {
             #region reply header
@@ -448,14 +438,16 @@ namespace Did.SersLoader.Demo.Controllers.Demo
 
         #region (x.6) ApiClient
 
+
+        #region (x.x.1)ApiClient示例,调用其他接口
         /// <summary>
         /// ApiClient示例,调用其他接口
         /// </summary>
         /// <returns></returns>
 
-        [SsRoute("6/ApiClient/1")]
-        public ApiReturn<Object> ApiClient1(
-            [SsExample("/demo/v1/3/arg/32")]string apiRoute, 
+        [SsRoute("610/ApiClient")]
+        public ApiReturn<Object> ApiClient610(
+            [SsExample("/demo/v1/api/332/arg")]string apiRoute, 
             [SsExample("{\"arg1\":\"dd\",\"arg2\":\"33\"}")]object arg)
         {
             var apiRet = ApiClient.CallRemoteApi<ApiReturn<Object>>(apiRoute, arg);
@@ -465,7 +457,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
                 apiRet
             });
         }
-
+        #endregion
 
         #region (x.x.2) ApiClient示例,传输二进制数据
 
@@ -474,10 +466,10 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// </summary>
         /// <param name="ba"></param>
         /// <returns></returns>
-        [SsRoute("6/ApiClient/2_1")]
+        [SsRoute("620/ApiClient")]
         [SsName("ApiClient demo")]
         [return:SsExample("1122AAFF"), SsDescription("二进制数据")]
-        public byte[] ApiClient2_1( 
+        public byte[] ApiClient620( 
             [SsExample("1122AAFF"), SsDescription("二进制数据")]byte[] ba)    // 使用ArraySegment<byte> 会减少一步复制的操作，若传输大数据建议使用ArraySegment<byte>
         {
             return ba;
@@ -488,10 +480,10 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// </summary>
         /// <param name="ba"></param>
         /// <returns></returns>
-        [SsRoute("6/ApiClient/2_2")]
+        [SsRoute("621/ApiClient")]
         [SsName("ApiClient demo")]
         [return: SsExample("1122AAFF"), SsDescription("二进制数据")]
-        public ArraySegment<byte> ApiClient2_2(
+        public ArraySegment<byte> ApiClient621(
             [SsExample("1122AAFF"), SsDescription("二进制数据")]ArraySegment<byte> ba)
         {
             return ba;
@@ -501,10 +493,10 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// ApiClient示例,传输二进制数据
         /// </summary>
         /// <returns></returns>
-        [SsRoute("6/ApiClient/2_3")]
-        public ApiReturn ApiClient2_3()
+        [SsRoute("622/ApiClient")]
+        public ApiReturn ApiClient622()
         {
-            var apiRet = ApiClient.CallRemoteApi<ArraySegment<byte>>("/demo/v1/api/6/ApiClient/2_1", new byte[] { 3, 2, 3, 4, 5 });
+            var apiRet = ApiClient.CallRemoteApi<ArraySegment<byte>>("/demo/v1/api/621/ApiClient", new byte[] { 3, 2, 3, 4, 5 });
             return new ApiReturn();
         }
         #endregion
@@ -515,8 +507,8 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// ApiClient示例,二进制数据和ReplyRpc
         /// </summary>
         /// <returns></returns>
-        [SsRoute("6/ApiClient/3_1")]
-        public ApiReturn ApiClient3_1()
+        [SsRoute("630/ApiClient")]
+        public ApiReturn ApiClient630()
         {
             var apiReply = RpcContext.Current.apiReplyMessage;
 
@@ -543,10 +535,10 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// ApiClient示例,传输二进制数据和ReplyRpc
         /// </summary>
         /// <returns></returns>
-        [SsRoute("6/ApiClient/3_2")]
+        [SsRoute("631/ApiClient")]
         public ApiReturn ApiClient3_2()
         {
-            var apiRequestMessage = new ApiMessage().InitAsApiRequestMessage("/demo/v1/6/ApiClient/3_1", null);
+            var apiRequestMessage = new ApiMessage().InitAsApiRequestMessage("/demo/v1/630/ApiClient", null);
 
             var fileToSend = new byte[] { 3, 2, 3, 4, 5 };
             apiRequestMessage.AddFiles(fileToSend.BytesToArraySegmentByte());
@@ -577,7 +569,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// UseStaticFiles
         /// </summary>
         /// <returns></returns>
-        [SsRoute("7/static/*")]
+        [SsRoute("700/static/*")]
         public byte[] UseStaticFiles()
         {
             return staticFileMap.TransmitFile();
@@ -722,36 +714,43 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         #endregion
 
 
- 
+
 
         #endregion
 
 
-     
+        #region (x.9)特殊示例
 
-        #region (x.10) 递归demo
+       
+
+        #region (x.x.1) 递归demo
         /// <summary>
-        ///  递归demo。f(n)  =  f(n-1) + 1
+        ///  递归。 f(n)  =  f(n-1) + f(n-2)
         /// </summary>
         /// <returns></returns>
-        [SsRoute("10/fn")]
-        public ApiReturn<int> Fn([SsExample("2")]int n)
+        [SsRoute("901/Recursive")]
+        public ApiReturn<int> Recursive([SsExample("4")]int n)
         {
-            if (n <= 1) return 1;
-         
-            var apiRet = ApiClient.CallRemoteApi<ApiReturn<int>>(RpcContext.RpcData.route, new { n= n-1});
-            if (!apiRet.success) return apiRet.error;
-            return apiRet.data+1;
+            if (n <= 2) return 1;
+
+            var task1 = ApiClient.CallRemoteApiAsync<ApiReturn<int>>(RpcContext.RpcData.route, new { n = n - 1 });
+            var task2 = ApiClient.CallRemoteApiAsync<ApiReturn<int>>(RpcContext.RpcData.route, new { n = n - 2 });
+            Task.WaitAll(task1, task1);
+            var apiRet1 = task1.Result;
+            var apiRet2 = task2.Result;
+            if (!apiRet1.success) return apiRet1.error;
+            if (!apiRet2.success) return apiRet2.error;
+            return apiRet1.data+ apiRet2.data;
         }
         #endregion
 
 
-        #region (x.11) Sleep
+        #region (x.x.2) Sleep
         /// <summary>
         ///  睡眠指定时间
         /// </summary>
         /// <returns></returns>
-        [SsRoute("11/sleep")]
+        [SsRoute("902/sleep")]
         public ApiReturn<int> Sleep(
             [SsExample("2"),SsDescription("单位:s")]int s)
         {
@@ -763,12 +762,12 @@ namespace Did.SersLoader.Demo.Controllers.Demo
 
 
 
-        #region (x.12) Upload
+        #region (x.x.3) Upload
         /// <summary>
-        ///  上传文件(测试地址 /demo/v1/api/7/static/upload.html)
+        ///  上传文件(测试地址 /demo/v1/api/700/static/upload.html)
         /// </summary>
         /// <returns></returns>
-        [SsRoute("12/upload",HttpMethod = "POST")]
+        [SsRoute("903/upload",HttpMethod = "POST")]
         public ApiReturn<object> Upload(byte[] data)
         {
             MultipartForm result=new MultipartForm(data, RpcContext.RpcData.http_header_ContentType_Get());
@@ -778,5 +777,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         #endregion
 
 
+
+        #endregion
     }
 }

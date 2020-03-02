@@ -15,12 +15,8 @@ namespace Did.SersLoader.HelloWorld
             ServiceStation.Init();
 
 
-            #region (x.2)加载api
+            //(x.2)加载api
             ServiceStation.Instance.LoadSersApi(typeof(Program).Assembly);
-            #endregion
-
-
-
 
             //(x.3) Start
             ServiceStation.Start();

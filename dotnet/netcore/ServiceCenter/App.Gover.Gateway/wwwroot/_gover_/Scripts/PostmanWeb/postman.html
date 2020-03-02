@@ -85,7 +85,11 @@
                     </tr>
 
                     <tr>
-                        <td><a href="#" onclick="vpostman.ui_Request.body = formatJson(vpostman.ui_Request.body);" title="点击作为json格式化">body</a></td>
+                        <td>
+                            <a href="#" onclick="vpostman.ui_Request.body = formatJson(vpostman.ui_Request.body);" title="点击作为json格式化">body</a><br />
+                            <input type="checkbox" id="chkBodyAsPlain"   /><label for="chkBodyAsPlain" title="直接发送字符串，不进行eval转换">发送原文</label>
+
+                        </td>
                         <td>
                             <textarea rows="10" cols="100" v-model="ui_Request.body"></textarea>
                         </td>
@@ -242,9 +246,11 @@
                 }
 
                 if (param.data) {
-                    try {
-                        param.data = eval('(' + param.data + ')');
-                    } catch (e) {
+                    if (!$('#chkBodyAsPlain').is(':checked')) {
+                        try {
+                            param.data = eval('(' + param.data + ')');
+                        } catch (e) {
+                        }
                     }
                 }
 
