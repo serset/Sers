@@ -113,7 +113,7 @@ namespace Sers.SersLoader
 
 
                     #region (x.x.3) 遍历method 构建apiNodes             
-                    var methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Public);
+                    var methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);             
                     foreach (var method in methods)
                     {
                         //(x.x.x.1) sampleApiDesc
