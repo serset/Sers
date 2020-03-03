@@ -1,14 +1,21 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
+using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Extensions;
 
-namespace Vit.Core.Util.ComponentModel.SsError.Extensions
+namespace Vit.Extensions
 {
     public static partial class ExceptionExtensions 
     {
         #region Data
 
-
+        /// <summary>
+        /// SsError
+        /// </summary>
+        /// <typeparam name="Type"></typeparam>
+        /// <param name="ex"></param>
+        /// <param name="key"></param>
+        /// <param name="data"></param>
         public static void Data_Set<Type>(this Exception ex, string key,Type data)
         {
             if (ex == null)
@@ -19,6 +26,13 @@ namespace Vit.Core.Util.ComponentModel.SsError.Extensions
         }
 
 
+        /// <summary>
+        /// SsError
+        /// </summary>
+        /// <typeparam name="Type"></typeparam>
+        /// <param name="ex"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static Type Data_Get<Type>(this Exception ex, string key)
         {
             if (ex == null)
@@ -32,12 +46,23 @@ namespace Vit.Core.Util.ComponentModel.SsError.Extensions
 
         #region ErrorCode
 
+        /// <summary>
+        /// SsError
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <param name="ErrorCode"></param>
+        /// <returns></returns>
         public static Exception ErrorCode_Set(this Exception ex,int? ErrorCode)
         {
             ex.Data_Set("ErrorCode", ErrorCode);
             return ex;
         }
 
+        /// <summary>
+        /// SsError
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <returns></returns>
         public static int? ErrorCode_Get(this Exception ex)
         {
             return ex.Data_Get<int?>("ErrorCode");
@@ -47,6 +72,12 @@ namespace Vit.Core.Util.ComponentModel.SsError.Extensions
 
         #region ErrorMessage
 
+        /// <summary>
+        /// SsError
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <param name="ErrorMessage"></param>
+        /// <returns></returns>
         public static Exception ErrorMessage_Set(this Exception ex, string ErrorMessage)
         {
             ex.Data_Set("ErrorMessage", ErrorMessage);
@@ -62,7 +93,7 @@ namespace Vit.Core.Util.ComponentModel.SsError.Extensions
 
         #region ErrorTag
         /// <summary>
-        /// 自定义ErrorTag格式。每处ErrorTag建议唯一。建议格式为 日期_作者缩写_自定义序号，例如："150721_lith_1"
+        /// SsError。自定义ErrorTag。每处ErrorTag建议唯一。建议格式为 日期_作者缩写_自定义序号，例如："150721_lith_1"
         /// </summary>
         /// <param name="ex"></param>
         /// <param name="ErrorTag"></param>
@@ -73,7 +104,7 @@ namespace Vit.Core.Util.ComponentModel.SsError.Extensions
         }
 
         /// <summary>
-        /// 自定义ErrorTag格式。每处ErrorTag建议唯一。建议格式为 日期_作者缩写_自定义序号，例如："150721_lith_1"
+        /// SsError。自定义ErrorTag。每处ErrorTag建议唯一。建议格式为 日期_作者缩写_自定义序号，例如："150721_lith_1"
         /// </summary>
         /// <param name="ex"></param>
         /// <returns></returns>
@@ -86,7 +117,7 @@ namespace Vit.Core.Util.ComponentModel.SsError.Extensions
 
         #region ErrorDetail
         /// <summary>
-        /// 设置ErrorDetail
+        /// SsError。设置ErrorDetail
         /// </summary>
         /// <param name="ex"></param>
         /// <param name="ErrorDetail"></param>
@@ -96,7 +127,7 @@ namespace Vit.Core.Util.ComponentModel.SsError.Extensions
             return ex;
         }
         /// <summary>
-        /// 获取ErrorDetail，可能为null
+        /// SsError。获取ErrorDetail，可能为null
         /// </summary>
         /// <param name="ex"></param>
         /// <returns></returns>
@@ -108,7 +139,7 @@ namespace Vit.Core.Util.ComponentModel.SsError.Extensions
 
         #region ErrorDetail
         /// <summary>
-        /// 设置ErrorDetail的属性值。若ErrorDetail为null,则会自动创建
+        /// SsError。设置ErrorDetail的属性值。若ErrorDetail为null,则会自动创建
         /// </summary>
         /// <param name="ex"></param>
         /// <param name="key"></param>
@@ -127,7 +158,7 @@ namespace Vit.Core.Util.ComponentModel.SsError.Extensions
         }
 
         /// <summary>
-        /// 获取ErrorDetail的属性值
+        /// SsError。获取ErrorDetail的属性值
         /// </summary>
         /// <param name="ex"></param>
         /// <param name="key"></param>
@@ -142,23 +173,24 @@ namespace Vit.Core.Util.ComponentModel.SsError.Extensions
 
         #region SsError
         /// <summary>
-        /// 
+        /// SsError
         /// </summary>
         /// <param name="ex"></param>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
+        /// <param name="ssError"></param>
+        /// <returns></returns>
 
         public static Exception SsError_Set(this Exception ex, SsError ssError)
-        {            
-            return ssError.SetErrorToException(ex);
+        {
+            ssError?.SetErrorToException(ex);
+            return ex;
         }
 
         /// <summary>
-        /// 
+        /// SsError
         /// </summary>
         /// <param name="ex"></param>
         /// <returns></returns>
-        public static SsError SsError_Get(this Exception ex)
+        public static SsError ToSsError(this Exception ex)
         {
             return new SsError().LoadFromException(ex);
         }

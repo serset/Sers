@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Version>2.1.1.290</Version>
+    <Version>2.1.1.291</Version>
     <Description>https://github.com/sersms/Sers/tree/2.1.1/release</Description>
   </PropertyGroup>
   

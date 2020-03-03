@@ -21,6 +21,7 @@ namespace Vit.Ioc.MsTest
         {            
             //(x.1)Singleton
             IocHelp.AddSingleton<InterfaceA, ClassA>();
+            IocHelp.Update();
             var obj0_1 = IocHelp.Create<InterfaceA>();
             var obj0_1_HashCode = obj0_1.GetHashCode();
 

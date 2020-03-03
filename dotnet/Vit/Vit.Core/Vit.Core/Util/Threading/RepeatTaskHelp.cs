@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Vit.Core.Module.Log;
-using Vit.Core.Util.ComponentModel.SsError.Extensions;
+using Vit.Extensions;
 
 namespace Vit.Core.Util.Threading
 {
@@ -122,7 +122,7 @@ namespace Vit.Core.Util.Threading
         {
             if (IsRunning)
             {
-                throw new Exception().SsError_Set(LongTaskHelp.Error_CannotStartWhileRunning);
+                throw LongTaskHelp.Error_CannotStartWhileRunning.ToException();
             }
 
             sendStopSignal = false;

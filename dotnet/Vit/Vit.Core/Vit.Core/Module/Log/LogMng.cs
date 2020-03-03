@@ -3,7 +3,6 @@ using System;
 using System.IO;
 using System.Linq;
 using Vit.Core.Util.ComponentModel.SsError;
-using Vit.Core.Util.ComponentModel.SsError.Extensions;
 
 namespace Vit.Core.Module.Log
 {
@@ -186,7 +185,7 @@ namespace Vit.Core.Module.Log
             if (null != ex)
             {
                 ex = ex.GetBaseException();
-                var ssError = ex.SsError_Get().Serialize();
+                var ssError = ex.ToSsError().Serialize();
                 //if (!string.IsNullOrWhiteSpace(ssError))
                 strMsg += Environment.NewLine + " ssError:" + ssError;
                 strMsg += Environment.NewLine + " StackTrace:" + ex.StackTrace;

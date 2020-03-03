@@ -293,7 +293,6 @@ namespace Sers.Gateway
             if (null != replyRpcData)
             {
                 var joHeaders=replyRpcData.http_headers_Get();
-
                 if (null != joHeaders)
                 {
                     foreach (var item in joHeaders)

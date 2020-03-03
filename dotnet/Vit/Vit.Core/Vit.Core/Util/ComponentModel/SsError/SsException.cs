@@ -1,6 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
-using Vit.Core.Util.ComponentModel.SsError.Extensions;
+using Vit.Extensions;
 
 namespace Vit.Core.Util.ComponentModel.SsError
 {

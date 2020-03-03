@@ -19,7 +19,7 @@ namespace Sers.SersLoader
         public LocalApiNode(SsApiDesc apiDesc,  MethodInfo apiController_Method,Object apiController_Obj)
         {
             this.apiDesc = apiDesc;
-            this.apiController_Method = apiController_Method;
+            //this.apiController_Method = apiController_Method;
             this.apiController_Obj = apiController_Obj;
             executor = new DynamicMethodExecutor(apiController_Method);
         }
@@ -42,7 +42,7 @@ namespace Sers.SersLoader
         #region apiController        
 
         //private Type apiController_Type;
-        MethodInfo apiController_Method;
+        //MethodInfo apiController_Method;
         Object apiController_Obj;
         #endregion
 

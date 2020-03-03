@@ -67,7 +67,7 @@ namespace Sers.Core.Module.Api
                 var reply = CallApi(request.Package());
                 if (null == reply || reply.Count == 0)
                 {
-                    //Logger.Error(new Exception().SsError_Set(SsError.Err_Timeout));
+                    //Logger.Error(SsError.Err_Timeout.ToException());
                     //返回请求超时，无回应数据
                     return new ApiMessage().InitAsApiReplyMessageByError(SsError.Err_Timeout);
                 }

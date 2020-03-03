@@ -171,7 +171,21 @@ namespace Vit.Core.Util.Net
                 if (buff.Length > 0) buff.Length--;
                 return buff.ToString();
             }
-            else if (parameters is JObject joParameters)
+            else if (parameters is JObject jo)
+            {
+                return FormatJObject(jo);
+                
+            }
+            else if (parameters is string)
+            {
+                return (string)parameters;
+            }
+
+            return FormatJObject(parameters.ConvertBySerialize<JObject>());
+
+
+            #region FormatJObject
+            string FormatJObject(JObject joParameters) 
             {
                 StringBuilder buff = new StringBuilder();
                 foreach (var kv in joParameters)
@@ -181,11 +195,7 @@ namespace Vit.Core.Util.Net
                 if (buff.Length > 0) buff.Length--;
                 return buff.ToString();
             }
-            else if (parameters is string)
-            {
-                return (string)parameters;
-            }
-            throw new Exception("Url_BuildParam,不支持的url参数格式[" + parameters.GetType().Name + "]");
+            #endregion 
         }
         #endregion
 
@@ -245,7 +255,7 @@ namespace Vit.Core.Util.Net
         /// </summary>
         public string httpMethod;
         /// <summary>
-        /// 放到url中的参数。可为string、IDictionary、JObject
+        /// 放到url中的参数。可为string、IDictionary、JObject。若为其他类型则自动转换为JObject在进行处理
         /// </summary>
         public Object urlParams;
 

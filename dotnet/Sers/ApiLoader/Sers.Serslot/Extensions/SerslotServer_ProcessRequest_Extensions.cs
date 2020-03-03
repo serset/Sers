@@ -42,10 +42,14 @@ namespace Vit.Extensions
                 };
 
                 #region http header
-                foreach (var t in rpcData.http_headers_Get())
+                var headers = rpcData.http_headers_Get();
+                if (headers != null)
                 {
-                    requestFeature.Headers.Add(t.Key, t.Value.ConvertToString());
-                }
+                    foreach (var t in headers)
+                    {
+                        requestFeature.Headers.Add(t.Key, t.Value.ConvertToString());
+                    }
+                }                 
                 #endregion
 
                 //var requestFeature = new HttpRequestFeature

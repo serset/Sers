@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Vit.Core.Util.ComponentModel.Model;
-using Vit.Core.Util.ComponentModel.SsError.Extensions;
+using Vit.Extensions;
 
 namespace Vit.Core.Util.ComponentModel.SsError
 {

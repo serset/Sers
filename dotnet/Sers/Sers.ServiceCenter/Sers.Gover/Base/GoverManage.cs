@@ -15,7 +15,6 @@ using Sers.ServiceCenter.ApiCenter;
 using Sers.ServiceCenter.Entity;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.SsError;
-using Vit.Core.Util.ComponentModel.SsError.Extensions;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Extensions;
 
@@ -204,7 +203,7 @@ namespace Sers.Gover.Base
             {
                 Logger.Error(ex);
 
-                ApiSysError.LogSysError(rpcData, requestMessage, ex.SsError_Get());
+                ApiSysError.LogSysError(rpcData, requestMessage, ex.ToSsError());
  
                 SendReply(SsError.Err_SysErr);
                 return;

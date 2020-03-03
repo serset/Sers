@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading;
-using System.Linq;
 using Vit.Extensions;
 using Vit.Core.Module.Log;
-using Vit.Core.Util.ComponentModel.SsError.Extensions;
 
 namespace Vit.Core.Util.Threading
 {
@@ -38,7 +36,7 @@ namespace Vit.Core.Util.Threading
             get => _threadCount;
             set
             {
-                if (IsRunning) throw new Exception().SsError_Set(LongTaskHelp.Error_CannotChangeThreadCountWhileRunning);
+                if (IsRunning) throw LongTaskHelp.Error_CannotChangeThreadCountWhileRunning.ToException();
                 _threadCount = value;
                 if (_threadCount > 0)
                     semaphore = new Semaphore(_threadCount, _threadCount);
@@ -117,7 +115,7 @@ namespace Vit.Core.Util.Threading
         {
             if (IsRunning)
             {
-                throw new Exception().SsError_Set(LongTaskHelp.Error_CannotStartWhileRunning);
+                throw LongTaskHelp.Error_CannotStartWhileRunning.ToException();
             }
             if (threadCount <=0)
             {

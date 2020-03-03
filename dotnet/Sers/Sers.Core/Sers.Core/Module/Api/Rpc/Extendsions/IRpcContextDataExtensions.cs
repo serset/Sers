@@ -211,15 +211,27 @@ namespace Vit.Extensions
 
 
         #region http_url
+        /// <summary>
+        /// 若为内部调用，在调用时构建的url前缀为  "http://sers.internal"。
+        /// 如 "http://sers.internal/Station1/getName"
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static String http_url_Get(this IRpcContextData data)
         {
             return data?.oriJson?["http"]?["url"]?.ConvertToString();
         }
 
-        public static void http_url_Set(this IRpcContextData data, String value)
+        /// <summary>
+        /// 若为内部调用，手动添加url前缀 "http://sers.internal"。
+        /// 如 "http://sers.internal/Station1/getName"
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="url"></param>
+        public static void http_url_Set(this IRpcContextData data, String url)
         {
             if (null == data) return;
-            data.oriJson.GetOrCreateJObject("http")["url"] = value;
+            data.oriJson.GetOrCreateJObject("http")["url"] = url;
         }
         #endregion
 
@@ -344,6 +356,11 @@ namespace Vit.Extensions
         #endregion      
 
         #region http_headers
+        /// <summary>
+        /// 若没指定headers则返回null
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static JObject http_headers_Get(this IRpcContextData data)
         {
             return data?.oriJson?.JTokenGetByPath("http", "headers") as JObject;
