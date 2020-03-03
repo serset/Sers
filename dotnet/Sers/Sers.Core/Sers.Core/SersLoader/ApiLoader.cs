@@ -117,10 +117,13 @@ namespace Sers.SersLoader
                     foreach (var method in methods)
                     {
                         //(x.x.x.1) sampleApiDesc
-                        var sampleApiDesc = GetApiDesc(method);
+                        SsApiDesc sampleApiDesc = null;
 
                         //(x.x.x.2) 构建apiNodes
-                        var nodes = LoadApiNodes(routePrefixs, method, () => sampleApiDesc.Clone());
+                        var nodes = LoadApiNodes(routePrefixs, method, () => {
+                            if(sampleApiDesc==null) return sampleApiDesc = GetApiDesc(method);
+                            return sampleApiDesc.Clone();
+                        });
                         if (nodes != null && nodes.Count > 0)
                         {
                             //apiNodes.AddRange(nodes);
