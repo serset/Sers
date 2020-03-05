@@ -112,6 +112,7 @@ namespace Sers.ServiceCenter
             }
             public void Close() 
             {
+                ServiceCenter.Instance.StopCenter();
             }
 
         }
