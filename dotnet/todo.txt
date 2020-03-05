@@ -6,7 +6,6 @@ CUR£º
 ---------------------
 TODO
  
-gateway https
 
 
 
