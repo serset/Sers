@@ -249,7 +249,8 @@ namespace Sers.Gover.Base
 
         public override void ServiceStation_Remove(IOrganizeConnection  conn)
         {
-            var serviceStation = serviceStationMng.ServiceStation_Remove(conn);
+            string connKey = ""+ conn.GetHashCode();
+            var serviceStation = serviceStationMng.ServiceStation_Remove(connKey);
             if (serviceStation != null)
             {
                 Logger.Info("[ApiCenterService]Remove serviceStation,stationName:" + serviceStation?.serviceStationInfo?.serviceStationName);
@@ -276,6 +277,18 @@ namespace Sers.Gover.Base
             }
             return serviceStation != null; 
         }
+
+        public bool ServiceStation_Stop(string connKey)
+        {
+            var serviceStation = serviceStationMng.ServiceStation_Remove(connKey);
+            if (serviceStation != null)
+            {
+                Logger.Info("[ApiCenterService]Stop serviceStation,stationName:" + serviceStation?.serviceStationInfo?.serviceStationName);
+                serviceStation.connection.Close();
+            }
+            return serviceStation != null;
+        }
+
         #endregion
 
 

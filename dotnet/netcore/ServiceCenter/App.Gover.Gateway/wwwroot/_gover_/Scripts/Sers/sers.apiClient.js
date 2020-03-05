@@ -120,7 +120,9 @@
         obj.post({ api: '/_gover_/serviceStation/pause', arg: { connKey: connKey }, onSuc: onSuc });  
     };
 
-
+    obj.serviceStation_stop = function (connKey, onSuc) {
+        obj.post({ api: '/_gover_/serviceStation/stop', arg: { connKey: connKey }, onSuc: onSuc });
+    };
 
 
     obj.apiStation_getAll = function (onSuc) {
@@ -135,6 +137,7 @@
         obj.post({ api: '/_gover_/apiStation/pause', arg: { stationName: stationName }, onSuc: onSuc });  
     };
 
+   
 
 
 })('undefined' != typeof (sers) ? sers : (sers = {}));

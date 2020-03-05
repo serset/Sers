@@ -110,6 +110,10 @@ namespace Sers.ServiceCenter
             {
                 MessageClient.Instance.OnGetMessage(this, message.ByteDataToArraySegment());
             }
+            public void Close() 
+            {
+            }
+
         }
 
 

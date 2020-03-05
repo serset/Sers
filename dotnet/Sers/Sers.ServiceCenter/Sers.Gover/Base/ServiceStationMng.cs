@@ -115,9 +115,9 @@ namespace Sers.Gover.Base
 
 
 
-        public ServiceStation ServiceStation_Remove(IOrganizeConnection  conn)
+        public ServiceStation ServiceStation_Remove(string connKey)
         {           
-            if (!serviceStation_ConnKey_Map.TryRemove(conn.GetHashCode(), out var serviceStation))
+            if (!serviceStation_ConnKey_Map.TryRemove(int.Parse(connKey), out var serviceStation))
             {
                 return null;
             }

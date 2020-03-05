@@ -52,10 +52,22 @@ namespace Sers.Gover.Controller.ApiControllers
         {
             return new ApiReturn { success = GoverManage.Instance.ServiceStation_Start(connKey) };
         }
-         
 
 
-     
+
+        /// <summary>
+        /// 启用指定的服务站点
+        /// </summary>
+        /// <returns></returns>
+        [SsRoute("serviceStation/stop")]
+        [SsCallerSource(ECallerSource.Internal)]
+        //[CallFromGover]
+        [SsName("启用指定的服务站点")]
+        public ApiReturn Stop(string connKey)
+        {
+            return new ApiReturn { success = GoverManage.Instance.ServiceStation_Stop(connKey) };
+        }
+
 
 
 

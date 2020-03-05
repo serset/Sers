@@ -31,7 +31,7 @@
             {{station.apiStationNames}} <br />
             stationVersion：{{ (station.serviceStationInfo||{}).stationVersion }}<br />
             状态：{{station.status}}（正常、暂停）<br />
-            操作：  <a href="#" @click="start(station)">打开</a>   <a href="#" @click="pause(station)">暂停</a><br />
+            操作：  <a href="#" @click="start(station)">打开</a>   <a href="#" @click="pause(station)">暂停</a>  <a href="#" @click="stop(station)">强制关闭</a> <br />
             -----------------------<br />
             apiNodeCount:{{station.apiNodeCount}} <br />
             activeApiNodeCount:{{station.activeApiNodeCount}}     <br />
@@ -76,6 +76,11 @@
                     });
                 }, pause: function (station) {
                     sers.apiClient.serviceStation_pause(station.connKey, function (data) {
+                        rendStations();
+                    });
+                }, stop: function (station) {
+                    if (!confirm('手动关闭服务站点后，服务站点不一定会自动重新连接，确定继续吗？')) return;
+                    sers.apiClient.serviceStation_stop(station.connKey, function (data) {
                         rendStations();
                     });
                 }

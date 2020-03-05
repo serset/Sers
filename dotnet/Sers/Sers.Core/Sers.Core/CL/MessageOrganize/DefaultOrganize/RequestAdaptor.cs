@@ -634,11 +634,8 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             {
                 if (info.IsDisconnected(heartBeatRetryCount))
                 {
-                    var deliveryConn = conn.GetDeliveryConn();
-                    if (deliveryConn!= null){
-                        Logger.Info("[CL.RequestAdaptor]HeartBeat,conn disconnected. connTag:" + conn.connTag);
-                        deliveryConn.Close();
-                    }
+                    Logger.Info("[CL.RequestAdaptor]HeartBeat,conn disconnected. connTag:" + conn.connTag);
+                    conn.Close();                    
                     return;
                 }
             }
