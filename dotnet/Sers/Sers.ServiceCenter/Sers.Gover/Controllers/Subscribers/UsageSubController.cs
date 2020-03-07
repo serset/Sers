@@ -2,7 +2,7 @@
 using Sers.Core.Module.PubSub.Controller;
 using Sers.Gover.Base;
 
-namespace Sers.Gover.Controller.Subscribers
+namespace Sers.Gover.Controllers.Subscribers
 {
     public class UsageSubController : SubscriberController<EnvUsageInfo>
     {

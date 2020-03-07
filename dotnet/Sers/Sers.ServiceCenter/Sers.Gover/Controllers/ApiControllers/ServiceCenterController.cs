@@ -1,17 +1,17 @@
-﻿using Sers.Core.Module.Api.Rpc;
-using System;
-using Newtonsoft.Json.Linq;
-using Vit.Extensions;
-using Vit.Core.Module.Log;
+﻿using System;
 using System.Diagnostics;
+using Newtonsoft.Json.Linq;
+using Sers.Core.Module.Api.Rpc;
+using Sers.Hardware.Usage;
 using Sers.SersLoader;
 using Sers.SersLoader.ApiDesc.Attribute.Valid;
-using Sers.Hardware.Usage;
+using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.Api;
 using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.ComponentModel.Model;
+using Vit.Extensions;
 
-namespace Sers.Gover.Controller.ApiControllers
+namespace Sers.Gover.Controllers.ApiControllers
 {
     [SsStationName("_gover_")]
     public class ServerCenterController : IApiController

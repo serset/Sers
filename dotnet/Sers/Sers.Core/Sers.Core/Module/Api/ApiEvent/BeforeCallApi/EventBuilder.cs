@@ -66,7 +66,7 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi
                 {
                     return null;
                 }
-                assembly = Assembly.LoadFrom(CommonHelp.GetAbsPathByRealativePath(assemblyFile));
+                assembly = Assembly.LoadFrom(CommonHelp.GetAbsPath(assemblyFile));
                 #endregion
 
                 //(x.x.4) create class

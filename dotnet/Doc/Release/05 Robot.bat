@@ -1,7 +1,5 @@
-cd /d Robot
-
 :begin
-dotnet App.Robot.Station.dll
+dotnet Robot/App.Robot.Station.dll
 
  
  TIMEOUT /T 10

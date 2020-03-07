@@ -19,7 +19,16 @@ namespace Sers.ServiceCenter.Entity
     [JsonObject(MemberSerialization.OptIn)]
     public class ServiceStation: Extensible
     {
+        /// <summary>
+        /// 服务站点开启时间
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public DateTime? startTime;
 
+        /// <summary>
+        /// CL通信层连接对象
+        /// </summary>
+        [JsonIgnore]
         public IOrganizeConnection  connection { get; set; }
 
         /// <summary>

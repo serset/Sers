@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using Sers.Core.Module.Api.Rpc;
-using Sers.SersLoader;
-using Sers.SersLoader.ApiDesc.Attribute.Valid;
 using Sers.Gover.Base;
 using Sers.Gover.Base.Model;
+using Sers.SersLoader;
+using Sers.SersLoader.ApiDesc.Attribute.Valid;
 using Vit.Core.Util.ComponentModel.Api;
 using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.ComponentModel.Model;
 
-namespace Sers.Gover.Controller.ApiControllers
+namespace Sers.Gover.Controllers.ApiControllers
 {
     [SsStationName("_gover_")]
     public class ServiceStationController : IApiController

@@ -51,11 +51,15 @@ namespace Vit.Core.Util.ConfigurationManager
         public string configPath { get; protected set; }
 
         /// <summary>
-        /// 通过绝对路径加载json文件
+        /// 通过绝对路径(或相对路径)加载json文件
         /// </summary>
         /// <param name="configPath"></param>
         public JsonFile(string configPath)
         {
+            //if (!Path.IsPathRooted(configPath)) 
+            //{
+                configPath = CommonHelp.GetAbsPath(configPath);
+            //} 
             this.configPath = configPath;
             RefreshConfiguration();
         }
@@ -64,7 +68,7 @@ namespace Vit.Core.Util.ConfigurationManager
         /// 通过相对路径加载json文件
         /// </summary>
         /// <param name="path">如： new []{"Data","sqler.json"}</param>
-        public JsonFile(params string[] path ):this(CommonHelp.GetAbsPathByRealativePath(path))
+        public JsonFile(params string[] path ):this(CommonHelp.GetAbsPath(path))
         {
             
         }

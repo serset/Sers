@@ -6,6 +6,7 @@ using System.IO;
 using System.Web;
 using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Core.Util.ConfigurationManager;
+using Vit.Core.Util.Common;
 
 namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
 {
@@ -17,6 +18,11 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
 
 
         #region LoadContentTypeFromFile
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public bool LoadContentTypeFromFile(string filePath)
         {
             var jsonFile = new JsonFile(filePath);
@@ -40,7 +46,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
         private string _fileBasePath;
         /// <summary>
         /// D://fold1/wwwroot
-        /// 静态文件路径。可为相对路径或绝对路径。若未指定存在的文件夹则默认为当前目录下的wwwroot文件夹。
+        /// 静态文件绝对路径
         /// </summary>
         public string fileBasePath
         {
@@ -49,37 +55,15 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             {
                 #region (x.1) get fullPath
                 string fullPath = value;
-                if ("" == fullPath)
-                {
-                    fullPath = Path.Combine(AppContext.BaseDirectory, "wwwroot");
-                }
-                else if (fullPath != null)
-                {
-                    if (!Directory.Exists(fullPath))
-                    {
-                        fullPath = Path.Combine(AppContext.BaseDirectory, fullPath);
-                    }
-                }
 
                 if (string.IsNullOrEmpty(fullPath))
                 {
-                    fullPath = null;
+                    fullPath = "wwwroot";
                 }
-                else
-                {
-                    var dir = new DirectoryInfo(fullPath);
-                    if (dir.Exists)
-                    {
-                        fullPath = dir.FullName;
-                    }
-                    else
-                    {
-                        fullPath = null;
-                    }
-                }
+                fullPath = CommonHelp.GetAbsPath(fullPath);               
                 #endregion
 
-                _fileBasePath = fullPath ?? Path.Combine(AppContext.BaseDirectory, "wwwroot");
+                _fileBasePath = fullPath;
             }
         }
         #endregion
@@ -87,9 +71,10 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
 
 
         /// <summary>
-        /// 
+        /// fileBasePath：静态文件路径。可为相对路径或绝对路径。若不指定（null或空字符串）则默认为入口程序所在目录下的wwwroot文件夹。
+        ///   demo  D://fold1/wwwroot 
         /// </summary>
-        /// <param name="fileBasePath">静态文件路径。可为相对路径或绝对路径。若未指定存在的文件夹则默认为当前目录下的wwwroot文件夹。demo  D://fold1/wwwroot </param>
+        /// <param name="fileBasePath"></param>
         public StaticFileMap(string fileBasePath = null)
         {
             this.fileBasePath = fileBasePath;

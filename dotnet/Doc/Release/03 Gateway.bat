@@ -1,7 +1,6 @@
-cd /d Gateway
 
 :begin
-dotnet App.Gateway.dll
+dotnet Gateway/App.Gateway.dll
 
 TIMEOUT /T 1
 @echo restart

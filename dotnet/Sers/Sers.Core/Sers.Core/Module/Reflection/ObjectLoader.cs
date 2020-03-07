@@ -25,7 +25,7 @@ namespace Sers.Core.Module.Reflection
             {
                 try
                 {
-                    var filePath = CommonHelp.GetAbsPathByRealativePath(assemblyFile);
+                    var filePath = CommonHelp.GetAbsPath(assemblyFile);
                     if (File.Exists(filePath))
                     {
                         assembly = Assembly.LoadFrom(filePath);

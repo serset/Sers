@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 
 namespace Vit.Extensions
 {
@@ -28,6 +30,15 @@ namespace Vit.Extensions
                 //    x.MultipartBodyLengthLimit = int.MaxValue; // In case of multipart
                 //});
             });
+
+            if (null == Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.Get<JToken>("Logging"))
+            {
+                data.ConfigureLogging((Microsoft.Extensions.Logging.ILoggingBuilder logging) =>
+                {
+                    logging.ClearProviders();
+                });
+            }         
+
             return data;
         }
     }

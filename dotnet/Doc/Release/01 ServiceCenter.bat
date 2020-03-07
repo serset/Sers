@@ -1,7 +1,6 @@
-cd /d ServiceCenter
 
 :begin
-dotnet App.ServiceCenter.dll
+dotnet ServiceCenter/App.ServiceCenter.dll
 
  TIMEOUT /T 1
 @echo restart

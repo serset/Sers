@@ -25,7 +25,7 @@ namespace Vit.Extensions
 
         public static List<string> ApiStationNames_Get(this ServiceStation data)
         {
-            return data.apiNodes.Select((apiNode) => apiNode.apiDesc.ApiStationNameGet()).Distinct().ToList();
+            return data.apiNodes.Select((apiNode) => apiNode.apiDesc.ApiStationNameGet()).Distinct().OrderBy(m=>m).ToList();
         }
 
 

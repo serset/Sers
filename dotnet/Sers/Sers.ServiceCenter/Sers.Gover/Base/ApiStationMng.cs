@@ -59,7 +59,7 @@ namespace Sers.Gover.Base
 
         public List<ApiStationData> ApiStation_GetAll()
         {
-            return apiStations.Values.ToList();
+            return apiStations.Values.OrderBy(m=>m.stationName).ToList();
         }
 
          

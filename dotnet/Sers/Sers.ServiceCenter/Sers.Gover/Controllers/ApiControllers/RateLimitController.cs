@@ -1,13 +1,13 @@
 ﻿using Newtonsoft.Json.Linq;
 using Sers.Core.Module.Api.Rpc;
-using Sers.SersLoader;
-using Sers.SersLoader.ApiDesc.Attribute.Valid;
 using Sers.Gover.Base;
 using Sers.Gover.RateLimit;
+using Sers.SersLoader;
+using Sers.SersLoader.ApiDesc.Attribute.Valid;
 using Vit.Core.Util.ComponentModel.Api;
 using Vit.Core.Util.ComponentModel.Data;
 
-namespace Sers.Gover.Controller.ApiControllers
+namespace Sers.Gover.Controllers.ApiControllers
 {
     [SsStationName("_gover_")]
     [SsRoutePrefix("rateLimit")]

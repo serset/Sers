@@ -54,7 +54,7 @@ namespace Sers.SersLoader
             {
                 try
                 {
-                    config.assembly = Assembly.LoadFile(CommonHelp.GetAbsPathByRealativePath(config.assemblyFile));
+                    config.assembly = Assembly.LoadFile(CommonHelp.GetAbsPath(config.assemblyFile));
                 }
                 catch (Exception ex)
                 {

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using Vit.Extensions;
+using Vit.Core.Util.Common;
 
 namespace Vit.WebHost
 {
@@ -24,7 +25,7 @@ namespace Vit.WebHost
         /// </summary>
         private string _wwwrootPath = null;
         /// <summary>
-        /// 静态文件路径。可为相对路径或绝对路径。若为空字符串则默认为当前目录下的wwwroot文件夹。若不指定(null)则不映射静态文件。
+        /// 静态文件路径。可为相对路径或绝对路径。若为空字符串则默认为入口程序所在目录下的wwwroot文件夹。若不指定(null)则不映射静态文件。
         /// </summary>
         public string wwwrootPath
         {
@@ -35,22 +36,13 @@ namespace Vit.WebHost
                 string fullPath = value;
                 if ("" == fullPath)
                 {
-                    fullPath = Path.Combine(AppContext.BaseDirectory, "wwwroot");
-                }
-                else if (fullPath != null)
-                {
-                    if (!Directory.Exists(fullPath))
-                    {
-                        fullPath = Path.Combine(AppContext.BaseDirectory, fullPath);
-                    }
+                    fullPath = "wwwroot";
                 }
 
-                if (string.IsNullOrEmpty(fullPath)) 
+                if (fullPath != null)
                 {
-                    fullPath = null;
-                }
-                else
-                {
+                    fullPath = CommonHelp.GetAbsPath(fullPath);
+               
                     var dir = new DirectoryInfo(fullPath);
                     if (dir.Exists)
                     {
