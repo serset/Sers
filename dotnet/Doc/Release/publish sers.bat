@@ -3,32 +3,32 @@ cd /d ../../
 echo 'publish Gateway'
 cd /d netcore\Gateway\App.Gateway
 dotnet build --configuration Release
-dotnet publish --configuration Release --output ..\..\..\Doc\Release\Gateway 
+dotnet publish --configuration Release --output ..\..\..\Doc\Release\SersPublish\Gateway 
 cd /d ../../../
  
 echo 'publish Gover'
 cd /d netcore\ServiceCenter\App.Gover.Gateway
 dotnet build --configuration Release
-dotnet publish --configuration Release --output ..\..\..\Doc\Release\Gover 
+dotnet publish --configuration Release --output ..\..\..\Doc\Release\SersPublish\Gover 
 cd /d ../../../
  
 echo 'publish ServiceCenter'
 cd /d netcore\ServiceCenter\App.ServiceCenter
 dotnet build --configuration Release
-dotnet publish --configuration Release --output ..\..\..\Doc\Release\ServiceCenter
+dotnet publish --configuration Release --output ..\..\..\Doc\Release\SersPublish\ServiceCenter
 cd /d ../../../ 
 
 echo 'publish Robot'
 cd /d netcore\Station\App.Robot.Station
 dotnet build --configuration Release
-dotnet publish --configuration Release --output ..\..\..\Doc\Release\Robot
+dotnet publish --configuration Release --output ..\..\..\Doc\Release\SersPublish\Robot
 cd /d ../../../
 
 
 echo 'publish Demo'
 cd /d StationDemo\SersLoader\Did.SersLoader.Demo
 dotnet build --configuration Release
-dotnet publish --configuration Release --output ..\..\..\Doc\Release\Demo
+dotnet publish --configuration Release --output ..\..\..\Doc\Release\SersPublish\Demo
 cd /d ../../../
 
  
