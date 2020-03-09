@@ -22,4 +22,3 @@ echo 'publish CLÑ¹²â succeed£¡'
 echo 'publish CLÑ¹²â succeed£¡'
 
 
-pause
