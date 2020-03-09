@@ -170,7 +170,7 @@ namespace Sers.ServiceCenter
         /// </summary>
         public void LoadApi()
         {
-            localApiService.LoadApi_StaticFileMap();
+            localApiService.LoadApi_StaticFiles();
             localApiService.LoadApi();
         }
 

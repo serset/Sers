@@ -25,8 +25,8 @@ namespace Sers.Gateway
 
         public static void Bridge()
         {
-            var webHostUrls = ConfigurationManager.Instance.GetByPath<string[]>("Sers.Gateway.WebHost.urls");
-            if (webHostUrls == null || webHostUrls.Length == 0) return;
+            HostRunArg arg = ConfigurationManager.Instance.GetByPath<HostRunArg>("Sers.Gateway.WebHost"); 
+            if (arg == null || arg.urls==null || arg.urls.Length == 0) return;
 
 
             #region (x.2)初始化GatewayHelp
@@ -44,72 +44,30 @@ namespace Sers.Gateway
 
             #endregion
 
+
             #region (x.3)初始化WebHost
-
-            RunArg arg = new RunArg { allowAnyOrigin = true };
-
-
 
             //(x.x.1)指定可以与iis集成（默认无法与iis集成）
             arg.OnCreateWebHostBuilder = () => Microsoft.AspNetCore.WebHost.CreateDefaultBuilder().UseVitConfig();
+            
 
-            //(x.x.2)配置web服务监听地址（urls）
-            arg.urls = webHostUrls;
-
-
-            #region (x.x.3)配置静态文件映射
-
-            arg.wwwrootPath = ConfigurationManager.Instance.GetByPath<string>("Sers.Gateway.WebHost.wwwroot");
-
-            if (arg.wwwrootPath != null)
-            {
-                #region 静态文件类型映射配置（mappings.json）
-                try
-                {
-                    var jsonFile = new JsonFile(new[] { "mappings.json" });
-                    if (File.Exists(jsonFile.configPath))
-                    {
-                        var provider = new FileExtensionContentTypeProvider();
-                        var map = provider.Mappings;
-                        foreach (var item in (jsonFile.root as JObject))
-                        {
-                            map.Remove(item.Key);
-                            map[item.Key] = item.Value.Value<string>();
-                        }
-
-                        arg.OnInitStaticFileOptions += (StaticFileOptions staticfileOptions) =>
-                        {
-                            staticfileOptions.ContentTypeProvider = provider;
-                        };
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex);
-                }
-                #endregion
-            }
-            #endregion
-
-
-            #region (x.x.4)转发web请求到Sers(网关核心功能)
+            #region (x.x.2)转发web请求到Sers(网关核心功能)
             arg.OnConfigure = (app) =>
-            {
+            {               
                 app.Run(gatewayHelp.Bridge);
             };
             #endregion
 
 
-            //(x.x.5)设置异步启动
+            //(x.x.3)设置异步启动
             arg.RunAsync = true;
 
 
-            #region (x.x.6)启动           
+            #region (x.x.4)启动           
             Logger.Info("[WebHost]will listening on: " + string.Join(",", arg.urls));
 
-            if (arg.wwwrootPath != null)
-                Logger.Info("[WebHost]wwwroot : " + arg.wwwrootPath);
+            if (arg.staticFiles?.rootPath != null)
+                Logger.Info("[WebHost]wwwroot : " + arg.staticFiles?.rootPath);
 
             Vit.WebHost.Host.Run(arg);
             #endregion
