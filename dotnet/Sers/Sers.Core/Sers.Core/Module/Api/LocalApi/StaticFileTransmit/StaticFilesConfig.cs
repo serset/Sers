@@ -24,30 +24,15 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             get => _rootPath?? CommonHelp.GetAbsPath("wwwroot");
             set
             {
-                #region (x.1) get fullPath
-                string fullPath = value;
-                if ("" == fullPath)
+                if (string.IsNullOrEmpty(value))
                 {
-                    fullPath = "wwwroot";
+                    _rootPath = null;
+                    return;
                 }
-
-                if (fullPath != null)
+                else
                 {
-                    fullPath = CommonHelp.GetAbsPath(fullPath);
-
-                    var dir = new DirectoryInfo(fullPath);
-                    if (dir.Exists)
-                    {
-                        fullPath = dir.FullName;
-                    }
-                    else
-                    {
-                        fullPath = null;
-                    }
-                }
-                #endregion
-
-                _rootPath = fullPath;
+                    _rootPath = CommonHelp.GetAbsPath(value);
+                }                 
             }
         }
         #endregion
@@ -62,10 +47,10 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
 
 
         #region contentTypeProvider
- 
+
 
         /// <summary>
-        /// 静态文件类型映射配置的文件路径。可为相对路径或绝对路径。例如"mappings.json"。若不指定（或指定的文件不存在）则不指定文件类型映射配置
+        /// 静态文件类型映射配置的文件路径。可为相对路径或绝对路径。例如"contentTypeMap.json"。若不指定（或指定的文件不存在）则不指定文件类型映射配置
         /// </summary>
         [JsonProperty]
         public string contentTypeMapFile { get; set; }
