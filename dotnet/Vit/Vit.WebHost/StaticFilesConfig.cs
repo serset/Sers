@@ -44,6 +44,21 @@ namespace Vit.WebHost
 
 
         /// <summary>
+        /// 默认页面（可不指定）。An ordered list of file names to select by default. List length and ordering  may affect performance
+        /// </summary>       
+        [JsonProperty]
+        public List<string> defaultFileNames { get; set; }
+
+
+        /// <summary>
+        /// 是否可浏览目录(default false)。Enables directory browsing
+        /// </summary>       
+        [JsonProperty]
+        public bool? useDirectoryBrowser { get; set; }
+
+
+
+        /// <summary>
         /// 回应静态文件时额外添加的http回应头。可不指定。
         /// </summary>       
         [JsonProperty]

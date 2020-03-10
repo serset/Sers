@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.FileProviders;
+using System.Collections.Generic;
 using Vit.WebHost;
 
 namespace Vit.Extensions
@@ -46,7 +47,29 @@ namespace Vit.Extensions
                 staticfileOptions.ContentTypeProvider = config.contentTypeProvider;
             }
 
-            data.UseStaticFiles(staticfileOptions);          
+
+
+            #region (x.6)UseDefaultFiles
+            if (config.defaultFileNames != null) 
+            {
+                data.UseDefaultFiles(new DefaultFilesOptions
+                {
+                    DefaultFileNames = config.defaultFileNames
+                });
+            }
+            #endregion
+
+
+            //(x.7)UseStaticFiles
+            data.UseStaticFiles(staticfileOptions);
+
+
+            //(x.8)UseDirectoryBrowser
+            if (config.useDirectoryBrowser == true) 
+            {               
+                data.UseDirectoryBrowser(new DirectoryBrowserOptions { FileProvider = staticfileOptions.FileProvider });
+            }
+
 
             return data;
         }
