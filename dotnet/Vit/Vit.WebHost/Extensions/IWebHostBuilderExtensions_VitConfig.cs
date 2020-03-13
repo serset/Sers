@@ -18,17 +18,27 @@ namespace Vit.Extensions
             {
                 services.Configure(delegate (Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions options)
                 {                    
-                    //不限制body的大小
+                    //限制body的大小
                     options.Limits.MaxRequestBodySize = Vit.Core.Util.ConfigurationManager.ConfigurationManager
                     .Instance.GetByPath<long?>("Vit.Kestrel.MaxRequestBodySize");
                 });
 
                 //解决Multipart body length limit 134217728 exceeded
-                //services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(x =>
-                //{
-                //    x.ValueLengthLimit = int.MaxValue;
-                //    x.MultipartBodyLengthLimit = int.MaxValue; // In case of multipart
-                //});
+                services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(x =>
+                {
+                    
+                    var ValueLengthLimit = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<int?>("Vit.Kestrel.ValueLengthLimit");
+                    if (ValueLengthLimit.HasValue)
+                    {
+                        x.ValueLengthLimit = ValueLengthLimit.Value;
+                    }
+
+                    var MultipartBodyLengthLimit = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<long?>("Vit.Kestrel.MultipartBodyLengthLimit");
+                    if (MultipartBodyLengthLimit.HasValue)
+                    {
+                        x.MultipartBodyLengthLimit = MultipartBodyLengthLimit.Value;// In case of multipart
+                    }        
+                });
             });
 
             if (null == Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.Get<JToken>("Logging"))
