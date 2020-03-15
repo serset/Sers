@@ -1,5 +1,6 @@
 ﻿using Sers.SersLoader;
 using Sers.ServiceStation;
+using Vit.Extensions;
 
 namespace App.Robot.Station
 {
@@ -16,10 +17,9 @@ namespace App.Robot.Station
             //(x.1) Init
             ServiceStation.Init();
 
-            //(x.2) Discovery
-          
+            //(x.2) 加载Api
             ServiceStation.Instance.LoadSersApi(typeof(Program).Assembly, new ApiLoaderConfig { apiStationName = "_robot_" });
-            //ServiceStation.Instance.LoadApi();
+            ServiceStation.Instance.localApiService.LoadApi_StaticFiles();
 
 
             //(x.3) Start

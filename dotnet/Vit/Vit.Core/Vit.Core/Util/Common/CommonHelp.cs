@@ -19,6 +19,7 @@ namespace Vit.Core.Util.Common
         /// <returns></returns>
         public static string GetAbsPath(params string[] path)
         {
+            if (path == null || path.Length == 0) return AppContext.BaseDirectory;
             return Path.Combine(AppContext.BaseDirectory , String.Join( Path.DirectorySeparatorChar.ToString(), path));
         }
 

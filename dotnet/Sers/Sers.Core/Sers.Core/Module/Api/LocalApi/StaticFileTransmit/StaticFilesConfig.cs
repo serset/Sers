@@ -16,12 +16,12 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
         private string _rootPath = null;
 
         /// <summary>
-        /// 静态文件路径。可为相对路径或绝对路径。若为空或空字符串则默认为入口程序所在目录下的wwwroot文件夹。demo:"wwwroot/demo"
+        /// 静态文件路径。可为相对路径或绝对路径。若为空或空字符串则默认为入口程序所在目录。demo:"wwwroot/demo"
         /// </summary>
         [JsonProperty]
         public string rootPath
         {
-            get => _rootPath?? CommonHelp.GetAbsPath("wwwroot");
+            get => _rootPath?? CommonHelp.GetAbsPath();
             set
             {
                 if (string.IsNullOrEmpty(value))
