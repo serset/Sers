@@ -225,14 +225,25 @@ namespace Vit.Core.Util.Net
 
 
         #region config       
-        readonly System.Net.Http.HttpClient http = new System.Net.Http.HttpClient();
+        public readonly System.Net.Http.HttpClient http = new System.Net.Http.HttpClient();
         public string BaseAddress
         {
             set
             {
+
                 http.BaseAddress = new Uri(value);
             }
         }
+
+        public double TimeoutSeconds
+        {
+            set
+            {
+
+                http.Timeout = TimeSpan.FromSeconds(value);
+            }
+        }
+
         #endregion
     }
 
