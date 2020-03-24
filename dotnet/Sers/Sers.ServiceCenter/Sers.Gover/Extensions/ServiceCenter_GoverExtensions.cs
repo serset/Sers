@@ -35,6 +35,7 @@ namespace Vit.Extensions
         static int SaveToFile_tick = 0;
         static void QpsTimer_Calc()
         {
+            //(x.1)计算ApiStation qps
             try
             {
                 foreach (var item in GoverManage.Instance.ApiStation_GetAll())
@@ -47,7 +48,20 @@ namespace Vit.Extensions
                 Logger.Error(ex);
             }
 
-          
+            //(x.2)计算ServiceStation qps
+            try
+            {
+                foreach (var item in GoverManage.Instance.serviceStationMng.serviceStationKey_Map.Values)
+                {
+                    item.QpsCalc();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Logger.Error(ex);
+            }
+
+            //(x.3)按需保存计数信息到文件
             try
             {
                 SaveToFile_tick++;

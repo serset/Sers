@@ -29,7 +29,7 @@ namespace Sers.Gover.Base
         /// <summary>
         ///  serviceStationKey 和 服务站点 的映射
         /// </summary>
-        ConcurrentDictionary<string, ServiceStation> serviceStationKey_Map = new ConcurrentDictionary<string, ServiceStation>();
+        internal readonly ConcurrentDictionary<string, ServiceStation> serviceStationKey_Map = new ConcurrentDictionary<string, ServiceStation>();
 
 
         public void PublishUsageInfo(EnvUsageInfo item)
@@ -55,6 +55,7 @@ namespace Sers.Gover.Base
                     status = "" + m.Status_Get(),
                     usageStatus = m.usageStatus,
                     counter = m.counter,
+                    qps=m.qps,
                     apiNodeCount = m.apiNodes.Count,
                     activeApiNodeCount = m.ActiveApiNodeCount_Get(),
                     apiStationNames = m.ApiStationNames_Get()

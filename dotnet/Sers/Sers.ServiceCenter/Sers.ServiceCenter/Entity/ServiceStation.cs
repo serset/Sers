@@ -65,6 +65,31 @@ namespace Sers.ServiceCenter.Entity
         #endregion
 
 
+
+        #region QpsCacl
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty]
+        public float qps { get; private set; } = 0;
+
+        private DateTime? qps_TimeLast = null;
+        private int qps_SumCountLast = 0;
+        public void QpsCalc()
+        {
+            var curSumCount = counter.sumCount;
+            var curTime = DateTime.Now;
+            if (qps_TimeLast != null)
+            {
+                qps = ((int)(100000.0f * (curSumCount - qps_SumCountLast) / (curTime - qps_TimeLast.Value).TotalMilliseconds)) / 100f;
+            }
+            qps_TimeLast = curTime;
+            qps_SumCountLast = curSumCount;
+        }
+        #endregion
+
+
+
         public string GetApiStationNames()
         {
             var stationNames = apiNodes.Select(m => m.apiDesc.ApiStationNameGet());

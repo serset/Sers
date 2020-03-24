@@ -31,8 +31,11 @@ namespace Sers.Gover.Base.Model
 
         public Counter counter;
 
+        public float qps;
+
         public int apiNodeCount;
         public int activeApiNodeCount;
         public List<string> apiStationNames;
+
     }
 }

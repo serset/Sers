@@ -34,6 +34,7 @@
             状态：{{station.status}}（正常、暂停）<br />
             操作：  <a href="#" @click="start(station)">打开</a>   <a href="#" @click="pause(station)">暂停</a>  <a href="#" @click="stop(station)">强制关闭</a> <br />
             -----------------------<br />
+            qps:{{station.qps}} <br />
             apiNodeCount:{{station.apiNodeCount}} <br />
             activeApiNodeCount:{{station.activeApiNodeCount}}     <br />
             calledCount  err/sum:  {{(station.counter||{}).errorCount}}/ {{(station.counter||{}).sumCount}}<br />
@@ -56,6 +57,7 @@
                     <td>  <font :title="station.connKey">{{(station.connKey||'').substr(0,4) }} </font></td>
                 </tr>
             </table>
+            st
             <br /> <!--{{station.deviceInfo}}-->
         </div>
 
