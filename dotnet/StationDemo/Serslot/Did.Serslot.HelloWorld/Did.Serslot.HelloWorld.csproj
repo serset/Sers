@@ -22,6 +22,12 @@
     <ProjectReference Include="..\..\..\Sers\ApiLoader\Sers.Serslot\Sers.Serslot.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
  
   
 </Project>

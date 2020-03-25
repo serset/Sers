@@ -354,33 +354,35 @@ namespace Sers.ServiceStation
 
 
         public void StopStation()
-        {
-            if (!SersApplication.IsRunning) return;
+        {       
 
             Logger.Info("[ServiceStation] stoping...");
 
+            if (SersApplication.IsRunning)
+            {
+                #region CommunicationManage Stop
+                Logger.Info("[CL] stop...");
+                try
+                {
+                    communicationManage.Stop();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex);
+                }
+                Logger.Info("[CL] stoped");
+                #endregion
 
-            #region CommunicationManage Close
-            Logger.Info("[CL] stop...");
-            try
-            {
-                communicationManage.Stop();
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
-            }
-            Logger.Info("[CL] stoped");
-            #endregion
-            
-
-            try
-            {
-                localApiService.Stop();
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
+                Logger.Info("[LocalApiService] stop...");
+                try
+                {
+                    localApiService.Stop();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex);
+                }
+                Logger.Info("[LocalApiService] stoped");
             }
 
             Logger.Info("[ServiceStation] stoped");

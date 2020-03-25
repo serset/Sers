@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Did.Serslot.Demo": {
+    "console": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/values",
