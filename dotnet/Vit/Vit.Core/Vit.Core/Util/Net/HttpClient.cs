@@ -190,7 +190,7 @@ namespace Vit.Core.Util.Net
                 StringBuilder buff = new StringBuilder();
                 foreach (var kv in joParameters)
                 {
-                    buff.Append(UrlEncode(kv.Key.ToString())).Append("=").Append(UrlEncode(kv.Value.Value<string>())).Append("&");
+                    buff.Append(UrlEncode(kv.Key)).Append("=").Append(UrlEncode(kv.Value.ConvertToString())).Append("&");
                 }
                 if (buff.Length > 0) buff.Length--;
                 return buff.ToString();
