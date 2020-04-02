@@ -38,6 +38,37 @@ namespace Vit.Extensions
         {
             return Init(rpcData, callerSource.EnumToString());
         }
+
+
+        public static IRpcContextData Init(this IRpcContextData rpcData, string url, string httpMethod = null)
+        {
+            //(x.1)设置url
+            rpcData.http_url_Set("http://sers.internal" + url);       
+
+            #region (x.2)设置route
+            //去除query string(url ?后面的字符串)           
+            {
+                //问号的位置
+                var queryIndex = url.IndexOf('?');
+
+                // b2?a=c
+                if (queryIndex >= 0)
+                {
+                    rpcData.route = url.Substring(0, queryIndex);
+                }
+                else
+                {
+                    rpcData.route = url;
+                }
+            }
+            #endregion
+
+            //(x.3)设置httpMethod
+            if (httpMethod != null) rpcData.http_method_Set(httpMethod);   
+
+            return rpcData;
+        }
+
         #endregion
 
         #region InitFromRpcContext

@@ -23,7 +23,7 @@ namespace Vit.Core.Util.Net
         /// <returns></returns>
         public async Task<HttpResponse<T>> SendAsync<T>(HttpRequest request)
         {
-            #region (x.1)构建HttpRequest            
+            #region (x.1)构建请求            
 
             #region (x.x.1)创建对象           
             var url = request.url;
@@ -31,31 +31,31 @@ namespace Vit.Core.Util.Net
             {
                 url = UrlAddParams(url, request.urlParams);
             }
-            HttpRequestMessage httpResquest = new HttpRequestMessage(new HttpMethod(request.httpMethod ?? "GET"), url);
-            #endregion
-
-            #region (x.x.2)headers
-            if (request.headers != null)
-            {
-                foreach (var item in request.headers)
-                {
-                    httpResquest.Headers.Add(item.Key, item.Value);
-                }
-            }
-            #endregion
+            HttpRequestMessage httpRequest = new HttpRequestMessage(new HttpMethod(request.httpMethod ?? "GET"), url);
+            #endregion          
 
 
-            #region (x.x.3)body
+            #region (x.x.2)body
             if (request.body != null)
             {
                 if (request.body is byte[] bytes)
                 {
-                    httpResquest.Content = new ByteArrayContent(bytes);
+                    httpRequest.Content = new ByteArrayContent(bytes);
                 }
                 else
                 {
                     var content = Serialization.Instance.SerializeToString(request.body);
-                    httpResquest.Content = new StringContent(content, request.requestEncoding, "application/json");
+                    httpRequest.Content = new StringContent(content, request.requestEncoding, "application/json");
+                }
+            }
+            #endregion
+
+            #region (x.x.3)headers
+            if (request.headers != null)
+            {
+                foreach (var item in request.headers)
+                {
+                    httpRequest.Content.Headers.Add(item.Key, item.Value);
                 }
             }
             #endregion
@@ -64,14 +64,13 @@ namespace Vit.Core.Util.Net
             #endregion
 
             //(x.2)发送请求
-            var response = await http.SendAsync(httpResquest);
+            var response = await http.SendAsync(httpRequest);
 
             #region (x.3)读取回应
             var httpResponse = new HttpResponse<T>();
             httpResponse.StatusCode = (int)response.StatusCode;
 
-            httpResponse.headers = response.Headers?.AsEnumerable().ToDictionary(kv => kv.Key, kv => string.Join(",", kv.Value));
-
+            httpResponse.headers = response.Content?.Headers?.AsEnumerable().ToDictionary(kv => kv.Key, kv => string.Join(",", kv.Value));
 
             if (response.IsSuccessStatusCode)
             {
@@ -85,7 +84,6 @@ namespace Vit.Core.Util.Net
                     string data = await response.Content.ReadAsStringAsync();
                     httpResponse.data = data.Deserialize<T>();
                 }
-
             }
             return httpResponse;
             #endregion

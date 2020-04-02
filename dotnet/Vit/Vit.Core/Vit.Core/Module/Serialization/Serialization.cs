@@ -296,7 +296,7 @@ namespace Vit.Core.Module.Serialization
             }
             if (obj is byte[] bytes)
             {
-                return bytes.SerializeToArraySegmentByte();
+                return bytes.BytesToArraySegmentByte();
             }
 
             if (!(obj is string strValue))
