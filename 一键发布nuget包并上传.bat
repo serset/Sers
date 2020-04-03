@@ -1,4 +1,4 @@
-cd /d "dotnet\Doc\Release"
+cd /d "dotnet\Doc\Publish"
 call "pack sers_lib.bat"
 call "push sers_lib to SersNugetServer.bat"
 cd /d ../../../
