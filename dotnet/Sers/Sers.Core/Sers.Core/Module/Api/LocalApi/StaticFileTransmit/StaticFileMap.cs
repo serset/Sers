@@ -134,7 +134,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             }
 
             #region reply header
-            var replyRpcData = RpcFactory.Instance.CreateRpcContextData();
+            var replyRpcData = RpcFactory.CreateRpcContextData();
 
             if (responseHeaders != null) 
             {
@@ -197,7 +197,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             }
 
             #region reply header
-            var replyRpcData = RpcFactory.Instance.CreateRpcContextData();
+            var replyRpcData = RpcFactory.CreateRpcContextData();
 
             var header = new JObject();
 

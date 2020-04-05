@@ -72,7 +72,7 @@ namespace Vit.Extensions
 
 
                 #region (x.3)build reply info
-                var rpcReply = RpcFactory.Instance.CreateRpcContextData();
+                var rpcReply = RpcFactory.CreateRpcContextData();
 
                 //(x.x.1)StatusCode
                 rpcReply.http_statusCode_Set(responseFeature.StatusCode);

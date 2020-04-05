@@ -16,7 +16,7 @@ namespace Vit.Extensions
             if (data == null || error == null) return data;
 
             #region (x.1) set rpcData
-            var rpcData = RpcFactory.Instance.CreateRpcContextData();
+            var rpcData = RpcFactory.CreateRpcContextData();
             rpcData.error_Set(error);
 
             data.RpcContextData_OriData_Set(rpcData);
@@ -85,7 +85,7 @@ namespace Vit.Extensions
         public static ApiMessage InitAsApiRequestMessage(this ApiMessage apiRequestMessage, string url, Object arg=null,string httpMethod=null,Action<IRpcContextData>InitRpc=null)
         {   
             //(x.1)初始化rpcData
-            var rpcData = RpcFactory.Instance.CreateRpcContextData().InitFromRpcContext().Init(url, httpMethod);
+            var rpcData = RpcFactory.CreateRpcContextData().InitFromRpcContext().Init(url, httpMethod);
             InitRpc?.Invoke(rpcData);
             apiRequestMessage.RpcContextData_OriData_Set(rpcData);
 

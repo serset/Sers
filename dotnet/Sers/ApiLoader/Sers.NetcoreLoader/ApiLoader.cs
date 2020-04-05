@@ -8,6 +8,7 @@ using Sers.Core.Module.Api.LocalApi;
 using Sers.Serslot;
 using Vit.Extensions;
 using Vit.Ioc;
+using Sers.Core.Module.Api.LocalApi.Event;
 
 namespace Sers.NetcoreLoader
 {
@@ -16,7 +17,7 @@ namespace Sers.NetcoreLoader
         static ApiLoader()
         {
             #region use ioc            
-            global::Sers.Core.Module.Rpc.RpcFactory.Instance.UseIoc();            
+            LocalApiEventMng.Instance.UseIoc();            
             #endregion
         }
 

@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using Sers.Core.Module.Api;
 using Sers.Core.Module.Message;
@@ -34,7 +32,7 @@ namespace Sers.Gateway
             var gatewayHelp = new GatewayHelp();
 
             #region (x.x.1)构建 Api Event BeforeCallApi
-            var BeforeCallApi = Sers.Core.Module.Api.ApiEvent.BeforeCallApi.EventBuilder.LoadEvent(ConfigurationManager.Instance.GetByPath<JArray>("Sers.Gateway.BeforeCallApi"));
+            var BeforeCallApi = Sers.Core.Module.Api.ApiEvent.EventBuilder.LoadEvent_BeforeCallApi(ConfigurationManager.Instance.GetByPath<JArray>("Sers.Gateway.BeforeCallApi"));
             if (BeforeCallApi != null) gatewayHelp.BeforeCallApi += BeforeCallApi;
             #endregion
 
@@ -193,7 +191,7 @@ namespace Sers.Gateway
         {
        
    
-            var rpcData = RpcFactory.Instance.CreateRpcContextData().Init(Rpc_CallerSource);
+            var rpcData = RpcFactory.CreateRpcContextData().Init(Rpc_CallerSource);
 
             rpcData.route = request.Path.Value;
  
@@ -282,7 +280,7 @@ namespace Sers.Gateway
                 var rpcContextData_OriData = apiReply.rpcContextData_OriData;
                 if (null != rpcContextData_OriData && rpcContextData_OriData.Count > 0)
                 {
-                    return RpcFactory.Instance.CreateRpcContextData().UnpackOriData(rpcContextData_OriData);  
+                    return RpcFactory.CreateRpcContextData().UnpackOriData(rpcContextData_OriData);  
                 }
                 return null;
             }

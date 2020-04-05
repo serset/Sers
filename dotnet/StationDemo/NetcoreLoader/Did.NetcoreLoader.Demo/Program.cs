@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json.Linq;
+using Sers.Core.Module.Api.LocalApi.Event;
 using Sers.ServiceStation;
 using Vit.Extensions;
 
@@ -16,7 +17,7 @@ namespace Did.NetcoreLoader.Demo
 
                 ServiceStation.Init();
 
-                global::Sers.Core.Module.Rpc.RpcFactory.Instance.UseIoc();
+                LocalApiEventMng.Instance.UseIoc();
 
                 #region (x.x)加载api             
                 ServiceStation.Instance.localApiService.LoadNetcoreApi(typeof(Program).Assembly);

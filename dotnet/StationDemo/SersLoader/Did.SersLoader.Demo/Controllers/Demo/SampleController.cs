@@ -403,7 +403,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
             #region reply header
 
             RpcContext.Current.apiReplyMessage.rpcContextData_OriData =
-                    RpcFactory.Instance.CreateRpcContextData()
+                    RpcFactory.CreateRpcContextData()
                     .http_statusCode_Set(201)
                     //.http_header_Set("Content-Type", "application/json")
                     .http_header_ContentType_Set("application/json")

@@ -1,31 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Vit.Extensions;
+using Vit.Core.Module.Log;
+using Sers.Core.Module.Rpc;
+using System;
 using System.Text;
-using Sers.Core.Extensions;
-using Sers.Core.Module.Log;
 
-namespace Sers.ServiceStation.ApiTrace.Rpc
+namespace Sers.Core.Module.Api.LocalApi.ApiTrace
 {
-    class RpcContextWithApiTrace: Sers.Core.Module.Rpc.RpcContext
+    public class ApiTraceLog:IDisposable
     {
         private DateTime beginTime;
         private DateTime endTime;
-        public RpcContextWithApiTrace()
+        public ApiTraceLog()
         {
-            beginTime=DateTime.Now;
-            
+            beginTime = DateTime.Now;
         }
 
-        static void LogTrace(RpcContextWithApiTrace rpcContext)
+        static void LogTrace(ApiTraceLog trace)
         {
-            StringBuilder msg=new StringBuilder();
+
+            var rpcContext = RpcContext.Current;
+
+            StringBuilder msg = new StringBuilder();
 
             msg.Append(Environment.NewLine).Append("┍------------ ---------┑");
 
-            msg.Append(Environment.NewLine).Append("--BeginTime:").Append(rpcContext.beginTime.ToString("[HH:mm:ss.ffffff]"));
-            msg.Append(Environment.NewLine).Append("--EndTime  :").Append(rpcContext.endTime.ToString("[HH:mm:ss.ffffff]"));
+            msg.Append(Environment.NewLine).Append("--BeginTime:").Append(trace.beginTime.ToString("[HH:mm:ss.ffffff]"));
+            msg.Append(Environment.NewLine).Append("--EndTime  :").Append(trace.endTime.ToString("[HH:mm:ss.ffffff]"));
             msg.Append(Environment.NewLine).Append("--route    :").Append(rpcContext.rpcData.route);
-            msg.Append(Environment.NewLine).Append("--duration :").Append((rpcContext.endTime- rpcContext.beginTime).TotalMilliseconds).Append(" ms");
+            msg.Append(Environment.NewLine).Append("--duration :").Append((trace.endTime - trace.beginTime).TotalMilliseconds).Append(" ms");
 
 
             msg.Append(Environment.NewLine).Append("--Req rpc  :").Append(rpcContext.rpcData.oriJson);
@@ -58,12 +60,12 @@ namespace Sers.ServiceStation.ApiTrace.Rpc
 
             msg.Append(Environment.NewLine).Append("┕------------ ---------┙").Append(Environment.NewLine);
 
-            Logger.log.LogTxt(Level.ApiTrace,msg.ToString());
+            Logger.log.LogTxt(Level.ApiTrace, msg.ToString());
 
         }
 
 
-        public override void Dispose()
+        public void Dispose()
         {
             endTime = DateTime.Now;
             try
@@ -72,10 +74,8 @@ namespace Sers.ServiceStation.ApiTrace.Rpc
             }
             catch (Exception ex)
             {
-                Logger.Error(ex.GetBaseException());
+                Logger.Error(ex);
             }
-
-            base.Dispose();
         }
     }
 }

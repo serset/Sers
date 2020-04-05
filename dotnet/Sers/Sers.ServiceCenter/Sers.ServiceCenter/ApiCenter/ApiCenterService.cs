@@ -23,7 +23,7 @@ namespace Sers.ServiceCenter.ApiCenter
 
             var requestMessage = new ApiMessage(apiRequest);
 
-            var rpcData = RpcFactory.Instance.CreateRpcContextData().UnpackOriData(requestMessage.rpcContextData_OriData);
+            var rpcData = RpcFactory.CreateRpcContextData().UnpackOriData(requestMessage.rpcContextData_OriData);
 
             CallApiAsync(rpcData, requestMessage, sender, callback);
         }

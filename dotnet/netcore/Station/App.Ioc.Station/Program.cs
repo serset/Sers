@@ -2,6 +2,7 @@
 using Sers.ServiceStation;
 using static App.Ioc.Station.Controllers.DemoController;
 using Vit.Ioc;
+using Sers.Core.Module.Api.LocalApi.Event;
 
 namespace App.Ioc.Station
 {
@@ -15,7 +16,7 @@ namespace App.Ioc.Station
 
             #region ioc
             //use ioc
-            Sers.Core.Module.Rpc.RpcFactory.Instance.UseIoc();
+            LocalApiEventMng.Instance.UseIoc();
 
             IocHelp.AddSingleton<ISingleton, ArgModel>();
             IocHelp.AddScoped<IScoped, ArgModel>();
