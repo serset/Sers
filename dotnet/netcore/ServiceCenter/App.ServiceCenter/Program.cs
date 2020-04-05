@@ -19,6 +19,7 @@ namespace App.ServiceCenter
 
             #region (x.x.1)使用 Gover 服务治理 模块
             Sers.ServiceCenter.ServiceCenter.Instance.UseGover();
+            Sers.Gover.Base.GoverManage.Instance.UseZipkin();
             #endregion
 
 

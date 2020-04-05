@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <Version>2.1.1.328</Version>
+    <Version>2.1.1.329</Version>
     <Description>https://github.com/sersms/Sers/tree/2.1.1/release</Description>
   </PropertyGroup>
 
@@ -13,7 +13,8 @@
     <Content Include="web.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
+  </ItemGroup> 
+ 
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Sers\Sers.CL\Ipc\Sers.CL.Ipc.SharedMemory\Sers.CL.Ipc.SharedMemory.csproj" />
@@ -21,6 +22,7 @@
     <ProjectReference Include="..\..\..\Sers\Sers.CL\Zmq\FullDuplex\Sers.CL.Zmq.FullDuplex\Sers.CL.Zmq.FullDuplex.csproj" />
     <ProjectReference Include="..\..\..\Sers\Sers.CL\Zmq\ThreadWait\Sers.CL.ClrZmq.ThreadWait\Sers.CL.ClrZmq.ThreadWait.csproj" />
     <ProjectReference Include="..\..\..\Sers\Sers.Gateway\Sers.Gateway\Sers.Gateway.csproj" />
+    <ProjectReference Include="..\..\..\Sers\Sers.ServiceCenter\Sers.Gover.Zipkin\Sers.Gover.Zipkin.csproj" />
     <ProjectReference Include="..\..\..\Sers\Sers.ServiceCenter\Sers.Gover\Sers.Gover.csproj" />
   </ItemGroup>
  

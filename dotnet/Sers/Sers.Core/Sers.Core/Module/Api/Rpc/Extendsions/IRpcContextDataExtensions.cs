@@ -6,6 +6,7 @@ using Sers.Core.Module.Api.Rpc;
 using Vit.Core.Util.Common;
 using System.IO;
 using Vit.Core.Util.ComponentModel.SsError;
+using System.Linq;
 
 namespace Vit.Extensions
 {
@@ -137,6 +138,16 @@ namespace Vit.Extensions
         }
         #endregion
 
+
+
+        #region apiStationName_Get
+        public static string apiStationName_Get(this IRpcContextData data)
+        {
+            var arr = data.route?.Split('/');
+            if (arr == null || arr.Length <= 1) return null;
+            return arr[1];
+        }        
+        #endregion
 
         #region caller
 

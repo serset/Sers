@@ -194,10 +194,29 @@ namespace Sers.Gover.Base
                 }
                 #endregion
 
-
-                #region (x.8) 服务调用 
-                apiNode.CallApiAsync(rpcData, requestMessage, sender,callback);
+                #region (x.8)ApiScopeEvent
+                apiScopeEventList?.ForEach(onScope =>
+                {
+                    try
+                    {
+                        var onDispose = onScope(rpcData, requestMessage);
+                        if (onDispose != null)
+                        {
+                            callback += onDispose;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error(ex);
+                    }
+                });
                 #endregion
+
+
+                #region (x.9)服务调用
+                apiNode.CallApiAsync(rpcData, requestMessage, sender,callback);                
+                #endregion
+
             }
             catch (Exception ex)
             {
@@ -314,7 +333,23 @@ namespace Sers.Gover.Base
         #endregion
 
 
-        
+        #region ApiScopeEvent
+
+        /// <summary>
+        /// 
+        /// </summary>
+        List<Func<IRpcContextData, ApiMessage, Action<Object, List<ArraySegment<byte>>>>> apiScopeEventList = null;
+        /// <summary>
+        /// 在调用api前调用onScope，若onScope返回的结果（onDispose）不为空，则在api调用结束前调用onDispose
+        /// </summary>
+        /// <param name="apiScopeEvent"></param>
+        public void AddApiScopeEvent(Func<IRpcContextData, ApiMessage, Action<Object, List<ArraySegment<byte>>>> apiScopeEvent) 
+        {
+            if (apiScopeEventList == null) apiScopeEventList=new List<Func<IRpcContextData, ApiMessage, Action<Object, List<ArraySegment<byte>>>>>();
+
+            apiScopeEventList.Add(apiScopeEvent);
+        }
+        #endregion
 
     }
 }

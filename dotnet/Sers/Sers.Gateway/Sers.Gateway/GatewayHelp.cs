@@ -118,6 +118,7 @@ namespace Sers.Gateway
 
 
         #region BuildHttp
+        static string prefixOfCopyIpToHeader = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.WebHost.prefixOfCopyIpToHeader");
         protected JObject BuildHttp(HttpRequest request)
         {
             var http = new JObject();
@@ -133,6 +134,15 @@ namespace Sers.Gateway
                 headers[kv.Key] = kv.Value.ToString();
             }
 
+            //(x.x.2)记录Ip 到 headers
+            if(prefixOfCopyIpToHeader!=null)
+            {
+                headers[prefixOfCopyIpToHeader+"RemoteIpAddress"] = request.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+                headers[prefixOfCopyIpToHeader + "RemotePort"] = request.HttpContext.Connection.RemotePort;
+
+                headers[prefixOfCopyIpToHeader + "LocalIpAddress"] = request.HttpContext.Connection.LocalIpAddress.MapToIPv4().ToString();
+                headers[prefixOfCopyIpToHeader + "LocalPort"] = request.HttpContext.Connection.LocalPort;
+            }
             #endregion
 
             #region (x.3) method
@@ -244,7 +254,8 @@ namespace Sers.Gateway
             #endregion
 
          
-            #region (x.2) header             
+            #region (x.2) header
+            //(x.x.1)原始header
             var headers = response.Headers; 
             if (null != replyRpcData)
             {
@@ -258,7 +269,8 @@ namespace Sers.Gateway
                 }
             }
 
-            //Content-Type → application/json
+            
+            //(x.2)Content-Type → application/json
             if (!headers.ContainsKey("Content-Type"))
             {
                 headers["Content-Type"]= ResponseDefaultContentType;

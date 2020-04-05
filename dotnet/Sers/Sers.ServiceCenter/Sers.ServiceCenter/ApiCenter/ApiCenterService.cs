@@ -74,7 +74,7 @@ namespace Sers.ServiceCenter.ApiCenter
         /// BeforeCallApi(IRpcContextData rpcData, ApiMessage requestMessage)
         /// </summary>
         [JsonIgnore]
-        public Action<IRpcContextData, ApiMessage> BeforeCallApi { get; set; }
+        public Action<IRpcContextData, ApiMessage> BeforeCallApi;
 
         public abstract void CallApiAsync(IRpcContextData rpcData, ApiMessage requestMessage, Object sender, Action<object, List<ArraySegment<byte>>> callback);
 
