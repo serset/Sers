@@ -99,6 +99,19 @@ dotnet pack --configuration Release --output ..\..\..\Doc\Publish\nuget
 cd /d ../../../
 
 
+echo 'pack Sers.ServiceCenter'
+cd /d Sers\Sers.ServiceCenter\Sers.ServiceCenter
+dotnet build --configuration Release
+dotnet pack --configuration Release --output ..\..\..\Doc\Publish\nuget
+cd /d ../../../
+
+echo 'pack Sers.Gover'
+cd /d Sers\Sers.ServiceCenter\Sers.Gover
+dotnet build --configuration Release
+dotnet pack --configuration Release --output ..\..\..\Doc\Publish\nuget
+cd /d ../../../
+
+
 echo 'pack Sers.Serslot'
 cd /d Sers\ApiLoader\Sers.Serslot
 dotnet build --configuration Release

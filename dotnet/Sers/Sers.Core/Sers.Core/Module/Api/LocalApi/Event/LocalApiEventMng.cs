@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using Sers.Core.Module.Api.ApiEvent.ApiScope;
 using Sers.Core.Module.Message;
 using Sers.Core.Module.Rpc;
 using System;
@@ -22,8 +23,9 @@ namespace Sers.Core.Module.Api.LocalApi.Event
         {
             #region (x.1)构建 Api Event OnCreateScope
             {
-                var onCreateScope = Sers.Core.Module.Api.ApiEvent.EventBuilder.LoadEvent_OnCreateScope(ConfigurationManager.Instance.GetByPath<JArray>("Sers.LocalApiService.OnCreateScope"));
-                if (onCreateScope != null) AddEvent_OnCreateScope(onCreateScope);
+                var apiScopeEvents = Sers.Core.Module.Api.ApiEvent.EventBuilder.LoadEvent_OnCreateScope(ConfigurationManager.Instance.GetByPath<JArray>("Sers.LocalApiService.OnCreateScope"));
+
+                 AddEvent_ApiScope(apiScopeEvents.ToArray());
             }
             #endregion
 
@@ -38,27 +40,27 @@ namespace Sers.Core.Module.Api.LocalApi.Event
 
 
         #region OnCreateScope
-        internal List<Func<IDisposable>> Events_OnCreateScope { get; set; } = null;      
-        public void AddEvent_OnCreateScope(Func<IDisposable> ev)
+        internal List<IApiScopeEvent> apiScopeEventList = null;      
+        public void AddEvent_ApiScope( params IApiScopeEvent[] apiScopeEvents)
         {
-            if (null == ev) return;
+            if (null == apiScopeEvents) return;
 
-            if (null == Events_OnCreateScope)
+            if (null == apiScopeEventList)
             {
-                Events_OnCreateScope = new List<Func<IDisposable>>();
+                apiScopeEventList = new List<IApiScopeEvent>();
             }
-            Events_OnCreateScope.Add(ev);
+            apiScopeEventList.AddRange(apiScopeEvents);
         }
         #endregion
 
         public LocalApiEvent CreateApiEvent()
         {
             List<IDisposable> events_OnDispose =
-                Events_OnCreateScope?.Select(event_OnCreateScope =>
+                apiScopeEventList?.Select(apiScope =>
                 {
                     try
                     {
-                        return event_OnCreateScope();
+                        return apiScope.OnCreateScope();
                     }
                     catch (Exception ex)
                     {

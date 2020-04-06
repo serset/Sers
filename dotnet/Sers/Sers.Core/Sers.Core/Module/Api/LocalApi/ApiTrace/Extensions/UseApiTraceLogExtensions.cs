@@ -20,7 +20,7 @@ namespace Vit.Extensions
             if (true != ConfigurationManager.Instance.GetByPath<bool?>("Sers.LocalApiService.PrintTrace"))
                 return;
 
-            data.AddEvent_OnCreateScope(() => new ApiTraceLog());
+            data.AddEvent_ApiScope(new ApiScope_Log());
         }
 
 

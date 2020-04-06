@@ -18,8 +18,7 @@ namespace App.ServiceCenter
             #region (x.2) 初始化扩展模块
 
             #region (x.x.1)使用 Gover 服务治理 模块
-            Sers.ServiceCenter.ServiceCenter.Instance.UseGover();
-            Sers.Gover.Base.GoverManage.Instance.UseZipkin();
+            Sers.ServiceCenter.ServiceCenter.Instance.UseGover();             
             #endregion
 
 

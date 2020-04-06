@@ -8,7 +8,7 @@ namespace Sers.Core.Module.Api.ApiEvent.ApiScope
     /// <summary>
     /// 调用Api时的自定义Scope对象
     /// </summary>
-    public interface  IApiScope
+    public interface  IApiScopeEvent
     {
         void Init(JObject config);
 

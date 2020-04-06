@@ -17,6 +17,8 @@ using Sers.Core.Module.Message;
 using Vit.Core.Util.ComponentModel.Data;
 using System.Threading.Tasks;
 using Sers.SersLoader;
+using Sers.Core.Module.App.AppEvent;
+using Newtonsoft.Json.Linq;
 
 namespace Sers.ServiceStation
 {
@@ -100,9 +102,17 @@ namespace Sers.ServiceStation
 
         #endregion
 
+        public ServiceStation()
+        {
+            appEventList = AppEventLoader.LoadAppEvent(Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<JArray>("Sers.AppEvent"))
+                ?.ToList();
+        }
+
 
         #region (x.1) 成员对象
-        
+
+        List<IAppEvent> appEventList { get; set; }
+
         public readonly LocalApiService localApiService = new LocalApiService();
 
         private readonly CommunicationManageClient communicationManage = new CommunicationManageClient();
@@ -117,6 +127,10 @@ namespace Sers.ServiceStation
         {
 
             Logger.Info("[ServiceStation] init...");
+
+            //(x.0) appEvent BeforeStart
+            appEventList?.ForEach(ev => ev.BeforeStart());
+
 
             #region (x.1)CL add Builder for Iocp、ThreadWait
             communicationManage.BeforeBuildOrganize = (configs,  organizeList) => 
@@ -200,6 +214,9 @@ namespace Sers.ServiceStation
         public bool StartStation()
         {
             Logger.Info("[ServiceStation] starting ...");
+
+            //(x.0) appEvent OnStart
+            appEventList?.ForEach(ev => ev.OnStart());
 
             #region (x.1)注册主程序退出回调
             AppDomain.CurrentDomain.ProcessExit += (s, e) =>
@@ -343,7 +360,10 @@ namespace Sers.ServiceStation
             SersApplication.OnStart();
 
             Logger.Info("[ServiceStation] started - stationName:" + SersApplication.serviceStationInfo.serviceStationName);
-           
+
+            //(x.9) appEvent AfterStart
+            appEventList?.ForEach(ev => ev.AfterStart());
+
             return true;
         }
         #endregion
@@ -355,9 +375,12 @@ namespace Sers.ServiceStation
 
         public void StopStation()
         {       
-
             Logger.Info("[ServiceStation] stoping...");
 
+            //(x.1) appEvent BeforeStop
+            appEventList?.ForEach(ev => ev.BeforeStop());
+
+            //(x.2)stop service
             if (SersApplication.IsRunning)
             {
                 #region CommunicationManage Stop
@@ -387,7 +410,10 @@ namespace Sers.ServiceStation
 
             Logger.Info("[ServiceStation] stoped");
 
-            //调用SersApp 事件
+            //(x.3) appEvent AfterStop
+            appEventList?.ForEach(ev => ev.AfterStop());
+
+            //(x.4)调用SersApp 事件
             SersApplication.OnStop();
         }
         #endregion

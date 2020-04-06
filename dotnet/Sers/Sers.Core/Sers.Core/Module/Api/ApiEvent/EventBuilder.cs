@@ -10,6 +10,7 @@ using Sers.Core.Module.Api.ApiEvent.BeforeCallApi;
 using Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer;
 using Sers.Core.Module.Api.ApiEvent.BeforeCallApi.AccountInCookie;
 using Sers.Core.Module.Api.ApiEvent.ApiScope;
+using System.Collections.Generic;
 
 namespace Sers.Core.Module.Api.ApiEvent
 {
@@ -96,38 +97,35 @@ namespace Sers.Core.Module.Api.ApiEvent
         /// </summary>
         /// <param name="events"></param>
         /// <returns></returns>
-        public static Func<IDisposable> LoadEvent_OnCreateScope(JArray events)
+        public static IEnumerable<IApiScopeEvent> LoadEvent_OnCreateScope(JArray events)
         {       
-            if (events == null || events.Count == 0) return null;
+            if (events == null || events.Count == 0) yield break;     
 
-
-            Func<IDisposable> OnCreateScope = null;
-
+            IApiScopeEvent item;
             foreach (JObject config in events)
             {
                 try
                 {
                     //(x.x.1) GetInstance
-                    var item = GetInstance(config);
+                    item = GetInstance(config);
                     if (item == null) continue;
 
                     //(x.x.2) init
                     item.Init(config);
-
-                    //(x.x.3) add event
-                    OnCreateScope += item.OnCreateScope;
-
                 }
                 catch (Exception ex)
                 {
                     Logger.Error(ex);
+                    continue;
                 }
-            }
 
-            return OnCreateScope;
+                //(x.x.3) return
+                yield return item;
+            }
+        
 
             #region GetInstance
-            IApiScope GetInstance(JObject config)
+            IApiScopeEvent GetInstance(JObject config)
             {
                 //(x.x.1) get className    
                 var className = config["className"].ConvertToString();
@@ -145,7 +143,7 @@ namespace Sers.Core.Module.Api.ApiEvent
                 #endregion
 
                 //(x.x.4) create class
-                return assembly?.CreateInstance(className) as IApiScope;
+                return assembly?.CreateInstance(className) as IApiScopeEvent;
             }
             #endregion
         }
