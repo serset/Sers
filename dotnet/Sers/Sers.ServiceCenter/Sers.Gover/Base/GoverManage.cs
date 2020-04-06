@@ -108,6 +108,25 @@ namespace Sers.Gover.Base
         {
             try
             {
+                #region (x.0)ApiScopeEvent
+                apiScopeEventList?.ForEach(onScope =>
+                {
+                    try
+                    {
+                        var onDispose = onScope(rpcData, requestMessage);
+                        if (onDispose != null)
+                        {
+                            callback += onDispose;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error(ex);
+                    }
+                });
+                #endregion
+
+
                 #region (x.1)route 判空               
                 if (string.IsNullOrWhiteSpace(rpcData.route))
                 {
@@ -188,32 +207,14 @@ namespace Sers.Gover.Base
                 }
 
 
-                //(x.2) 修正 requestMessage
+                //(x.x.2) 修正 requestMessage
                 if (requestMessage.rpcContextData_OriData.Count <= 0) {
                     requestMessage.RpcContextData_OriData_Set(rpcData);
                 }
-                #endregion
-
-                #region (x.8)ApiScopeEvent
-                apiScopeEventList?.ForEach(onScope =>
-                {
-                    try
-                    {
-                        var onDispose = onScope(rpcData, requestMessage);
-                        if (onDispose != null)
-                        {
-                            callback += onDispose;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Error(ex);
-                    }
-                });
-                #endregion
+                #endregion             
 
 
-                #region (x.9)服务调用
+                #region (x.8)服务调用
                 apiNode.CallApiAsync(rpcData, requestMessage, sender,callback);                
                 #endregion
 

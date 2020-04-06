@@ -92,8 +92,7 @@ namespace Vit.Extensions
 
             trace.Record(Annotations.ClientSend());
             trace.Record(Annotations.Rpc("ServiceCenter"));
-            trace.Record(Annotations.ServiceName(rpcData.apiStationName_Get()));
-            trace.Record(Annotations.Tag("http.path", rpcData.route));
+            trace.Record(Annotations.ServiceName(rpcData.apiStationName_Get()));          
             trace.Record(Annotations.Tag("http.url", rpcData.http_url_Get()));
             trace.Record(Annotations.Tag("http.method", rpcData.http_method_Get()));
 
@@ -111,6 +110,9 @@ namespace Vit.Extensions
 
 
             return (s, apiReplyMessage) => {
+
+                //gover会在内部把route处理为真正的route名称
+                trace.Record(Annotations.Tag("http.path", rpcData.route));
                 trace.Record(Annotations.ClientRecv()); 
             };
         }
