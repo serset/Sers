@@ -5,8 +5,7 @@ CUR£º
 
 ---------------------
 TODO
- 
-
+ zipkin  root as tag key
 
 
 DeliveryClient Close Ã»ÓÐlog

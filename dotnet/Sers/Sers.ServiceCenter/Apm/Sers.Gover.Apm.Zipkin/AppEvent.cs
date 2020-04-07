@@ -23,6 +23,7 @@ namespace Sers.Gover.Apm.Zipkin
         {
             //记录请求数据
 
+            #region (x.1)get id(traceId spanId parentSpanId) and  create trace 
             Trace trace = null;
             try
             {
@@ -58,37 +59,78 @@ namespace Sers.Gover.Apm.Zipkin
                 trace = Trace.Create();
                 Logger.Error(ex);
             }
-
             Trace.Current = trace;
+            #endregion
+
 
             trace.Record(Annotations.ClientSend());
             trace.Record(Annotations.Rpc(config.rpcName));
-            trace.Record(Annotations.ServiceName(rpcData.apiStationName_Get()));
-            trace.Record(Annotations.Tag("http.url", rpcData.http_url_Get()));
-            trace.Record(Annotations.Tag("http.method", rpcData.http_method_Get()));
-            trace.Record(Annotations.Tag("serviceStation", serviceStationName));
+            trace.Record(Annotations.ServiceName(rpcData.apiStationName_Get()??""));          
+    
 
-            //tags
-            config.tags?.ForEach(item => trace.Record(Annotations.Tag(item.Key, item.Value)));
-
-            #region rpc data
-            try
-            {
-                trace.Record(Annotations.Tag("ReqRpc", rpcData.oriJson.ToString()));
-                string str = apiRequestMessage.value_OriData.ArraySegmentByteToString() ?? "";
-                trace.Record(Annotations.Tag("ReqData", str ));
-            }
-            catch
-            {
-            }
-            #endregion
+   
 
 
             return (s, apiReplyMessage) => {
 
                 //gover会在内部把route处理为真正的route名称
-                trace.Record(Annotations.Tag("http.path", rpcData.route));
+
+                #region rpc data
+                //trace.Record(Annotations.Tag("http.url", rpcData.http_url_Get()));
+                //trace.Record(Annotations.Tag("http.method", rpcData.http_method_Get()));
+                //trace.Record(Annotations.Tag("http.path", rpcData.route));
+
+
+                //try
+                //{
+                //    trace.Record(Annotations.Tag("ReqRpc", rpcData.oriJson.ToString()));
+                //    string str = apiRequestMessage.value_OriData.ArraySegmentByteToString() ?? "";
+                //    trace.Record(Annotations.Tag("ReqData", str ));
+                //}
+                //catch
+                //{
+                //}
+                #endregion
+
+
+                //tags
+                config.tags?.ForEach(item =>trace.Record(Annotations.Tag(GetTagValue(item.Key) ?? "" , GetTagValue(item.Value) ?? "")));
+
+      
                 trace.Record(Annotations.ClientRecv());
+
+                #region method getTagValue
+                string GetTagValue(string valueString) 
+                {
+                    if (string.IsNullOrEmpty(valueString)) return null;
+                    if (!valueString.StartsWith("{{") || !valueString.EndsWith("}}")) return valueString;
+
+                    valueString = valueString.Substring(2, valueString.Length - 4);                               
+
+                    string dataType;
+                    string path;
+
+                    var splitIndex = valueString.IndexOf('.');
+                    if (splitIndex < 0)
+                    {
+                        dataType = valueString;
+                        path = "";
+                    }
+                    else 
+                    {
+                        dataType = valueString.Substring(0, splitIndex);
+                        path = valueString.Substring(splitIndex + 1);
+                    }
+
+                    switch (dataType)
+                    {
+                        case "requestRpc":return rpcData?.oriJson.SelectToken(path).ConvertToString();
+                        case "requestData": return apiRequestMessage.value_OriData.ArraySegmentByteToString();
+                    }
+                    return null;
+                }
+                #endregion
+
             };
         }
 
@@ -102,13 +144,13 @@ namespace Sers.Gover.Apm.Zipkin
 
 
         Config config;
-        string serviceStationName;
+       
 
         public void BeforeStart()
         {
             if (config == null) return;
             #region (x.1)注册和启动 Zipkin
-            if (config.SamplingRate <= 0 || config.SamplingRate > 1) config.SamplingRate = 1;
+            if (config.SamplingRate <= 0 ) config.SamplingRate = 1;
 
             TraceManager.SamplingRate = config.SamplingRate;
 
@@ -134,8 +176,7 @@ namespace Sers.Gover.Apm.Zipkin
         }
         
         public void AfterStart()
-        {
-            serviceStationName = SersApplication.serviceStationInfo?.serviceStationName??"";
+        {         
         }
         public void BeforeStop()
         {
@@ -155,6 +196,8 @@ namespace Sers.Gover.Apm.Zipkin
         public float SamplingRate;  
         public string zipkinCollectorUrl;
         public string rpcName;
+
+        public string serviceStationName;
 
         public IDictionary<string, string> tags;
     }
