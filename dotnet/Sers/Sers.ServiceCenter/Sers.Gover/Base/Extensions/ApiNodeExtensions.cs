@@ -55,7 +55,7 @@ namespace Vit.Extensions
                 reasons = new Dictionary<string, string>();
                 data.SetData("StopReason", reasons);
             }
-            reasons.TryAdd(reason, reason);            
+            reasons.IDictionaryTryAdd(reason, reason);            
         }
         /// <summary>
         /// 返回 移除后是否仍有StopReason
