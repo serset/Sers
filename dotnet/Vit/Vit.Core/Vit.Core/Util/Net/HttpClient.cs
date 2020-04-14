@@ -64,7 +64,7 @@ namespace Vit.Core.Util.Net
             #endregion
 
             //(x.2)发送请求
-            var response = await http.SendAsync(httpRequest);
+            var response = await httpClient.SendAsync(httpRequest);
 
             #region (x.3)读取回应
             var httpResponse = new HttpResponse<T>();
@@ -223,13 +223,13 @@ namespace Vit.Core.Util.Net
 
 
         #region config       
-        public readonly System.Net.Http.HttpClient http = new System.Net.Http.HttpClient();
+        public readonly System.Net.Http.HttpClient httpClient = new System.Net.Http.HttpClient();
         public string BaseAddress
         {
             set
             {
 
-                http.BaseAddress = new Uri(value);
+                httpClient.BaseAddress = new Uri(value);
             }
         }
 
@@ -238,7 +238,7 @@ namespace Vit.Core.Util.Net
             set
             {
 
-                http.Timeout = TimeSpan.FromSeconds(value);
+                httpClient.Timeout = TimeSpan.FromSeconds(value);
             }
         }
 
