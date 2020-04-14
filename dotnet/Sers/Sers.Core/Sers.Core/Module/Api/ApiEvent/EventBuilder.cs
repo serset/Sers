@@ -2,15 +2,14 @@
 using Vit.Extensions;
 using Vit.Core.Module.Log;
 using Sers.Core.Module.Rpc;
-using Vit.Core.Util.Common;
 using System;
-using System.Reflection;
 using Sers.Core.Module.Message;
 using Sers.Core.Module.Api.ApiEvent.BeforeCallApi;
 using Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer;
 using Sers.Core.Module.Api.ApiEvent.BeforeCallApi.AccountInCookie;
 using Sers.Core.Module.Api.ApiEvent.ApiScope;
 using System.Collections.Generic;
+using Sers.Core.Module.Reflection;
 
 namespace Sers.Core.Module.Api.ApiEvent
 {
@@ -71,18 +70,13 @@ namespace Sers.Core.Module.Api.ApiEvent
                 #endregion
 
 
-                #region (x.x.3) get assembly
-                Assembly assembly = null;
                 var assemblyFile = config["assemblyFile"].ConvertToString();
                 if (string.IsNullOrEmpty(assemblyFile))
                 {
                     return null;
                 }
-                assembly = Assembly.LoadFrom(CommonHelp.GetAbsPath(assemblyFile));
-                #endregion
 
-                //(x.x.4) create class
-                return assembly?.CreateInstance(className) as IBeforeCallApi;
+                return ObjectLoader.CreateInstance(assemblyFile, className) as IBeforeCallApi;                
             }
             #endregion
         }
@@ -127,23 +121,15 @@ namespace Sers.Core.Module.Api.ApiEvent
             #region GetInstance
             IApiScopeEvent GetInstance(JObject config)
             {
-                //(x.x.1) get className    
-                var className = config["className"].ConvertToString();
-                if (string.IsNullOrEmpty(className)) return null;      
-
-
-                #region (x.x.3) get assembly
-                Assembly assembly = null;
+                //(x.1) get className    assemblyFile
                 var assemblyFile = config["assemblyFile"].ConvertToString();
-                if (string.IsNullOrEmpty(assemblyFile))
-                {
-                    return null;
-                }
-                assembly = Assembly.LoadFrom(CommonHelp.GetAbsPath(assemblyFile));
-                #endregion
+                if (string.IsNullOrEmpty(assemblyFile)) return null;
 
-                //(x.x.4) create class
-                return assembly?.CreateInstance(className) as IApiScopeEvent;
+                var className = config["className"].ConvertToString();
+                if (string.IsNullOrEmpty(className)) return null;
+
+                //(x.2)CreateInstance
+                return ObjectLoader.CreateInstance(assemblyFile, className) as IApiScopeEvent; 
             }
             #endregion
         }

@@ -6,9 +6,9 @@ using Newtonsoft.Json.Linq;
 using Sers.Core.Module.Api.ApiDesc;
 using Sers.Core.Module.Api.LocalApi;
 using Sers.Core.Module.ApiLoader;
+using Sers.Core.Module.Reflection;
 using Sers.SersLoader.RpcVerify2;
 using Vit.Core.Module.Log;
-using Vit.Core.Util.Common;
 using Vit.Core.Util.ComponentModel.Api;
 using Vit.Core.Util.ComponentModel.Model;
 using Vit.Core.Util.ConfigurationManager;
@@ -54,7 +54,7 @@ namespace Sers.SersLoader
             {
                 try
                 {
-                    config.assembly = Assembly.LoadFile(CommonHelp.GetAbsPath(config.assemblyFile));
+                    config.assembly = ObjectLoader.LoadAssemblyByFile(config.assemblyFile);
                 }
                 catch (Exception ex)
                 {
