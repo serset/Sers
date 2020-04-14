@@ -80,9 +80,23 @@ namespace Sers.Core.Module.Reflection
                 return null;
             }
 
+            Assembly assembly=null;
 
-            //(x.1) get assembly from dll file
-            var assembly = Assembly.LoadFrom(CommonHelp.GetAbsPath(assemblyFile));
+            #region (x.1) get assembly from dll file
+            try
+            {
+                var filePath = CommonHelp.GetAbsPath(assemblyFile);
+                if (File.Exists(filePath))
+                {
+                    assembly = Assembly.LoadFrom(filePath); 
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
+            #endregion
+
 
             var assemblyFileName = Path.GetFileNameWithoutExtension(assemblyFile);
 
