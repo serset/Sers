@@ -198,8 +198,7 @@ namespace Sers.Gateway
         static string Rpc_CallerSource = ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.Rpc.CallerSource")?? "Outside";
 
         protected ApiMessage BuildApiRequestMessage(HttpRequest request)
-        {
-       
+        {      
    
             var rpcData = RpcFactory.CreateRpcContextData().Init(Rpc_CallerSource);
 
@@ -270,7 +269,7 @@ namespace Sers.Gateway
             }
 
             
-            //(x.2)Content-Type → application/json
+            //(x.x.2)Content-Type → application/json
             if (!headers.ContainsKey("Content-Type"))
             {
                 headers["Content-Type"]= ResponseDefaultContentType;
