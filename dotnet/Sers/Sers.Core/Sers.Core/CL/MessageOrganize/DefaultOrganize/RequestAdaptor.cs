@@ -659,20 +659,18 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
         void HeartBeat_callback(object sender,List<ArraySegment<byte>> replyData)
         {
-            //if (replyData.Count <= 0) return;
-
             HeartBeatPackage package = sender as HeartBeatPackage;
 
-            if (organizeVersion != replyData?.ByteDataToString())
-            {
-                var deliveryConn = package.conn.GetDeliveryConn();                
-                if (deliveryConn != null)
-                {
-                    Logger.Info("[CL.RequestAdaptor]HeartBeat_callback,CmVersion not match,will stop conn. connTag:" + package.conn.connTag + "  replyData:" + replyData.ByteDataToString());
-                    Task.Run((Action) deliveryConn.Close);
-                }
-                return;
-            }           
+            //if (organizeVersion != replyData?.ByteDataToString())
+            //{
+            //    var deliveryConn = package.conn.GetDeliveryConn();                
+            //    if (deliveryConn != null)
+            //    {
+            //        Logger.Info("[CL.RequestAdaptor]HeartBeat_callback,CL Version not match,will stop conn. connTag:" + package.conn.connTag + "  replyData:" + replyData.ByteDataToString());
+            //        Task.Run((Action) deliveryConn.Close);
+            //    }
+            //    return;
+            //}           
             package.replyTime = DateTime.Now;
         }
 
