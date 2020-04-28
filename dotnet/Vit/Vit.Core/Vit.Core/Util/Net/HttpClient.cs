@@ -53,9 +53,20 @@ namespace Vit.Core.Util.Net
             #region (x.x.3)headers
             if (request.headers != null)
             {
-                foreach (var item in request.headers)
+                if (httpRequest.Content != null)
                 {
-                    httpRequest.Content.Headers.Add(item.Key, item.Value);
+                    foreach (var item in request.headers)
+                    {
+                        httpRequest.Content.Headers.TryAddWithoutValidation(item.Key, item.Value);
+                    }
+                }
+                else
+                {
+                    foreach (var item in request.headers)
+                    {
+                        httpRequest.Headers.TryAddWithoutValidation(item.Key, item.Value);
+                        //httpRequest.Headers.Add(item.Key, item.Value);                   
+                    }
                 }
             }
             #endregion
@@ -172,7 +183,7 @@ namespace Vit.Core.Util.Net
             else if (parameters is JObject jo)
             {
                 return FormatJObject(jo);
-                
+
             }
             else if (parameters is string)
             {
@@ -183,7 +194,7 @@ namespace Vit.Core.Util.Net
 
 
             #region FormatJObject
-            string FormatJObject(JObject joParameters) 
+            string FormatJObject(JObject joParameters)
             {
                 StringBuilder buff = new StringBuilder();
                 foreach (var kv in joParameters)
@@ -212,7 +223,7 @@ namespace Vit.Core.Util.Net
         /// <typeparam name="ReturnType"></typeparam>
         /// <param name="request"></param>
         /// <returns></returns>
-        public HttpResponse<ReturnType>Send<ReturnType>(HttpRequest request)
+        public HttpResponse<ReturnType> Send<ReturnType>(HttpRequest request)
         {
             var task = SendAsync<ReturnType>(request);
             task.Wait();
@@ -293,7 +304,7 @@ namespace Vit.Core.Util.Net
             set { _requestEncoding = value; }
         }
         #endregion
-        
+
     }
 
     /// <summary>
