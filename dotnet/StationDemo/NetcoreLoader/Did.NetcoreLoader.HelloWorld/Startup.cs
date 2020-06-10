@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Did.NetcoreLoader.HellolWorld
+namespace Did.NetcoreLoader.HelloWorld
 {
     public class Startup
     {

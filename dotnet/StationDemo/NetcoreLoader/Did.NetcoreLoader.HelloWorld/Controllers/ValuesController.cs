@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Did.NetcoreLoader.HellolWorld.Controllers
+namespace Did.NetcoreLoader.HelloWorld.Controllers
 {
     [Route("apidemo/[controller]")]
     [Route("apidemo/v1")]

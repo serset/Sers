@@ -151,7 +151,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Did.Serslot.Demo", "Station
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Did.Serslot.HelloWorld", "StationDemo\Serslot\Did.Serslot.HelloWorld\Did.Serslot.HelloWorld.csproj", "{6611EC51-AEE4-4EF7-A9D2-2302F2F61845}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Did.NetcoreLoader.HellolWorld", "StationDemo\NetcoreLoader\Did.NetcoreLoader.HelloWorld\Did.NetcoreLoader.HellolWorld.csproj", "{141C89FB-54A7-4283-8649-D6EF51B22FA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Did.NetcoreLoader.HelloWorld", "StationDemo\NetcoreLoader\Did.NetcoreLoader.HelloWorld\Did.NetcoreLoader.HelloWorld.csproj", "{141C89FB-54A7-4283-8649-D6EF51B22FA9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apm", "Apm", "{AF17FAEF-DBCC-4E5C-954D-BD4F60A016C1}"
 EndProject

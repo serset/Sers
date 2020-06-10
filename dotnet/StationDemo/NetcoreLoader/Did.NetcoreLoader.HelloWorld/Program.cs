@@ -5,7 +5,7 @@ using Sers.Core.Module.Api.LocalApi.Event;
 using Sers.ServiceStation;
 using Vit.Extensions;
 
-namespace Did.NetcoreLoader.HellolWorld
+namespace Did.NetcoreLoader.HelloWorld
 {
     public class Program
     {
