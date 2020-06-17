@@ -49,8 +49,6 @@ namespace CLServer
 
             cm.Start();
 
-            Console.WriteLine("Hello World!");
-
             while (true)
             {                 
                 Thread.Sleep(5000);

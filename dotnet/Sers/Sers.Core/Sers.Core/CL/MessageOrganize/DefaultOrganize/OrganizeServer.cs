@@ -81,6 +81,12 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
         public bool Start()
         {
+            lock (this)
+            {
+                if (isRunning) return true;
+                isRunning = true;
+            }
+
             requestAdaptor.Start();
             if (!delivery.Start())
             {
@@ -89,10 +95,16 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             }
             return true;
         }
-
+        bool isRunning = false;
 
         public void Stop()
-        {           
+        {
+            lock (this)
+            {
+                if (!isRunning) return;
+                isRunning = false;
+            }
+
             requestAdaptor.Stop();
             delivery.Stop();
         }

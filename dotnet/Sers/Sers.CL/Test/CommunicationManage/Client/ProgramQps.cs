@@ -48,7 +48,9 @@ namespace CLClient
 
             cm.Conn_OnDisconnected = (conn) =>
             {
-                Logger.Info("Conn_OnDisconnected");
+                Logger.Info("Conn_OnDisconnected");       
+
+                Sers.Core.Module.App.SersApplication.OnStop();
             };
 
             cm.conn_OnGetRequest = (conn,sender,request,callback)=> 

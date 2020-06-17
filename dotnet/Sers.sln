@@ -157,6 +157,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apm", "Apm", "{AF17FAEF-DBC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sers.Gover.Apm.Zipkin", "Sers\Sers.ServiceCenter\Apm\Sers.Gover.Apm.Zipkin\Sers.Gover.Apm.Zipkin.csproj", "{DD0CB14B-D8E6-46EC-AE42-2B1215C1BBDD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sers.CL.Ipc.NamedPipe", "Sers\Sers.CL\Ipc\Sers.CL.Ipc.NamedPipe\Sers.CL.Ipc.NamedPipe.csproj", "{545F1A7C-68B6-4F1F-B165-1A0F8F3DC51D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -331,6 +333,10 @@ Global
 		{DD0CB14B-D8E6-46EC-AE42-2B1215C1BBDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD0CB14B-D8E6-46EC-AE42-2B1215C1BBDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD0CB14B-D8E6-46EC-AE42-2B1215C1BBDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{545F1A7C-68B6-4F1F-B165-1A0F8F3DC51D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{545F1A7C-68B6-4F1F-B165-1A0F8F3DC51D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{545F1A7C-68B6-4F1F-B165-1A0F8F3DC51D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{545F1A7C-68B6-4F1F-B165-1A0F8F3DC51D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -409,6 +415,7 @@ Global
 		{141C89FB-54A7-4283-8649-D6EF51B22FA9} = {DA14C04D-FEEF-4A3C-A9F2-BBA25897B9A4}
 		{AF17FAEF-DBCC-4E5C-954D-BD4F60A016C1} = {97C34C06-AE79-4E1A-8D04-EB0107643302}
 		{DD0CB14B-D8E6-46EC-AE42-2B1215C1BBDD} = {AF17FAEF-DBCC-4E5C-954D-BD4F60A016C1}
+		{545F1A7C-68B6-4F1F-B165-1A0F8F3DC51D} = {ECEEABBB-DEA2-4CD4-99EA-3E048DB23219}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C7DA16E3-9949-49FA-B0B4-F830636DE60F}
