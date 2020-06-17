@@ -25,7 +25,7 @@ namespace Sers.CL.Ipc.NamedPipe
 
 
         /// <summary>
-        /// 默认 "."
+        /// 服务端机器名或者ip地址（如 103.23.23.23 、win10f），默认 "."
         /// </summary>
         public string serverName = ".";
         /// <summary>

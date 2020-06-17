@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.1.1.348</Version>
+    <Version>2.1.1.351</Version>
   </PropertyGroup>
 
 
@@ -12,6 +12,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Sers.CL\Ipc\Sers.CL.Ipc.NamedPipe\Sers.CL.Ipc.NamedPipe.csproj" />
     <ProjectReference Include="..\..\Sers.CL\Socket\Sers.CL.Socket.Iocp\Sers.CL.Socket.Iocp.csproj" />
     <ProjectReference Include="..\..\Sers.CL\Socket\Sers.CL.Socket.ThreadWait\Sers.CL.Socket.ThreadWait.csproj" />
   </ItemGroup>

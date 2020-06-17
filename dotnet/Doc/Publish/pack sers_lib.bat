@@ -51,6 +51,12 @@ cd /d ../../../
 
 
 
+echo 'pack Sers.CL.Ipc.NamedPipe'
+cd /d Sers\Sers.CL\Ipc\Sers.CL.Ipc.NamedPipe
+dotnet build --configuration Release
+dotnet pack --configuration Release --output ..\..\..\..\Doc\Publish\nuget
+cd /d ../../../../
+
 echo 'pack Sers.CL.Socket.Iocp'
 cd /d Sers\Sers.CL\Socket\Sers.CL.Socket.Iocp
 dotnet build --configuration Release
