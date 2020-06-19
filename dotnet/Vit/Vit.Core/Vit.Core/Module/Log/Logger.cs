@@ -21,6 +21,9 @@ namespace Vit.Core.Module.Log
 
 
 
+        /// <summary>
+        ///  例如    (level, msg)=> { Console.WriteLine("[" + level + "]" + DateTime.Now.ToString("[HH:mm:ss.ffff]") + msg);   };
+        /// </summary>
         public static Action<Level, string> OnLog { set => log.OnLog = value; get => log.OnLog; }
 
         /// <summary>
