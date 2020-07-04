@@ -16,6 +16,8 @@ namespace Sers.CL.Socket.Iocp
 {
     public class DeliveryServer: IDeliveryServer
     {
+        public Sers.Core.Util.StreamSecurity.SecurityManager securityManager;
+
         /// <summary>
         /// 服务端 监听地址。若不指定则监听所有网卡。例如： "127.0.0.1"、"sersms.com"。
         /// </summary>
@@ -285,7 +287,9 @@ namespace Sers.CL.Socket.Iocp
         private DeliveryConnection Delivery_OnConnected(global::System.Net.Sockets.Socket socket)
         {
             var conn = new DeliveryConnection();
+            conn.securityManager = securityManager?.Clone();
             conn.Init(socket);           
+
             conn.Conn_OnDisconnected = Delivery_OnDisconnected;
 
             connMap[conn.GetHashCode()] = conn;

@@ -12,8 +12,15 @@ namespace Sers.CL.WebSocket
         {
             var delivery = new DeliveryClient();
 
-            delivery.host = config["host"].ConvertToString() ?? delivery.host;
+            #region security        
+            if (config["security"] is JArray securityConfigs)
+            {
+                var securityManager = Sers.Core.Util.StreamSecurity.SecurityManager.BuildSecurityManager(securityConfigs);
+                ((DeliveryClient_Connection)delivery.conn).securityManager = securityManager;
+            }
+            #endregion
 
+            delivery.host = config["host"].ConvertToString() ?? delivery.host;
 
 
             organizeList.Add(new OrganizeClient(delivery, config));

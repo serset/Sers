@@ -12,6 +12,15 @@ namespace Sers.CL.Ipc.NamedPipe
         {
             var delivery = new DeliveryClient();
 
+            #region security        
+            if (config["security"] is JArray securityConfigs)
+            {
+                var securityManager = Sers.Core.Util.StreamSecurity.SecurityManager.BuildSecurityManager(securityConfigs);
+                ((DeliveryConnection)delivery.conn).securityManager = securityManager;
+            }
+            #endregion
+
+
             delivery.serverName = config["serverName"].ConvertToString();
             delivery.pipeName = config["pipeName"].ConvertToString();      
 

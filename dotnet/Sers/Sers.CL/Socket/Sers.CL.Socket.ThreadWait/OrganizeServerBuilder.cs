@@ -12,6 +12,14 @@ namespace Sers.CL.Socket.ThreadWait
         {
             var delivery = new DeliveryServer();
 
+            #region security        
+            if (config["security"] is JArray securityConfigs)
+            {
+                var securityManager = Sers.Core.Util.StreamSecurity.SecurityManager.BuildSecurityManager(securityConfigs);
+                delivery.securityManager = securityManager;
+            }
+            #endregion
+
             delivery.host = config["host"].ConvertToString();
             delivery.port = config["port"].Convert<int>();
 

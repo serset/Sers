@@ -12,10 +12,18 @@ namespace Sers.CL.WebSocket
         {
             var delivery = new DeliveryServer();
 
+            #region security
+            if (config["security"] is JArray securityConfigs)
+            {
+                var securityManager = Sers.Core.Util.StreamSecurity.SecurityManager.BuildSecurityManager(securityConfigs);
+                delivery.securityManager = securityManager;
+            }
+            #endregion
+
             delivery.host = config["host"].ConvertToString() ?? delivery.host;
 
             organizeList.Add(new OrganizeServer(delivery, config));
         }
-       
+
     }
 }

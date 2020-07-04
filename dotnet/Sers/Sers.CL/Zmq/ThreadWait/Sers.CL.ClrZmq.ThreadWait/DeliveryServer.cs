@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
 using Vit.Extensions;
@@ -12,10 +11,10 @@ namespace Sers.CL.ClrZmq.ThreadWait
 {
     public class DeliveryServer : IDeliveryServer
     {
+        public Sers.Core.Util.StreamSecurity.SecurityManager securityManager;
 
         public Action<IDeliveryConnection> Conn_OnDisconnected { private get; set; }
         public Action<IDeliveryConnection> Conn_OnConnected { private get; set; }
-               
  
 
         /// <summary>
@@ -115,18 +114,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
             if (!connMap.TryGetValue(connGuid, out var conn))
             {
                 //新连接
-                conn = new DeliveryConnection() { zmqIdentity = connGuid.Int64ToBytes() };
-                conn.OnSendFrameAsync = Zmq_SendFrameAsync;
-                conn.Conn_OnDisconnected = Delivery_OnDisconnected;              
-                try
-                {
-                    if (connMap.TryAdd(connGuid, conn))
-                        Conn_OnConnected?.Invoke(conn);
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex);
-                }
+                conn=Delivery_OnConnected(connGuid);
             }
             #endregion
 
@@ -136,9 +124,9 @@ namespace Sers.CL.ClrZmq.ThreadWait
 
         }
 
-        void Zmq_SendFrameAsync(DeliveryConnection conn, List<ArraySegment<byte>> data)
+        void Zmq_SendFrameAsync(DeliveryConnection conn, byte[] data)
         {
-            poller.SendMessageAsync(new ZMessage() { new ZFrame(conn.zmqIdentity), new ZFrame(data.ByteDataToBytes()) });
+            poller.SendMessageAsync(new ZMessage() { new ZFrame(conn.zmqIdentity), new ZFrame(data) });
         }
 
         #endregion
@@ -166,7 +154,29 @@ namespace Sers.CL.ClrZmq.ThreadWait
         #endregion
 
 
-        #region Delivery_OnDisconnected
+        #region Delivery_Event
+
+        private DeliveryConnection Delivery_OnConnected(long connGuid)
+        {
+            var conn = new DeliveryConnection() { zmqIdentity = connGuid.Int64ToBytes() };
+
+            conn.securityManager = securityManager?.Clone();
+
+            conn.OnSendFrameAsync = Zmq_SendFrameAsync;
+            conn.Conn_OnDisconnected = Delivery_OnDisconnected;
+            try
+            {
+                if (connMap.TryAdd(connGuid, conn))
+                    Conn_OnConnected?.Invoke(conn);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
+            return conn;
+        }
+
+
 
         private void Delivery_OnDisconnected(IDeliveryConnection _conn)
         {

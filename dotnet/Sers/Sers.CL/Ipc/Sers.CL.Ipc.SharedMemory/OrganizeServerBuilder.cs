@@ -14,6 +14,14 @@ namespace Sers.CL.Ipc.SharedMemory
 
             var delivery = new DeliveryServer();
 
+            #region security        
+            if (config["security"] is JArray securityConfigs)
+            {
+                var securityManager = Sers.Core.Util.StreamSecurity.SecurityManager.BuildSecurityManager(securityConfigs);
+                delivery.securityManager = securityManager;
+            }
+            #endregion
+
             delivery.name = connConfig.name;
             delivery.nodeCount = connConfig.nodeCount;
             delivery.nodeBufferSize = connConfig.nodeBufferSize;

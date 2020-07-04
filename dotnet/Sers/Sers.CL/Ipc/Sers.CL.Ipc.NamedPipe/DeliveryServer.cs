@@ -14,6 +14,7 @@ namespace Sers.CL.Ipc.NamedPipe
 {
     public class DeliveryServer: IDeliveryServer
     {
+        public Sers.Core.Util.StreamSecurity.SecurityManager securityManager;
 
         /// <summary>
         /// 如： "Sers.CL.Ipc"
@@ -160,10 +161,12 @@ namespace Sers.CL.Ipc.NamedPipe
         private DeliveryConnection Delivery_OnConnected(PipeStream client)
         {
             var conn = new DeliveryConnection();
+            conn.securityManager = securityManager?.Clone();
             conn.Init(client);
         
             conn.Conn_OnDisconnected = Delivery_OnDisconnected; 
             connMap[conn.GetHashCode()] = conn;
+
             try
             {
                 Conn_OnConnected?.Invoke(conn);

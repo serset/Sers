@@ -22,6 +22,9 @@ namespace Sers.CL.Ipc.NamedPipe
             Close();
         }
 
+        public Sers.Core.Util.StreamSecurity.SecurityManager securityManager { set => _securityManager = value; }
+        Sers.Core.Util.StreamSecurity.SecurityManager _securityManager;
+
         /// <summary>
         /// 连接状态(0:waitForCertify; 2:certified; 4:waitForClose; 8:closed;)
         /// </summary>
@@ -42,15 +45,16 @@ namespace Sers.CL.Ipc.NamedPipe
 
             if (!stream.IsConnected) 
             {
-                Task.Run(Close);
+                Task.Run((Action)Close);
                 return;
             }
             try
             {
                 Int32 len = data.ByteDataCount();
-                data.Insert(0, len.Int32ToArraySegmentByte());
+                data.Insert(0, len.Int32ToArraySegmentByte());               
 
                 var bytes = data.ByteDataToBytes();
+                _securityManager?.Encryption(new ArraySegment<byte>(bytes,4, bytes.Length-4));
 
                 stream.WriteAsync(bytes, 0, bytes.Length);
                 stream.FlushAsync();
@@ -58,7 +62,7 @@ namespace Sers.CL.Ipc.NamedPipe
             catch (Exception ex) when (!(ex.GetBaseException() is ThreadInterruptedException))
             {
                 Logger.Error(ex);
-                Task.Run(Close);
+                Task.Run((Action)Close);
             }
         }
 
@@ -187,6 +191,7 @@ namespace Sers.CL.Ipc.NamedPipe
 
             while (pipe.TryRead_SersFile(out var msgFrame))
             {
+                _securityManager?.Decryption(msgFrame);
                 OnGetFrame.Invoke(this, msgFrame);
             }
         }

@@ -17,13 +17,28 @@ namespace Sers.CL.Ipc.SharedMemory
         }
 
 
+        public Sers.Core.Util.StreamSecurity.SecurityManager securityManager { set => _securityManager = value; }
+        Sers.Core.Util.StreamSecurity.SecurityManager _securityManager;
+
         /// <summary>
         /// 连接状态(0:waitForCertify; 2:certified; 4:waitForClose; 8:closed;)
         /// </summary>
         public byte state { get; set; } = DeliveryConnState.waitForCertify;
 
 
-        public Action<IDeliveryConnection, ArraySegment<byte>> OnGetFrame { set => readStream.OnReceiveMessage = value; }
+        public Action<IDeliveryConnection, ArraySegment<byte>> OnGetFrame {
+            set
+            {
+                if (_securityManager != null)
+                {
+                    value =
+                        (conn, data) => { _securityManager.Decryption(data); }
+                    + value;
+                }
+
+                readStream.OnReceiveMessage = value;
+            }
+        }
 
 
         public Action<IDeliveryConnection> OnDisconnected { set => readStream.OnDisconnected = value; }
@@ -103,7 +118,10 @@ namespace Sers.CL.Ipc.SharedMemory
 
         public void SendFrameAsync(List<ArraySegment<byte>> data)
         {
-            writeStream.SendMessageAsync(data.ByteDataToBytes());
+            var bytes = data.ByteDataToBytes();
+            _securityManager?.Encryption(bytes.BytesToArraySegmentByte());
+
+            writeStream.SendMessageAsync(bytes);
         }
     }
 }

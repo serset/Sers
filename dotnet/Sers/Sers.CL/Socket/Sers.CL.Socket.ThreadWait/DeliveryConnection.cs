@@ -19,6 +19,9 @@ namespace Sers.CL.Socket.ThreadWait
             Close();
         }
 
+        public Sers.Core.Util.StreamSecurity.SecurityManager securityManager { set => _securityManager = value; }
+        Sers.Core.Util.StreamSecurity.SecurityManager _securityManager;
+
         /// <summary>
         /// 连接状态(0:waitForCertify; 2:certified; 4:waitForClose; 8:closed;)
         /// </summary>
@@ -40,7 +43,13 @@ namespace Sers.CL.Socket.ThreadWait
             {          
                 Int32 len = data.ByteDataCount();
                 data.Insert(0, len.Int32ToArraySegmentByte());
-                socket.SendAsync(data, SocketFlags.None);
+
+                var bytes = data.ByteDataToBytes();
+
+                _securityManager?.Encryption(new ArraySegment<byte>(bytes, 4, bytes.Length - 4));       
+
+                socket.SendAsync(bytes.BytesToArraySegmentByte(), SocketFlags.None);
+                //socket.SendAsync(data, SocketFlags.None);
             }
             catch (Exception ex)
             {               
@@ -196,7 +205,7 @@ namespace Sers.CL.Socket.ThreadWait
                     //t.Wait();
                     //readedCount += t.Result;
 
-                } while (readedCount < data.Count);
+                } while (readedCount < data.Count);               
             }
 
             #endregion
@@ -223,6 +232,7 @@ namespace Sers.CL.Socket.ThreadWait
                 }
                 var data = DataPool.ArraySegmentByteGet(len);
                 Receive(data);
+                _securityManager?.Decryption(data);
                 return data;
             }
             catch (Exception ex) when (!(ex.GetBaseException() is ThreadInterruptedException))
