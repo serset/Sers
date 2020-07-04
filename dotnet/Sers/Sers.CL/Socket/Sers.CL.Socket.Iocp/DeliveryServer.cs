@@ -287,7 +287,7 @@ namespace Sers.CL.Socket.Iocp
         private DeliveryConnection Delivery_OnConnected(global::System.Net.Sockets.Socket socket)
         {
             var conn = new DeliveryConnection();
-            conn.securityManager = securityManager?.Clone();
+            conn.securityManager = securityManager;
             conn.Init(socket);           
 
             conn.Conn_OnDisconnected = Delivery_OnDisconnected;

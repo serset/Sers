@@ -50,7 +50,7 @@ namespace Sers.CL.WebSocket
                     //string clientUrl = socket.ConnectionInfo.ClientIpAddress + ":" + socket.ConnectionInfo.ClientPort;   
 
                     var conn = new DeliveryServer_Connection();
-                    conn.securityManager = securityManager?.Clone();
+                    conn.securityManager = securityManager;
                     conn.Init(socket);
 
                     socket.OnError = (ex) => 

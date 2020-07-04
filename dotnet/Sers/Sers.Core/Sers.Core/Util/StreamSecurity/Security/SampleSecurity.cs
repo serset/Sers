@@ -7,12 +7,7 @@ namespace Sers.Core.Util.StreamSecurity.Security
 {
     public unsafe class SampleSecurity : ISecurity
     {
-        public ISecurity Clone()
-        {
-            return new SampleSecurity { secretKey= secretKey };
-        }
-
-
+ 
         public void Init(JObject config)
         {
             secretKey = config["secret"].ConvertToString();
@@ -49,6 +44,14 @@ namespace Sers.Core.Util.StreamSecurity.Security
                 }
                 secretBytes = value.StringToBytes();
                 secretLength = secretBytes.Length;
+
+                //均匀化秘钥
+                //防止 在秘钥仅有部分匹配时，却能解析部分正确的原文
+                byte temp = 0;
+                for (var t = 0; t < secretLength; t++) temp ^= secretBytes[t];
+                for (var t = 0; t < secretLength; t++) secretBytes[t] ^= temp;
+
+               
             }
         }
 

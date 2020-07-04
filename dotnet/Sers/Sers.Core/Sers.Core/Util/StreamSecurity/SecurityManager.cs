@@ -65,15 +65,7 @@ namespace Sers.Core.Util.StreamSecurity
             }
         }
 
-        public SecurityManager Clone()
-        {
-            return new SecurityManager { securitys= securitys.Select(s=>s.Clone()).ToArray()  };
-        }
-
+ 
         ISecurity[] securitys;
-
-        
-
-
     }
 }

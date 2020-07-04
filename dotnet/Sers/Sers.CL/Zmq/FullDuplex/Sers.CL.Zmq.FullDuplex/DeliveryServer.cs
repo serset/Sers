@@ -178,7 +178,7 @@ namespace Sers.CL.Zmq.FullDuplex
         private DeliveryConnection Delivery_OnConnected(long identityOfWriter)
         {
             var conn = new DeliveryConnection();
-            conn.securityManager = securityManager?.Clone();
+            conn.securityManager = securityManager;
 
             conn.SetIdentity(identityOfWriter >> 1);
 

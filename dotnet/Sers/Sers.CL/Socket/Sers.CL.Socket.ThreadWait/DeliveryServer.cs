@@ -164,7 +164,7 @@ namespace Sers.CL.Socket.ThreadWait
         private DeliveryConnection Delivery_OnConnected(TcpClient client)
         {
             var conn = new DeliveryConnection();
-            conn.securityManager = securityManager?.Clone();
+            conn.securityManager = securityManager;
             conn.Init(client);
         
             conn.Conn_OnDisconnected = Delivery_OnDisconnected; 

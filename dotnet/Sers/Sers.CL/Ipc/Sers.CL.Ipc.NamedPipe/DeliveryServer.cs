@@ -161,7 +161,7 @@ namespace Sers.CL.Ipc.NamedPipe
         private DeliveryConnection Delivery_OnConnected(PipeStream client)
         {
             var conn = new DeliveryConnection();
-            conn.securityManager = securityManager?.Clone();
+            conn.securityManager = securityManager;
             conn.Init(client);
         
             conn.Conn_OnDisconnected = Delivery_OnDisconnected; 

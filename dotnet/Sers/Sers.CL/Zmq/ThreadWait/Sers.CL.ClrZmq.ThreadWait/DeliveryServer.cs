@@ -160,7 +160,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
         {
             var conn = new DeliveryConnection() { zmqIdentity = connGuid.Int64ToBytes() };
 
-            conn.securityManager = securityManager?.Clone();
+            conn.securityManager = securityManager;
 
             conn.OnSendFrameAsync = Zmq_SendFrameAsync;
             conn.Conn_OnDisconnected = Delivery_OnDisconnected;

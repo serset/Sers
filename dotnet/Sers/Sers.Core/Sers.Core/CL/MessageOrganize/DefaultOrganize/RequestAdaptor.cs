@@ -369,6 +369,9 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                         event_OnGetMessage?.Invoke(conn, msgData);
                         return;
                     }
+                default:
+                    conn.Close();
+                    return;
             }
         }
         #endregion
