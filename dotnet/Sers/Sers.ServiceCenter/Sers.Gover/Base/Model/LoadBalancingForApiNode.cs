@@ -28,8 +28,8 @@ namespace Sers.Gover.Base.Model
         public ApiNode GetCurApiNodeBalancing()
         {
             //TODO： 负载均衡的实现
- 
-            int cur= Interlocked.Increment(ref curIndex); 
+
+            int cur = Interlocked.Increment(ref curIndex);
 
             try
             {
@@ -45,11 +45,10 @@ namespace Sers.Gover.Base.Model
             }
             catch (Exception ex)
             {
-                //TODO: not expected
-                throw;
+                //TODO: not expected               
                 Logger.Error(ex);
+                throw;
             }
-            return null;            
         }
 
 

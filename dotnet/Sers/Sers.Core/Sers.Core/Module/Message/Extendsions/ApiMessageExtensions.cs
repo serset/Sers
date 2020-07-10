@@ -61,7 +61,7 @@ namespace Vit.Extensions
                             }
                             apiRequestMessage.value_OriData = data.SerializeToArraySegmentByte();
                         }
-                        catch (Exception ex)
+                        catch
                         {
                         }
                     }

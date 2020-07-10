@@ -159,9 +159,9 @@ namespace Sers.Core.Module.Valid.Sers1
                             }
                             return true;
                         }
-                        catch (System.Exception ex)
+                        catch
                         {
-                        }                    
+                        }
                         return false;
                     }
                 #endregion

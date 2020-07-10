@@ -14,8 +14,7 @@ namespace Sers.Gateway.RateLimit
         /// <summary>
         /// 若返回不为null，则对应服务被限流(服务直接返回对应错误)
         /// </summary>
-        /// <param name="rpcData"></param>
-        /// <param name="requestMessage"></param>
+        /// <param name="context"></param>
         /// <returns></returns>
         SsError BeforeCall(HttpContext context);
 

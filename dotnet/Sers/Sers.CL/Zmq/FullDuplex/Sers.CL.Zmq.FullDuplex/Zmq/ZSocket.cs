@@ -155,10 +155,11 @@ namespace  Sers.CL.Zmq.FullDuplex.Zmq
             }
 		}
 
-		/// <summary>
-		/// Disconnect the specified endpoint.
-		/// </summary>
-		/// <param name="endpoint">A string consisting of a transport and an address, formatted as <c><em>transport</em>://<em>address</em></c>.</param>
+        /// <summary>
+        /// Disconnect the specified endpoint.
+        /// </summary>
+        /// <param name="endpoint">A string consisting of a transport and an address, formatted as <c><em>transport</em>://<em>address</em></c>.</param>
+        /// <param name="errno"></param>
 		public bool Disconnect(string endpoint, out int errno)
 		{
             errno =  0;

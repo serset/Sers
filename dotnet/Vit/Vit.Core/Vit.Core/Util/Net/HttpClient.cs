@@ -109,7 +109,7 @@ namespace Vit.Core.Util.Net
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="url">不可为null,demo："http://www.a.com"、"http://www.a.com?a=1&b=2"</param>
+        /// <param name="url">不可为null,demo："http://www.a.com"、"http://www.a.com?a=1&amp;b=2"</param>
         /// <param name="parameters">可为string、IDictionary、JObject</param>
         /// <returns></returns>
         public static string UrlAddParams(string url, Object parameters)
@@ -157,9 +157,9 @@ namespace Vit.Core.Util.Net
         #region FormatUrlParams
 
         /// <summary>
-        /// 返回值demo： "a=4&b=2"
+        /// 返回值demo： "a=4&amp;b=2"
         /// </summary>
-        /// <param name="parameters">可为string、IDictionary、JObject,例如："a=3&b=5"</param>
+        /// <param name="parameters">可为string、IDictionary、JObject,例如："a=3&amp;b=5"</param>
         /// <returns></returns>
         static String FormatUrlParams(Object parameters)
         {
