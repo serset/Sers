@@ -1,12 +1,12 @@
 ﻿/*
- * sers.servicestation.js 扩展  
+ * sers.ServiceStation.js 扩展  
  * Date   : 2019-12-27
  * Version: 1.0
  * author : Lith
  * email  : sersms@163.com
  */
 
-var sers = { version:'1.0'};
+;var sers = { version:'1.0'};
 
 /*
  * vit.js 扩展  
