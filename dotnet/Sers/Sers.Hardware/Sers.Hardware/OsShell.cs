@@ -12,8 +12,9 @@ namespace Sers.Hardware
         /// <param name="arguments"></param>
         /// <param name="output"></param>
         /// <param name="millisecondsOfWait">等待时间，默认4000。若不指定则永久等待</param>
+        /// <param name="WorkingDirectory">sets the working directory for the process to be started</param>
         /// <returns></returns>
-        public static void Shell(string fileName, string arguments, out string output, int? millisecondsOfWait = 4000)
+        public static void Shell(string fileName, string arguments, out string output, int? millisecondsOfWait = 4000, string WorkingDirectory = null)
         {
             output = null;
 
@@ -23,10 +24,14 @@ namespace Sers.Hardware
                 StartInfo = new ProcessStartInfo(fileName, arguments)
                 {
                     RedirectStandardOutput = true,
-                    UseShellExecute = false
+                    UseShellExecute = false,
                 }
             };
 
+            if (!string.IsNullOrEmpty(WorkingDirectory))
+            {
+                process.StartInfo.WorkingDirectory = WorkingDirectory;
+            }
 
             #region (x.2)ProcessExit,确保程序退出时会关闭process          
             EventHandler stopProcess = null;
@@ -94,8 +99,9 @@ namespace Sers.Hardware
         /// <param name="fileName"> 如 reboot </param>
         /// <param name="arguments"></param>
         /// <param name="millisecondsOfWait">等待时间，默认null。若不指定则永久等待</param>
+        /// <param name="WorkingDirectory">sets the working directory for the process to be started</param>
         /// <returns></returns>
-        public static void Shell(string fileName, string arguments, int? millisecondsOfWait = null)
+        public static void Shell(string fileName, string arguments, int? millisecondsOfWait = null, string WorkingDirectory = null)
         {
 
             //(x.1)创建Process
@@ -107,6 +113,12 @@ namespace Sers.Hardware
                     UseShellExecute = false
                 }
             };
+
+
+            if (!string.IsNullOrEmpty(WorkingDirectory))
+            {
+                process.StartInfo.WorkingDirectory = WorkingDirectory;
+            }
 
 
             #region (x.2)ProcessExit,确保程序退出时会关闭process          
