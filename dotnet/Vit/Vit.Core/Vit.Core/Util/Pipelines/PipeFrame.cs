@@ -55,7 +55,8 @@ namespace Vit.Core.Util.Pipelines
                 var cur = queueBuff.Peek();
                 if (QueueBuff_dataLenOfRemoved != 0)
                 {
-                    cur = new ArraySegment<byte>(cur.Array, cur.Offset + QueueBuff_dataLenOfRemoved, cur.Count - QueueBuff_dataLenOfRemoved);
+                    //cur = new ArraySegment<byte>(cur.Array, cur.Offset + QueueBuff_dataLenOfRemoved, cur.Count - QueueBuff_dataLenOfRemoved);
+                    cur = cur.Slice(QueueBuff_dataLenOfRemoved);
                 }
 
                 if (cur.Count <= leftCount)
