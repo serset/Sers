@@ -1,17 +1,15 @@
 ﻿/*
  * sers.ServiceStation.js 扩展  
- * Date   : 2020-07-12
- * Version: 1.1
+ * Date   : 2020-07-22
+ * Version: 2.1.1.372
  * author : Lith
  * email  : sersms@163.com
  */
 
-; var sers = { version: '1.0' };
+; var sers = { version: '2.1.1.372' };
 
 /*
- * vit.js 扩展  
- * Date   : 2019-12-27
- * Version: 1.0
+ * vit.js 扩展
  * author : Lith
  * email  : sersms@163.com
  */
@@ -229,8 +227,6 @@
 
 /*
 * sers.CL.js 扩展
-* Date   : 2020-07-12
-* Version: 1.1
 * author : Lith
 * email  : sersms@163.com
 */
@@ -644,8 +640,6 @@
 
 /*
 * sers.ServiceStation.js 扩展
-* Date   : 2019-12-27
-* Version: 1.0
 * author : Lith
 * email  : sersms@163.com
 */
@@ -712,34 +706,46 @@
 
         self.unpackage = function (oriData) {
 
-            var files = [];
-
-            var curIndex = 0;
-            while (curIndex < oriData.length) {
-                var fileLength = vit.bytesGetInt32(oriData, curIndex);
-                var fileContent = oriData.slice(curIndex + 4, curIndex + 4 + fileLength);
-
-                curIndex += 4 + fileLength;
-                files.push(fileContent);
-            }
+            var files = ApiMessage.unpackage(oriData);    
 
             rpcContextData_OriData = files[0];
             value_OriData = files[1];
         };
     };
 
-    //(bytes rpcContextData_OriData, bytes value_OriData)
+    //(bytes files)
     //return bytes
-    ApiMessage.package = function (rpcContextData_OriData, value_OriData) {
+    ApiMessage.package = function () {
+        var files = arguments;
+        var oriData = [];
 
-        var oriData = vit.int32ToBytes(rpcContextData_OriData.length)
-            .concat(rpcContextData_OriData,
-                vit.int32ToBytes(value_OriData.length),
-                value_OriData
-            );
-
+        for (var t = 0; t < files.length; t++) {
+            var file = files[t];
+            vit.arrayConcat(oriData, vit.int32ToBytes(file.length));
+            vit.arrayConcat(oriData, file);
+        } 
         return oriData;
     };
+ 
+
+    //(bytes oriData)
+    //return  bytes fileArray
+    ApiMessage.unpackage = function (oriData) {
+        var files = [];
+
+        var curIndex = 0;
+        while (curIndex < oriData.length) {
+            var fileLength = vit.bytesGetInt32(oriData, curIndex);
+            var fileContent = oriData.slice(curIndex + 4, curIndex + 4 + fileLength);
+
+            curIndex += 4 + fileLength;
+            files.push(fileContent);
+        }
+        return files;
+    };
+
+
+    sers.ApiMessage = ApiMessage;
 
     //ApiClient
     sers.ApiClient = function (organizeClient) {
