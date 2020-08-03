@@ -56,10 +56,11 @@ namespace Vit.Core.Util.ConfigurationManager
         /// <param name="configPath"></param>
         public JsonFile(string configPath)
         {
-            //if (!Path.IsPathRooted(configPath)) 
-            //{
-                configPath = CommonHelp.GetAbsPath(configPath);
-            //} 
+            if (string.IsNullOrEmpty(configPath)) return;
+
+
+            configPath = CommonHelp.GetAbsPath(configPath);
+
             this.configPath = configPath;
             RefreshConfiguration();
         }
@@ -68,7 +69,7 @@ namespace Vit.Core.Util.ConfigurationManager
         /// 通过相对路径加载json文件
         /// </summary>
         /// <param name="path">如： new []{"Data","sqler.json"}</param>
-        public JsonFile(params string[] path ):this(CommonHelp.GetAbsPath(path))
+        public JsonFile(params string[] path ):this(path.Length==0?null:CommonHelp.GetAbsPath(path))
         {
         }
 
@@ -107,6 +108,8 @@ namespace Vit.Core.Util.ConfigurationManager
         /// </summary>
         public virtual void SaveToFile()
         {
+            if (string.IsNullOrEmpty(configPath)) return;
+
             try
             {
                 string dir = Path.GetDirectoryName(configPath);

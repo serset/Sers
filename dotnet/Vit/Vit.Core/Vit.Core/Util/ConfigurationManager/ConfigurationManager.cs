@@ -6,11 +6,11 @@ namespace Vit.Core.Util.ConfigurationManager
     public class ConfigurationManager: JsonFile
     {
         #region Instance        
-        private static ConfigurationManager instance;
+        private static JsonFile instance;
         /// <summary>
         /// 获取appsettings.json中的配置
         /// </summary>
-        public static ConfigurationManager Instance
+        public static JsonFile Instance
         {
             get { return instance ?? (instance = new ConfigurationManager()); }
             set { instance = value; }
@@ -22,8 +22,7 @@ namespace Vit.Core.Util.ConfigurationManager
         const string fileName = "appsettings.json";
         protected static string GetDefaultPath()
         {
-            return fileName;
-            //return Path.Combine(AppContext.BaseDirectory , fileName);
+            return fileName; 
         }
 
  
