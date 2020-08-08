@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.1.1.365</Version>
+    <Version>2.1.1.376</Version>
     <Description>https://github.com/sersms/Sers/tree/2.1.1/release</Description>
   </PropertyGroup>
 
@@ -31,7 +31,6 @@
  
   
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Vit\Vit.Core\Vit.Core\Vit.Core.csproj" />
     <ProjectReference Include="..\..\Sers.Hardware\Sers.Hardware\Sers.Hardware.csproj" />
   </ItemGroup> 
  
