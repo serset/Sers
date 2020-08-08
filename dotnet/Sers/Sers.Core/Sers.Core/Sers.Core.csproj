@@ -31,6 +31,7 @@
  
   
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Vit\Vit.Core\Vit.Core\Vit.Core.csproj" />
     <ProjectReference Include="..\..\Sers.Hardware\Sers.Hardware\Sers.Hardware.csproj" />
   </ItemGroup> 
  

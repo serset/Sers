@@ -15,6 +15,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="2.1.1.0" />
     <ProjectReference Include="..\..\..\Sers\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />
+    <ProjectReference Include="..\..\..\Vit\Vit.WebHost\Vit.WebHost.csproj" />
   </ItemGroup>
 
 </Project>

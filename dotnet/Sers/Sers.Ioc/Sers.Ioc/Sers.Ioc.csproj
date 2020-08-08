@@ -13,6 +13,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Vit\Vit.Ioc\Vit.Ioc\Vit.Ioc.csproj" />
     <ProjectReference Include="..\..\Sers.Core\Sers.Core\Sers.Core.csproj" />
   </ItemGroup>
 
