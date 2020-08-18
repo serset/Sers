@@ -80,7 +80,7 @@ namespace Vit.Extensions
                     FileProvider = staticfileOptions.FileProvider,
                     RequestPath = staticfileOptions.RequestPath
                 };
-                data.UseDirectoryBrowser();
+                data.UseDirectoryBrowser(options);
             }
 
 
