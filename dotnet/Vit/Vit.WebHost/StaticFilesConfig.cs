@@ -16,8 +16,14 @@ namespace Vit.WebHost
     public class StaticFilesConfig
     {
 
+        /// <summary>
+        /// 请求路径（可不指定）。demo："/file/static"。The relative request path that maps to static resources
+        /// </summary>       
+        [JsonProperty]
+        public string requestPath { get; set; }
+
         #region rootPath       
- 
+
         private string _rootPath = null;
 
         /// <summary>
@@ -28,7 +34,7 @@ namespace Vit.WebHost
         {
             get => _rootPath;
             set
-            {    
+            {
                 if (string.IsNullOrEmpty(value))
                 {
                     _rootPath = null;
@@ -62,7 +68,7 @@ namespace Vit.WebHost
         /// 回应静态文件时额外添加的http回应头。可不指定。
         /// </summary>       
         [JsonProperty]
-        public IDictionary<string,string> responseHeaders { get; set; }
+        public IDictionary<string, string> responseHeaders { get; set; }
 
 
 
@@ -74,10 +80,10 @@ namespace Vit.WebHost
         /// </summary>
         [JsonProperty]
         public string contentTypeMapFile
-        {            
+        {
             set
             {
-                if (string.IsNullOrWhiteSpace(value)) 
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     contentTypeProvider = null;
                     return;
@@ -99,7 +105,7 @@ namespace Vit.WebHost
                         }
                     }
                 }
-         
+
             }
         }
 
