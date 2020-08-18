@@ -76,7 +76,11 @@ namespace Vit.Extensions
             //(x.2)UseDirectoryBrowser
             if (config.useDirectoryBrowser == true)
             {
-                data.UseDirectoryBrowser(new DirectoryBrowserOptions { FileProvider = staticfileOptions.FileProvider });
+                var options = new DirectoryBrowserOptions {
+                    FileProvider = staticfileOptions.FileProvider,
+                    RequestPath = staticfileOptions.RequestPath
+                };
+                data.UseDirectoryBrowser();
             }
 
 
