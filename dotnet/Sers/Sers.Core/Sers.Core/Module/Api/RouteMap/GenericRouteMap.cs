@@ -102,7 +102,7 @@ namespace Sers.Core.Module.Api.RouteMap
                 {
                     tree = new Tree<T> { key = path[index], parent = this };
 
-                    children.TryAdd(tree.key, tree);                                    
+                    children.IDictionaryTryAdd(tree.key, tree);                                    
                 }
                 return tree.BuildPath(path, index + 1);
             }

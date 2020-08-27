@@ -3,7 +3,6 @@ using System;
 using System.IO;
 using System.Linq;
 using Vit.Core.Util.ComponentModel.SsError;
-using Vit.Core.Util.ComponentModel.SsError.Extensions;
 
 namespace Vit.Core.Module.Log
 {
@@ -88,8 +87,7 @@ namespace Vit.Core.Module.Log
             return fileCache.GetPath(level);
         }
         #endregion
-
-
+        
 
 
         public void LogTxt(Level level, string message)
@@ -97,9 +95,10 @@ namespace Vit.Core.Module.Log
             //加锁 以避免多线程抢占文件错误
             // IOException: The process cannot access the file 'file path' because it is being used by another process
 
+            string finalMsg = DateTime.Now.ToString("[HH:mm:ss.ffff]") + message + Environment.NewLine;
             string filePath = GetLogPath(level);
             lock (filePath)
-                File.AppendAllText(filePath, message);
+                File.AppendAllText(filePath, finalMsg);
         }
 
 
@@ -107,14 +106,16 @@ namespace Vit.Core.Module.Log
 
 
         #region Log
+        /// <summary>
+        ///  例如    (level, msg)=> { Console.WriteLine("[" + level + "]" + DateTime.Now.ToString("[HH:mm:ss.ffff]") + msg);   };
+        /// </summary>
         public Action<Level, string> OnLog = null;
         public void Log(Level level, string message)
         {
             try
-            {
-                string finalMsg = DateTime.Now.ToString("[HH:mm:ss.ffff]") + message+ Environment.NewLine;
-                LogTxt(level, finalMsg);
-                OnLog?.Invoke(level, finalMsg);
+            {              
+                LogTxt(level, message);
+                OnLog?.Invoke(level, message);
             }
             catch { }
         }
@@ -186,7 +187,7 @@ namespace Vit.Core.Module.Log
             if (null != ex)
             {
                 ex = ex.GetBaseException();
-                var ssError = ex.SsError_Get().Serialize();
+                var ssError = ex.ToSsError().Serialize();
                 //if (!string.IsNullOrWhiteSpace(ssError))
                 strMsg += Environment.NewLine + " ssError:" + ssError;
                 strMsg += Environment.NewLine + " StackTrace:" + ex.StackTrace;

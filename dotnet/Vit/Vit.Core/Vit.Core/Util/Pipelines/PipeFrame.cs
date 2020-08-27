@@ -5,6 +5,9 @@ using Vit.Extensions;
 
 namespace Vit.Core.Util.Pipelines
 {
+    /// <summary>
+    /// 线程不安全
+    /// </summary>
     public class PipeFrame
     {
 
@@ -21,7 +24,9 @@ namespace Vit.Core.Util.Pipelines
 
         public void Write(ArraySegment<byte> data)
         {
-            Interlocked.Add(ref buffLen, data.Count);
+            //Interlocked.Add(ref buffLen, data.Count);
+            buffLen += data.Count;
+
             queueBuff.Enqueue(data);
         }
 
@@ -38,7 +43,8 @@ namespace Vit.Core.Util.Pipelines
 
 
 
-            Interlocked.Add(ref buffLen, -lenToPop);
+            //Interlocked.Add(ref buffLen, -lenToPop);
+            buffLen -= lenToPop;
 
             int copyedIndex = 0;
 
@@ -49,7 +55,8 @@ namespace Vit.Core.Util.Pipelines
                 var cur = queueBuff.Peek();
                 if (QueueBuff_dataLenOfRemoved != 0)
                 {
-                    cur = new ArraySegment<byte>(cur.Array, cur.Offset + QueueBuff_dataLenOfRemoved, cur.Count - QueueBuff_dataLenOfRemoved);
+                    //cur = new ArraySegment<byte>(cur.Array, cur.Offset + QueueBuff_dataLenOfRemoved, cur.Count - QueueBuff_dataLenOfRemoved);
+                    cur = cur.Slice(QueueBuff_dataLenOfRemoved);
                 }
 
                 if (cur.Count <= leftCount)

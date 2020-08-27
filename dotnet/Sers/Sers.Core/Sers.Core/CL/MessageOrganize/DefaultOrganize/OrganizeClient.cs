@@ -143,18 +143,27 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
             //发送身份验证
             Logger.Info("[CL.OrganizeClient] Authentication - sending SecretKey...");
-           
-            if (conn.SendRequest(requestData, out var replyData) && replyData.ByteDataToString() == "true")
+
+            bool success = false;
+            try
             {
-                Logger.Info("[CL.OrganizeClient] Authentication - succeed.");
-                return true;
-            }
-            else
-            {
-                Logger.Info("[CL.OrganizeClient] Authentication - failed.");
+                if (conn.SendRequest(requestData, out var replyData) && replyData.ByteDataToString() == "true")
+                {
+                    success = true;
+                    Logger.Info("[CL.OrganizeClient] Authentication - succeed.");
+                    return true;
+                }
                 return false;
             }
-        }        
+            finally
+            {
+                if (!success)
+                {
+                    Logger.Info("[CL.OrganizeClient] Authentication - failed.");
+                }
+            }
+            
+        }
 
         #endregion
 

@@ -13,6 +13,9 @@ namespace Sers.CL.Zmq.FullDuplex
             Close();
         }
 
+        public Sers.Core.Util.StreamSecurity.SecurityManager securityManager { set => _securityManager = value; }
+        Sers.Core.Util.StreamSecurity.SecurityManager _securityManager;
+
         /// <summary>
         /// 连接状态(0:waitForCertify; 2:certified; 4:waitForClose; 8:closed;)
         /// </summary>
@@ -29,14 +32,32 @@ namespace Sers.CL.Zmq.FullDuplex
         internal byte[] identityOfReader { get; set; }
         internal byte[] identityOfWriter { get; set; }
 
+ 
+        Action<IDeliveryConnection, ArraySegment<byte>> _OnGetFrame;
+        public Action<IDeliveryConnection, ArraySegment<byte>> OnGetFrame
+        {
+            internal get => _OnGetFrame;
+            set
+            {
 
-        public Action<IDeliveryConnection, ArraySegment<byte>> OnGetFrame { internal get; set; }
+                if (_securityManager != null)
+                {
+                    value =
+                        (conn, data) => { _securityManager.Decryption(data); }
+                    + value;
+                }
+                _OnGetFrame = value;
+            }
+        }
 
-
-        public Action<DeliveryConnection, List<ArraySegment<byte>>> OnSendFrameAsync { private get; set; }
+        public Action<DeliveryConnection, byte[]> OnSendFrameAsync { private get; set; }
         public void SendFrameAsync(List<ArraySegment<byte>> data)
         {
-            OnSendFrameAsync(this,data);
+            var bytes = data.ByteDataToBytes();
+
+            _securityManager?.Encryption(bytes.BytesToArraySegmentByte()); 
+
+            OnSendFrameAsync(this, bytes);
         }
         
 

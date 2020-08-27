@@ -7,7 +7,6 @@ using System;
 using System.Reflection;
 using Sers.Core.Module.Api.LocalApi;
 using Sers.Core.Module.PubSub;
-using Sers.Core.Module.ApiLoader;
 using Vit.Core.Util.ConfigurationManager;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +16,9 @@ using Sers.Core.Module.Env;
 using Sers.Core.Module.Message;
 using Vit.Core.Util.ComponentModel.Data;
 using System.Threading.Tasks;
+using Sers.SersLoader;
+using Sers.Core.Module.App.AppEvent;
+using Newtonsoft.Json.Linq;
 
 namespace Sers.ServiceStation
 {
@@ -42,8 +44,8 @@ namespace Sers.ServiceStation
             ServiceStation.Init();
 
             //(x.2) Discovery
-            //ServiceStation.Instance.LoadSsApi(typeof(Program).Assembly);
-            //ServiceStation.Instance.LoadSsApi(typeof(Program).Assembly, new Sers.Core.Module.ApiLoader.ApiLoaderConfig { apiStationName = "Demo" });
+            //ServiceStation.Instance.LoadSersApi(typeof(Program).Assembly);
+            //ServiceStation.Instance.LoadSersApi(typeof(Program).Assembly, new Sers.Core.Module.ApiLoader.ApiLoaderConfig { apiStationName = "Demo" });
             ServiceStation.Instance.LoadApi();
 
             //(x.3) Start
@@ -100,9 +102,17 @@ namespace Sers.ServiceStation
 
         #endregion
 
+        public ServiceStation()
+        {
+            appEventList = AppEventLoader.LoadAppEvent(Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<JArray>("Sers.AppEvent"))
+                ?.ToList();
+        }
+
 
         #region (x.1) 成员对象
-        
+
+        List<IAppEvent> appEventList { get; set; }
+
         public readonly LocalApiService localApiService = new LocalApiService();
 
         private readonly CommunicationManageClient communicationManage = new CommunicationManageClient();
@@ -117,6 +127,10 @@ namespace Sers.ServiceStation
         {
 
             Logger.Info("[ServiceStation] init...");
+
+            //(x.0) appEvent BeforeStart
+            appEventList?.ForEach(ev => ev.BeforeStart());
+
 
             #region (x.1)CL add Builder for Iocp、ThreadWait
             communicationManage.BeforeBuildOrganize = (configs,  organizeList) => 
@@ -160,7 +174,7 @@ namespace Sers.ServiceStation
         /// </summary>
         public void LoadApi()
         {
-            localApiService.LoadApi_StaticFileMap();
+            localApiService.LoadApi_StaticFiles();
             localApiService.LoadApi();
         }
 
@@ -169,9 +183,9 @@ namespace Sers.ServiceStation
         /// 调用SsApi加载器加载api
         /// </summary> 
         /// <param name="config"></param>
-        public void LoadSsApi(ApiLoaderConfig config)
+        public void LoadSersApi(ApiLoaderConfig config)
         {
-            localApiService.LoadSsApi(config);
+            localApiService.LoadSersApi(config);
         }
 
 
@@ -180,11 +194,11 @@ namespace Sers.ServiceStation
         /// </summary>
         /// <param name="assembly"></param>
         /// <param name="config"></param>
-        public void LoadSsApi(Assembly assembly, ApiLoaderConfig config = null)
+        public void LoadSersApi(Assembly assembly, ApiLoaderConfig config = null)
         {
             if (null == config) config = new ApiLoaderConfig();
             config.assembly = assembly;
-            LoadSsApi(config);
+            LoadSersApi(config);
         }
 
         #endregion
@@ -200,6 +214,9 @@ namespace Sers.ServiceStation
         public bool StartStation()
         {
             Logger.Info("[ServiceStation] starting ...");
+
+            //(x.0) appEvent OnStart
+            appEventList?.ForEach(ev => ev.OnStart());
 
             #region (x.1)注册主程序退出回调
             AppDomain.CurrentDomain.ProcessExit += (s, e) =>
@@ -343,7 +360,10 @@ namespace Sers.ServiceStation
             SersApplication.OnStart();
 
             Logger.Info("[ServiceStation] started - stationName:" + SersApplication.serviceStationInfo.serviceStationName);
-           
+
+            //(x.9) appEvent AfterStart
+            appEventList?.ForEach(ev => ev.AfterStart());
+
             return true;
         }
         #endregion
@@ -354,38 +374,46 @@ namespace Sers.ServiceStation
 
 
         public void StopStation()
-        {
-            if (!SersApplication.IsRunning) return;
-
+        {       
             Logger.Info("[ServiceStation] stoping...");
 
+            //(x.1) appEvent BeforeStop
+            appEventList?.ForEach(ev => ev.BeforeStop());
 
-            #region CommunicationManage Close
-            Logger.Info("[CL] stop...");
-            try
+            //(x.2)stop service
+            if (SersApplication.IsRunning)
             {
-                communicationManage.Stop();
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
-            }
-            Logger.Info("[CL] stoped");
-            #endregion
-            
+                #region CommunicationManage Stop
+                Logger.Info("[CL] stop...");
+                try
+                {
+                    communicationManage.Stop();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex);
+                }
+                Logger.Info("[CL] stoped");
+                #endregion
 
-            try
-            {
-                localApiService.Stop();
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
+                Logger.Info("[LocalApiService] stop...");
+                try
+                {
+                    localApiService.Stop();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex);
+                }
+                Logger.Info("[LocalApiService] stoped");
             }
 
             Logger.Info("[ServiceStation] stoped");
 
-            //调用SersApp 事件
+            //(x.3) appEvent AfterStop
+            appEventList?.ForEach(ev => ev.AfterStop());
+
+            //(x.4)调用SersApp 事件
             SersApplication.OnStop();
         }
         #endregion

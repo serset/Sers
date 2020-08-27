@@ -1,10 +1,9 @@
-﻿using Sers.ApiLoader.Sers;
-using Sers.ApiLoader.Sers.Attribute;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Sers.SersLoader;
 using Vit.Core.Util.ComponentModel.Api;
 
-namespace Sers.Core.Module.Api.MsTest.LocalApi.Controllers
+namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Controllers
 {
     [SsStationName("Test")]
     public class DemoController : IApiController

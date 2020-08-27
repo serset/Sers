@@ -9,6 +9,7 @@ namespace Sers.Hardware.Usage
 
         public void Start()
         {
+            return;
             try
             {
                 Dispose();

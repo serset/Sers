@@ -114,9 +114,9 @@ namespace Sers.CL.Zmq.FullDuplex
             _conn.OnGetFrame(_conn, msgFrame.BytesToArraySegmentByte());
         }
 
-        void SendMessageAsync(DeliveryConnection conn, List<ArraySegment<byte>> data)
+        void SendMessageAsync(DeliveryConnection conn, byte[] data)
         {
-            stream.SendMessageAsync(data.ByteDataToBytes());
+            stream.SendMessageAsync(data);
         }
 
         private void SendCloseSignal()

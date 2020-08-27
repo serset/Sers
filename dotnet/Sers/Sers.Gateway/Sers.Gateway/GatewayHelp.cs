@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.StaticFiles;
 using Newtonsoft.Json.Linq;
 using Sers.Core.Module.Api;
 using Sers.Core.Module.Message;
@@ -24,8 +23,8 @@ namespace Sers.Gateway
 
         public static void Bridge()
         {
-            var webHostUrls = ConfigurationManager.Instance.GetByPath<string[]>("Sers.Gateway.WebHost.urls");
-            if (webHostUrls == null || webHostUrls.Length == 0) return;
+            HostRunArg arg = ConfigurationManager.Instance.GetByPath<HostRunArg>("Sers.Gateway.WebHost"); 
+            if (arg == null || arg.urls==null || arg.urls.Length == 0) return;
 
 
             #region (x.2)初始化GatewayHelp
@@ -33,7 +32,7 @@ namespace Sers.Gateway
             var gatewayHelp = new GatewayHelp();
 
             #region (x.x.1)构建 Api Event BeforeCallApi
-            var BeforeCallApi = Sers.Core.Module.Api.ApiEvent.BeforeCallApi.EventBuilder.LoadEvent(ConfigurationManager.Instance.GetByPath<JArray>("Sers.Gateway.BeforeCallApi"));
+            var BeforeCallApi = Sers.Core.Module.Api.ApiEvent.EventBuilder.LoadEvent_BeforeCallApi(ConfigurationManager.Instance.GetByPath<JArray>("Sers.Gateway.BeforeCallApi"));
             if (BeforeCallApi != null) gatewayHelp.BeforeCallApi += BeforeCallApi;
             #endregion
 
@@ -43,72 +42,30 @@ namespace Sers.Gateway
 
             #endregion
 
+
             #region (x.3)初始化WebHost
 
-            RunArg arg = new RunArg { allowAnyOrigin = true };
-
-
-
             //(x.x.1)指定可以与iis集成（默认无法与iis集成）
-            arg.OnCreateWebHostBuilder = () => Microsoft.AspNetCore.WebHost.CreateDefaultBuilder();
+            arg.OnCreateWebHostBuilder = () => Microsoft.AspNetCore.WebHost.CreateDefaultBuilder().UseVitConfig();
+            
 
-            //(x.x.2)配置web服务监听地址（urls）
-            arg.urls = webHostUrls;
-
-
-            #region (x.x.3)配置静态文件映射
-
-            arg.wwwrootPath = ConfigurationManager.Instance.GetByPath<string>("Sers.Gateway.WebHost.wwwroot");
-
-            if (arg.wwwrootPath != null)
-            {
-                #region 静态文件类型映射配置（mappings.json）
-                try
-                {
-                    var jsonFile = new JsonFile(new[] { "mappings.json" });
-                    if (File.Exists(jsonFile.configPath))
-                    {
-                        var provider = new FileExtensionContentTypeProvider();
-                        var map = provider.Mappings;
-                        foreach (var item in (jsonFile.root as JObject))
-                        {
-                            map.Remove(item.Key);
-                            map[item.Key] = item.Value.Value<string>();
-                        }
-
-                        arg.OnInitStaticFileOptions += (StaticFileOptions staticfileOptions) =>
-                        {
-                            staticfileOptions.ContentTypeProvider = provider;
-                        };
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex);
-                }
-                #endregion
-            }
-            #endregion
-
-
-            #region (x.x.4)转发web请求到Sers(网关核心功能)
+            #region (x.x.2)转发web请求到Sers(网关核心功能)
             arg.OnConfigure = (app) =>
-            {
+            {               
                 app.Run(gatewayHelp.Bridge);
             };
             #endregion
 
 
-            //(x.x.5)设置异步启动
+            //(x.x.3)设置异步启动
             arg.RunAsync = true;
 
 
-            #region (x.x.6)启动           
+            #region (x.x.4)启动           
             Logger.Info("[WebHost]will listening on: " + string.Join(",", arg.urls));
 
-            if (arg.wwwrootPath != null)
-                Logger.Info("[WebHost]wwwroot : " + arg.wwwrootPath);
+            if (arg.staticFiles?.rootPath != null)
+                Logger.Info("[WebHost]wwwroot : " + arg.staticFiles?.rootPath);
 
             Vit.WebHost.Host.Run(arg);
             #endregion
@@ -161,6 +118,7 @@ namespace Sers.Gateway
 
 
         #region BuildHttp
+        static string prefixOfCopyIpToHeader = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.WebHost.prefixOfCopyIpToHeader");
         protected JObject BuildHttp(HttpRequest request)
         {
             var http = new JObject();
@@ -176,6 +134,15 @@ namespace Sers.Gateway
                 headers[kv.Key] = kv.Value.ToString();
             }
 
+            //(x.x.2)记录Ip 到 headers
+            if(prefixOfCopyIpToHeader!=null)
+            {
+                headers[prefixOfCopyIpToHeader+"RemoteIpAddress"] = request.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+                headers[prefixOfCopyIpToHeader + "RemotePort"] = request.HttpContext.Connection.RemotePort;
+
+                headers[prefixOfCopyIpToHeader + "LocalIpAddress"] = request.HttpContext.Connection.LocalIpAddress.MapToIPv4().ToString();
+                headers[prefixOfCopyIpToHeader + "LocalPort"] = request.HttpContext.Connection.LocalPort;
+            }
             #endregion
 
             #region (x.3) method
@@ -231,10 +198,9 @@ namespace Sers.Gateway
         static string Rpc_CallerSource = ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.Rpc.CallerSource")?? "Outside";
 
         protected ApiMessage BuildApiRequestMessage(HttpRequest request)
-        {
-       
+        {      
    
-            var rpcData = RpcFactory.Instance.CreateRpcContextData().Init(Rpc_CallerSource);
+            var rpcData = RpcFactory.CreateRpcContextData().Init(Rpc_CallerSource);
 
             rpcData.route = request.Path.Value;
  
@@ -287,12 +253,12 @@ namespace Sers.Gateway
             #endregion
 
          
-            #region (x.2) header             
+            #region (x.2) header
+            //(x.x.1)原始header
             var headers = response.Headers; 
             if (null != replyRpcData)
             {
                 var joHeaders=replyRpcData.http_headers_Get();
-
                 if (null != joHeaders)
                 {
                     foreach (var item in joHeaders)
@@ -302,7 +268,8 @@ namespace Sers.Gateway
                 }
             }
 
-            //Content-Type → application/json
+            
+            //(x.x.2)Content-Type → application/json
             if (!headers.ContainsKey("Content-Type"))
             {
                 headers["Content-Type"]= ResponseDefaultContentType;
@@ -324,7 +291,7 @@ namespace Sers.Gateway
                 var rpcContextData_OriData = apiReply.rpcContextData_OriData;
                 if (null != rpcContextData_OriData && rpcContextData_OriData.Count > 0)
                 {
-                    return RpcFactory.Instance.CreateRpcContextData().UnpackOriData(rpcContextData_OriData);  
+                    return RpcFactory.CreateRpcContextData().UnpackOriData(rpcContextData_OriData);  
                 }
                 return null;
             }

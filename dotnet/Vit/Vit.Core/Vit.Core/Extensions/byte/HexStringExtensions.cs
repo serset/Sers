@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Vit.Core.Module.Serialization;
 
 namespace Vit.Extensions
 {
@@ -12,7 +9,7 @@ namespace Vit.Extensions
 
         public static string BytesToHexString(this byte[] data)
         {
-            return BitConverter.ToString(data, 0).Replace("-", string.Empty);
+            return BitConverter.ToString(data).Replace("-", string.Empty);
         }
 
 
@@ -26,13 +23,7 @@ namespace Vit.Extensions
             }
             return bytes;
         }
-        #endregion
-
-
-     
-
-
-         
+        #endregion       
 
 
     }

@@ -3,27 +3,29 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Net.Http.Headers;
+using Vit.Extensions;
 
 namespace Vit.WebHost
 {
     public class Host
     {
         #region Run
-        public static void Run(int port = 8888, string wwwrootPath = null, Action<IApplicationBuilder> OnConfigure = null)
+        public static void Run(int port = 8888, string rootPath = null, Action<IApplicationBuilder> OnConfigure = null)
         {
-            Run(wwwrootPath, OnConfigure, "http://*:" + port);
+            Run(rootPath, OnConfigure, "http://*:" + port);
         }
-        public static void Run(string wwwrootPath = null, Action<IApplicationBuilder> OnConfigure = null, params string[] urls)
+        public static void Run(string rootPath = null, Action<IApplicationBuilder> OnConfigure = null, params string[] urls)
         {
-            Run(new RunArg
-            {
-                wwwrootPath = wwwrootPath,
+            Run(new HostRunArg
+            {                
                 OnConfigure = OnConfigure,
-                urls = urls
+                urls = urls,
+                staticFiles=new StaticFilesConfig { rootPath= rootPath }
             });
         }
 
-        public static void Run(RunArg arg)
+        public static void Run(HostRunArg arg)
         {
             Action<IServiceCollection> OnConfigureServices = null;
             Action<IApplicationBuilder> OnConfigure = null;
@@ -48,24 +50,17 @@ namespace Vit.WebHost
             }
             #endregion
 
-
             #region (x.2)UseStaticFiles
-            if (!string.IsNullOrWhiteSpace(arg.wwwrootPath) || arg.OnInitStaticFileOptions != null)
+            if (arg.staticFiles != null) 
             {
                 OnConfigure += (app) =>
-                {
-                    var staticfileOptions = new StaticFileOptions();
-                    if (!string.IsNullOrWhiteSpace(arg.wwwrootPath))
-                    {                          
-                        staticfileOptions.FileProvider = new PhysicalFileProvider(arg.wwwrootPath);
-                    }
-                    arg.OnInitStaticFileOptions?.Invoke(staticfileOptions);
-                    app.UseStaticFiles(staticfileOptions);
+                {                   
+                    app.UseStaticFiles(arg.staticFiles);
                 };
             }
             #endregion
 
-            #region test OnConfigure
+            #region demo OnConfigure
             //OnConfigure += (app) =>{
 
             //    app.Use(async (context, next) =>
@@ -91,11 +86,11 @@ namespace Vit.WebHost
             OnConfigure += arg.OnConfigure;
 
             var host =
-                  arg.OnCreateWebHostBuilder().
-                   UseUrls(arg.urls).
-                   ConfigureServices(OnConfigureServices).
-                   Configure(OnConfigure).
-                   Build();
+                arg.OnCreateWebHostBuilder()               
+                .UseUrls(arg.urls)    
+                .ConfigureServices(OnConfigureServices)
+                .Configure(OnConfigure)               
+                .Build();
             #endregion
 
 

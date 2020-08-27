@@ -22,7 +22,7 @@ namespace Sers.Core.Module.Api.Rpc
 
 
         /// <summary>
-        /// oriData为ArraySegment<byte>类型
+        ///
         /// </summary>
         /// <param name="oriData"></param>
         public IRpcContextData UnpackOriData(ArraySegment<byte> oriData)

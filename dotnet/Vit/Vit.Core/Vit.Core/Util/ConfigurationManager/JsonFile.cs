@@ -51,11 +51,16 @@ namespace Vit.Core.Util.ConfigurationManager
         public string configPath { get; protected set; }
 
         /// <summary>
-        /// 通过绝对路径加载json文件
+        /// 通过绝对路径(或相对路径)加载json文件
         /// </summary>
         /// <param name="configPath"></param>
         public JsonFile(string configPath)
         {
+            if (string.IsNullOrEmpty(configPath)) return;
+
+
+            configPath = CommonHelp.GetAbsPath(configPath);
+
             this.configPath = configPath;
             RefreshConfiguration();
         }
@@ -64,9 +69,8 @@ namespace Vit.Core.Util.ConfigurationManager
         /// 通过相对路径加载json文件
         /// </summary>
         /// <param name="path">如： new []{"Data","sqler.json"}</param>
-        public JsonFile(params string[] path ):this(CommonHelp.GetAbsPathByRealativePath(path))
+        public JsonFile(params string[] path ):this(path.Length==0?null:CommonHelp.GetAbsPath(path))
         {
-            
         }
 
 
@@ -99,9 +103,13 @@ namespace Vit.Core.Util.ConfigurationManager
         }
         #endregion
 
-
+        /// <summary>
+        /// 保存到原始json文件
+        /// </summary>
         public virtual void SaveToFile()
         {
+            if (string.IsNullOrEmpty(configPath)) return;
+
             try
             {
                 string dir = Path.GetDirectoryName(configPath);
@@ -135,9 +143,9 @@ namespace Vit.Core.Util.ConfigurationManager
         /// 
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="keys">value在Root中的json路径，可为null。例如：new []{"taskList"}</param>
+        /// <param name="keys">value在Root中的json路径，可为null。例如：new []{"taskList",0,"name"}</param>
         /// <returns></returns>
-        public virtual  T Get<T>(params string[] keys)
+        public virtual  T Get<T>(params object[] keys)
         {
             JToken cur = root;
             if (null != keys && keys.Length > 0)
@@ -151,10 +159,10 @@ namespace Vit.Core.Util.ConfigurationManager
         }
 
         /// <summary>
-        /// 
+        /// 会自动保存到原始json文件
         /// </summary>
         /// <param name="value"></param>
-        /// <param name="keys">value在Root中的json路径，可为null。例如：new []{"taskList"}</param>
+        /// <param name="keys">value在Root中的json路径，可为null。例如：new []{"taskList",0,"name"}</param>
         public void Set(object value, params object[] keys)
         {
             if (null == keys || keys.Length == 0)
@@ -187,7 +195,7 @@ namespace Vit.Core.Util.ConfigurationManager
 
 
         /// <summary>
-        ///
+        /// 会自动保存到原始json文件
         /// </summary>
         /// <param name="value"></param>
         /// <param name="path">value在Root中的json路径，可为null。例如："a.b.c"</param>

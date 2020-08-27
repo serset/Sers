@@ -5,20 +5,14 @@
     <meta charset="utf-8" />
     <title>Sers-JsStation</title>
 
-    <script src="sers.servicestation.min.js"></script>
+    <script src="sers.ServiceStation.min.js"></script>
     <script>
 
 
+        //var clConfig = { host: 'ws://0.0.0.0:4503', secretKey: 'SersCL' };
+        var clConfig = { host: 'ws://' + location.hostname + ':4503', secretKey: 'SersCL' };
+
         var serviceStation = new sers.ServiceStation();
-
-
-        //设置websocket host 地址 demo: "ws://127.0.0.1:4503"
-        //serviceStation.org.setHost("ws://127.0.0.1:4503");
-        serviceStation.org.setHost('ws://' + location.hostname+':4503');
-        
-
-        //连接秘钥，用以验证连接安全性。服务端和客户端必须一致
-        serviceStation.org.secretKey = "SersCL";
 
 
         /*
@@ -72,6 +66,15 @@
 
         function startService() {
             try {
+
+                //设置websocket host 地址 demo: "ws://127.0.0.1:4503"
+                //serviceStation.org.setHost("ws://127.0.0.1:4503");
+                serviceStation.org.setHost(clConfig.host);
+
+
+                //连接秘钥，用以验证连接安全性。服务端和客户端必须一致
+                serviceStation.org.secretKey = clConfig.secretKey;
+
                 serviceStation.start();
             } catch (e) {
                 vit.logger.error(e);

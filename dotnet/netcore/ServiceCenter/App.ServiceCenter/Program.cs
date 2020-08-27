@@ -4,8 +4,7 @@ using Vit.Core.Module.Log;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Extensions;
 
-
-namespace Main
+namespace App.ServiceCenter
 {
     public class Program
     {
@@ -19,12 +18,12 @@ namespace Main
             #region (x.2) 初始化扩展模块
 
             #region (x.x.1)使用 Gover 服务治理 模块
-            Sers.ServiceCenter.ServiceCenter.Instance.UseGover();
+            Sers.ServiceCenter.ServiceCenter.Instance.UseGover();             
             #endregion
 
 
             #region (x.x.2)加载 ServiceCenter ApiEvent BeforeCallApi
-            var BeforeCallApi = Sers.Core.Module.Api.ApiEvent.BeforeCallApi.EventBuilder.LoadEvent(ConfigurationManager.Instance.GetByPath<JArray>("Sers.ServiceCenter.BeforeCallApi"));
+            var BeforeCallApi = Sers.Core.Module.Api.ApiEvent.EventBuilder.LoadEvent_BeforeCallApi(ConfigurationManager.Instance.GetByPath<JArray>("Sers.ServiceCenter.BeforeCallApi"));
             if (BeforeCallApi != null) Sers.ServiceCenter.ServiceCenter.Instance.apiCenterService.BeforeCallApi += BeforeCallApi;
             #endregion
 

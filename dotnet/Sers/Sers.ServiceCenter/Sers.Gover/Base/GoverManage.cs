@@ -15,7 +15,6 @@ using Sers.ServiceCenter.ApiCenter;
 using Sers.ServiceCenter.Entity;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.SsError;
-using Vit.Core.Util.ComponentModel.SsError.Extensions;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Extensions;
 
@@ -109,6 +108,25 @@ namespace Sers.Gover.Base
         {
             try
             {
+                #region (x.0)ApiScopeEvent
+                apiScopeEventList?.ForEach(onScope =>
+                {
+                    try
+                    {
+                        var onDispose = onScope(rpcData, requestMessage);
+                        if (onDispose != null)
+                        {
+                            callback += onDispose;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error(ex);
+                    }
+                });
+                #endregion
+
+
                 #region (x.1)route 判空               
                 if (string.IsNullOrWhiteSpace(rpcData.route))
                 {
@@ -189,22 +207,23 @@ namespace Sers.Gover.Base
                 }
 
 
-                //(x.2) 修正 requestMessage
+                //(x.x.2) 修正 requestMessage
                 if (requestMessage.rpcContextData_OriData.Count <= 0) {
                     requestMessage.RpcContextData_OriData_Set(rpcData);
                 }
-                #endregion
+                #endregion             
 
 
-                #region (x.8) 服务调用 
-                apiNode.CallApiAsync(rpcData, requestMessage, sender,callback);
+                #region (x.8)服务调用
+                apiNode.CallApiAsync(rpcData, requestMessage, sender,callback);                
                 #endregion
+
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
 
-                ApiSysError.LogSysError(rpcData, requestMessage, ex.SsError_Get());
+                ApiSysError.LogSysError(rpcData, requestMessage, ex.ToSsError());
  
                 SendReply(SsError.Err_SysErr);
                 return;
@@ -250,7 +269,8 @@ namespace Sers.Gover.Base
 
         public override void ServiceStation_Remove(IOrganizeConnection  conn)
         {
-            var serviceStation = serviceStationMng.ServiceStation_Remove(conn);
+            string connKey = ""+ conn.GetHashCode();
+            var serviceStation = serviceStationMng.ServiceStation_Remove(connKey);
             if (serviceStation != null)
             {
                 Logger.Info("[ApiCenterService]Remove serviceStation,stationName:" + serviceStation?.serviceStationInfo?.serviceStationName);
@@ -277,6 +297,18 @@ namespace Sers.Gover.Base
             }
             return serviceStation != null; 
         }
+
+        public bool ServiceStation_Stop(string connKey)
+        {
+            var serviceStation = serviceStationMng.ServiceStation_Remove(connKey);
+            if (serviceStation != null)
+            {
+                Logger.Info("[ApiCenterService]Stop serviceStation,stationName:" + serviceStation?.serviceStationInfo?.serviceStationName);
+                serviceStation.connection.Close();
+            }
+            return serviceStation != null;
+        }
+
         #endregion
 
 
@@ -302,7 +334,23 @@ namespace Sers.Gover.Base
         #endregion
 
 
-        
+        #region ApiScopeEvent
+
+        /// <summary>
+        /// 
+        /// </summary>
+        List<Func<IRpcContextData, ApiMessage, Action<Object, List<ArraySegment<byte>>>>> apiScopeEventList = null;
+        /// <summary>
+        /// 在调用api前调用onScope，若onScope返回的结果（onDispose）不为空，则在api调用结束前调用onDispose
+        /// </summary>
+        /// <param name="apiScopeEvent"></param>
+        public void AddApiScopeEvent(Func<IRpcContextData, ApiMessage, Action<Object, List<ArraySegment<byte>>>> apiScopeEvent) 
+        {
+            if (apiScopeEventList == null) apiScopeEventList=new List<Func<IRpcContextData, ApiMessage, Action<Object, List<ArraySegment<byte>>>>>();
+
+            apiScopeEventList.Add(apiScopeEvent);
+        }
+        #endregion
 
     }
 }

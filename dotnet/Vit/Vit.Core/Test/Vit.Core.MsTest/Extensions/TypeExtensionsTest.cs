@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Vit.Extensions;
 
-namespace Vit.Core.MsTest.Util.Type.Extensions
+namespace Vit.Core.MsTest.Extensions
 {
 
     [TestClass]

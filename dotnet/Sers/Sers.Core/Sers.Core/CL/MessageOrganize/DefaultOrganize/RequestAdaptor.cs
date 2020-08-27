@@ -369,6 +369,9 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                         event_OnGetMessage?.Invoke(conn, msgData);
                         return;
                     }
+                default:
+                    conn.Close();
+                    return;
             }
         }
         #endregion
@@ -634,11 +637,8 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             {
                 if (info.IsDisconnected(heartBeatRetryCount))
                 {
-                    var deliveryConn = conn.GetDeliveryConn();
-                    if (deliveryConn!= null){
-                        Logger.Info("[CL.RequestAdaptor]HeartBeat,conn disconnected. connTag:" + conn.connTag);
-                        deliveryConn.Close();
-                    }
+                    Logger.Info("[CL.RequestAdaptor]HeartBeat,conn disconnected. connTag:" + conn.connTag);
+                    conn.Close();                    
                     return;
                 }
             }
@@ -662,20 +662,18 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
         void HeartBeat_callback(object sender,List<ArraySegment<byte>> replyData)
         {
-            //if (replyData.Count <= 0) return;
-
             HeartBeatPackage package = sender as HeartBeatPackage;
 
-            if (organizeVersion != replyData?.ByteDataToString())
-            {
-                var deliveryConn = package.conn.GetDeliveryConn();                
-                if (deliveryConn != null)
-                {
-                    Logger.Info("[CL.RequestAdaptor]HeartBeat_callback,CmVersion not match,will stop conn. connTag:" + package.conn.connTag + "  replyData:" + replyData.ByteDataToString());
-                    Task.Run((Action) deliveryConn.Close);
-                }
-                return;
-            }           
+            //if (organizeVersion != replyData?.ByteDataToString())
+            //{
+            //    var deliveryConn = package.conn.GetDeliveryConn();                
+            //    if (deliveryConn != null)
+            //    {
+            //        Logger.Info("[CL.RequestAdaptor]HeartBeat_callback,CL Version not match,will stop conn. connTag:" + package.conn.connTag + "  replyData:" + replyData.ByteDataToString());
+            //        Task.Run((Action) deliveryConn.Close);
+            //    }
+            //    return;
+            //}           
             package.replyTime = DateTime.Now;
         }
 

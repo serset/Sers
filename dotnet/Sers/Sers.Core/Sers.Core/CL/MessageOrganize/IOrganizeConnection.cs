@@ -12,5 +12,8 @@ namespace Sers.Core.CL.MessageOrganize
 
         void SendRequestAsync(Object sender, List<ArraySegment<byte>> requestData, Action<object, List<ArraySegment<byte>>> callback);
         bool SendRequest(List<ArraySegment<byte>> requestData, out List<ArraySegment<byte>> replyData);
+
+
+        void Close();
     }
 }

@@ -4,7 +4,7 @@ using Sers.Core.CL.MessageDelivery;
 
 namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 {
-    public class OrganizeConnection:IOrganizeConnection
+    public class OrganizeConnection : IOrganizeConnection
     {
         public string connTag { get; set; }
 
@@ -30,8 +30,15 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         }
         public bool SendRequest(List<ArraySegment<byte>> requestData, out List<ArraySegment<byte>> replyData)
         {
-           return requestAdaptor.SendRequest(this,requestData, out replyData);
+            return requestAdaptor.SendRequest(this, requestData, out replyData);
         }
+
+        public void Close() 
+        {
+            deliveryConn?.Close();
+            deliveryConn = null;
+        }
+
     }
 
 

@@ -56,11 +56,10 @@ namespace Vit.Core.Module.Serialization
         #endregion
 
 
-        #region InitByAppSettings                
+        #region InitByAppSettings
         /// <summary>
         /// 根据配置文件（appsettings.json）初始化序列化配置
         /// </summary>
-        /// <param name="value"></param>
         public void InitByAppSettings()
         {
             #region (x.1)初始化序列化字符编码
@@ -296,7 +295,7 @@ namespace Vit.Core.Module.Serialization
             }
             if (obj is byte[] bytes)
             {
-                return bytes.SerializeToArraySegmentByte();
+                return bytes.BytesToArraySegmentByte();
             }
 
             if (!(obj is string strValue))

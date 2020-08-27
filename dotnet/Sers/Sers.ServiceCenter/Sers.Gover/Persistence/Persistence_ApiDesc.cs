@@ -18,7 +18,7 @@ namespace Sers.Gover.Persistence
             foreach (char invalidChar in Path.GetInvalidFileNameChars())
                 jsonFileName = jsonFileName.Replace(invalidChar, '_');
 
-            return CommonHelp.GetAbsPathByRealativePath(new[] { "Data", "Sers", "Gover", "ApiDesc", jsonFileName });            
+            return CommonHelp.GetAbsPath(new[] { "Data", "Sers", "Gover", "ApiDesc", jsonFileName });            
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Sers.Gover.Persistence
         {
             try
             {
-                var foldPath = CommonHelp.GetAbsPathByRealativePath(new[] { "Data", "Sers", "Gover", "ApiDesc" });
+                var foldPath = CommonHelp.GetAbsPath(new[] { "Data", "Sers", "Gover", "ApiDesc" });
                 if (!Directory.Exists(foldPath)) return;
                 string[] files = Directory.GetFiles(foldPath, "*.json");
                 foreach (string filePath in files)

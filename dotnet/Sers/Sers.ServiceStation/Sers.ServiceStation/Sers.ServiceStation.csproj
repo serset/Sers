@@ -3,8 +3,7 @@
  
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.1.1.250</Version>
+    <Version>2.1.1.384</Version>
     <Description>https://github.com/sersms/Sers/tree/2.1.1/release</Description>
   </PropertyGroup>
 
@@ -13,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Sers.CL\Ipc\Sers.CL.Ipc.NamedPipe\Sers.CL.Ipc.NamedPipe.csproj" />
     <ProjectReference Include="..\..\Sers.CL\Socket\Sers.CL.Socket.Iocp\Sers.CL.Socket.Iocp.csproj" />
     <ProjectReference Include="..\..\Sers.CL\Socket\Sers.CL.Socket.ThreadWait\Sers.CL.Socket.ThreadWait.csproj" />
   </ItemGroup>

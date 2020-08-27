@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Threading;
-using Vit.Core.Util.Statistics;
 using System.Collections.Generic;
-using Vit.Core.Module.Log;
+using System.Threading;
+using CLServer.Statistics;
 using Sers.Core.CL.CommunicationManage;
 using Sers.Core.CL.MessageOrganize;
+using Vit.Core.Module.Log;
 
-namespace ConsoleApp1
+namespace CLServer
 {
     class Program
     {
@@ -48,8 +48,6 @@ namespace ConsoleApp1
 
 
             cm.Start();
-
-            Console.WriteLine("Hello World!");
 
             while (true)
             {                 

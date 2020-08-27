@@ -12,6 +12,14 @@ namespace Sers.CL.ClrZmq.ThreadWait
         {
             var delivery = new DeliveryClient();
 
+            #region security        
+            if (config["security"] is JArray securityConfigs)
+            {
+                var securityManager = Sers.Core.Util.StreamSecurity.SecurityManager.BuildSecurityManager(securityConfigs);
+                ((DeliveryConnection)delivery.conn).securityManager = securityManager;
+            }
+            #endregion
+
             delivery.endpoint = config["endpoint"].ConvertToString();
 
             organizeList.Add(new OrganizeClient(delivery, config));

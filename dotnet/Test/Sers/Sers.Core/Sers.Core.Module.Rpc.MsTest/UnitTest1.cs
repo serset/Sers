@@ -12,14 +12,14 @@ namespace Sers.Core.Module.Rpc.MsTest
         {
             try
             {
-                using (var rpcContext = RpcFactory.Instance.CreateRpcContext())
+                using (var rpcContext = RpcFactory.CreateRpcContext())
                 {
-                    var rpcData = RpcFactory.Instance.CreateRpcContextData();
+                    var rpcData = RpcFactory.CreateRpcContextData();
                     rpcContext.rpcData = rpcData;
                     rpcData.http_method_Set("POST");
 
 
-                    var rpcData2 = RpcFactory.Instance.CreateRpcContextData();
+                    var rpcData2 = RpcFactory.CreateRpcContextData();
                     rpcData2.UnpackOriData(rpcData.PackageOriData());
                 }
                  

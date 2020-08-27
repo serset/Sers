@@ -3,17 +3,17 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Sers.CL.Zmq.FullDuplex.Zmq;
 using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
-using Vit.Core.Util.Threading;
 using Vit.Extensions;
- 
+
 namespace Sers.CL.Zmq.FullDuplex
 {
     public class DeliveryServer : IDeliveryServer
     {
+
+        public Sers.Core.Util.StreamSecurity.SecurityManager securityManager;
 
         public Action<IDeliveryConnection> Conn_OnDisconnected { private get; set; }
         public Action<IDeliveryConnection> Conn_OnConnected { private get; set; } 
@@ -125,19 +125,7 @@ namespace Sers.CL.Zmq.FullDuplex
                 if (!connMap.TryGetValue(identityOfWriter, out var conn))
                 {
                     //新连接
-                    conn = new DeliveryConnection();
-                    conn.SetIdentity(identityOfWriter>>1);
-                    conn.OnSendFrameAsync = SendMessageAsync;
-                    conn.Conn_OnDisconnected = Delivery_OnDisconnected;
-                    try
-                    {
-                        if (connMap.TryAdd(identityOfWriter, conn))
-                            Conn_OnConnected?.Invoke(conn);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Error(ex);
-                    }
+                    conn = Delivery_OnConnected(identityOfWriter);
                 }
                 #endregion
 
@@ -157,9 +145,9 @@ namespace Sers.CL.Zmq.FullDuplex
 
         }
 
-        void SendMessageAsync(DeliveryConnection conn, List<ArraySegment<byte>> data)
+        void SendMessageAsync(DeliveryConnection conn,byte[] data)
         {
-            stream.SendMessageAsync( conn.identityOfReader, data.ByteDataToBytes()  );
+            stream.SendMessageAsync( conn.identityOfReader, data  );
         }
 
         void SendCloseSignal(DeliveryConnection conn)
@@ -184,7 +172,31 @@ namespace Sers.CL.Zmq.FullDuplex
         #endregion
 
 
-        #region Delivery_OnDisconnected
+        #region Delivery_Event
+
+
+        private DeliveryConnection Delivery_OnConnected(long identityOfWriter)
+        {
+            var conn = new DeliveryConnection();
+            conn.securityManager = securityManager;
+
+            conn.SetIdentity(identityOfWriter >> 1);
+
+            conn.OnSendFrameAsync = SendMessageAsync;
+            conn.Conn_OnDisconnected = Delivery_OnDisconnected;
+
+            try
+            {
+                if (connMap.TryAdd(identityOfWriter, conn))
+                    Conn_OnConnected?.Invoke(conn);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
+            return conn;
+        }
+
 
         private void Delivery_OnDisconnected(IDeliveryConnection _conn)
         {

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Ipc\Sers.CL.Ipc.NamedPipe\Sers.CL.Ipc.NamedPipe.csproj" />
     <ProjectReference Include="..\..\..\Ipc\Sers.CL.Ipc.SharedMemory\Sers.CL.Ipc.SharedMemory.csproj" />
     <ProjectReference Include="..\..\..\Socket\Sers.CL.Socket.Iocp\Sers.CL.Socket.Iocp.csproj" />
     <ProjectReference Include="..\..\..\Socket\Sers.CL.Socket.ThreadWait\Sers.CL.Socket.ThreadWait.csproj" />

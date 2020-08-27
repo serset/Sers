@@ -19,7 +19,16 @@ namespace Sers.ServiceCenter.Entity
     [JsonObject(MemberSerialization.OptIn)]
     public class ServiceStation: Extensible
     {
+        /// <summary>
+        /// 服务站点开启时间
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public DateTime? startTime;
 
+        /// <summary>
+        /// CL通信层连接对象
+        /// </summary>
+        [JsonIgnore]
         public IOrganizeConnection  connection { get; set; }
 
         /// <summary>
@@ -54,6 +63,31 @@ namespace Sers.ServiceCenter.Entity
         //[JsonProperty]
         public Counter counter { get => (_counter ?? (_counter = new Counter())); set => _counter = value; }
         #endregion
+
+
+
+        #region QpsCacl
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty]
+        public float qps { get; private set; } = 0;
+
+        private DateTime? qps_TimeLast = null;
+        private int qps_SumCountLast = 0;
+        public void QpsCalc()
+        {
+            var curSumCount = counter.sumCount;
+            var curTime = DateTime.Now;
+            if (qps_TimeLast != null)
+            {
+                qps = ((int)(100000.0f * (curSumCount - qps_SumCountLast) / (curTime - qps_TimeLast.Value).TotalMilliseconds)) / 100f;
+            }
+            qps_TimeLast = curTime;
+            qps_SumCountLast = curSumCount;
+        }
+        #endregion
+
 
 
         public string GetApiStationNames()

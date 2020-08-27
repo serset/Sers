@@ -1,11 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Vit.Extensions;
-using Sers.Core.Module.ApiLoader;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sers.Core.Module.Api.LocalApi;
+using Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions;
 
-namespace Sers.Core.Module.Api.MsTest.LocalApi
+namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
 {
     [TestClass]
     public class LocalApiTest
@@ -18,7 +17,7 @@ namespace Sers.Core.Module.Api.MsTest.LocalApi
  
                 //(x.1)构建
                 LocalApiService localApiService = new LocalApiService() { workThreadCount =1};
-                localApiService.LoadSsApi(this.GetType().Assembly);
+                localApiService.LoadSersApi(this.GetType().Assembly);
 
                 try
                 {

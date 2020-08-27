@@ -35,7 +35,17 @@ namespace Sers.Gover.Base
             var method= rpcData.http_method_Get()?.ToUpper();
             if (string.IsNullOrEmpty(method)) method = "_";
 
-            var oriRoute = rpcData.route;
+            var oriRoute = rpcData.route;          
+            #region 去除query string(url ?后面的字符串)           
+            //{
+            //    // b2?a=c
+            //    var index = oriRoute.IndexOf('?');
+            //    if (index >= 0) 
+            //    {
+            //        oriRoute = oriRoute.Substring(0, index);
+            //    }
+            //}
+            #endregion
 
             var route = "/"+method + oriRoute;
             var lb = routeMap.Routing(route, out routeType);

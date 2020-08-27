@@ -1,17 +1,15 @@
 ﻿/*
- * sers.servicestation.js 扩展  
- * Date   : 2019-12-27
- * Version: 1.0
+ * sers.ServiceStation.js 扩展  
+ * Date   : 2020-07-22
+ * Version: 2.1.1.372
  * author : Lith
  * email  : sersms@163.com
  */
 
-var sers = { version:'1.0'};
+; var sers = { version: '2.1.1.372' };
 
 /*
- * vit.js 扩展  
- * Date   : 2019-12-27
- * Version: 1.0
+ * vit.js 扩展
  * author : Lith
  * email  : sersms@163.com
  */
@@ -20,7 +18,8 @@ var sers = { version:'1.0'};
     // vit工具函数
     ; (function () {
 
-        vit.stringToBytes=function (str) {
+        vit.stringToBytes = function (str) {
+            if (!str) return [];
             var bytes = new Array();
             var len, c;
             len = str.length;
@@ -43,12 +42,11 @@ var sers = { version:'1.0'};
                 }
             }
             return bytes;
+        };
 
 
-        }
-
-
-        vit.bytesToString=function (bytes) {
+        vit.bytesToString = function (bytes) {
+            if (!bytes) return null;
             if (typeof bytes === 'string') {
                 return bytes;
             }
@@ -70,11 +68,11 @@ var sers = { version:'1.0'};
                 }
             }
             return str;
-        }
+        };
 
         vit.bytesToObject = function (bytes) {
             return eval('(' + vit.bytesToString(bytes) + ')');
-        };       
+        };
 
 
         vit.objectSerializeToString = function (obj) {
@@ -89,17 +87,21 @@ var sers = { version:'1.0'};
         };
 
 
-        vit.objectSerializeToBytes = function (obj) {            
-            var str = vit.objectSerializeToString(obj);            
+        vit.objectSerializeToBytes = function (obj) {
+            var str = vit.objectSerializeToString(obj);
             return vit.stringToBytes(str);
         };
 
 
         //合并连个数组
-        vit.arrayConcat = function (a, b) {
-            a.push.apply(a, b);
+        vit.arrayConcat = function (a, b, count) {
+            //a.push.apply(a, b);
+            if (!count) count = b.length;
+            for (var t = 0; t < count; t++) {
+                a.push(b[t]);
+            }
             return a;
-        }
+        };
 
         vit.bytesToArrayBuffer = function (bytes) {
             return new Uint8Array(bytes).buffer;
@@ -144,24 +146,24 @@ var sers = { version:'1.0'};
             function S4() {
                 return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
             }
-            return (S4() + S4() +  S4() + S4() +     S4() + S4() + S4() + S4());
-        }  
+            return (S4() + S4() + S4() + S4() + S4() + S4() + S4() + S4());
+        };
 
     })();
 
- 
+
     //vit.logger
     (function (logger) {
-         
-            /*** 对Date的扩展，将 Date 转化为指定格式的String * 月(M)、日(d)、12小时(h)、24小时(H)、分(m)、秒(s)、周(E)、季度(q)
-            *     可以用 1-2 个占位符 * 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)
-            * eg: 
-            * (newDate()).pattern("yyyy-MM-dd hh:mm:ss.S")==> 2006-07-02 08:09:04.423      
-            * (new Date()).pattern("yyyy-MM-dd E HH:mm:ss") ==> 2009-03-10 二 20:09:04      
-            * (new Date()).pattern("yyyy-MM-dd EE hh:mm:ss") ==> 2009-03-10 周二 08:09:04      
-            * (new Date()).pattern("yyyy-MM-dd EEE hh:mm:ss") ==> 2009-03-10 星期二 08:09:04      
-            * (new Date()).pattern("yyyy-M-d h:m:s.S") ==> 2006-7-2 8:9:4.18      
-            */
+
+        /*** 对Date的扩展，将 Date 转化为指定格式的String * 月(M)、日(d)、12小时(h)、24小时(H)、分(m)、秒(s)、周(E)、季度(q)
+        *     可以用 1-2 个占位符 * 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)
+        * eg: 
+        * (newDate()).pattern("yyyy-MM-dd hh:mm:ss.S")==> 2006-07-02 08:09:04.423      
+        * (new Date()).pattern("yyyy-MM-dd E HH:mm:ss") ==> 2009-03-10 二 20:09:04      
+        * (new Date()).pattern("yyyy-MM-dd EE hh:mm:ss") ==> 2009-03-10 周二 08:09:04      
+        * (new Date()).pattern("yyyy-MM-dd EEE hh:mm:ss") ==> 2009-03-10 星期二 08:09:04      
+        * (new Date()).pattern("yyyy-M-d h:m:s.S") ==> 2006-7-2 8:9:4.18      
+        */
         Date.prototype.pattern = function (fmt) {
             var o = {
                 "M+": this.getMonth() + 1, //月份         
@@ -194,9 +196,7 @@ var sers = { version:'1.0'};
                 }
             }
             return fmt;
-        }; 
-                   
-
+        };
 
         //function(message){}
         logger.onmessage;
@@ -225,12 +225,8 @@ var sers = { version:'1.0'};
 })('undefined' === typeof (vit) ? vit = {} : vit);
 
 
-
-
 /*
 * sers.CL.js 扩展
-* Date   : 2019-12-27
-* Version: 1.0
 * author : Lith
 * email  : sersms@163.com
 */
@@ -240,32 +236,80 @@ var sers = { version:'1.0'};
 
     function PipeFrame() {
 
-        this.write = function (bytes) {
-            vit.arrayConcat(receive, bytes);
+        this.write = function (arrayBuffer) {
+            queueBuff.push(new Uint8Array(arrayBuffer));
+            buffLen += arrayBuffer.byteLength;
         };
 
 
-        //bytes
-        var receive = [];
+        //DataView list
+        var queueBuff = [];
+        var buffLen = 0;
+
+
+        var QueueBuff_dataLenOfRemoved = 0;
 
         //return bytes
-        this.read = function () {
-            if (receive.length < 4) {
+        function read(lenToPop) {
+            if (buffLen < lenToPop) {
                 return;
             }
 
-            var length = vit.bytesGetInt32(receive, 0);
-            if (receive.length < length + 4) {
-                return;
+            buffLen -= lenToPop;
+
+
+            var dataToPop = [];
+            var copyedIndex = 0;
+            while (copyedIndex < lenToPop) {
+                var leftCount = lenToPop - copyedIndex;
+
+                var cur = queueBuff[0];
+                if (QueueBuff_dataLenOfRemoved != 0) {
+                    cur = cur.subarray(QueueBuff_dataLenOfRemoved);
+                }
+
+                if (cur.length <= leftCount) {
+                    //dataToPop 数据长
+                    vit.arrayConcat(dataToPop, cur);
+
+                    copyedIndex += cur.length;
+                    QueueBuff_dataLenOfRemoved = 0;
+
+                    queueBuff.shift();
+                }
+                else {
+                    //queueBuff 数据长
+                    vit.arrayConcat(dataToPop, cur, leftCount);
+                    copyedIndex += leftCount;
+                    QueueBuff_dataLenOfRemoved += leftCount;
+                }
             }
-            var bytes = receive.slice(4, length + 4);
-            receive = receive.slice(length + 4);
-            return bytes;
+            return dataToPop;
         };
-    }
 
 
-    CL.DeliveryClient=function () {
+        var fileLen = -1;
+
+        //return bytes
+        this.readSersFile = function () {
+            if (fileLen < 0) {
+                var fileLen_bytes = read(4);
+                if (!fileLen_bytes) {
+                    return null;
+                }
+                fileLen = vit.bytesGetInt32(fileLen_bytes, 0);
+            }
+
+            if (buffLen < fileLen) return null;
+
+            var data = read(fileLen);
+            fileLen = -1;
+            return data;
+        };
+    };
+
+
+    CL.DeliveryClient = function () {
         var self = this;
         self.host = "ws://127.0.0.1:4503";
 
@@ -276,17 +320,11 @@ var sers = { version:'1.0'};
         // function () { }
         self.event_onDisconnected;
 
-
         self.sendFrame = function (bytes) {
-
             vit.bytesInsertInt32(bytes, 0, bytes.length);
-
             var dataView = vit.bytesToDataView(bytes);
-
             webSocket.send(dataView);
         };
-
-
 
         var pipe = new PipeFrame();
 
@@ -306,8 +344,6 @@ var sers = { version:'1.0'};
                 self.close();
             };
 
-
-
             //成功被调用 或者超时被调用
             var isCalled = false;
             var onCall = function (isSuccess) {
@@ -321,15 +357,13 @@ var sers = { version:'1.0'};
                 onCall(true);
             };
 
-
             webSocket.onmessage = function (event) {
                 var arrayBuffer = event.data;
-                var bytes = vit.arrayBufferToBytes(arrayBuffer);
-                pipe.write(bytes);
+                pipe.write(arrayBuffer);
 
                 //bytes
                 var frame;
-                while (frame = pipe.read()) {
+                while (frame = pipe.readSersFile()) {
                     try {
                         self.event_onGetFrame(frame);
                     } catch (e) {
@@ -337,11 +371,12 @@ var sers = { version:'1.0'};
                     }
                 }
             };
-
         };
+
 
         self.close = function () {
             if (!webSocket) return;
+
 
             //(x.1) close socket
             try {
@@ -351,48 +386,42 @@ var sers = { version:'1.0'};
                 logger.error(e);
             }
 
-            //(x.2) onDisconnected
-            if (self.onDisconnected) {
+            logger.info('[sers.CL]DeliveryClient.event_onDisconnected');
+
+            //(x.2) event_onDisconnected
+            if (self.event_onDisconnected) {
                 try {
-                    self.onDisconnected();
+                    self.event_onDisconnected();
                 } catch (e) {
                     logger.error(e);
                 }
             }
 
         };
-    }
+    };
 
 
     function RequestAdaptor() {
 
-
         var EFrameType = { request: 1, reply: 2, message: 3 };
-
         var ERequestType = { app: 0, heartBeat: 1 };
-
-        const organizeVersion = "Sers.Mq.Socket.v1";
-
+        var organizeVersion = "Sers.Mq.Socket.v1";
 
         var self = this;
-
 
         //  requestKey -> requestCallback
         var organizeToDelivery_RequestMap = {};
 
         var reqKeyIndex = 100;
 
-
         //事件，向外部delivery发送字节流时被调用
         //function (bytes) { }
         self.event_onSendFrame;
-
 
         //事件，delivery向Organize发送请求时被调用
         //function (requestData, callback) { }
         //callback: function(replyData){ }
         self.event_onGetRequest;
-
 
         //外部调用，当外部从delivery读取到数据时调用
         self.deliveryToOrganize_onGetMessageFrame = function (bytes) {
@@ -430,10 +459,7 @@ var sers = { version:'1.0'};
                 case EFrameType.message:
                     //TODO
                     break;
-
             }
-
-
         };
 
         function deliveryToOrganize_onGetRequest(requestType, reqKey_bytes, requestData) {
@@ -460,7 +486,6 @@ var sers = { version:'1.0'};
         }
 
         function deliveryToOrganize_sendReply(reqKey_bytes, replyData) {
-
             var repFrame = packageReqRepFrame(reqKey_bytes, replyData);
             delivery_sendFrame(EFrameType.reply, 0, repFrame);
         }
@@ -498,9 +523,7 @@ var sers = { version:'1.0'};
 
 
         function delivery_sendFrame(msgType, requestType, bytes) {
-
             bytes.splice(0, 0, msgType, requestType);
-
             self.event_onSendFrame(bytes);
         }
 
@@ -510,25 +533,21 @@ var sers = { version:'1.0'};
             return vit.arrayConcat(reqKey_bytes, oriData);
         }
 
-        // 返回对象  {reqKey:reqKey, oriData:oriData}
+        // 返回对象  {reqKey:reqKey,reqKey_bytes:reqKey_bytes, oriData:oriData}
         function unpackReqRepFrame(reqRepFrame) {
-
             var reqKey = vit.bytesGetInt32(reqRepFrame, 0);
-
             return { reqKey: reqKey, reqKey_bytes: reqRepFrame.slice(0, 8), oriData: reqRepFrame.slice(8) };
         }
-
 
     }
 
 
     //websocketHost demo: "ws://127.0.0.1:4503"
-    CL.OrganizeClient=function (websocketHost) {
+    CL.OrganizeClient = function (websocketHost) {
 
         var self = this;
 
         var delivery = new CL.DeliveryClient();
-
 
         //连接秘钥，用以验证连接安全性。服务端和客户端必须一致
         self.secretKey = "SersCL";
@@ -551,26 +570,21 @@ var sers = { version:'1.0'};
                 requestAdaptor.deliveryToOrganize_onGetMessageFrame(bytes);
             };
 
-
             requestAdaptor.event_onGetRequest = function (requestData, callback) {
                 self.event_onGetRequest(requestData, callback);
             };
-
 
             requestAdaptor.event_onSendFrame = function (bytes) {
                 delivery.sendFrame(bytes);
             };
 
-
-
-            delivery.event_OnDisconnected = function () {
-                self.event_OnDisconnected.apply(self, arguments);
+            delivery.event_onDisconnected = function () {
+                if (self.event_onDisconnected)
+                    self.event_onDisconnected.apply(self, arguments);
             };
 
         })();
         //>>>>>>>>>>>>>>>>>
-
-
 
         //function (event) { }
         self.event_onDisconnected = null;
@@ -582,9 +596,7 @@ var sers = { version:'1.0'};
         //callback: function(replyData,isSuccess){ }
         self.sendRequest = function (requestData, callback) {
             requestAdaptor.sendRequest(requestData, callback);
-        }
-
-
+        };
 
         //callback:   function (isSuccess) { }
         self.connect = function (callback) {
@@ -595,42 +607,25 @@ var sers = { version:'1.0'};
                     callback(false);
 
                 //(x.2)进行权限校验
+                //setTimeout(function () {
                 self.sendRequest(vit.stringToBytes(self.secretKey), function (replyData, isSuccess) {
 
                     //(x.x.1)请求不成功
-                    if (!isSuccess) callback(false);
+                    if (!isSuccess) {
+                        callback(false);
+                        return;
+                    }
 
                     //(x.x.2)验证不成功
                     if (vit.bytesToString(replyData) != 'true') {
                         callback(false);
+                        return;
                     }
 
                     //(x.x.3)验证成功
                     callback(true);
-
                 });
-                return;
-
-
-                setTimeout(function () {
-
-                    self.sendRequest(vit.stringToBytes(self.secretKey), function (replyData, isSuccess) {
-
-                        //(x.x.1)请求不成功
-                        if (!isSuccess) callback(false);
-
-                        //(x.x.2)验证不成功
-                        if (vit.bytesToString(replyData) != 'true') {
-                            callback(false);
-                        }
-
-                        //(x.x.3)验证成功
-                        callback(true);
-
-                    });
-                }, 5000);
-
-                return;
+                //}, 5000);
             });
         };
 
@@ -638,15 +633,13 @@ var sers = { version:'1.0'};
             delivery.close();
         };
     }
- 
+
 })(sers.CL || (sers.CL = {}));
 
 
 
 /*
 * sers.ServiceStation.js 扩展
-* Date   : 2019-12-27
-* Version: 1.0
 * author : Lith
 * email  : sersms@163.com
 */
@@ -705,19 +698,6 @@ var sers = { version:'1.0'};
         };
 
 
-        //(bytes rpcContextData_OriData, bytes value_OriData)
-        //return bytes
-        ApiMessage.package = function (rpcContextData_OriData, value_OriData) {
-
-            var oriData = vit.int32ToBytes(rpcContextData_OriData.length)
-                .concat(rpcContextData_OriData,
-                    vit.int32ToBytes(value_OriData.length),
-                    value_OriData
-                );
-
-            return oriData;
-        };
-
 
         self.package = function () {
             return ApiMessage.package(rpcContextData_OriData, value_OriData);
@@ -726,21 +706,46 @@ var sers = { version:'1.0'};
 
         self.unpackage = function (oriData) {
 
-            var files = [];
-
-            var curIndex = 0;
-            while (curIndex < oriData.length) {
-                var fileLength = vit.bytesGetInt32(oriData, curIndex);
-                var fileContent = oriData.slice(curIndex + 4, curIndex + 4 + fileLength);
-
-                curIndex += 4 + fileLength;
-                files.push(fileContent);
-            }
+            var files = ApiMessage.unpackage(oriData);    
 
             rpcContextData_OriData = files[0];
             value_OriData = files[1];
         };
-    }
+    };
+
+    //(bytes files)
+    //return bytes
+    ApiMessage.package = function () {
+        var files = arguments;
+        var oriData = [];
+
+        for (var t = 0; t < files.length; t++) {
+            var file = files[t];
+            vit.arrayConcat(oriData, vit.int32ToBytes(file.length));
+            vit.arrayConcat(oriData, file);
+        } 
+        return oriData;
+    };
+ 
+
+    //(bytes oriData)
+    //return  bytes fileArray
+    ApiMessage.unpackage = function (oriData) {
+        var files = [];
+
+        var curIndex = 0;
+        while (curIndex < oriData.length) {
+            var fileLength = vit.bytesGetInt32(oriData, curIndex);
+            var fileContent = oriData.slice(curIndex + 4, curIndex + 4 + fileLength);
+
+            curIndex += 4 + fileLength;
+            files.push(fileContent);
+        }
+        return files;
+    };
+
+
+    sers.ApiMessage = ApiMessage;
 
     //ApiClient
     sers.ApiClient = function (organizeClient) {
@@ -796,7 +801,7 @@ var sers = { version:'1.0'};
         self.addApiNode = function (apiDesc, Invoke) {
             var apiKey = apiDesc.route + '_' + apiDesc.extendConfig.httpMethod;
             apiNodeMap[apiKey] = { apiDesc: apiDesc, Invoke: Invoke };
-        }
+        };
 
         //(string route, string httpMethod, string description, Invoke Invoke)
         //Invoke:   function(requestData_bytes,rpcData_object,reply_rpcData_object){}
@@ -810,7 +815,7 @@ var sers = { version:'1.0'};
                 }
             };
             self.addApiNode(apiDesc, Invoke);
-        }
+        };
 
         //apiRequestMessage bytes
         //return apiReplyMessage bytes
@@ -867,13 +872,12 @@ var sers = { version:'1.0'};
             );
             return apiReplyMessage_bytes;
         };
-    }
+    };
 
 
     //ServiceStation
     sers.ServiceStation = function () {
         var self = this;
-
 
         //(x.1) LocalApiService
         (function () {
@@ -884,9 +888,9 @@ var sers = { version:'1.0'};
         (function () {
 
             self.org = new sers.CL.OrganizeClient("ws://127.0.0.1:4503");
-            self.org.event_onDisconnected = function () {
-                logger.info('[sers.CL]org.event_onDisconnected');
-            };
+            //self.org.event_onDisconnected = function () {
+            //    logger.info('[sers.CL]org.event_onDisconnected');
+            //};
 
             self.org.event_onGetRequest = function (requestData, callback) {
                 var reply_bytes = self.localApiService.callApi(requestData);
@@ -904,7 +908,7 @@ var sers = { version:'1.0'};
             logger.info('[sers.ServiceStation]try stop...');
             self.org.stop();
             logger.info('[sers.ServiceStation] stoped.');
-        }
+        };
 
 
         //callback: function(isSuccess){}
@@ -923,9 +927,9 @@ var sers = { version:'1.0'};
                 //向服务中心注册localApiService
                 logger.info('[ServiceStation] regist serviceStation to ServiceCenter...');
                 var serviceStationInfo = {
-                    serviceStationName: '', serviceStationKey: '', stationVersion: '', info: {}
+                    serviceStationName: 'JsStation', serviceStationKey: '', stationVersion: '', info: {}
                 };
-                var deviceInfo = { deviceKey: 'JsStation' };
+                var deviceInfo = { deviceKey: '' + Math.random() };
                 var apiNodes = self.localApiService.getApiNodes();
 
                 var serviceStationData =
@@ -960,4 +964,3 @@ var sers = { version:'1.0'};
 
 })(sers);
 
- 

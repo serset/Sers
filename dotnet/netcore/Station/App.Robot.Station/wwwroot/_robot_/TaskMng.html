@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Task管理</title>
+    <script src="Scripts/vue/vue.js"></script>
+    <script src="Scripts/jquery/jquery.min.js"></script>
+ 
+    <script src="Scripts/Sers/sers.apiClient.robot.js"></script>
+
+    <style>
+
+        .line {
+            border: 1px solid #cccccc;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Task管理</h1>
+
+    <div id="items">
+
+        <div v-for="item in items" style="width:300px;height:400px; float:left;margin:2px;padding:4px;word-wrap:break-word;" class="line">
+            {{item.id}}-{{item.name}}    <br />
+            sumCount:{{item.sumCount}}     <br />
+            sumFailCount:{{item.sumFailCount}}     <br />
+            curCount:{{item.curCount}}     <br />
+            failCount:{{item.failCount}}     <br />
+            RunningThreadCount:{{item.RunningThreadCount}}     <br />
+            target:{{item.config.threadCount}}*{{item.config.loopCountPerThread}}     <br />
+            状态:{{item.IsRunning?'执行中':'停止'}}（执行中 停止）     <br />
+            操作：  <a href="#" @click="start(item)">开始</a>
+            <a href="#" @click="stop(item)">停止</a>
+            <a href="#" @click="remove(item)">移除</a>
+            <a href="#" @click="refresh(item)">刷新</a><br />
+            -----------------------<br />
+            config:{{item.config}}
+
+        </div>
+
+    </div>
+
+    <div style="clear:both;padding-top:10px;">
+        <a href="javascript:startRefreshTask();">启动自动刷新</a> <a href="javascript:stopRefreshTask();">关闭自动刷新</a><br />
+        task config:  <a href="javascript:addTask();">添加任务</a><br />
+        <textarea id="txtTaskConfig" v-model="config" rows="10" cols="100"></textarea>
+        <br />
+
+
+        saveToCache:<br />
+                    <textarea rows="10" cols="100">{ "name": "saveToCache","apiRoute": "/_robot_/taskMng/saveToCache", "apiArg": null, "threadCount": 1,"interval": 5000, "autoStart": true,"loopCountPerThread": 1000000000,"logError": true }</textarea><br />
+        _robot_ :<br />
+        <textarea rows="10" cols="100">{ "name": "robot[1-100]","apiRoute": "/_robot_/task/getAll", "apiArg": null, "threadCount": 1,"interval": 100, "autoStart": false,"loopCountPerThread": 1000000000 }</textarea>
+
+
+    </div>
+    <script>
+
+
+        var items = new Vue({
+            el: '#items',
+            data: {
+                items: []
+            }, methods: {
+                start: function (item) {
+                    sers.apiClient.robot.task_start(item.id, afterApiCalled);
+                }, stop: function (item) {
+                    sers.apiClient.robot.task_stop(item.id, afterApiCalled);
+                }, remove: function (item) {
+                    sers.apiClient.robot.task_remove(item.id, afterApiCalled);
+                }, refresh: function (item) {
+                    rendStations();
+                }
+            }
+        });
+
+        function afterApiCalled(apiReturn) {
+
+            if (!apiReturn.success) {
+                console.log(apiReturn);
+                alert('调用失败。' + ((apiReturn.error || {}).messgge || ''));
+                return;
+            }
+
+            rendStations();
+        }
+
+
+
+        function rendStations() {
+            sers.apiClient.robot.task_getAll(function (data) {
+                items.items = data.data;
+            });
+        }
+        rendStations();
+
+
+
+
+
+        var config = new Vue({
+            el: '#txtTaskConfig',
+            data: {
+                config: '{ "name": "Demo[8-0]","apiRoute": "/demo/v1/api/333/arg", "//apiArg": "{\\"Name\\":\\"lith\\"}","httpMethod":"POST","httpUseHttpUtil":false, "threadCount": 8,"interval": 0, "autoStart": false,"loopCountPerThread": 1000000000 }'
+            }
+        });
+
+        function addTask() {
+            var taskConfig = config.config;
+            sers.apiClient.robot.task_add(taskConfig, afterApiCalled);
+        }
+
+
+
+
+
+        var intervals = [];
+        function startRefreshTask() {
+            var interval = setInterval(rendStations, 500);
+            intervals.push(interval);
+        }
+        function stopRefreshTask() {
+            for (var t in intervals) {
+                clearInterval(intervals[t]);
+            }
+            intervals = [];
+        }
+        startRefreshTask();
+
+    </script>
+</body>
+
+</html>

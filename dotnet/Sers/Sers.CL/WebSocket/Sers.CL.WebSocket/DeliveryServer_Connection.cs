@@ -9,8 +9,9 @@ using Vit.Extensions;
 namespace Sers.CL.WebSocket
 {
     public class DeliveryServer_Connection : IDeliveryConnection
-    {      
- 
+    {
+        public Sers.Core.Util.StreamSecurity.SecurityManager securityManager { set => _securityManager = value; }
+        Sers.Core.Util.StreamSecurity.SecurityManager _securityManager;
 
         /// <summary>
         /// 连接状态(0:waitForCertify; 2:certified; 4:waitForClose; 8:closed;)
@@ -36,7 +37,11 @@ namespace Sers.CL.WebSocket
                 Int32 len = data.ByteDataCount();
                 data.Insert(0, len.Int32ToArraySegmentByte());
 
-                socket.Send(data.ByteDataToBytes());
+                var bytes = data.ByteDataToBytes();
+
+                _securityManager?.Encryption(new ArraySegment<byte>(bytes, 4, bytes.Length - 4));
+
+                socket.Send(bytes);
             }
             catch (Exception ex)
             {
@@ -94,6 +99,8 @@ namespace Sers.CL.WebSocket
 
             while (pipe.TryRead_SersFile(out var msgFrame))
             {
+                _securityManager?.Decryption(msgFrame);
+
                 OnGetFrame.Invoke(this, msgFrame);
             }
         }

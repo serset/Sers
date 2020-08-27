@@ -104,9 +104,9 @@ namespace Sers.CL.ClrZmq.ThreadWait
             _conn.OnGetFrame(_conn, msgFrame.BytesToArraySegmentByte());
         }
 
-        void Zmq_SendMessageAsync(DeliveryConnection conn,List<ArraySegment<byte>> data)
+        void Zmq_SendMessageAsync(DeliveryConnection conn,byte[] data)
         {
-            poller.SendMessageAsync(new ZMessage() { new ZFrame(data.ByteDataToBytes()) });            
+            poller.SendMessageAsync(new ZMessage() { new ZFrame(data) });            
         }
 
        

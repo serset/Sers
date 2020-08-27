@@ -6,6 +6,7 @@ using Sers.Core.Module.Api.Rpc;
 using Vit.Core.Util.Common;
 using System.IO;
 using Vit.Core.Util.ComponentModel.SsError;
+using System.Linq;
 
 namespace Vit.Extensions
 {
@@ -38,6 +39,37 @@ namespace Vit.Extensions
         {
             return Init(rpcData, callerSource.EnumToString());
         }
+
+
+        public static IRpcContextData Init(this IRpcContextData rpcData, string url, string httpMethod = null)
+        {
+            //(x.1)设置url
+            rpcData.http_url_Set("http://sers.internal" + url);       
+
+            #region (x.2)设置route
+            //去除query string(url ?后面的字符串)           
+            {
+                //问号的位置
+                var queryIndex = url.IndexOf('?');
+
+                // b2?a=c
+                if (queryIndex >= 0)
+                {
+                    rpcData.route = url.Substring(0, queryIndex);
+                }
+                else
+                {
+                    rpcData.route = url;
+                }
+            }
+            #endregion
+
+            //(x.3)设置httpMethod
+            if (httpMethod != null) rpcData.http_method_Set(httpMethod);   
+
+            return rpcData;
+        }
+
         #endregion
 
         #region InitFromRpcContext
@@ -106,6 +138,16 @@ namespace Vit.Extensions
         }
         #endregion
 
+
+
+        #region apiStationName_Get
+        public static string apiStationName_Get(this IRpcContextData data)
+        {
+            var arr = data.route?.Split('/');
+            if (arr == null || arr.Length <= 1) return null;
+            return arr[1];
+        }        
+        #endregion
 
         #region caller
 
@@ -211,15 +253,27 @@ namespace Vit.Extensions
 
 
         #region http_url
+        /// <summary>
+        /// 若为内部调用，在调用时构建的url前缀为  "http://sers.internal"。
+        /// 如 "http://sers.internal/Station1/getName"
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static String http_url_Get(this IRpcContextData data)
         {
             return data?.oriJson?["http"]?["url"]?.ConvertToString();
         }
 
-        public static void http_url_Set(this IRpcContextData data, String value)
+        /// <summary>
+        /// 若为内部调用，手动添加url前缀 "http://sers.internal"。
+        /// 如 "http://sers.internal/Station1/getName"
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="url"></param>
+        public static void http_url_Set(this IRpcContextData data, String url)
         {
             if (null == data) return;
-            data.oriJson.GetOrCreateJObject("http")["url"] = value;
+            data.oriJson.GetOrCreateJObject("http")["url"] = url;
         }
         #endregion
 
@@ -344,6 +398,11 @@ namespace Vit.Extensions
         #endregion      
 
         #region http_headers
+        /// <summary>
+        /// 若没指定headers则返回null
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static JObject http_headers_Get(this IRpcContextData data)
         {
             return data?.oriJson?.JTokenGetByPath("http", "headers") as JObject;

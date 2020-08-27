@@ -12,6 +12,9 @@ namespace Sers.CL.WebSocket
 {
     public class DeliveryClient_Connection : IDeliveryConnection
     {
+        public Sers.Core.Util.StreamSecurity.SecurityManager securityManager { set => _securityManager = value; }
+        Sers.Core.Util.StreamSecurity.SecurityManager _securityManager;
+
         /// <summary>
         /// 连接状态(0:waitForCertify; 2:certified; 4:waitForClose; 8:closed;)
         /// </summary>
@@ -36,7 +39,13 @@ namespace Sers.CL.WebSocket
                 Int32 len = data.ByteDataCount();
                 data.Insert(0, len.Int32ToArraySegmentByte());
 
-                socket.SendAsync(data.ByteDataToArraySegment(), WebSocketMessageType.Binary, true, _cancellation).GetAwaiter().GetResult(); //发送数据     
+                var bytes = data.ByteDataToBytes();
+
+                _securityManager?.Encryption(new ArraySegment<byte>(bytes, 4, bytes.Length - 4));
+
+                socket.SendAsync(bytes.BytesToArraySegmentByte(), WebSocketMessageType.Binary, true, _cancellation)
+                    .GetAwaiter().GetResult()
+                    ; //发送数据     
             }
             catch (Exception ex)
             {
@@ -56,8 +65,6 @@ namespace Sers.CL.WebSocket
 
             var socket_ = socket;
             socket = null;
-
-          
 
             try
             {
@@ -101,6 +108,8 @@ namespace Sers.CL.WebSocket
 
             while (pipe.TryRead_SersFile(out var msgFrame))
             {
+                _securityManager?.Decryption(msgFrame);
+
                 OnGetFrame.Invoke(this, msgFrame);
             }
         }

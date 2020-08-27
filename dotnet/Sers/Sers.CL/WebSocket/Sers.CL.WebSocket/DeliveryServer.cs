@@ -14,20 +14,16 @@ namespace Sers.CL.WebSocket
 {
     public class DeliveryServer: IDeliveryServer
     {
+        public Sers.Core.Util.StreamSecurity.SecurityManager securityManager;
+
         /// <summary>
         /// 服务端地址(默认为 "ws://0.0.0.0:4503")
         /// </summary>
         public string host="ws://0.0.0.0:4503";
 
 
-
-
-
         public Action<IDeliveryConnection> Conn_OnDisconnected { private get; set; }
         public Action<IDeliveryConnection> Conn_OnConnected { private get; set; }
-
-
- 
  
  
     
@@ -54,6 +50,7 @@ namespace Sers.CL.WebSocket
                     //string clientUrl = socket.ConnectionInfo.ClientIpAddress + ":" + socket.ConnectionInfo.ClientPort;   
 
                     var conn = new DeliveryServer_Connection();
+                    conn.securityManager = securityManager;
                     conn.Init(socket);
 
                     socket.OnError = (ex) => 

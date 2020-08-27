@@ -1,22 +1,56 @@
 ﻿using Newtonsoft.Json.Linq;
 using Vit.Extensions;
 using Sers.Core.Module.Rpc;
-using System;
 using System.IO;
 using System.Web;
 using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Core.Util.ConfigurationManager;
+using Vit.Core.Util.Common;
+using System.Collections.Generic;
 
 namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
 {
     public class StaticFileMap
-    { 
+    {
 
-        public readonly FileExtensionContentTypeProvider contentTypeProvider = new FileExtensionContentTypeProvider();
+        #region fileBasePath
+        private string _fileBasePath;
+        /// <summary>
+        /// D://fold1/wwwroot
+        /// 静态文件绝对路径
+        /// </summary>
+        public string fileBasePath
+        {
+            get => _fileBasePath;
+            set
+            {
+                #region (x.1) get fullPath
+                string fullPath = value;
+
+                if (string.IsNullOrEmpty(fullPath))
+                {
+                    fullPath = "wwwroot";
+                }
+                fullPath = CommonHelp.GetAbsPath(fullPath);
+                #endregion
+
+                _fileBasePath = fullPath;
+            }
+        }
+        #endregion
 
 
+
+
+        #region contentTypeProvider       
+        readonly FileExtensionContentTypeProvider contentTypeProvider = new FileExtensionContentTypeProvider();
 
         #region LoadContentTypeFromFile
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public bool LoadContentTypeFromFile(string filePath)
         {
             var jsonFile = new JsonFile(filePath);
@@ -34,66 +68,31 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             return false;
         }
         #endregion
-
-
-        #region fileBasePath
-        private string _fileBasePath;
-        /// <summary>
-        /// D://fold1/wwwroot
-        /// 静态文件路径。可为相对路径或绝对路径。若未指定存在的文件夹则默认为当前目录下的wwwroot文件夹。
-        /// </summary>
-        public string fileBasePath
-        {
-            get => _fileBasePath;
-            set
-            {
-                #region (x.1) get fullPath
-                string fullPath = value;
-                if ("" == fullPath)
-                {
-                    fullPath = Path.Combine(AppContext.BaseDirectory, "wwwroot");
-                }
-                else if (fullPath != null)
-                {
-                    if (!Directory.Exists(fullPath))
-                    {
-                        fullPath = Path.Combine(AppContext.BaseDirectory, fullPath);
-                    }
-                }
-
-                if (string.IsNullOrEmpty(fullPath))
-                {
-                    fullPath = null;
-                }
-                else
-                {
-                    var dir = new DirectoryInfo(fullPath);
-                    if (dir.Exists)
-                    {
-                        fullPath = dir.FullName;
-                    }
-                    else
-                    {
-                        fullPath = null;
-                    }
-                }
-                #endregion
-
-                _fileBasePath = fullPath ?? Path.Combine(AppContext.BaseDirectory, "wwwroot");
-            }
-        }
         #endregion
 
 
+        #region responseHeaders
+        public IDictionary<string, string> responseHeaders { get; set; }
+        #endregion
+
 
         /// <summary>
-        /// 
+        /// fileBasePath：静态文件路径。可为相对路径或绝对路径。若不指定（null或空字符串）则默认为入口程序所在目录下的wwwroot文件夹。
+        ///   demo  D://fold1/wwwroot 
         /// </summary>
-        /// <param name="fileBasePath">静态文件路径。可为相对路径或绝对路径。若未指定存在的文件夹则默认为当前目录下的wwwroot文件夹。demo  D://fold1/wwwroot </param>
+        /// <param name="fileBasePath"></param>
         public StaticFileMap(string fileBasePath = null)
         {
             this.fileBasePath = fileBasePath;
         }
+
+        public StaticFileMap(StaticFilesConfig config) 
+        {
+            this.fileBasePath = config.rootPath;
+            responseHeaders = config.responseHeaders;
+            LoadContentTypeFromFile(config.contentTypeMapFile);
+        }
+
 
 
         /// <summary>
@@ -135,13 +134,21 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             }
 
             #region reply header
-            var replyRpcData = RpcFactory.Instance.CreateRpcContextData();      
+            var replyRpcData = RpcFactory.CreateRpcContextData();
+
+            if (responseHeaders != null) 
+            {
+                foreach (var item in responseHeaders)
+                {
+                    replyRpcData.http_header_Set(item.Key, item.Value);
+                }
+            }
 
             if (contentTypeProvider.TryGetContentType(absFilePath, out var contentType))
             {
                 replyRpcData.http_header_Set("Content-Type", contentType);             
             }
-            replyRpcData.http_header_Set("Cache-Control", "public,max-age=6000");        
+            //replyRpcData.http_header_Set("Cache-Control", "public,max-age=6000");        
  
             RpcContext.Current.apiReplyMessage.rpcContextData_OriData= replyRpcData.PackageOriData();
             #endregion
@@ -155,12 +162,15 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             //Response.ContentEncoding = Encoding.UTF8;
             //Response.Charset = "utf-8";
 
+            // https://www.cnblogs.com/lonelyxmas/p/12441606.html
+            // https://www.cnblogs.com/Leo_wl/p/6059349.html
+
             //ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=600");
             //(小知识: max - age：表示当访问此网页后的max - age秒内再次访问不会去服务器请求，其功能与Expires类似，只是Expires是根据某个特定日期值做比较。一但缓存者自身的时间不准确.则结果可能就是错误的，而max - age,显然无此问题.。Max - age的优先级也是高于Expires的。)
         }
 
 
- 
+
 
         public byte[] DownloadFile(string absFilePath, string fileName=null)
         {
@@ -187,7 +197,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             }
 
             #region reply header
-            var replyRpcData = RpcFactory.Instance.CreateRpcContextData();
+            var replyRpcData = RpcFactory.CreateRpcContextData();
 
             var header = new JObject();
 

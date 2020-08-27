@@ -1,10 +1,12 @@
 CUR：
 
 
-
+Sers.Core\CL\MessageOrganize\DefaultOrganize\RequestAdaptor.cs L240  使用二级缓冲队列(以及所有使用 BlockingCollection 的地方)
 
 ---------------------
 TODO
+ zipkin  root as tag key
+
 
 DeliveryClient Close 没有log
 

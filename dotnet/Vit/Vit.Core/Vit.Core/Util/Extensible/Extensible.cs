@@ -11,11 +11,10 @@ namespace Vit.Core.Util.Extensible
     /// </summary>
     public class Extensible
     {
-        [JsonIgnore]
-        protected IDictionary<string, object> _extensionData;
+ 
 
         [JsonIgnore]
-        public IDictionary<string, object> extensionData => _extensionData??(_extensionData=new Dictionary<string, object>());
+        public IDictionary<string, object> extensionData { get; protected set; }
 
 
         /// <summary>
@@ -26,7 +25,7 @@ namespace Vit.Core.Util.Extensible
         /// <param name="value"></param>
         public void SetData<T>(string key,T value)
         {
-            extensionData[key] = value;
+            (extensionData ?? (extensionData = new Dictionary<string, object>()))[key] = value;
         }
 
         /// <summary>
@@ -37,7 +36,7 @@ namespace Vit.Core.Util.Extensible
         /// <returns></returns>
         public T GetData<T>(string key)
         {
-            if (extensionData.TryGetValue(key,out var value))
+            if (extensionData !=null && extensionData.TryGetValue(key,out var value))
             {
                 if (value is T data)
                 {
@@ -57,7 +56,7 @@ namespace Vit.Core.Util.Extensible
         /// <returns></returns>
         public T GetDataByConvert<T>(string key)
         {
-            if (extensionData.TryGetValue(key, out var value))
+            if (extensionData != null && extensionData.TryGetValue(key, out var value))
             {
                 if (value is T data)
                 {
@@ -86,7 +85,7 @@ namespace Vit.Core.Util.Extensible
         /// <returns></returns>
         public T GetDataBySerialize<T>(string key)
         {
-            if (extensionData.TryGetValue(key, out var value))
+            if (extensionData != null && extensionData.TryGetValue(key, out var value))
             {
                 if (value is T data)
                 {

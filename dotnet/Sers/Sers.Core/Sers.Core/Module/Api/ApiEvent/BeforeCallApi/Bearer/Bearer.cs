@@ -25,7 +25,7 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer
         string Api_verifyAt;
         string Api_httpMethod;
 
-        public  ApiReturn<JObject> VerifyAt(string at)
+        ApiReturn<JObject> VerifyAt(string at)
         {
             //var arg = "{\"at\":\"" + at + "\"}";
             return ApiClient.CallRemoteApi<ApiReturn<JObject>>(Api_verifyAt, new { at }, Api_httpMethod);
@@ -51,9 +51,10 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer
                 if (null != rpcData.user_userInfo_Get()) return;
 
                 ApiReturn<JObject> ret;
-                using (var rpcContext = RpcFactory.Instance.CreateRpcContext())
+                using (var rpcContext = RpcFactory.CreateRpcContext())
                 {
-                    RpcContext.Current.rpcData=rpcData;
+                    //RpcContext.Current.rpcData=rpcData;
+                    rpcContext.rpcData = rpcData;
                     ret = VerifyAt(bear);
                 }
 

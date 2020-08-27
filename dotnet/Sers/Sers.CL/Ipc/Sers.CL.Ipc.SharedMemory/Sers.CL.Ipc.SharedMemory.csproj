@@ -2,8 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.1.1.250</Version>
+    <Version>2.1.1.384</Version>
     <Description>https://github.com/sersms/Sers/tree/2.1.1/release</Description>
   </PropertyGroup>
 
@@ -12,7 +11,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="SharedMemory" Version="2.1.1" />
+    <PackageReference Include="SharedMemory" Version="2.2.3" />
   </ItemGroup>
 
  

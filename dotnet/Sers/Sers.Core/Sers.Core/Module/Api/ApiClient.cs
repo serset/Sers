@@ -6,12 +6,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Sers.Core.Module.Message;
 using Vit.Core.Util.ComponentModel.SsError;
+using Sers.Core.Module.Rpc;
 
 namespace Sers.Core.Module.Api
 {
     public class ApiClient
     {
-        #region static
+        #region static Instance Instances
 
         public static readonly ApiClient Instance = new ApiClient();
         public static ApiClient[] Instances { get; private set; }
@@ -38,7 +39,7 @@ namespace Sers.Core.Module.Api
 
 
 
-        #region ApiClient
+        #region CallApi
 
         private Func<List<ArraySegment<byte>>, ArraySegment<byte>> OnSendRequest { get; set; }
 
@@ -67,7 +68,7 @@ namespace Sers.Core.Module.Api
                 var reply = CallApi(request.Package());
                 if (null == reply || reply.Count == 0)
                 {
-                    //Logger.Error(new Exception().SsError_Set(SsError.Err_Timeout));
+                    //Logger.Error(SsError.Err_Timeout.ToException());
                     //返回请求超时，无回应数据
                     return new ApiMessage().InitAsApiReplyMessageByError(SsError.Err_Timeout);
                 }
@@ -83,6 +84,20 @@ namespace Sers.Core.Module.Api
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ApiMessage> CallApiAsync(ApiMessage request)
+        {
+            ApiMessage reply = null;
+            await Task.Run(() => { reply = CallApi(request); });
+            return reply;
+        }
+
+
         #endregion
 
 
@@ -95,10 +110,11 @@ namespace Sers.Core.Module.Api
         /// <param name="route"></param>
         /// <param name="arg"></param>
         /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
+        /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
         /// <returns></returns>
-        public ReturnType CallApi<ReturnType>(string route, Object arg, string httpMethod = null)
+        public ReturnType CallApi<ReturnType>(string route, Object arg = null, string httpMethod = null, Action<IRpcContextData> InitRpc = null)
         {
-            var apiRequestMessage = new ApiMessage().InitAsApiRequestMessage(route, arg, httpMethod);
+            var apiRequestMessage = new ApiMessage().InitAsApiRequestMessage(route, arg, httpMethod, InitRpc);
 
             var apiReplyMessage = CallApi(apiRequestMessage);
 
@@ -111,10 +127,11 @@ namespace Sers.Core.Module.Api
         /// <param name="route"></param>
         /// <param name="arg"></param>
         /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
+        /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
         /// <returns></returns>
-        public string CallApi(string route, Object arg, string httpMethod = null)
+        public string CallApi(string route, Object arg = null, string httpMethod = null, Action<IRpcContextData> InitRpc = null)
         {
-            return CallApi<string>(route, arg, httpMethod);
+            return CallApi<string>(route, arg, httpMethod, InitRpc);
         }
 
 
@@ -125,11 +142,12 @@ namespace Sers.Core.Module.Api
         /// <param name="route"></param>
         /// <param name="arg"></param>
         /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
+        /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
         /// <returns></returns>
-        public async Task<ReturnType> CallApiAsync<ReturnType>(string route, Object arg, string httpMethod = null)
+        public async Task<ReturnType> CallApiAsync<ReturnType>(string route, Object arg = null, string httpMethod = null, Action<IRpcContextData> InitRpc = null)
         {
             ReturnType ret = default(ReturnType);
-            await Task.Run(() => { ret = CallApi<ReturnType>(route, arg, httpMethod); });
+            await Task.Run(() => { ret = CallApi<ReturnType>(route, arg, httpMethod,InitRpc); });
             return ret;
         }
 
@@ -140,22 +158,8 @@ namespace Sers.Core.Module.Api
 
 
 
+        #region static CallRemoteApi 扩展
 
-
-        #region CallRemoteApi 扩展
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="route"></param>
-        /// <param name="arg"></param>
-        /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
-        public static string CallRemoteApi(string route, string arg, string httpMethod = null)
-        {
-            return Instance.CallApi(route, arg, httpMethod);
-        }
-
-       
         /// <summary>
         /// 
         /// </summary>
@@ -163,8 +167,9 @@ namespace Sers.Core.Module.Api
         /// <returns></returns>
         public static ApiMessage CallRemoteApi(ApiMessage request)
         {
-            return Instance.CallApi(request); 
+            return Instance.CallApi(request);
         }
+
 
         /// <summary>
         /// 
@@ -172,9 +177,23 @@ namespace Sers.Core.Module.Api
         /// <param name="route"></param>
         /// <param name="arg"></param>
         /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
-        public static string CallRemoteApi(string route, Object arg, string httpMethod = null)
+        /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
+        public static string CallRemoteApi(string route, string arg, string httpMethod = null, Action<IRpcContextData> InitRpc = null)
         {
-            return Instance.CallApi(route, arg, httpMethod);
+            return Instance.CallApi(route, arg, httpMethod, InitRpc);
+        }       
+        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="route"></param>
+        /// <param name="arg"></param>
+        /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
+        /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
+        public static string CallRemoteApi(string route, Object arg = null, string httpMethod = null, Action<IRpcContextData> InitRpc = null)
+        {
+            return Instance.CallApi(route, arg, httpMethod, InitRpc);
         }
 
         /// <summary>
@@ -184,11 +203,27 @@ namespace Sers.Core.Module.Api
         /// <param name="route"></param>
         /// <param name="arg"></param>
         /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
+        /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
         /// <returns></returns>
-        public static ReturnType CallRemoteApi<ReturnType>(string route, Object arg, string httpMethod = null)
+        public static ReturnType CallRemoteApi<ReturnType>(string route, Object arg = null, string httpMethod = null, Action<IRpcContextData> InitRpc = null)
         {
-            return Instance.CallApi<ReturnType>(route, arg, httpMethod);
+            return Instance.CallApi<ReturnType>(route, arg, httpMethod, InitRpc);
         }
+
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public static async Task<ApiMessage> CallRemoteApiAsync(ApiMessage request)
+        {   
+            return await Instance.CallApiAsync(request);
+        }
+
 
         /// <summary>
         /// 
@@ -197,13 +232,14 @@ namespace Sers.Core.Module.Api
         /// <param name="route"></param>
         /// <param name="arg"></param>
         /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
+        /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
         /// <returns></returns>
-        public static Task<ReturnType> CallRemoteApiAsync<ReturnType>(string route, Object arg, string httpMethod = null)
+        public static async Task<ReturnType> CallRemoteApiAsync<ReturnType>(string route, Object arg = null, string httpMethod = null, Action<IRpcContextData> InitRpc = null)
         {
-            return Instance.CallApiAsync<ReturnType>(route, arg, httpMethod);
+            return await Instance.CallApiAsync<ReturnType>(route, arg, httpMethod, InitRpc);
         }
         #endregion
 
-       
+
     }
 }

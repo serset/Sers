@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Sers.Core.CL.MessageOrganize;
@@ -13,7 +14,7 @@ namespace Sers.Gover.Base
     public class ServiceStationMng
     {
         GoverManage goverManage;
-       
+
         public ServiceStationMng Init(GoverManage goverManage)
         {
             this.goverManage = goverManage;
@@ -28,7 +29,7 @@ namespace Sers.Gover.Base
         /// <summary>
         ///  serviceStationKey 和 服务站点 的映射
         /// </summary>
-        ConcurrentDictionary<string, ServiceStation> serviceStationKey_Map = new ConcurrentDictionary<string, ServiceStation>();
+        internal readonly ConcurrentDictionary<string, ServiceStation> serviceStationKey_Map = new ConcurrentDictionary<string, ServiceStation>();
 
 
         public void PublishUsageInfo(EnvUsageInfo item)
@@ -42,20 +43,26 @@ namespace Sers.Gover.Base
 
         public List<ServiceStationData> ServiceStation_GetAll()
         {
-            return serviceStation_ConnKey_Map.Values.Select(
+            return serviceStation_ConnKey_Map.Values
+
+                .Select(
                 (m) => new ServiceStationData
                 {
-                    connKey = ""+m.connection.GetHashCode(),
+                    connKey = "" + m.connection.GetHashCode(),
+                    startTime = m.startTime,
                     deviceInfo = m.deviceInfo,
                     serviceStationInfo = m.serviceStationInfo,
                     status = "" + m.Status_Get(),
-                    usageStatus=m.usageStatus,
-                    counter=m.counter,
-                    apiNodeCount =m.apiNodes.Count,
+                    usageStatus = m.usageStatus,
+                    counter = m.counter,
+                    qps=m.qps,
+                    apiNodeCount = m.apiNodes.Count,
                     activeApiNodeCount = m.ActiveApiNodeCount_Get(),
-                    apiStationNames= m.ApiStationNames_Get()
+                    apiStationNames = m.ApiStationNames_Get()
                 }
-            ).ToList();
+            ).OrderBy(m => m?.serviceStationInfo?.serviceStationName)
+                .ThenBy(m => m.startTime)
+                .ToList();
         }
 
 
@@ -68,19 +75,23 @@ namespace Sers.Gover.Base
         /// <param name="serviceStation"></param>
         public void ServiceStation_Add(ServiceStation serviceStation)
         {
-            serviceStation_ConnKey_Map[serviceStation.connection.GetHashCode()] = serviceStation;
+            lock (this)
+            {
+                serviceStation.startTime=DateTime.Now;
+                
+                serviceStation_ConnKey_Map[serviceStation.connection.GetHashCode()] = serviceStation;
 
 
-            if (string.IsNullOrEmpty(serviceStation.serviceStationInfo.serviceStationKey)) 
-                serviceStation.serviceStationInfo.serviceStationKey = "tmp" + serviceStation.GetHashCode();
-            serviceStationKey_Map[serviceStation.serviceStationKey] = serviceStation;            
+                if (string.IsNullOrEmpty(serviceStation.serviceStationInfo.serviceStationKey))
+                    serviceStation.serviceStationInfo.serviceStationKey = "tmp" + serviceStation.GetHashCode();
+                serviceStationKey_Map[serviceStation.serviceStationKey] = serviceStation;
 
-            serviceStation.Status_Set(EServiceStationStatus.正常);
-            goverManage.apiStationMng.ServiceStation_Add(serviceStation);
+                serviceStation.Status_Set(EServiceStationStatus.正常);
+                goverManage.apiStationMng.ServiceStation_Add(serviceStation);
 
-            //发布 Sers Event
-            SersEventService.Publish(SersEventService.Event_ServiceStation_Add, serviceStation);
-
+                //发布 Sers Event
+                SersEventService.Publish(SersEventService.Event_ServiceStation_Add, serviceStation);
+            }
         }
 
 
@@ -91,45 +102,52 @@ namespace Sers.Gover.Base
         /// <param name="serviceStation"></param>
         public bool ServiceStation_UpdateStationInfo(ServiceStation serviceStation)
         {
-            if (!serviceStation_ConnKey_Map.TryGetValue(serviceStation.connection.GetHashCode(), out var old_serviceStation))
+            lock (this)
             {
-                return false;
+                if (!serviceStation_ConnKey_Map.TryGetValue(serviceStation.connection.GetHashCode(),
+                    out var old_serviceStation))
+                {
+                    return false;
+                }
+
+                if (!string.IsNullOrEmpty(old_serviceStation.serviceStationKey))
+                    serviceStationKey_Map.TryRemove(old_serviceStation.serviceStationKey, out _);
+
+
+                if (serviceStation.serviceStationInfo != null)
+                    old_serviceStation.serviceStationInfo = serviceStation.serviceStationInfo;
+
+                if (serviceStation.deviceInfo != null)
+                    old_serviceStation.deviceInfo = serviceStation.deviceInfo;
+
+                if (string.IsNullOrEmpty(old_serviceStation.serviceStationInfo.serviceStationKey))
+                    old_serviceStation.serviceStationInfo.serviceStationKey = "tmp" + old_serviceStation.GetHashCode();
+                serviceStationKey_Map[old_serviceStation.serviceStationKey] = old_serviceStation;
+
+                return true;
             }
-
-            if (!string.IsNullOrEmpty(old_serviceStation.serviceStationKey))
-                serviceStationKey_Map.TryRemove(old_serviceStation.serviceStationKey, out _);
-
-
-            if (serviceStation.serviceStationInfo != null)
-                old_serviceStation.serviceStationInfo = serviceStation.serviceStationInfo;
-
-            if (serviceStation.deviceInfo != null)
-                old_serviceStation.deviceInfo = serviceStation.deviceInfo;
-
-            if (string.IsNullOrEmpty(old_serviceStation.serviceStationInfo.serviceStationKey)) 
-                old_serviceStation.serviceStationInfo.serviceStationKey = "tmp" + old_serviceStation.GetHashCode();
-            serviceStationKey_Map[old_serviceStation.serviceStationKey] = old_serviceStation;
-
-            return true;
         }
 
 
 
-        public ServiceStation ServiceStation_Remove(IOrganizeConnection  conn)
-        {           
-            if (!serviceStation_ConnKey_Map.TryRemove(conn.GetHashCode(), out var serviceStation))
+        public ServiceStation ServiceStation_Remove(string connKey)
+        {
+            lock (this)
             {
-                return null;
+                if (!serviceStation_ConnKey_Map.TryRemove(int.Parse(connKey), out var serviceStation))
+                {
+                    return null;
+                }
+
+                if (!string.IsNullOrEmpty(serviceStation.serviceStationKey))
+                    serviceStationKey_Map.TryRemove(serviceStation.serviceStationKey, out _);
+
+                goverManage.apiStationMng.ServiceStation_Remove(serviceStation);
+
+                //发布 Sers Event
+                SersEventService.Publish(SersEventService.Event_ServiceStation_Remove, serviceStation);
+                return serviceStation;
             }
-
-            if (!string.IsNullOrEmpty(serviceStation.serviceStationKey))
-                serviceStationKey_Map.TryRemove(serviceStation.serviceStationKey, out _);
-
-            goverManage.apiStationMng.ServiceStation_Remove(serviceStation);
-
-            //发布 Sers Event
-            SersEventService.Publish(SersEventService.Event_ServiceStation_Remove, serviceStation);
-            return serviceStation;
         }
 
 
@@ -140,14 +158,12 @@ namespace Sers.Gover.Base
                 if (!serviceStation_ConnKey_Map.TryGetValue(int.Parse(connKey), out var serviceStation))
                 {
                     return null;
-                }               
-
+                }
 
                 if (serviceStation.Status_Get() == EServiceStationStatus.暂停)
                 {
                     return serviceStation;
-                }  
-
+                }
 
                 serviceStation.Status_Set(EServiceStationStatus.暂停);
                 goverManage.apiStationMng.ServiceStation_Pause(serviceStation);
@@ -170,7 +186,7 @@ namespace Sers.Gover.Base
                 if (serviceStation.Status_Get() == EServiceStationStatus.正常)
                 {
                     return serviceStation;
-                }          
+                }
 
                 serviceStation.Status_Set(EServiceStationStatus.正常);
                 goverManage.apiStationMng.ServiceStation_Start(serviceStation);
@@ -182,10 +198,6 @@ namespace Sers.Gover.Base
                 return serviceStation;
             }
         }
-
-
-
-      
 
         #endregion
 

@@ -7,6 +7,8 @@ namespace Sers.CL.Ipc.SharedMemory
 {
     public class DeliveryServer :  IDeliveryServer
     {
+        public Sers.Core.Util.StreamSecurity.SecurityManager securityManager { set => _conn.securityManager = value; }
+
         public DeliveryServer()
         {
             _conn = new DeliveryConnection();

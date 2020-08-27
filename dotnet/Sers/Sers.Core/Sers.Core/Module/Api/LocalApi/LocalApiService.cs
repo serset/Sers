@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
-using Newtonsoft.Json.Linq;
 using Vit.Extensions;
 using Vit.Core.Module.Log;
 using Sers.Core.Module.Rpc;
@@ -11,10 +10,12 @@ using Vit.Core.Util.ConfigurationManager;
 using Vit.Core.Util.Pool;
 using Vit.Core.Util.Threading;
 using System.Reflection;
+using Sers.SersLoader;
 using Sers.Core.CL.CommunicationManage;
 using Sers.Core.CL.MessageOrganize;
 using Sers.Core.Module.Message;
 using Vit.Core.Util.ComponentModel.SsError;
+using Sers.Core.Module.Api.LocalApi.Event;
 
 namespace Sers.Core.Module.Api.LocalApi
 {
@@ -32,16 +33,8 @@ namespace Sers.Core.Module.Api.LocalApi
         }
 
         public void Init()
-        { 
-
-            this.UseApiTraceLog();
-
-
-            #region 构建 Api Event BeforeCallApi
-            var BeforeCallApi = Sers.Core.Module.Api.ApiEvent.BeforeCallApi.EventBuilder.LoadEvent(ConfigurationManager.Instance.GetByPath<JArray>("Sers.LocalApiService.BeforeCallApi"));
-            if (BeforeCallApi != null) this.BeforeCallApi += BeforeCallApi;
-            #endregion
-
+        {
+            LocalApiEventMng.Instance.UseApiTraceLog();
         }
 
 
@@ -73,30 +66,26 @@ namespace Sers.Core.Module.Api.LocalApi
 
 
         /// <summary>
-        /// 调用SsApi加载器加载api
+        /// 调用SersApi加载器加载api
         /// </summary>
         /// <param name="config"></param>
-        public void LoadSsApi(ApiLoaderConfig config)
+        public void LoadSersApi(ApiLoaderConfig config)
         {
-            apiNodeMng.AddApiNode(new Sers.ApiLoader.Sers.ApiLoader().LoadApi(config));
+            apiNodeMng.AddApiNode(new SersLoader.ApiLoader().LoadApi(config));
         }
 
         /// <summary>
-        /// 调用SsApi加载器加载api
+        /// 调用SersApi加载器加载api
         /// </summary>
         /// <param name="assembly"></param>
-        public void LoadSsApi(Assembly assembly)
+        public void LoadSersApi(Assembly assembly)
         {
-            apiNodeMng.AddApiNode(new Sers.ApiLoader.Sers.ApiLoader().LoadApi(new ApiLoaderConfig { assembly = assembly }));
+            apiNodeMng.AddApiNode(new SersLoader.ApiLoader().LoadApi(new ApiLoaderConfig { assembly = assembly }));
         }
 
         #endregion
 
 
-        /// <summary>
-        /// BeforeCallApi(IRpcContextData rpcData, ApiMessage requestMessage)
-        /// </summary>
-        public Action<IRpcContextData, ApiMessage> BeforeCallApi=null;
 
 
         #region CallLocalApi
@@ -106,8 +95,9 @@ namespace Sers.Core.Module.Api.LocalApi
         /// <param name="apiRequest"></param>
         /// <returns></returns>
         internal ApiMessage CallLocalApi(ApiMessage apiRequest)
-        {
-            using (var rpcContext = RpcFactory.Instance.CreateRpcContext())
+        {           
+            using (var rpcContext = RpcFactory.CreateRpcContext())
+            using (var localApiEvent = LocalApiEventMng.Instance.CreateApiEvent())
             {
                 try
                 {
@@ -115,18 +105,17 @@ namespace Sers.Core.Module.Api.LocalApi
                     rpcContext.apiRequestMessage = apiRequest;
                     rpcContext.apiReplyMessage = new ApiMessage();
 
-                    var rpcData = RpcFactory.Instance.CreateRpcContextData();
+                    var rpcData = RpcFactory.CreateRpcContextData();
                     rpcData.UnpackOriData(apiRequest.rpcContextData_OriData);
-                    rpcContext.rpcData=rpcData;
-
+                    rpcContext.rpcData = rpcData;
 
                     //(x.2) BeforeCallApi
-                    BeforeCallApi?.Invoke(rpcData, apiRequest);
+                    localApiEvent.BeforeCallApi(rpcData, apiRequest);
 
                     //(x.3)get apiNode and call
                     apiNodeMng.TryGet(rpcData, out var apiNode);
                     if (null == apiNode)
-                    {                    
+                    {
                         rpcContext.apiReplyMessage.InitAsApiReplyMessageByError(SsError.Err_ApiNotExists);
                     }
                     else
@@ -136,9 +125,9 @@ namespace Sers.Core.Module.Api.LocalApi
 
                 }
                 catch (Exception ex) when ((ex.GetBaseException() is ThreadInterruptedException))
-                {         
+                {
                     //处理超时
-                    rpcContext.apiReplyMessage.rpcContextData_OriData= const_ApiReply_Err_Timeout.rpcContextData_OriData;
+                    rpcContext.apiReplyMessage.rpcContextData_OriData = const_ApiReply_Err_Timeout.rpcContextData_OriData;
                     rpcContext.apiReplyMessage.value_OriData = const_ApiReply_Err_Timeout.value_OriData;
                     throw;
                 }
@@ -147,7 +136,7 @@ namespace Sers.Core.Module.Api.LocalApi
                     ex = ex.GetBaseException();
                     Logger.Error(ex);
                     SsError error = ex;
-                    rpcContext.apiReplyMessage.InitAsApiReplyMessageByError(error);       
+                    rpcContext.apiReplyMessage.InitAsApiReplyMessageByError(error);
                 }
                 return rpcContext.apiReplyMessage;
             }

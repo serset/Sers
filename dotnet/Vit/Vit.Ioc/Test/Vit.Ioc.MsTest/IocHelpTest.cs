@@ -1,11 +1,10 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Vit.Ioc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Vit.Core.Util.Ioc.MsTest
+namespace Vit.Ioc.MsTest
 {
     [TestClass]
     public class IocHelpTest
@@ -22,6 +21,7 @@ namespace Vit.Core.Util.Ioc.MsTest
         {            
             //(x.1)Singleton
             IocHelp.AddSingleton<InterfaceA, ClassA>();
+            IocHelp.Update();
             var obj0_1 = IocHelp.Create<InterfaceA>();
             var obj0_1_HashCode = obj0_1.GetHashCode();
 

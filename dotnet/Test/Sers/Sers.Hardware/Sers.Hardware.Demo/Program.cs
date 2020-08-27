@@ -1,9 +1,9 @@
-﻿using Sers.Hardware.Env;
-using Sers.Hardware.Usage;
-using System;
+﻿using System;
 using System.Threading;
+using Sers.Hardware.Env;
+using Sers.Hardware.Usage;
 
-namespace CPUInfoDemo
+namespace Sers.Hardware.Demo
 {
 
 

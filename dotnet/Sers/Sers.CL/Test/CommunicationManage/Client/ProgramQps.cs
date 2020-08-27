@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Threading;
-using Vit.Extensions;
-using Vit.Core.Util.Statistics;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-using Vit.Core.Module.Log;
+using System.Threading;
+using System.Threading.Tasks;
+using CLClient.Statistics;
 using Sers.Core.CL.CommunicationManage;
+using Vit.Core.Module.Log;
+using Vit.Extensions;
 
-namespace Client
+namespace CLClient
 {
     class ProgramQps
     {
@@ -48,7 +48,9 @@ namespace Client
 
             cm.Conn_OnDisconnected = (conn) =>
             {
-                Logger.Info("Conn_OnDisconnected");
+                Logger.Info("Conn_OnDisconnected");       
+
+                Sers.Core.Module.App.SersApplication.OnStop();
             };
 
             cm.conn_OnGetRequest = (conn,sender,request,callback)=> 

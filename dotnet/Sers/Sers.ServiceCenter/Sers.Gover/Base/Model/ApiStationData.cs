@@ -65,7 +65,7 @@ namespace Sers.Gover.Base.Model
         /// 
         /// </summary>
         [JsonProperty]
-        public float qps { get; private set; } = -1;
+        public float qps { get; private set; } = 0;
 
         private DateTime? qps_TimeLast = null;
         private int qps_SumCountLast = 0;

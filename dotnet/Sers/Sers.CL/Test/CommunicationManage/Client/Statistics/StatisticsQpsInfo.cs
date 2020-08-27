@@ -4,7 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Vit.Core.Util.Statistics
+namespace CLClient.Statistics
 {
     public class StatisticsQpsInfo
     {

@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Threading;
-using Vit.Extensions;
- 
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading;
 using Vit.Core.Module.Log;
-using Sers.Core.CL.CommunicationManage;
 
-namespace Client
+namespace DeliveryTest
 {
     class Program
     {
@@ -16,8 +12,6 @@ namespace Client
         static void Main(string[] args)
         {
             Logger.OnLog = (level, msg) => { Console.Write("[" + level + "]" + msg); };
-
-
 
             StartServer();
             StartClient();
@@ -39,8 +33,9 @@ namespace Client
             //var server = new Sers.CL.WebSocket.DeliveryServer();
             //var server = new Sers.CL.ClrZmq.ThreadWait.DeliveryServer();
             //var server = new Sers.CL.Ipc.SharedMemory.DeliveryServer();
-            var server = new Sers.CL.Zmq.FullDuplex.DeliveryServer();
- 
+            //var server = new Sers.CL.Zmq.FullDuplex.DeliveryServer();
+            var server = new Sers.CL.Ipc.NamedPipe.DeliveryServer();
+
             server.Conn_OnConnected = (conn) => 
             {
                 conn.OnGetFrame = (conn_, data) =>
@@ -52,7 +47,6 @@ namespace Client
                     conn_.SendFrameAsync(byteData);
                 };
             };
-
            
 
             server.Start();
@@ -67,7 +61,8 @@ namespace Client
             //var client = new Sers.CL.WebSocket.DeliveryClient();
             //var client = new Sers.CL.ClrZmq.ThreadWait.DeliveryClient();
             //var client = new Sers.CL.Ipc.SharedMemory.DeliveryClient();
-            var client = new Sers.CL.Zmq.FullDuplex.DeliveryClient();
+            //var client = new Sers.CL.Zmq.FullDuplex.DeliveryClient();
+            var client = new Sers.CL.Ipc.NamedPipe.DeliveryClient();
 
             client.Conn_OnGetFrame = (conn, data) =>
             {

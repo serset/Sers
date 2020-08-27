@@ -7,7 +7,6 @@ using Sers.Core.Module.PubSub;
 using System.Collections.Generic;
 using Sers.Core.Module.Api.LocalApi;
 using Sers.Core.Module.Api;
-using Sers.Core.Module.ApiLoader;
 using Sers.ServiceCenter.ApiCenter;
 using Newtonsoft.Json.Linq;
 using Sers.Core.Module.Env;
@@ -17,6 +16,8 @@ using System.Linq;
 using Sers.Core.CL.CommunicationManage;
 using Sers.Core.CL.MessageOrganize;
 using System.Threading.Tasks;
+using Sers.SersLoader;
+using Sers.Core.Module.App.AppEvent;
 
 namespace Sers.ServiceCenter
 {
@@ -65,9 +66,14 @@ namespace Sers.ServiceCenter
         public ServiceCenter()
         {
             connForLocalStationService = new OrganizeConnection(localApiService);
+
+            appEventList = AppEventLoader.LoadAppEvent(Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<JArray>("Sers.AppEvent"))
+                ?.ToList();
         }
 
         #region (x.1) 成员对象
+
+        List<IAppEvent> appEventList { get; set; }
 
         public   ApiCenterService apiCenterService { get; set; }  
 
@@ -110,6 +116,11 @@ namespace Sers.ServiceCenter
             {
                 MessageClient.Instance.OnGetMessage(this, message.ByteDataToArraySegment());
             }
+            public void Close() 
+            {
+                ServiceCenter.Instance.StopCenter();
+            }
+
         }
 
 
@@ -124,6 +135,10 @@ namespace Sers.ServiceCenter
         public void InitCenter()
         {
             Logger.Info("初始化ServiceCenter...");
+
+            //(x.0) appEvent BeforeStart
+            appEventList?.ForEach(ev=>ev.BeforeStart());
+         
 
             #region (x.1)CL add Builder for Iocp、ThreadWait            
             communicationManage.BeforeBuildOrganize = (JObject[] configs, List<IOrganizeServer> organizeList) =>
@@ -165,7 +180,7 @@ namespace Sers.ServiceCenter
         /// </summary>
         public void LoadApi()
         {
-            localApiService.LoadApi_StaticFileMap();
+            localApiService.LoadApi_StaticFiles();
             localApiService.LoadApi();
         }
 
@@ -176,7 +191,7 @@ namespace Sers.ServiceCenter
         /// <param name="config"></param>
         public void LoadSsApi(ApiLoaderConfig config)
         {
-            localApiService.LoadSsApi(config);
+            localApiService.LoadSersApi(config);
         }
 
 
@@ -199,6 +214,9 @@ namespace Sers.ServiceCenter
         public bool StartCenter()
         {
             Logger.Info("[ServiceCenter] starting ...");
+
+            //(x.0) appEvent OnStart
+            appEventList?.ForEach(ev => ev.OnStart());
 
 
             #region (x.1)注册主程序退出回调
@@ -327,6 +345,9 @@ namespace Sers.ServiceCenter
 
             Logger.Info("[ServiceCenter] started");
 
+            //(x.9) appEvent AfterStart
+            appEventList?.ForEach(ev => ev.AfterStart());
+
             return true;
         }
         #endregion
@@ -335,39 +356,49 @@ namespace Sers.ServiceCenter
 
         #region (x.5) StopCenter
         public void StopCenter()
-        {
-            if (!SersApplication.IsRunning) return;
-
+        { 
             Logger.Info("[ServiceCenter] stop...");
 
+            //(x.1) appEvent BeforeStop
+            appEventList?.ForEach(ev => ev.BeforeStop());
 
-            #region CommunicationManage Close
-            Logger.Info("[CL] stop...");
-            try
+            //(x.2)stop service
+            if (SersApplication.IsRunning)
             {
-                communicationManage.Stop();
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
-            }
-            Logger.Info("[CL] stoped");
-            #endregion
+                #region CommunicationManage stop
+                Logger.Info("[CL] stop...");
+                try
+                {
+                    communicationManage.Stop();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex);
+                }
+                Logger.Info("[CL] stoped");
+                #endregion
 
-            try
-            {
-                localApiService.Stop();
+                Logger.Info("[LocalApiService] stop...");
+                try
+                {
+                    localApiService.Stop();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex);
+                }
+                Logger.Info("[LocalApiService] stoped");
             }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
-            }
-
 
             Logger.Info("[ServiceCenter] stoped");
 
-            //调用SersApp 事件
+            //(x.3) appEvent AfterStop
+            appEventList?.ForEach(ev => ev.AfterStop());
+
+            //(x.4)调用SersApp 事件
             SersApplication.OnStop();
+
+           
         }
         #endregion
 

@@ -12,7 +12,13 @@ namespace Vit.Extensions
         //    return new ArraySegment<T>(new T[0], 0,0);
         //}
 
-        
+        public static bool HasData<T>(this ArraySegment<T> seg)
+        {
+            return seg!=null && seg.Array!=null && seg.Count>0;
+        }
+
+
+
         internal static void CopyTo<T>(this ArraySegment<T> seg,T[] bytes,int curIndex=0)
         {
             Array.Copy(seg.Array, seg.Offset, bytes, curIndex, seg.Count); 

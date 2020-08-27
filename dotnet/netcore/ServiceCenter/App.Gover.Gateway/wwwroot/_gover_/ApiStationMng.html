@@ -23,10 +23,11 @@
 <body>
 
     <h1>Api站点管理</h1>
-
+    <a href="#" onclick="apiStationFilter=null;reloadStations();" title="显示所有的Api站点">显示所有</a> 
+    <a href="#" onclick="apiStationFilter=apiStationFilter_OnlyOnline;reloadStations();" title="仅显示在线的Api站点（apiNodeCount不为0）（默认为仅显示在线）">仅显示在线</a>
     <div id="stations">
 
-        <div v-for="station in stations" style="width:300px;height:400px; float:left;margin:2px;padding:4px;word-wrap:break-word;" class="line">
+        <div v-for="station in stations" style="width:300px;height:250px; float:left;margin:2px;padding:4px;word-wrap:break-word;" class="line">
             {{station.stationName}}     <br />
             calledCount  err/sum:  {{(station.counter||{}).errorCount}}/ {{(station.counter||{}).sumCount}}<br />
             qps:{{station.qps}}     <br />
@@ -60,18 +61,26 @@
         });
 
 
-        function rendStations() {
-            sers.apiClient.apiStation_getAll(function (data) {
-                stations.stations = data.data;
+        function apiStationFilter_OnlyOnline(apiStations) {
+            return apiStations.filter(function (item) { return item.apiNodeCount; });
+        }
+
+        var apiStationFilter = apiStationFilter_OnlyOnline;
+
+        function reloadStations() {
+            sers.apiClient.apiStation_getAll(function (apiRet) {
+                var apiStations = apiRet.data;
+                if (apiStationFilter) apiStations = apiStationFilter(apiStations);
+                stations.stations = apiStations;
             });
         }
 
-        rendStations();
+        reloadStations();
 
 
         var intervals = [];
         function startRefreshTask() {
-            var interval = setInterval(rendStations, 2000);
+            var interval = setInterval(reloadStations, 2000);
             intervals.push(interval);
         }
         function stopRefreshTask() {

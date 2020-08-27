@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>2.1.1.384</Version>
+    <Description>https://github.com/sersms/Sers/tree/2.1.1/release</Description>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>bin\Debug\netstandard2.0\Sers.NetcoreLoader.xml</DocumentationFile>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.0" /> 
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Sers\Sers.Core\Sers.Core\Sers.Core.csproj" />
+    <ProjectReference Include="..\..\..\Sers\Sers.Ioc\Sers.Ioc\Sers.Ioc.csproj" />
+    <ProjectReference Include="..\..\..\Sers\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />
+    <ProjectReference Include="..\Sers.Serslot\Sers.Serslot.csproj" />
+  </ItemGroup>
+
+
+
+</Project>

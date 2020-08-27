@@ -23,7 +23,7 @@ namespace Vit.Core.Util.Net
         /// <returns></returns>
         public async Task<HttpResponse<T>> SendAsync<T>(HttpRequest request)
         {
-            #region (x.1)构建HttpRequest            
+            #region (x.1)构建请求            
 
             #region (x.x.1)创建对象           
             var url = request.url;
@@ -31,31 +31,42 @@ namespace Vit.Core.Util.Net
             {
                 url = UrlAddParams(url, request.urlParams);
             }
-            HttpRequestMessage httpResquest = new HttpRequestMessage(new HttpMethod(request.httpMethod ?? "GET"), url);
-            #endregion
-
-            #region (x.x.2)headers
-            if (request.headers != null)
-            {
-                foreach (var item in request.headers)
-                {
-                    httpResquest.Headers.Add(item.Key, item.Value);
-                }
-            }
-            #endregion
+            HttpRequestMessage httpRequest = new HttpRequestMessage(new HttpMethod(request.httpMethod ?? "GET"), url);
+            #endregion          
 
 
-            #region (x.x.3)body
+            #region (x.x.2)body
             if (request.body != null)
             {
                 if (request.body is byte[] bytes)
                 {
-                    httpResquest.Content = new ByteArrayContent(bytes);
+                    httpRequest.Content = new ByteArrayContent(bytes);
                 }
                 else
                 {
                     var content = Serialization.Instance.SerializeToString(request.body);
-                    httpResquest.Content = new StringContent(content, request.requestEncoding, "application/json");
+                    httpRequest.Content = new StringContent(content, request.requestEncoding, "application/json");
+                }
+            }
+            #endregion
+
+            #region (x.x.3)headers
+            if (request.headers != null)
+            {
+                if (httpRequest.Content != null)
+                {
+                    foreach (var item in request.headers)
+                    {
+                        httpRequest.Content.Headers.TryAddWithoutValidation(item.Key, item.Value);
+                    }
+                }
+                else
+                {
+                    foreach (var item in request.headers)
+                    {
+                        httpRequest.Headers.TryAddWithoutValidation(item.Key, item.Value);
+                        //httpRequest.Headers.Add(item.Key, item.Value);                   
+                    }
                 }
             }
             #endregion
@@ -64,14 +75,13 @@ namespace Vit.Core.Util.Net
             #endregion
 
             //(x.2)发送请求
-            var response = await http.SendAsync(httpResquest);
+            var response = await httpClient.SendAsync(httpRequest);
 
             #region (x.3)读取回应
             var httpResponse = new HttpResponse<T>();
             httpResponse.StatusCode = (int)response.StatusCode;
 
-            httpResponse.headers = response.Headers?.AsEnumerable().ToDictionary(kv => kv.Key, kv => string.Join(",", kv.Value));
-
+            httpResponse.headers = response.Content?.Headers?.AsEnumerable().ToDictionary(kv => kv.Key, kv => string.Join(",", kv.Value));
 
             if (response.IsSuccessStatusCode)
             {
@@ -85,7 +95,6 @@ namespace Vit.Core.Util.Net
                     string data = await response.Content.ReadAsStringAsync();
                     httpResponse.data = data.Deserialize<T>();
                 }
-
             }
             return httpResponse;
             #endregion
@@ -100,7 +109,7 @@ namespace Vit.Core.Util.Net
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="url">不可为null,demo："http://www.a.com"、"http://www.a.com?a=1&b=2"</param>
+        /// <param name="url">不可为null,demo："http://www.a.com"、"http://www.a.com?a=1&amp;b=2"</param>
         /// <param name="parameters">可为string、IDictionary、JObject</param>
         /// <returns></returns>
         public static string UrlAddParams(string url, Object parameters)
@@ -148,9 +157,9 @@ namespace Vit.Core.Util.Net
         #region FormatUrlParams
 
         /// <summary>
-        /// 返回值demo： "a=4&b=2"
+        /// 返回值demo： "a=4&amp;b=2"
         /// </summary>
-        /// <param name="parameters">可为string、IDictionary、JObject,例如："a=3&b=5"</param>
+        /// <param name="parameters">可为string、IDictionary、JObject,例如："a=3&amp;b=5"</param>
         /// <returns></returns>
         static String FormatUrlParams(Object parameters)
         {
@@ -171,21 +180,31 @@ namespace Vit.Core.Util.Net
                 if (buff.Length > 0) buff.Length--;
                 return buff.ToString();
             }
-            else if (parameters is JObject joParameters)
+            else if (parameters is JObject jo)
             {
-                StringBuilder buff = new StringBuilder();
-                foreach (var kv in joParameters)
-                {
-                    buff.Append(UrlEncode(kv.Key.ToString())).Append("=").Append(UrlEncode(kv.Value.Value<string>())).Append("&");
-                }
-                if (buff.Length > 0) buff.Length--;
-                return buff.ToString();
+                return FormatJObject(jo);
+
             }
             else if (parameters is string)
             {
                 return (string)parameters;
             }
-            throw new Exception("Url_BuildParam,不支持的url参数格式[" + parameters.GetType().Name + "]");
+
+            return FormatJObject(parameters.ConvertBySerialize<JObject>());
+
+
+            #region FormatJObject
+            string FormatJObject(JObject joParameters)
+            {
+                StringBuilder buff = new StringBuilder();
+                foreach (var kv in joParameters)
+                {
+                    buff.Append(UrlEncode(kv.Key)).Append("=").Append(UrlEncode(kv.Value.ConvertToString())).Append("&");
+                }
+                if (buff.Length > 0) buff.Length--;
+                return buff.ToString();
+            }
+            #endregion 
         }
         #endregion
 
@@ -204,7 +223,7 @@ namespace Vit.Core.Util.Net
         /// <typeparam name="ReturnType"></typeparam>
         /// <param name="request"></param>
         /// <returns></returns>
-        public HttpResponse<ReturnType>Send<ReturnType>(HttpRequest request)
+        public HttpResponse<ReturnType> Send<ReturnType>(HttpRequest request)
         {
             var task = SendAsync<ReturnType>(request);
             task.Wait();
@@ -215,14 +234,25 @@ namespace Vit.Core.Util.Net
 
 
         #region config       
-        readonly System.Net.Http.HttpClient http = new System.Net.Http.HttpClient();
+        public readonly System.Net.Http.HttpClient httpClient = new System.Net.Http.HttpClient();
         public string BaseAddress
         {
             set
             {
-                http.BaseAddress = new Uri(value);
+
+                httpClient.BaseAddress = new Uri(value);
             }
         }
+
+        public double TimeoutSeconds
+        {
+            set
+            {
+
+                httpClient.Timeout = TimeSpan.FromSeconds(value);
+            }
+        }
+
         #endregion
     }
 
@@ -245,7 +275,7 @@ namespace Vit.Core.Util.Net
         /// </summary>
         public string httpMethod;
         /// <summary>
-        /// 放到url中的参数。可为string、IDictionary、JObject
+        /// 放到url中的参数。可为string、IDictionary、JObject。若为其他类型则自动转换为JObject在进行处理
         /// </summary>
         public Object urlParams;
 
@@ -274,7 +304,7 @@ namespace Vit.Core.Util.Net
             set { _requestEncoding = value; }
         }
         #endregion
-        
+
     }
 
     /// <summary>
