@@ -1,7 +1,15 @@
 ﻿# Sers微服务架构协议（Sers 2.1.1/release）
-Sers为一套跨平台跨语言的开源微服务架构协议。
 
-单机QPS能达15万。目前支持C++、Java、c#。
+Sers为一套跨平台跨语言的开源微服务架构协议。
+● 跨语言，目前已支持c#、java、c++、javascript。
+● 轻量简洁，javascript接入代码不到1000行，压缩后只有8KB。您可以在浏览器上通过javascript接入提供api服务。
+● 高效高并发，.net core版本（2.1.1）单机QPS可稳定在15万以上。
+● 高扩展性，可以自行扩展接入。
+● 支持tcp、zmp、websocket、ipc等多种通讯方式。
+● 可以非侵入式接入.net core web api，接入代码只有1行。
+
+
+源码地址：https://github.com/sersms/Sers
 
 此版本为v2.1.1版。(RequestQueue模式)
 
