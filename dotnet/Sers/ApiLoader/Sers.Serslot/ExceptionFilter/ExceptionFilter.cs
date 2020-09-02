@@ -21,13 +21,13 @@ namespace Sers.Serslot.ExceptionFilter
         {
             if (context.ExceptionHandled == false)
             {
-                ApiReturn apiRet= (SsError) context.Exception ;
+                ApiReturn apiRet= (SsError) context.Exception;
 
                 context.Result = new ContentResult
                 {
                     Content = apiRet.Serialize(),//这里是把异常抛出。也可以不抛出。
                     StatusCode = StatusCodes.Status200OK,
-                    //ContentType = "text/html;charset=utf-8"
+                    ContentType = "application/json"
                 };
             }
             context.ExceptionHandled = true;
