@@ -2,10 +2,10 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using Sers.Core.CL.MessageOrganize;
 using Sers.Core.Module.Env;
 using Sers.Gover.Base.Model;
 using Sers.Gover.Service.SersEvent;
+using Sers.Hardware.Usage;
 using Sers.ServiceCenter.Entity;
 using Vit.Extensions;
 
@@ -21,22 +21,26 @@ namespace Sers.Gover.Base
             return this;
         }
 
+        public ICollection<ServiceStation> serviceStationCollection => serviceStation_ConnKey_Map.Values;
+
+
         /// <summary>
         /// connKey 和 服务站点 的映射
         /// </summary>
-        ConcurrentDictionary<int, ServiceStation> serviceStation_ConnKey_Map = new ConcurrentDictionary<int, ServiceStation>();
+        readonly ConcurrentDictionary<int, ServiceStation> serviceStation_ConnKey_Map = new ConcurrentDictionary<int, ServiceStation>();
 
         /// <summary>
         ///  serviceStationKey 和 服务站点 的映射
         /// </summary>
-        internal readonly ConcurrentDictionary<string, ServiceStation> serviceStationKey_Map = new ConcurrentDictionary<string, ServiceStation>();
+        /// 
+        readonly Reference<string, UsageStatus> serviceStationKey_UsageStatus_Map = new Reference<string, UsageStatus>();
 
 
-        public void PublishUsageInfo(EnvUsageInfo item)
+        public void SaveUsageInfo(EnvUsageInfo item)
         {
-            if (!string.IsNullOrEmpty(item.serviceStationKey) && serviceStationKey_Map.TryGetValue(item.serviceStationKey, out var serviceStation))
+            lock (this)
             {
-                serviceStation.usageStatus = item.usageStatus;
+                serviceStationKey_UsageStatus_Map.Get(item.serviceStationKey)?.CopyFrom(item.usageStatus);
             }
         }
 
@@ -44,23 +48,22 @@ namespace Sers.Gover.Base
         public List<ServiceStationData> ServiceStation_GetAll()
         {
             return serviceStation_ConnKey_Map.Values
-
                 .Select(
-                (m) => new ServiceStationData
-                {
-                    connKey = "" + m.connection.GetHashCode(),
-                    startTime = m.startTime,
-                    deviceInfo = m.deviceInfo,
-                    serviceStationInfo = m.serviceStationInfo,
-                    status = "" + m.Status_Get(),
-                    usageStatus = m.usageStatus,
-                    counter = m.counter,
-                    qps=m.qps,
-                    apiNodeCount = m.apiNodes.Count,
-                    activeApiNodeCount = m.ActiveApiNodeCount_Get(),
-                    apiStationNames = m.ApiStationNames_Get()
-                }
-            ).OrderBy(m => m?.serviceStationInfo?.serviceStationName)
+                    m => new ServiceStationData
+                    {
+                        connKey = "" + m.connection.GetHashCode(),
+                        startTime = m.startTime,
+                        deviceInfo = m.deviceInfo,
+                        serviceStationInfo = m.serviceStationInfo,
+                        status = "" + m.Status_Get(),
+                        usageStatus = m.usageStatus,
+                        counter = m.counter,
+                        qps = m.qps,
+                        apiNodeCount = m.apiNodes.Count,
+                        activeApiNodeCount = m.ActiveApiNodeCount_Get(),
+                        apiStationNames = m.ApiStationNames_Get()
+                    }
+                ).OrderBy(m => m?.serviceStationInfo?.serviceStationName)
                 .ThenBy(m => m.startTime)
                 .ToList();
         }
@@ -84,7 +87,9 @@ namespace Sers.Gover.Base
 
                 if (string.IsNullOrEmpty(serviceStation.serviceStationInfo.serviceStationKey))
                     serviceStation.serviceStationInfo.serviceStationKey = "tmp" + serviceStation.GetHashCode();
-                serviceStationKey_Map[serviceStation.serviceStationKey] = serviceStation;
+
+
+                serviceStation.usageStatus = serviceStationKey_UsageStatus_Map.Add(serviceStation.serviceStationKey, serviceStation.usageStatus ?? new UsageStatus());      
 
                 serviceStation.Status_Set(EServiceStationStatus.正常);
                 goverManage.apiStationMng.ServiceStation_Add(serviceStation);
@@ -99,30 +104,31 @@ namespace Sers.Gover.Base
         /// <summary>
         /// 更新服务站点设备硬件信息
         /// </summary>
-        /// <param name="serviceStation"></param>
-        public bool ServiceStation_UpdateStationInfo(ServiceStation serviceStation)
+        /// <param name="newServiceStation"></param>
+        public bool ServiceStation_UpdateStationInfo(ServiceStation newServiceStation)
         {
             lock (this)
             {
-                if (!serviceStation_ConnKey_Map.TryGetValue(serviceStation.connection.GetHashCode(),
-                    out var old_serviceStation))
+                if (!serviceStation_ConnKey_Map.TryGetValue(newServiceStation.connection.GetHashCode(),out var serviceStation))
                 {
                     return false;
                 }
 
-                if (!string.IsNullOrEmpty(old_serviceStation.serviceStationKey))
-                    serviceStationKey_Map.TryRemove(old_serviceStation.serviceStationKey, out _);
+                serviceStationKey_UsageStatus_Map.Remove(serviceStation.serviceStationKey);
 
 
-                if (serviceStation.serviceStationInfo != null)
-                    old_serviceStation.serviceStationInfo = serviceStation.serviceStationInfo;
+                if (newServiceStation.serviceStationInfo != null)
+                {
+                    serviceStation.serviceStationInfo = newServiceStation.serviceStationInfo;
 
-                if (serviceStation.deviceInfo != null)
-                    old_serviceStation.deviceInfo = serviceStation.deviceInfo;
+                    if (string.IsNullOrEmpty(serviceStation.serviceStationInfo.serviceStationKey))
+                        serviceStation.serviceStationInfo.serviceStationKey = "tmp" + serviceStation.GetHashCode();
+                }
 
-                if (string.IsNullOrEmpty(old_serviceStation.serviceStationInfo.serviceStationKey))
-                    old_serviceStation.serviceStationInfo.serviceStationKey = "tmp" + old_serviceStation.GetHashCode();
-                serviceStationKey_Map[old_serviceStation.serviceStationKey] = old_serviceStation;
+                if (newServiceStation.deviceInfo != null)
+                    serviceStation.deviceInfo = newServiceStation.deviceInfo;
+           
+                serviceStation.usageStatus = serviceStationKey_UsageStatus_Map.Add(serviceStation.serviceStationKey, serviceStation.usageStatus ?? new UsageStatus());
 
                 return true;
             }
@@ -139,8 +145,7 @@ namespace Sers.Gover.Base
                     return null;
                 }
 
-                if (!string.IsNullOrEmpty(serviceStation.serviceStationKey))
-                    serviceStationKey_Map.TryRemove(serviceStation.serviceStationKey, out _);
+                serviceStationKey_UsageStatus_Map.Remove(serviceStation.serviceStationKey);
 
                 goverManage.apiStationMng.ServiceStation_Remove(serviceStation);
 
@@ -199,6 +204,65 @@ namespace Sers.Gover.Base
             }
         }
 
+        #endregion
+
+
+
+        #region Reference
+        /// <summary>
+        /// 线程不安全
+        /// </summary>
+        /// <typeparam name="KeyType"></typeparam>
+        /// <typeparam name="ValueType"></typeparam>
+        class Reference<KeyType, ValueType>
+        {
+            class Item
+            {
+                public int count = 1;
+                public ValueType value;
+            }
+
+
+            SortedDictionary<KeyType, Item> map = new SortedDictionary<KeyType, Item>();
+
+            public ValueType Get(KeyType key)
+            {
+                if (map.TryGetValue(key, out var item))
+                {
+                    return item.value;
+                }
+                return default;
+            }
+
+
+            public ValueType Add(KeyType key, ValueType value)
+            {
+                if (map.TryGetValue(key, out var item))
+                {
+                    item.count++;
+                    return item.value;
+                }
+
+                map.Add(key, new Item { value = value });
+
+                return value;
+            }
+
+            public ValueType Remove(KeyType key)
+            {
+                if (map.TryGetValue(key, out var item))
+                {
+                    if ((--item.count) <= 0)
+                    {
+                        map.Remove(key);
+                    }
+                    return item.value;
+                }
+                return default;
+            }
+
+
+        }
         #endregion
 
 

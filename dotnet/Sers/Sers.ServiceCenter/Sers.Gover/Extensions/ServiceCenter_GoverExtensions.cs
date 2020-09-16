@@ -51,7 +51,7 @@ namespace Vit.Extensions
             //(x.2)计算ServiceStation qps
             try
             {
-                foreach (var item in GoverManage.Instance.serviceStationMng.serviceStationKey_Map.Values)
+                foreach (var item in GoverManage.Instance.serviceStationMng.serviceStationCollection)
                 {
                     item.QpsCalc();
                 }

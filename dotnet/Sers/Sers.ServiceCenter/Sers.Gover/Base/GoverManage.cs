@@ -74,9 +74,9 @@ namespace Sers.Gover.Base
         [JsonIgnore]
         public RateLimitMng rateLimitMng { get; private set; } = new RateLimitMng();
 
-        public void PublishUsageInfo(EnvUsageInfo item)
+        public void SaveUsageInfo(EnvUsageInfo item)
         {
-            serviceStationMng.PublishUsageInfo(item);
+            serviceStationMng.SaveUsageInfo(item);
         }
 
 
