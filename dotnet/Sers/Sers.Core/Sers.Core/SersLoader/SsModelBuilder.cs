@@ -20,7 +20,9 @@ namespace Sers.SersLoader
 
         #region SsModel
         public SsModel BuildSsModel_Return(MethodInfo methodInfo, Type returnType)
-        {     
+        {
+            var descType = methodInfo.ReturnParameter.GetCustomAttribute<SsTypeAttribute>()?.Value;
+            if (descType != null) returnType = descType;
 
             SsModel model = new SsModel();
 
@@ -92,8 +94,10 @@ namespace Sers.SersLoader
                     return args;
                 };
 
+                var argDescType = infos[0].GetCustomAttribute<SsTypeAttribute>()?.Value  ?? argType;
+
                 var modelEntitys = new List<SsModelEntity>();
-                var mEntity = CreateEntityByType(argType, modelEntitys);
+                var mEntity = CreateEntityByType(argDescType, modelEntitys);
 
                 model.models = modelEntitys;
 
@@ -166,7 +170,10 @@ namespace Sers.SersLoader
             for (var t = 0; t < infos.Length; t++)
             {
                 var info = infos[t];
-                SsModelProperty m = CreateModelProperty(info.ParameterType, info.GetCustomAttribute, refModels);
+
+                var argDescType = info.GetCustomAttribute<SsTypeAttribute>()?.Value ?? info.ParameterType;
+
+                SsModelProperty m = CreateModelProperty(argDescType, info.GetCustomAttribute, refModels);
                 if (String.IsNullOrWhiteSpace(m.name)) m.name = info.Name;
 
                 try

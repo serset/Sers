@@ -189,6 +189,28 @@ namespace Did.Serslot.Demo.Controllers
 
         #endregion
 
+
+        #region (x.x.5)从Form获取参数
+
+        /// <summary>
+        /// 从Form获取参数
+        /// POST did_serslot/Values/304/arg
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("305/arg")]
+        public object Arg5([FromForm]ArgModel arg)
+        {
+            return new
+            {
+                Request.Path,
+                Request.Method,
+                request = arg
+            };
+        }
+        #endregion
+
+
+
         #endregion
 
 
@@ -314,73 +336,89 @@ namespace Did.Serslot.Demo.Controllers
         #endregion
 
 
-        #region (x.5) HttpMethod
-
+        #region (x.5)指定参数或返回值类型
         /// <summary>
-        /// GET did_serslot/Values/500/method
+        /// 指定参数或返回值类型
         /// </summary>
         /// <returns></returns>
-        [HttpGet("500/method")]
+        [HttpGet("500/type")]
+        [return: SsType(typeof(List<string>)),SsExample("[5,6]"), SsDescription("返回原值")]
+        public string Type(
+            [SsType(typeof(List<string>)), SsExample("[5,6]"), SsDescription("id数组")]string ids
+            )
+        {
+            return ids;
+        }
+        #endregion
+
+
+        #region (x.6) HttpMethod
+
+        /// <summary>
+        /// GET did_serslot/Values/600/method
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("600/method")]
         public string Method_Get()
         {
             return Request.Method + " " + Request.Path;
         }
 
         /// <summary>
-        /// POST did_serslot/Values/500/method
+        /// POST did_serslot/Values/600/method
         /// </summary>
         /// <returns></returns>
-        [HttpPost("500/method")]
+        [HttpPost("600/method")]
         public string Method_Post()
         {
             return Request.Method + " " + Request.Path;
         }
 
         /// <summary>
-        /// Put did_serslot/Values/500/method
+        /// Put did_serslot/Values/600/method
         /// </summary>
         /// <returns></returns>
-        [HttpPut("500/method")]
+        [HttpPut("600/method")]
         public string Method_Put()
         {
             return Request.Method + " " + Request.Path;
         }
 
         /// <summary>
-        /// Delete did_serslot/Values/500/method
+        /// Delete did_serslot/Values/600/method
         /// </summary>
         /// <returns></returns>
-        [HttpDelete("500/method")]
+        [HttpDelete("600/method")]
         public string Method_Delete()
         {
             return Request.Method + " " + Request.Path;
         }
 
         ///// <summary>
-        ///// Head did_serslot/Values/500/method
+        ///// Head did_serslot/Values/600/method
         ///// </summary>
         ///// <returns></returns>
-        //[HttpHead("500/method")]
+        //[HttpHead("600/method")]
         //public string Method_Head()
         //{
         //    return Request.Method + " " + Request.Path;
         //}
 
         /// <summary>
-        /// Options did_serslot/Values/500/method
+        /// Options did_serslot/Values/600/method
         /// </summary>
         /// <returns></returns>
-        [HttpOptions("500/method")]
+        [HttpOptions("600/method")]
         public string Method_Options()
         {
             return Request.Method + " " + Request.Path;
         }
 
         /// <summary>
-        /// Patch did_serslot/Values/500/method
+        /// Patch did_serslot/Values/600/method
         /// </summary>
         /// <returns></returns>
-        [HttpPatch("500/method")]
+        [HttpPatch("600/method")]
         public string Method_Patch()
         {
             return Request.Method + " " + Request.Path;
@@ -388,19 +426,16 @@ namespace Did.Serslot.Demo.Controllers
 
 
         /// <summary>
-        /// get|post did_serslot/Values/501/method
+        /// get|post did_serslot/Values/601/method
         /// </summary>
         /// <returns></returns>
-        [Route("501/method")]
+        [Route("601/method")]
         [HttpGet, HttpPost]
         public string Method2()
         {
             return Request.Method + " " + Request.Path;
         }
         #endregion
-
-
-
 
     }
 }

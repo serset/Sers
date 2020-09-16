@@ -357,6 +357,23 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         #endregion
 
 
+        #region (x.4-2)指定参数或返回值类型
+        /// <summary>
+        /// 指定参数或返回值类型
+        /// </summary>
+        /// <returns></returns>
+        [SsRoute("409/type")]
+        [return: SsType(typeof(List<int>)), SsExample("[5,6]"), SsDescription("返回原值")]
+        public string Type(
+            [SsType(typeof(List<string>)), SsExample("[5,6]"), SsDescription("id数组")]string ids
+            )
+        {
+            return ids;
+        }
+        #endregion
+
+
+
         #region (x.5) Rpc
 
         /// <summary>
