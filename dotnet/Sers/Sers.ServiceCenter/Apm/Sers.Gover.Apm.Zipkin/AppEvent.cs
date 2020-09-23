@@ -195,9 +195,17 @@ namespace Sers.Gover.Apm.Zipkin
                 #endregion
 
                 //tags
-                config.tags?.ForEach(item =>trace.Record(Annotations.Tag(GetTagValue(item.Key) ?? "" , GetTagValue(item.Value) ?? "")));
+                config.tags?.ForEach(item =>
+                {
+                    var key = GetTagValue(item.Key);
+                    var value = GetTagValue(item.Value);
+                    if (key != null && value != null)
+                    {
+                        trace.Record(Annotations.Tag(key, value));
+                    }
+                });
 
-      
+
                 trace.Record(Annotations.ClientRecv());
             };
         }

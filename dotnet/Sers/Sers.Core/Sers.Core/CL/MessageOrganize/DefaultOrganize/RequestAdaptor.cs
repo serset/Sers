@@ -698,17 +698,17 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         }
 
         /// <summary>
-        /// 注：调用后，oriMsg会错乱
+        /// 注：调用后，不改变oriMsg
         /// </summary>
         /// <param name="reqKey"></param>
         /// <param name="oriMsg"></param>
         /// <param name="reqRepFrame"></param>
         static void PackageReqRepFrame(long reqKey, List<ArraySegment<byte>> oriMsg, out List<ArraySegment<byte>> reqRepFrame)
         {
-            /*
+            //*
             reqRepFrame = DataPool.ByteDataGet();
 
-            //第1帧 
+            //第1帧 reqKey
             reqRepFrame.Add(reqKey.Int64ToBytes().BytesToArraySegmentByte());
 
             //第2帧
