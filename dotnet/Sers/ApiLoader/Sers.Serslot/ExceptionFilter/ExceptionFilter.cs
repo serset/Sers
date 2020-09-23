@@ -21,7 +21,8 @@ namespace Sers.Serslot.ExceptionFilter
         {
             if (context.ExceptionHandled == false)
             {
-                ApiReturn apiRet= (SsError) context.Exception;
+                SsError error = (SsError)context.Exception;
+                ApiReturn apiRet = error;
 
                 context.Result = new ContentResult
                 {
@@ -29,6 +30,9 @@ namespace Sers.Serslot.ExceptionFilter
                     StatusCode = StatusCodes.Status200OK,
                     ContentType = "application/json"
                 };
+
+                context.HttpContext.Response.Headers.Add("responseState", "fail");
+                context.HttpContext.Response.Headers.Add("responseError", error.Serialize());
             }
             context.ExceptionHandled = true;
         }
