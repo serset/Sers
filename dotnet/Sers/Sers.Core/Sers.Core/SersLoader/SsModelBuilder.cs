@@ -16,7 +16,7 @@ namespace Sers.SersLoader
 {
     public class SsModelBuilder
     {
-        public XmlMng xmlMng;
+        public XmlCommentMng xmlMng;
 
         #region SsModel
         public SsModel BuildSsModel_Return(MethodInfo methodInfo, Type returnType)

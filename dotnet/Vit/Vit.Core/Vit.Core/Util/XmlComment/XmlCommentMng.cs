@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Vit.Core.Util.XmlComment
 {
-    public class XmlMng:IDisposable
+    public class XmlCommentMng:IDisposable
     {
         public void Dispose()
         {
@@ -17,7 +17,7 @@ namespace Vit.Core.Util.XmlComment
             assemblys.Clear();
         }
 
-        private SortedDictionary<String, XmlHelp> assemblys = new SortedDictionary<string, XmlHelp>();
+        private SortedDictionary<String, XmlCommentHelp> assemblys = new SortedDictionary<string, XmlCommentHelp>();
 
         /// <summary>
         /// 添加xml注释
@@ -25,7 +25,7 @@ namespace Vit.Core.Util.XmlComment
         /// <param name="xmlFilePath"></param>
         public void AddXml(string xmlFilePath)
         {
-            var xmlHelp=new XmlHelp(xmlFilePath);
+            var xmlHelp=new XmlCommentHelp(xmlFilePath);
             if(!string.IsNullOrEmpty(xmlHelp.assemblyName))
                 assemblys[xmlHelp.assemblyName] = xmlHelp;
         }
@@ -50,15 +50,15 @@ namespace Vit.Core.Util.XmlComment
             }
         }
 
-        public XmlHelp GetXmlHelp(Type type)
-        {
+        public XmlCommentHelp GetXmlHelp(Type type)
+        {   
             var assemblyName = type.Assembly.FullName+",";
             assemblyName = assemblyName.Split(',')[0];
             assemblys.TryGetValue(assemblyName, out var value);
             return value;
         }
 
-        public XmlHelp GetXmlHelp(MethodInfo method)
+        public XmlCommentHelp GetXmlHelp(MethodInfo method)
         {
             return GetXmlHelp(method.ReflectedType);
         }

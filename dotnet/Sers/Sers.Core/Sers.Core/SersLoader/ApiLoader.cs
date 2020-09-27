@@ -27,7 +27,7 @@ namespace Sers.SersLoader
 
         SsModelBuilder ssModelBuilder = new SsModelBuilder();
 
-        XmlMng xmlMng;
+        XmlCommentMng xmlMng;
 
         /// <summary>
         /// 调用SsApi加载器加载api
@@ -91,7 +91,7 @@ namespace Sers.SersLoader
 
             //List<IApiNode> apiNodes = new List<IApiNode>();
 
-            using (xmlMng = new XmlMng())
+            using (xmlMng = new XmlCommentMng())
             {
 
                 xmlMng.AddBin();

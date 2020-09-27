@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace Vit.Core.Util.XmlComment
 {
-    public class XmlHelp:IDisposable
+    public class XmlCommentHelp:IDisposable
     {
         /*  
 <?xml version="1.0"?>
@@ -34,12 +34,12 @@ namespace Vit.Core.Util.XmlComment
 </doc>
 */
 
-        #region MyRegion
+        #region 构造
 
         public  string assemblyName;
         private SortedDictionary<String, XmlNodeList> members=new SortedDictionary<string, XmlNodeList>();
 
-        public XmlHelp(string xmlFilePath)
+        public XmlCommentHelp(string xmlFilePath)
         {
             //(x.1)创建文档对象
             JObject joXml = new JObject();
@@ -87,6 +87,8 @@ namespace Vit.Core.Util.XmlComment
 
         public string Type_GetSummary(Type type)
         {
+            Xml.XmlHelp s;
+          
             var memberName = "T:" + type.FullName;
 
             if (!members.TryGetValue(memberName, out var list)) return null;
