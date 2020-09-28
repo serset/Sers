@@ -1,7 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json.Linq;
 using Vit.Core.Util.ComponentModel.SsError;
-using Vit.Extensions;
 
 namespace Vit.Extensions
 {
@@ -19,7 +17,7 @@ namespace Vit.Extensions
         /// <returns></returns>
         public static Exception ToException(this SsError error,string message=null)
         {
-            var ex = new Exception(message??"Error");
+            var ex = new Exception(message?? error.errorMessage??"Error");
             error?.SetErrorToException(ex);
             return ex;            
         }
