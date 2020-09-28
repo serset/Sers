@@ -13,11 +13,11 @@ namespace Vit.Extensions
         /// error可为null（若为null,则返回空Exception）
         /// </summary>
         /// <param name="error"></param>
-        /// <param name="message"></param>
+        /// <param name="defaultMessage"></param>
         /// <returns></returns>
-        public static Exception ToException(this SsError error,string message=null)
+        public static Exception ToException(this SsError error,string defaultMessage=null)
         {
-            var ex = new Exception(message?? error.errorMessage??"Error");
+            var ex = new Exception(error?.errorMessage ?? defaultMessage ?? "Error");
             error?.SetErrorToException(ex);
             return ex;            
         }
