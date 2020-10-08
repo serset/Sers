@@ -19,6 +19,10 @@ namespace Vit.Extensions
             var rpcData = RpcFactory.CreateRpcContextData();
             rpcData.error_Set(error);
 
+            rpcData.http_header_Set("responseState", "fail");
+            rpcData.http_header_Set("responseError_Base64", error?.SerializeToBytes()?.BytesToBase64String());
+
+
             data.RpcContextData_OriData_Set(rpcData);
             #endregion
 

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Threading.Tasks;
+using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Extensions;
@@ -21,6 +22,7 @@ namespace Sers.Serslot.ExceptionFilter
         {
             if (context.ExceptionHandled == false)
             {
+                Logger.Error(context.Exception);
                 SsError error = (SsError)context.Exception;
                 ApiReturn apiRet = error;
 
@@ -32,7 +34,7 @@ namespace Sers.Serslot.ExceptionFilter
                 };
 
                 context.HttpContext.Response.Headers.Add("responseState", "fail");
-                context.HttpContext.Response.Headers.Add("responseError", error.Serialize());
+                context.HttpContext.Response.Headers.Add("responseError_Base64", error?.SerializeToBytes()?.BytesToBase64String());
             }
             context.ExceptionHandled = true;
         }
