@@ -240,7 +240,7 @@ namespace Sers.Gateway
 
         static readonly string Response_ContentType_Json = ("application/json; charset=" + Vit.Core.Module.Serialization.Serialization.Instance.charset);
 
-        string readonly ResponseDefaultContentType = (ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.WebHost.ResponseDefaultContentType") ?? Response_ContentType_Json );
+        static readonly string ResponseDefaultContentType = ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.WebHost.ResponseDefaultContentType") ?? Response_ContentType_Json;
         async Task WriteApiReplyMessage(HttpResponse response,ApiMessage apiReply)
         {
             var replyRpcData = GetReplyRpcData();
