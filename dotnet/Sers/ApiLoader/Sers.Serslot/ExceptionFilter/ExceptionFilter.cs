@@ -14,6 +14,9 @@ namespace Sers.Serslot.ExceptionFilter
     /// </summary>
     public class ExceptionFilter : IExceptionFilter
     {
+
+        static readonly string Response_ContentType_Json = ("application/json; charset=" + Vit.Core.Module.Serialization.Serialization.Instance.charset);
+
         /// <summary>
         /// 发生异常时进入
         /// </summary>
@@ -30,7 +33,7 @@ namespace Sers.Serslot.ExceptionFilter
                 {
                     Content = apiRet.Serialize(),//这里是把异常抛出。也可以不抛出。
                     StatusCode = StatusCodes.Status200OK,
-                    ContentType = "application/json"
+                    ContentType = Response_ContentType_Json
                 };
 
                 context.HttpContext.Response.Headers.Add("responseState", "fail");

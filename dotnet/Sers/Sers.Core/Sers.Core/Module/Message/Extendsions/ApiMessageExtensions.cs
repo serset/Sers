@@ -11,6 +11,8 @@ namespace Vit.Extensions
     {
         #region Init
 
+        static readonly string Response_ContentType_Json = ("application/json; charset=" + Vit.Core.Module.Serialization.Serialization.Instance.charset);
+
         public static ApiMessage InitAsApiReplyMessageByError(this ApiMessage data, SsError error)
         {
             if (data == null || error == null) return data;
@@ -18,6 +20,8 @@ namespace Vit.Extensions
             #region (x.1) set rpcData
             var rpcData = RpcFactory.CreateRpcContextData();
             rpcData.error_Set(error);
+ 
+            rpcData.http_header_Set("Content-Type", Response_ContentType_Json);
 
             rpcData.http_header_Set("responseState", "fail");
             rpcData.http_header_Set("responseError_Base64", error?.SerializeToBytes()?.BytesToBase64String());

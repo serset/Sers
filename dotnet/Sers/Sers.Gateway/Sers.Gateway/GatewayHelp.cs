@@ -238,8 +238,9 @@ namespace Sers.Gateway
             return apiRequestMsg;
         }
 
-  
-        string ResponseDefaultContentType = (ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.WebHost.ResponseDefaultContentType") ??( "application/json; charset=" + Vit.Core.Module.Serialization.Serialization.Instance.charset));
+        static readonly string Response_ContentType_Json = ("application/json; charset=" + Vit.Core.Module.Serialization.Serialization.Instance.charset);
+
+        string readonly ResponseDefaultContentType = (ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.WebHost.ResponseDefaultContentType") ?? Response_ContentType_Json );
         async Task WriteApiReplyMessage(HttpResponse response,ApiMessage apiReply)
         {
             var replyRpcData = GetReplyRpcData();
