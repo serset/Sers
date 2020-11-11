@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.FileProviders;
+using Vit.Core.Util.Common;
 using Vit.WebHost;
 
 namespace Vit.Extensions
@@ -23,11 +24,16 @@ namespace Vit.Extensions
 
 
             //(x.x.2)FileProvider
+            IFileProvider fileProvider;
             if (!string.IsNullOrWhiteSpace(config.rootPath))
             {
-                staticfileOptions.FileProvider = new PhysicalFileProvider(config.rootPath);
+                fileProvider = new PhysicalFileProvider(config.rootPath);
             }
-         
+            else 
+            {
+                fileProvider = new PhysicalFileProvider(CommonHelp.GetAbsPath("wwwroot"));
+            }
+            staticfileOptions.FileProvider = fileProvider;
 
             //(x.x.3)OnInitStaticFileOptions
             config.OnInitStaticFileOptions?.Invoke(staticfileOptions);
@@ -55,13 +61,13 @@ namespace Vit.Extensions
             }
 
 
-
             //(x.x.6)UseDefaultFiles
             if (config.defaultFileNames != null)
             {
                 data.UseDefaultFiles(new DefaultFilesOptions
                 {
-                    DefaultFileNames = config.defaultFileNames
+                    DefaultFileNames = config.defaultFileNames,
+                    FileProvider= fileProvider
                 });
             }    
 
@@ -76,9 +82,9 @@ namespace Vit.Extensions
             //(x.2)UseDirectoryBrowser
             if (config.useDirectoryBrowser == true)
             {
-                var options = new DirectoryBrowserOptions {
-                    FileProvider = staticfileOptions.FileProvider,
-                    RequestPath = staticfileOptions.RequestPath
+                var options = new DirectoryBrowserOptions {                   
+                    RequestPath = staticfileOptions.RequestPath,
+                    FileProvider = fileProvider
                 };
                 data.UseDirectoryBrowser(options);
             }
