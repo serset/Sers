@@ -1,4 +1,4 @@
-﻿docker部署sers_dotnet_stationdemo
+docker部署sers_dotnet_stationdemo
 
 //下载镜像
 docker pull sersms/sers_dotnet_demo:2.1.1.413

@@ -1,4 +1,4 @@
-µ¼³ö¾µÏñ
+å¯¼å‡ºé•œåƒ
 
 docker save -o /root/image/sers_dotnet.2.1.tar sersms/sers_dotnet:2.1
 docker save -o /root/image/sers_cpp_cgateway.1.2.0.tar sersms/sers_cpp_cgateway:1.2.0
@@ -11,7 +11,7 @@ docker save -o /root/image/sers_dotnet_servicecenter.2.1.1.413.tar sersms/sers_d
 docker save -o /root/image/sers_dotnet_demo.2.1.1.413.tar sersms/sers_dotnet_demo:2.1.1.413
  docker save -o /root/image/sers_dotnet_sersall.2.1.1.413.tar sersms/sers_dotnet_sersall:2.1.1.413
 
-µ¼Èë¾µÏñ
+å¯¼å…¥é•œåƒ
 docker load -i /root/image/sers_dotnet.2.1.tar
 docker load -i /root/image/sers_cpp_cgateway.1.2.0.tar
 

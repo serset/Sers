@@ -1,14 +1,14 @@
 https://blog.csdn.net/zjcjava/article/details/90908500
 
 -------------------------------
-¿Í»§¶Ë
+å®¢æˆ·ç«¯
 
  
-//1 µÇÂ¼
+//1 ç™»å½•
 docker login -u sersms -p xxxx
 
 
-//2 Îª¾µÏñ´ò±êÇ© ²¢ ÉÏ´«µ½¾µÏñ·şÎñÆ÷
+//2 ä¸ºé•œåƒæ‰“æ ‡ç­¾ å¹¶ ä¸Šä¼ åˆ°é•œåƒæœåŠ¡å™¨
 
 
 docker tag sers_cpp_cgateway:1.2.0  sersms/sers_cpp_cgateway:1.2.0
@@ -33,12 +33,12 @@ docker push sersms/sers_dotnet_demo:2.1.1.413
 docker push sersms/sers_dotnet_sersall:2.1.1.413 
 
 ---------------------------------------------------------------------------------------
-¿Í»§¶Ë²âÊÔ
+å®¢æˆ·ç«¯æµ‹è¯•
 
-//²é¿´Ò»ÏÂ´òºÃµÄtag
+//æŸ¥çœ‹ä¸€ä¸‹æ‰“å¥½çš„tag
 docker images
 
-//ÏÂÔØ¾µÏñ
+//ä¸‹è½½é•œåƒ
 docker pull sersms/sers_dotnet_demo:v2.1.1.413
 
 
