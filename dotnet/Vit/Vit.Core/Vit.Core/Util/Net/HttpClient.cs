@@ -83,7 +83,7 @@ namespace Vit.Core.Util.Net
 
             httpResponse.headers = response.Content?.Headers?.AsEnumerable().ToDictionary(kv => kv.Key, kv => string.Join(",", kv.Value));
 
-            if (response.IsSuccessStatusCode)
+            //if (response.IsSuccessStatusCode)
             {
                 if (typeof(byte[]).IsAssignableFrom(typeof(T)))
                 {
@@ -225,9 +225,7 @@ namespace Vit.Core.Util.Net
         /// <returns></returns>
         public HttpResponse<ReturnType> Send<ReturnType>(HttpRequest request)
         {
-            var task = SendAsync<ReturnType>(request);
-            task.Wait();
-            return task.Result;
+            return SendAsync<ReturnType>(request).Result;
         }
 
         #endregion
