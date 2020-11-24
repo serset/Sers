@@ -1,7 +1,7 @@
 docker部署sers_dotnet_gateway
 
 //下载镜像
-docker pull sersms/sers_dotnet_gateway:2.1.1.419
+docker pull sersms/sers_dotnet_gateway:2.1.1.423
 
 ---------------------------------
 1.配置文件
@@ -17,10 +17,10 @@ docker pull sersms/sers_dotnet_gateway:2.1.1.419
 (--net=host 网络直接使用宿主机网络)（-p 6022:6022 端口映射）
 
 cd /root/docker/Gateway
-docker run --name=gateway --restart=always --net=host -d -v /etc/localtime:/etc/localtime -v $PWD/appsettings.json:/root/app/Gateway/appsettings.json -v $PWD/Logs:/root/app/Gateway/Logs  -v $PWD/Data:/root/app/Gateway/Data sersms/sers_dotnet_gateway:2.1.1.419
+docker run --name=gateway --restart=always --net=host -d -v /etc/localtime:/etc/localtime -v $PWD/appsettings.json:/root/app/Gateway/appsettings.json -v $PWD/Logs:/root/app/Gateway/Logs  -v $PWD/Data:/root/app/Gateway/Data sersms/sers_dotnet_gateway:2.1.1.423
  
 //精简
-docker run --name=gateway --restart=always --net=host -d sersms/sers_dotnet_gateway:2.1.1.419
+docker run --name=gateway --restart=always --net=host -d sersms/sers_dotnet_gateway:2.1.1.423
 
 
 3.应用已经运行

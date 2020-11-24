@@ -4,23 +4,23 @@ docker save -o /root/image/sers_dotnet.2.1.tar sersms/sers_dotnet:2.1
 docker save -o /root/image/sers_cpp_cgateway.1.2.0.tar sersms/sers_cpp_cgateway:1.2.0
 
 
-docker save -o /root/image/sers_dotnet_gateway.2.1.1.419.tar sersms/sers_dotnet_gateway:2.1.1.419
-docker save -o /root/image/sers_dotnet_gover.2.1.1.419.tar sersms/sers_dotnet_gover:2.1.1.419
-docker save -o /root/image/sers_dotnet_robot.2.1.1.419.tar sersms/sers_dotnet_robot:2.1.1.419
-docker save -o /root/image/sers_dotnet_servicecenter.2.1.1.419.tar sersms/sers_dotnet_servicecenter:2.1.1.419
-docker save -o /root/image/sers_dotnet_demo.2.1.1.419.tar sersms/sers_dotnet_demo:2.1.1.419
- docker save -o /root/image/sers_dotnet_sersall.2.1.1.419.tar sersms/sers_dotnet_sersall:2.1.1.419
+docker save -o /root/image/sers_dotnet_gateway.2.1.1.423.tar sersms/sers_dotnet_gateway:2.1.1.423
+docker save -o /root/image/sers_dotnet_gover.2.1.1.423.tar sersms/sers_dotnet_gover:2.1.1.423
+docker save -o /root/image/sers_dotnet_robot.2.1.1.423.tar sersms/sers_dotnet_robot:2.1.1.423
+docker save -o /root/image/sers_dotnet_servicecenter.2.1.1.423.tar sersms/sers_dotnet_servicecenter:2.1.1.423
+docker save -o /root/image/sers_dotnet_demo.2.1.1.423.tar sersms/sers_dotnet_demo:2.1.1.423
+ docker save -o /root/image/sers_dotnet_sersall.2.1.1.423.tar sersms/sers_dotnet_sersall:2.1.1.423
 
 导入镜像
 docker load -i /root/image/sers_dotnet.2.1.tar
 docker load -i /root/image/sers_cpp_cgateway.1.2.0.tar
 
-docker load -i /root/image/sers_dotnet_gateway.2.1.1.419.tar
-docker load -i /root/image/sers_dotnet_gover.2.1.1.419.tar
-docker load -i /root/image/sers_dotnet_robot.2.1.1.419.tar
-docker load -i /root/image/sers_dotnet_servicecenter.2.1.1.419.tar
-docker load -i /root/image/sers_dotnet_demo.2.1.1.419.tar 
-docker load -i /root/image/sers_dotnet_sersall.2.1.1.419.tar 
+docker load -i /root/image/sers_dotnet_gateway.2.1.1.423.tar
+docker load -i /root/image/sers_dotnet_gover.2.1.1.423.tar
+docker load -i /root/image/sers_dotnet_robot.2.1.1.423.tar
+docker load -i /root/image/sers_dotnet_servicecenter.2.1.1.423.tar
+docker load -i /root/image/sers_dotnet_demo.2.1.1.423.tar 
+docker load -i /root/image/sers_dotnet_sersall.2.1.1.423.tar 
 
 
  

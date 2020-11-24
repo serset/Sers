@@ -8,25 +8,25 @@ https://www.cnblogs.com/stulzq/p/9201830.html
 
 
 cd /root/image/sers_dotnet_servicecenter
-docker build -t sers_dotnet_servicecenter:2.1.1.419 .
+docker build -t sers_dotnet_servicecenter:2.1.1.423 .
 
 
 cd /root/image/sers_dotnet_gover
-docker build -t sers_dotnet_gover:2.1.1.419 .
+docker build -t sers_dotnet_gover:2.1.1.423 .
 
 
 cd /root/image/sers_dotnet_gateway
-docker build -t sers_dotnet_gateway:2.1.1.419 .
+docker build -t sers_dotnet_gateway:2.1.1.423 .
 
 
 cd /root/image/sers_dotnet_robot
-docker build -t sers_dotnet_robot:2.1.1.419 .
+docker build -t sers_dotnet_robot:2.1.1.423 .
 
 
 cd /root/image/sers_dotnet_demo
-docker build -t sers_dotnet_demo:2.1.1.419 .
+docker build -t sers_dotnet_demo:2.1.1.423 .
 
 cd /root/image/sers_dotnet_sersall
-docker build -t sers_dotnet_sersall:2.1.1.419 .
+docker build -t sers_dotnet_sersall:2.1.1.423 .
 
 

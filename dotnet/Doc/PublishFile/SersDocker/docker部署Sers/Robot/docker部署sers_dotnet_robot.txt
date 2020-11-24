@@ -1,7 +1,7 @@
 docker部署sers_dotnet_robot
 
 //下载镜像
-docker pull sersms/sers_dotnet_robot:2.1.1.419
+docker pull sersms/sers_dotnet_robot:2.1.1.423
 
 ---------------------------------
 1.配置文件
@@ -17,10 +17,10 @@ docker pull sersms/sers_dotnet_robot:2.1.1.419
 (--net=host 网络直接使用宿主机网络)（-p 6022:6022 端口映射）
 
 cd /root/docker/Robot
-docker run --name=robot --restart=always --net=host -d -v /etc/localtime:/etc/localtime -v $PWD/appsettings.json:/root/app/Robot/appsettings.json -v $PWD/Logs:/root/app/Robot/Logs  -v $PWD/Data:/root/app/Robot/Data sersms/sers_dotnet_robot:2.1.1.419
+docker run --name=robot --restart=always --net=host -d -v /etc/localtime:/etc/localtime -v $PWD/appsettings.json:/root/app/Robot/appsettings.json -v $PWD/Logs:/root/app/Robot/Logs  -v $PWD/Data:/root/app/Robot/Data sersms/sers_dotnet_robot:2.1.1.423
 
 //精简
-docker run --name=robot --restart=always --net=host -d sersms/sers_dotnet_robot:2.1.1.419
+docker run --name=robot --restart=always --net=host -d sersms/sers_dotnet_robot:2.1.1.423
 
  
 
