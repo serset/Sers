@@ -2,7 +2,7 @@ docker部署sers_dotnet_servicecenter
 
 
 //下载镜像
-docker pull sersms/sers_dotnet_servicecenter:2.1.1.423
+docker pull sersms/sers_dotnet_servicecenter:2.1.1.425
 
 ---------------------------------
 1.配置文件
@@ -19,10 +19,10 @@ docker pull sersms/sers_dotnet_servicecenter:2.1.1.423
 (--net=host 网络直接使用宿主机网络)（-p 6022:6022 端口映射）
 
 cd /root/docker/ServiceCenter
-docker run --name=servicecenter --restart=always --net=host -d -v /etc/localtime:/etc/localtime -v $PWD/appsettings.json:/root/app/ServiceCenter/appsettings.json -v $PWD/Logs:/root/app/ServiceCenter/Logs -v $PWD/Data:/root/app/ServiceCenter/Data   sersms/sers_dotnet_servicecenter:2.1.1.423
+docker run --name=servicecenter --restart=always --net=host -d -v /etc/localtime:/etc/localtime -v $PWD/appsettings.json:/root/app/ServiceCenter/appsettings.json -v $PWD/Logs:/root/app/ServiceCenter/Logs -v $PWD/Data:/root/app/ServiceCenter/Data   sersms/sers_dotnet_servicecenter:2.1.1.425
 
 //精简
-docker run --name=servicecenter --restart=always --net=host -d sersms/sers_dotnet_servicecenter:2.1.1.423
+docker run --name=servicecenter --restart=always --net=host -d sersms/sers_dotnet_servicecenter:2.1.1.425
 
 
 
