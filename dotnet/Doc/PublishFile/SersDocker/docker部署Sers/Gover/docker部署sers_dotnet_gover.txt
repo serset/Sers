@@ -1,7 +1,7 @@
 docker部署sers_dotnet_gover
 
 //下载镜像
-docker pull sersms/sers_dotnet_gover:2.1.1.425
+docker pull sersms/sers_dotnet_gover:2.1.1.427
 
 ---------------------------------
 1.配置文件
@@ -16,10 +16,10 @@ docker pull sersms/sers_dotnet_gover:2.1.1.425
 (--net=host 网络直接使用宿主机网络)（-p 6022:6022 端口映射）
 
 cd /root/docker/Gover
-docker run --name=gover --restart=always --net=host -d -v /etc/localtime:/etc/localtime -v $PWD/appsettings.json:/root/app/Gover/appsettings.json  -v $PWD/Logs:/root/app/Gover/Logs    sersms/sers_dotnet_gover:2.1.1.425
+docker run --name=gover --restart=always --net=host -d -v /etc/localtime:/etc/localtime -v $PWD/appsettings.json:/root/app/Gover/appsettings.json  -v $PWD/Logs:/root/app/Gover/Logs    sersms/sers_dotnet_gover:2.1.1.427
  
 //精简
-docker run --name=gover --restart=always --net=host -d sersms/sers_dotnet_gover:2.1.1.425
+docker run --name=gover --restart=always --net=host -d sersms/sers_dotnet_gover:2.1.1.427
 
 3.应用已经运行
    可在文件夹/root/docker/Gover/Logs 中查看日志

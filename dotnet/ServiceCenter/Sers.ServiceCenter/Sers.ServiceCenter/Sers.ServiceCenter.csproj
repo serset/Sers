@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>2.1.1.427</Version>
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+    <DocumentationFile>bin\Debug\netstandard2.0\Sers.ServiceCenter.xml</DocumentationFile>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Library\Sers\Sers.CL\Ipc\Sers.CL.Ipc.NamedPipe\Sers.CL.Ipc.NamedPipe.csproj" />
+    <ProjectReference Include="..\..\..\Library\Sers\Sers.CL\Socket\Sers.CL.Socket.Iocp\Sers.CL.Socket.Iocp.csproj" />
+    <ProjectReference Include="..\..\..\Library\Sers\Sers.CL\Socket\Sers.CL.Socket.ThreadWait\Sers.CL.Socket.ThreadWait.csproj" />
+  </ItemGroup>
+
+</Project>

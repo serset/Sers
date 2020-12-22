@@ -1,16 +1,16 @@
 cd /d ../../
 
 echo 'publish Client'
-cd /d Sers\Sers.CL\Test\CommunicationManage\Client
+cd /d Library\Sers\Sers.CL\Test\CommunicationManage\Client
 dotnet build --configuration Release
-dotnet publish --configuration Release --output ..\..\..\..\..\Doc\Publish\CLÑ¹²â\CLClient
-cd /d ../../../../../
+dotnet publish --configuration Release --output ..\..\..\..\..\..\Doc\Publish\CLÑ¹²â\CLClient
+cd /d ../../../../../../
    
 echo 'publish Client'
-cd /d Sers\Sers.CL\Test\CommunicationManage\Server
+cd /d Library\Sers\Sers.CL\Test\CommunicationManage\Server
 dotnet build --configuration Release
-dotnet publish --configuration Release --output ..\..\..\..\..\Doc\Publish\CLÑ¹²â\CLServer
-cd /d ../../../../../
+dotnet publish --configuration Release --output ..\..\..\..\..\..\Doc\Publish\CLÑ¹²â\CLServer
+cd /d ../../../../../../
 
 cd /d Doc\Publish
 

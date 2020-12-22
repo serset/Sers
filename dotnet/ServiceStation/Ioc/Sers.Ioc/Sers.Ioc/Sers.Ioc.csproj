@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>2.1.1.427</Version>
+    <Description>https://github.com/sersms/Sers/tree/2.1.1/release</Description>
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+    <DocumentationFile>bin\Debug\netstandard2.0\Sers.Ioc.xml</DocumentationFile>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Vit.Ioc\Vit.Ioc\Vit.Ioc.csproj" />
+    <ProjectReference Include="..\..\..\..\Library\Sers\Sers.Core\Sers.Core\Sers.Core.csproj" />
+  </ItemGroup>
+
+</Project>
