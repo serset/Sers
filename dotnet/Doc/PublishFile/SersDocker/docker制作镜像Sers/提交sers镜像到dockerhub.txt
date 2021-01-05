@@ -17,20 +17,20 @@ docker push sersms/sers_cpp_cgateway:1.2.0
 
 
 
-docker tag sers_dotnet_servicecenter:2.1.1.427  sersms/sers_dotnet_servicecenter:2.1.1.427 
-docker tag sers_dotnet_gover:2.1.1.427  sersms/sers_dotnet_gover:2.1.1.427
-docker tag sers_dotnet_gateway:2.1.1.427 sersms/sers_dotnet_gateway:2.1.1.427
-docker tag sers_dotnet_robot:2.1.1.427 sersms/sers_dotnet_robot:2.1.1.427
-docker tag sers_dotnet_demo:2.1.1.427  sersms/sers_dotnet_demo:2.1.1.427
-docker tag sers_dotnet_sersall:2.1.1.427  sersms/sers_dotnet_sersall:2.1.1.427
+docker tag sers_dotnet_servicecenter:2.1.1.429  sersms/sers_dotnet_servicecenter:2.1.1.429 
+docker tag sers_dotnet_gover:2.1.1.429  sersms/sers_dotnet_gover:2.1.1.429
+docker tag sers_dotnet_gateway:2.1.1.429 sersms/sers_dotnet_gateway:2.1.1.429
+docker tag sers_dotnet_robot:2.1.1.429 sersms/sers_dotnet_robot:2.1.1.429
+docker tag sers_dotnet_demo:2.1.1.429  sersms/sers_dotnet_demo:2.1.1.429
+docker tag sers_dotnet_sersall:2.1.1.429  sersms/sers_dotnet_sersall:2.1.1.429
 
 
-docker push sersms/sers_dotnet_servicecenter:2.1.1.427 
-docker push sersms/sers_dotnet_gover:2.1.1.427
-docker push sersms/sers_dotnet_gateway:2.1.1.427
-docker push sersms/sers_dotnet_robot:2.1.1.427
-docker push sersms/sers_dotnet_demo:2.1.1.427 
-docker push sersms/sers_dotnet_sersall:2.1.1.427 
+docker push sersms/sers_dotnet_servicecenter:2.1.1.429 
+docker push sersms/sers_dotnet_gover:2.1.1.429
+docker push sersms/sers_dotnet_gateway:2.1.1.429
+docker push sersms/sers_dotnet_robot:2.1.1.429
+docker push sersms/sers_dotnet_demo:2.1.1.429 
+docker push sersms/sers_dotnet_sersall:2.1.1.429 
 
 ---------------------------------------------------------------------------------------
 客户端测试
@@ -39,7 +39,7 @@ docker push sersms/sers_dotnet_sersall:2.1.1.427
 docker images
 
 //下载镜像
-docker pull sersms/sers_dotnet_demo:v2.1.1.427
+docker pull sersms/sers_dotnet_demo:v2.1.1.429
 
 
 
