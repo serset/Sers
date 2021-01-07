@@ -70,8 +70,18 @@ cd ..
 
 
 
- 
+#添加tag latest
+docker pull sersms/servicecenter:2.1.1.429
+docker tag sersms/servicecenter:2.1.1.429 sersms/servicecenter:latest 
+docker push sersms/servicecenter:latest
 
+docker pull sersms/gover:2.1.1.429
+docker tag sersms/gover:2.1.1.429 sersms/gover:latest 
+docker push sersms/gover:latest
+
+docker pull sersms/gateway:2.1.1.429
+docker tag sersms/gateway:2.1.1.429 sersms/gateway:latest 
+docker push sersms/gateway:latest
 
 
 
