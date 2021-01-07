@@ -45,5 +45,5 @@ cd ..
 
 #添加tag latest
 docker pull sersms/cgateway:1.2.0
-docker tag sersms/cgateway:1.2.0 sersms/cgateway:latest 
-docker push sersms/cgateway:latest
+docker tag sersms/cgateway:1.2.0 sersms/cgateway
+docker push sersms/cgateway
