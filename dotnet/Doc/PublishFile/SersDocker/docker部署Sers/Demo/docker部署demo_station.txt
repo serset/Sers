@@ -1,13 +1,11 @@
-docker部署sers_cpp_cgateway
+docker部署demo_station
 
-//下载镜像
-docker pull sersms/sers_cpp_cgateway:1.2.0
 
 ---------------------------------
 1.配置文件
   (x.1)把本文件所在目录中所有文件拷贝到宿主机
   (x.2)修改配置文件 appsettings.json
- 
+
 
 
 2.创建容器并运行
@@ -17,33 +15,40 @@ docker pull sersms/sers_cpp_cgateway:1.2.0
 (-v $PWD/data:/data 将主机中当前目录下的data挂载到容器的/data)
 (--net=host 网络直接使用宿主机网络)（-p 6022:6022 端口映射）
 
-cd /root/docker/CGateway
-docker run --name=sers_cgateway --restart=always --net=host -d -v /etc/localtime:/etc/localtime -v $PWD/appsettings.json:/root/app/CGateway/appsettings.json -v $PWD/Logs:/root/app/CGateway/Logs sersms/sers_cpp_cgateway:1.2.0
+cd /root/docker/Demo
+docker run --name=demo --restart=always --net=host -d -v /etc/localtime:/etc/localtime -v $PWD/appsettings.json:/root/app/Demo/appsettings.json -v $PWD/Logs:/root/app/Demo/Logs sersms/demo_station:2.1.1.429
 
 
+//精简
+docker run --name=demo --restart=always --net=host -d sersms/demo_station:2.1.1.429
+
+
+ 
 3.应用已经运行
-   可在文件夹/root/docker/CGateway/Logs 中查看日志
+   可在文件夹/root/docker/Demo/Logs 中查看日志
+
+
 
 -------------------
 //常用命令
 
 //查看容器logs
-docker logs sers_cgateway
+docker logs demo
 
 //在容器内执行命令行
-docker  exec -it sers_cgateway /bin/sh
+docker  exec -it demo /bin/sh
 
 //停止容器
-docker stop sers_cgateway
+docker stop demo
 
 //打开容器
-docker start sers_cgateway
+docker start demo
 
 //重启容器
-docker restart sers_cgateway
+docker restart demo
 
 
 //删除容器
-docker rm sers_cgateway -f
+docker rm demo -f
 
 

@@ -1,13 +1,11 @@
-docker部署sers_dotnet_gateway
-
-//下载镜像
-docker pull sersms/sers_dotnet_gateway:2.1.1.429
-
+docker部署demo_sersall
+ 
 ---------------------------------
 1.配置文件
   (x.1)把本文件所在目录中所有文件拷贝到宿主机
   (x.2)修改配置文件 appsettings.json
  
+
 
 2.创建容器并运行
 (--name 容器名称，可自定义)
@@ -16,38 +14,35 @@ docker pull sersms/sers_dotnet_gateway:2.1.1.429
 (-v $PWD/data:/data 将主机中当前目录下的data挂载到容器的/data)
 (--net=host 网络直接使用宿主机网络)（-p 6022:6022 端口映射）
 
-cd /root/docker/Gateway
-docker run --name=gateway --restart=always --net=host -d -v /etc/localtime:/etc/localtime -v $PWD/appsettings.json:/root/app/Gateway/appsettings.json -v $PWD/Logs:/root/app/Gateway/Logs  -v $PWD/Data:/root/app/Gateway/Data sersms/sers_dotnet_gateway:2.1.1.429
- 
-//精简
-docker run --name=gateway --restart=always --net=host -d sersms/sers_dotnet_gateway:2.1.1.429
+cd /root/docker/SersAll
+docker run --name=sersall --restart=always --net=host -d -v /etc/localtime:/etc/localtime -v $PWD/appsettings.json:/root/app/ServiceCenter/appsettings.json -v $PWD/Logs:/root/app/ServiceCenter/Logs -v $PWD/Data:/root/app/ServiceCenter/Data   sersms/demo_sersall:2.1.1.429
 
+//精简
+docker run --name=sersall --restart=always --net=host -d sersms/demo_sersall:2.1.1.429
 
 3.应用已经运行
-   可在文件夹/root/docker/Gateway/Logs 中查看日志
-
-
+   可在文件夹/root/docker/SersAll/Logs 中查看日志
 
 -------------------
 //常用命令
 
 //查看容器logs
-docker logs gateway
+docker logs sersall 
 
 //在容器内执行命令行
-docker  exec -it gateway /bin/sh
+docker  exec -it sersall  /bin/sh
 
 //停止容器
-docker stop gateway
+docker stop sersall 
 
 //打开容器
-docker start gateway
+docker start sersall 
 
 //重启容器
-docker restart gateway
+docker restart sersall 
 
 
 //删除容器
-docker rm gateway -f
+docker rm sersall -f 
 
 
