@@ -1,5 +1,6 @@
-﻿构建多架构镜像
+﻿#构建多架构镜像
 
+#docker login -u sersms -p xxxxxxxxx
 
 #---------------------------------------------------------------------
 #(x.1)初始化构建器
@@ -36,8 +37,6 @@ docker buildx ls
 cd /home/ec2-user/image 
 
 
-docker login -u sersms -p xxxxxxxxx
-
 #构建镜像并推送到 Docker Hub
 cd cgateway_1.2.0
 docker buildx build -t  sersms/cgateway:1.2.0  --platform=linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x . --push
@@ -47,3 +46,8 @@ cd ..
 docker pull sersms/cgateway:1.2.0
 docker tag sersms/cgateway:1.2.0 sersms/cgateway
 docker push sersms/cgateway
+
+
+
+
+
