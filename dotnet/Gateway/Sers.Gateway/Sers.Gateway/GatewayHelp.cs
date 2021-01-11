@@ -65,7 +65,7 @@ namespace Sers.Gateway
             Logger.Info("[WebHost]will listening on: " + string.Join(",", arg.urls));
 
             if (arg.staticFiles?.rootPath != null)
-                Logger.Info("[WebHost]wwwroot : " + arg.staticFiles?.rootPath);
+                Logger.Info("[WebHost]wwwroot : " + arg.staticFiles.rootPath);
 
             Vit.WebHost.Host.Run(arg);
             #endregion

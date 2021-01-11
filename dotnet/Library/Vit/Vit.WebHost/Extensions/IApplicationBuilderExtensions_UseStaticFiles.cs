@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.FileProviders;
+using System.IO;
 using Vit.Core.Util.Common;
 using Vit.WebHost;
 
@@ -23,17 +24,27 @@ namespace Vit.Extensions
             }
 
 
-            //(x.x.2)FileProvider
-            IFileProvider fileProvider;
-            if (!string.IsNullOrWhiteSpace(config.rootPath))
+            #region (x.x.2)FileProvider
+            IFileProvider fileProvider=null;
+            string rootPath;
+
+            if (!string.IsNullOrWhiteSpace(rootPath=config.rootPath) && Directory.Exists(rootPath))
             {
-                fileProvider = new PhysicalFileProvider(config.rootPath);
+                fileProvider = new PhysicalFileProvider(rootPath);
+            }
+            else if (Directory.Exists(rootPath = CommonHelp.GetAbsPath("wwwroot")))
+            {
+                fileProvider = new PhysicalFileProvider(rootPath);
             }
             else 
             {
-                fileProvider = new PhysicalFileProvider(CommonHelp.GetAbsPath("wwwroot"));
+                var dir = new DirectoryInfo("wwwroot");
+                if(dir.Exists)
+                    fileProvider = new PhysicalFileProvider(dir.FullName);
             }
             staticfileOptions.FileProvider = fileProvider;
+            #endregion
+
 
             //(x.x.3)OnInitStaticFileOptions
             config.OnInitStaticFileOptions?.Invoke(staticfileOptions);
