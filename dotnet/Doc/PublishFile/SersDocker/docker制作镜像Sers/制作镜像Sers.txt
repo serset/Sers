@@ -1,4 +1,4 @@
-﻿#构建多架构镜像
+#构建多架构镜像
 
 #docker login -u sersms -p xxxxxxxxx
 
@@ -39,45 +39,45 @@ cd /home/ec2-user/image
 #构建镜像并推送到 Docker Hub
 
 cd servicecenter 
-docker buildx build -t sersms/servicecenter:2.1.1.429  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
+docker buildx build -t sersms/servicecenter:2.1.1.449  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
 cd .. 
 
 cd gover 
-docker buildx build -t sersms/gover:2.1.1.429  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
+docker buildx build -t sersms/gover:2.1.1.449  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
 cd ..
 
 
 cd gateway 
-docker buildx build -t sersms/gateway:2.1.1.429  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
+docker buildx build -t sersms/gateway:2.1.1.449  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
 cd ..
 
 
 
 cd demo_robot 
-docker buildx build -t sersms/demo_robot:2.1.1.429  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
+docker buildx build -t sersms/demo_robot:2.1.1.449  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
 cd ..
 
 cd demo_station 
-docker buildx build -t sersms/demo_station:2.1.1.429  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
+docker buildx build -t sersms/demo_station:2.1.1.449  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
 cd ..
 
 cd demo_sersall 
-docker buildx build -t sersms/demo_sersall:2.1.1.429  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
+docker buildx build -t sersms/demo_sersall:2.1.1.449  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
 cd ..
 
 
 
 #添加tag latest
-docker pull sersms/servicecenter:2.1.1.429
-docker tag sersms/servicecenter:2.1.1.429 sersms/servicecenter
+docker pull sersms/servicecenter:2.1.1.449
+docker tag sersms/servicecenter:2.1.1.449 sersms/servicecenter
 docker push sersms/servicecenter
 
-docker pull sersms/gover:2.1.1.429
-docker tag sersms/gover:2.1.1.429 sersms/gover
+docker pull sersms/gover:2.1.1.449
+docker tag sersms/gover:2.1.1.449 sersms/gover
 docker push sersms/gover
 
-docker pull sersms/gateway:2.1.1.429
-docker tag sersms/gateway:2.1.1.429 sersms/gateway
+docker pull sersms/gateway:2.1.1.449
+docker tag sersms/gateway:2.1.1.449 sersms/gateway
 docker push sersms/gateway
 
 
