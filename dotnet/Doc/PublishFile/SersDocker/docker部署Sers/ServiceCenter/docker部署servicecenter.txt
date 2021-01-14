@@ -3,57 +3,64 @@ docker部署servicecenter
  
 
 ---------------------------------
-1.配置文件
+#(x.1)文件
   (x.1)把本文件所在目录中所有文件拷贝到宿主机
   (x.2)修改配置文件 appsettings.json
  
 
 
-2.创建容器并运行
+#(x.2)创建容器并运行
 (--name 容器名称，可自定义)
 (--restart=always 自动重启)
 (-v /etc/localtime:/etc/localtime)挂载宿主机localtime文件解决容器时间与主机时区不一致的问题
 (-v $PWD/data:/data 将主机中当前目录下的data挂载到容器的/data)
 (--net=host 网络直接使用宿主机网络)（-p 6022:6022 端口映射）
 
-cd /root
+cd /root/docker
 
-cd docker/ServiceCenter
-docker run --name=servicecenter --restart=always --net=host -d -v /etc/localtime:/etc/localtime -v $PWD/appsettings.json:/root/app/ServiceCenter/appsettings.json -v $PWD/Logs:/root/app/ServiceCenter/Logs -v $PWD/Data:/root/app/ServiceCenter/Data   sersms/servicecenter:2.1.1.429
-cd ../..
+cd ServiceCenter
+docker run --name=servicecenter --restart=always -d \
+-p 4580:4580 -p 4501:4501 \
+-v /etc/localtime:/etc/localtime \
+-v $PWD/appsettings.json:/root/app/ServiceCenter/appsettings.json \
+-v $PWD/Logs:/root/app/ServiceCenter/Logs \
+-v $PWD/Data:/root/app/ServiceCenter/Data \
+sersms/servicecenter
+cd ..
 
 
-//精简
-docker run --name=servicecenter --restart=always --net=host -d sersms/servicecenter:2.1.1.429
+#精简
+docker run --name=servicecenter --restart=always -d -p 4580:4580 -p 4501:4501 sersms/servicecenter
 
 gover     http://ip:4580
 通信端口 tcp://ip:4501
 
 
 
-3.应用已经运行
-   可在文件夹/root/docker/ServiceCenter/Logs 中查看日志
+#(x.3)应用已经运行
+   可在文件夹ServiceCenter/Logs 中查看日志
 
--------------------
-//常用命令
+ 
+#---------------------------------------
+#常用命令
 
-//查看容器logs
-docker logs servicecenter 
+#查看容器logs
+docker logs servicecenter
 
-//在容器内执行命令行
-docker  exec -it servicecenter  /bin/sh
+#在容器内执行命令行
+docker  exec -it servicecenter /bin/sh
 
-//停止容器
-docker stop servicecenter 
+#停止容器
+docker stop servicecenter
 
-//打开容器
-docker start servicecenter 
+#打开容器
+docker start servicecenter
 
-//重启容器
-docker restart servicecenter 
+#重启容器
+docker restart servicecenter
 
 
-//删除容器
-docker rm servicecenter -f 
+#删除容器
+docker rm servicecenter -f
 
 
