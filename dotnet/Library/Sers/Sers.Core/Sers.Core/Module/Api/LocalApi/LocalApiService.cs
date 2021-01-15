@@ -25,7 +25,7 @@ namespace Sers.Core.Module.Api.LocalApi
         /// <summary>
         /// 后台服务的线程个数（单位个，默认0,代表不开启服务）(appsettings.json :: Sers.LocalApiService.workThreadCount)
         /// </summary>
-        public int workThreadCount { get; set; } = 0;
+        public int workThreadCount { get; set; }
 
         public LocalApiService()
         {
