@@ -9,7 +9,7 @@ using Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer;
 using Sers.Core.Module.Api.ApiEvent.BeforeCallApi.AccountInCookie;
 using Sers.Core.Module.Api.ApiEvent.ApiScope;
 using System.Collections.Generic;
-using Sers.Core.Module.Reflection;
+using Vit.Core.Util.Reflection;
 
 namespace Sers.Core.Module.Api.ApiEvent
 {
