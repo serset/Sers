@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
+using Vit.Core.Util.Shell;
 
 namespace Sers.Hardware.Env
 {

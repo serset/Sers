@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace Sers.Hardware
+namespace Vit.Core.Util.Shell
 {
     public class OsShell
     {

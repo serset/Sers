@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.IO;
+using Vit.Core.Util.Shell;
 
 namespace Sers.Hardware.Env
 {
