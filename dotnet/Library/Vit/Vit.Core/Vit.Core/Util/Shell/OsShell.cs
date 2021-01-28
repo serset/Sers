@@ -11,10 +11,10 @@ namespace Vit.Core.Util.Shell
         /// <param name="fileName"> 如 reboot </param>
         /// <param name="arguments"></param>
         /// <param name="output"></param>
-        /// <param name="millisecondsOfWait">等待时间，默认4000。若不指定则永久等待</param>
+        /// <param name="millisecondsOfWait">等待时间，默认10000。若不指定则永久等待</param>
         /// <param name="WorkingDirectory">sets the working directory for the process to be started</param>
-        /// <returns></returns>
-        public static void Shell(string fileName, string arguments, out string output, int? millisecondsOfWait = 4000, string WorkingDirectory = null)
+        /// <returns>true if the associated process has exited; otherwise, false.</returns>
+        public static bool Shell(string fileName, string arguments, out string output, int? millisecondsOfWait = 10000, string WorkingDirectory = null)
         {
             output = null;
 
@@ -82,6 +82,7 @@ namespace Vit.Core.Util.Shell
                 if (task.IsCompleted)
                 {
                     output = task.Result;
+                    return true;
                 }
             }
             finally
@@ -90,7 +91,7 @@ namespace Vit.Core.Util.Shell
             }
             #endregion
 
-
+            return false;
         }
 
         /// <summary>
@@ -98,10 +99,10 @@ namespace Vit.Core.Util.Shell
         /// </summary>
         /// <param name="fileName"> 如 reboot </param>
         /// <param name="arguments"></param>
-        /// <param name="millisecondsOfWait">等待时间，默认null。若不指定则永久等待</param>
+        /// <param name="millisecondsOfWait">等待时间，默认10000。为null则永久等待</param>
         /// <param name="WorkingDirectory">sets the working directory for the process to be started</param>
-        /// <returns></returns>
-        public static void Shell(string fileName, string arguments, int? millisecondsOfWait = null, string WorkingDirectory = null)
+        /// <returns>true if the associated process has exited; otherwise, false.</returns>
+        public static bool Shell(string fileName, string arguments, int? millisecondsOfWait = 10000, string WorkingDirectory = null)
         {
 
             //(x.1)创建Process
@@ -155,9 +156,12 @@ namespace Vit.Core.Util.Shell
             {
                 process.Start();
                 if (millisecondsOfWait.HasValue)
-                    process.WaitForExit(millisecondsOfWait.Value);
+                    return process.WaitForExit(millisecondsOfWait.Value);
                 else
+                {
                     process.WaitForExit();
+                    return true;
+                }
             }
             finally
             {
