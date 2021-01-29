@@ -3,7 +3,7 @@
 
 ------------
 
-Sers提供了3种c#接入的方式（用户亦可自定义接入），Serslot是对net core2.1 web api的原生支持。无需修改原有web api代码结构，修改3处地方（仅一处代码）即可无缝接入。[点我查看源码](https://github.com/serset/sersms.github.io/tree/master/code/SerslotDemo2.1.1.250)。[点我下载源码](https://sersms.github.io/file/demo/SerslotDemo2.1.1.250.zip)。
+Sers提供了3种c#接入的方式（用户亦可自定义接入），Serslot是对net core2.1 web api的原生支持。无需修改原有web api代码结构，修改3处地方（仅一处代码）即可无缝接入。[点我查看源码](https://github.com/serset/serset.github.io/tree/master/code/SerslotDemo2.1.1.250)。[点我下载源码](https://serset.github.io/file/demo/SerslotDemo2.1.1.250.zip)。
 
 ## 1.添加nuget包引用
 >编辑csproj文件，添加如下代码，通过nuget安装Serslot
@@ -96,8 +96,8 @@ namespace SerslotDemo
 
 ## 4.运行服务中心
 如果是在windows环境中，可以直接下载服务中心程序然后运行。
-下载[服务中心程序文件](https://sersms.github.io/file/Sers/Sers2.1.1.250/SersPublish2.1.1.250.zip)，解压，双击文件夹中的批处理文件“01 ServiceCenter.bat”即可。
->服务中心是用net core编写的，请先安装[netcore2.1运行环境](https://sersms.github.io/?md/解析Sers微服务/0.1windows安装netcore2.1运行环境.md)。
+下载[服务中心程序文件](https://serset.github.io/file/Sers/Sers2.1.1.250/SersPublish2.1.1.250.zip)，解压，双击文件夹中的批处理文件“01 ServiceCenter.bat”即可。
+>服务中心是用net core编写的，请先安装[netcore2.1运行环境](https://serset.github.io/?md/解析Sers微服务/0.1windows安装netcore2.1运行环境.md)。
 
 控制台有如下类似输出则代表服务中心启动成功。
 ```
