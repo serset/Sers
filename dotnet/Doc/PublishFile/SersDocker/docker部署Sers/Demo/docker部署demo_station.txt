@@ -22,11 +22,11 @@ docker run --name=demo --restart=always -d \
 -v /etc/localtime:/etc/localtime \
 -v $PWD/appsettings.json:/root/app/Demo/appsettings.json \
 -v $PWD/Logs:/root/app/Demo/Logs \
-serset/demo_station:2.1.1.461
+serset/demo_station:2.1.1.476
 cd ..
 
 #精简
-docker run --name=demo --restart=always -d serset/demo_station:2.1.1.461
+docker run --name=demo --restart=always -d serset/demo_station:2.1.1.476
 
 
  
