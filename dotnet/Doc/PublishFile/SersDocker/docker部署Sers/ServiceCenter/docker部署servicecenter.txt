@@ -25,12 +25,12 @@ docker run --name=servicecenter --restart=always -d \
 -v $PWD/appsettings.json:/root/app/ServiceCenter/appsettings.json \
 -v $PWD/Logs:/root/app/ServiceCenter/Logs \
 -v $PWD/Data:/root/app/ServiceCenter/Data \
-sersms/servicecenter
+serset/servicecenter
 cd ..
 
 
 #精简
-docker run --name=servicecenter --restart=always -d -p 4580:4580 -p 4501:4501 sersms/servicecenter
+docker run --name=servicecenter --restart=always -d -p 4580:4580 -p 4501:4501 serset/servicecenter
 
 gover     http://ip:4580
 通信端口 tcp://ip:4501

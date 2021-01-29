@@ -1,6 +1,6 @@
 #构建多架构镜像
 
-#docker login -u sersms -p xxxxxxxxx
+#docker login -u serset -p xxxxxxxxx
 
 #---------------------------------------------------------------------
 #(x.1)初始化构建器
@@ -36,54 +36,42 @@ docker buildx ls
 cd /home/ec2-user/image 
 
 
-#构建镜像并推送到 Docker Hub
+#构建镜像并推送到 Docker Hub 
 
-cd servicecenter 
-docker buildx build -t sersms/servicecenter:2.1.1.461  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
+
+cd servicecenter
+docker buildx build . -t serset/servicecenter:2.1.1.461 -t serset/servicecenter:latest --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd .. 
 
+
 cd gover 
-docker buildx build -t sersms/gover:2.1.1.461  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
+docker buildx build . -t serset/gover:2.1.1.461 -t serset/gover:latest --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd ..
 
 
-cd gateway 
-docker buildx build -t sersms/gateway:2.1.1.461  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
+cd gateway
+docker buildx build . -t serset/gateway:2.1.1.461 -t serset/gateway:latest --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd ..
 
 
 
 cd demo_robot 
-docker buildx build -t sersms/demo_robot:2.1.1.461  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
+docker buildx build . -t serset/demo_robot:2.1.1.461 -t serset/demo_robot:latest --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd ..
 
 cd demo_station 
-docker buildx build -t sersms/demo_station:2.1.1.461  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
+docker buildx build . -t serset/demo_station:2.1.1.461 -t serset/demo_station:latest --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd ..
 
 cd demo_sersall 
-docker buildx build -t sersms/demo_sersall:2.1.1.461  --platform=linux/amd64,linux/arm64,linux/arm/v7 . --push
+docker buildx build . -t serset/demo_sersall:2.1.1.461 -t serset/demo_sersall:latest --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd ..
 
+ 
 
 
-#添加tag latest
-docker pull sersms/servicecenter:2.1.1.461
-docker tag sersms/servicecenter:2.1.1.461 sersms/servicecenter
-docker push sersms/servicecenter
-
-docker pull sersms/gover:2.1.1.461
-docker tag sersms/gover:2.1.1.461 sersms/gover
-docker push sersms/gover
-
-docker pull sersms/gateway:2.1.1.461
-docker tag sersms/gateway:2.1.1.461 sersms/gateway
-docker push sersms/gateway
-
-
-
-
-
+#强制删除镜像名称中包含sers的镜像
+# docker rmi --force $(docker images | grep sers | awk '{print $3}')
 
 
 

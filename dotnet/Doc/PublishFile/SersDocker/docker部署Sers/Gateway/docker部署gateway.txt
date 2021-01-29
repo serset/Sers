@@ -24,11 +24,11 @@ docker run --name=gateway --restart=always -d \
 -v $PWD/appsettings.json:/root/app/Gateway/appsettings.json \
 -v $PWD/Logs:/root/app/Gateway/Logs \
 -v $PWD/Data:/root/app/Gateway/Data \
-sersms/gateway
+serset/gateway
  
 
 #精简
-docker run --name=gateway --restart=always -d -p 4582:4582 sersms/gateway
+docker run --name=gateway --restart=always -d -p 4582:4582 serset/gateway
 
 
 #(x.3)应用已经运行

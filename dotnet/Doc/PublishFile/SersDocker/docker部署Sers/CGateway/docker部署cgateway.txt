@@ -23,7 +23,7 @@ docker run --name=cgateway --restart=always -d \
 -v /etc/localtime:/etc/localtime \
 -v $PWD/appsettings.json:/root/app/CGateway/appsettings.json \
 -v $PWD/Logs:/root/app/CGateway/Logs \
-sersms/cgateway:1.2.0
+serset/cgateway:1.2.0
 cd ..
 
 

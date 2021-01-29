@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <Version>2.1.1.461</Version>
-    <Description>https://github.com/sersms/Sers/tree/2.1.1/release</Description>
+    <Description>https://github.com/serset/Sers/tree/2.1.1/release</Description>
   </PropertyGroup>
 
  

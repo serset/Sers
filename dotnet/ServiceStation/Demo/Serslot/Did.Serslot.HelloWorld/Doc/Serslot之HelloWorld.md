@@ -3,7 +3,7 @@
 
 ------------
 
-Sers提供了3种c#接入的方式（用户亦可自定义接入），Serslot是对net core2.1 web api的原生支持。无需修改原有web api代码结构，修改3处地方（仅一处代码）即可无缝接入。[点我查看源码](https://github.com/sersms/sersms.github.io/tree/master/code/SerslotDemo2.1.1.250)。[点我下载源码](https://sersms.github.io/file/demo/SerslotDemo2.1.1.250.zip)。
+Sers提供了3种c#接入的方式（用户亦可自定义接入），Serslot是对net core2.1 web api的原生支持。无需修改原有web api代码结构，修改3处地方（仅一处代码）即可无缝接入。[点我查看源码](https://github.com/serset/sersms.github.io/tree/master/code/SerslotDemo2.1.1.250)。[点我下载源码](https://sersms.github.io/file/demo/SerslotDemo2.1.1.250.zip)。
 
 ## 1.添加nuget包引用
 >编辑csproj文件，添加如下代码，通过nuget安装Serslot
@@ -66,7 +66,7 @@ namespace SerslotDemo
           "className": "Sers.CL.Socket.Iocp.OrganizeClientBuilder",
 
           /* (x.2) conn config */
-          /* 服务端 host地址。例如： "127.0.0.1"、"sersms.com" */
+          /* 服务端 host地址。例如： "127.0.0.1"、"sers.com" */
           "host": "127.0.0.1",
           /* 服务端 监听端口号。例如： 4501 */
           "port": 4501,

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net.Sockets;
 using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
@@ -24,7 +24,7 @@ namespace Sers.CL.Socket.ThreadWait
 
 
         /// <summary>
-        /// 服务端 host地址(默认 "127.0.0.1")。例如： "127.0.0.1"、"sersms.com"。
+        /// 服务端 host地址(默认 "127.0.0.1")。例如： "127.0.0.1"、"sers.com"。
         /// </summary>
         public string host = "127.0.0.1";
         /// <summary>

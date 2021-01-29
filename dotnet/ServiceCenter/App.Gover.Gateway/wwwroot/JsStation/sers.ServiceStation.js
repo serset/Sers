@@ -3,7 +3,7 @@
  * Date   : 2020-07-22
  * Version: 2.1.1.372
  * author : Lith
- * email  : sersms@163.com
+ * email  : serset@yeah.net
  */
 
 ; var sers = { version: '2.1.1.372' };
@@ -11,7 +11,7 @@
 /*
  * vit.js 扩展
  * author : Lith
- * email  : sersms@163.com
+ * email  : serset@yeah.net
  */
 ; (function (vit) {
 
@@ -228,7 +228,7 @@
 /*
 * sers.CL.js 扩展
 * author : Lith
-* email  : sersms@163.com
+* email  : serset@yeah.net
 */
 ; (function (CL) {
 
@@ -641,7 +641,7 @@
 /*
 * sers.ServiceStation.js 扩展
 * author : Lith
-* email  : sersms@163.com
+* email  : serset@yeah.net
 */
 ; (function (sers) {
 

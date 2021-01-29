@@ -1,4 +1,4 @@
-﻿# Sers微服务架构协议（Sers 2.1.1/release）
+# Sers微服务架构协议（Sers 2.1.1/release）
 
 Sers为一套跨平台跨语言的开源微服务架构协议。
 ● 跨语言，目前已支持c#、java、c++、javascript。
@@ -9,15 +9,15 @@ Sers为一套跨平台跨语言的开源微服务架构协议。
 ● 可以非侵入式接入.net core web api，接入代码只有1行。
 
 
-源码地址：https://github.com/sersms/Sers
+源码地址：https://github.com/serset/Sers
 
 此版本为v2.1.1版。(RequestQueue模式)
 
 
 # 部署
-参见[Release-Sers-v2.1.1](https://github.com/sersms/Sers/tree/2.1.1/release/Release/Sers2.1.1/netcore)
+参见[Release-Sers-v2.1.1](https://github.com/serset/Sers/tree/2.1.1/release/Release/Sers2.1.1/netcore)
 
-[点我查看docker部署](https://github.com/sersms/Sers/tree/2.1.1/release/Release/Sers2.1.1/netcore/docker)
+[点我查看docker部署](https://github.com/serset/Sers/tree/2.1.1/release/Release/Sers2.1.1/netcore/docker)
 
 
 # 性能测试

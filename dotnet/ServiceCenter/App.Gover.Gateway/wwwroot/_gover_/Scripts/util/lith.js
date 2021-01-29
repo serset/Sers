@@ -3,7 +3,7 @@
  * Date   : 2019-08-22
  * Version: 1.6
  * author : Lith
- * email  : sersms@163.com
+ * email  : serset@yeah.net
  <script type="text/javascript" src="lith.js"></script>
 
  */

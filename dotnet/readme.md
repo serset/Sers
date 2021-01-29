@@ -11,7 +11,7 @@ Sers为一套 跨平台 跨语言 的开源 微服务架构协议。
 
 
 # 部署
-参见[Sers_NetCore_HelloWorld_Publish](https://github.com/sersms/Sers_NetCore_HelloWorld_Publish/tree/master/Sers/Latest)
+参见[Sers_NetCore_HelloWorld_Publish](https://github.com/serset/Sers_NetCore_HelloWorld_Publish/tree/master/Sers/Latest)
 
 
 # 性能初测

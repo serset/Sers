@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +18,7 @@ namespace Sers.CL.Socket.ThreadWait
         public Sers.Core.Util.StreamSecurity.SecurityManager securityManager;
 
         /// <summary>
-        /// 服务端 监听地址。若不指定则监听所有网卡。例如： "127.0.0.1"、"sersms.com"。
+        /// 服务端 监听地址。若不指定则监听所有网卡。例如： "127.0.0.1"、"sers.com"。
         /// </summary>
         public string host = null;
         /// <summary>

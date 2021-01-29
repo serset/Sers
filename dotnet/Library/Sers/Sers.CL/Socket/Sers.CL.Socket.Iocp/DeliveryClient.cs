@@ -1,4 +1,4 @@
-﻿// https://freshflower.iteye.com/blog/2285286
+// https://freshflower.iteye.com/blog/2285286
 
 using System;
 using System.Net;
@@ -53,7 +53,7 @@ namespace Sers.CL.Socket.Iocp
 
 
         /// <summary>
-        ///  服务端 host地址（默认 "127.0.0.1" ）。例如： "127.0.0.1"、"sersms.com"。
+        ///  服务端 host地址（默认 "127.0.0.1" ）。例如： "127.0.0.1"、"sers.com"。
         /// </summary>
         public string host;
         /// <summary>
