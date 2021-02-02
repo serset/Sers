@@ -4,13 +4,13 @@ docker save -o /root/image/dotnet.2.1.tar serset/dotnet:2.1
 docker save -o /root/image/cgateway.1.2.0.tar serset/cgateway:1.2.0
 
 
-docker save -o /root/image/servicecenter.2.1.1.476.tar serset/sers_dotnet_servicecenter:2.1.1.476
-docker save -o /root/image/gateway.2.1.1.476.tar serset/sers_dotnet_gateway:2.1.1.476
-docker save -o /root/image/gover.2.1.1.476.tar serset/sers_dotnet_gover:2.1.1.476
+docker save -o /root/image/servicecenter.2.1.1.478.tar serset/sers_dotnet_servicecenter:2.1.1.478
+docker save -o /root/image/gateway.2.1.1.478.tar serset/sers_dotnet_gateway:2.1.1.478
+docker save -o /root/image/gover.2.1.1.478.tar serset/sers_dotnet_gover:2.1.1.478
 
-docker save -o /root/image/demo_robot.2.1.1.476.tar serset/demo_robot:2.1.1.476
-docker save -o /root/image/demo_sersall.2.1.1.476.tar serset/demo_sersall:2.1.1.476
-docker save -o /root/image/demo_station.2.1.1.476.tar serset/demo_station:2.1.1.476
+docker save -o /root/image/demo_robot.2.1.1.478.tar serset/demo_robot:2.1.1.478
+docker save -o /root/image/demo_sersall.2.1.1.478.tar serset/demo_sersall:2.1.1.478
+docker save -o /root/image/demo_station.2.1.1.478.tar serset/demo_station:2.1.1.478
 
 
 
@@ -19,13 +19,13 @@ docker save -o /root/image/demo_station.2.1.1.476.tar serset/demo_station:2.1.1.
 docker load -i /root/image/dotnet.2.1.tar
 docker load -i /root/image/cgateway.1.2.0.tar
 
-docker load -i /root/image/servicecenter.2.1.1.476.tar
-docker load -i /root/image/gateway.2.1.1.476.tar
-docker load -i /root/image/gover.2.1.1.476.tar
+docker load -i /root/image/servicecenter.2.1.1.478.tar
+docker load -i /root/image/gateway.2.1.1.478.tar
+docker load -i /root/image/gover.2.1.1.478.tar
 
-docker load -i /root/image/demo_robot.2.1.1.476.tar
-docker load -i /root/image/demo_sersall.2.1.1.476.tar 
-docker load -i /root/image/demo_station.2.1.1.476.tar 
+docker load -i /root/image/demo_robot.2.1.1.478.tar
+docker load -i /root/image/demo_sersall.2.1.1.478.tar 
+docker load -i /root/image/demo_station.2.1.1.478.tar 
 
 
  

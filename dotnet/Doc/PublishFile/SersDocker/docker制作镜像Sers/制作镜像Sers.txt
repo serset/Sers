@@ -40,31 +40,31 @@ cd /home/ec2-user/image
 
 
 cd servicecenter
-docker buildx build . -t serset/servicecenter:2.1.1.476 -t serset/servicecenter --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+docker buildx build . -t serset/servicecenter:2.1.1.478 -t serset/servicecenter --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd .. 
 
 
 cd gover 
-docker buildx build . -t serset/gover:2.1.1.476 -t serset/gover --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+docker buildx build . -t serset/gover:2.1.1.478 -t serset/gover --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd ..
 
 
 cd gateway
-docker buildx build . -t serset/gateway:2.1.1.476 -t serset/gateway --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+docker buildx build . -t serset/gateway:2.1.1.478 -t serset/gateway --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd ..
 
 
 
 cd demo_robot 
-docker buildx build . -t serset/demo_robot:2.1.1.476 -t serset/demo_robot --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+docker buildx build . -t serset/demo_robot:2.1.1.478 -t serset/demo_robot --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd ..
 
 cd demo_station 
-docker buildx build . -t serset/demo_station:2.1.1.476 -t serset/demo_station --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+docker buildx build . -t serset/demo_station:2.1.1.478 -t serset/demo_station --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd ..
 
 cd demo_sersall 
-docker buildx build . -t serset/demo_sersall:2.1.1.476 -t serset/demo_sersall --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+docker buildx build . -t serset/demo_sersall:2.1.1.478 -t serset/demo_sersall --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd ..
 
  
