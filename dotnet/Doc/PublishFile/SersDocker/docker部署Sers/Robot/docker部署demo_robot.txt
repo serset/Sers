@@ -23,12 +23,12 @@ docker run --name=robot --restart=always -d \
 -v $PWD/appsettings.json:/root/app/Robot/appsettings.json \
 -v $PWD/Logs:/root/app/Robot/Logs \
 -v $PWD/Data:/root/app/Robot/Data \
-serset/demo_robot:2.1.1.478
+serset/demo_robot:2.1.1.482
 cd ..
 
 
 #精简
-docker run --name=robot --restart=always --net=host -d serset/demo_robot:2.1.1.478
+docker run --name=robot --restart=always --net=host -d serset/demo_robot:2.1.1.482
 
  
 
