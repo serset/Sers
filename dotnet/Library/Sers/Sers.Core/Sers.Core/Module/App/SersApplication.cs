@@ -66,7 +66,7 @@ namespace Sers.Core.Module.App
 
             try
             {
-                //退出当前进程已经当前进程开启的所有进程
+                //退出当前进程以及当前进程开启的所有进程
                 System.Environment.Exit(0);
             }
             catch (Exception ex)
