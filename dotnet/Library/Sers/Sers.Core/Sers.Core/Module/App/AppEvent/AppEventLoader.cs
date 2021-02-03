@@ -52,7 +52,7 @@ namespace Sers.Core.Module.App.AppEvent
                 var assemblyFile = config["assemblyFile"].ConvertToString();
                 if (string.IsNullOrEmpty(assemblyFile)) return null;
 
-                return ObjectLoader.CreateInstance(assemblyFile, className) as IAppEvent;            
+                return ObjectLoader.CreateInstance(className, assemblyFile: assemblyFile) as IAppEvent;            
             }
             #endregion
         }

@@ -156,7 +156,7 @@ namespace Sers.Core.CL.CommunicationManage
                     var assemblyFile = config["assemblyFile"].ConvertToString();
 
                     #region (x.x.2) CreateInstance
-                    var builder = ObjectLoader.CreateInstance(assemblyFile, className) as IOrganizeClientBuilder;
+                    var builder = ObjectLoader.CreateInstance(className, assemblyFile: assemblyFile) as IOrganizeClientBuilder;
                     #endregion
 
                     //(x.x.3) build

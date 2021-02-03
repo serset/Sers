@@ -76,7 +76,7 @@ namespace Sers.Core.Module.Api.ApiEvent
                     return null;
                 }
 
-                return ObjectLoader.CreateInstance(assemblyFile, className) as IBeforeCallApi;                
+                return ObjectLoader.CreateInstance(className, assemblyFile: assemblyFile) as IBeforeCallApi;                
             }
             #endregion
         }
@@ -129,7 +129,7 @@ namespace Sers.Core.Module.Api.ApiEvent
                 if (string.IsNullOrEmpty(className)) return null;
 
                 //(x.2)CreateInstance
-                return ObjectLoader.CreateInstance(assemblyFile, className) as IApiScopeEvent; 
+                return ObjectLoader.CreateInstance(className, assemblyFile: assemblyFile) as IApiScopeEvent; 
             }
             #endregion
         }

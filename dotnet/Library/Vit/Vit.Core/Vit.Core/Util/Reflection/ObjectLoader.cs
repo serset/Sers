@@ -187,7 +187,7 @@ namespace Vit.Core.Util.Reflection
         /// <param name="assemblyName">如： "Vit.Core"</param>
         public static object CreateInstance(string className, string assemblyFile = null, string assemblyName = null)
         {
-            var type = GetType(className, assemblyFile, assemblyName);
+            var type = GetType(className, assemblyFile: assemblyFile, assemblyName: assemblyName);
             if (type != null) return Activator.CreateInstance(type);
             return null;
         }

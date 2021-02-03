@@ -56,7 +56,7 @@ namespace Sers.Core.Module.ApiLoader
             var assemblyFile = config["loader_assemblyFile"].ConvertToString();
              
             #region (x.2) CreateInstance
-            var apiLoader = ObjectLoader.CreateInstance(assemblyFile, className) as IApiLoader;
+            var apiLoader = ObjectLoader.CreateInstance(className, assemblyFile: assemblyFile) as IApiLoader;
             #endregion
 
             //(x.3) return

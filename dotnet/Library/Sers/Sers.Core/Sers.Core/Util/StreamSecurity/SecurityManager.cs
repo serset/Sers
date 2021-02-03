@@ -27,7 +27,7 @@ namespace Sers.Core.Util.StreamSecurity
                 var assemblyFile = config["assemblyFile"].ConvertToString();
 
                 #region (x.x.2) CreateInstance
-                var security = ObjectLoader.CreateInstance(assemblyFile, className) as ISecurity;
+                var security = ObjectLoader.CreateInstance(className, assemblyFile: assemblyFile) as ISecurity;
                 if (security == null)
                 {
                     var msg = "[CL.SecurityManager] className not exists(" + className + ").";

@@ -223,7 +223,7 @@ namespace Vit.Extensions
 
                 invoke = item["Invoke"] as JArray;
             }
-            return ObjectLoader.GetType(className,assemblyFile, assemblyName);
+            return ObjectLoader.GetType(className, assemblyFile: assemblyFile, assemblyName: assemblyName);
         }
 
 
