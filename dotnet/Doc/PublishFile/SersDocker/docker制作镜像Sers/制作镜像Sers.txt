@@ -32,7 +32,7 @@ docker buildx ls
 #---------------------------------------------------------------------
 #(x.2)构建多架构镜像（ arm、arm64 和 amd64 ）并推送到 Docker Hub
 
-#把本文件所在目录下的cgateway文件夹拷贝到 image 
+#把文件夹拷贝到image下
 cd /home/ec2-user/image 
 
 
