@@ -1,4 +1,4 @@
-﻿#构建多架构镜像
+#构建多架构镜像
 
 #docker login -u serset -p xxxxxxxxx
 

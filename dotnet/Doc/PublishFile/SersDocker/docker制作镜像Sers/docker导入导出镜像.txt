@@ -1,31 +1,32 @@
-导出镜像
+#导出镜像
+export tag=${tag}
 
 docker save -o /root/image/dotnet.2.1.tar serset/dotnet:2.1
 docker save -o /root/image/cgateway.1.2.0.tar serset/cgateway:1.2.0
 
 
-docker save -o /root/image/servicecenter.2.1.1.482.tar serset/sers_dotnet_servicecenter:2.1.1.482
-docker save -o /root/image/gateway.2.1.1.482.tar serset/sers_dotnet_gateway:2.1.1.482
-docker save -o /root/image/gover.2.1.1.482.tar serset/sers_dotnet_gover:2.1.1.482
+docker save -o /root/image/servicecenter.${tag}.tar serset/servicecenter:${tag}
+docker save -o /root/image/gateway.${tag}.tar serset/gateway:${tag}
+docker save -o /root/image/gover.${tag}.tar serset/gover:${tag}
 
-docker save -o /root/image/demo_robot.2.1.1.482.tar serset/demo_robot:2.1.1.482
-docker save -o /root/image/demo_sersall.2.1.1.482.tar serset/demo_sersall:2.1.1.482
-docker save -o /root/image/demo_station.2.1.1.482.tar serset/demo_station:2.1.1.482
+docker save -o /root/image/demo_robot.${tag}.tar serset/demo_robot:${tag}
+docker save -o /root/image/demo_sersall.${tag}.tar serset/demo_sersall:${tag}
+docker save -o /root/image/demo_station.${tag}.tar serset/demo_station:${tag}
 
 
 
-导入镜像
+#导入镜像
 
 docker load -i /root/image/dotnet.2.1.tar
 docker load -i /root/image/cgateway.1.2.0.tar
 
-docker load -i /root/image/servicecenter.2.1.1.482.tar
-docker load -i /root/image/gateway.2.1.1.482.tar
-docker load -i /root/image/gover.2.1.1.482.tar
+docker load -i /root/image/servicecenter.${tag}.tar
+docker load -i /root/image/gateway.${tag}.tar
+docker load -i /root/image/gover.${tag}.tar
 
-docker load -i /root/image/demo_robot.2.1.1.482.tar
-docker load -i /root/image/demo_sersall.2.1.1.482.tar 
-docker load -i /root/image/demo_station.2.1.1.482.tar 
+docker load -i /root/image/demo_robot.${tag}.tar
+docker load -i /root/image/demo_sersall.${tag}.tar 
+docker load -i /root/image/demo_station.${tag}.tar 
 
 
  
