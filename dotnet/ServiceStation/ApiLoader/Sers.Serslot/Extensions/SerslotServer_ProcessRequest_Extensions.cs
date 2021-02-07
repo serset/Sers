@@ -47,7 +47,10 @@ namespace Vit.Extensions
                 {
                     foreach (var t in headers)
                     {
-                        requestFeature.Headers.Add(t.Key, t.Value.ConvertToString());
+                        //heasers中可能存在同名的key,故不可用Add函数
+                        // ssError:{"errorMessage":"An item with the same key has already been added. Key: X-Forwarded-Proto"}
+                        //requestFeature.Headers.Add(t.Key, t.Value.ConvertToString());
+                        requestFeature.Headers[t.Key] = t.Value.ConvertToString();                 
                     }
                 }                 
                 #endregion
