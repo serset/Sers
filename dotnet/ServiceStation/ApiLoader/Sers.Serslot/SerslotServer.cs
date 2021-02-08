@@ -43,8 +43,12 @@ namespace Sers.Serslot
             //header = "{\"Host\":\"localhost:44308\",\"X-Forwarded-For\":\"127.0.0.1:53093\",\"X-Forwarded-Proto\":\"https\"}";
 
 
-            requestFeature.Headers.Add("MS-ASPNETCORE-TOKEN", pairingToken);
-            requestFeature.Headers.Add("X-Forwarded-Proto", "https");
+            //使用Add可能报错 An item with the same key has already been added. Key: X-Forwarded-Proto"
+            //requestFeature.Headers.Add("MS-ASPNETCORE-TOKEN", pairingToken);
+            //requestFeature.Headers.Add("X-Forwarded-Proto", "https");
+
+            requestFeature.Headers["MS-ASPNETCORE-TOKEN"] = pairingToken;
+            requestFeature.Headers["X-Forwarded-Proto"] = "https";
 
             var features = new FeatureCollection();
             features.Set<IHttpRequestFeature>(requestFeature);
