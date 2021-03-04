@@ -7,7 +7,7 @@
 
  
   <ItemGroup>
-    <Content Include="StartServer.bat">
+    <Content Include="StartConsole.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

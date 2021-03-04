@@ -249,36 +249,35 @@ namespace Sers.CL.Socket.Iocp
         //
         private void ProcessReceive(SocketAsyncEventArgs e)
         {
+            //读取数据
+            DeliveryConnection conn = e.UserToken as DeliveryConnection;
+            if (conn == null) return;
+
+
             try
-            {
-                //读取数据
-                DeliveryConnection conn = (DeliveryConnection)e.UserToken;
-                if (conn != null)
+            {            
+
+                // check if the remote host closed the connection               
+                if (e.BytesTransferred > 0 && e.SocketError == SocketError.Success)
                 {
-                    // check if the remote host closed the connection               
-                    if (e.BytesTransferred > 0 && e.SocketError == SocketError.Success)
-                    {
-                        //读取数据
-                        conn.AppendData(new ArraySegment<byte>(e.Buffer, e.Offset, e.BytesTransferred));
+                    //读取数据
+                    conn.AppendData(new ArraySegment<byte>(e.Buffer, e.Offset, e.BytesTransferred));
 
-                        byte[] buffData = DataPool.BytesGet(receiveBufferSize);
-                        e.SetBuffer(buffData, 0, buffData.Length);
+                    byte[] buffData = DataPool.BytesGet(receiveBufferSize);
+                    e.SetBuffer(buffData, 0, buffData.Length);
 
-                        // start loop
-                        //继续接收. 为什么要这么写,请看Socket.ReceiveAsync方法的说明
-                        if (!conn.socket.ReceiveAsync(e))
-                            ProcessReceive(e);
-                    }
-                    else
-                    {
-                        conn.Close();
-                    }
-                }
+                    // start loop
+                    //继续接收. 为什么要这么写,请看Socket.ReceiveAsync方法的说明
+                    if (!conn.socket.ReceiveAsync(e))
+                        ProcessReceive(e);
+                    return;
+                } 
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
             }
+            conn.Close();
         }
 
 

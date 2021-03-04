@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using CLClient.Statistics;
 using Sers.Core.CL.CommunicationManage;
 using Vit.Core.Module.Log;
+using Vit.Core.Util.Threading;
 using Vit.Extensions;
 
 namespace CLClient
@@ -80,21 +80,27 @@ namespace CLClient
                 cm.SendMessageAsync(buff.BytesToByteData());
             }
 
-            for (int i = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<int>("PressureTest.requestThreadCount"); i > 0; i--)
-            {       
+            int theadCount = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<int>("PressureTest.requestThreadCount");
 
-                Task.Run(() =>
-                {
+            if (theadCount >= 0)
+            {
+                LongTaskHelp task = new LongTaskHelp();
+                task.threadName = "PressureTest.SendRequest";
+                task.threadCount = theadCount;
+                task.action = ()=> {
+
                     var conn = cm.organizeList[0].conn;
-                    for (;;)
+                    for (; ; )
                     {
                         if (conn.SendRequest(buff.BytesToByteData(), out _))
                             qpsInfo.IncrementRequest();
                     }
-
-                });
-
+                };
+                task.Start();
             }
+
+
+ 
 
 
 
