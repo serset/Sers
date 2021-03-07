@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Disruptor" Version="3.6.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.0.0" />
   </ItemGroup>  
  

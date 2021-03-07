@@ -26,14 +26,14 @@ namespace CLServer
             cm.conn_OnGetMessage = (conn, msg) =>
             {
                 qpsInfo.IncrementRequest();
-                conn.SendMessageAsync(new List<ArraySegment<byte>> { msg });               
+                conn.SendMessageAsync(new Vit.Core.Util.Pipelines.ByteData { msg });               
             };
 
 
-            cm.conn_OnGetRequest = (IOrganizeConnection  conn, Object sender, ArraySegment<byte> requestData, Action<object, List<ArraySegment<byte>>> callback) =>
+            cm.conn_OnGetRequest = (IOrganizeConnection  conn, Object sender, ArraySegment<byte> requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback) =>
             {
                 qpsInfo.IncrementRequest();
-                callback(sender,new List<ArraySegment<byte>> { requestData });
+                callback(sender,new Vit.Core.Util.Pipelines.ByteData { requestData });
             };
 
             cm.Conn_OnConnected = (conn) =>

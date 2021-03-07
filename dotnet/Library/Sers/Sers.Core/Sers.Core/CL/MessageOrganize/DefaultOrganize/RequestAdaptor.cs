@@ -2,9 +2,9 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Sers.Core.CL.MessageDelivery;
+using Sers.Core.Util.Consumer;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Common;
 using Vit.Core.Util.Pool;
@@ -42,7 +42,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         /// 会在内部线程中被调用 
         /// (conn,sender,requestData,callback)
         /// </summary>
-        public Action<IOrganizeConnection, object, ArraySegment<byte>, Action<object, List<ArraySegment<byte>>>> event_OnGetRequest { private get; set; }
+        public Action<IOrganizeConnection, object, ArraySegment<byte>, Action<object, Vit.Core.Util.Pipelines.ByteData>> event_OnGetRequest { private get; set; }
 
         /// <summary>
         /// deliveryToOrganize_OnGetMessage
@@ -59,14 +59,14 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         #region (x.x.2)SendMessage SendRequest
 
 
-        public void SendMessageAsync(IOrganizeConnection conn, List<ArraySegment<byte>> message)
+        public void SendMessageAsync(IOrganizeConnection conn, Vit.Core.Util.Pipelines.ByteData message)
         {
             Delivery_SendFrameAsync(conn, (byte)EFrameType.message, 0, message);
         }
 
 
 
-        public long SendRequestAsync(IOrganizeConnection conn, Object sender, List<ArraySegment<byte>> requestData, Action<object, List<ArraySegment<byte>>> callback, ERequestType requestType = ERequestType.app)
+        public long SendRequestAsync(IOrganizeConnection conn, Object sender, Vit.Core.Util.Pipelines.ByteData requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback, ERequestType requestType = ERequestType.app)
         {
             //no need guid,just make sure reqKey is unique in current connection client
             //long reqKey = CommonHelp.NewGuidLong();
@@ -86,9 +86,9 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         }
 
 
-        public bool SendRequest(IOrganizeConnection conn, List<ArraySegment<byte>> requestData, out List<ArraySegment<byte>> replyData)
+        public bool SendRequest(IOrganizeConnection conn, Vit.Core.Util.Pipelines.ByteData requestData, out Vit.Core.Util.Pipelines.ByteData replyData)
         {
-            List<ArraySegment<byte>> _replyData = null;
+            Vit.Core.Util.Pipelines.ByteData _replyData = null;
 
             AutoResetEvent mEvent = pool_AutoResetEvent.Pop();
             mEvent.Reset();
@@ -133,12 +133,11 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         public void Start()
         {
             //(x.1) task_DeliveryToOrganize_Processor
-            task_DeliveryToOrganize_Processor.Stop();
-
-            task_DeliveryToOrganize_Processor.threadName = "CL-RequestAdaptor-dealer";
-            task_DeliveryToOrganize_Processor.threadCount = workThreadCount;
-            task_DeliveryToOrganize_Processor.action = DeliveryToOrganize_Processor;
-            task_DeliveryToOrganize_Processor.Start();
+            //task_DeliveryToOrganize_Processor.Stop();
+            task_DeliveryToOrganize_Processor.processor = DeliveryToOrganize_ProcessFrame;
+            task_DeliveryToOrganize_Processor.workThreadCount = workThreadCount;
+            task_DeliveryToOrganize_Processor.name = "CL-RequestAdaptor-dealer";
+            task_DeliveryToOrganize_Processor.Start(); 
 
             //(x.2) heartBeat thread
             heartBeat_Timer.timerCallback = (state) => { HeartBeat_Loop(); };
@@ -194,7 +193,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
         ObjectPoolGenerator<AutoResetEvent> pool_AutoResetEvent = new ObjectPoolGenerator<AutoResetEvent>(() => new AutoResetEvent(false));
         long reqKeyIndex = CommonHelp.NewGuidLong();
-        LongTaskHelp task_DeliveryToOrganize_Processor = new LongTaskHelp();
+   
         #endregion
 
 
@@ -237,7 +236,13 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
         #region deliveryToOrganize_MessageFrameQueue  
 
-        readonly BlockingCollection<DeliveryToOrganize_MessageFrame> deliveryToOrganize_MessageFrameQueue = new BlockingCollection<DeliveryToOrganize_MessageFrame>();
+
+        IConsumer<DeliveryToOrganize_MessageFrame> task_DeliveryToOrganize_Processor = new Consumer_BlockingCollection<DeliveryToOrganize_MessageFrame>();
+        //IConsumer<DeliveryToOrganize_MessageFrame> task_DeliveryToOrganize_Processor = new Consumer_Disruptor<DeliveryToOrganize_MessageFrame>();
+        //IConsumer<DeliveryToOrganize_MessageFrame> task_DeliveryToOrganize_Processor = new Consumer_WorkerPool<DeliveryToOrganize_MessageFrame>();
+        //IConsumer<DeliveryToOrganize_MessageFrame> task_DeliveryToOrganize_Processor = new Consumer_WorkerPoolCache<DeliveryToOrganize_MessageFrame>();
+        //IConsumer<DeliveryToOrganize_MessageFrame> task_DeliveryToOrganize_Processor = new Consumer_WorkerPoolCascade<DeliveryToOrganize_MessageFrame>();
+
 
         void DeliveryToOrganize_OnGetMessageFrame(IOrganizeConnection conn, ArraySegment<byte> messageFrame)
         {
@@ -245,7 +250,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             msg.conn = conn;
             msg.messageFrame = messageFrame;
 
-            deliveryToOrganize_MessageFrameQueue.Add(msg);
+            task_DeliveryToOrganize_Processor.Publish(msg);    
         }
 
 
@@ -297,44 +302,21 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         #endregion
 
         #endregion
-
-
-
-        #region DeliveryToOrganize_Processor
-        private void DeliveryToOrganize_Processor()
-        {
-            while (true)
-            {
-                try
-                {
-                    #region Process                        
-                    while (true)
-                    {
-                        var msgFrame = deliveryToOrganize_MessageFrameQueue.Take();
-                        try
-                        {
-                            if (msgFrame.messageFrame != null)
-                                DeliveryToOrganize_ProcessFrame(msgFrame.conn, msgFrame.messageFrame.Value);
-                        }
-                        finally
-                        {
-                            msgFrame.Push();
-                        }
-                    }
-                    #endregion
-                }
-                catch (Exception ex) when (!(ex.GetBaseException() is ThreadInterruptedException))
-                {
-                    Logger.Error(ex);
-                }
-            }
-        }
-        #endregion
+        
 
 
         #region DeliveryToOrganize_ProcessFrame
-        void DeliveryToOrganize_ProcessFrame(IOrganizeConnection conn, ArraySegment<byte> data)
+        void DeliveryToOrganize_ProcessFrame(DeliveryToOrganize_MessageFrame msgFrame)
         {
+            IOrganizeConnection conn = msgFrame.conn;
+            var messageFrame = msgFrame.messageFrame;
+
+            msgFrame.Push();
+
+            if (messageFrame == null) return;
+
+            var data = messageFrame.Value;
+
             if (data.Count <= 2) return;
 
             EFrameType msgType = (EFrameType)data.Array[data.Offset];
@@ -348,7 +330,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
                         if (OrganizeToDelivery_RequestMap_TryRemove(reqKey, out var requestInfo))
                         {
-                            requestInfo.callback(requestInfo.sender, new List<ArraySegment<byte>> { replyData });
+                            requestInfo.callback(requestInfo.sender, new Vit.Core.Util.Pipelines.ByteData { replyData });
                             requestInfo.Push();
                         }
                         return;
@@ -397,12 +379,12 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                         if (version == organizeVersion)
                         {
                             // send reply
-                            DeliveryToOrganize_SendReply(reqInfo, new List<ArraySegment<byte>> { requestData });
+                            DeliveryToOrganize_SendReply(reqInfo, new Vit.Core.Util.Pipelines.ByteData { requestData });
                         }
                         else
                         {
                             // send reply
-                            DeliveryToOrganize_SendReply(reqInfo, new List<ArraySegment<byte>> { "error".SerializeToArraySegmentByte() });
+                            DeliveryToOrganize_SendReply(reqInfo, new Vit.Core.Util.Pipelines.ByteData { "error".SerializeToArraySegmentByte() });
                         }
                         return;
                     }
@@ -412,7 +394,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
                
         #region DeliveryToOrganize_SendReply
-        private void DeliveryToOrganize_SendReply(object sender, List<ArraySegment<byte>> replyData)
+        private void DeliveryToOrganize_SendReply(object sender, Vit.Core.Util.Pipelines.ByteData replyData)
         {
             DeliveryToOrganize_RequestInfo reqInfo = sender as DeliveryToOrganize_RequestInfo;
             var conn = reqInfo.conn;
@@ -491,7 +473,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         class OrganizeToDelivery_RequestInfo
         {
             public object sender;
-            public Action<object, List<ArraySegment<byte>>> callback;
+            public Action<object, Vit.Core.Util.Pipelines.ByteData> callback;
 
             public static OrganizeToDelivery_RequestInfo Pop()
             {
@@ -517,9 +499,10 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
 
         #region (x.5)Delivery_SendFrameAsync        
-        void Delivery_SendFrameAsync(IOrganizeConnection conn, byte msgType, byte requestType, List<ArraySegment<byte>> data)
+        void Delivery_SendFrameAsync(IOrganizeConnection conn, byte msgType, byte requestType, Vit.Core.Util.Pipelines.ByteData data)
         {
-            var item = DataPool.BytesGet(2);
+            //var item = DataPool.BytesGet(2);
+            var item = new byte[2];
             item[0] = msgType;
             item[1] = requestType;
             data.Insert(0, new ArraySegment<byte>(item, 0, 2));
@@ -564,7 +547,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
 
         static readonly byte[] organizeVersion_ba = organizeVersion.SerializeToBytes();
-        static List<ArraySegment<byte>> HeartBeat_Data => organizeVersion_ba.BytesToByteData();
+        static Vit.Core.Util.Pipelines.ByteData HeartBeat_Data => organizeVersion_ba.BytesToByteData();
 
         class HeartBeatInfo
         {
@@ -660,7 +643,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             return p;
         }
 
-        void HeartBeat_callback(object sender,List<ArraySegment<byte>> replyData)
+        void HeartBeat_callback(object sender,Vit.Core.Util.Pipelines.ByteData replyData)
         {
             HeartBeatPackage package = sender as HeartBeatPackage;
 
@@ -703,7 +686,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         /// <param name="reqKey"></param>
         /// <param name="oriMsg"></param>
         /// <param name="reqRepFrame"></param>
-        static void PackageReqRepFrame(long reqKey, List<ArraySegment<byte>> oriMsg, out List<ArraySegment<byte>> reqRepFrame)
+        static void PackageReqRepFrame(long reqKey, Vit.Core.Util.Pipelines.ByteData oriMsg, out Vit.Core.Util.Pipelines.ByteData reqRepFrame)
         {
             //*
             reqRepFrame = DataPool.ByteDataGet();

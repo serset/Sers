@@ -115,11 +115,11 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         /// <summary>
         /// 会在内部线程中被调用 
           /// </summary>
-        public Action<IOrganizeConnection, object, ArraySegment<byte>, Action<object, List<ArraySegment<byte>>>> conn_OnGetRequest
+        public Action<IOrganizeConnection, object, ArraySegment<byte>, Action<object, Vit.Core.Util.Pipelines.ByteData>> conn_OnGetRequest
         {
             set
             {              
-                requestAdaptor.event_OnGetRequest = (IOrganizeConnection organizeConn,Object sender, ArraySegment<byte> requestData, Action<object, List<ArraySegment<byte>>> callback) =>
+                requestAdaptor.event_OnGetRequest = (IOrganizeConnection organizeConn,Object sender, ArraySegment<byte> requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback) =>
                 {
                     var deliveryConn = organizeConn.GetDeliveryConn();
                     if (deliveryConn.state == DeliveryConnState.certified)
@@ -146,13 +146,13 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         }
 
 
-        public void Station_SendMessageAsync(IOrganizeConnection conn, List<ArraySegment<byte>> message)
+        public void Station_SendMessageAsync(IOrganizeConnection conn, Vit.Core.Util.Pipelines.ByteData message)
         {
             requestAdaptor.SendMessageAsync(conn, message);
         }
 
 
-        public void Station_SendRequestAsync(IOrganizeConnection conn, Object sender, List<ArraySegment<byte>> requestData, Action<object, List<ArraySegment<byte>>> callback)
+        public void Station_SendRequestAsync(IOrganizeConnection conn, Object sender, Vit.Core.Util.Pipelines.ByteData requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
             requestAdaptor.SendRequestAsync(conn, sender, requestData, callback);
         }
@@ -161,7 +161,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
         #region ConnCheckSecretKey
 
-        private void ConnCheckSecretKey(IOrganizeConnection organizeConn,IDeliveryConnection deliveryConn, Object sender, ArraySegment<byte> requestData, Action<object, List<ArraySegment<byte>>> callback)
+        private void ConnCheckSecretKey(IOrganizeConnection organizeConn,IDeliveryConnection deliveryConn, Object sender, ArraySegment<byte> requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
             // 身份验证
             try
@@ -176,7 +176,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                     //验证通过
                     replyData = "true".SerializeToArraySegmentByte();
 
-                    callback?.Invoke(sender, new List<ArraySegment<byte>> { replyData });
+                    callback?.Invoke(sender, new Vit.Core.Util.Pipelines.ByteData { replyData });
 
                     #region 新连接 事件
                     connMap[deliveryConn] = organizeConn;
@@ -190,7 +190,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                     deliveryConn.state = DeliveryConnState.waitForClose;
                     Logger.Info("[CL.OrganizeServer] Authentication - failed！(" + reqSecretKey + ")");
                     replyData = "false".SerializeToArraySegmentByte();
-                    callback?.Invoke(sender, new List<ArraySegment<byte>> { replyData });
+                    callback?.Invoke(sender, new Vit.Core.Util.Pipelines.ByteData { replyData });
                 }
             }
             catch (Exception ex)

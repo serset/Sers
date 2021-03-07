@@ -32,15 +32,15 @@ namespace Sers.CL.Socket.Iocp
 
         public Action<IDeliveryConnection> Conn_OnDisconnected { get; set; }
 
-        public void SendFrameAsync(List<ArraySegment<byte>> data)
+        public void SendFrameAsync(Vit.Core.Util.Pipelines.ByteData data)
         {
             if (data == null || socket == null) return;
             try
             {
-                Int32 len = data.ByteDataCount();
+                Int32 len = data.Count();
                 data.Insert(0, len.Int32ToArraySegmentByte());     
 
-                var bytes = data.ByteDataToBytes();
+                var bytes = data.ToBytes();
                 _securityManager?.Encryption(new ArraySegment<byte>(bytes,4,bytes.Length-4));
                 socket.SendAsync(bytes.BytesToArraySegmentByte(), SocketFlags.None);
                 //socket.SendAsync(data, SocketFlags.None);

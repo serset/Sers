@@ -1,23 +1,20 @@
 ﻿using System;
-using System.Collections.Concurrent;
-
 
 namespace Vit.Core.Util.Pool
 {
     public class ObjectPoolGenerator<T>       
     {
-        public static ObjectPoolGenerator<T> Shared = new ObjectPoolGenerator<T>();
+        public static readonly ObjectPoolGenerator<T> Shared = new ObjectPoolGenerator<T>();
 
 
-        private ConcurrentBag<T> _objects;
+        private PoolCache<T> _objects = new PoolCache<T>(); 
 
         public Func<T> objectGenerator;
 
         public ObjectPoolGenerator(Func<T> objectGenerator=null)
         {
             this.objectGenerator = objectGenerator;
-            //this.objectGenerator = objectGenerator ?? throw new ArgumentNullException("objectGenerator");
-            _objects = new ConcurrentBag<T>();
+            //this.objectGenerator = objectGenerator ?? throw new ArgumentNullException("objectGenerator");          
         }
 
         public T Pop()

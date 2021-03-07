@@ -97,7 +97,7 @@ namespace Sers.ServiceCenter.Entity
         }
 
      
-        public void SendRequestAsync(Object sender, ApiMessage apiReqMessage, Action<object, List<ArraySegment<byte>>> callback)
+        public void SendRequestAsync(Object sender, ApiMessage apiReqMessage, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
             connection.SendRequestAsync(sender, apiReqMessage.Package(), callback);            
         }

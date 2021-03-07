@@ -18,17 +18,17 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         }
 
 
-        public void SendMessageAsync(List<ArraySegment<byte>> message)
+        public void SendMessageAsync(Vit.Core.Util.Pipelines.ByteData message)
         {
             requestAdaptor.SendMessageAsync(this, message);
         }
 
 
-        public void SendRequestAsync(Object sender, List<ArraySegment<byte>> requestData, Action<object, List<ArraySegment<byte>>> callback)
+        public void SendRequestAsync(Object sender, Vit.Core.Util.Pipelines.ByteData requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
             requestAdaptor.SendRequestAsync(this, sender, requestData, callback);
         }
-        public bool SendRequest(List<ArraySegment<byte>> requestData, out List<ArraySegment<byte>> replyData)
+        public bool SendRequest(Vit.Core.Util.Pipelines.ByteData requestData, out Vit.Core.Util.Pipelines.ByteData replyData)
         {
             return requestAdaptor.SendRequest(this, requestData, out replyData);
         }

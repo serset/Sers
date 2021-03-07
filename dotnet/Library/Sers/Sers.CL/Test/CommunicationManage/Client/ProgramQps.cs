@@ -56,13 +56,13 @@ namespace CLClient
             cm.conn_OnGetRequest = (conn,sender,request,callback)=> 
             {
                 qpsInfo.IncrementRequest();
-                callback(sender,new List<ArraySegment<byte>> { request });
+                callback(sender,new Vit.Core.Util.Pipelines.ByteData { request });
             };
 
             cm.conn_OnGetMessage = (conn,msg) => 
             {
                 qpsInfo.IncrementRequest();
-                cm.SendMessageAsync(new List<ArraySegment<byte>> { msg });
+                cm.SendMessageAsync(new Vit.Core.Util.Pipelines.ByteData { msg });
             };
 
 
@@ -84,19 +84,35 @@ namespace CLClient
 
             if (theadCount >= 0)
             {
-                LongTaskHelp task = new LongTaskHelp();
-                task.threadName = "PressureTest.SendRequest";
-                task.threadCount = theadCount;
-                task.action = ()=> {
+                var conn = cm.organizeList[0].conn;
+                Action<object, Vit.Core.Util.Pipelines.ByteData> callback = null;
 
-                    var conn = cm.organizeList[0].conn;
-                    for (; ; )
-                    {
-                        if (conn.SendRequest(buff.BytesToByteData(), out _))
-                            qpsInfo.IncrementRequest();
-                    }
+                callback = (sender, data) =>
+                {
+                    qpsInfo.IncrementRequest();
+                    conn.SendRequestAsync(null, data, callback);
                 };
-                task.Start();
+
+
+                for (int t= theadCount;t>0 ;t-- )
+                {
+                    callback(null, buff.BytesToByteData());
+                }
+
+
+                //LongTaskHelp task = new LongTaskHelp();
+                //task.threadName = "PressureTest.SendRequest";
+                //task.threadCount = theadCount;
+                //task.action = ()=> {
+
+                //    var conn = cm.organizeList[0].conn;
+                //    for (; ; )
+                //    {
+                //        if (conn.SendRequest(buff.BytesToByteData(), out _))
+                //            qpsInfo.IncrementRequest();
+                //    }
+                //};
+                //task.Start();
             }
 
 

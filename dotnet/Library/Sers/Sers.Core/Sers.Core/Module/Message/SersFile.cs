@@ -15,7 +15,7 @@ namespace Sers.Core.Module.Message
         }
 
 
-        public virtual List<ArraySegment<byte>> Files { get; protected set; }
+        public virtual Vit.Core.Util.Pipelines.ByteData Files { get; protected set; }
 
 
 
@@ -28,7 +28,7 @@ namespace Sers.Core.Module.Message
 
 
 
-        public List<ArraySegment<byte>> Package()
+        public Vit.Core.Util.Pipelines.ByteData Package()
         {
             return PackageArraySegmentByte(Files);
         }
@@ -37,7 +37,7 @@ namespace Sers.Core.Module.Message
 
 
         #region 文件读写
-        public int FileCount => Files.Count;
+        public int FileCount => Files.Count();
 
 
         public ArraySegment<byte> GetFile(int FileIndex)
@@ -53,7 +53,7 @@ namespace Sers.Core.Module.Message
             Files.Add(file);
         }
 
-        public SersFile SetFiles(List<ArraySegment<byte>> files)
+        public SersFile SetFiles(Vit.Core.Util.Pipelines.ByteData files)
         {
             Files = files;
             return this;
@@ -80,9 +80,9 @@ namespace Sers.Core.Module.Message
         /// </summary>
         /// <param name="files"></param>
         /// <returns></returns>
-        static List<ArraySegment<byte>> PackageArraySegmentByte(List<ArraySegment<byte>> files)
+        static Vit.Core.Util.Pipelines.ByteData PackageArraySegmentByte(Vit.Core.Util.Pipelines.ByteData files)
         {
-            var oriData = new List<ArraySegment<byte>>();
+            var oriData = new Vit.Core.Util.Pipelines.ByteData();
 
             foreach (var file in files)
             {
@@ -97,9 +97,9 @@ namespace Sers.Core.Module.Message
         ///// </summary>
         ///// <param name="files"></param>
         ///// <returns></returns>
-        //static List<ArraySegment<byte>> PackageByteData(params List<ArraySegment<byte>>[] files)
+        //static Vit.Core.Util.Pipelines.ByteData PackageByteData(params Vit.Core.Util.Pipelines.ByteData[] files)
         //{
-        //    var byteData = new List<ArraySegment<byte>>();
+        //    var byteData = new Vit.Core.Util.Pipelines.ByteData();
 
         //    foreach (var file in files)
         //    {
@@ -111,9 +111,9 @@ namespace Sers.Core.Module.Message
         //}
 
 
-        static List<ArraySegment<byte>> UnpackOriData(ArraySegment<byte> oriData)
+        static Vit.Core.Util.Pipelines.ByteData UnpackOriData(ArraySegment<byte> oriData)
         {
-            List<ArraySegment<byte>> files = new List<ArraySegment<byte>>();
+            Vit.Core.Util.Pipelines.ByteData files = new Vit.Core.Util.Pipelines.ByteData();
             int index = 0;
             int fileLen;
            

@@ -40,9 +40,9 @@ namespace DeliveryTest
             {
                 conn.OnGetFrame = (conn_, data) =>
                 {
-                    data[0]++;
-                    data[1] = 5;
-                    var byteData = new List<ArraySegment<byte>>() { data };
+                    //data[0]++;
+                    //data[1] = 5;
+                    var byteData = new Vit.Core.Util.Pipelines.ByteData() { data };
 
                     conn_.SendFrameAsync(byteData);
                 };
@@ -53,7 +53,7 @@ namespace DeliveryTest
 
         }
 
-        static List<ArraySegment<byte>> staticByteData => new List<ArraySegment<byte>>() { (new ArraySegment<byte>(new byte[] { 0, 1, 2, 3 })) };
+        static Vit.Core.Util.Pipelines.ByteData staticByteData => new Vit.Core.Util.Pipelines.ByteData() { (new ArraySegment<byte>(new byte[] { 0, 1, 2, 3 })) };
 
  
         static void StartClient()
@@ -66,12 +66,11 @@ namespace DeliveryTest
 
             client.Conn_OnGetFrame = (conn, data) =>
             {
-                data[0]++;
+                //data[0]++;
 
-                data[1]=10;
-                var byteData = new List<ArraySegment<byte>>() { data };
+                //data[1]=10;
+                var byteData = new Vit.Core.Util.Pipelines.ByteData() { data };
                 conn.SendFrameAsync(byteData);
-                //Console.WriteLine("ss");
             };
 
             var connected = client.Connect() ;

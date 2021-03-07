@@ -1,5 +1,17 @@
 CUR：
 
+提取ByteData
+优化ByteData
+
+
+优化Consumer_WorkerPoolCascade，
+替换Consumer_BlockingCollection
+
+LocalApiService.cs BlockingCollection
+查询所有的队列 酌情优化
+
+ConcurrentBag比较慢 弃用
+
 
 Sers.Core\CL\MessageOrganize\DefaultOrganize\RequestAdaptor.cs L240  使用二级缓冲队列(以及所有使用 BlockingCollection 的地方)
 

@@ -50,7 +50,7 @@ namespace Sers.Core.CL.CommunicationManage
         /// 会在内部线程中被调用 
         /// (conn,sender,requestData, callback)
         /// </summary>
-        public Action<IOrganizeConnection, object, ArraySegment<byte>, Action<object, List<ArraySegment<byte>>>> conn_OnGetRequest { get; set; }
+        public Action<IOrganizeConnection, object, ArraySegment<byte>, Action<object, Vit.Core.Util.Pipelines.ByteData>> conn_OnGetRequest { get; set; }
 
         public Action<IOrganizeConnection, ArraySegment<byte>> conn_OnGetMessage { get; set; }
 

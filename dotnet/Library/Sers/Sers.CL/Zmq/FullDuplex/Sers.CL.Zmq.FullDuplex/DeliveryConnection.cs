@@ -51,9 +51,9 @@ namespace Sers.CL.Zmq.FullDuplex
         }
 
         public Action<DeliveryConnection, byte[]> OnSendFrameAsync { private get; set; }
-        public void SendFrameAsync(List<ArraySegment<byte>> data)
+        public void SendFrameAsync(Vit.Core.Util.Pipelines.ByteData data)
         {
-            var bytes = data.ByteDataToBytes();
+            var bytes = data.ToBytes();
 
             _securityManager?.Encryption(bytes.BytesToArraySegmentByte()); 
 

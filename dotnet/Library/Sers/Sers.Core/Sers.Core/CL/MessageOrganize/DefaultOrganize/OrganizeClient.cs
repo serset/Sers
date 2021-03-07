@@ -54,7 +54,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         /// 会在内部线程中被调用 
         /// (conn,sender,requestData,callback)
         /// </summary>
-        public Action<IOrganizeConnection,object, ArraySegment<byte>, Action<object, List<ArraySegment<byte>>>> conn_OnGetRequest
+        public Action<IOrganizeConnection,object, ArraySegment<byte>, Action<object, Vit.Core.Util.Pipelines.ByteData>> conn_OnGetRequest
         {
             set
             {

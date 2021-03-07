@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Threading;
 
@@ -95,8 +96,8 @@ namespace DeliveryTest
 
                 //data[0]++;
 
-                data[1] = 10;
-                var byteData = new List<ArraySegment<byte>>() { data };
+                //data[1] = 10;
+                var byteData = new Vit.Core.Util.Pipelines.ByteData() { data };
                 conn.SendFrameAsync(byteData);
            
             };
@@ -110,7 +111,19 @@ namespace DeliveryTest
 
             for (var t = 0; t < thread; t++)
             {
-                client.conn.SendFrameAsync(new List<ArraySegment<byte>>() { new ArraySegment<byte>(buff)});
+                //client.conn.SendFrameAsync(new Vit.Core.Util.Pipelines.ByteData() { new ArraySegment<byte>(buff)});
+                Task.Run(()=> {
+
+                    while (true)
+                    {
+                        for (int t1 = 0; t1 < 1000; t1++)
+                        {
+                            client.conn.SendFrameAsync(new Vit.Core.Util.Pipelines.ByteData() { new ArraySegment<byte>(buff) });
+                        }
+                        //Thread.Sleep(1);
+                    }
+                
+                });
             }
 
         }

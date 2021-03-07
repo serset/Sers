@@ -40,10 +40,10 @@ namespace Sers.Core.Module.PubSub
             }
         }
 
-        Action<List<ArraySegment<byte>>> _OnSendMessage;
+        Action<Vit.Core.Util.Pipelines.ByteData> _OnSendMessage;
 
         //消息延迟发送机制
-        public Action<List<ArraySegment<byte>>> OnSendMessage
+        public Action<Vit.Core.Util.Pipelines.ByteData> OnSendMessage
         {
             //get => _OnSendMessage;
             set
@@ -71,9 +71,9 @@ namespace Sers.Core.Module.PubSub
  
 
         #region 延迟发送队列
-        readonly ConcurrentQueue<List<ArraySegment<byte>>> msgFrameToSend = new ConcurrentQueue<List<ArraySegment<byte>>>();       
+        readonly ConcurrentQueue<Vit.Core.Util.Pipelines.ByteData> msgFrameToSend = new ConcurrentQueue<Vit.Core.Util.Pipelines.ByteData>();       
        
-        void SendFrame(List<ArraySegment<byte>> frame)
+        void SendFrame(Vit.Core.Util.Pipelines.ByteData frame)
         {
             if (null == _OnSendMessage)
             {

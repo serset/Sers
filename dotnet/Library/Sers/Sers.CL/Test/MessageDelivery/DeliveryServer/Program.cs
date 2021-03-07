@@ -59,12 +59,13 @@ namespace DeliveryTest
                 conn.OnGetFrame = (conn_, data) =>
                 {
                     qpsInfo.IncrementRequest();
+        
 
                     //data[0]++;
-                    data[1] = 5;
-                    var byteData = new List<ArraySegment<byte>>() { data };
+                    //data[1] = 5;
+                    //var byteData = new Vit.Core.Util.Pipelines.ByteData() { data };
 
-                    conn_.SendFrameAsync(byteData);
+                    //conn_.SendFrameAsync(byteData);
                 };
             };
 

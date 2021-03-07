@@ -38,13 +38,13 @@ namespace Sers.Core.CL.CommunicationManage
         /// <summary>
         /// 会在内部线程中被调用 
         /// </summary>
-        public Action<IOrganizeConnection,object, ArraySegment<byte>, Action<object, List<ArraySegment<byte>>>> conn_OnGetRequest{   get;set;    }
+        public Action<IOrganizeConnection,object, ArraySegment<byte>, Action<object, Vit.Core.Util.Pipelines.ByteData>> conn_OnGetRequest{   get;set;    }
 
         public Action<IOrganizeConnection,ArraySegment<byte>> conn_OnGetMessage{   get; set;   }
         #endregion
 
         #region SendMessageAsync      
-        public void SendMessageAsync(List<ArraySegment<byte>> message)
+        public void SendMessageAsync(Vit.Core.Util.Pipelines.ByteData message)
         {
             foreach (var conn in connList)
             {

@@ -17,7 +17,7 @@ namespace Sers.ServiceCenter.ApiCenter
     public abstract class ApiCenterService
     { 
  
-        public void CallApiAsync(IOrganizeConnection  conn, Object sender, ArraySegment<byte> apiRequest, Action<object, List<ArraySegment<byte>>> callback)
+        public void CallApiAsync(IOrganizeConnection  conn, Object sender, ArraySegment<byte> apiRequest, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
             CommunicationManageServer.CurConn = conn;
 
@@ -31,9 +31,9 @@ namespace Sers.ServiceCenter.ApiCenter
 
         #region CallApi
         ObjectPoolGenerator<AutoResetEvent> pool_AutoResetEvent = new ObjectPoolGenerator<AutoResetEvent>(() => new AutoResetEvent(false));
-        public bool CallApi(IOrganizeConnection  conn, ArraySegment<byte> apiRequest, out List<ArraySegment<byte>> replyData, int requestTimeoutMs)
+        public bool CallApi(IOrganizeConnection  conn, ArraySegment<byte> apiRequest, out Vit.Core.Util.Pipelines.ByteData replyData, int requestTimeoutMs)
         {
-            List<ArraySegment<byte>> _replyData = null;
+            Vit.Core.Util.Pipelines.ByteData _replyData = null;
 
             AutoResetEvent mEvent = pool_AutoResetEvent.Pop();
             mEvent.Reset();
@@ -76,7 +76,7 @@ namespace Sers.ServiceCenter.ApiCenter
         [JsonIgnore]
         public Action<IRpcContextData, ApiMessage> BeforeCallApi;
 
-        public abstract void CallApiAsync(IRpcContextData rpcData, ApiMessage requestMessage, Object sender, Action<object, List<ArraySegment<byte>>> callback);
+        public abstract void CallApiAsync(IRpcContextData rpcData, ApiMessage requestMessage, Object sender, Action<object, Vit.Core.Util.Pipelines.ByteData> callback);
 
 
 

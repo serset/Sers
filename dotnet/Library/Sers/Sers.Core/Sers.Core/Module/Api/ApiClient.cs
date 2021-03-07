@@ -21,7 +21,7 @@ namespace Sers.Core.Module.Api
         /// callbacks长度必须大于1
         /// </summary>
         /// <param name="callbacks"></param>
-        public static void SetOnSendRequest(Func<List<ArraySegment<byte>>, ArraySegment<byte>>[] callbacks)
+        public static void SetOnSendRequest(Func<Vit.Core.Util.Pipelines.ByteData, ArraySegment<byte>>[] callbacks)
         {
             Instances = new ApiClient[callbacks.Length];
 
@@ -41,7 +41,7 @@ namespace Sers.Core.Module.Api
 
         #region CallApi
 
-        private Func<List<ArraySegment<byte>>, ArraySegment<byte>> OnSendRequest { get; set; }
+        private Func<Vit.Core.Util.Pipelines.ByteData, ArraySegment<byte>> OnSendRequest { get; set; }
 
 
         #region CallApi 原始
@@ -51,7 +51,7 @@ namespace Sers.Core.Module.Api
         /// </summary>
         /// <param name="reqOri"></param>
         /// <returns></returns>
-        private ArraySegment<byte> CallApi(List<ArraySegment<byte>> reqOri)
+        private ArraySegment<byte> CallApi(Vit.Core.Util.Pipelines.ByteData reqOri)
         {
             return OnSendRequest(reqOri);
         }

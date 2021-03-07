@@ -19,7 +19,7 @@ namespace Sers.Gover.Apm.Zipkin
     public class AppEvent : IAppEvent
     {        
 
-        Action<Object, List<ArraySegment<byte>>> ApiScopeEvent(IRpcContextData rpcData, ApiMessage apiRequestMessage)
+        Action<Object, Vit.Core.Util.Pipelines.ByteData> ApiScopeEvent(IRpcContextData rpcData, ApiMessage apiRequestMessage)
         {
             //记录请求数据
 
@@ -150,7 +150,7 @@ namespace Sers.Gover.Apm.Zipkin
                                 if (apiResponseMessage == null)
                                 {
                                     apiResponseMessage = new ApiMessage();
-                                    apiResponseMessage.Unpack(apiReplyMessage.ByteDataToArraySegment());
+                                    apiResponseMessage.Unpack(apiReplyMessage.ToArraySegment());
                                 }
                                 if (responseRpc_oriString == null)
                                 {
@@ -170,7 +170,7 @@ namespace Sers.Gover.Apm.Zipkin
                                 if (apiResponseMessage == null)
                                 {
                                     apiResponseMessage = new ApiMessage();
-                                    apiResponseMessage.Unpack(apiReplyMessage.ByteDataToArraySegment());
+                                    apiResponseMessage.Unpack(apiReplyMessage.ToArraySegment());
                                 }
                                 if (responseData_oriString == null)
                                 {

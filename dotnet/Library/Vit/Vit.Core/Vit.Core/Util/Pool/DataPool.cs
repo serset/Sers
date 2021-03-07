@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Buffers;
-
-using ByteData = System.Collections.Generic.List<System.ArraySegment<byte>>;
+using System.Collections.Generic;
 
 namespace Vit.Core.Util.Pool
 {
@@ -38,16 +37,16 @@ namespace Vit.Core.Util.Pool
 
         #region ByteData
  
-        public static ByteData ByteDataGet()
+        public static List<System.ArraySegment<byte>> ByteDataGet()
         {
-            //return new ByteData();
-            return ObjectPool<ByteData>.Shared.Pop();
+            //return new List<System.ArraySegment<byte>>();
+            return ObjectPool<List<System.ArraySegment<byte>>>.Shared.Pop();
         }
 
-        internal static void ByteDataReturn(ByteData data)
+        internal static void ByteDataReturn(List<System.ArraySegment<byte>> data)
         {
             //return;
-            ObjectPool<ByteData>.Shared.Push(data);
+            ObjectPool<List<System.ArraySegment<byte>>>.Shared.Push(data);
         }
         #endregion
 

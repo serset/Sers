@@ -535,7 +535,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
 
             #region file from request
             var apiRequest = RpcContext.Current.apiRequestMessage;
-            if (apiRequest.Files.Count >= 3)
+            if (apiRequest.Files.Count() >= 3)
             {
                 var file3 = apiRequest.Files[2];
                 apiReply.AddFiles(file3);

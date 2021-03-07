@@ -11,7 +11,7 @@ namespace Sers.Core.CL.MessageDelivery
         /// </summary>
         byte state { get; set; }
 
-        void SendFrameAsync(List<ArraySegment<byte>> data);
+        void SendFrameAsync(Vit.Core.Util.Pipelines.ByteData data);
         Action<IDeliveryConnection, ArraySegment<byte>> OnGetFrame { set; }
         void Close();
 

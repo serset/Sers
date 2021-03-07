@@ -116,9 +116,9 @@ namespace Sers.CL.Ipc.SharedMemory
             }
         }
 
-        public void SendFrameAsync(List<ArraySegment<byte>> data)
+        public void SendFrameAsync(Vit.Core.Util.Pipelines.ByteData data)
         {
-            var bytes = data.ByteDataToBytes();
+            var bytes = data.ToBytes();
             _securityManager?.Encryption(bytes.BytesToArraySegmentByte());
 
             writeStream.SendMessageAsync(bytes);

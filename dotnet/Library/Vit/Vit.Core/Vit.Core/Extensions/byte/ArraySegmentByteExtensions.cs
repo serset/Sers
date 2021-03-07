@@ -1,5 +1,6 @@
 ﻿using Vit.Core.Module.Serialization;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Vit.Extensions
 {
@@ -12,28 +13,24 @@ namespace Vit.Extensions
         //    return new ArraySegment<T>(new T[0], 0,0);
         //}
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasData<T>(this ArraySegment<T> seg)
         {
             return seg!=null && seg.Array!=null && seg.Count>0;
         }
 
-
-
-        internal static void CopyTo<T>(this ArraySegment<T> seg,T[] bytes,int curIndex=0)
-        {
-            Array.Copy(seg.Array, seg.Offset, bytes, curIndex, seg.Count); 
-        }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ArraySegment<T> Slice<T>(this ArraySegment<T> seg,int Offset,int? count=null)
         {
             return new ArraySegment<T>(seg.Array,seg.Offset+ Offset, count?? (seg.Count-Offset) );
         }
-     
+
 
 
 
         #region ArraySegmentByte <--> String
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string ArraySegmentByteToString(this ArraySegment<byte> data)
         {
             if (null == data || data.Array==null) return null;
@@ -41,6 +38,7 @@ namespace Vit.Extensions
         }
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ArraySegment<byte> StringToArraySegmentByte(this string data)
         {
             return (null == data) ? Null : Serialization.Instance.encoding.GetBytes(data).BytesToArraySegmentByte();
@@ -49,7 +47,8 @@ namespace Vit.Extensions
 
 
         #region ArraySegmentByte <--> bytes
- 
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] ArraySegmentByteToBytes(this ArraySegment<byte> data)
         {
             if (null == data) return null;
@@ -57,24 +56,32 @@ namespace Vit.Extensions
 
             var bytes = new byte[data.Count];
             if (data.Count > 0)
-            {
-                data.CopyTo(bytes);
+            {              
+                unsafe
+                {
+                    fixed (byte* pSource = data.Array, pTarget = bytes)
+                    {
+                        Buffer.MemoryCopy(pSource + data.Offset, pTarget, data.Count, data.Count);
+                    }
+                }
             }
             return bytes;
         }
 
- 
+
         #endregion
 
 
         #region ArraySegmentByte <--> Int32
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Int32 ArraySegmentByteToInt32(this ArraySegment<byte> data,int startIndex=0)
         {             
             return  BitConverter.ToInt32(data.Array, data.Offset+startIndex);
         }
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ArraySegment<byte> Int32ToArraySegmentByte(this Int32 data)
         {
             return BitConverter.GetBytes(data).BytesToArraySegmentByte();
@@ -84,12 +91,14 @@ namespace Vit.Extensions
 
         #region ArraySegmentByte <--> Int64
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Int64 ArraySegmentByteToInt64(this ArraySegment<byte> data, int startIndex = 0)
         {
             return BitConverter.ToInt64(data.Array, data.Offset + startIndex);
         }
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ArraySegment<byte> Int64ToArraySegmentByte(this Int64 data)
         {
             return BitConverter.GetBytes(data).BytesToArraySegmentByte();

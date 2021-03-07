@@ -71,14 +71,14 @@ namespace Sers.Core.Module.PubSub
 
             //message,msgTitle,msgData
             var frame = new SersFile().SetFiles(
-                new[] { (byte)EFrameType.message }.BytesToArraySegmentByte(),
+                (new[] { (byte)EFrameType.message }).BytesToArraySegmentByte(),
                  msgTitle.SerializeToArraySegmentByte(),
                  msgData
-                ).Package().ByteDataToBytes();
+                ).Package().ToBytes();
         
             foreach (var conn in connList.Values)
             {
-                conn.SendMessageAsync(new List<ArraySegment<byte>> { frame.BytesToArraySegmentByte() });                 
+                conn.SendMessageAsync(new Vit.Core.Util.Pipelines.ByteData { frame.BytesToArraySegmentByte() });                 
             }
         }
 

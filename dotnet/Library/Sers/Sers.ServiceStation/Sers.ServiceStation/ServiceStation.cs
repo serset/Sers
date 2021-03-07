@@ -229,7 +229,7 @@ namespace Sers.ServiceStation
 
             communicationManage.conn_OnGetMessage = MessageClient.Instance.OnGetMessage;
 
-            communicationManage.conn_OnGetRequest = (IOrganizeConnection conn,Object sender, ArraySegment<byte> requestData, Action<object, List<ArraySegment<byte>>> callback) => 
+            communicationManage.conn_OnGetRequest = (IOrganizeConnection conn,Object sender, ArraySegment<byte> requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback) => 
             {
                 localApiService.CallApiAsync(sender, new ApiMessage(requestData), (object sender1, ApiMessage apiReplyMessage) =>
                 {
@@ -260,10 +260,10 @@ namespace Sers.ServiceStation
 
 
             #region (x.4) 初始化ApiClient
-            ApiClient.SetOnSendRequest(communicationManage.organizeList.Select(organize=> organize.conn).Select<IOrganizeConnection, Func<List<ArraySegment<byte>>, ArraySegment<byte>>>(
+            ApiClient.SetOnSendRequest(communicationManage.organizeList.Select(organize=> organize.conn).Select<IOrganizeConnection, Func<Vit.Core.Util.Pipelines.ByteData, ArraySegment<byte>>>(
                 conn =>
                 {
-                    return (req) => { conn.SendRequest(req, out var reply); return reply.ByteDataToArraySegment(); };
+                    return (req) => { conn.SendRequest(req, out var reply); return reply.ToArraySegment(); };
                 }
                 ).ToArray());
             #endregion

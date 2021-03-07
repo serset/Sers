@@ -34,7 +34,7 @@ namespace Sers.ServiceCenter.Entity
         #endregion
 
 
-        public void CallApiAsync(IRpcContextData rpcContextData, ApiMessage reqMessage, Object sender,  Action<object, List<ArraySegment<byte>>> callback)
+        public void CallApiAsync(IRpcContextData rpcContextData, ApiMessage reqMessage, Object sender,  Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
             //count
             bool success = true;

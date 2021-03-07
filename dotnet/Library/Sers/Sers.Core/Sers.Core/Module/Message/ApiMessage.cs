@@ -13,14 +13,14 @@ namespace Sers.Core.Module.Message
         {
         }
 
-        public override List<ArraySegment<byte>> Files
+        public override Vit.Core.Util.Pipelines.ByteData Files
         {
             get
             {
                 var files = base.Files;
                 if (files == null)
                 {
-                    base.Files= files = new List<ArraySegment<byte>>(2) { ArraySegmentByteExtensions.Null, ArraySegmentByteExtensions.Null };
+                    base.Files= files = new Vit.Core.Util.Pipelines.ByteData(2).Add(ArraySegmentByteExtensions.Null).Add(ArraySegmentByteExtensions.Null);
                 }
                 return files;
             }

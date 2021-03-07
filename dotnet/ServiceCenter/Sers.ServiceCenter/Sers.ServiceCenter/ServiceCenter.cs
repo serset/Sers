@@ -97,14 +97,14 @@ namespace Sers.ServiceCenter
             }
 
 
-            public void SendRequestAsync(Object sender, List<ArraySegment<byte>> requestData, Action<object, List<ArraySegment<byte>>> callback)
+            public void SendRequestAsync(Object sender, Vit.Core.Util.Pipelines.ByteData requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
             {
-                localApiService.CallApiAsync(sender, new ApiMessage(requestData.ByteDataToArraySegment()), (sender_, apiReplyMessage) =>
+                localApiService.CallApiAsync(sender, new ApiMessage(requestData.ToArraySegment()), (sender_, apiReplyMessage) =>
                 {
                     callback(sender_, apiReplyMessage.Package());
                 });
             }
-            public bool SendRequest(List<ArraySegment<byte>> requestData, out List<ArraySegment<byte>> replyData)
+            public bool SendRequest(Vit.Core.Util.Pipelines.ByteData requestData, out Vit.Core.Util.Pipelines.ByteData replyData)
             {
                 Logger.Error(new NotImplementedException());
                 throw new NotImplementedException();
@@ -112,9 +112,9 @@ namespace Sers.ServiceCenter
 
        
 
-            public void SendMessageAsync(List<ArraySegment<byte>> message)
+            public void SendMessageAsync(Vit.Core.Util.Pipelines.ByteData message)
             {
-                MessageClient.Instance.OnGetMessage(this, message.ByteDataToArraySegment());
+                MessageClient.Instance.OnGetMessage(this, message.ToArraySegment());
             }
             public void Close() 
             {
@@ -319,11 +319,11 @@ namespace Sers.ServiceCenter
 
 
             #region (x.6) 初始化ApiClient
-            Func<List<ArraySegment<byte>>, ArraySegment<byte>> OnSendRequest = ((List<ArraySegment<byte>> apiReqMessage) =>
+            Func<Vit.Core.Util.Pipelines.ByteData, ArraySegment<byte>> OnSendRequest = ((Vit.Core.Util.Pipelines.ByteData apiReqMessage) =>
             {
-                apiCenterService.CallApi(connForLocalStationService, apiReqMessage.ByteDataToArraySegment(),
+                apiCenterService.CallApi(connForLocalStationService, apiReqMessage.ToArraySegment(),
                     out var replyData, communicationManage.requestTimeoutMs);
-                return replyData.ByteDataToArraySegment();
+                return replyData.ToArraySegment();
             });
 
             ApiClient.SetOnSendRequest(new[] { OnSendRequest });
@@ -331,9 +331,9 @@ namespace Sers.ServiceCenter
 
 
             #region (x.7) 桥接MessageClient 和 MessageCenterService
-            MessageClient.Instance.OnSendMessage = (List<ArraySegment<byte>> messageData) =>
+            MessageClient.Instance.OnSendMessage = (Vit.Core.Util.Pipelines.ByteData messageData) =>
             {
-                MessageCenterService.Instance.OnGetMessage(connForLocalStationService, messageData.ByteDataToBytes().BytesToArraySegmentByte());
+                MessageCenterService.Instance.OnGetMessage(connForLocalStationService, messageData.ToBytes().BytesToArraySegmentByte());
             };
             #endregion
 

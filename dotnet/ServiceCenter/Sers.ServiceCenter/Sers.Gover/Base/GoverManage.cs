@@ -104,7 +104,7 @@ namespace Sers.Gover.Base
 
         #region CallApi
 
-        public override void CallApiAsync(IRpcContextData rpcData, ApiMessage requestMessage, Object sender, Action<object, List<ArraySegment<byte>>> callback)
+        public override void CallApiAsync(IRpcContextData rpcData, ApiMessage requestMessage, Object sender, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
             try
             {
@@ -339,14 +339,14 @@ namespace Sers.Gover.Base
         /// <summary>
         /// 
         /// </summary>
-        List<Func<IRpcContextData, ApiMessage, Action<Object, List<ArraySegment<byte>>>>> apiScopeEventList = null;
+        List<Func<IRpcContextData, ApiMessage, Action<Object, Vit.Core.Util.Pipelines.ByteData>>> apiScopeEventList = null;
         /// <summary>
         /// 在调用api前调用onScope，若onScope返回的结果（onDispose）不为空，则在api调用结束前调用onDispose
         /// </summary>
         /// <param name="apiScopeEvent"></param>
-        public void AddApiScopeEvent(Func<IRpcContextData, ApiMessage, Action<Object, List<ArraySegment<byte>>>> apiScopeEvent) 
+        public void AddApiScopeEvent(Func<IRpcContextData, ApiMessage, Action<Object, Vit.Core.Util.Pipelines.ByteData>> apiScopeEvent) 
         {
-            if (apiScopeEventList == null) apiScopeEventList=new List<Func<IRpcContextData, ApiMessage, Action<Object, List<ArraySegment<byte>>>>>();
+            if (apiScopeEventList == null) apiScopeEventList=new List<Func<IRpcContextData, ApiMessage, Action<Object, Vit.Core.Util.Pipelines.ByteData>>>();
 
             apiScopeEventList.Add(apiScopeEvent);
         }
