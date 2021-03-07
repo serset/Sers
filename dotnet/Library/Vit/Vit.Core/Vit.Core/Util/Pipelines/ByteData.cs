@@ -18,6 +18,9 @@ namespace Vit.Core.Util.Pipelines
     /// https://blog.csdn.net/wnvalentin/article/details/93485572
     /// 
     /// 
+    /// ReadOnlySequenceSegment .net core中的高效动态内存管理方案
+    /// https://www.cnblogs.com/TianFang/p/10084049.html
+    /// 
     /// </summary>
     public class ByteData /*: IEnumerable<ArraySegment<byte>>*/
     {
