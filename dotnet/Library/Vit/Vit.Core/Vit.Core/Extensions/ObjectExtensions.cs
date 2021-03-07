@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace Vit.Extensions
 {
@@ -11,6 +12,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsValueTypeOrStringType(this object data)
         {
             if (data == null)
@@ -32,6 +34,7 @@ namespace Vit.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Convert<T>(this object value)
         {
             if (value == null)
@@ -59,6 +62,7 @@ namespace Vit.Extensions
         /// <param name="type"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object Convert(this object value, global::System.Type type)
         {
             if (value == null)

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Vit.Extensions
 {
@@ -16,6 +17,7 @@ namespace Vit.Extensions
         /// <param name="token"></param>
         /// <param name="type"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object DeserializeByString(this JToken token, Type type)
         {
             if (token.IsNull()) return type.DefaultValue();
@@ -31,6 +33,7 @@ namespace Vit.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="token"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T DeserializeByString<T>(this JToken token)
         {
             return (T)DeserializeByString(token, typeof(T));
@@ -49,6 +52,7 @@ namespace Vit.Extensions
         /// <param name="token"></param>
         /// <param name="type"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object Deserialize(this JToken token, Type type)
         {
             if (token.IsNull()) return type.DefaultValue();
@@ -68,6 +72,7 @@ namespace Vit.Extensions
         /// <param name="token"></param>
         /// <param name="type">必须为struct或String</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static object DeserializeStruct(JToken token, Type type)
         {
             try
@@ -88,6 +93,7 @@ namespace Vit.Extensions
         /// <param name="token"></param>
         /// <param name="type">必须为class</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static object DeserializeClass(JToken token, Type type)
         {
             string str = "" + token.GetValue();
@@ -106,6 +112,7 @@ namespace Vit.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="token"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Deserialize<T>(this JToken token)
         {
             return (T)Deserialize(token, typeof(T));

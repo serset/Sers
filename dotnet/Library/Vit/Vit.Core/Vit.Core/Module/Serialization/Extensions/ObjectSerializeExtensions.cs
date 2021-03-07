@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Vit.Core.Module.Serialization;
 
 namespace Vit.Extensions
@@ -16,6 +17,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string Serialize(this object value)
         {
             return Serialization.Instance.SerializeToString(value);
@@ -31,6 +33,7 @@ namespace Vit.Extensions
         /// <param name="value"></param>
         /// <param name="type"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object Deserialize(this string value, Type type)
         {
             return Serialization.Instance.DeserializeFromString(value, type);
@@ -42,6 +45,7 @@ namespace Vit.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Deserialize<T>(this string value)
         {
             return Serialization.Instance.DeserializeFromString<T>(value);
@@ -60,6 +64,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] SerializeToBytes(this object value)
         {
             return Serialization.Instance.SerializeToBytes(value);
@@ -73,6 +78,7 @@ namespace Vit.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T DeserializeFromBytes<T>(this byte[] value)
         {
             return Serialization.Instance.DeserializeFromBytes<T>(value);
@@ -84,6 +90,7 @@ namespace Vit.Extensions
         /// <param name="value"></param>
         /// <param name="type"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object DeserializeFromBytes(this byte[] value, Type type)
         {
             return Serialization.Instance.DeserializeFromBytes(value, type);
@@ -101,6 +108,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ArraySegment<byte> SerializeToArraySegmentByte(this object value)
         {
             return Serialization.Instance.SerializeToArraySegmentByte(value);
@@ -115,6 +123,7 @@ namespace Vit.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T DeserializeFromArraySegmentByte<T>(this ArraySegment<byte> value)
         {
             return Serialization.Instance.DeserializeFromArraySegmentByte<T>(value);
@@ -126,6 +135,7 @@ namespace Vit.Extensions
         /// <param name="value"></param>
         /// <param name="type"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object DeserializeFromArraySegmentByte(this ArraySegment<byte> value, Type type)
         {
             return Serialization.Instance.DeserializeFromArraySegmentByte(value, type);
@@ -144,6 +154,7 @@ namespace Vit.Extensions
         /// <param name="value"></param>
         /// <param name="type"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object ConvertBySerialize(this object value, Type type)
         {
             return Serialization.Instance.ConvertBySerialize(value, type);
@@ -155,6 +166,7 @@ namespace Vit.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T ConvertBySerialize<T>(this object value)
         {
             return Serialization.Instance.ConvertBySerialize<T>(value);

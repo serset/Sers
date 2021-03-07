@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Vit.Extensions
 {
@@ -18,6 +19,7 @@ namespace Vit.Extensions
         /// <param name="data"></param>
         /// <param name="value"></param>
         /// <param name="path">value在data中的路径，可不指定。例如：new []{"taskList"}</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ValueSetByPath(this JToken data, object value, params object[] path)
         {
             JToken jtValue = value.ToJToken();
@@ -58,6 +60,7 @@ namespace Vit.Extensions
         /// <param name="data"></param>
         /// <param name="path">value在data中的路径，可不指定。例如：new []{"taskList"}</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static JToken JTokenGetByPath(this JToken data, params object[] path)
         {
             JToken cur = data;
@@ -79,6 +82,7 @@ namespace Vit.Extensions
         /// <param name="data"></param>
         /// <param name="path">value在data中的路径，可不指定。例如：new []{"taskList"}</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static String StringGetByPath(this JToken data, params object[] path)
         {
             return data?.JTokenGetByPath(path).ConvertToString();
@@ -94,6 +98,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static JToken ToJToken(this object value)
         {
             if (null == value) return JValue.CreateNull();
@@ -106,7 +111,7 @@ namespace Vit.Extensions
             }
         }
         #endregion
- 
+
 
         #region IsNull
         /// <summary>
@@ -114,6 +119,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="v"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNull(this JToken v)
         {
             return null == v || v.Type == JTokenType.Null;
@@ -127,6 +133,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="v"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsJObject(this JToken v)
         {
             return null != v && v.Type == JTokenType.Object;
@@ -139,6 +146,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="v"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsJArray(this JToken v)
         {
             return null != v && v.Type == JTokenType.Array;
@@ -149,6 +157,7 @@ namespace Vit.Extensions
         #region GetOrCreateJObject
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static JObject GetOrCreateJObject(this JObject v, string key)
         {
             //lock (v)
@@ -182,6 +191,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object GetValue(this JToken t)
         {
             if (null == t) return null;
@@ -212,6 +222,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string ConvertToString(this JToken token)
         {
             if (token.IsNull())
@@ -230,10 +241,12 @@ namespace Vit.Extensions
 
         #region TypeMatch
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TypeMatch(this JToken token, JTokenType type)
         {
             return null != token && type == token.Type;
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TypeMatch(this JToken token, JToken token2)
         {             
             return null != token && token2 != null && token.Type == token2.Type;
@@ -248,6 +261,7 @@ namespace Vit.Extensions
         /// <param name="token"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryParse(this JToken token, out JObject value)
         {
             if (TypeMatch(token, JTokenType.Object))
@@ -268,6 +282,7 @@ namespace Vit.Extensions
         /// <param name="token"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryParse(this JToken token, out JArray value)
         {
             if (TypeMatch(token, JTokenType.Array))
@@ -291,6 +306,7 @@ namespace Vit.Extensions
         /// <param name="token"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryParseIgnore(this JToken token, out bool value)
         {
             if (null != token)
@@ -327,6 +343,7 @@ namespace Vit.Extensions
         /// <param name="token"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryParseIgnore(this JToken token, out int value)
         {
             if (null == token) { value = 0; return false; }
@@ -352,6 +369,7 @@ namespace Vit.Extensions
         /// <param name="token"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryParseIgnore(this JToken token, out long value)
         {
             if (null == token) { value = 0; return false; }
@@ -379,6 +397,7 @@ namespace Vit.Extensions
         /// <param name="token"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryParseIgnore(this JToken token, out double value)
         {
             if (null == token) { value = 0; return false; }
@@ -406,6 +425,7 @@ namespace Vit.Extensions
         /// <param name="token"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryParseIgnore(this JToken token, out DateTime value)
         {
             if (TypeMatch(token, JTokenType.Date))
@@ -429,23 +449,32 @@ namespace Vit.Extensions
 
 
         #region Equal (Boolean String Integer Float DateTime)
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equal(this JToken token, bool value)
         {
             return TypeMatch(token, JTokenType.Boolean) && value == token.Value<bool>();
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equal(this JToken token, string value)
         {
             return TypeMatch(token, JTokenType.String) && value == token.Value<string>();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equal(this JToken token, long value)
         {
             return TypeMatch(token, JTokenType.Integer) && value == token.Value<long>();
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equal(this JToken token, double value)
         {
             return TypeMatch(token, JTokenType.Float) && value == token.Value<double>();
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equal(this JToken token, DateTime value)
         {
             return TypeMatch(token, JTokenType.Date) && value == token.Value<DateTime>();
@@ -461,6 +490,7 @@ namespace Vit.Extensions
         /// <param name="token"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool EqualIgnore(this JToken token, bool value)
         {
             if (!TryParseIgnore(token, out bool dest)) return false;
@@ -474,6 +504,7 @@ namespace Vit.Extensions
         /// <param name="token"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool EqualIgnore(this JToken token, long value)
         {
             if (!TryParseIgnore(token, out long dest)) return false;
@@ -487,6 +518,7 @@ namespace Vit.Extensions
         /// <param name="token"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool EqualIgnore(this JToken token, string value)
         {
             return value == ConvertToString(token);

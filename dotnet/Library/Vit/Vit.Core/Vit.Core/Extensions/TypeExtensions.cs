@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Vit.Extensions
@@ -14,6 +15,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsStringType(this global::System.Type type)
         {             
             return type == typeof(string);
@@ -29,6 +31,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TypeIsValueTypeOrStringType(this global::System.Type type)
         {
             if (type == null)
@@ -48,6 +51,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IfNullable(this Type type)
         {
             return true== type?.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
@@ -61,6 +65,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static global::System.Type GetUnderlyingTypeIfNullable(this global::System.Type type)
         {
             return type.IfNullable() ? type.GetGenericArguments()[0] : type;
@@ -87,6 +92,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object DefaultValue(this Type type)
         {
             if (null == type || !type.IsValueType) return null;

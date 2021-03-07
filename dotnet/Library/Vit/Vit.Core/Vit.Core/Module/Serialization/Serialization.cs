@@ -4,6 +4,7 @@ using Vit.Extensions;
 using System;
 using System.Text;
 using Vit.Core.Util.ConfigurationManager;
+using System.Runtime.CompilerServices;
 
 namespace Vit.Core.Module.Serialization
 {
@@ -96,12 +97,14 @@ namespace Vit.Core.Module.Serialization
 
         #region (x.1)bytes <--> String
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string BytesToString(byte[] data, Encoding encoding = null)
         {
             return (encoding ?? this.encoding).GetString(data);
         }
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] StringToBytes(string data, Encoding encoding = null)
         {
             return (encoding ?? this.encoding).GetBytes(data);
@@ -111,9 +114,10 @@ namespace Vit.Core.Module.Serialization
 
 
         #region (x.2)object <--> String
-        
+
         #region SerializeToString
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string SerializeToString(object value)
         {
             if (null == value) return null;
@@ -137,6 +141,7 @@ namespace Vit.Core.Module.Serialization
         /// <param name="value"></param>
         /// <param name="type"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object DeserializeFromString(string value, Type type)
         {
             if (null == value || null == type) return null;
@@ -155,6 +160,7 @@ namespace Vit.Core.Module.Serialization
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T DeserializeFromString<T>(string value)
         {
             return (T)DeserializeFromString(value, typeof(T));
@@ -168,6 +174,7 @@ namespace Vit.Core.Module.Serialization
         /// <param name="value"></param>
         /// <param name="type">必须为 where T : struct</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private object DeserializeStruct(string value, Type type)
         {
             try
@@ -199,6 +206,7 @@ namespace Vit.Core.Module.Serialization
         /// <param name="value"></param>
         /// <param name="type"> 必须为 where T : class </param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private object DeserializeClass(string value, Type type)
         {
             if (string.IsNullOrWhiteSpace(value)) return type.DefaultValue();
@@ -230,6 +238,7 @@ namespace Vit.Core.Module.Serialization
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] SerializeToBytes(object obj)
         {
             if (null == obj) return new byte[0];
@@ -250,11 +259,13 @@ namespace Vit.Core.Module.Serialization
 
         #region DeserializeFromBytes
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T DeserializeFromBytes<T>(byte[] bytes)
         {
             return (T)DeserializeFromBytes(bytes, typeof(T));
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object DeserializeFromBytes(byte[] bytes, Type type)
         {
             if (type == typeof(byte[]))
@@ -285,6 +296,7 @@ namespace Vit.Core.Module.Serialization
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ArraySegment<byte> SerializeToArraySegmentByte(object obj)
         {
             if (null == obj) return ArraySegmentByteExtensions.Null;
@@ -308,11 +320,13 @@ namespace Vit.Core.Module.Serialization
 
         #region DeserializeFromArraySegmentByte
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T DeserializeFromArraySegmentByte<T>(ArraySegment<byte> bytes)
         {
             return (T)DeserializeFromArraySegmentByte(bytes, typeof(T));
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object DeserializeFromArraySegmentByte(ArraySegment<byte> bytes, Type type)
         {
             if (type == typeof(byte[]))
@@ -343,6 +357,7 @@ namespace Vit.Core.Module.Serialization
         /// <param name="value"></param>
         /// <param name="type"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object ConvertBySerialize(Object value, Type type)
         {
             var str = SerializeToString(value);
@@ -355,6 +370,7 @@ namespace Vit.Core.Module.Serialization
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T ConvertBySerialize<T>(Object value)
         {
             var str = SerializeToString(value);
