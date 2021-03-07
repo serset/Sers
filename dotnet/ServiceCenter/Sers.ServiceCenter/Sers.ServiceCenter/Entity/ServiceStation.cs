@@ -9,6 +9,7 @@ using Sers.Core.Module.Message;
 using Sers.Hardware.Env;
 using Sers.Hardware.Usage;
 using Vit.Core.Util.Extensible;
+using Vit.Core.Util.Pipelines;
 using Vit.Extensions;
 
 namespace Sers.ServiceCenter.Entity
@@ -99,7 +100,7 @@ namespace Sers.ServiceCenter.Entity
      
         public void SendRequestAsync(Object sender, ApiMessage apiReqMessage, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
-            connection.SendRequestAsync(sender, apiReqMessage.Package(), callback);            
+            connection.SendRequestAsync(sender, new ByteData(apiReqMessage.Package()), callback);            
         }
     }
 }

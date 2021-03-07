@@ -4,6 +4,7 @@ using System.Threading;
 using CLClient.Statistics;
 using Sers.Core.CL.CommunicationManage;
 using Vit.Core.Module.Log;
+using Vit.Core.Util.Pipelines;
 using Vit.Core.Util.Threading;
 using Vit.Extensions;
 
@@ -56,13 +57,13 @@ namespace CLClient
             cm.conn_OnGetRequest = (conn,sender,request,callback)=> 
             {
                 qpsInfo.IncrementRequest();
-                callback(sender,new Vit.Core.Util.Pipelines.ByteData { request });
+                callback(sender,new Vit.Core.Util.Pipelines.ByteData (request));
             };
 
             cm.conn_OnGetMessage = (conn,msg) => 
             {
                 qpsInfo.IncrementRequest();
-                cm.SendMessageAsync(new Vit.Core.Util.Pipelines.ByteData { msg });
+                cm.SendMessageAsync(new Vit.Core.Util.Pipelines.ByteData (msg));
             };
 
 
@@ -77,7 +78,7 @@ namespace CLClient
 
             for (int i = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<int>("PressureTest.messageThreadCount"); i > 0; i--)
             {
-                cm.SendMessageAsync(buff.BytesToByteData());
+                cm.SendMessageAsync(new ByteData(buff.BytesToByteData()));
             }
 
             int theadCount = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<int>("PressureTest.requestThreadCount");
@@ -96,7 +97,7 @@ namespace CLClient
 
                 for (int t= theadCount;t>0 ;t-- )
                 {
-                    callback(null, buff.BytesToByteData());
+                    callback(null, new ByteData(buff.BytesToByteData()));
                 }
 
 

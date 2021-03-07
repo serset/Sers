@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
+using Vit.Core.Util.Pipelines;
 using Vit.Extensions;
 
 namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
@@ -139,7 +140,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
         private bool CheckSecretKey()
         {
-            var requestData = secretKey.SerializeToBytes().BytesToByteData();
+            var requestData = new ByteData(secretKey.SerializeToBytes().BytesToByteData());
 
             //发送身份验证
             Logger.Info("[CL.OrganizeClient] Authentication - sending SecretKey...");

@@ -18,6 +18,7 @@ using Sers.Core.CL.MessageOrganize;
 using System.Threading.Tasks;
 using Sers.SersLoader;
 using Sers.Core.Module.App.AppEvent;
+using Vit.Core.Util.Pipelines;
 
 namespace Sers.ServiceCenter
 {
@@ -101,7 +102,7 @@ namespace Sers.ServiceCenter
             {
                 localApiService.CallApiAsync(sender, new ApiMessage(requestData.ToArraySegment()), (sender_, apiReplyMessage) =>
                 {
-                    callback(sender_, apiReplyMessage.Package());
+                    callback(sender_, new ByteData(apiReplyMessage.Package()));
                 });
             }
             public bool SendRequest(Vit.Core.Util.Pipelines.ByteData requestData, out Vit.Core.Util.Pipelines.ByteData replyData)

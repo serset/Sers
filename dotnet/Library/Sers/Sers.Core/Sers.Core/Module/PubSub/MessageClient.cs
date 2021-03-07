@@ -6,6 +6,7 @@ using Sers.Core.Module.Message;
 using Vit.Extensions;
 using System.Collections.Concurrent;
 using Sers.Core.CL.MessageOrganize;
+using Vit.Core.Util.Pipelines;
 
 namespace Sers.Core.Module.PubSub
 {
@@ -99,7 +100,7 @@ namespace Sers.Core.Module.PubSub
                  msgTitle.SerializeToArraySegmentByte(),
                  msgData
                 ).Package();
-            SendFrame(frame);
+            SendFrame(new ByteData(frame));
         }
 
         public void Message_Subscribe(string msgTitle)
@@ -109,7 +110,7 @@ namespace Sers.Core.Module.PubSub
                 new[] { (byte)EFrameType.subscribe }.BytesToArraySegmentByte(),
                  msgTitle.SerializeToArraySegmentByte()
                 ).Package();
-            SendFrame(frame);
+            SendFrame(new ByteData(frame));
         }
 
         public void Message_SubscribeCancel(string msgTitle)
@@ -119,7 +120,7 @@ namespace Sers.Core.Module.PubSub
                 new[] { (byte)EFrameType.subscribeCancel }.BytesToArraySegmentByte(),
                  msgTitle.SerializeToArraySegmentByte()
                 ).Package();
-            SendFrame(frame);
+            SendFrame(new ByteData(frame));
         }
 
 

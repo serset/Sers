@@ -42,7 +42,7 @@ namespace DeliveryTest
                 {
                     //data[0]++;
                     //data[1] = 5;
-                    var byteData = new Vit.Core.Util.Pipelines.ByteData() { data };
+                    var byteData = new Vit.Core.Util.Pipelines.ByteData(data);
 
                     conn_.SendFrameAsync(byteData);
                 };
@@ -53,7 +53,7 @@ namespace DeliveryTest
 
         }
 
-        static Vit.Core.Util.Pipelines.ByteData staticByteData => new Vit.Core.Util.Pipelines.ByteData() { (new ArraySegment<byte>(new byte[] { 0, 1, 2, 3 })) };
+        static Vit.Core.Util.Pipelines.ByteData staticByteData => new Vit.Core.Util.Pipelines.ByteData( new ArraySegment<byte>(new byte[] { 0, 1, 2, 3 }));
 
  
         static void StartClient()
@@ -69,7 +69,7 @@ namespace DeliveryTest
                 //data[0]++;
 
                 //data[1]=10;
-                var byteData = new Vit.Core.Util.Pipelines.ByteData() { data };
+                var byteData = new Vit.Core.Util.Pipelines.ByteData(data);
                 conn.SendFrameAsync(byteData);
             };
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Vit.Extensions;
 
 namespace Sers.Core.Module.Message
@@ -15,11 +16,12 @@ namespace Sers.Core.Module.Message
         }
 
 
-        public virtual Vit.Core.Util.Pipelines.ByteData Files { get; protected set; }
+        public virtual List<ArraySegment<byte>> Files { get; protected set; }
 
 
 
         #region 拆包 与 打包     
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public SersFile Unpack(ArraySegment<byte> oriData)
         {
             Files = UnpackOriData(oriData); 
@@ -28,9 +30,16 @@ namespace Sers.Core.Module.Message
 
 
 
-        public Vit.Core.Util.Pipelines.ByteData Package()
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public List<ArraySegment<byte>> Package()
         {
             return PackageArraySegmentByte(Files);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public byte[] PackageToBytes()
+        {
+            return Package().ByteDataToBytes();
         }
         #endregion
 
@@ -39,6 +48,7 @@ namespace Sers.Core.Module.Message
         #region 文件读写 
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ArraySegment<byte> GetFile(int FileIndex)
         {
             return Files[FileIndex];
@@ -47,22 +57,27 @@ namespace Sers.Core.Module.Message
 
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddFile(ArraySegment<byte>file)
         {
             Files.Add(file);
         }
 
-        public SersFile SetFiles(Vit.Core.Util.Pipelines.ByteData files)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public SersFile SetFiles(List<ArraySegment<byte>> files)
         {
             Files = files;
             return this;
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public SersFile SetFiles(params ArraySegment<byte>[] files)
         {
             Files = files.ToList();
             return this;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public SersFile AddFiles(params ArraySegment<byte>[] extFiles)
         {
             Files.AddRange(extFiles);
@@ -79,9 +94,10 @@ namespace Sers.Core.Module.Message
         /// </summary>
         /// <param name="files"></param>
         /// <returns></returns>
-        static Vit.Core.Util.Pipelines.ByteData PackageArraySegmentByte(Vit.Core.Util.Pipelines.ByteData files)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        static List<ArraySegment<byte>> PackageArraySegmentByte(List<ArraySegment<byte>> files)
         {
-            var oriData = new Vit.Core.Util.Pipelines.ByteData();
+            var oriData = new List<ArraySegment<byte>>();
 
             foreach (var file in files)
             {
@@ -96,9 +112,9 @@ namespace Sers.Core.Module.Message
         ///// </summary>
         ///// <param name="files"></param>
         ///// <returns></returns>
-        //static Vit.Core.Util.Pipelines.ByteData PackageByteData(params Vit.Core.Util.Pipelines.ByteData[] files)
+        //static List<ArraySegment<byte>> PackageByteData(params List<ArraySegment<byte>>[] files)
         //{
-        //    var byteData = new Vit.Core.Util.Pipelines.ByteData();
+        //    var byteData = new List<ArraySegment<byte>>();
 
         //    foreach (var file in files)
         //    {
@@ -110,9 +126,10 @@ namespace Sers.Core.Module.Message
         //}
 
 
-        static Vit.Core.Util.Pipelines.ByteData UnpackOriData(ArraySegment<byte> oriData)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        static List<ArraySegment<byte>> UnpackOriData(ArraySegment<byte> oriData)
         {
-            Vit.Core.Util.Pipelines.ByteData files = new Vit.Core.Util.Pipelines.ByteData();
+            List<ArraySegment<byte>> files = new List<ArraySegment<byte>>();
             int index = 0;
             int fileLen;
            

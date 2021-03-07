@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Vit.Extensions;
@@ -20,7 +19,7 @@ namespace Vit.Core.Util.Pipelines
     /// 
     /// 
     /// </summary>
-    public class ByteData : IEnumerable<ArraySegment<byte>>
+    public class ByteData /*: IEnumerable<ArraySegment<byte>>*/
     {
 
         public readonly List<ArraySegment<byte>> byteData;
@@ -35,6 +34,12 @@ namespace Vit.Core.Util.Pipelines
             byteData = new List<ArraySegment<byte>>(capacity);
         }
 
+        public ByteData(ArraySegment<byte> data):this()
+        {
+            byteData.Add(data);
+        }
+
+
         public ByteData(List<ArraySegment<byte>> byteData)
         {
             this.byteData = byteData;
@@ -42,11 +47,11 @@ namespace Vit.Core.Util.Pipelines
 
 
         #region implicit
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator ByteData(List<ArraySegment<byte>> byteData)
-        {
-            return new ByteData(byteData);
-        }
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static implicit operator ByteData(List<ArraySegment<byte>> byteData)
+        //{
+        //    return new ByteData(byteData);
+        //}
         #endregion
 
 
@@ -56,8 +61,7 @@ namespace Vit.Core.Util.Pipelines
 
         #region List
 
-
-
+        
 
         #region Add
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -66,25 +70,7 @@ namespace Vit.Core.Util.Pipelines
             byteData.Add(data);
             return this;
         }
-        #endregion
-
-
-
-        #region []    
-
-        public ArraySegment<byte> this[int index]
-        {
-            get
-            {
-                return byteData[index];
-            }
-
-            set
-            {
-                byteData[index] = value;
-            }
-        }
-        #endregion
+        #endregion 
 
 
 
@@ -93,6 +79,13 @@ namespace Vit.Core.Util.Pipelines
         public void AddRange(IEnumerable<ArraySegment<byte>> collection)
         {
             byteData.AddRange(collection);
+        }
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AddRange(ByteData byteData)
+        {
+            byteData.AddRange(byteData.byteData);
         }
         #endregion
 
@@ -108,19 +101,37 @@ namespace Vit.Core.Util.Pipelines
 
 
 
+
+        #region []
+        //public ArraySegment<byte> this[int index]
+        //{
+        //    get
+        //    {
+        //        return byteData[index];
+        //    }
+
+        //    set
+        //    {
+        //        byteData[index] = value;
+        //    }
+        //}
+        #endregion
+
+
+
         #region IEnumerable
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public IEnumerator<ArraySegment<byte>> GetEnumerator()
-        {
-            return byteData.GetEnumerator();
-        }
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public IEnumerator<ArraySegment<byte>> GetEnumerator()
+        //{
+        //    return byteData.GetEnumerator();
+        //}
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return byteData.GetEnumerator();
-        }
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //IEnumerator IEnumerable.GetEnumerator()
+        //{
+        //    return byteData.GetEnumerator();
+        //}
         #endregion
 
 
@@ -128,7 +139,7 @@ namespace Vit.Core.Util.Pipelines
         #endregion
 
 
-               
+
 
 
 
@@ -159,33 +170,7 @@ namespace Vit.Core.Util.Pipelines
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] ToBytes()
         {
-            int count = 0;
-            foreach (var item in byteData)
-            {
-                count += item.Count;
-            }
-
-            var bytes = new byte[count];
-
-            int curIndex = 0;
-            foreach (var item in byteData)
-            {
-                if (null == item.Array || item.Count == 0) continue;
-
-                //item.CopyTo(bytes, curIndex);
-                //Buffer.BlockCopy(item.Array, item.Offset, bytes, curIndex, item.Count);
-
-                unsafe
-                {
-                    fixed (byte* pSource = item.Array, pTarget = bytes)
-                    {
-                        Buffer.MemoryCopy(pSource + item.Offset, pTarget + curIndex, item.Count, item.Count);
-                    }
-                }
-
-                curIndex += item.Count;
-            }
-            return bytes;
+            return byteData.ByteDataToBytes();
         }
         #endregion
 

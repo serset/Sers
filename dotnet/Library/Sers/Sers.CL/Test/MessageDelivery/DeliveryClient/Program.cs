@@ -97,7 +97,7 @@ namespace DeliveryTest
                 //data[0]++;
 
                 //data[1] = 10;
-                var byteData = new Vit.Core.Util.Pipelines.ByteData() { data };
+                var byteData = new Vit.Core.Util.Pipelines.ByteData(data);
                 conn.SendFrameAsync(byteData);
            
             };
@@ -118,7 +118,7 @@ namespace DeliveryTest
                     {
                         for (int t1 = 0; t1 < 1000; t1++)
                         {
-                            client.conn.SendFrameAsync(new Vit.Core.Util.Pipelines.ByteData() { new ArraySegment<byte>(buff) });
+                            client.conn.SendFrameAsync(new Vit.Core.Util.Pipelines.ByteData( new ArraySegment<byte>(buff)));
                         }
                         //Thread.Sleep(1);
                     }

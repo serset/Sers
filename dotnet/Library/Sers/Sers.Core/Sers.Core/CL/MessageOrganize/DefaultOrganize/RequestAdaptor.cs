@@ -7,6 +7,7 @@ using Sers.Core.CL.MessageDelivery;
 using Sers.Core.Util.Consumer;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Common;
+using Vit.Core.Util.Pipelines;
 using Vit.Core.Util.Pool;
 using Vit.Core.Util.Threading;
 using Vit.Extensions;
@@ -330,7 +331,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
                         if (OrganizeToDelivery_RequestMap_TryRemove(reqKey, out var requestInfo))
                         {
-                            requestInfo.callback(requestInfo.sender, new Vit.Core.Util.Pipelines.ByteData { replyData });
+                            requestInfo.callback(requestInfo.sender, new Vit.Core.Util.Pipelines.ByteData(replyData));
                             requestInfo.Push();
                         }
                         return;
@@ -379,12 +380,12 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                         if (version == organizeVersion)
                         {
                             // send reply
-                            DeliveryToOrganize_SendReply(reqInfo, new Vit.Core.Util.Pipelines.ByteData { requestData });
+                            DeliveryToOrganize_SendReply(reqInfo, new Vit.Core.Util.Pipelines.ByteData(requestData));
                         }
                         else
                         {
                             // send reply
-                            DeliveryToOrganize_SendReply(reqInfo, new Vit.Core.Util.Pipelines.ByteData { "error".SerializeToArraySegmentByte() });
+                            DeliveryToOrganize_SendReply(reqInfo, new Vit.Core.Util.Pipelines.ByteData ("error".SerializeToArraySegmentByte()));
                         }
                         return;
                     }
@@ -547,7 +548,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
 
         static readonly byte[] organizeVersion_ba = organizeVersion.SerializeToBytes();
-        static Vit.Core.Util.Pipelines.ByteData HeartBeat_Data => organizeVersion_ba.BytesToByteData();
+        static Vit.Core.Util.Pipelines.ByteData HeartBeat_Data => new ByteData(organizeVersion_ba.BytesToByteData());
 
         class HeartBeatInfo
         {
@@ -689,7 +690,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         static void PackageReqRepFrame(long reqKey, Vit.Core.Util.Pipelines.ByteData oriMsg, out Vit.Core.Util.Pipelines.ByteData reqRepFrame)
         {
             //*
-            reqRepFrame = DataPool.ByteDataGet();
+            reqRepFrame = new ByteData(DataPool.ByteDataGet());
 
             //第1帧 reqKey
             reqRepFrame.Add(reqKey.Int64ToBytes().BytesToArraySegmentByte());

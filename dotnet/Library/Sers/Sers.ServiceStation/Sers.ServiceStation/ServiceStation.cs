@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using Sers.SersLoader;
 using Sers.Core.Module.App.AppEvent;
 using Newtonsoft.Json.Linq;
+using Vit.Core.Util.Pipelines;
 
 namespace Sers.ServiceStation
 {
@@ -233,7 +234,7 @@ namespace Sers.ServiceStation
             {
                 localApiService.CallApiAsync(sender, new ApiMessage(requestData), (object sender1, ApiMessage apiReplyMessage) =>
                 {
-                     callback(sender1, apiReplyMessage.Package());
+                     callback(sender1, new ByteData(apiReplyMessage.Package()));
                 });
             };
 

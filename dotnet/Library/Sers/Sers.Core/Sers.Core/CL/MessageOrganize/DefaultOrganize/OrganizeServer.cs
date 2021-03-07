@@ -9,7 +9,7 @@ using Vit.Extensions;
 
 namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 {
-    public class OrganizeServer: IOrganizeServer
+    public class OrganizeServer : IOrganizeServer
     {
 
         readonly IDeliveryServer delivery;
@@ -28,15 +28,16 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
             requestAdaptor = new RequestAdaptor(config);
 
-            requestAdaptor.GetConnList = () => {
+            requestAdaptor.GetConnList = () =>
+            {
                 return connMap.Values;
             };
 
 
-          
+
             delivery.Conn_OnConnected = (deliveryConn) =>
             {
-                var conn= new OrganizeConnection(deliveryConn, requestAdaptor);
+                var conn = new OrganizeConnection(deliveryConn, requestAdaptor);
                 requestAdaptor.BindConnection(deliveryConn, conn);
             };
 
@@ -48,7 +49,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                     Task.Run(() =>
                     {
                         try
-                        {                           
+                        {
                             Conn_OnDisconnected(organizeConn);
                         }
                         catch (Exception ex)
@@ -60,12 +61,12 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             };
         }
 
-     
+
 
 
         public Action<IOrganizeConnection> Conn_OnConnected
         {
-            set;get;             
+            set; get;
         }
         public Action<IOrganizeConnection> Conn_OnDisconnected
         {
@@ -75,8 +76,8 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         /// <summary>
         /// 已经认证过的连接
         /// </summary>
-        ConcurrentDictionary<IDeliveryConnection, IOrganizeConnection> connMap=new ConcurrentDictionary<IDeliveryConnection, IOrganizeConnection>();
-         
+        ConcurrentDictionary<IDeliveryConnection, IOrganizeConnection> connMap = new ConcurrentDictionary<IDeliveryConnection, IOrganizeConnection>();
+
 
 
         public bool Start()
@@ -109,17 +110,17 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             delivery.Stop();
         }
 
-         
-      
+
+
 
         /// <summary>
         /// 会在内部线程中被调用 
-          /// </summary>
+        /// </summary>
         public Action<IOrganizeConnection, object, ArraySegment<byte>, Action<object, Vit.Core.Util.Pipelines.ByteData>> conn_OnGetRequest
         {
             set
-            {              
-                requestAdaptor.event_OnGetRequest = (IOrganizeConnection organizeConn,Object sender, ArraySegment<byte> requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback) =>
+            {
+                requestAdaptor.event_OnGetRequest = (IOrganizeConnection organizeConn, Object sender, ArraySegment<byte> requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback) =>
                 {
                     var deliveryConn = organizeConn.GetDeliveryConn();
                     if (deliveryConn.state == DeliveryConnState.certified)
@@ -130,7 +131,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
                     if (deliveryConn.state == DeliveryConnState.waitForCertify)
                     {
-                        ConnCheckSecretKey(organizeConn, deliveryConn,sender, requestData, callback);
+                        ConnCheckSecretKey(organizeConn, deliveryConn, sender, requestData, callback);
                         return;
                     }
                 };
@@ -161,7 +162,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
         #region ConnCheckSecretKey
 
-        private void ConnCheckSecretKey(IOrganizeConnection organizeConn,IDeliveryConnection deliveryConn, Object sender, ArraySegment<byte> requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
+        private void ConnCheckSecretKey(IOrganizeConnection organizeConn, IDeliveryConnection deliveryConn, Object sender, ArraySegment<byte> requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
             // 身份验证
             try
@@ -176,7 +177,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                     //验证通过
                     replyData = "true".SerializeToArraySegmentByte();
 
-                    callback?.Invoke(sender, new Vit.Core.Util.Pipelines.ByteData { replyData });
+                    callback?.Invoke(sender, new Vit.Core.Util.Pipelines.ByteData(replyData));
 
                     #region 新连接 事件
                     connMap[deliveryConn] = organizeConn;
@@ -190,7 +191,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                     deliveryConn.state = DeliveryConnState.waitForClose;
                     Logger.Info("[CL.OrganizeServer] Authentication - failed！(" + reqSecretKey + ")");
                     replyData = "false".SerializeToArraySegmentByte();
-                    callback?.Invoke(sender, new Vit.Core.Util.Pipelines.ByteData { replyData });
+                    callback?.Invoke(sender, new Vit.Core.Util.Pipelines.ByteData(replyData));
                 }
             }
             catch (Exception ex)
@@ -202,6 +203,6 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         #endregion
 
 
- 
+
     }
 }

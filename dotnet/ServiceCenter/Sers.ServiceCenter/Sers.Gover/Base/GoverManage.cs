@@ -16,6 +16,7 @@ using Sers.ServiceCenter.Entity;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Core.Util.ConfigurationManager;
+using Vit.Core.Util.Pipelines;
 using Vit.Extensions;
 
 namespace Sers.Gover.Base
@@ -233,7 +234,7 @@ namespace Sers.Gover.Base
             void SendReply(SsError error)
             {
                 //callback(sender, new ApiMessage().InitByError(error).SetSysErrToRpcData(error).Package().ByteDataToBytes().BytesToArraySegmentByte());
-                callback(sender, new ApiMessage().InitAsApiReplyMessageByError(error).Package());
+                callback(sender, new ByteData(new ApiMessage().InitAsApiReplyMessageByError(error).Package()));
             }
 
           

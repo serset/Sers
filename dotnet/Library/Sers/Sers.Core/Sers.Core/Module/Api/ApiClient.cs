@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Sers.Core.Module.Message;
 using Vit.Core.Util.ComponentModel.SsError;
 using Sers.Core.Module.Rpc;
+using Vit.Core.Util.Pipelines;
 
 namespace Sers.Core.Module.Api
 {
@@ -65,7 +66,7 @@ namespace Sers.Core.Module.Api
         {
             try
             {
-                var reply = CallApi(request.Package());
+                var reply = CallApi(new ByteData(request.Package()));
                 if (null == reply || reply.Count == 0)
                 {
                     //Logger.Error(SsError.Err_Timeout.ToException());

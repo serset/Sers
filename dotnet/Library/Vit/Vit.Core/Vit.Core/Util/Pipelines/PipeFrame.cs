@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using Vit.Extensions;
 
@@ -22,6 +23,7 @@ namespace Vit.Core.Util.Pipelines
 
         public Action<ArraySegment<byte>> OnDequeueData;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Write(ArraySegment<byte> data)
         {
             //Interlocked.Add(ref buffLen, data.Count);
@@ -30,6 +32,7 @@ namespace Vit.Core.Util.Pipelines
             queueBuff.Enqueue(data);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool TryRead(ArraySegment<byte> data)
         {
 
@@ -84,6 +87,8 @@ namespace Vit.Core.Util.Pipelines
         #region TryRead_SersFile
         ArraySegment<byte> fileLen_bytes = new ArraySegment<byte>(new byte[4]);
         int fileLen = -1;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool TryRead_SersFile(out ArraySegment<byte> data)
         {
             if (fileLen < 0)
