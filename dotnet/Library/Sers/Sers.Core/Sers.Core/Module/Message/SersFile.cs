@@ -36,8 +36,7 @@ namespace Sers.Core.Module.Message
 
 
 
-        #region 文件读写
-        public int FileCount => Files.Count();
+        #region 文件读写 
 
 
         public ArraySegment<byte> GetFile(int FileIndex)
