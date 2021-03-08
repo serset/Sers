@@ -66,7 +66,7 @@ namespace Sers.Core.Module.Api
         {
             try
             {
-                var reply = CallApi(new ByteData(request.Package()));
+                var reply = CallApi(request.Package());
                 if (null == reply || reply.Count == 0)
                 {
                     //Logger.Error(SsError.Err_Timeout.ToException());

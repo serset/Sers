@@ -70,8 +70,8 @@ namespace DeliveryTest
         static string host = "127.0.0.1";
         static int port = 4501;
 
-        static int thread = 16;
-        static int msgLen = 1024;
+        static int thread = 200;
+        static int msgLen = 1;
 
 
 
@@ -79,28 +79,34 @@ namespace DeliveryTest
 
         static void StartClient()
         {
-            var client = new Sers.CL.Socket.Iocp.DeliveryClient();
-            client.host = host;
-            client.port = port;
+            //var client = new Sers.CL.Socket.Iocp.DeliveryClient();
+            //client.host = host;
+            //client.port = port;
 
             //var client = new Sers.CL.WebSocket.DeliveryClient();
             //var client = new Sers.CL.ClrZmq.ThreadWait.DeliveryClient();
             //var client = new Sers.CL.Ipc.SharedMemory.DeliveryClient();
             //var client = new Sers.CL.Zmq.FullDuplex.DeliveryClient();
-            //var client = new Sers.CL.Ipc.NamedPipe.DeliveryClient();
+            var client = new Sers.CL.Ipc.NamedPipe.DeliveryClient();
 
             client.Conn_OnGetFrame = (conn, data) =>
-            {
+           {
+               Task.Run(() =>
+               {
+                   qpsInfo.IncrementRequest();
 
-                qpsInfo.IncrementRequest();
+                   //data[0]++;
 
-                //data[0]++;
+                   //data[1] = 10;
+                   Thread.Sleep(1);
+                   //SpinWait sw = new SpinWait();
+                   //sw.SpinOnce();
 
-                //data[1] = 10;
-                var byteData = new Vit.Core.Util.Pipelines.ByteData(data);
-                conn.SendFrameAsync(byteData);
-           
-            };
+                    var byteData = new Vit.Core.Util.Pipelines.ByteData(data);
+                   conn.SendFrameAsync(byteData);
+               });
+
+           };
 
             var connected = client.Connect();
 
@@ -111,19 +117,19 @@ namespace DeliveryTest
 
             for (var t = 0; t < thread; t++)
             {
-                //client.conn.SendFrameAsync(new Vit.Core.Util.Pipelines.ByteData() { new ArraySegment<byte>(buff)});
-                Task.Run(()=> {
+                client.conn.SendFrameAsync(new Vit.Core.Util.Pipelines.ByteData(new ArraySegment<byte>(buff))  );
+                //Task.Run(()=> {
 
-                    while (true)
-                    {
-                        for (int t1 = 0; t1 < 1000; t1++)
-                        {
-                            client.conn.SendFrameAsync(new Vit.Core.Util.Pipelines.ByteData( new ArraySegment<byte>(buff)));
-                        }
-                        //Thread.Sleep(1);
-                    }
+                //    while (true)
+                //    {
+                //        for (int t1 = 0; t1 < 100; t1++)
+                //        {
+                //            client.conn.SendFrameAsync(new Vit.Core.Util.Pipelines.ByteData( new ArraySegment<byte>(buff)));
+                //        }
+                //        Thread.Sleep(1);
+                //    }
                 
-                });
+                //});
             }
 
         }

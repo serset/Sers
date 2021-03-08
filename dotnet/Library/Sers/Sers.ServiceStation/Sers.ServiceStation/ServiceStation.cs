@@ -234,7 +234,7 @@ namespace Sers.ServiceStation
             {
                 localApiService.CallApiAsync(sender, new ApiMessage(requestData), (object sender1, ApiMessage apiReplyMessage) =>
                 {
-                     callback(sender1, new ByteData(apiReplyMessage.Package()));
+                     callback(sender1, apiReplyMessage.Package());
                 });
             };
 

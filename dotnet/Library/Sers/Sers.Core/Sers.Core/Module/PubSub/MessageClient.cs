@@ -100,7 +100,7 @@ namespace Sers.Core.Module.PubSub
                  msgTitle.SerializeToArraySegmentByte(),
                  msgData
                 ).Package();
-            SendFrame(new ByteData(frame));
+            SendFrame(frame);
         }
 
         public void Message_Subscribe(string msgTitle)
@@ -110,7 +110,7 @@ namespace Sers.Core.Module.PubSub
                 new[] { (byte)EFrameType.subscribe }.BytesToArraySegmentByte(),
                  msgTitle.SerializeToArraySegmentByte()
                 ).Package();
-            SendFrame(new ByteData(frame));
+            SendFrame(frame);
         }
 
         public void Message_SubscribeCancel(string msgTitle)
@@ -120,7 +120,7 @@ namespace Sers.Core.Module.PubSub
                 new[] { (byte)EFrameType.subscribeCancel }.BytesToArraySegmentByte(),
                  msgTitle.SerializeToArraySegmentByte()
                 ).Package();
-            SendFrame(new ByteData(frame));
+            SendFrame(frame);
         }
 
 

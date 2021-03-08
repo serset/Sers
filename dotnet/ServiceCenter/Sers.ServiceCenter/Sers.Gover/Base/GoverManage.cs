@@ -234,7 +234,7 @@ namespace Sers.Gover.Base
             void SendReply(SsError error)
             {
                 //callback(sender, new ApiMessage().InitByError(error).SetSysErrToRpcData(error).Package().ByteDataToBytes().BytesToArraySegmentByte());
-                callback(sender, new ByteData(new ApiMessage().InitAsApiReplyMessageByError(error).Package()));
+                callback(sender, new ApiMessage().InitAsApiReplyMessageByError(error).Package());
             }
 
           

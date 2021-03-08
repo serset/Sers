@@ -1,4 +1,6 @@
-﻿ 
+﻿
+using System.Runtime.CompilerServices;
+
 namespace Vit.Core.Util.Pool
 {
     public class ObjectPool<T>
@@ -14,20 +16,23 @@ namespace Vit.Core.Util.Pool
         /// <summary>
         /// Gets or sets the total number of elements the internal data structure can hold without resizing.(default:100000)
         /// </summary>
-        public int Capacity = 100000;
-        
+        public int Capacity = 2<<16;
 
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T Pop()
         {
             //return new T();
             return _objects.TryTake(out var item) ? item : new T();
         }
 
-        public T PopOrNull()
-        {
-            return _objects.TryTake(out var item) ? item : null;
-        }
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public T PopOrNull()
+        //{
+        //    return _objects.TryTake(out var item) ? item : null;
+        //}
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Push(T item)
         {
             if (_objects.Count > Capacity) return;

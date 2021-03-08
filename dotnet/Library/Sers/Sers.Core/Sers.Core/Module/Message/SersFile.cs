@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Vit.Core.Util.Pipelines;
 using Vit.Extensions;
 
 namespace Sers.Core.Module.Message
@@ -31,16 +32,12 @@ namespace Sers.Core.Module.Message
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public List<ArraySegment<byte>> Package()
+        public ByteData Package()
         {
             return PackageArraySegmentByte(Files);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public byte[] PackageToBytes()
-        {
-            return Package().ByteDataToBytes();
-        }
+         
         #endregion
 
 
@@ -95,9 +92,9 @@ namespace Sers.Core.Module.Message
         /// <param name="files"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static List<ArraySegment<byte>> PackageArraySegmentByte(List<ArraySegment<byte>> files)
+        static ByteData PackageArraySegmentByte(List<ArraySegment<byte>> files)
         {
-            var oriData = new List<ArraySegment<byte>>();
+            var oriData = new ByteData();
 
             foreach (var file in files)
             {

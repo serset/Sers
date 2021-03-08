@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Vit.Core.Util.Pool;
 using Vit.Extensions;
 
 namespace Vit.Core.Util.Pipelines
@@ -27,26 +28,36 @@ namespace Vit.Core.Util.Pipelines
 
         public readonly List<ArraySegment<byte>> byteData;
 
+        //~ByteData()
+        //{
+        //    //byteData.Clear();      
+        //    //ObjectPool<List<ArraySegment<byte>>>.Shared.Push(byteData);
+        //}
+
+
         public ByteData()
         {
             byteData = new List<ArraySegment<byte>>();
+            //byteData = ObjectPool<List<ArraySegment<byte>>>.Shared.Pop();
         }
 
-        public ByteData(int capacity)
-        {
-            byteData = new List<ArraySegment<byte>>(capacity);
-        }
+        //public ByteData(int capacity)
+        //{
+        //    byteData = new List<ArraySegment<byte>>(capacity);
+        //}
 
         public ByteData(ArraySegment<byte> data):this()
         {
             byteData.Add(data);
         }
 
-
-        public ByteData(List<ArraySegment<byte>> byteData)
-        {
-            this.byteData = byteData;
+        public ByteData(byte[] bytes):this(bytes.BytesToArraySegmentByte())
+        {     
         }
+        //public ByteData(List<ArraySegment<byte>> byteData)
+        //{
+        //    this.byteData = byteData;
+        //}
 
 
         #region implicit
@@ -105,7 +116,7 @@ namespace Vit.Core.Util.Pipelines
 
 
 
-        #region []
+        #region //[]
         //public ArraySegment<byte> this[int index]
         //{
         //    get
@@ -122,7 +133,7 @@ namespace Vit.Core.Util.Pipelines
 
 
 
-        #region IEnumerable
+        #region //IEnumerable
 
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
         //public IEnumerator<ArraySegment<byte>> GetEnumerator()
@@ -140,7 +151,6 @@ namespace Vit.Core.Util.Pipelines
 
 
         #endregion
-
 
 
 

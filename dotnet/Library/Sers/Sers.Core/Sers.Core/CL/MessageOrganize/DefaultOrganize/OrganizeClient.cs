@@ -140,7 +140,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
         private bool CheckSecretKey()
         {
-            var requestData = new ByteData(secretKey.SerializeToBytes().BytesToByteData());
+            var requestData = new ByteData(secretKey.SerializeToBytes());
 
             //发送身份验证
             Logger.Info("[CL.OrganizeClient] Authentication - sending SecretKey...");

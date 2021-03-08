@@ -74,7 +74,7 @@ namespace Sers.Core.Module.PubSub
                 (new[] { (byte)EFrameType.message }).BytesToArraySegmentByte(),
                  msgTitle.SerializeToArraySegmentByte(),
                  msgData
-                ).PackageToBytes();
+                ).Package().ToBytes();
         
             foreach (var conn in connList.Values)
             {

@@ -23,7 +23,8 @@ namespace Vit.Extensions
         public static ArraySegment<T> Slice<T>(this ArraySegment<T> seg,int Offset,int? count=null)
         {
             return new ArraySegment<T>(seg.Array,seg.Offset+ Offset, count?? (seg.Count-Offset) );
-        }
+        } 
+
 
 
 
@@ -56,14 +57,8 @@ namespace Vit.Extensions
 
             var bytes = new byte[data.Count];
             if (data.Count > 0)
-            {              
-                unsafe
-                {
-                    fixed (byte* pSource = data.Array, pTarget = bytes)
-                    {
-                        Buffer.MemoryCopy(pSource + data.Offset, pTarget, data.Count, data.Count);
-                    }
-                }
+            {
+                data.CopyTo(bytes);                
             }
             return bytes;
         }

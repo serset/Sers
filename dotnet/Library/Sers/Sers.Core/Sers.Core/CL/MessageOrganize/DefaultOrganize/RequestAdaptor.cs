@@ -548,7 +548,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
 
         static readonly byte[] organizeVersion_ba = organizeVersion.SerializeToBytes();
-        static Vit.Core.Util.Pipelines.ByteData HeartBeat_Data => new ByteData(organizeVersion_ba.BytesToByteData());
+        static Vit.Core.Util.Pipelines.ByteData HeartBeat_Data => new ByteData(organizeVersion_ba);
 
         class HeartBeatInfo
         {
@@ -690,7 +690,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         static void PackageReqRepFrame(long reqKey, Vit.Core.Util.Pipelines.ByteData oriMsg, out Vit.Core.Util.Pipelines.ByteData reqRepFrame)
         {
             //*
-            reqRepFrame = new ByteData(DataPool.ByteDataGet());
+            reqRepFrame = new ByteData();
 
             //第1帧 reqKey
             reqRepFrame.Add(reqKey.Int64ToBytes().BytesToArraySegmentByte());
@@ -699,14 +699,14 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             if (null != oriMsg) reqRepFrame.AddRange(oriMsg);
 
             /*/
-            reqRepFrame = oriMsg ?? DataPool.ByteDataGet();
+            reqRepFrame = oriMsg ?? new ByteData();
 
             //reqKey
             reqRepFrame.Insert(0, reqKey.Int64ToBytes().BytesToArraySegmentByte());
             //*/
         }
 
-     
+
         #endregion
 
 

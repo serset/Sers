@@ -102,7 +102,7 @@ namespace Sers.ServiceCenter
             {
                 localApiService.CallApiAsync(sender, new ApiMessage(requestData.ToArraySegment()), (sender_, apiReplyMessage) =>
                 {
-                    callback(sender_, new ByteData(apiReplyMessage.Package()));
+                    callback(sender_,apiReplyMessage.Package());
                 });
             }
             public bool SendRequest(Vit.Core.Util.Pipelines.ByteData requestData, out Vit.Core.Util.Pipelines.ByteData replyData)

@@ -23,18 +23,9 @@ namespace Vit.Extensions
             int curIndex = 0;
             foreach (var item in byteData)
             {
-                if (null == item.Array || item.Count == 0) continue;
+                if (null == item.Array || item.Count == 0) continue; 
 
-                //item.CopyTo(bytes, curIndex);
-                //Buffer.BlockCopy(item.Array, item.Offset, bytes, curIndex, item.Count);
-
-                unsafe
-                {
-                    fixed (byte* pSource = item.Array, pTarget = bytes)
-                    {
-                        Buffer.MemoryCopy(pSource + item.Offset, pTarget + curIndex, item.Count, item.Count);
-                    }
-                }
+                item.CopyTo(bytes, curIndex);                
 
                 curIndex += item.Count;
             }

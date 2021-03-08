@@ -65,7 +65,7 @@ namespace Vit.Core.Util.Pipelines
                 if (cur.Count <= leftCount)
                 {
                     //dataToPop 数据长
-                    Array.Copy(cur.Array, cur.Offset, dataToPop, copyedIndex + offset_dataToPop, cur.Count);
+                    cur.CopyTo(dataToPop, copyedIndex + offset_dataToPop);     
                     copyedIndex += cur.Count;
                     QueueBuff_dataLenOfRemoved = 0;
 
@@ -75,7 +75,7 @@ namespace Vit.Core.Util.Pipelines
                 else
                 {
                     //queueBuff 数据长
-                    Array.Copy(cur.Array, cur.Offset, dataToPop, copyedIndex + offset_dataToPop, leftCount);
+                    cur.CopyTo(dataToPop, copyedIndex + offset_dataToPop, leftCount);      
                     copyedIndex += leftCount;
                     QueueBuff_dataLenOfRemoved += leftCount;
                 }

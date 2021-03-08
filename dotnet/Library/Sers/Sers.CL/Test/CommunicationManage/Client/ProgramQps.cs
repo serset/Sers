@@ -78,7 +78,7 @@ namespace CLClient
 
             for (int i = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<int>("PressureTest.messageThreadCount"); i > 0; i--)
             {
-                cm.SendMessageAsync(new ByteData(buff.BytesToByteData()));
+                cm.SendMessageAsync(new ByteData(buff));
             }
 
             int theadCount = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<int>("PressureTest.requestThreadCount");
@@ -97,7 +97,7 @@ namespace CLClient
 
                 for (int t= theadCount;t>0 ;t-- )
                 {
-                    callback(null, new ByteData(buff.BytesToByteData()));
+                    callback(null, new ByteData(buff));
                 }
 
 
