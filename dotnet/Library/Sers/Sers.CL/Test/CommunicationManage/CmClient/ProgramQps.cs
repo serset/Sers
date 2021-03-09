@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using CLClient.Statistics;
 using Sers.Core.CL.CommunicationManage;
 using Vit.Core.Module.Log;
@@ -48,18 +49,23 @@ namespace CLClient
                 Sers.Core.Module.App.SersApplication.OnStop();
             };
 
-            cm.conn_OnGetRequest = (conn,sender,request,callback)=> 
-            {
-                qpsInfo.IncrementRequest();
-                callback(sender,new Vit.Core.Util.Pipelines.ByteData (request));
-            };
+         
 
             cm.conn_OnGetMessage = (conn,msg) => 
             {
-                qpsInfo.IncrementRequest();
-                cm.SendMessageAsync(new Vit.Core.Util.Pipelines.ByteData (msg));
+                Task.Run(() =>
+                {
+                    qpsInfo.IncrementRequest();
+                    cm.SendMessageAsync(new ByteData(msg));
+                });
             };
 
+
+            cm.conn_OnGetRequest = (conn, sender, request, callback) =>
+            {
+                qpsInfo.IncrementRequest();
+                callback(sender, new ByteData(request));
+            };
 
             if (!cm.Start())
             {
@@ -74,6 +80,7 @@ namespace CLClient
             {
                 cm.SendMessageAsync(new ByteData(buff));
             }
+
 
             int theadCount = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<int>("PressureTest.requestThreadCount");
 
