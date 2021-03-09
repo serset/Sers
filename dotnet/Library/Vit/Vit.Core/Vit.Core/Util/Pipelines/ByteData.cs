@@ -60,7 +60,7 @@ namespace Vit.Core.Util.Pipelines
         //}
 
 
-        #region implicit
+        #region //implicit
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
         //public static implicit operator ByteData(List<ArraySegment<byte>> byteData)
         //{

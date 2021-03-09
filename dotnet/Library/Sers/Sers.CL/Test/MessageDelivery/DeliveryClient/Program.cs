@@ -53,6 +53,15 @@ namespace DeliveryTest
                 qpsInfo.Start("Msg");
 
                 StartClient();
+                //StartClient();
+                //StartClient();
+                //StartClient();
+                //StartClient();
+                //StartClient();
+                //StartClient();
+                //StartClient();
+                //StartClient();
+                //StartClient();
 
 
                 while (true)
@@ -70,24 +79,24 @@ namespace DeliveryTest
         static string host = "127.0.0.1";
         static int port = 4501;
 
-        static int thread = 200;
+        static int thread = 1000;
         static int msgLen = 1;
 
 
 
- 
+
 
         static void StartClient()
         {
-            //var client = new Sers.CL.Socket.Iocp.DeliveryClient();
-            //client.host = host;
-            //client.port = port;
+            var client = new Sers.CL.Socket.Iocp.DeliveryClient();
+            client.host = host;
+            client.port = port;
 
             //var client = new Sers.CL.WebSocket.DeliveryClient();
             //var client = new Sers.CL.ClrZmq.ThreadWait.DeliveryClient();
             //var client = new Sers.CL.Ipc.SharedMemory.DeliveryClient();
             //var client = new Sers.CL.Zmq.FullDuplex.DeliveryClient();
-            var client = new Sers.CL.Ipc.NamedPipe.DeliveryClient();
+            //var client = new Sers.CL.Ipc.NamedPipe.DeliveryClient();
 
             client.Conn_OnGetFrame = (conn, data) =>
            {
@@ -102,7 +111,7 @@ namespace DeliveryTest
                    //SpinWait sw = new SpinWait();
                    //sw.SpinOnce();
 
-                    var byteData = new Vit.Core.Util.Pipelines.ByteData(data);
+                   var byteData = new Vit.Core.Util.Pipelines.ByteData(data);
                    conn.SendFrameAsync(byteData);
                });
 
