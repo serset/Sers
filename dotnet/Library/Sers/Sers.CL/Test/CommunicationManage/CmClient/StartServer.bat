@@ -1,6 +1,6 @@
 
-cd ..\DeliveryServer\bin\DeliveryServer 
-dotnet DeliveryServer.dll
+cd ..\CmServer\bin\CmServer 
+dotnet CmServer.dll
  
 
 

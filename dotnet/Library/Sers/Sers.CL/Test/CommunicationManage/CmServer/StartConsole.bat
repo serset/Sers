@@ -1,4 +1,4 @@
-dotnet CLServer.dll
+dotnet CmServer.dll
 pause
 
 

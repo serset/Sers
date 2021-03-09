@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using CLClient.Statistics;
 using Sers.Core.CL.CommunicationManage;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Pipelines;
 using Vit.Core.Util.Threading;
-using Vit.Extensions;
 
 namespace CLClient
 {
@@ -29,12 +27,8 @@ namespace CLClient
 
             while (true)
             { 
-
                 Thread.Sleep(5000);
             }
-
-
-
 
         }
 
@@ -85,8 +79,9 @@ namespace CLClient
 
             if (theadCount >= 0)
             {
+                ///*/
                 var conn = cm.organizeList[0].conn;
-                Action<object, Vit.Core.Util.Pipelines.ByteData> callback = null;
+                Action<object, ByteData> callback = null;
 
                 callback = (sender, data) =>
                 {
@@ -95,25 +90,30 @@ namespace CLClient
                 };
 
 
-                for (int t= theadCount;t>0 ;t-- )
+                for (int t = theadCount; t > 0; t--)
                 {
                     callback(null, new ByteData(buff));
                 }
 
+                /*/
 
-                //LongTaskHelp task = new LongTaskHelp();
-                //task.threadName = "PressureTest.SendRequest";
-                //task.threadCount = theadCount;
-                //task.action = ()=> {
+                LongTaskHelp task = new LongTaskHelp();
+                task.threadName = "PressureTest.SendRequest";
+                task.threadCount = theadCount;
+                task.action = () =>
+                {
 
-                //    var conn = cm.organizeList[0].conn;
-                //    for (; ; )
-                //    {
-                //        if (conn.SendRequest(buff.BytesToByteData(), out _))
-                //            qpsInfo.IncrementRequest();
-                //    }
-                //};
-                //task.Start();
+                    var conn = cm.organizeList[0].conn;
+                    for (; ; )
+                    {
+                        if (conn.SendRequest(new ByteData(buff), out _))
+                            qpsInfo.IncrementRequest();
+                    }
+                };
+                task.Start();
+                //*/
+
+
             }
 
 

@@ -53,16 +53,6 @@ namespace DeliveryTest
                 qpsInfo.Start("Msg");
 
                 StartClient();
-                //StartClient();
-                //StartClient();
-                //StartClient();
-                //StartClient();
-                //StartClient();
-                //StartClient();
-                //StartClient();
-                //StartClient();
-                //StartClient();
-
 
                 while (true)
                 {
@@ -79,8 +69,8 @@ namespace DeliveryTest
         static string host = "127.0.0.1";
         static int port = 4501;
 
-        static int thread = 1000;
-        static int msgLen = 1;
+        static int thread = 1;
+        static int msgLen = 10;
 
 
 
@@ -104,12 +94,10 @@ namespace DeliveryTest
                {
                    qpsInfo.IncrementRequest();
 
-                   //data[0]++;
-
-                   //data[1] = 10;
                    Thread.Sleep(1);
-                   //SpinWait sw = new SpinWait();
-                   //sw.SpinOnce();
+
+                   //data[0]++;
+                   //data[1] = 10;                 
 
                    var byteData = new Vit.Core.Util.Pipelines.ByteData(data);
                    conn.SendFrameAsync(byteData);

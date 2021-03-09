@@ -1,8 +1,6 @@
 ﻿using CLServer.Statistics;
 using System;
-using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using Vit.Core.Module.Log;
 
 namespace DeliveryTest
@@ -59,17 +57,13 @@ namespace DeliveryTest
 
                 conn.OnGetFrame = (conn_, data) =>
                 {
-                    //Task.Run(() =>
-                    //{
-                        qpsInfo.IncrementRequest();
+                    qpsInfo.IncrementRequest();
 
+                    //data[0]++;
+                    //data[1] = 5;
 
-                        //data[0]++;
-                        //data[1] = 5;
-                        var byteData = new Vit.Core.Util.Pipelines.ByteData(data);
-
-                        conn_.SendFrameAsync(byteData);
-                    //});
+                    var byteData = new Vit.Core.Util.Pipelines.ByteData(data);
+                    conn_.SendFrameAsync(byteData);
                 };
             };
 

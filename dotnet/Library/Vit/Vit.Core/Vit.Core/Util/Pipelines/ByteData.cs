@@ -26,7 +26,7 @@ namespace Vit.Core.Util.Pipelines
     public class ByteData /*: IEnumerable<ArraySegment<byte>>*/
     {
 
-        public readonly List<ArraySegment<byte>> byteData;
+        public readonly List<ArraySegment<byte>> byteArrayList;
 
         //~ByteData()
         //{
@@ -37,34 +37,34 @@ namespace Vit.Core.Util.Pipelines
 
         public ByteData()
         {
-            byteData = new List<ArraySegment<byte>>();
-            //byteData = ObjectPool<List<ArraySegment<byte>>>.Shared.Pop();
+            byteArrayList = new List<ArraySegment<byte>>();
+            //byteArrayList = ObjectPool<List<ArraySegment<byte>>>.Shared.Pop();
         }
 
         //public ByteData(int capacity)
         //{
-        //    byteData = new List<ArraySegment<byte>>(capacity);
+        //    byteArrayList = new List<ArraySegment<byte>>(capacity);
         //}
 
         public ByteData(ArraySegment<byte> data):this()
         {
-            byteData.Add(data);
+            byteArrayList.Add(data);
         }
 
         public ByteData(byte[] bytes):this(bytes.BytesToArraySegmentByte())
         {     
         }
-        //public ByteData(List<ArraySegment<byte>> byteData)
+        //public ByteData(List<ArraySegment<byte>> byteArrayList)
         //{
-        //    this.byteData = byteData;
+        //    this.byteArrayList = byteArrayList;
         //}
 
 
         #region //implicit
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static implicit operator ByteData(List<ArraySegment<byte>> byteData)
+        //public static implicit operator ByteData(List<ArraySegment<byte>> byteArrayList)
         //{
-        //    return new ByteData(byteData);
+        //    return new ByteData(byteArrayList);
         //}
         #endregion
 
@@ -75,13 +75,13 @@ namespace Vit.Core.Util.Pipelines
 
         #region List
 
-        
+
 
         #region Add
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ByteData Add(ArraySegment<byte> data)
         {
-            byteData.Add(data);
+            byteArrayList.Add(data);
             return this;
         }
         #endregion 
@@ -92,14 +92,14 @@ namespace Vit.Core.Util.Pipelines
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddRange(IEnumerable<ArraySegment<byte>> collection)
         {
-            byteData.AddRange(collection);
+            byteArrayList.AddRange(collection);
         }
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddRange(ByteData byteData)
         {
-            byteData.AddRange(byteData.byteData);
+            this.byteArrayList.AddRange(byteData.byteArrayList);
         }
         #endregion
 
@@ -109,7 +109,7 @@ namespace Vit.Core.Util.Pipelines
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Insert(int index, ArraySegment<byte> item)
         {
-            byteData.Insert(index, item);
+            byteArrayList.Insert(index, item);
         }
         #endregion
 
@@ -161,10 +161,10 @@ namespace Vit.Core.Util.Pipelines
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int Count()
         {
-            if (byteData.Count == 0) return 0;
+            if (byteArrayList.Count == 0) return 0;
             int count = 0;
 
-            foreach (var item in byteData)
+            foreach (var item in byteArrayList)
             {
                 if (null != item)
                 {
@@ -183,7 +183,7 @@ namespace Vit.Core.Util.Pipelines
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] ToBytes()
         {
-            return byteData.ByteDataToBytes();
+            return byteArrayList.ByteDataToBytes();
         }
         #endregion
 

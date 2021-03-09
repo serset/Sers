@@ -1,6 +1,6 @@
 
-cd bin\DeliveryClient 
-dotnet DeliveryClient.dll
+cd bin\CmClient
+dotnet CmClient.dll
  
 
 

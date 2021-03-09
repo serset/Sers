@@ -1,2 +1,2 @@
-dotnet CLClient.dll
+dotnet CmClient.dll
 pause
