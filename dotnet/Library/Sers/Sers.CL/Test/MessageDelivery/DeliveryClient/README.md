@@ -1,7 +1,10 @@
+#--------------------------------
+qps 160万 
+no sleep
+1  server 
+20 client thead:1000   msgLen:1
+#--------------------------------
 
-
-1 server 
-20 client 1000thead   qps 160万
 
 cd /root/app
 dotnet DeliveryServer/DeliveryServer.dll
@@ -10,11 +13,11 @@ dotnet DeliveryServer/DeliveryServer.dll
 
 
 cd /root/app
-dotnet DeliveryClient/DeliveryClient.dll 127.0.0.1 4501 100 1
+dotnet DeliveryClient/DeliveryClient.dll 127.0.0.1 4501 1000 1
 
 
-
-dotnet DeliveryClient/DeliveryClient.dll 127.0.0.1 4501 100 1 > console.log 2>&1 &
+cd /root/app
+dotnet DeliveryClient/DeliveryClient.dll 127.0.0.1 4501 1000 1 > console.log 2>&1 &
 
 
 #杀死mc用户端 

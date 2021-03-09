@@ -1,6 +1,7 @@
 ﻿using CLServer.Statistics;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Vit.Core.Module.Log;
 
 namespace DeliveryTest
@@ -43,6 +44,7 @@ namespace DeliveryTest
         static void StartServer()
         {
             var server = new Sers.CL.Socket.Iocp.DeliveryServer();
+            // var server = new Sers.CL.Socket.ThreadWait.DeliveryServer();
             server.port = port;
 
             //var server = new Sers.CL.WebSocket.DeliveryServer();
@@ -57,13 +59,18 @@ namespace DeliveryTest
 
                 conn.OnGetFrame = (conn_, data) =>
                 {
-                    qpsInfo.IncrementRequest();
+                    //Task.Run(() =>
+                    //{
+                        qpsInfo.IncrementRequest();
 
-                    //data[0]++;
-                    //data[1] = 5;
+                        //Thread.Sleep(1);
 
-                    var byteData = new Vit.Core.Util.Pipelines.ByteData(data);
-                    conn_.SendFrameAsync(byteData);
+                        //data[0]++;
+                        //data[1] = 5;
+
+                        var byteData = new Vit.Core.Util.Pipelines.ByteData(data);
+                        conn_.SendFrameAsync(byteData);
+                    //});
                 };
             };
 

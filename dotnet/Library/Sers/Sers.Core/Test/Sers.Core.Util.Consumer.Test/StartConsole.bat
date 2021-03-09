@@ -1,2 +1,2 @@
-dotnet Sers.Core.Util.PubSub.Test.dll
+dotnet Sers.Core.Util.Consumer.Test.dll 
 pause

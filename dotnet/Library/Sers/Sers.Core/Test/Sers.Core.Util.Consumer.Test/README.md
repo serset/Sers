@@ -1,7 +1,7 @@
 
 #--------------------------------
-cd Sers.Core.Util.PubSub.Test
-dotnet Sers.Core.Util.PubSub.Test.dll 
+ 
+dotnet Sers.Core.Util.Consumer.Test/Sers.Core.Util.Consumer.Test.dll 
 
 启动20个发布者
 启动22个订阅者

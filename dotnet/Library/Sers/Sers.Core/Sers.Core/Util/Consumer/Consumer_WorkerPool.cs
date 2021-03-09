@@ -2,6 +2,7 @@
 using Disruptor;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Sers.Core.Util.Consumer
 {
@@ -19,7 +20,7 @@ namespace Sers.Core.Util.Consumer
         /// <summary>
         /// the size of the ring buffer, must be power of 2
         /// </summary>
-        public static int defaultBufferSize = 2 << 20;
+        public static int defaultBufferSize = 2 << 18;
 
         public string name { get; set; }
 
@@ -59,6 +60,8 @@ namespace Sers.Core.Util.Consumer
                 this.processor = processor;
             }
 
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public void OnEvent(Entry entry)
             {
                 processor(entry.data);
@@ -117,6 +120,7 @@ namespace Sers.Core.Util.Consumer
             _workerPool.DrainAndHalt();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Publish(T data)
         {
             long sequence = _ringBuffer.Next();

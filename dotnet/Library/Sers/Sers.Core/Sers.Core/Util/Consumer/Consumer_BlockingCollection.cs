@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Threading;
@@ -24,6 +25,9 @@ namespace Sers.Core.Util.Consumer
         BlockingCollection<T> queue = new BlockingCollection<T>();
         LongTaskHelp task = new LongTaskHelp();
 
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Publish(T t) 
         {
             queue.Add(t);
@@ -46,6 +50,7 @@ namespace Sers.Core.Util.Consumer
         }
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void Processor()
         {
             while (true)

@@ -1,6 +1,7 @@
 ﻿using Disruptor;
 using Disruptor.Dsl;
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Sers.Core.Util.Consumer
@@ -22,6 +23,13 @@ namespace Sers.Core.Util.Consumer
     public class Consumer_Disruptor<T> : IConsumer<T>
         where T: class,new()
     {
+
+        /// <summary>
+        /// the size of the ring buffer, must be power of 2
+        /// </summary>
+        public static int defaultBufferSize = 2 << 18;
+
+
         public int workThreadCount { get; set; } = 16;
 
         public string name { get; set; }
@@ -32,10 +40,11 @@ namespace Sers.Core.Util.Consumer
         /// <summary>
         /// the size of the ring buffer, must be power of 2
         /// </summary>
-        public int ringBufferSize { get; set; } = 2 << 22;
+        public int ringBufferSize { get; set; } = defaultBufferSize;
 
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Publish(T data)
         {
             long index = _ringBuffer.Next();
@@ -56,6 +65,7 @@ namespace Sers.Core.Util.Consumer
                 this.processor = processor;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public void OnEvent(Entry entry)
             {
                 processor(entry.data);       

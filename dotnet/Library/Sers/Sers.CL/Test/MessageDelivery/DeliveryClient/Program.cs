@@ -79,6 +79,7 @@ namespace DeliveryTest
         static void StartClient()
         {
             var client = new Sers.CL.Socket.Iocp.DeliveryClient();
+            //var client = new Sers.CL.Socket.ThreadWait.DeliveryClient();
             client.host = host;
             client.port = port;
 
@@ -94,7 +95,7 @@ namespace DeliveryTest
                {
                    qpsInfo.IncrementRequest();
 
-                   Thread.Sleep(1);
+                   //Thread.Sleep(1);
 
                    //data[0]++;
                    //data[1] = 10;                 

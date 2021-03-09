@@ -1,4 +1,5 @@
-echo 'publish Gateway' 
+
+
 dotnet build --configuration Release
 dotnet publish --configuration Release --output bin\DeliveryClient 
  

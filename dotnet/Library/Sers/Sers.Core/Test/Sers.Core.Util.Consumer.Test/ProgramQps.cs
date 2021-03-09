@@ -60,14 +60,18 @@ namespace CLClient
         string name;
         public void Start() 
         {
-            //consumer = new Consumer_BlockingCollection<Product>();
+            // consumer = new Consumer_BlockingCollection<Product>();
+            // consumer = new ConsumerCache<Product,Consumer_BlockingCollection<Product>>(); //300万
+
             //consumer = new Consumer_Disruptor<Product>();
 
             //consumer = new Consumer_WorkerPool<Product>();
 
-            // consumer = new Consumer_WorkerPoolCache<Product>();
-            consumer = new Consumer_WorkerPoolCascade<Product> ();
- 
+            //consumer = new ConsumerCache<Product, Consumer_WorkerPool<Product>>(); //750万
+            //consumer = new Consumer_WorkerPoolCache<Product>();        //940万
+
+            consumer = new Consumer_WorkerPoolCascade<Product>();   //1400万
+
 
 
             consumer.processor = Processor;

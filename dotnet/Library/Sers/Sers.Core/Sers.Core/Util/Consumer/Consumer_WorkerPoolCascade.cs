@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace Sers.Core.Util.Consumer
@@ -49,10 +50,8 @@ namespace Sers.Core.Util.Consumer
                 worker.workThreadCount = workerCount;
 
                 workerList.Add(worker);
-
          
                 return worker;
-
             }
             else 
             {
@@ -68,7 +67,6 @@ namespace Sers.Core.Util.Consumer
                 workerList.Add(worker);
 
                 return worker;
-
             }
 
 
@@ -81,8 +79,6 @@ namespace Sers.Core.Util.Consumer
         {
             Stop();
 
-
-
             rootWorkerList = Enumerable.Range(0, workCountArray[0]).Select(m =>
             {             
                 return BuildLevel(2);
@@ -91,8 +87,6 @@ namespace Sers.Core.Util.Consumer
             curRootIndex = 0;
 
             workerList.ForEach(m => m.Start());
-
-
         }
 
 
@@ -110,13 +104,14 @@ namespace Sers.Core.Util.Consumer
         }
 
 
-       
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Publish(T data)
         {  
             var index = Interlocked.Increment(ref curRootIndex);
 
-            index = Math.Abs(index) % rootWorkerList.Length;
+            index = Math.Abs(index) % rootWorkerList.Length;      
+            //index = Math.Abs(index) & 0b1111;
 
             rootWorkerList[index]?.Publish(data);
         }
