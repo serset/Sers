@@ -78,8 +78,14 @@ namespace Sers.Core.Util.Consumer
         static IWaitStrategy waitStrategy => new SpinWaitWaitStrategy();    //qps 1线程：2400万 2线程：1200万 4线程：500万
 
 
+        public bool IsRunning { get; private set; } = false;
+
         public void Start()
         {
+            if (IsRunning) return;
+            IsRunning = true;
+
+
             IWorkHandler<Entry>[] handers;
 
             if (processorList != null)
@@ -89,9 +95,7 @@ namespace Sers.Core.Util.Consumer
             else 
             {
                 handers = System.Linq.Enumerable.Range(0, workThreadCount).Select(i => new WorkHandler(processor)).ToArray();                
-            }
-
-            
+            }            
 
 
             if (handers.Length == 1)
@@ -117,6 +121,9 @@ namespace Sers.Core.Util.Consumer
 
         public void Stop()
         {
+            if (!IsRunning) return;
+            IsRunning = false;
+
             _workerPool.DrainAndHalt();
         }
 

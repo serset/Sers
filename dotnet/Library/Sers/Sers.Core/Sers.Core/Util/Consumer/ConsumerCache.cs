@@ -26,10 +26,11 @@ namespace Sers.Core.Util.Consumer
 
 
 
-
+        public bool IsRunning { get; private set; } = false;
         public void Start()
         {
-            Stop();
+            if (IsRunning) return;
+            IsRunning = true;
 
 
             rootWorkerList = Enumerable.Range(0, workThreadCount).Select(m =>
@@ -49,6 +50,9 @@ namespace Sers.Core.Util.Consumer
 
         public void Stop()
         {
+            if (!IsRunning) return;
+            IsRunning = false;
+
             rootWorkerList?.ToList().ForEach(m => m.Stop());
             rootWorkerList = null;
         }

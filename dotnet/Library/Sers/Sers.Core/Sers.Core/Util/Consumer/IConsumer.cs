@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Sers.Core.Util.Consumer
 {
     public interface IConsumer<T>
     {
+
+        bool IsRunning { get; }
+
         int workThreadCount { get; set; }
 
         string name { get; set; }

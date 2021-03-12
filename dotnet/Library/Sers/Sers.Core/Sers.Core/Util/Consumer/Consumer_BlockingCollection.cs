@@ -25,7 +25,7 @@ namespace Sers.Core.Util.Consumer
         BlockingCollection<T> queue = new BlockingCollection<T>();
         LongTaskHelp task = new LongTaskHelp();
 
-
+        public bool IsRunning { get => task.IsRunning; }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Publish(T t) 

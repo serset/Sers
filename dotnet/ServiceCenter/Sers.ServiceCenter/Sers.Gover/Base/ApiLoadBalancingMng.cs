@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Sers.Core.Module.Api.ApiDesc;
 using Sers.Core.Module.Api.RouteMap;
 using Sers.Core.Module.Rpc;
@@ -31,6 +32,7 @@ namespace Sers.Gover.Base
         /// <param name="rpcData"></param>
         /// <param name="routeType"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual ApiNode GetCurApiNodeByLoadBalancing(IRpcContextData rpcData, out ERouteType routeType)
         {
             return routeMap.Routing(rpcData.route, out routeType)?.GetCurApiNodeBalancing();

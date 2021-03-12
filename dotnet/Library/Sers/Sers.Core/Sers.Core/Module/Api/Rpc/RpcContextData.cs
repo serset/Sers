@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using Vit.Extensions;
 using Sers.Core.Module.Rpc;
 using System;
-
+using System.Runtime.CompilerServices;
 
 namespace Sers.Core.Module.Api.Rpc
 {
@@ -25,6 +25,7 @@ namespace Sers.Core.Module.Api.Rpc
         ///
         /// </summary>
         /// <param name="oriData"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IRpcContextData UnpackOriData(ArraySegment<byte> oriData)
         {
             Clear(oriData);
@@ -35,14 +36,16 @@ namespace Sers.Core.Module.Api.Rpc
         /// 
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ArraySegment<byte> PackageOriData()
         {
             string strOriData = (_oriJson==null  ? "{}": _oriJson.ToString());
             return strOriData.StringToArraySegmentByte();
         }
 
- 
 
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private JObject GetJsonFromOriData()
         {
             if (null == oriData|| oriData.Count==0) return new JObject();
@@ -66,6 +69,7 @@ namespace Sers.Core.Module.Api.Rpc
         public JObject oriJson=>(_oriJson??(_oriJson = GetJsonFromOriData()));
         #endregion
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void Clear(ArraySegment<byte> oriData)
         {
             this.oriData = oriData;

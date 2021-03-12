@@ -5,6 +5,7 @@ using Sers.Core.Module.Rpc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ConfigurationManager;
 
@@ -16,9 +17,10 @@ namespace Sers.Core.Module.Api.LocalApi.Event
     public class LocalApiEventMng
     {
 
-        public static readonly LocalApiEventMng Instance  = new LocalApiEventMng();      
-        
+        public static readonly LocalApiEventMng Instance  = new LocalApiEventMng();
 
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public LocalApiEventMng()
         {
             #region (x.1)构建 Api Event OnCreateScope
@@ -40,7 +42,9 @@ namespace Sers.Core.Module.Api.LocalApi.Event
 
 
         #region OnCreateScope
-        internal List<IApiScopeEvent> apiScopeEventList = null;      
+        internal List<IApiScopeEvent> apiScopeEventList = null;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddEvent_ApiScope( params IApiScopeEvent[] apiScopeEvents)
         {
             if (null == apiScopeEvents) return;
@@ -53,6 +57,8 @@ namespace Sers.Core.Module.Api.LocalApi.Event
         }
         #endregion
 
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public LocalApiEvent CreateApiEvent()
         {
             List<IDisposable> events_OnDispose =

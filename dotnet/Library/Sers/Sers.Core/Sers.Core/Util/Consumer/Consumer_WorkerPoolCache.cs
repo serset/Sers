@@ -22,16 +22,17 @@ namespace Sers.Core.Util.Consumer
 
         int curRootIndex;
 
-        Consumer_WorkerPool<T>[] rootWorkerList;         
-         
+        Consumer_WorkerPool<T>[] rootWorkerList;
 
- 
+        public bool IsRunning { get; private set; } = false;
+
 
         public void Start()
         {
-            Stop();
+            if (IsRunning) return;
+            IsRunning = true;
 
-           
+
             rootWorkerList = Enumerable.Range(0, workThreadCount).Select(m =>
             {
                 var worker = new Consumer_WorkerPool<T>();
@@ -49,6 +50,9 @@ namespace Sers.Core.Util.Consumer
 
         public void Stop()
         {
+            if (!IsRunning) return;
+            IsRunning = false;
+
             rootWorkerList?.ToList().ForEach(m => m.Stop());
             rootWorkerList = null;
         }

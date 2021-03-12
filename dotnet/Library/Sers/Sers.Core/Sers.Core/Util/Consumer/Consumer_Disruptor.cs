@@ -77,10 +77,13 @@ namespace Sers.Core.Util.Consumer
         //static IWaitStrategy waitStrategy => new YieldingWaitStrategy();      //qps 1线程：1100万 2线程：1100万
         static IWaitStrategy waitStrategy => new SpinWaitWaitStrategy();        //qps 1线程：1500万 2线程：1200万
 
-
+        public bool IsRunning { get; private set; } = false;
 
         public void Start()
-        {           
+        {
+            if (IsRunning) return;
+            IsRunning = true;
+
             disruptor = new Disruptor<Entry>(() => new Entry(), ringBufferSize, TaskScheduler.Default, ProducerType.Multi, waitStrategy);
 
             IWorkHandler<Entry>[] workerPool = new IWorkHandler<Entry>[workThreadCount];
@@ -98,6 +101,9 @@ namespace Sers.Core.Util.Consumer
 
         public void Stop()
         {
+            if (!IsRunning) return;
+            IsRunning = false;
+
             disruptor?.Shutdown();
             disruptor = null;
             _ringBuffer = null;

@@ -1,6 +1,7 @@
 ﻿using Sers.Core.Module.Rpc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Vit.Extensions;
 
 namespace Sers.Core.Module.Api.LocalApi
@@ -51,6 +52,7 @@ namespace Sers.Core.Module.Api.LocalApi
         }
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool TryGet(IRpcContextData rpcData, out IApiNode apiNode)
         {
             var route = rpcData.route;

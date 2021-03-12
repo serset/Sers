@@ -73,20 +73,24 @@ namespace Sers.Core.Util.Consumer
             
         }
 
-    
 
+        public bool IsRunning { get; private set; } = false;
         public void Start()
         {
-            Stop();
+            lock (this)
+            {
+                if (IsRunning) return;
+                IsRunning = true;
 
-            rootWorkerList = Enumerable.Range(0, workCountArray[0]).Select(m =>
-            {             
-                return BuildLevel(2);
-            }).ToArray();
+                rootWorkerList = Enumerable.Range(0, workCountArray[0]).Select(m =>
+                {
+                    return BuildLevel(2);
+                }).ToArray();
 
-            curRootIndex = 0;
+                curRootIndex = 0;
 
-            workerList.ForEach(m => m.Start());
+                workerList.ForEach(m => m.Start());
+            }
         }
 
 
@@ -94,6 +98,8 @@ namespace Sers.Core.Util.Consumer
         {
             lock (this)
             {
+                if (!IsRunning) return;
+                IsRunning = false;
 
                 workerList.ForEach(m => m.Stop());
                 workerList.Clear();

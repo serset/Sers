@@ -1,8 +1,6 @@
 ﻿using Vit.Extensions;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-
+using System.Runtime.CompilerServices;
 
 namespace Sers.Core.Module.Api.RouteMap
 {
@@ -54,6 +52,7 @@ namespace Sers.Core.Module.Api.RouteMap
         /// </summary>
         /// <param name="route"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override T Routing(string route)
         {
             route = route.Substring(0, route.LastIndexOf("/"));
@@ -75,7 +74,7 @@ namespace Sers.Core.Module.Api.RouteMap
             public T data;
 
 
-            Dictionary<string, Tree<T>> children = new Dictionary<string, Tree<T>>();
+            SortedDictionary<string, Tree<T>> children = new SortedDictionary<string, Tree<T>>();
 
             public Tree<T> parent { get; private set; }
 
@@ -85,12 +84,14 @@ namespace Sers.Core.Module.Api.RouteMap
             /// </summary>
             /// <param name="path"></param>
             /// <returns></returns>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public Tree<T> BuildPath(string path)
             {
                 if (string.IsNullOrWhiteSpace(path)) return this;
                 return BuildPath(path.Split('/'), 1);
 
             }
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             Tree<T> BuildPath(string[] path, int index)
             {
                 if (path.Length <= index)
@@ -111,11 +112,13 @@ namespace Sers.Core.Module.Api.RouteMap
             /// </summary>
             /// <param name="path"></param>
             /// <returns></returns>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public T QueryByPath(string path)
             {
                 return QueryByPath(path.Split('/'), 1);
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             T QueryByPath(string[] path, int index)
             {
                 if (path.Length <= index) return data;
@@ -132,10 +135,12 @@ namespace Sers.Core.Module.Api.RouteMap
             /// </summary>
             /// <param name="path"></param>
             /// <returns></returns>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public Tree<T> GetChildren(string path)
             {
                 return GetChildren(path.Split('/'), 1);
             }
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             Tree<T> GetChildren(string[] path, int index)
             {
                 if (path.Length <= index) return this;
@@ -179,6 +184,7 @@ namespace Sers.Core.Module.Api.RouteMap
                 return data;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public void GetAllData(List<T> list)
             {
                 if (data != null)

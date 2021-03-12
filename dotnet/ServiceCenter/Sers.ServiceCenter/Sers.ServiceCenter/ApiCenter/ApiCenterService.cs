@@ -8,6 +8,7 @@ using Sers.Core.CL.MessageOrganize;
 using Sers.Core.Module.Message;
 using Sers.ServiceCenter.Entity;
 using Newtonsoft.Json;
+using System.Runtime.CompilerServices;
 
 namespace Sers.ServiceCenter.ApiCenter
 {
@@ -15,8 +16,9 @@ namespace Sers.ServiceCenter.ApiCenter
     /// 用来管理 api站点 服务站点 api服务 api节点 等
     /// </summary> 
     public abstract class ApiCenterService
-    { 
- 
+    {
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CallApiAsync(IOrganizeConnection  conn, Object sender, ArraySegment<byte> apiRequest, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
             CommunicationManageServer.CurConn = conn;
@@ -31,6 +33,9 @@ namespace Sers.ServiceCenter.ApiCenter
 
         #region CallApi
         ObjectPoolGenerator<AutoResetEvent> pool_AutoResetEvent = new ObjectPoolGenerator<AutoResetEvent>(() => new AutoResetEvent(false));
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool CallApi(IOrganizeConnection  conn, ArraySegment<byte> apiRequest, out Vit.Core.Util.Pipelines.ByteData replyData, int requestTimeoutMs)
         {
             Vit.Core.Util.Pipelines.ByteData _replyData = null;

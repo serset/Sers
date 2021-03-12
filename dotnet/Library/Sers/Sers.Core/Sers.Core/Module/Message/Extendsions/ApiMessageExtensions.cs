@@ -4,6 +4,7 @@ using Sers.Core.Module.Message;
 using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.ComponentModel.SsError;
 using Newtonsoft.Json.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Vit.Extensions
 {
@@ -13,6 +14,7 @@ namespace Vit.Extensions
 
         static readonly string Response_ContentType_Json = ("application/json; charset=" + Vit.Core.Module.Serialization.Serialization.Instance.charset);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ApiMessage InitAsApiReplyMessageByError(this ApiMessage data, SsError error)
         {
             if (data == null || error == null) return data;
@@ -38,6 +40,7 @@ namespace Vit.Extensions
             return data;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ApiMessage SetValue(this ApiMessage apiRequestMessage, string url, Object arg = null)
         {
             #region (x.2)设置body
@@ -90,6 +93,7 @@ namespace Vit.Extensions
         /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
         /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ApiMessage InitAsApiRequestMessage(this ApiMessage apiRequestMessage, string url, Object arg=null,string httpMethod=null,Action<IRpcContextData>InitRpc=null)
         {   
             //(x.1)初始化rpcData

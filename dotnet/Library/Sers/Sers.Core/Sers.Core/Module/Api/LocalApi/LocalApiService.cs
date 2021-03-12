@@ -16,6 +16,8 @@ using Sers.Core.CL.MessageOrganize;
 using Sers.Core.Module.Message;
 using Vit.Core.Util.ComponentModel.SsError;
 using Sers.Core.Module.Api.LocalApi.Event;
+using Sers.Core.Util.Consumer;
+using System.Runtime.CompilerServices;
 
 namespace Sers.Core.Module.Api.LocalApi
 {
@@ -94,6 +96,7 @@ namespace Sers.Core.Module.Api.LocalApi
         /// </summary>
         /// <param name="apiRequest"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal ApiMessage CallLocalApi(ApiMessage apiRequest)
         {           
             using (var rpcContext = RpcFactory.CreateRpcContext())
@@ -174,8 +177,8 @@ namespace Sers.Core.Module.Api.LocalApi
         }
 
 
-        BlockingCollection<RequestInfo> requestQueue = new BlockingCollection<RequestInfo>();
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CallApiAsync(Object sender, ApiMessage apiRequest, Action<object, ApiMessage> callback)
         {
             var requestInfo = RequestInfo.Pop();
@@ -185,7 +188,7 @@ namespace Sers.Core.Module.Api.LocalApi
             requestInfo.apiRequest = apiRequest;
             requestInfo.callback = callback;
 
-            requestQueue.Add(requestInfo);
+            worker.Publish(requestInfo);  
         }
 
 
@@ -206,16 +209,16 @@ namespace Sers.Core.Module.Api.LocalApi
 
             if (timeout_ms > 0)
             {
-                worker = new Worker_TimeLimit() { service = this, timeout_ms = timeout_ms };
+                worker = new Worker_TimeLimit() { timeout_ms = timeout_ms };
               
             }
             else
             {
-                worker = new Worker() { service = this };
+                worker = new Worker();
             }
 
           
-            return worker.Start();
+            return worker.Start(workThreadCount, CallLocalApi);
         }
 
         public void Stop()
@@ -233,7 +236,7 @@ namespace Sers.Core.Module.Api.LocalApi
 
 
         #region class Worker
-        interface IWorker { bool Start();void Stop(); }
+        interface IWorker { bool Start(int workThreadCount, Func<ApiMessage, ApiMessage> callLocalApi);void Stop(); void Publish(RequestInfo requestInfo); }
 
         #region Worker
 
@@ -241,22 +244,40 @@ namespace Sers.Core.Module.Api.LocalApi
         class Worker : IWorker
         {
 
-            public LocalApiService service;
-            LongTaskHelp taskToCallApi = new LongTaskHelp();
+            IConsumer<RequestInfo> taskToCallApi = new Consumer_BlockingCollection<RequestInfo>();
+            //IConsumer<RequestInfo> taskToCallApi = new Consumer_Disruptor<RequestInfo>();
+            //IConsumer<RequestInfo> taskToCallApi = new Consumer_WorkerPool<RequestInfo>();
+            //IConsumer<RequestInfo> taskToCallApi = new Consumer_WorkerPoolCache<RequestInfo>();
+            //IConsumer<RequestInfo> taskToCallApi = new Consumer_WorkerPoolCascade<RequestInfo>();
+            //IConsumer<RequestInfo> taskToCallApi = new ConsumerCache<RequestInfo,Consumer_BlockingCollection<RequestInfo>>();
 
-            public bool Start()
+
+            Func<ApiMessage, ApiMessage> callLocalApi;
+
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public void Publish(RequestInfo requestInfo)
             {
+                taskToCallApi.Publish(requestInfo);
+            }
+
+
+            public bool Start(int workThreadCount, Func<ApiMessage, ApiMessage> callLocalApi)
+            {
+                if (taskToCallApi.IsRunning) return false;
+
                 try
                 {
-                    taskToCallApi.threadName = "LocalApiService";
+                    this.callLocalApi = callLocalApi; 
 
-                    taskToCallApi.threadCount = service.workThreadCount;
-                    taskToCallApi.action = TaskToCallApi;
+                    taskToCallApi.name = "LocalApiService";
+                    taskToCallApi.workThreadCount = workThreadCount;
+                    taskToCallApi.processor = Processor;
 
-                    if (service.workThreadCount > 0)
+                    if (workThreadCount > 0)
                     {
                         taskToCallApi.Start();
-                        Logger.Info("[LocalApiService] Started,workThreadCount:" + service.workThreadCount);
+                        Logger.Info("[LocalApiService] Started,workThreadCount:" + workThreadCount);
 
                     }
                     return true;
@@ -286,48 +307,40 @@ namespace Sers.Core.Module.Api.LocalApi
 
 
             #region TaskToCallApi
-            void TaskToCallApi()
-            {
-                RequestInfo requestInfo;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            void Processor(RequestInfo requestInfo) 
+            {
                 ApiMessage apiRequest;
                 Object sender;
                 Action<object, ApiMessage> callback;
 
                 ApiMessage apiReply;
-                while (true)
+
+                try
                 {
-                    try
-                    {
-                        #region ThreadToDealMsg                        
-                        while (true)
-                        {
-                            //堵塞获取请求
-                            requestInfo = service.requestQueue.Take();
+                    #region 处理 requestInfo
+                    CommunicationManageServer.CurConn = requestInfo.conn;
+                    apiRequest = requestInfo.apiRequest;
+                    sender = requestInfo.sender;
+                    callback = requestInfo.callback;
 
-                            #region 处理 requestInfo
-                            CommunicationManageServer.CurConn = requestInfo.conn;
-                            apiRequest = requestInfo.apiRequest;
-                            sender = requestInfo.sender;
-                            callback = requestInfo.callback;
+                    requestInfo.Push();
+                    #endregion
 
-                            requestInfo.Push();
-                            #endregion
+                    //处理请求
+                    apiReply = callLocalApi(apiRequest);
 
-                            //处理请求
-                            apiReply = service.CallLocalApi(apiRequest);
-
-                            //调用请求回调
-                            callback(sender, apiReply);
-                        }
-                        #endregion
-                    }
-                    catch (Exception ex) when (!(ex.GetBaseException() is ThreadInterruptedException))
-                    {
-                        Logger.Error(ex);
-                    }
+                    //调用请求回调
+                    callback(sender, apiReply);
+                }
+                catch (Exception ex) when (!(ex.GetBaseException() is ThreadInterruptedException))
+                {
+                    Logger.Error(ex);
                 }
             }
+
+ 
             #endregion
         }
         #endregion
@@ -338,27 +351,38 @@ namespace Sers.Core.Module.Api.LocalApi
         class Worker_TimeLimit : IWorker
         {
 
-            public LocalApiService service;
+            BlockingCollection<RequestInfo> requestQueue = new BlockingCollection<RequestInfo>();
+
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public void Publish(RequestInfo requestInfo)
+            {
+                requestQueue.Add(requestInfo);
+            }
+
+
+ 
             LongTaskHelp_TimeLimit taskToCallApi = new LongTaskHelp_TimeLimit();
+            Func<ApiMessage, ApiMessage> callLocalApi;
 
             /// <summary>
             /// 超时时间，（主动关闭超过此时间的任务,实际任务强制关闭的时间会在1倍超时时间到2倍超时时间内)。单位：ms。
             /// 脉冲间隔。
             /// </summary>
             public int timeout_ms { set { taskToCallApi.timeout_ms = value; } }
-            public bool Start()
+            public bool Start(int workThreadCount, Func<ApiMessage, ApiMessage> callLocalApi)
             {
                 try
                 {
+                    this.callLocalApi = callLocalApi;
+
                     taskToCallApi.threadName = "LocalApiService";
+                    taskToCallApi.threadCount = workThreadCount;                   
 
-                    taskToCallApi.threadCount = service.workThreadCount;
-                   
-
-                    if (service.workThreadCount > 0)
+                    if (workThreadCount > 0)
                     {
                         taskToCallApi.Start(GetWork, DealWork, OnFinish, OnTimeout);
-                        Logger.Info("[LocalApiService] Started,workThreadCount:" + service.workThreadCount+ ",timeout_ms:" + taskToCallApi.timeout_ms);
+                        Logger.Info("[LocalApiService] Started,workThreadCount:" + workThreadCount+ ",timeout_ms:" + taskToCallApi.timeout_ms);
                     }
                     return true;
                 }
@@ -398,10 +422,11 @@ namespace Sers.Core.Module.Api.LocalApi
                  */
 
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             void GetWork(LongTaskHelp_TimeLimit.Worker w)
             {
                 //堵塞获取请求
-                var requestInfo = service.requestQueue.Take();
+                var requestInfo = requestQueue.Take();
                 CommunicationManageServer.CurConn = requestInfo.conn;
 
                 w.workArg = requestInfo.apiRequest;     
@@ -411,13 +436,16 @@ namespace Sers.Core.Module.Api.LocalApi
             }
 
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             void DealWork(LongTaskHelp_TimeLimit.Worker w)
             {
                 ApiMessage apiRequest = (ApiMessage)w.workArg;
 
                 //处理请求
-                w.workArg2 = service.CallLocalApi(apiRequest);                  
+                w.workArg2 = callLocalApi(apiRequest);                  
             }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             void OnFinish(LongTaskHelp_TimeLimit.Worker w)
             {
                 ApiMessage apiReply = (ApiMessage)w.workArg2;
@@ -426,6 +454,8 @@ namespace Sers.Core.Module.Api.LocalApi
                 //调用请求回调
                 callback(sender, apiReply);         
             }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             void OnTimeout(LongTaskHelp_TimeLimit.Worker w)
             {
                 ApiMessage apiReply =  new ApiMessage();

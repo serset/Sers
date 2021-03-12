@@ -18,7 +18,7 @@ using Sers.Core.CL.MessageOrganize;
 using System.Threading.Tasks;
 using Sers.SersLoader;
 using Sers.Core.Module.App.AppEvent;
-using Vit.Core.Util.Pipelines;
+using System.Runtime.CompilerServices;
 
 namespace Sers.ServiceCenter
 {
@@ -98,6 +98,7 @@ namespace Sers.ServiceCenter
             }
 
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public void SendRequestAsync(Object sender, Vit.Core.Util.Pipelines.ByteData requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
             {
                 localApiService.CallApiAsync(sender, new ApiMessage(requestData.ToArraySegment()), (sender_, apiReplyMessage) =>
@@ -105,18 +106,23 @@ namespace Sers.ServiceCenter
                     callback(sender_,apiReplyMessage.Package());
                 });
             }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public bool SendRequest(Vit.Core.Util.Pipelines.ByteData requestData, out Vit.Core.Util.Pipelines.ByteData replyData)
             {
                 Logger.Error(new NotImplementedException());
                 throw new NotImplementedException();
             }
 
-       
 
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public void SendMessageAsync(Vit.Core.Util.Pipelines.ByteData message)
             {
                 MessageClient.Instance.OnGetMessage(this, message.ToArraySegment());
             }
+
+
             public void Close() 
             {
                 ServiceCenter.Instance.StopCenter();

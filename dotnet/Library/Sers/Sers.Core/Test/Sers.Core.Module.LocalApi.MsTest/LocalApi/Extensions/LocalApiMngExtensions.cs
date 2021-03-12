@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using Sers.Core.Module.Api.LocalApi;
 using Sers.Core.Module.Message;
@@ -11,6 +12,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions
     {
         #region CallLocalApi
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ArraySegment<byte> CallLocalApi(this LocalApiService data,string route, Object arg)
         {
             var apiRequestMessage = new ApiMessage().InitAsApiRequestMessage(route, arg);
@@ -36,6 +38,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions
 
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ReturnType CallLocalApi<ReturnType>(this LocalApiService data, string route, Object arg)
         {
             var returnValue = data.CallLocalApi(route, arg);

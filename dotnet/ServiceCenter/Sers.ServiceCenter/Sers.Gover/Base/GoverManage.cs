@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using Sers.Core.CL.MessageOrganize;
 using Sers.Core.Module.Api.ApiDesc;
@@ -105,6 +106,7 @@ namespace Sers.Gover.Base
 
         #region CallApi
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void CallApiAsync(IRpcContextData rpcData, ApiMessage requestMessage, Object sender, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
             try
