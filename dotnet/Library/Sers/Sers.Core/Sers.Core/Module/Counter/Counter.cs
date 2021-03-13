@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Runtime.CompilerServices;
+using System.Threading;
 using Newtonsoft.Json;
 
 namespace Sers.Core.Module.Counter
@@ -34,7 +35,8 @@ namespace Sers.Core.Module.Counter
         /// </summary>        
         [JsonProperty]
         public int errorCount = 0;
- 
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Increment(bool success)
         {
             Interlocked.Increment(ref sumCount);

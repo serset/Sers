@@ -177,7 +177,8 @@ namespace App.Robot.Station.Logical.Model
                 Logger.Error(ex);
             }
             StepUp(success);
-            Thread.Sleep(config.interval);
+            if(config.interval>0)
+                Thread.Sleep(config.interval);
         }
 
         public void Start()
