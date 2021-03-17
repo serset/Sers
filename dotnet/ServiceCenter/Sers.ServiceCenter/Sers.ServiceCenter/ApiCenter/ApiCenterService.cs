@@ -1,6 +1,5 @@
 ﻿using System;
 using Sers.Core.Module.Rpc;
-using System.Collections.Generic;
 using Vit.Core.Util.Pool;
 using System.Threading;
 using Sers.Core.CL.CommunicationManage;
@@ -25,9 +24,7 @@ namespace Sers.ServiceCenter.ApiCenter
 
             var requestMessage = new ApiMessage(apiRequest);
 
-            var rpcData = RpcFactory.CreateRpcContextData().UnpackOriData(requestMessage.rpcContextData_OriData);
-
-            CallApiAsync(rpcData, requestMessage, sender, callback);
+            CallApiAsync(requestMessage, sender, callback);
         }
 
 
@@ -79,9 +76,9 @@ namespace Sers.ServiceCenter.ApiCenter
         /// BeforeCallApi(IRpcContextData rpcData, ApiMessage requestMessage)
         /// </summary>
         [JsonIgnore]
-        public Action<IRpcContextData, ApiMessage> BeforeCallApi;
+        public Action<RpcContextData, ApiMessage> BeforeCallApi;
 
-        public abstract void CallApiAsync(IRpcContextData rpcData, ApiMessage requestMessage, Object sender, Action<object, Vit.Core.Util.Pipelines.ByteData> callback);
+        public abstract void CallApiAsync(ApiMessage requestMessage, Object sender, Action<object, Vit.Core.Util.Pipelines.ByteData> callback);
 
 
 

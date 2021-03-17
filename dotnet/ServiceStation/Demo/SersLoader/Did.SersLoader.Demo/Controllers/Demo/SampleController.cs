@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Sers.Core.Module.Api;
 using Sers.Core.Module.Api.LocalApi.StaticFileTransmit;
-using Sers.Core.Module.Api.Rpc;
+using Sers.Core.Module.Rpc;
 using Sers.Core.Module.Message;
 using Sers.Core.Module.Rpc;
 using Sers.SersLoader;
@@ -42,7 +42,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         [SsRoute("/demo/v1/api/103/route")] //使用绝对路径路由  
         public ApiReturn<object> Route()
         {
-            return new { url = RpcContext.RpcData.http_url_Get() };
+            return new { url = RpcContext.RpcData.http.url };
         }
 
 
@@ -57,10 +57,10 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         {
             var rpcData = RpcContext.RpcData;
             var route = rpcData.route;
-            var http_url = rpcData.http_url_Get();
+            var http_url = rpcData.http.url;
             var http_url_search = rpcData.http_url_search_Get();
             var http_url_RelativePath = rpcData.http_url_RelativePath_Get();
-            var http_method = rpcData.http_method_Get() ;
+            var http_method = rpcData.http.method ;
 
             var data = new
             {
@@ -400,8 +400,8 @@ namespace Did.SersLoader.Demo.Controllers.Demo
             var data = new
             {
                 rpcData.route,
-                http_url = rpcData.http_url_Get(),
-                userInfo = rpcData.user_userInfo_Get(),
+                http_url = rpcData.http.url,
+                user = rpcData.user,
                 serviceId= DateTime.Now.ToString("sss")
             };
 
@@ -419,25 +419,15 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         {
             #region reply header
 
-            RpcContext.Current.apiReplyMessage.rpcContextData_OriData =
-                    RpcFactory.CreateRpcContextData()
-                    .http_statusCode_Set(201)
-                    //.http_header_Set("Content-Type", "application/json")
-                    .http_header_ContentType_Set("application/json")
-                    .http_header_Set("testHeader", "abc")
-                    .PackageOriData();
+            var replyRpcData = new RpcContextData();
+            replyRpcData.http.statusCode = 201;
+            replyRpcData.http.headers["Content-Type"] = "application/json";
+            replyRpcData.http.headers["testHeader"] = "abc";
+     
 
+            RpcContext.Current.apiReplyMessage.rpcContextData_OriData = replyRpcData.ToBytes().BytesToArraySegmentByte();
 
-            //var replyRpcData = RpcFactory.Instance.CreateRpcContextData();
-
-            //var header = new JObject();
-
-            //header["testHeader"] = "abc";
-            //header["Content-Type"] = "application/json";s
-
-            //replyRpcData.http_headers_Set(header);
-
-            //RpcContext.Current.apiReplyMessage.rpcContextData_OriData = replyRpcData.PackageOriData();
+ 
             #endregion
 
             var data = new

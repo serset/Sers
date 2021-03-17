@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 using Sers.Core.CL.MessageOrganize;
 using Sers.Core.Module.Api.ApiDesc;
 using Sers.Core.Module.Api.Data;
@@ -17,19 +19,18 @@ using Sers.ServiceCenter.Entity;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Core.Util.ConfigurationManager;
-using Vit.Core.Util.Pipelines;
 using Vit.Extensions;
 
 namespace Sers.Gover.Base
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public class GoverManage : ApiCenterService
+    public class GoverApiCenterService : ApiCenterService
     {
         #region static       
-        public static readonly GoverManage Instance = LoadFromFile();
-        static GoverManage LoadFromFile()
+        public static readonly GoverApiCenterService Instance = LoadFromFile();
+        static GoverApiCenterService LoadFromFile()
         {
-            var mng=new GoverManage();
+            var mng=new GoverApiCenterService();
 
             Persistence_ApiDesc.ApiDesc_LoadAllFromJsonFile(mng.apiStationMng);
             Persistence_Counter.LoadCounterFromJsonFile(mng.apiStationMng);
@@ -46,7 +47,7 @@ namespace Sers.Gover.Base
 
 
 
-        public GoverManage()
+        public GoverApiCenterService()
         {
             //init apiLoadBalancingMng
             switch (ConfigurationManager.Instance.GetStringByPath("Sers.ServiceCenter.ApiRouteType"))
@@ -107,10 +108,14 @@ namespace Sers.Gover.Base
         #region CallApi
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override void CallApiAsync(IRpcContextData rpcData, ApiMessage requestMessage, Object sender, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
+        public override void CallApiAsync(ApiMessage requestMessage, Object sender, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
+            RpcContextData rpcData = null;
             try
             {
+                rpcData = RpcContextData.FromBytes(requestMessage.rpcContextData_OriData);
+
+
                 #region (x.0)ApiScopeEvent
                 apiScopeEventList?.ForEach(onScope =>
                 {
@@ -184,19 +189,31 @@ namespace Sers.Gover.Base
                 // 权限校验不通过，调用次数也计数
                 // TODO:应当有其他计数
 
+                JObject oriJson = null;
+
                 //(x.x.1) rpcValidations Sers1校验
-                if (!Sers.Core.Module.Valid.Sers1.RpcVerify1.Verify(rpcData.oriJson, apiNode.apiDesc.rpcValidations, out var validError))
+                if (apiNode.apiDesc.rpcValidations != null && apiNode.apiDesc.rpcValidations.Count > 0)
                 {
-                    SendReply(validError);
-                    return;
+                    if (oriJson == null) oriJson = rpcData.Serialize().Deserialize<JObject>();
+
+                    if (!Sers.Core.Module.Valid.Sers1.RpcVerify1.Verify(oriJson, apiNode.apiDesc.rpcValidations, out var validError))
+                    {
+                        SendReply(validError);
+                        return;
+                    }
                 }
 
                 //(x.x.2) rpcVerify2 Sers2校验
-                if (!Sers.Core.Module.Valid.Sers2.RpcVerify2.Verify(rpcData.oriJson, apiNode.apiDesc.rpcVerify2, out var verifyError))
+                if (apiNode.apiDesc.rpcVerify2 != null && apiNode.apiDesc.rpcVerify2.Count > 0)
                 {
-                    SendReply(verifyError);
-                    return;
-                }                     
+                    if (oriJson == null) oriJson = rpcData.Serialize().Deserialize<JObject>();
+
+                    if (!Sers.Core.Module.Valid.Sers2.RpcVerify2.Verify(oriJson, apiNode.apiDesc.rpcVerify2, out var verifyError))
+                    {
+                        SendReply(verifyError);
+                        return;
+                    }
+                }
                 #endregion
 
 
@@ -342,14 +359,14 @@ namespace Sers.Gover.Base
         /// <summary>
         /// 
         /// </summary>
-        List<Func<IRpcContextData, ApiMessage, Action<Object, Vit.Core.Util.Pipelines.ByteData>>> apiScopeEventList = null;
+        List<Func<RpcContextData, ApiMessage, Action<Object, Vit.Core.Util.Pipelines.ByteData>>> apiScopeEventList = null;
         /// <summary>
         /// 在调用api前调用onScope，若onScope返回的结果（onDispose）不为空，则在api调用结束前调用onDispose
         /// </summary>
         /// <param name="apiScopeEvent"></param>
-        public void AddApiScopeEvent(Func<IRpcContextData, ApiMessage, Action<Object, Vit.Core.Util.Pipelines.ByteData>> apiScopeEvent) 
+        public void AddApiScopeEvent(Func<RpcContextData, ApiMessage, Action<Object, Vit.Core.Util.Pipelines.ByteData>> apiScopeEvent) 
         {
-            if (apiScopeEventList == null) apiScopeEventList=new List<Func<IRpcContextData, ApiMessage, Action<Object, Vit.Core.Util.Pipelines.ByteData>>>();
+            if (apiScopeEventList == null) apiScopeEventList=new List<Func<RpcContextData, ApiMessage, Action<Object, Vit.Core.Util.Pipelines.ByteData>>>();
 
             apiScopeEventList.Add(apiScopeEvent);
         }

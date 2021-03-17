@@ -3,7 +3,7 @@ using App.Robot.Station.Logical;
 using App.Robot.Station.Logical.Model;
 using Sers.SersLoader;
 using Sers.SersLoader.ApiDesc.Attribute.Valid;
-using Sers.Core.Module.Api.Rpc;
+using Sers.Core.Module.Rpc;
 using Sers.Core.Module.App;
 using Vit.Core.Util.ComponentModel.Api;
 using Vit.Core.Util.ComponentModel.Data;

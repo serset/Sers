@@ -19,7 +19,7 @@ namespace Vit.Extensions
 
                 #region (x.1) build requestFeature
                 // "http://127.0.0.1/Station1/fold1/a/1/2.html?c=9"
-                var http_url = rpcData.http_url_Get();
+                var http_url = rpcData.http.url;
                 Uri uri = new Uri(http_url);
                 //var Query = Uri.UnescapeDataString(uri.Query);
                 var Query = uri.Query;
@@ -30,9 +30,9 @@ namespace Vit.Extensions
                 {
                     Body = new MemoryStream(arg_OriData.Array, arg_OriData.Offset, arg_OriData.Count),
                     Headers = new HeaderDictionary(),
-                    Protocol = rpcData.http_protocol_Get(),
+                    Protocol = rpcData.http.protocol,
                     Scheme = uri.Scheme,
-                    Method = rpcData.http_method_Get(),
+                    Method = rpcData.http.method,
                     PathBase = "",
                     QueryString = uri.Query,
 
@@ -42,15 +42,10 @@ namespace Vit.Extensions
                 };
 
                 #region http header
-                var headers = rpcData.http_headers_Get();
-                if (headers != null)
+                foreach (var t in rpcData.http.headers)
                 {
-                    foreach (var t in headers)
-                    {
-                        //requestFeature.Headers.Add(t.Key, t.Value.ConvertToString());
-                        requestFeature.Headers[t.Key] = t.Value.ConvertToString();                 
-                    }
-                }                 
+                    requestFeature.Headers[t.Key] = t.Value;
+                }
                 #endregion
 
                 //var requestFeature = new HttpRequestFeature
@@ -73,10 +68,10 @@ namespace Vit.Extensions
 
 
                 #region (x.3)build reply info
-                var rpcReply = RpcFactory.CreateRpcContextData();
+                var rpcReply = new RpcContextData();
 
                 //(x.x.1)StatusCode
-                rpcReply.http_statusCode_Set(responseFeature.StatusCode);
+                rpcReply.http.statusCode=responseFeature.StatusCode;
 
                 #region (x.x.2)http_header
                 var replyHeader = responseFeature.Headers;
@@ -84,13 +79,13 @@ namespace Vit.Extensions
                 {
                     foreach (var item in replyHeader)
                     {
-                        rpcReply.http_header_Set(item.Key, item.Value.ToString());
+                        rpcReply.http.headers[item.Key]=item.Value.ToString();
                     }
                 }
                 #endregion
 
                 //(x.x.3)
-                RpcContext.Current.apiReplyMessage.rpcContextData_OriData = rpcReply.PackageOriData();
+                RpcContext.Current.apiReplyMessage.rpcContextData_OriData = rpcReply.ToBytes().BytesToArraySegmentByte();
                 #endregion
 
                 #region (x.4) return reply data

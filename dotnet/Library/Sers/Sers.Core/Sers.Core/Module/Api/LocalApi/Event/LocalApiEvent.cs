@@ -20,7 +20,7 @@ namespace Sers.Core.Module.Api.LocalApi.Event
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void BeforeCallApi(IRpcContextData rpcData, ApiMessage requestMessage) 
+        public void BeforeCallApi(RpcContextData rpcData, ApiMessage requestMessage) 
         {
             LocalApiEventMng.Instance.BeforeCallApi?.Invoke(rpcData, requestMessage);
         }

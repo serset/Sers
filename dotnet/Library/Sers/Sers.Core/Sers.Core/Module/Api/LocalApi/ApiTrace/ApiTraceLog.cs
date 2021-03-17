@@ -30,7 +30,7 @@ namespace Sers.Core.Module.Api.LocalApi.ApiTrace
             msg.Append(Environment.NewLine).Append("--duration :").Append((trace.endTime - trace.beginTime).TotalMilliseconds).Append(" ms");
 
 
-            msg.Append(Environment.NewLine).Append("--Req rpc  :").Append(rpcContext.rpcData.oriJson);
+            msg.Append(Environment.NewLine).Append("--Req rpc  :").Append(rpcContext.rpcData.Serialize());
 
             try
             {

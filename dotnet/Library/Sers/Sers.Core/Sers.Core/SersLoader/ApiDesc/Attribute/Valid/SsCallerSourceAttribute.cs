@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Sers.Core.Module.Api.Rpc;
+using Sers.Core.Module.Rpc;
 using Sers.SersLoader.ApiDesc.Attribute.RpcVerify;
+
 using Vit.Extensions;
 
 namespace Sers.SersLoader.ApiDesc.Attribute.Valid

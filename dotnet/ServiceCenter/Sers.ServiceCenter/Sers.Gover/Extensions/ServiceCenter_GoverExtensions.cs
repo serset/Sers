@@ -15,12 +15,12 @@ namespace Vit.Extensions
         {
             if (null == serviceCenter) return;
 
-            serviceCenter.apiCenterService = GoverManage.Instance;
+            serviceCenter.apiCenterService = GoverApiCenterService.Instance;
 
             serviceCenter.LoadSsApi(typeof(ServiceCenter_GoverExtensions).Assembly);
 
             //注册站点关闭回调
-            SersApplication.onStop += (GoverManage.SaveToFile);
+            SersApplication.onStop += (GoverApiCenterService.SaveToFile);
 
 
             #region ApiStation Qps 定时计算
@@ -38,7 +38,7 @@ namespace Vit.Extensions
             //(x.1)计算ApiStation qps
             try
             {
-                foreach (var item in GoverManage.Instance.ApiStation_GetAll())
+                foreach (var item in GoverApiCenterService.Instance.ApiStation_GetAll())
                 {
                     item.QpsCalc();
                 }
@@ -51,7 +51,7 @@ namespace Vit.Extensions
             //(x.2)计算ServiceStation qps
             try
             {
-                foreach (var item in GoverManage.Instance.serviceStationMng.serviceStationCollection)
+                foreach (var item in GoverApiCenterService.Instance.serviceStationMng.serviceStationCollection)
                 {
                     item.QpsCalc();
                 }
@@ -68,7 +68,7 @@ namespace Vit.Extensions
                 if (SaveToFile_tick > 10)
                 {
                     SaveToFile_tick = 0;
-                    GoverManage.SaveToFile();
+                    GoverApiCenterService.SaveToFile();
                 }
             }
             catch (System.Exception ex)

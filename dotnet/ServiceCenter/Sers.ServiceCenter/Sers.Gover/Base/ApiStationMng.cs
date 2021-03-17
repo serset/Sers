@@ -19,12 +19,12 @@ namespace Sers.Gover.Base
     {
         [JsonProperty]
         ConcurrentDictionary<string, ApiStationData> apiStations;
-        GoverManage goverManage;
+        GoverApiCenterService goverManage;
         public ApiStationMng()
         {            
         }
 
-        public ApiStationMng Init(GoverManage goverManage)
+        public ApiStationMng Init(GoverApiCenterService goverManage)
         {
             this.goverManage = goverManage;
             if (null == apiStations)

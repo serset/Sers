@@ -12,6 +12,6 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi
         void Init(JObject config);
 
 
-        void BeforeCallApi(IRpcContextData rpcData, ApiMessage requestMessage);
+        void BeforeCallApi(RpcContextData rpcData, ApiMessage requestMessage);
     }
 }

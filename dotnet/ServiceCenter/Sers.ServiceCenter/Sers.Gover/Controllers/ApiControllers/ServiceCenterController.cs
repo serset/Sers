@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Newtonsoft.Json.Linq;
-using Sers.Core.Module.Api.Rpc;
+using Sers.Core.Module.Rpc;
 using Sers.Hardware.Usage;
 using Sers.SersLoader;
 using Sers.SersLoader.ApiDesc.Attribute.Valid;

@@ -134,23 +134,24 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             }
 
             #region reply header
-            var replyRpcData = RpcFactory.CreateRpcContextData();
+            var replyRpcData = new RpcContextData();
 
             if (responseHeaders != null) 
             {
                 foreach (var item in responseHeaders)
                 {
-                    replyRpcData.http_header_Set(item.Key, item.Value);
+                    replyRpcData.http.headers[item.Key]=item.Value;
                 }
             }
 
             if (contentTypeProvider.TryGetContentType(absFilePath, out var contentType))
             {
-                replyRpcData.http_header_Set("Content-Type", contentType);             
+                replyRpcData.http.headers["Content-Type"] = contentType;             
             }
-            //replyRpcData.http_header_Set("Cache-Control", "public,max-age=6000");        
- 
-            RpcContext.Current.apiReplyMessage.rpcContextData_OriData= replyRpcData.PackageOriData();
+       
+            //replyRpcData.http.headers["Cache-Control"] = "public,max-age=6000";
+
+            RpcContext.Current.apiReplyMessage.rpcContextData_OriData= replyRpcData.ToBytes().BytesToArraySegmentByte();
             #endregion
 
           
@@ -197,13 +198,13 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             }
 
             #region reply header
-            var replyRpcData = RpcFactory.CreateRpcContextData();
+            var replyRpcData = new RpcContextData();
 
-            var header = new JObject();
+            var headers = new Dictionary<string, string>();
 
             if (!string.IsNullOrEmpty(contentType))
             {
-                header["Content-Type"] = contentType;
+                headers["Content-Type"] = contentType;
             }
 
             if (string.IsNullOrEmpty(fileName))
@@ -212,12 +213,13 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             }
 
             #region 填充文件头
-            header["Content-Disposition"] = "attachment;filename=" + HttpUtility.UrlEncode(fileName, Vit.Core.Module.Serialization.Serialization.Instance.encoding);
-            header["Content-Length"] = info.Length.ToString();
+            headers["Content-Disposition"] = "attachment;filename=" + HttpUtility.UrlEncode(fileName, Vit.Core.Module.Serialization.Serialization.Instance.encoding);
+            headers["Content-Length"] = info.Length.ToString();
             #endregion
 
-            replyRpcData.http_headers_Set(header);
-            RpcContext.Current.apiReplyMessage.rpcContextData_OriData = replyRpcData.PackageOriData();
+            replyRpcData.http.headers = headers;
+
+            RpcContext.Current.apiReplyMessage.rpcContextData_OriData = replyRpcData.ToBytes().BytesToArraySegmentByte();
             #endregion
 
 

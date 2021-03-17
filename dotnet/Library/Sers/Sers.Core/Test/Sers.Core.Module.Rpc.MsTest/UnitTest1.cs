@@ -14,13 +14,15 @@ namespace Sers.Core.Module.Rpc.MsTest
             {
                 using (var rpcContext = RpcFactory.CreateRpcContext())
                 {
-                    var rpcData = RpcFactory.CreateRpcContextData();
+                    var rpcData = new RpcContextData();
                     rpcContext.rpcData = rpcData;
-                    rpcData.http_method_Set("POST");
+                    rpcData.http.method="POST";
 
 
-                    var rpcData2 = RpcFactory.CreateRpcContextData();
-                    rpcData2.UnpackOriData(rpcData.PackageOriData());
+                    var rpcData2 = RpcContextData.FromBytes(rpcData.ToBytes());
+
+
+                    Assert.AreEqual(rpcData.http.method, rpcData2.http.method);
                 }
                  
             }

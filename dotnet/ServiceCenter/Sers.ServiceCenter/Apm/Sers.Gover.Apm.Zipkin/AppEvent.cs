@@ -19,7 +19,7 @@ namespace Sers.Gover.Apm.Zipkin
     public class AppEvent : IAppEvent
     {        
 
-        Action<Object, Vit.Core.Util.Pipelines.ByteData> ApiScopeEvent(IRpcContextData rpcData, ApiMessage apiRequestMessage)
+        Action<Object, Vit.Core.Util.Pipelines.ByteData> ApiScopeEvent(RpcContextData rpcData, ApiMessage apiRequestMessage)
         {
             //记录请求数据
 
@@ -32,7 +32,7 @@ namespace Sers.Gover.Apm.Zipkin
                 long? parentSpanId = null;
 
                 {
-                    var hexStr = rpcData.caller_rid_Get();
+                    var hexStr = rpcData.caller.rid;
                     spanId = hexStr.Substring(0, 16).HexStringToInt64();
                 }
                 {
@@ -91,6 +91,8 @@ namespace Sers.Gover.Apm.Zipkin
 
                 #region method getTagValue
 
+                string requestRpc_oriString = null;
+                JObject requestRpc_json = null;
 
                 string requestData_oriString = null;
                 JObject requestData_json = null;
@@ -130,7 +132,22 @@ namespace Sers.Gover.Apm.Zipkin
 
                         switch (dataType)
                         {
-                            case "requestRpc": return rpcData?.oriJson.SelectToken(path).ConvertToString();
+                            case "requestRpc":
+                               
+                                if (requestRpc_oriString == null)
+                                {
+                                    requestRpc_oriString = apiRequestMessage.rpcContextData_OriData.ArraySegmentByteToString();
+                                }
+                                if (string.IsNullOrEmpty(path))
+                                {
+                                    return requestRpc_oriString;
+                                }
+                                if (requestRpc_json == null)
+                                {
+                                    requestRpc_json = requestRpc_oriString.Deserialize<JObject>();
+                                }
+                                return requestRpc_json.SelectToken(path).ConvertToString();
+
                             case "requestData":
                                 if (requestData_oriString == null)
                                 {
@@ -240,7 +257,7 @@ namespace Sers.Gover.Apm.Zipkin
             #endregion
 
 
-            GoverManage.Instance.AddApiScopeEvent(ApiScopeEvent);
+            GoverApiCenterService.Instance.AddApiScopeEvent(ApiScopeEvent);
 
             Logger.Info("[zipkin]启动成功");
         }

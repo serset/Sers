@@ -108,8 +108,7 @@ namespace Sers.Core.Module.Api.LocalApi
                     rpcContext.apiRequestMessage = apiRequest;
                     rpcContext.apiReplyMessage = new ApiMessage();
 
-                    var rpcData = RpcFactory.CreateRpcContextData();
-                    rpcData.UnpackOriData(apiRequest.rpcContextData_OriData);
+                    var rpcData = RpcContextData.FromBytes(apiRequest.rpcContextData_OriData);
                     rpcContext.rpcData = rpcData;
 
                     //(x.2) BeforeCallApi

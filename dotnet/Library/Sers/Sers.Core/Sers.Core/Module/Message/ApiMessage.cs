@@ -41,9 +41,9 @@ namespace Sers.Core.Module.Message
             }
         }
 
-        public void RpcContextData_OriData_Set(IRpcContextData rpcData)
+        public void RpcContextData_OriData_Set(RpcContextData rpcData)
         {
-            rpcContextData_OriData = rpcData.PackageOriData();
+            rpcContextData_OriData = rpcData.ToBytes().BytesToArraySegmentByte();
         }
 
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Vit.Core.Module.Log;
 using Vit.Extensions;
 using System.Threading;
@@ -7,7 +6,6 @@ using System.Threading.Tasks;
 using Sers.Core.Module.Message;
 using Vit.Core.Util.ComponentModel.SsError;
 using Sers.Core.Module.Rpc;
-using Vit.Core.Util.Pipelines;
 using System.Runtime.CompilerServices;
 
 namespace Sers.Core.Module.Api
@@ -118,7 +116,7 @@ namespace Sers.Core.Module.Api
         /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ReturnType CallApi<ReturnType>(string route, Object arg = null, string httpMethod = null, Action<IRpcContextData> InitRpc = null)
+        public ReturnType CallApi<ReturnType>(string route, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)
         {
             var apiRequestMessage = new ApiMessage().InitAsApiRequestMessage(route, arg, httpMethod, InitRpc);
 
@@ -136,7 +134,7 @@ namespace Sers.Core.Module.Api
         /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string CallApi(string route, Object arg = null, string httpMethod = null, Action<IRpcContextData> InitRpc = null)
+        public string CallApi(string route, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)
         {
             return CallApi<string>(route, arg, httpMethod, InitRpc);
         }
@@ -152,7 +150,7 @@ namespace Sers.Core.Module.Api
         /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public async Task<ReturnType> CallApiAsync<ReturnType>(string route, Object arg = null, string httpMethod = null, Action<IRpcContextData> InitRpc = null)
+        public async Task<ReturnType> CallApiAsync<ReturnType>(string route, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)
         {
             ReturnType ret = default(ReturnType);
             await Task.Run(() => { ret = CallApi<ReturnType>(route, arg, httpMethod,InitRpc); });
@@ -188,7 +186,7 @@ namespace Sers.Core.Module.Api
         /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
         /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string CallRemoteApi(string route, string arg, string httpMethod = null, Action<IRpcContextData> InitRpc = null)
+        public static string CallRemoteApi(string route, string arg, string httpMethod = null, Action<RpcContextData> InitRpc = null)
         {
             return Instance.CallApi(route, arg, httpMethod, InitRpc);
         }
@@ -202,7 +200,7 @@ namespace Sers.Core.Module.Api
         /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
         /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string CallRemoteApi(string route, Object arg = null, string httpMethod = null, Action<IRpcContextData> InitRpc = null)
+        public static string CallRemoteApi(string route, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)
         {
             return Instance.CallApi(route, arg, httpMethod, InitRpc);
         }
@@ -217,7 +215,7 @@ namespace Sers.Core.Module.Api
         /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ReturnType CallRemoteApi<ReturnType>(string route, Object arg = null, string httpMethod = null, Action<IRpcContextData> InitRpc = null)
+        public static ReturnType CallRemoteApi<ReturnType>(string route, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)
         {
             return Instance.CallApi<ReturnType>(route, arg, httpMethod, InitRpc);
         }
@@ -248,7 +246,7 @@ namespace Sers.Core.Module.Api
         /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static async Task<ReturnType> CallRemoteApiAsync<ReturnType>(string route, Object arg = null, string httpMethod = null, Action<IRpcContextData> InitRpc = null)
+        public static async Task<ReturnType> CallRemoteApiAsync<ReturnType>(string route, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)
         {
             return await Instance.CallApiAsync<ReturnType>(route, arg, httpMethod, InitRpc);
         }

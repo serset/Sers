@@ -39,7 +39,7 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer
         /// </summary>
         /// <param name="rpcData"></param>
         /// <param name="requestMessage"></param>
-        public void BeforeCallApi(IRpcContextData rpcData, ApiMessage requestMessage)
+        public void BeforeCallApi(RpcContextData rpcData, ApiMessage requestMessage)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer
                 if (string.IsNullOrWhiteSpace(bear))
                     return;
 
-                if (null != rpcData.user_userInfo_Get()) return;
+                if (null != rpcData.user) return;
 
                 ApiReturn<JObject> ret;
                 using (var rpcContext = RpcFactory.CreateRpcContext())
@@ -60,7 +60,7 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer
 
                 if (null != ret && ret.success)
                 {
-                    rpcData.user_userInfo_Set(ret.data);
+                    rpcData.user=new { userInfo = ret.data };
                     requestMessage.rpcContextData_OriData = ArraySegmentByteExtensions.Null;
                 }
                 #endregion

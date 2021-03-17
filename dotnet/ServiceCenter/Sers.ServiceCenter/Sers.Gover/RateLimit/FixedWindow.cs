@@ -49,7 +49,7 @@ namespace Sers.Gover.RateLimit
 
 
 
-        public SsError BeforeLoadBalancing(IRpcContextData rpcData, ApiMessage requestMessage)
+        public SsError BeforeLoadBalancing(RpcContextData rpcData, ApiMessage requestMessage)
         {
             //以_开始的系统节点不限流 
             var route = rpcData.route??"";
@@ -89,7 +89,7 @@ namespace Sers.Gover.RateLimit
             }
         }
 
-        public SsError BeforeCallRemoteApi(IRpcContextData rpcData, ApiMessage requestMessage, ApiNode apiNode)
+        public SsError BeforeCallRemoteApi(RpcContextData rpcData, ApiMessage requestMessage, ApiNode apiNode)
         {
             return null;
         }

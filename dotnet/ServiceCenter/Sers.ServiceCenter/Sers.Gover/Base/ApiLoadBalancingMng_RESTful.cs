@@ -30,9 +30,9 @@ namespace Sers.Gover.Base
         /// <param name="rpcData"></param>
         /// <param name="routeType"></param>
         /// <returns></returns>
-        public override ApiNode GetCurApiNodeByLoadBalancing(IRpcContextData rpcData, out ERouteType routeType)
+        public override ApiNode GetCurApiNodeByLoadBalancing(RpcContextData rpcData, out ERouteType routeType)
         {
-            var method= rpcData.http_method_Get()?.ToUpper();
+            var method= rpcData.http.method?.ToUpper();
             if (string.IsNullOrEmpty(method)) method = "_";
 
             var oriRoute = rpcData.route;          

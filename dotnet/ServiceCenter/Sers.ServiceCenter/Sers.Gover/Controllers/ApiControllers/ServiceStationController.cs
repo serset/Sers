@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Sers.Core.Module.Api.Rpc;
+using Sers.Core.Module.Rpc;
 using Sers.Gover.Base;
 using Sers.Gover.Base.Model;
 using Sers.SersLoader;
@@ -23,7 +23,7 @@ namespace Sers.Gover.Controllers.ApiControllers
         [SsName("获取所有ServiceStation")]
         public ApiReturn<List<ServiceStationData>> GetAll()
         {
-            return new ApiReturn<List<ServiceStationData>> { data = GoverManage.Instance.ServiceStation_GetAll() }; 
+            return new ApiReturn<List<ServiceStationData>> { data = GoverApiCenterService.Instance.ServiceStation_GetAll() }; 
         }
 
 
@@ -37,7 +37,7 @@ namespace Sers.Gover.Controllers.ApiControllers
         [SsName("暂停指定的服务站点")]
         public ApiReturn Pause(string connKey)
         {
-            return new ApiReturn { success = GoverManage.Instance.ServiceStation_Pause(connKey) };
+            return new ApiReturn { success = GoverApiCenterService.Instance.ServiceStation_Pause(connKey) };
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Sers.Gover.Controllers.ApiControllers
         [SsName("启用指定的服务站点")]
         public ApiReturn Start(string connKey)
         {
-            return new ApiReturn { success = GoverManage.Instance.ServiceStation_Start(connKey) };
+            return new ApiReturn { success = GoverApiCenterService.Instance.ServiceStation_Start(connKey) };
         }
 
 
@@ -65,7 +65,7 @@ namespace Sers.Gover.Controllers.ApiControllers
         [SsName("启用指定的服务站点")]
         public ApiReturn Stop(string connKey)
         {
-            return new ApiReturn { success = GoverManage.Instance.ServiceStation_Stop(connKey) };
+            return new ApiReturn { success = GoverApiCenterService.Instance.ServiceStation_Stop(connKey) };
         }
 
 

@@ -85,7 +85,7 @@ namespace Sers.Gateway
         /// <summary>
         /// BeforeCallApi(IRpcContextData rpcData, ApiMessage requestMessage)
         /// </summary>
-        public Action<IRpcContextData, ApiMessage> BeforeCallApi;
+        public Action<RpcContextData, ApiMessage> BeforeCallApi;
 
 
 
@@ -119,16 +119,16 @@ namespace Sers.Gateway
 
         #region BuildHttp
         static string prefixOfCopyIpToHeader = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.WebHost.prefixOfCopyIpToHeader");
-        protected JObject BuildHttp(HttpRequest request)
+        protected void BuildHttp(RpcContextData rpcData,HttpRequest request)
         {
-            var http = new JObject();
+            var http = rpcData.http;
 
             #region (x.1) url
-            http["url"] = request.GetAbsoluteUri();
+            http.url = request.GetAbsoluteUri();
             #endregion
 
             #region (x.2) headers
-            var headers = http["headers"] = new JObject();
+            var headers = http.headers;
             foreach (var kv in request.Headers)
             {
                 headers[kv.Key] = kv.Value.ToString();
@@ -138,29 +138,28 @@ namespace Sers.Gateway
             if(prefixOfCopyIpToHeader!=null)
             {
                 headers[prefixOfCopyIpToHeader+"RemoteIpAddress"] = request.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
-                headers[prefixOfCopyIpToHeader + "RemotePort"] = request.HttpContext.Connection.RemotePort;
+                headers[prefixOfCopyIpToHeader + "RemotePort"] = ""+request.HttpContext.Connection.RemotePort;
 
                 headers[prefixOfCopyIpToHeader + "LocalIpAddress"] = request.HttpContext.Connection.LocalIpAddress.MapToIPv4().ToString();
-                headers[prefixOfCopyIpToHeader + "LocalPort"] = request.HttpContext.Connection.LocalPort;
+                headers[prefixOfCopyIpToHeader + "LocalPort"] = ""+request.HttpContext.Connection.LocalPort;
             }
             #endregion
 
             #region (x.3) method
-            http["method"] = request.Method;
+            http.method = request.Method;
             #endregion
 
             #region (x.4) protocol
-            http["protocol"] = request.Protocol;
-            #endregion         
-
-            return http;
+            http.protocol = request.Protocol;
+            #endregion        
+   
              
         }
 
         #endregion
 
         #region BuildBody
-        byte[] BuildBody(HttpRequest request, IRpcContextData rpcData)
+        byte[] BuildBody(HttpRequest request, RpcContextData rpcData)
         {
             #region (x.1)二进制数据
             using (MemoryStream ms = new MemoryStream())
@@ -200,13 +199,13 @@ namespace Sers.Gateway
         protected ApiMessage BuildApiRequestMessage(HttpRequest request)
         {      
    
-            var rpcData = RpcFactory.CreateRpcContextData().Init(Rpc_CallerSource);
+            var rpcData = new RpcContextData().Init(Rpc_CallerSource);
 
             rpcData.route = request.Path.Value;
- 
+
 
             #region (x.1)构建http
-            rpcData.http_Set(BuildHttp(request));
+            BuildHttp(rpcData, request);
             #endregion
 
             //(x.2) 构建body
@@ -246,7 +245,7 @@ namespace Sers.Gateway
             var replyRpcData = GetReplyRpcData();
 
             #region (x.1)statusCode
-            var statusCode = replyRpcData?.http_statusCode_Get();
+            var statusCode = replyRpcData?.http.statusCode;
             if (statusCode.HasValue)
             {
                 response.StatusCode = statusCode.Value;
@@ -259,13 +258,9 @@ namespace Sers.Gateway
             var headers = response.Headers; 
             if (null != replyRpcData)
             {
-                var joHeaders=replyRpcData.http_headers_Get();
-                if (null != joHeaders)
+                foreach (var item in replyRpcData.http.headers)
                 {
-                    foreach (var item in joHeaders)
-                    {
-                        headers[item.Key] = item.Value.ConvertToString();
-                    }
+                    headers[item.Key] = item.Value;
                 }
             }
 
@@ -287,12 +282,12 @@ namespace Sers.Gateway
             }
 
             #region function GetReplyRpcData
-            IRpcContextData GetReplyRpcData()
+            RpcContextData GetReplyRpcData()
             {
                 var rpcContextData_OriData = apiReply.rpcContextData_OriData;
                 if (null != rpcContextData_OriData && rpcContextData_OriData.Count > 0)
                 {
-                    return RpcFactory.CreateRpcContextData().UnpackOriData(rpcContextData_OriData);  
+                    return RpcContextData.FromBytes(rpcContextData_OriData);  
                 }
                 return null;
             }

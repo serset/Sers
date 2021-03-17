@@ -13,7 +13,7 @@ namespace Sers.Core.Module.Rpc
 
         public static RpcContext Current => CurrentRpcContext_AsyncCache.Value;
 
-        public static IRpcContextData RpcData => Current?.rpcData;
+        public static RpcContextData RpcData => Current?.rpcData;
 
         #endregion
 
@@ -21,7 +21,7 @@ namespace Sers.Core.Module.Rpc
         public ApiMessage apiRequestMessage;
         public ApiMessage apiReplyMessage;
 
-        public IRpcContextData rpcData;
+        public RpcContextData rpcData;
 
 
 

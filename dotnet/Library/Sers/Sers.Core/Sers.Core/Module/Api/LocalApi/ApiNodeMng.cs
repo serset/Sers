@@ -53,10 +53,10 @@ namespace Sers.Core.Module.Api.LocalApi
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool TryGet(IRpcContextData rpcData, out IApiNode apiNode)
+        public bool TryGet(RpcContextData rpcData, out IApiNode apiNode)
         {
             var route = rpcData.route;
-            var method = rpcData.http_method_Get()?.ToUpper();
+            var method = rpcData.http.method?.ToUpper();
            
             if (!string.IsNullOrEmpty(method))
             {

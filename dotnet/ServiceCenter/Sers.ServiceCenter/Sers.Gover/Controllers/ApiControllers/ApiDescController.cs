@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Sers.Core.Module.Api.ApiDesc;
-using Sers.Core.Module.Api.Rpc;
+using Sers.Core.Module.Rpc;
 using Sers.Gover.Base;
 using Sers.SersLoader;
 using Sers.SersLoader.ApiDesc.Attribute.Valid;
@@ -23,7 +23,7 @@ namespace Sers.Gover.Controllers.ApiControllers
         [SsDescription("获取所有可调用api。返回ApiDesc列表")]
         public ApiReturn<List<SsApiDesc>> GetActive([SsDescription("route前缀（不指定则返回所有），例如 \"_gover_\"、\"/demo/a.html\" "),SsExample("_gover_")]string r)
         {
-            var apiDescs = GoverManage.Instance.ApiDesc_GetActive();
+            var apiDescs = GoverApiCenterService.Instance.ApiDesc_GetActive();
             if (!string.IsNullOrWhiteSpace(r))
             {
                 if (!r.StartsWith("/")) r = "/" + r;
@@ -40,7 +40,7 @@ namespace Sers.Gover.Controllers.ApiControllers
         [SsDescription("获取所有api。返回ApiDesc列表")]
         public ApiReturn<List<SsApiDesc>> GetAll([SsDescription("route前缀（不指定则返回所有），例如 \"_gover_\"、\"/demo/a.html\" "), SsExample("_gover_")]string r)
         {
-            var apiDescs = GoverManage.Instance.ApiDesc_GetAll();
+            var apiDescs = GoverApiCenterService.Instance.ApiDesc_GetAll();
             if (!string.IsNullOrWhiteSpace(r))
             {
                 if (!r.StartsWith("/")) r = "/" + r;

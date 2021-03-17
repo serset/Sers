@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Sers.Core.Module.Api.Rpc
+namespace Sers.Core.Module.Rpc
 {
     /// <summary>
     /// 调用来源

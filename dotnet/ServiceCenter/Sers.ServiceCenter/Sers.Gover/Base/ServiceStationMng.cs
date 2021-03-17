@@ -13,9 +13,9 @@ namespace Sers.Gover.Base
 {
     public class ServiceStationMng
     {
-        GoverManage goverManage;
+        GoverApiCenterService goverManage;
 
-        public ServiceStationMng Init(GoverManage goverManage)
+        public ServiceStationMng Init(GoverApiCenterService goverManage)
         {
             this.goverManage = goverManage;
             return this;

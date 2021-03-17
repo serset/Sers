@@ -96,7 +96,7 @@ namespace Sers.Gover.RateLimit
         /// <param name="rpcData"></param>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public SsError BeforeLoadBalancing(IRpcContextData rpcData, ApiMessage requestMessage)
+        public SsError BeforeLoadBalancing(RpcContextData rpcData, ApiMessage requestMessage)
         {
             foreach (var rateLimit in limits)
             {
@@ -115,7 +115,7 @@ namespace Sers.Gover.RateLimit
         /// <param name="requestMessage"></param>
         /// <param name="apiNode"></param>
         /// <returns></returns>
-        public SsError BeforeCallRemoteApi(IRpcContextData rpcData, ApiMessage requestMessage,ApiNode apiNode)
+        public SsError BeforeCallRemoteApi(RpcContextData rpcData, ApiMessage requestMessage,ApiNode apiNode)
         {
             foreach (var rateLimit in limits)
             {

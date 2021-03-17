@@ -20,13 +20,13 @@ namespace Vit.Extensions
             if (data == null || error == null) return data;
 
             #region (x.1) set rpcData
-            var rpcData = RpcFactory.CreateRpcContextData();
-            rpcData.error_Set(error);
- 
-            rpcData.http_header_Set("Content-Type", Response_ContentType_Json);
+            var rpcData = new RpcContextData();
+            rpcData.error = error;
 
-            rpcData.http_header_Set("responseState", "fail");
-            rpcData.http_header_Set("responseError_Base64", error?.SerializeToBytes()?.BytesToBase64String());
+            rpcData.http.headers["Content-Type"] = Response_ContentType_Json;
+
+            rpcData.http.headers["responseState"] = "fail";
+            rpcData.http.headers["responseError_Base64"] = error?.SerializeToBytes()?.BytesToBase64String();
 
 
             data.RpcContextData_OriData_Set(rpcData);
@@ -94,10 +94,10 @@ namespace Vit.Extensions
         /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ApiMessage InitAsApiRequestMessage(this ApiMessage apiRequestMessage, string url, Object arg=null,string httpMethod=null,Action<IRpcContextData>InitRpc=null)
+        public static ApiMessage InitAsApiRequestMessage(this ApiMessage apiRequestMessage, string url, Object arg=null,string httpMethod=null,Action<RpcContextData>InitRpc=null)
         {   
             //(x.1)初始化rpcData
-            var rpcData = RpcFactory.CreateRpcContextData().InitFromRpcContext().Init(url, httpMethod);
+            var rpcData = new RpcContextData().InitFromRpcContext().Init(url, httpMethod);
             InitRpc?.Invoke(rpcData);
             apiRequestMessage.RpcContextData_OriData_Set(rpcData);
 

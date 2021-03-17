@@ -57,12 +57,12 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.AccountInCookie
         /// </summary>
         /// <param name="rpcData"></param>
         /// <param name="requestMessage"></param>
-        public void BeforeCallApi(IRpcContextData rpcData, ApiMessage requestMessage)
+        public void BeforeCallApi(RpcContextData rpcData, ApiMessage requestMessage)
         {
             try
             {
                 #region (x.x.x.1)获取cookie 中的用户令牌
-                var cookie = rpcData.http_header_Get("Cookie");
+                var cookie = rpcData.http.GetHeader("Cookie");
                 if (string.IsNullOrEmpty(cookie)) return;
 
                 string authUserFromCookie = null;
@@ -90,11 +90,11 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.AccountInCookie
                 {
                     if (account.CallerSource != null)
                     {
-                        rpcData.caller_source_Set(account.CallerSource);
+                        rpcData.caller.source=account.CallerSource;
                     }
                     if (account.userInfo != null)
                     {
-                        rpcData.user_userInfo_Set(account.userInfo);
+                        rpcData.user=new { account.userInfo };
                     }
                     requestMessage.rpcContextData_OriData = ArraySegmentByteExtensions.Null;
                 }

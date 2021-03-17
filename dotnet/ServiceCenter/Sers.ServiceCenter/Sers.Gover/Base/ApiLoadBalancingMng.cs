@@ -33,7 +33,7 @@ namespace Sers.Gover.Base
         /// <param name="routeType"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public virtual ApiNode GetCurApiNodeByLoadBalancing(IRpcContextData rpcData, out ERouteType routeType)
+        public virtual ApiNode GetCurApiNodeByLoadBalancing(RpcContextData rpcData, out ERouteType routeType)
         {
             return routeMap.Routing(rpcData.route, out routeType)?.GetCurApiNodeBalancing();
         }

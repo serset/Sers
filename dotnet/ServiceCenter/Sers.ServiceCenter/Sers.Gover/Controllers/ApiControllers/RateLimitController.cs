@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using Sers.Core.Module.Api.Rpc;
+using Sers.Core.Module.Rpc;
 using Sers.Gover.Base;
 using Sers.Gover.RateLimit;
 using Sers.SersLoader;
@@ -14,7 +14,7 @@ namespace Sers.Gover.Controllers.ApiControllers
     public class RateLimitController : IApiController
     {
 
-        static RateLimitMng rateLimitMng => GoverManage.Instance.rateLimitMng;
+        static RateLimitMng rateLimitMng => GoverApiCenterService.Instance.rateLimitMng;
 
 
         /// <summary>

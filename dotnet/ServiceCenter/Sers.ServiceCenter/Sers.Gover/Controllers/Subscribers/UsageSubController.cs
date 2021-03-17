@@ -12,7 +12,7 @@ namespace Sers.Gover.Controllers.Subscribers
 
         public override void Handle(EnvUsageInfo item)
         {
-            GoverManage.Instance.SaveUsageInfo(item);
+            GoverApiCenterService.Instance.SaveUsageInfo(item);
         }
     }
 }

@@ -22,11 +22,11 @@ namespace Sers.Core.Module.Api.ApiEvent
         /// </summary>
         /// <param name="events"></param>
         /// <returns></returns>
-        public static Action<IRpcContextData, ApiMessage> LoadEvent_BeforeCallApi(JArray events)
+        public static Action<RpcContextData, ApiMessage> LoadEvent_BeforeCallApi(JArray events)
         {
             if (events == null || events.Count == 0) return null;
 
-            Action<IRpcContextData, ApiMessage> BeforeCallApi = null;           
+            Action<RpcContextData, ApiMessage> BeforeCallApi = null;           
 
             foreach (JObject config in events)
             {

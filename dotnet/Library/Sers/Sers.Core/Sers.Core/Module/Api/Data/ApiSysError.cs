@@ -10,13 +10,13 @@ namespace Sers.Core.Module.Api.Data
     public class ApiSysError
     {
 
-        public static void LogSysError(IRpcContextData rpcContextData, ApiMessage reqMessage, SsError error)
+        public static void LogSysError(RpcContextData rpcContextData, ApiMessage reqMessage, SsError error)
         {
             try
             {
                 string msg = "[ApiCallError]route:" + rpcContextData.route;
                 msg += Environment.NewLine+"error:" + error.Serialize();
-                msg += Environment.NewLine + "rpcData:" + rpcContextData.oriJson;
+                msg += Environment.NewLine + "rpcData:" + rpcContextData.Serialize();
                 try
                 {
                     msg += Environment.NewLine + "RequestBody:" + reqMessage.value_OriData.ArraySegmentByteToString();

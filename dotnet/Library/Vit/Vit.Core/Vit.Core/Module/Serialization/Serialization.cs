@@ -1,116 +1,78 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Vit.Extensions;
+﻿using Vit.Extensions;
 using System;
 using System.Text;
-using Vit.Core.Util.ConfigurationManager;
 using System.Runtime.CompilerServices;
+using Vit.Core.Util.ConfigurationManager;
+
 
 namespace Vit.Core.Module.Serialization
 {
-    public class Serialization
+    public  abstract class Serialization
     {
-        
-        public static Serialization Instance { get; } = new Serialization();
 
-        #region 静态初始化器
-        static Serialization()
-        {
-            //初始化序列化配置
-            Instance.InitByAppSettings();
-        }
+        #region defaultEncoding
+        public static Encoding defaultEncoding { get; set; } =
+            ConfigurationManager.Instance.GetByPath<string>("Vit.Serialization.Encoding").StringToEnum<EEncoding>().ToEncoding() ?? Encoding.UTF8;
+
         #endregion
 
 
-        #region 成员对象
 
-        /// <summary>
-        /// 时间序列化格式。例如 "yyyy-MM-dd HH:mm:ss"
-        /// </summary>
-        readonly IsoDateTimeConverter Serialize_DateTimeFormat = new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" };
+        public static Serialization Instance { get; set; } = Serialization_Newtonsoft.Instance;
 
-        /// <summary>
-        /// 设置时间序列化格式。例如 "yyyy-MM-dd HH:mm:ss"
-        /// </summary>
-        /// <param name="DateTimeFormat"></param>
-        public void SetDateTimeFormat(string DateTimeFormat) {
-            Serialize_DateTimeFormat.DateTimeFormat = DateTimeFormat;
-        }
+        public static readonly Serialization_Newtonsoft Newtonsoft = Serialization_Newtonsoft.Instance;
+        public static readonly Serialization_Text Text = Serialization_Text.Instance;
 
 
-        public Encoding encoding { get; private set; } = System.Text.Encoding.UTF8;
-        public string charset => encoding.GetCharset();
+ 
 
-        public void SetEncoding(EEncoding? type)
-        {
-            if (null == type) return;
 
-            switch (type.Value)
-            {
-                case EEncoding.ASCII: encoding = Encoding.ASCII; return;
-                case EEncoding.UTF32: encoding = Encoding.UTF32; return;
-                case EEncoding.UTF7: encoding = Encoding.UTF7; return;
-                case EEncoding.UTF8: encoding = Encoding.UTF8; return;
-                case EEncoding.Unicode: encoding = Encoding.Unicode; return;
-            }
-        }
+
+        #region 成员对象 
+
+
+        public virtual Encoding encoding { get; set; } = defaultEncoding;
+        public virtual string charset { get => encoding.GetCharset();  }
+ 
         #endregion
 
 
-        #region InitByAppSettings
-        /// <summary>
-        /// 根据配置文件（appsettings.json）初始化序列化配置
-        /// </summary>
-        public void InitByAppSettings()
+
+        #region SpanToString
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string SpanToString(ReadOnlySpan<byte> data, Encoding encoding = null)
         {
-            #region (x.1)初始化序列化字符编码
-            var encoding = ConfigurationManager.Instance.GetByPath<string>("Vit.Serialization.Encoding");
-            if (!string.IsNullOrWhiteSpace(encoding))
+            if (data.Length == 0) return default;
+            unsafe
             {
-                try
+                fixed (byte* bytes = data)
                 {
-                    SetEncoding(encoding.StringToEnum<EEncoding>());
-                }
-                catch
-                {
+                    return (encoding ?? this.encoding).GetString(bytes, data.Length);
                 }
             }
-            #endregion
-
-
-            #region (x.2) DateTimeFormat
-            var DateTimeFormat = ConfigurationManager.Instance.GetByPath<string>("Vit.Serialization.DateTimeFormat");
-            if (!string.IsNullOrWhiteSpace(DateTimeFormat))
-            {
-                try
-                {
-                    SetDateTimeFormat(DateTimeFormat);
-                }
-                catch
-                {
-                }
-            }
-            #endregion
         }
+
         #endregion
 
 
         #region (x.1)bytes <--> String
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string BytesToString(byte[] data, Encoding encoding = null)
+        public virtual string BytesToString(byte[] data, Encoding encoding = null)
         {
             return (encoding ?? this.encoding).GetString(data);
         }
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public byte[] StringToBytes(string data, Encoding encoding = null)
+        public virtual byte[] StringToBytes(string data, Encoding encoding = null)
         {
             return (encoding ?? this.encoding).GetBytes(data);
         }
         #endregion
 
+       
 
 
         #region (x.2)object <--> String
@@ -118,20 +80,16 @@ namespace Vit.Core.Module.Serialization
         #region SerializeToString
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string SerializeToString(object value)
-        {
-            if (null == value) return null;
+        public abstract string SerializeToString<T>(T value);
 
-            if (value.GetType().TypeIsValueTypeOrStringType())
-            {
-                return value.Convert<string>();
-            }
 
-            return JsonConvert.SerializeObject(value, Serialize_DateTimeFormat);
-            //return JsonConvert.SerializeObject(value, Newtonsoft.Json.Formatting.Indented,Serialize_DateTimeFormat);
-            //return JsonConvert.SerializeObject(value, timeFormat);    
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public abstract string SerializeToString(object value, Type type);        
+
         #endregion
+
+
+
 
         #region DeserializeFromString
 
@@ -142,16 +100,8 @@ namespace Vit.Core.Module.Serialization
         /// <param name="type"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public object DeserializeFromString(string value, Type type)
-        {
-            if (null == value || null == type) return null;
-
-            if (type.TypeIsValueTypeOrStringType())
-            {
-                return DeserializeStruct(value, type);
-            }
-            return DeserializeClass(value, type);
-        }
+        public abstract object DeserializeFromString(string value, Type type);
+         
 
 
         /// <summary>
@@ -161,68 +111,13 @@ namespace Vit.Core.Module.Serialization
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public T DeserializeFromString<T>(string value)
+        public virtual T DeserializeFromString<T>(string value)
         {
             return (T)DeserializeFromString(value, typeof(T));
         }
 
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="type">必须为 where T : struct</param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private object DeserializeStruct(string value, Type type)
-        {
-            try
-            {
-                if (type.IsStringType())
-                    return value;
-                return value.Convert(type);
-            }
-            catch { }
-            return type.DefaultValue();
-        }
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <typeparam name="T">必须为 where T : struct</typeparam>
-        ///// <param name="value"></param>
-        ///// <returns></returns>
-        //private object DeserializeStruct<T>(string value)
-        //{
-        //    return DeserializeStruct(value, typeof(T));
-        //}
-
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="type"> 必须为 where T : class </param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private object DeserializeClass(string value, Type type)
-        {
-            if (string.IsNullOrWhiteSpace(value)) return type.DefaultValue();
-            return JsonConvert.DeserializeObject(value, type);
-        }
-
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <typeparam name="T">必须为 where T : class</typeparam>
-        ///// <param name="value"></param>
-        //private T DeserializeClass<T>(string value)
-        //{
-        //    return (T)DeserializeClass(value, typeof(T));
-        //}
+           
         #endregion
 
         #endregion
@@ -239,20 +134,32 @@ namespace Vit.Core.Module.Serialization
         /// <param name="obj"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public byte[] SerializeToBytes(object obj)
+        public virtual byte[] SerializeToBytes<T>(T obj)
         {
-            if (null == obj) return new byte[0];
-            
-            if (obj is byte[] bytes)
+            string strValue;
+            switch (obj) 
             {
-                return bytes;
-            }
-          
-            if(! (obj is string strValue))
-            {                 
-                strValue = SerializeToString(obj);
-            }
+                case null:
+                    return new byte[0];
+                case byte[] bytes:
+                    return bytes;
+                case ArraySegment<byte> asbs:
+                    return asbs.ArraySegmentByteToBytes();
+                case string str:
+                    strValue = str; break;
+                default: strValue = SerializeToString(obj);break;
+            }    
+      
             return StringToBytes(strValue);
+        }
+
+
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public virtual byte[] SerializeToBytes(object value, Type type) 
+        {
+            return SerializeToBytes(value);
         }
         #endregion
 
@@ -260,14 +167,14 @@ namespace Vit.Core.Module.Serialization
         #region DeserializeFromBytes
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public T DeserializeFromBytes<T>(byte[] bytes)
+        public virtual T DeserializeFromBytes<T>(byte[] bytes)
         {
             return (T)DeserializeFromBytes(bytes, typeof(T));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public object DeserializeFromBytes(byte[] bytes, Type type)
-        {
+        public virtual object DeserializeFromBytes(byte[] bytes, Type type)
+        {      
             if (type == typeof(byte[]))
             {
                 return bytes;
@@ -285,6 +192,29 @@ namespace Vit.Core.Module.Serialization
         }
         #endregion
 
+
+        #region DeserializeFromBytes
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public virtual T DeserializeFromSpan<T>(ReadOnlySpan<byte> bytes)
+        {
+            return (T)DeserializeFromSpan(bytes, typeof(T));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public virtual object DeserializeFromSpan(ReadOnlySpan<byte> bytes, Type type)
+        {
+            if (bytes.Length == 0) return default;
+
+            string strValue = SpanToString(bytes);
+            if (type == typeof(string))
+            {
+                return strValue;
+            }
+            return DeserializeFromString(strValue, type);
+        }
+        #endregion
+
         #endregion
 
 
@@ -297,7 +227,7 @@ namespace Vit.Core.Module.Serialization
         /// <param name="obj"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ArraySegment<byte> SerializeToArraySegmentByte(object obj)
+        public virtual ArraySegment<byte> SerializeToArraySegmentByte<T>(T obj)
         {
             if (null == obj) return ArraySegmentByteExtensions.Null;
 
@@ -305,30 +235,25 @@ namespace Vit.Core.Module.Serialization
             {
                 return asbs;
             }
-            if (obj is byte[] bytes)
-            {
-                return bytes.BytesToArraySegmentByte();
-            }
-
-            if (!(obj is string strValue))
-            {
-                strValue = SerializeToString(obj);
-            }
-            return StringToBytes(strValue).BytesToArraySegmentByte();
+            
+            return SerializeToBytes(obj).BytesToArraySegmentByte();
         }
         #endregion
 
         #region DeserializeFromArraySegmentByte
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public T DeserializeFromArraySegmentByte<T>(ArraySegment<byte> bytes)
+        public virtual T DeserializeFromArraySegmentByte<T>(ArraySegment<byte> bytes)
         {
+            if (bytes.Count == 0) return default;
             return (T)DeserializeFromArraySegmentByte(bytes, typeof(T));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public object DeserializeFromArraySegmentByte(ArraySegment<byte> bytes, Type type)
+        public virtual object DeserializeFromArraySegmentByte(ArraySegment<byte> bytes, Type type)
         {
+            if (bytes.Count == 0) return default;
+
             if (type == typeof(byte[]))
             {
                 return bytes.ArraySegmentByteToBytes();
@@ -358,7 +283,7 @@ namespace Vit.Core.Module.Serialization
         /// <param name="type"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public object ConvertBySerialize(Object value, Type type)
+        public virtual object ConvertBySerialize(Object value, Type type)
         {
             var str = SerializeToString(value);
             return DeserializeFromString(str,type);
@@ -366,16 +291,54 @@ namespace Vit.Core.Module.Serialization
 
         /// <summary>
         /// 通过序列化克隆对象
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// </summary> 
+        /// <typeparam name="TTarget"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public T ConvertBySerialize<T>(Object value)
+        public virtual TTarget ConvertBySerialize<TTarget>(Object value)
         {
             var str = SerializeToString(value);
-            return DeserializeFromString<T>(str);
+            return DeserializeFromString<TTarget>(str);
         }
+        #endregion
+
+
+
+        #region DeserializeStruct
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="type">必须为 where T : struct</param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public  object DeserializeStruct(string value, Type type)
+        {
+            try
+            {
+                if (type.IsStringType())
+                    return value;
+                return value.Convert(type);
+            }
+            catch { }
+            return type.DefaultValue();
+        }
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <typeparam name="T">必须为 where T : struct</typeparam>
+        ///// <param name="value"></param>
+        ///// <returns></returns>
+        //public object DeserializeStruct<T>(string value)
+        //{
+        //    return DeserializeStruct(value, typeof(T));
+        //}
+
+
+
         #endregion
 
     }

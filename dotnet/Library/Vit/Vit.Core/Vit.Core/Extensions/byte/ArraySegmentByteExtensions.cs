@@ -1,6 +1,7 @@
 ﻿using Vit.Core.Module.Serialization;
 using System;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace Vit.Extensions
 {
@@ -23,7 +24,7 @@ namespace Vit.Extensions
         public static ArraySegment<T> Slice<T>(this ArraySegment<T> seg,int Offset,int? count=null)
         {
             return new ArraySegment<T>(seg.Array,seg.Offset+ Offset, count?? (seg.Count-Offset) );
-        } 
+        }
 
 
 
@@ -32,17 +33,18 @@ namespace Vit.Extensions
         #region ArraySegmentByte <--> String
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string ArraySegmentByteToString(this ArraySegment<byte> data)
+        public static string ArraySegmentByteToString(this ArraySegment<byte> data, Encoding encoding = null)
         {
             if (null == data || data.Array==null) return null;
-            return data.Count==0?"":Serialization.Instance.encoding.GetString(data.Array,data.Offset,data.Count); 
+            ReadOnlySpan<byte> span = data;
+            return span.SpanToString(encoding);
         }
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ArraySegment<byte> StringToArraySegmentByte(this string data)
         {
-            return (null == data) ? Null : Serialization.Instance.encoding.GetBytes(data).BytesToArraySegmentByte();
+            return (null == data) ? Null : data.StringToBytes().BytesToArraySegmentByte();
         }
         #endregion
 

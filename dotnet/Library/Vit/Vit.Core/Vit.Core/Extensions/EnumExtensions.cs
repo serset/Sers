@@ -11,7 +11,7 @@ namespace Vit.Extensions
         #region String --> Enum
 
         /// <summary>
-        /// T 必须为Enum
+        /// T 必须为Enum,且不可为Nullable
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="data"></param>

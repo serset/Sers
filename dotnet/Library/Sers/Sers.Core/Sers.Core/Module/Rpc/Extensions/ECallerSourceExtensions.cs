@@ -1,4 +1,4 @@
-﻿using Sers.Core.Module.Api.Rpc;
+﻿using Sers.Core.Module.Rpc;
 
 namespace Vit.Extensions
 {
@@ -27,7 +27,7 @@ namespace Vit.Extensions
                 case "Internal": return ECallerSource.Internal;
                 case "OutSide": return ECallerSource.OutSide;
             }
-            return default(ECallerSource);
+            return default;
         }
 
     }

@@ -83,7 +83,7 @@ namespace Sers.Core.Module.Api.LocalApi.Event
         /// <summary>
         /// BeforeCallApi(IRpcContextData rpcData, ApiMessage requestMessage)
         /// </summary>
-        internal Action<IRpcContextData, ApiMessage> BeforeCallApi = null;
+        internal Action<RpcContextData, ApiMessage> BeforeCallApi = null;
 
 
     }
