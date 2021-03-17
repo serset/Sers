@@ -35,7 +35,7 @@ namespace Sers.SersLoader
             var returnValue = executor.Execute(apiController_Obj, args);
 
             //(x.3) 序列化 返回数据
-            return returnValue.SerializeToBytes();
+            return returnValue?.SerializeToBytes();
         }
                           
 

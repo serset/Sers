@@ -28,8 +28,12 @@ namespace Did.SersLoader.Demo.Controllers.Demo
     public class SampleController
         : IApiController
     {
-
-
+ 
+        [SsRoute("/a")]
+        public void Empty()
+        {
+            
+        }
 
         #region (x.1)route
 
