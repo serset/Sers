@@ -12,7 +12,7 @@ namespace Vit.Core.Module.Serialization
 
         #region defaultEncoding
         public static Encoding defaultEncoding { get; set; } =
-            ConfigurationManager.Instance.GetByPath<string>("Vit.Serialization.Encoding").StringToEnum<EEncoding>().ToEncoding() ?? Encoding.UTF8;
+            ConfigurationManager.Instance.GetByPath<string>("Vit.Serialization.Encoding")?.StringToEnum<EEncoding>().ToEncoding() ?? Encoding.UTF8;
 
         #endregion
 
