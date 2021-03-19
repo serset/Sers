@@ -12,7 +12,13 @@ namespace DeliveryTest
         {
             try
             {
-                for (var t = 0; t < 4; t++)
+                int treadCount = 1;
+                if (args?.Length == 1)
+                {
+                    int.TryParse(args[0], out treadCount);
+                }
+
+                for (var t = 0; t < treadCount; t++)
                 {
                     LocalApiTest.StartThread();
                 }

@@ -14,8 +14,11 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Controllers
             public string name { get; set; }
         }
 
+        [SsRoute("/a")]
+        public void A()
+        {    
+        }
 
-       
         [SsRoute("api/GetDeviceGuidList")]
         public string GetDeviceGuidList(string arg)
         {
