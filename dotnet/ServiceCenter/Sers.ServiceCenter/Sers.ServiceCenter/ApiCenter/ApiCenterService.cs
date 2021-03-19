@@ -1,6 +1,5 @@
 ﻿using System;
 using Sers.Core.Module.Rpc;
-using Vit.Core.Util.Pool;
 using System.Threading;
 using Sers.Core.CL.CommunicationManage;
 using Sers.Core.CL.MessageOrganize;
@@ -8,6 +7,7 @@ using Sers.Core.Module.Message;
 using Sers.ServiceCenter.Entity;
 using Newtonsoft.Json;
 using System.Runtime.CompilerServices;
+using Vit.Core.Util.Threading;
 
 namespace Sers.ServiceCenter.ApiCenter
 {
@@ -29,7 +29,14 @@ namespace Sers.ServiceCenter.ApiCenter
 
 
         #region CallApi
-        ObjectPoolGenerator<AutoResetEvent> pool_AutoResetEvent = new ObjectPoolGenerator<AutoResetEvent>(() => new AutoResetEvent(false));
+
+
+        #region static curAutoResetEvent      
+        public static AutoResetEvent curAutoResetEvent =>
+            _curAutoResetEvent.Value ?? (_curAutoResetEvent.Value = new AutoResetEvent(false));
+
+        static AsyncCache<AutoResetEvent> _curAutoResetEvent = new AsyncCache<AutoResetEvent>();
+        #endregion
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -37,7 +44,7 @@ namespace Sers.ServiceCenter.ApiCenter
         {
             Vit.Core.Util.Pipelines.ByteData _replyData = null;
 
-            AutoResetEvent mEvent = pool_AutoResetEvent.Pop();
+            AutoResetEvent mEvent = curAutoResetEvent;
             mEvent.Reset();
 
             CallApiAsync(conn, null, apiRequest, (sender, replyData_) =>
@@ -46,26 +53,26 @@ namespace Sers.ServiceCenter.ApiCenter
                 mEvent?.Set();
             });
 
+            bool success;
             try
             {
-                if (mEvent.WaitOne(requestTimeoutMs))
-                {
-                    replyData = _replyData;
-                    return true;
-                }
-                else
-                {
-                    replyData = null;
-                    return false;
-                }
+                success = mEvent.WaitOne(requestTimeoutMs);
             }
             finally
             {
-                var eToPush = mEvent;
                 mEvent = null;
-                pool_AutoResetEvent.Push(eToPush);
             }
 
+            if (success)
+            {
+                replyData = _replyData;
+                return true;
+            }
+            else
+            {
+                replyData = null;
+                return false;
+            }
         }
         #endregion
 

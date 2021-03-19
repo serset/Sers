@@ -73,7 +73,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             //long reqKey = CommonHelp.NewGuidLong();
             long reqKey = Interlocked.Increment(ref reqKeyIndex);
 
-            var requestInfo = OrganizeToDelivery_RequestInfo.Pop();
+            var requestInfo = new OrganizeToDelivery_RequestInfo();
             requestInfo.sender = sender;
             requestInfo.callback = callback;
 
@@ -86,12 +86,19 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             return reqKey;
         }
 
+        #region static curAutoResetEvent      
+        public static AutoResetEvent curAutoResetEvent   => 
+            _curAutoResetEvent.Value ?? (_curAutoResetEvent.Value = new AutoResetEvent(false));  
 
-        public bool SendRequest(IOrganizeConnection conn, Vit.Core.Util.Pipelines.ByteData requestData, out Vit.Core.Util.Pipelines.ByteData replyData)
+        static AsyncCache<AutoResetEvent> _curAutoResetEvent = new AsyncCache<AutoResetEvent>();
+        #endregion
+
+
+        public bool SendRequest(IOrganizeConnection conn, Vit.Core.Util.Pipelines.ByteData requestData, out ByteData replyData)
         {
-            Vit.Core.Util.Pipelines.ByteData _replyData = null;
+            ByteData _replyData = null;
 
-            AutoResetEvent mEvent = pool_AutoResetEvent.Pop();
+            AutoResetEvent mEvent = curAutoResetEvent;
             mEvent.Reset();
 
             long reqKey = SendRequestAsync(conn, null, requestData, (sender, replyData_) => {
@@ -99,29 +106,32 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                 mEvent?.Set();
             });
 
+            bool success;
             try
             {
-                if (mEvent.WaitOne(requestTimeoutMs))
-                {
-                    replyData = _replyData;
-                    return true;
-                }
-                else
-                {
-                    if (OrganizeToDelivery_RequestMap_TryRemove(reqKey, out var requestInfo))
-                    {
-                        requestInfo.Push();
-                    }
-                    replyData = null;
-                    return false;
-                }
+                success = mEvent.WaitOne(requestTimeoutMs);
             }
             finally
             {
-                var eToPush = mEvent;
                 mEvent = null;
-                pool_AutoResetEvent.Push(eToPush);
             }
+
+
+            if (success)
+            {        
+                replyData = _replyData;
+                return true;
+            }
+            else
+            {
+                if (OrganizeToDelivery_RequestMap_TryRemove(reqKey, out var requestInfo))
+                {
+                   
+                }
+                replyData = null;
+                return false;
+            }
+
         }
 
         #endregion
@@ -192,7 +202,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
         #region (x.x.1)
 
-        ObjectPoolGenerator<AutoResetEvent> pool_AutoResetEvent = new ObjectPoolGenerator<AutoResetEvent>(() => new AutoResetEvent(false));
+  
         long reqKeyIndex = CommonHelp.NewGuidLong();
    
         #endregion
@@ -331,8 +341,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
                         if (OrganizeToDelivery_RequestMap_TryRemove(reqKey, out var requestInfo))
                         {
-                            requestInfo.callback(requestInfo.sender, new Vit.Core.Util.Pipelines.ByteData(replyData));
-                            requestInfo.Push();
+                            requestInfo.callback(requestInfo.sender, new Vit.Core.Util.Pipelines.ByteData(replyData));                         
                         }
                         return;
                     }
@@ -475,22 +484,6 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         {
             public object sender;
             public Action<object, Vit.Core.Util.Pipelines.ByteData> callback;
-
-            public static OrganizeToDelivery_RequestInfo Pop()
-            {
-                return ObjectPool<OrganizeToDelivery_RequestInfo>.Shared.Pop();
-            }
-
-            /// <summary>
-            /// 使用结束请手动调用
-            /// </summary>
-            public void Push()
-            {
-                sender = null;
-                callback = null;
-                ObjectPool<OrganizeToDelivery_RequestInfo>.Shared.Push(this);
-            }
-
         };
         #endregion
 

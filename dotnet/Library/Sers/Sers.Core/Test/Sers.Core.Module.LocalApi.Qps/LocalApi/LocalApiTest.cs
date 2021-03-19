@@ -7,10 +7,8 @@ using Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions;
 
 namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
 {
-
     public class LocalApiTest
-    {
-        
+    {        
     
         public static int workThreadCount = 4;
 

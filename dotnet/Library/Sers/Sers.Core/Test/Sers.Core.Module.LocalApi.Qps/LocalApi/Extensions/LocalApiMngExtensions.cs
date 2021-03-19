@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
+
+using Sers.Core.CL.MessageOrganize;
 using Sers.Core.Module.Api.LocalApi;
 using Sers.Core.Module.Message;
+
+using Vit.Core.Util.Threading;
 using Vit.Extensions;
 
 namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions
@@ -12,6 +16,16 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions
     {
         #region CallLocalApi
 
+
+        #region static curAutoResetEvent      
+        public static AutoResetEvent curAutoResetEvent =>
+            _curAutoResetEvent.Value ?? (_curAutoResetEvent.Value = new AutoResetEvent(false));
+
+        static AsyncCache<AutoResetEvent> _curAutoResetEvent = new AsyncCache<AutoResetEvent>();
+        #endregion
+
+
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ArraySegment<byte> CallLocalApi(this LocalApiService data,string route, Object arg)
         {
@@ -19,7 +33,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions
 
             ApiMessage apiReplyMessage=null;
 
-            AutoResetEvent mEvent = new AutoResetEvent(false);
+            AutoResetEvent mEvent = curAutoResetEvent;
             mEvent.Reset();
 
             data.CallApiAsync(null, apiRequestMessage, (sender,_apiReplyMessage)=> 
@@ -32,6 +46,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions
             //TODO
             int millisecondsTimeout = 60000;
             mEvent.WaitOne(millisecondsTimeout);
+            mEvent = null;
 
             return apiReplyMessage.value_OriData;
         }
