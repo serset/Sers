@@ -156,23 +156,6 @@ namespace Sers.Core.Module.Api.LocalApi
             public ApiMessage apiRequest;
             public Object sender;
             public Action<object, ApiMessage> callback;
-
-
-            public static RequestInfo Pop()
-            {
-                return ObjectPool<RequestInfo>.Shared.Pop();
-            }
-
-            public void Push()
-            {
-                conn = null;
-                apiRequest = null;
-                sender = null;
-                callback = null;
-
-                ObjectPool<RequestInfo>.Shared.Push(this);
-            }
-
         }
 
 
@@ -180,7 +163,7 @@ namespace Sers.Core.Module.Api.LocalApi
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CallApiAsync(Object sender, ApiMessage apiRequest, Action<object, ApiMessage> callback)
         {
-            var requestInfo = RequestInfo.Pop();
+            var requestInfo = new RequestInfo();
 
             requestInfo.conn = CommunicationManageServer.CurConn;
             requestInfo.sender = sender;
@@ -308,30 +291,19 @@ namespace Sers.Core.Module.Api.LocalApi
             #region TaskToCallApi
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            void Processor(RequestInfo requestInfo) 
+            void Processor(RequestInfo requestInfo)
             {
-                ApiMessage apiRequest;
-                Object sender;
-                Action<object, ApiMessage> callback;
-
                 ApiMessage apiReply;
 
                 try
                 {
-                    #region 处理 requestInfo
                     CommunicationManageServer.CurConn = requestInfo.conn;
-                    apiRequest = requestInfo.apiRequest;
-                    sender = requestInfo.sender;
-                    callback = requestInfo.callback;
-
-                    requestInfo.Push();
-                    #endregion
 
                     //处理请求
-                    apiReply = callLocalApi(apiRequest);
+                    apiReply = callLocalApi(requestInfo.apiRequest);
 
                     //调用请求回调
-                    callback(sender, apiReply);
+                    requestInfo.callback(requestInfo.sender, apiReply);
                 }
                 catch (Exception ex) when (!(ex.GetBaseException() is ThreadInterruptedException))
                 {
@@ -431,7 +403,7 @@ namespace Sers.Core.Module.Api.LocalApi
                 w.workArg = requestInfo.apiRequest;     
                 w.workArg3 = requestInfo.sender;
                 w.workArg4 = requestInfo.callback;
-                requestInfo.Push();
+            
             }
 
 
