@@ -106,6 +106,27 @@ namespace Sers.Core.Module.Api
 
         #region CallApi 扩展
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="ReturnType"></typeparam>
+        /// <param name="route"></param>
+        /// <param name="arg"></param>
+        /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
+        /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public ArraySegment<byte> CallApiWithBytes(string route, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)
+        {
+            var apiRequestMessage = new ApiMessage().InitAsApiRequestMessage(route, arg, httpMethod, InitRpc);
+
+            var apiReplyMessage = CallApi(apiRequestMessage);
+
+            return apiReplyMessage.value_OriData;
+        }
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -118,11 +139,9 @@ namespace Sers.Core.Module.Api
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ReturnType CallApi<ReturnType>(string route, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)
         {
-            var apiRequestMessage = new ApiMessage().InitAsApiRequestMessage(route, arg, httpMethod, InitRpc);
-
-            var apiReplyMessage = CallApi(apiRequestMessage);
-
-            return apiReplyMessage.value_OriData.DeserializeFromArraySegmentByte<ReturnType>();
+            ArraySegment<byte> replyValue = CallApiWithBytes(route, arg, httpMethod, InitRpc);
+            if (replyValue.Count == 0) return default;
+            return replyValue.DeserializeFromArraySegmentByte<ReturnType>();
         }
 
         /// <summary>

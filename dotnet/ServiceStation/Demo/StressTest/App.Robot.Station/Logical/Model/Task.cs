@@ -161,7 +161,7 @@ namespace App.Robot.Station.Logical.Model
             {
                 
                 var ret = ApiClient.CallRemoteApi<ApiReturn>(config.apiRoute, config.apiArg, config.httpMethod);
-                if (ret.success)
+                if (ret!=null && ret.success)
                 {
                     success = true;
                 }
