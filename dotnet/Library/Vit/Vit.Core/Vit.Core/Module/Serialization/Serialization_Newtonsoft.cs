@@ -10,7 +10,7 @@ namespace Vit.Core.Module.Serialization
     public class Serialization_Newtonsoft: Serialization
     {
         
-        public static readonly Serialization_Newtonsoft Instance = new Serialization_Newtonsoft().InitByAppSettings(); 
+        public new static readonly Serialization_Newtonsoft Instance = new Serialization_Newtonsoft().InitByAppSettings(); 
 
 
         #region 成员对象

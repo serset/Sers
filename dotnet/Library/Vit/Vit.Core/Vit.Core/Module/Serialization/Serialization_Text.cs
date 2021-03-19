@@ -9,7 +9,7 @@ namespace Vit.Core.Module.Serialization
     public class Serialization_Text : Serialization
     {
 
-        public static readonly Serialization_Text Instance = new Serialization_Text();
+        public new static readonly Serialization_Text Instance = new Serialization_Text();
 
         public JsonSerializerOptions serializeOptions = new JsonSerializerOptions
         {

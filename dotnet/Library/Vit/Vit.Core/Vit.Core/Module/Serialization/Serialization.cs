@@ -136,11 +136,11 @@ namespace Vit.Core.Module.Serialization
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual byte[] SerializeToBytes<T>(T obj)
         {
+            if (null == obj) return new byte[0];
+
             string strValue;
             switch (obj) 
-            {
-                case null:
-                    return new byte[0];
+            {                
                 case byte[] bytes:
                     return bytes;
                 case ArraySegment<byte> asbs:
