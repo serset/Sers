@@ -10,12 +10,16 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
 
     public class LocalApiTest
     {
+        
+    
+        public static int workThreadCount = 4;
+
         static StatisticsQpsAsync statisticsQps = new StatisticsQpsAsync();
         static LocalApiService localApiService;
         static LocalApiTest()
         {
             //(x.1)构建
-            localApiService = new LocalApiService() { workThreadCount = 4 };
+            localApiService = new LocalApiService() { workThreadCount = workThreadCount };
             localApiService.LoadSersApi(typeof(LocalApiTest).Assembly);
 
             localApiService.Start();
@@ -37,14 +41,16 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
                 {
                     try
                     {
-                        for (var t = 0; t < 10000; t++)
-                        {
-                              
-                            string route = "/Test/api/GetDeviceGuidList";
-                            string arg = "asfsdf";
-                            object argValue = new { arg };
+                        for (var t = 0; t < 1000; t++)
+                        {                       
 
-                            object returnValue = localApiService.CallLocalApi<string>(route, argValue);
+                            object returnValue = localApiService.CallLocalApi<string>("/a",null);
+
+                            //string route = "/Test/api/GetDeviceGuidList";
+                            //string arg = "asfsdf";
+                            //object argValue = new { arg };
+
+                            //object returnValue = localApiService.CallLocalApi<string>(route, argValue);
                         }
 
                         qpsInfo.RequestCount++;

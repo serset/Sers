@@ -90,12 +90,6 @@ namespace Vit.Extensions
 
 
 
-
-
-
-
-
-
         #region http_url_search_Get
         /// <summary>
         /// 获取泛接口 路由 * 实际传递的内容。
