@@ -99,7 +99,7 @@ namespace Sers.Core.Module.Api.LocalApi
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal ApiMessage CallLocalApi(ApiMessage apiRequest)
         {           
-            using (var rpcContext = RpcFactory.CreateRpcContext())
+            using (var rpcContext = new RpcContext())
             using (var localApiEvent = LocalApiEventMng.Instance.CreateApiEvent())
             {
                 try

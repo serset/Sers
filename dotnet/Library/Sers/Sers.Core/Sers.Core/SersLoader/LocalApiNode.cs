@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+
 using Newtonsoft.Json;
 using Sers.Core.Module.Api.ApiDesc;
 using Sers.Core.Module.Api.LocalApi;
@@ -24,6 +26,8 @@ namespace Sers.SersLoader
             executor = new DynamicMethodExecutor(apiController_Method);
         }
 
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public /*virtual*/ byte[] Invoke(ArraySegment<byte> arg_OriData)
         {
 

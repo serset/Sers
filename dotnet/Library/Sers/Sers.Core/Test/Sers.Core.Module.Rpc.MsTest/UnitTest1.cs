@@ -12,7 +12,7 @@ namespace Sers.Core.Module.Rpc.MsTest
         {
             try
             {
-                using (var rpcContext = RpcFactory.CreateRpcContext())
+                using (var rpcContext = new RpcContext())
                 {
                     var rpcData = new RpcContextData();
                     rpcContext.rpcData = rpcData;

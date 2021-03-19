@@ -51,7 +51,7 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer
                 if (null != rpcData.user) return;
 
                 ApiReturn<JObject> ret;
-                using (var rpcContext = RpcFactory.CreateRpcContext())
+                using (var rpcContext = new RpcContext())
                 {
                     //RpcContext.Current.rpcData=rpcData;
                     rpcContext.rpcData = rpcData;

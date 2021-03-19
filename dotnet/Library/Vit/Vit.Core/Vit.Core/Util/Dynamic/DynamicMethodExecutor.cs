@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Vit.Core.Util.Dynamic
 {
@@ -15,10 +16,14 @@ namespace Vit.Core.Util.Dynamic
         {
             this.m_execute = this.GetExecuteDelegate(methodInfo);
         }
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object Execute(object instance, object[] parameters)
         {
             return this.m_execute(instance, parameters);
         }
+
         private Func<object, object[], object> GetExecuteDelegate(MethodInfo methodInfo)
         {
             // parameters to execute
