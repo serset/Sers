@@ -264,7 +264,11 @@ namespace Sers.ServiceStation
             ApiClient.SetOnSendRequest(communicationManage.organizeList.Select(organize=> organize.conn).Select<IOrganizeConnection, Func<Vit.Core.Util.Pipelines.ByteData, ArraySegment<byte>>>(
                 conn =>
                 {
-                    return (req) => { conn.SendRequest(req, out var reply); return reply.ToArraySegment(); };
+                    return (req) => {
+                        conn.SendRequest(req, out var reply);
+                        //if (reply == null) return default;
+                        return reply.ToArraySegment(); 
+                    };
                 }
                 ).ToArray());
             #endregion

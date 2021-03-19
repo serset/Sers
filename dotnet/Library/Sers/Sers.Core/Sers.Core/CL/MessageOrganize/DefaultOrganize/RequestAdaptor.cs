@@ -90,7 +90,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         public static AutoResetEvent curAutoResetEvent   => 
             _curAutoResetEvent.Value ?? (_curAutoResetEvent.Value = new AutoResetEvent(false));  
 
-        static AsyncCache<AutoResetEvent> _curAutoResetEvent = new AsyncCache<AutoResetEvent>();
+        static ThreadCache<AutoResetEvent> _curAutoResetEvent = new ThreadCache<AutoResetEvent>();
         #endregion
 
 
@@ -98,7 +98,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         {
             ByteData _replyData = null;
 
-            AutoResetEvent mEvent = curAutoResetEvent;
+            AutoResetEvent mEvent = curAutoResetEvent;    
             mEvent.Reset();
 
             long reqKey = SendRequestAsync(conn, null, requestData, (sender, replyData_) => {
