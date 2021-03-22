@@ -35,7 +35,7 @@ namespace Sers.ServiceCenter.ApiCenter
         public static AutoResetEvent curAutoResetEvent =>
             _curAutoResetEvent.Value ?? (_curAutoResetEvent.Value = new AutoResetEvent(false));
 
-        static ThreadCache<AutoResetEvent> _curAutoResetEvent = new ThreadCache<AutoResetEvent>();
+        static System.Threading.ThreadLocal<AutoResetEvent> _curAutoResetEvent = new System.Threading.ThreadLocal<AutoResetEvent>();
         #endregion
 
 

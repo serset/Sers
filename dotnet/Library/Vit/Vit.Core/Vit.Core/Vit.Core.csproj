@@ -18,6 +18,7 @@
   <ItemGroup>
     <Compile Remove="Extensions\byte\ReadOnlySpanByteExtensions.cs" />
     <Compile Remove="Extensions\byte\SpanByteExtensions.cs" />
+    <Compile Remove="Util\Threading\ThreadCache.cs" /> 
   </ItemGroup>
 
   <ItemGroup>
