@@ -17,7 +17,7 @@ namespace Sers.Core.CL.CommunicationManage
         {
             defaultConfig= ConfigurationManager.Instance.GetByPath<JObject>("Sers.CL.Config")??new JObject();
 
-            requestTimeoutMs = defaultConfig["requestTimeoutMs"]?.ConvertBySerialize<int?>() ?? 6000;
+            requestTimeoutMs = defaultConfig["requestTimeoutMs"]?.ConvertBySerialize<int?>() ?? 60000;
         }
 
         private JObject defaultConfig;

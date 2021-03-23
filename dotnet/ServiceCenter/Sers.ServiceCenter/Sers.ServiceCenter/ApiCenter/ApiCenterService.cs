@@ -26,56 +26,7 @@ namespace Sers.ServiceCenter.ApiCenter
 
             CallApiAsync(requestMessage, sender, callback);
         }
-
-
-        #region CallApi
-
-
-        #region static curAutoResetEvent      
-        public static AutoResetEvent curAutoResetEvent =>
-            _curAutoResetEvent.Value ?? (_curAutoResetEvent.Value = new AutoResetEvent(false));
-
-        static System.Threading.ThreadLocal<AutoResetEvent> _curAutoResetEvent = new System.Threading.ThreadLocal<AutoResetEvent>();
-        #endregion
-
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool CallApi(IOrganizeConnection  conn, ArraySegment<byte> apiRequest, out Vit.Core.Util.Pipelines.ByteData replyData, int requestTimeoutMs)
-        {
-            Vit.Core.Util.Pipelines.ByteData _replyData = null;
-
-            AutoResetEvent mEvent = curAutoResetEvent;
-            mEvent.Reset();
-
-            CallApiAsync(conn, null, apiRequest, (sender, replyData_) =>
-            {
-                _replyData = replyData_;
-                mEvent?.Set();
-            });
-
-            bool success;
-            try
-            {
-                success = mEvent.WaitOne(requestTimeoutMs);
-            }
-            finally
-            {
-                mEvent = null;
-            }
-
-            if (success)
-            {
-                replyData = _replyData;
-                return true;
-            }
-            else
-            {
-                replyData = null;
-                return false;
-            }
-        }
-        #endregion
-
+        
 
         #region interface
 

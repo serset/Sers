@@ -21,16 +21,17 @@ namespace Sers.Core.Module.Api
         /// callbacks长度必须大于1
         /// </summary>
         /// <param name="callbacks"></param>
-        public static void SetOnSendRequest(Func<Vit.Core.Util.Pipelines.ByteData, ArraySegment<byte>>[] callbacks)
+        public static void SetOnSendRequest(Action<Vit.Core.Util.Pipelines.ByteData, Action<ArraySegment<byte>>>[] callbacks,int requestTimeoutMs)
         {
             Instances = new ApiClient[callbacks.Length];
 
             Instances[0] = Instance;
             Instance.OnSendRequest = callbacks[0];
+            Instance.requestTimeoutMs = requestTimeoutMs;
 
             for (int i = 1; i < callbacks.Length; i++)
             {
-                Instances[i] = new ApiClient { OnSendRequest = callbacks[i] };
+                Instances[i] = new ApiClient { OnSendRequest = callbacks[i], requestTimeoutMs= requestTimeoutMs };
             }
         }
 
@@ -39,69 +40,87 @@ namespace Sers.Core.Module.Api
 
 
 
-        #region CallApi
+        #region 成员变量
 
-        private Func<Vit.Core.Util.Pipelines.ByteData, ArraySegment<byte>> OnSendRequest { get; set; }
+        int requestTimeoutMs;
+
+        private Action<Vit.Core.Util.Pipelines.ByteData, Action<ArraySegment<byte>>> OnSendRequest { get; set; }
+        #endregion
+
+
 
 
         #region CallApi 原始
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="reqOri"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private ArraySegment<byte> CallApi(Vit.Core.Util.Pipelines.ByteData reqOri)
+        public void CallApiAsync(Vit.Core.Util.Pipelines.ByteData apiRequestData, Action<ArraySegment<byte>> callback)
         {
-            return OnSendRequest(reqOri);
+            OnSendRequest(apiRequestData, callback);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        #endregion
+
+
+
+        #region CallApi 
+
+        #region static curAutoResetEvent      
+        public static AutoResetEvent curAutoResetEvent =>
+            _curAutoResetEvent.Value ?? (_curAutoResetEvent.Value = new AutoResetEvent(false));
+
+        static System.Threading.ThreadLocal<AutoResetEvent> _curAutoResetEvent = new System.Threading.ThreadLocal<AutoResetEvent>();
+        #endregion
+
+
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ApiMessage CallApi(ApiMessage request)
+        public ApiMessage CallApi(ApiMessage apiRequestMessage)
         {
             try
             {
-                var reply = CallApi(request.Package());
-                if (null == reply || reply.Count == 0)
+                AutoResetEvent mEvent = curAutoResetEvent;
+                mEvent.Reset();
+
+                try
                 {
-                    //Logger.Error(SsError.Err_Timeout.ToException());
-                    //返回请求超时，无回应数据
-                    return new ApiMessage().InitAsApiReplyMessageByError(SsError.Err_Timeout);
+                    ApiMessage apiReplyMessage = null;
+
+                    CallApiAsync(apiRequestMessage.Package(), (apiReplyData) => {
+                        apiReplyMessage = new ApiMessage(apiReplyData);
+                        mEvent?.Set();
+                    });
+
+
+                    if (mEvent.WaitOne(requestTimeoutMs))
+                    {
+                        return apiReplyMessage;
+                    }
                 }
-                return new ApiMessage(reply);
+                finally
+                {
+                    mEvent = null;
+                }
+
+
+                //Logger.Error(SsError.Err_Timeout.ToException());
+                //返回请求超时，无回应数据
+                return new ApiMessage().InitAsApiReplyMessageByError(SsError.Err_Timeout);
             }
             catch (Exception ex) when (!(ex.GetBaseException() is ThreadInterruptedException))
             {
                 ex = ex.GetBaseException();
 
                 Logger.Error(ex);
-       
+
                 return new ApiMessage().InitAsApiReplyMessageByError(ex);
             }
         }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public async Task<ApiMessage> CallApiAsync(ApiMessage request)
-        {
-            ApiMessage reply = null;
-            await Task.Run(() => { reply = CallApi(request); });
-            return reply;
-        }
-
-
         #endregion
+
+
+
+
+
 
 
         #region CallApi 扩展
@@ -159,6 +178,25 @@ namespace Sers.Core.Module.Api
         }
 
 
+        #endregion
+
+
+        #region CallApiAsync
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public async Task<ApiMessage> CallApiAsync(ApiMessage request)
+        {
+            ApiMessage apiReplyMessage = null;
+            await Task.Run(() => { apiReplyMessage = CallApi(request); });
+            return apiReplyMessage;
+        }
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -171,15 +209,21 @@ namespace Sers.Core.Module.Api
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public async Task<ReturnType> CallApiAsync<ReturnType>(string route, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)
         {
-            ReturnType ret = default(ReturnType);
-            await Task.Run(() => { ret = CallApi<ReturnType>(route, arg, httpMethod,InitRpc); });
+            ReturnType ret = default;
+            await Task.Run(() => { ret = CallApi<ReturnType>(route, arg, httpMethod, InitRpc); });
             return ret;
         }
 
+     
+
         #endregion
 
 
-        #endregion
+
+
+
+
+    
 
 
 

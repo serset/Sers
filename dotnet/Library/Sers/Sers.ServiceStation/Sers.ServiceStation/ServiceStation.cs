@@ -261,16 +261,19 @@ namespace Sers.ServiceStation
 
 
             #region (x.4) 初始化ApiClient
-            ApiClient.SetOnSendRequest(communicationManage.organizeList.Select(organize=> organize.conn).Select<IOrganizeConnection, Func<Vit.Core.Util.Pipelines.ByteData, ArraySegment<byte>>>(
+            ApiClient.SetOnSendRequest(
+                communicationManage.organizeList.Select(organize=> organize.conn)
+                .Select<IOrganizeConnection, Action<ByteData, Action<ArraySegment<byte>>>>(
                 conn =>
                 {
-                    return (req) => {
-                        conn.SendRequest(req, out var reply);
-                        //if (reply == null) return default;
-                        return reply.ToArraySegment(); 
+                    return (requestData,callback) => {
+                        conn.SendRequestAsync(null, requestData,(sender,replyData)=> 
+                        {
+                            callback(replyData.ToArraySegment());
+                        });                         
                     };
                 }
-                ).ToArray());
+                ).ToArray(), communicationManage.requestTimeoutMs);
             #endregion
 
 

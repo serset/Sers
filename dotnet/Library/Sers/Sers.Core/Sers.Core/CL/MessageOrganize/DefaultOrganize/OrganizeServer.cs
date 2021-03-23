@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Sers.Core.CL.MessageDelivery;
@@ -147,16 +147,18 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         }
 
 
-        public void Station_SendMessageAsync(IOrganizeConnection conn, Vit.Core.Util.Pipelines.ByteData message)
-        {
-            requestAdaptor.SendMessageAsync(conn, message);
-        }
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public void Station_SendMessageAsync(IOrganizeConnection conn, Vit.Core.Util.Pipelines.ByteData message)
+        //{
+        //    requestAdaptor.SendMessageAsync(conn, message);
+        //}
 
 
-        public void Station_SendRequestAsync(IOrganizeConnection conn, Object sender, Vit.Core.Util.Pipelines.ByteData requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
-        {
-            requestAdaptor.SendRequestAsync(conn, sender, requestData, callback);
-        }
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public void Station_SendRequestAsync(IOrganizeConnection conn, Object sender, Vit.Core.Util.Pipelines.ByteData requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
+        //{
+        //    requestAdaptor.SendRequestAsync(conn, sender, requestData, callback);
+        //}
 
 
 

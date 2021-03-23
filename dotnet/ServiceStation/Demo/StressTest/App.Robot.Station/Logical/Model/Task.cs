@@ -27,9 +27,9 @@ namespace App.Robot.Station.Logical.Model
 
         public bool IsRunning => tasks.IsRunning;
  
-        public int targetCount => config.threadCount*config.loopCountPerThread;
+        public int targetCount => config.threadCount * config.loopCountPerThread;
 
-        public int sumCount= 0;
+        public int sumCount = 0;
         public int sumFailCount = 0;
 
         public int curCount=0;

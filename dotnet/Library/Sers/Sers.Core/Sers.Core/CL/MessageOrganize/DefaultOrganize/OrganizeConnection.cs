@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Sers.Core.CL.MessageDelivery;
 
 namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
@@ -18,20 +18,19 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         }
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SendMessageAsync(Vit.Core.Util.Pipelines.ByteData message)
         {
             requestAdaptor.SendMessageAsync(this, message);
         }
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SendRequestAsync(Object sender, Vit.Core.Util.Pipelines.ByteData requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
             requestAdaptor.SendRequestAsync(this, sender, requestData, callback);
         }
-        public bool SendRequest(Vit.Core.Util.Pipelines.ByteData requestData, out Vit.Core.Util.Pipelines.ByteData replyData)
-        {
-            return requestAdaptor.SendRequest(this, requestData, out replyData);
-        }
+       
 
         public void Close() 
         {

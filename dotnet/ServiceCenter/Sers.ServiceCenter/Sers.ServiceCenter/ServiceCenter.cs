@@ -105,15 +105,7 @@ namespace Sers.ServiceCenter
                 {
                     callback(sender_,apiReplyMessage.Package());
                 });
-            }
-
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            public bool SendRequest(Vit.Core.Util.Pipelines.ByteData requestData, out Vit.Core.Util.Pipelines.ByteData replyData)
-            {
-                Logger.Error(new NotImplementedException());
-                throw new NotImplementedException();
-            }
-
+            }            
 
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -326,14 +318,17 @@ namespace Sers.ServiceCenter
 
 
             #region (x.6) 初始化ApiClient
-            Func<Vit.Core.Util.Pipelines.ByteData, ArraySegment<byte>> OnSendRequest = ((Vit.Core.Util.Pipelines.ByteData apiReqMessage) =>
+            Action<Vit.Core.Util.Pipelines.ByteData, Action<ArraySegment<byte>>> OnSendRequest = ((apiRequestMessage,callback) =>
             {
-                apiCenterService.CallApi(connForLocalStationService, apiReqMessage.ToArraySegment(),
-                    out var replyData, communicationManage.requestTimeoutMs);
-                return replyData.ToArraySegment();
+                apiCenterService.CallApiAsync(connForLocalStationService, null, apiRequestMessage.ToArraySegment(),
+                    (sender, replyData) =>
+                    {
+                        callback(replyData.ToArraySegment());
+                    }
+                 );                
             });
 
-            ApiClient.SetOnSendRequest(new[] { OnSendRequest });
+            ApiClient.SetOnSendRequest(new[] { OnSendRequest },communicationManage.requestTimeoutMs);
             #endregion
 
 

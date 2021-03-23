@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
@@ -148,7 +147,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             bool success = false;
             try
             {
-                if (conn.SendRequest(requestData, out var replyData) && replyData.ByteDataToString() == "true")
+                if (conn.SendRequest(requestData, out var replyData, requestAdaptor.requestTimeoutMs) && replyData.ByteDataToString() == "true")
                 {
                     success = true;
                     Logger.Info("[CL.OrganizeClient] Authentication - succeed.");
