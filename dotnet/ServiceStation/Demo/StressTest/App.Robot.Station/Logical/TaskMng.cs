@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using App.Robot.Station.Logical.Model;
+using App.Robot.Station.Logical.Worker;
 using Newtonsoft.Json;
 using Vit.Core.Util.ConfigurationManager;
 
@@ -37,7 +37,7 @@ namespace App.Robot.Station.Logical
 
 
         [JsonProperty]
-         ConcurrentDictionary<int, Task> tasks = new ConcurrentDictionary<int, Task>();
+         ConcurrentDictionary<int, IWorker> tasks = new ConcurrentDictionary<int, IWorker>();
         [JsonProperty]
         int curKeyIndex = 0;
 
@@ -56,7 +56,16 @@ namespace App.Robot.Station.Logical
         {
             var key = GetNewKey();
 
-            var task = new Task(config);
+            IWorker task;
+
+            switch (config.type)
+            {
+                case "ApiClientAsync": task = new Worker_ApiClientAsync(config); break;
+                case "HttpClient": task = new Worker_HttpClient(config); break;
+                case "HttpUtil": task = new Worker_HttpUtil(config); break;
+                default: config.type = "ApiClient"; task = new Worker_ApiClient(config); break;
+            }
+
             task.id = key;
             return tasks.TryAdd(key, task);
         }
@@ -92,7 +101,7 @@ namespace App.Robot.Station.Logical
         }
 
 
-        public  List<Task> GetAll()
+        public  List<IWorker> GetAll()
         {
             return tasks.Values.ToList();
         }

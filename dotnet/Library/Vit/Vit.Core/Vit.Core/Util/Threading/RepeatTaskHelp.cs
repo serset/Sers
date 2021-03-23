@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using Vit.Core.Module.Log;
 using Vit.Extensions;
@@ -67,6 +68,7 @@ namespace Vit.Core.Util.Threading
 
         public bool IsRunning => runningThreadCount != 0;//threads != null && threads.Any(item=> item.IsAlive);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void Run()
         {
             Interlocked.Increment(ref runningThreadCount);

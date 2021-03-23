@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using App.Robot.Station.Logical;
-using App.Robot.Station.Logical.Model;
 using Sers.SersLoader;
 using Sers.SersLoader.ApiDesc.Attribute.Valid;
 using Sers.Core.Module.Rpc;
@@ -8,6 +7,7 @@ using Sers.Core.Module.App;
 using Vit.Core.Util.ComponentModel.Api;
 using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.Threading;
+using App.Robot.Station.Logical.Worker;
 
 namespace App.Robot.Station.Controllers
 {
@@ -47,7 +47,7 @@ namespace App.Robot.Station.Controllers
         /// <returns>ArgModelDesc-returns</returns>
         [SsRoute("task/getAll")]
         [SsCallerSource(ECallerSource.Internal)]
-        public ApiReturn<List<Task>> GetAll()
+        public ApiReturn<List<IWorker>> GetAll()
         {
             return TaskMng.Instance.GetAll();
         }

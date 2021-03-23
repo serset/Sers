@@ -3,6 +3,7 @@ using System.Threading;
 using Vit.Extensions;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.SsError;
+using System.Runtime.CompilerServices;
 
 namespace Vit.Core.Util.Threading
 {
@@ -70,6 +71,7 @@ namespace Vit.Core.Util.Threading
 
         public bool IsRunning => runningThreadCount!=0;//threads != null && threads.Any(item=> item.IsAlive);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void Run()
         {
             try

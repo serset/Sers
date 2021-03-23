@@ -107,7 +107,7 @@
         var config = new Vue({
             el: '#txtTaskConfig',
             data: {
-                config: '{ "name": "Demo[8-0]","apiRoute": "/demo/v1/api/333/arg", "//apiArg": "{\\"Name\\":\\"lith\\"}","httpMethod":"POST","httpUseHttpUtil":false, "threadCount": 8,"interval": 0, "autoStart": false,"loopCountPerThread": 1000000000 }'
+                config: '{"type":"ApiClientAsync","name": "Demo[8-0]","apiRoute": "/a", "//apiArg": "{\\"Name\\":\\"lith\\"}","httpMethod":"POST", "threadCount": 8,"interval": 0, "autoStart": false,"loopCountPerThread": 1000000000, "//type":"ApiClient、ApiClientAsync、 HttpClient、HttpUtil","//apiRoute": "/demo/v1/api/333/arg" }'
             }
         });
 

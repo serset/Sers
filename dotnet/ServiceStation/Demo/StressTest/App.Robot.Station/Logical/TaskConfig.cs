@@ -1,7 +1,14 @@
-﻿namespace App.Robot.Station.Logical.Model
+﻿namespace App.Robot.Station.Logical
 {
     public class TaskConfig
     {
+
+        /// <summary>
+        /// ApiClient、ApiClientAsync、 HttpClient、HttpUtil
+        /// </summary>
+        public string type = "ApiClient";
+
+
         public string name="taskName";
 
         public string apiRoute;
@@ -9,16 +16,11 @@
         public string httpMethod;
 
 
-        /// <summary>
-        /// （为http时有效）是否使用HttpUtil。默认使用HttpClient 
-        /// </summary>
-        public bool httpUseHttpUtil;
-
 
         public int threadCount=1;
+
         public int loopCountPerThread=2000;     
-
-
+        
 
  
         /// <summary>

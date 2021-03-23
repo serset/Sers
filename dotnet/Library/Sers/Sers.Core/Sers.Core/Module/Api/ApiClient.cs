@@ -21,7 +21,7 @@ namespace Sers.Core.Module.Api
         /// callbacks长度必须大于1
         /// </summary>
         /// <param name="callbacks"></param>
-        public static void SetOnSendRequest(Action<Vit.Core.Util.Pipelines.ByteData, Action<ArraySegment<byte>>>[] callbacks,int requestTimeoutMs)
+        public static void SetOnSendRequest(Action<Vit.Core.Util.Pipelines.ByteData, Action<ArraySegment<byte>>>[] callbacks, int requestTimeoutMs)
         {
             Instances = new ApiClient[callbacks.Length];
 
@@ -31,7 +31,7 @@ namespace Sers.Core.Module.Api
 
             for (int i = 1; i < callbacks.Length; i++)
             {
-                Instances[i] = new ApiClient { OnSendRequest = callbacks[i], requestTimeoutMs= requestTimeoutMs };
+                Instances[i] = new ApiClient { OnSendRequest = callbacks[i], requestTimeoutMs = requestTimeoutMs };
             }
         }
 
@@ -50,7 +50,7 @@ namespace Sers.Core.Module.Api
 
 
 
-        #region CallApi 原始
+        #region CallApiAsync 原始
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CallApiAsync(Vit.Core.Util.Pipelines.ByteData apiRequestData, Action<ArraySegment<byte>> callback)
@@ -85,7 +85,8 @@ namespace Sers.Core.Module.Api
                 {
                     ApiMessage apiReplyMessage = null;
 
-                    CallApiAsync(apiRequestMessage.Package(), (apiReplyData) => {
+                    CallApiAsync(apiRequestMessage.Package(), (apiReplyData) =>
+                    {
                         apiReplyMessage = new ApiMessage(apiReplyData);
                         mEvent?.Set();
                     });
@@ -214,7 +215,32 @@ namespace Sers.Core.Module.Api
             return ret;
         }
 
-     
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="ReturnType"></typeparam>
+        /// <param name="callback"></param>
+        /// <param name="route"></param>
+        /// <param name="arg"></param>
+        /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
+        /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void CallApiAsync<ReturnType>(Action<ReturnType> callback, string route, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)
+        {
+            var apiRequestMessage = new ApiMessage().InitAsApiRequestMessage(route, arg, httpMethod, InitRpc);
+
+            CallApiAsync(apiRequestMessage.Package(), replyData =>
+            {
+                var apiReplyMessage = new ApiMessage(replyData);
+                var replyValue = apiReplyMessage.value_OriData.DeserializeFromArraySegmentByte<ReturnType>();
+                callback?.Invoke(replyValue);
+            });
+        }
+
+
 
         #endregion
 
@@ -223,7 +249,7 @@ namespace Sers.Core.Module.Api
 
 
 
-    
+
 
 
 
@@ -294,7 +320,7 @@ namespace Sers.Core.Module.Api
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static async Task<ApiMessage> CallRemoteApiAsync(ApiMessage request)
-        {   
+        {
             return await Instance.CallApiAsync(request);
         }
 
@@ -313,6 +339,24 @@ namespace Sers.Core.Module.Api
         {
             return await Instance.CallApiAsync<ReturnType>(route, arg, httpMethod, InitRpc);
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="ReturnType"></typeparam>
+        /// <param name="callback"></param>
+        /// <param name="route"></param>
+        /// <param name="arg"></param>
+        /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
+        /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void CallRemoteApiAsync<ReturnType>(Action<ReturnType> callback, string route, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)
+        {
+            Instance.CallApiAsync<ReturnType>(callback, route, arg, httpMethod, InitRpc);
+        }
+
         #endregion
 
 
