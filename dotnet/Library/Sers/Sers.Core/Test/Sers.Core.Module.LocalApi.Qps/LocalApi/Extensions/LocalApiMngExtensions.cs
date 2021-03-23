@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using System.Threading;
-
-using Sers.Core.CL.MessageOrganize;
 using Sers.Core.Module.Api.LocalApi;
 using Sers.Core.Module.Message;
-
-using Vit.Core.Util.Threading;
 using Vit.Extensions;
 
 namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions
@@ -14,58 +9,37 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions
 
     public static class LocalApiMngExtensions
     {
-        #region CallLocalApi
-
-
-        #region static curAutoResetEvent      
-        public static AutoResetEvent curAutoResetEvent =>
-            _curAutoResetEvent.Value ?? (_curAutoResetEvent.Value = new AutoResetEvent(false));
-
-
- 
-
-        static System.Threading.ThreadLocal<AutoResetEvent> _curAutoResetEvent = new System.Threading.ThreadLocal<AutoResetEvent>();
-        #endregion
-
+        #region CallLocalApi 
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ArraySegment<byte> CallLocalApi(this LocalApiService data,string route, Object arg)
+        public static void CallLocalApi(this LocalApiService data,string route, Object arg,Action<ApiMessage> onSuc)
         {
-            var apiRequestMessage = new ApiMessage().InitAsApiRequestMessage(route, arg);
+            var apiRequestMessage = new ApiMessage().InitAsApiRequestMessage(route, arg);                   
 
-            ApiMessage apiReplyMessage=null;
-
-            AutoResetEvent mEvent = curAutoResetEvent;
-            mEvent.Reset();
-
-            data.CallApiAsync(null, apiRequestMessage, (sender,_apiReplyMessage)=> 
-            {
-                apiReplyMessage = _apiReplyMessage;
-                mEvent?.Set();
+            data.CallApiAsync(null, apiRequestMessage, (sender, apiReplyMessage) => 
+            {               
+                onSuc(apiReplyMessage);
             });
 
-  
-            //TODO
-            int millisecondsTimeout = 60000;
-            mEvent.WaitOne(millisecondsTimeout);
-            mEvent = null;
-
-            return apiReplyMessage.value_OriData;
         }
 
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ReturnType CallLocalApi<ReturnType>(this LocalApiService data, string route, Object arg)
+        public static void CallLocalApi<ReturnType>(this LocalApiService data, string route, Object arg,Action<ReturnType> onSuc)
         {
-            var returnValue = data.CallLocalApi(route, arg);
-            return returnValue.DeserializeFromArraySegmentByte<ReturnType>();
+            data.CallLocalApi(route, arg, replyMessage =>
+              {
+                  var returnBytes = replyMessage.value_OriData;
+                  var returnValue = returnBytes.DeserializeFromArraySegmentByte<ReturnType>();
+                  onSuc(returnValue);
+              });
         }
 
         #endregion
 
-      
+
 
     }
 }

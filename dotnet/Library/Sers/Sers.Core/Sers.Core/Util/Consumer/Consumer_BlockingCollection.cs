@@ -60,8 +60,8 @@ namespace Sers.Core.Util.Consumer
                     #region Process                        
                     while (true)
                     {
-                        var msgFrame = queue.Take();
-                        processor(msgFrame);
+                        //var msgFrame = queue.Take();
+                        processor(queue.Take());
                     }
                     #endregion
                 }

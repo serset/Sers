@@ -8,16 +8,16 @@ namespace DeliveryTest
     class Program
     {
         /// <summary>
-        ///          qps
-        ///   4 4   15-16万
+        ///             qps
+        ///   16 16   25-26万 （2021-03-23）
         /// </summary>
         /// <param name="args"></param>
         static void Main(string[] args)
         {
             try
             {
-                int requestTreadCount = 4;
-                LocalApiTest.workThreadCount = 4;
+                int requestTreadCount = 16;
+                LocalApiTest.workThreadCount = 16;
 
                 if (args != null)
                 {

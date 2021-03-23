@@ -11,30 +11,29 @@ namespace Vit.Core.Util.Guid
         // 64 bit
         // 8 byte   
 
+        //  1 byte        1 byte           4 byte                2 byte             
+        //  机器ID        数据ID            时间                  自增             
+        // machineId    dataCenterId       seconds                curId
+        private static int machineId= CommonHelp.Random(0, 127);//机器ID
+        private static int dataCenterId = CommonHelp.Random(0, 255);//数据ID
+        //private static int seconds;
+        private static int curId=0;
 
-        private static long machineId= CommonHelp.Random(0, 127);//机器ID
-        private static long datacenterId = CommonHelp.Random(0, 255);//数据ID
-         
 
-         
-       
+
+        static DateTime start = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         /// <summary>
         /// 生成当前时间戳
         /// </summary>
         /// <returns>毫秒</returns>
-        private static long GetTimestamp()
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static double GetTimestamp()
         {
-            return (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+            return  (DateTime.UtcNow - start).TotalMilliseconds;
         }
 
-        private static long curGuid;
-        static FastGuid() 
-        {
-            curGuid = ((machineId << 8) | datacenterId) << 48;
-            curGuid = curGuid | GetTimestamp();
-        }
-
+    
 
 
         /// <summary>
@@ -44,7 +43,9 @@ namespace Vit.Core.Util.Guid
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long GetGuid()
         {
-            return Interlocked.Increment(ref curGuid);             
+            int seconds = (int)(long)GetTimestamp();
+            int id= Interlocked.Increment(ref curId);
+            return (((((machineId << 8) | dataCenterId) << 32) | seconds) << 8) | id;
         }
 
     }

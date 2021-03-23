@@ -70,6 +70,13 @@ Debug.WriteLine(guid.ToString("X"));//{0x1f3c6041,0xc68f,0x4ab3,{0xae,0x19,0xf6,
         }
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static long NewSnowflakeGuidLong()
+        {
+            return Snowflake.GetId();           
+        }
+
+
         /// <summary>
         /// MD5加密字符串（32位大写）
         /// </summary>

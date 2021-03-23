@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Statistics;
 using Sers.Core.Module.Api.LocalApi;
 using Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions;
- 
+
 
 namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
 {
@@ -32,34 +31,28 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
         public static void StartThread()
         {
             QpsData qpsInfo = new QpsData(statisticsQps);
-            Task.Run(() =>
-            {
 
-                while (true)
+            int t = 0;
+
+            Action<string> callApi = null;
+
+            callApi = reply =>{
+
+                t++;
+                if (t >= 1000)
                 {
-                    try
-                    {
-                        for (var t = 0; t < 1000; t++)
-                        {                       
-
-                            object returnValue = localApiService.CallLocalApi<string>("/a",null);
-
-                            //string route = "/Test/api/GetDeviceGuidList";
-                            //string arg = "asfsdf";
-                            //object argValue = new { arg };
-
-                            //object returnValue = localApiService.CallLocalApi<string>(route, argValue);
-                        }
-
-                        qpsInfo.RequestCount++;
-                    }
-                    catch (Exception ex)
-                    {
-                    }
+                    t = 0;
+                    qpsInfo.RequestCount++;
                 }
+                
+                //string route = "/Test/api/GetDeviceGuidList";
+                //string arg = "asfsdf";
+                //object argValue = new { arg };
 
-            });
+                localApiService.CallLocalApi<string>("/a", null, callApi);
+            };
 
+            callApi(null);
         }
 
     }
