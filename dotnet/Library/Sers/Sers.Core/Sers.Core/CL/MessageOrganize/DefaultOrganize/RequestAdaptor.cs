@@ -182,8 +182,6 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         #region (x.x.4)构造函数       
         public RequestAdaptor(JObject config)
         {
-            requestTimeoutMs = config["requestTimeoutMs"]?.Deserialize<int?>() ?? requestTimeoutMs;
-
             workThreadCount = config["workThreadCount"]?.Deserialize<int?>() ?? workThreadCount;
             heartBeatTimeoutMs = config["heartBeatTimeoutMs"]?.Deserialize<int?>() ?? heartBeatTimeoutMs;
             heartBeatRetryCount = config["heartBeatRetryCount"]?.Deserialize<int?>() ?? heartBeatRetryCount;
