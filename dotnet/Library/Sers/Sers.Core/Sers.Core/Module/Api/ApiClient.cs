@@ -21,6 +21,7 @@ namespace Sers.Core.Module.Api
         /// callbacks长度必须大于1
         /// </summary>
         /// <param name="callbacks"></param>
+        /// <param name="requestTimeoutMs"></param>
         public static void SetOnSendRequest(Action<Vit.Core.Util.Pipelines.ByteData, Action<ArraySegment<byte>>>[] callbacks, int requestTimeoutMs)
         {
             Instances = new ApiClient[callbacks.Length];
@@ -62,7 +63,7 @@ namespace Sers.Core.Module.Api
 
 
 
-        #region CallApi 
+        #region CallApi ApiMessage
 
         #region static curAutoResetEvent      
         public static AutoResetEvent curAutoResetEvent =>
@@ -124,7 +125,7 @@ namespace Sers.Core.Module.Api
 
 
 
-        #region CallApi 扩展
+        #region CallApi ReturnType
 
 
         /// <summary>
@@ -253,7 +254,7 @@ namespace Sers.Core.Module.Api
 
 
 
-        #region static CallRemoteApi 扩展
+        #region static CallRemoteApi
 
         /// <summary>
         /// 
