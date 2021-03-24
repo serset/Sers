@@ -112,7 +112,7 @@ namespace Sers.Core.Module.Api.LocalApi
                     rpcContext.rpcData = rpcData;
 
                     //(x.2) BeforeCallApi
-                    localApiEvent.BeforeCallApi(rpcData, apiRequest);
+                    localApiEvent?.BeforeCallApi(rpcData, apiRequest);
 
                     //(x.3)get apiNode and call
                     apiNodeMng.TryGet(rpcData, out var apiNode);
