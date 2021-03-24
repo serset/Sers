@@ -8,8 +8,7 @@ using Vit.Core.Util.Threading;
 namespace Sers.Core.Util.Consumer
 {
     /// <summary>
-    /// qps : 50万   producer:16    consumer:16
-    /// qps : 70万   producer:2    consumer:2
+    /// qps : 260万   producer:16    consumer:16
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class Consumer_BlockingCollection<T>: IConsumer<T>

@@ -20,7 +20,7 @@ namespace CLClient
             Logger.OnLog = (level, msg) => { Console.Write("[" + level + "]" + msg); };
 
             qpsPub.Start(" Pub");
-            //qpsSub.Start(" Sub");
+            qpsSub.Start(" Sub");
 
             for (var t = 0; t < 1; t++)
             {
@@ -36,20 +36,7 @@ namespace CLClient
 
 
         class Product 
-        {
-            public static Product Pop()
-            {
-                return new Product();
-                //return ObjectPool<Product>.Shared.Pop();
-            }
-
-            /// <summary>
-            /// 使用结束请手动调用
-            /// </summary>
-            public void Push()
-            {
-                //ObjectPool<Product>.Shared.Push(this);
-            }
+        {     
 
             public int ms = 0;
             public int IncrementCount = 0;
@@ -60,17 +47,18 @@ namespace CLClient
         string name;
         public void Start() 
         {
-            // consumer = new Consumer_BlockingCollection<Product>();
-            // consumer = new ConsumerCache<Product,Consumer_BlockingCollection<Product>>(); //300万
+            // consumer = new Consumer_BlockingCollection<Product>();  //260万
+            //consumer = new ConsumerCache<Product,Consumer_BlockingCollection<Product>>(); //300万
 
-            //consumer = new Consumer_Disruptor<Product>();
+            consumer = new Consumer_Disruptor<Product>(); //600-650万
+            //consumer = new ConsumerCache<Product, Consumer_Disruptor<Product>>(); //370-400万
 
-            //consumer = new Consumer_WorkerPool<Product>();
+            //consumer = new Consumer_WorkerPool<Product>(); //640-680万
+            //consumer = new ConsumerCache<Product, Consumer_WorkerPool<Product>>(); //750万  异常
 
-            //consumer = new ConsumerCache<Product, Consumer_WorkerPool<Product>>(); //750万
-            //consumer = new Consumer_WorkerPoolCache<Product>();        //940万
+            //consumer = new Consumer_WorkerPoolCache<Product>();        //940万 异常
 
-            consumer = new Consumer_WorkerPoolCascade<Product>();   //1400万
+           // consumer = new Consumer_WorkerPoolCascade<Product>();   //1400万
 
 
 
@@ -95,14 +83,12 @@ namespace CLClient
         /// <param name="obj"></param>
         void Processor(Product obj) 
         {
-            //if (obj.ms > 0)
-            //    Thread.Sleep(obj.ms);
+            if (obj.ms > 0)
+                Thread.Sleep(obj.ms);
 
-       
-            //if (obj.IncrementCount > 0)
-            //    qpsSub.IncrementRequest(obj.IncrementCount);
 
-            //obj.Push();
+            if (obj.IncrementCount > 0)
+                qpsSub.IncrementRequest(); 
         }
 
 
@@ -113,7 +99,7 @@ namespace CLClient
         {
             Task.Run(() =>
             {
-                Product product=new Product();
+                Product product;
 
                 for (int i = 0; i < int.MaxValue; i++)
                 {
@@ -122,19 +108,20 @@ namespace CLClient
                         //new Product { ms = t == 0 ? 1 : 0 };
                         //if (t % 100 == 0) qpsPub.IncrementRequest(100);
 
-                        //product = Product.Pop();
-                        //product.ms = 0;
-                        //product.IncrementCount = 0;
+                        product = new Product();
+                        product.ms = 0;
+                        product.IncrementCount = 0;
                         consumer.Publish(product);
 
                     }
-                    //product = Product.Pop();
-                    //product.ms = 1;
-                    //product.IncrementCount = 10000;
-                    consumer.Publish(product);         
-                    qpsPub.IncrementRequest(10000);
-                   
-                    //Thread.Sleep(1);
+                    product = new Product();
+                    product.ms = 1;
+                    product.IncrementCount = 1;
+                    consumer.Publish(product);
+                    qpsPub.IncrementRequest();
+                    //qpsPub.IncrementRequest(1);
+
+                    Thread.Sleep(1);
 
                 }
             });
