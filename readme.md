@@ -27,6 +27,16 @@ Sers为一套跨平台跨语言的开源微服务架构协议。
 >qps数据来源于 ab 和 http://ip:6022/ApiStationMng.html 页面中的统计
 
 项目部署在同一机器, Robot和StationDemo都附加在ServiceCenter上
+
+ robot内部调用	：
+  配置		       ApiClientAsync       ApiClient
+线程数（请求/处理）       32/16		       4/4 
+ 
+  CentOs8(2x24核)	   35万            6-9万（6%）
+ 
+
+
+
    
 | Os  |  robot内部调用(8线程)   |  ab压测(32线程，CGateway)   |
 | ------------ | ------------ | ------------ |
