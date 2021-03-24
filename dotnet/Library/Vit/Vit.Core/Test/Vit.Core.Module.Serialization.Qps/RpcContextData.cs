@@ -6,10 +6,7 @@ namespace Sers.Core.Module.Rpc
 {
     public class RpcContextData
     {
-        //public RpcContextData() 
-        //{
-        //}
-
+       
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string Serialize()

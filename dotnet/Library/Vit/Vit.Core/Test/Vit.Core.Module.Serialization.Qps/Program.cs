@@ -52,7 +52,10 @@ namespace App
 
 
                 // 4线程 87万
-                var Instance = Vit.Core.Module.Serialization.Serialization_Text.Instance;
+                //var Instance = Vit.Core.Module.Serialization.Serialization_Text.Instance;
+
+                // 4线程 200万
+                var Instance = Vit.Core.Module.Serialization.Serialization_MessagePack.Instance;
 
                 while (true)
                 {
@@ -61,7 +64,7 @@ namespace App
                         for (var t = 0; t < 10000; t++)
                         {
                             var data = new RpcContextData { route = "/a" };
-
+                            //data.http.method = "GET";
                             //var str = Instance.SerializeToString(data);
 
                             var bytes = Instance.SerializeToBytes(data);

@@ -64,7 +64,7 @@ namespace Vit.Core.MsTest.Module
 
             string str = obj.Serialize();
 
-            Serialization.Newtonsoft.SetDateTimeFormat("yyyy-MM-dd");
+            Serialization_Newtonsoft.Instance.SetDateTimeFormat("yyyy-MM-dd");
 
             string str2 = obj.Serialize();
             var jtObj = str2.Deserialize<JObject>();

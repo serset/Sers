@@ -20,8 +20,8 @@ namespace Vit.Core.Module.Serialization
 
         public static Serialization Instance { get; set; } = Serialization_Newtonsoft.Instance;
 
-        public static readonly Serialization_Newtonsoft Newtonsoft = Serialization_Newtonsoft.Instance;
-        public static readonly Serialization_Text Text = Serialization_Text.Instance;
+        //public static readonly Serialization_Newtonsoft Newtonsoft = Serialization_Newtonsoft.Instance;
+        //public static readonly Serialization_Text Text = Serialization_Text.Instance;
 
 
  
