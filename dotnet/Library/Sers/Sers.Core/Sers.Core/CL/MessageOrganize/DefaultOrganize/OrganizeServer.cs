@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Sers.Core.CL.MessageDelivery;
+using Sers.Core.Module.Message;
 using Vit.Core.Module.Log;
 using Vit.Extensions;
 
@@ -116,7 +117,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         /// <summary>
         /// 会在内部线程中被调用 
         /// </summary>
-        public Action<IOrganizeConnection, object, ArraySegment<byte>, Action<object, Vit.Core.Util.Pipelines.ByteData>> conn_OnGetRequest
+        public Action<IOrganizeConnection, object, ApiMessage, Action<object, Vit.Core.Util.Pipelines.ByteData>> conn_OnGetRequest
         {
             set
             {
@@ -125,7 +126,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                     var deliveryConn = organizeConn.GetDeliveryConn();
                     if (deliveryConn.state == DeliveryConnState.certified)
                     {
-                        value(organizeConn, sender, requestData, callback);
+                        value(organizeConn, sender, new ApiMessage(requestData), callback);
                         return;
                     }
 

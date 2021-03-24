@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Sers.Core.CL.MessageOrganize;
+using Sers.Core.Module.Message;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Core.Util.Reflection;
@@ -50,7 +51,7 @@ namespace Sers.Core.CL.CommunicationManage
         /// 会在内部线程中被调用 
         /// (conn,sender,requestData, callback)
         /// </summary>
-        public Action<IOrganizeConnection, object, ArraySegment<byte>, Action<object, Vit.Core.Util.Pipelines.ByteData>> conn_OnGetRequest { get; set; }
+        public Action<IOrganizeConnection, object, ApiMessage, Action<object, Vit.Core.Util.Pipelines.ByteData>> conn_OnGetRequest { get; set; }
 
         public Action<IOrganizeConnection, ArraySegment<byte>> conn_OnGetMessage { get; set; }
 

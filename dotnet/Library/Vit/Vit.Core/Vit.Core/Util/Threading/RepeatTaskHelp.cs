@@ -34,11 +34,11 @@ namespace Vit.Core.Util.Threading
         /// <summary>
         /// 线程数,默认为1
         /// </summary>
-        public int threadCount=1;
+        public long threadCount=1;
         /// <summary>
         /// 每个线程重复执行的次数,默认为1。若指定为0则重复无限次数
         /// </summary>
-        public int repeatCountPerThread=1;
+        public long repeatCountPerThread =1;
 
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Vit.Core.Util.Threading
                 else
                 {
                     //(x.2)重复指定次数
-                    for (int finishedCount = 0; !sendStopSignal && finishedCount < repeatCountPerThread; finishedCount++)
+                    for (long finishedCount = 0; !sendStopSignal && finishedCount < repeatCountPerThread; finishedCount++)
                     {
                         try
                         {
@@ -135,7 +135,7 @@ namespace Vit.Core.Util.Threading
             //}
 
             var threads = new Thread[threadCount];
-            for (int i = 0; i < threadCount; i++)
+            for (long i = 0; i < threadCount; i++)
             {
                 var thread = new Thread(Run);
                 thread.IsBackground = true;

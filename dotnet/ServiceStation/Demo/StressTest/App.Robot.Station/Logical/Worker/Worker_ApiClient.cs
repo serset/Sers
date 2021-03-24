@@ -36,13 +36,13 @@ namespace App.Robot.Station.Logical.Worker
 
         public bool IsRunning => tasks.IsRunning;
  
-        public int targetCount => config.threadCount * config.loopCountPerThread;
+        public long targetCount => config.threadCount * config.loopCountPerThread;
 
-        public int sumCount = 0;
-        public int sumFailCount = 0;
+        public long sumCount = 0;
+        public long sumFailCount = 0;
 
-        public int curCount=0;
-        public int failCount=0;
+        public long curCount =0;
+        public long failCount =0;
         public TaskConfig config { get; set; }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

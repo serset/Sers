@@ -1,13 +1,11 @@
 ﻿using System;
 using Sers.Core.Module.Rpc;
-using System.Threading;
 using Sers.Core.CL.CommunicationManage;
 using Sers.Core.CL.MessageOrganize;
 using Sers.Core.Module.Message;
 using Sers.ServiceCenter.Entity;
 using Newtonsoft.Json;
 using System.Runtime.CompilerServices;
-using Vit.Core.Util.Threading;
 
 namespace Sers.ServiceCenter.ApiCenter
 {
@@ -18,15 +16,13 @@ namespace Sers.ServiceCenter.ApiCenter
     {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void CallApiAsync(IOrganizeConnection  conn, Object sender, ArraySegment<byte> apiRequest, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
+        public void CallApiAsync(IOrganizeConnection conn, Object sender, ApiMessage apiRequestMessage, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
             CommunicationManageServer.CurConn = conn;
 
-            var requestMessage = new ApiMessage(apiRequest);
-
-            CallApiAsync(requestMessage, sender, callback);
+            CallApiAsync(apiRequestMessage, sender, callback);
         }
-        
+
 
         #region interface
 

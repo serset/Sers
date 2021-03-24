@@ -4,6 +4,8 @@ using System.Threading;
 using CLServer.Statistics;
 using Sers.Core.CL.CommunicationManage;
 using Sers.Core.CL.MessageOrganize;
+using Sers.Core.Module.Message;
+
 using Vit.Core.Module.Log;
 
 namespace CLServer
@@ -30,10 +32,10 @@ namespace CLServer
             };
 
 
-            cm.conn_OnGetRequest = (IOrganizeConnection  conn, Object sender, ArraySegment<byte> requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback) =>
+            cm.conn_OnGetRequest = (IOrganizeConnection  conn, Object sender, ApiMessage apiRequestMessage, Action<object, Vit.Core.Util.Pipelines.ByteData> callback) =>
             {
                 qpsInfo.IncrementRequest();
-                callback(sender,new Vit.Core.Util.Pipelines.ByteData(requestData));
+                callback(sender, apiRequestMessage.Package());
             };
 
             cm.Conn_OnConnected = (conn) =>

@@ -263,11 +263,11 @@ namespace Sers.ServiceStation
             #region (x.4) 初始化ApiClient
             ApiClient.SetOnSendRequest(
                 communicationManage.organizeList.Select(organize=> organize.conn)
-                .Select<IOrganizeConnection, Action<ByteData, Action<ArraySegment<byte>>>>(
+                .Select<IOrganizeConnection, Action<ApiMessage, Action<ArraySegment<byte>>>>(
                 conn =>
                 {
-                    return (requestData,callback) => {
-                        conn.SendRequestAsync(null, requestData,(sender,replyData)=> 
+                    return (apiRequestMessage,callback) => {
+                        conn.SendRequestAsync(null, apiRequestMessage.Package(), (sender,replyData)=> 
                         {
                             callback(replyData.ToArraySegment());
                         });                         

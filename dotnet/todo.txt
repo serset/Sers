@@ -1,5 +1,8 @@
 CUR：
 
+
+RequestAdaptor.cs  static void PackageReqRepFrame(long reqKey, Vit.Core.Util.Pipelines.ByteData oriMsg, out Vit.Core.Util.Pipelines.ByteData reqRepFrame) 优化减少创建ByteData对象
+
 对象缓存是否弃用
 
 

@@ -17,9 +17,9 @@
 
 
 
-        public int threadCount=1;
+        public long threadCount =1;
 
-        public int loopCountPerThread=2000;     
+        public long loopCountPerThread =2000;     
         
 
  

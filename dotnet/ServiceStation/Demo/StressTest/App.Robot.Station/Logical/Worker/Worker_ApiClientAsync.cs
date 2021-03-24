@@ -24,20 +24,20 @@ namespace App.Robot.Station.Logical.Worker
 
 
 
-        public int RunningThreadCount = 0;
+        public long RunningThreadCount = 0;
 
 
         bool needRunning = false;
 
         public bool IsRunning => RunningThreadCount==0;
  
-        public int targetCount;
+        public long targetCount;
 
-        public int sumCount = 0;
-        public int sumFailCount = 0;
+        public long sumCount = 0;
+        public long sumFailCount = 0;
 
-        public int curCount=0;
-        public int failCount=0;
+        public long curCount =0;
+        public long failCount =0;
         public TaskConfig config { get; }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -91,7 +91,9 @@ namespace App.Robot.Station.Logical.Worker
         }
 
         public void Start()
-        { 
+        {
+            if (needRunning) return;
+
             curCount = 0;
             failCount = 0;
             needRunning = true;

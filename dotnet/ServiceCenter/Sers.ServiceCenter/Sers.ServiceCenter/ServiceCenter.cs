@@ -318,9 +318,9 @@ namespace Sers.ServiceCenter
 
 
             #region (x.6) 初始化ApiClient
-            Action<Vit.Core.Util.Pipelines.ByteData, Action<ArraySegment<byte>>> OnSendRequest = ((apiRequestMessage,callback) =>
+            Action<ApiMessage, Action<ArraySegment<byte>>> OnSendRequest = ((apiRequestMessage,callback) =>
             {
-                apiCenterService.CallApiAsync(connForLocalStationService, null, apiRequestMessage.ToArraySegment(),
+                apiCenterService.CallApiAsync(connForLocalStationService, null, apiRequestMessage,
                     (sender, replyData) =>
                     {
                         callback(replyData.ToArraySegment());

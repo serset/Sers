@@ -22,7 +22,7 @@ namespace Sers.Core.Module.Api
         /// </summary>
         /// <param name="callbacks"></param>
         /// <param name="requestTimeoutMs"></param>
-        public static void SetOnSendRequest(Action<Vit.Core.Util.Pipelines.ByteData, Action<ArraySegment<byte>>>[] callbacks, int requestTimeoutMs)
+        public static void SetOnSendRequest(Action<ApiMessage, Action<ArraySegment<byte>>>[] callbacks, int requestTimeoutMs)
         {
             Instances = new ApiClient[callbacks.Length];
 
@@ -45,7 +45,7 @@ namespace Sers.Core.Module.Api
 
         int requestTimeoutMs;
 
-        private Action<Vit.Core.Util.Pipelines.ByteData, Action<ArraySegment<byte>>> OnSendRequest { get; set; }
+        private Action<ApiMessage, Action<ArraySegment<byte>>> OnSendRequest { get; set; }
         #endregion
 
 
@@ -54,9 +54,9 @@ namespace Sers.Core.Module.Api
         #region CallApiAsync 原始
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void CallApiAsync(Vit.Core.Util.Pipelines.ByteData apiRequestData, Action<ArraySegment<byte>> callback)
+        public void CallApiAsync(ApiMessage apiRequestMessage, Action<ArraySegment<byte>> callback)
         {
-            OnSendRequest(apiRequestData, callback);
+            OnSendRequest(apiRequestMessage, callback);
         }
 
         #endregion
@@ -86,7 +86,7 @@ namespace Sers.Core.Module.Api
                 {
                     ApiMessage apiReplyMessage = null;
 
-                    CallApiAsync(apiRequestMessage.Package(), (apiReplyData) =>
+                    CallApiAsync(apiRequestMessage, (apiReplyData) =>
                     {
                         apiReplyMessage = new ApiMessage(apiReplyData);
                         mEvent?.Set();
@@ -233,7 +233,7 @@ namespace Sers.Core.Module.Api
         {
             var apiRequestMessage = new ApiMessage().InitAsApiRequestMessage(route, arg, httpMethod, InitRpc);
 
-            CallApiAsync(apiRequestMessage.Package(), replyData =>
+            CallApiAsync(apiRequestMessage, replyData =>
             {
                 var apiReplyMessage = new ApiMessage(replyData);
                 var replyValue = apiReplyMessage.value_OriData.DeserializeFromArraySegmentByte<ReturnType>();
