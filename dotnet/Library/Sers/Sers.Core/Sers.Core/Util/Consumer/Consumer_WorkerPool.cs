@@ -90,7 +90,7 @@ namespace Sers.Core.Util.Consumer
 
             if (processorList != null)
             {
-                handers = processorList.Select(processor => new WorkHandler(processor)).ToArray();
+                handers = processorList.Select(processorItem => new WorkHandler(processorItem)).ToArray();
             }
             else 
             {

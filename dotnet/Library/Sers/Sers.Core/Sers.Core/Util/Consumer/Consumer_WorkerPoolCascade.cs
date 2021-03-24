@@ -58,8 +58,9 @@ namespace Sers.Core.Util.Consumer
                 var processorList = Enumerable.Range(0, workerCount).Select(m =>
                 {
                     var child = BuildLevel(level + 1);
-                    Action<T> processor = t => child.Publish(t);
-                    return processor;
+                    //Action<T> processor = t => child.Publish(t);
+                    //return processor;
+                    return (Action<T>)child.Publish;
                 }).ToArray();
 
                 var worker = new Consumer_WorkerPool<T>();
