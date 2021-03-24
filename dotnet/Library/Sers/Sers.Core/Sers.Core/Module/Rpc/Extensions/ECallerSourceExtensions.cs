@@ -1,4 +1,6 @@
-﻿using Sers.Core.Module.Rpc;
+﻿using System.Runtime.CompilerServices;
+
+using Sers.Core.Module.Rpc;
 
 namespace Vit.Extensions
 {
@@ -8,6 +10,7 @@ namespace Vit.Extensions
     public static partial class ECallerSourceExtensions
     {
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string EnumToString(this ECallerSource data)
         {
             //return data.ToString(); 相对比较慢
@@ -20,6 +23,7 @@ namespace Vit.Extensions
         }
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ECallerSource ToECallerSource(this string data)
         {
             switch (data)

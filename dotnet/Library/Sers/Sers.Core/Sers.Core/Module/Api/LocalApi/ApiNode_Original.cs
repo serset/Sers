@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Sers.Core.Module.Api.ApiDesc;
 using System;
+using System.Runtime.CompilerServices;
+
 using Vit.Extensions;
 
 namespace Sers.Core.Module.Api.LocalApi
@@ -37,7 +39,8 @@ namespace Sers.Core.Module.Api.LocalApi
 
 
 
-        public  byte[] Invoke(ArraySegment<byte> arg_OriData)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public byte[] Invoke(ArraySegment<byte> arg_OriData)
         {        
             return onInvoke(arg_OriData);
         }

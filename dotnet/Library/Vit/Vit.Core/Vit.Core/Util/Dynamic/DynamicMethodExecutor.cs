@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 namespace Vit.Core.Util.Dynamic
 {
     /// <summary>
-    ///  
+    ///  参考 https://blog.csdn.net/chuifuhuo6864/article/details/100879510
     /// </summary>
     public class DynamicMethodExecutor
     {

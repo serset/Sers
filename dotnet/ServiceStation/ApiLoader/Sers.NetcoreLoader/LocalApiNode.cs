@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -154,10 +155,11 @@ namespace Sers.NetcoreLoader
             #endregion
         }
 
-        
 
 
-        public /*virtual*/ byte[] Invoke(ArraySegment<byte> arg_OriData)
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public byte[] Invoke(ArraySegment<byte> arg_OriData)
         {
             //(x.1)反序列化 请求参数
             //var args = apiDesc.argType?.Deserialize(arg_OriData);

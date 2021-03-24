@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using Sers.Core.Module.Api.ApiDesc;
 using Sers.Core.Module.Api.LocalApi;
@@ -18,10 +19,11 @@ namespace Sers.Serslot
         {
             this.apiDesc = apiDesc;
             this.server = server;
-        }       
+        }
 
 
-        public /*virtual*/ byte[] Invoke(ArraySegment<byte> arg_OriData)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public byte[] Invoke(ArraySegment<byte> arg_OriData)
         {
             return server.ProcessRequestByRpc(arg_OriData);
         }       

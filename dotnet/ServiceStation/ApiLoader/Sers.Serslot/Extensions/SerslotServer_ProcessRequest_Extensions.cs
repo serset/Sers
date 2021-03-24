@@ -4,11 +4,13 @@ using System;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using Sers.Serslot;
+using System.Runtime.CompilerServices;
 
 namespace Vit.Extensions
 {
     public static partial class SerslotServer_ProcessRequest_Extensions
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] ProcessRequestByRpc(this SerslotServer data, ArraySegment<byte> arg_OriData)
         {
             HttpRequestFeature requestFeature = null;

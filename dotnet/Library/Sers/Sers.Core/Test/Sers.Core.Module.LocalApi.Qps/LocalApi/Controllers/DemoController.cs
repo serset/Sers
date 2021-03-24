@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+
 using Sers.SersLoader;
 using Vit.Core.Util.ComponentModel.Api;
 
@@ -14,6 +16,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Controllers
             public string name { get; set; }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [SsRoute("/a")]
         public void A()
         {    

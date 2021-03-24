@@ -36,7 +36,8 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
 
             Action<string> callApi = null;
 
-            callApi = reply =>{
+            callApi = reply =>
+            {
 
                 t++;
                 if (t >= 1000)
@@ -44,7 +45,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
                     t = 0;
                     qpsInfo.RequestCount++;
                 }
-                
+
                 //string route = "/Test/api/GetDeviceGuidList";
                 //string arg = "asfsdf";
                 //object argValue = new { arg };

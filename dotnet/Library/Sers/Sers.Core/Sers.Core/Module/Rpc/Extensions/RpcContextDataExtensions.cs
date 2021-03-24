@@ -2,6 +2,7 @@
 using Sers.Core.Module.Rpc;
 using Vit.Core.Util.Common;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace Vit.Extensions
 {
@@ -15,18 +16,20 @@ namespace Vit.Extensions
 
         #region Init
 
-        public static RpcContextData Init(this RpcContextData rpcData, String callerSource=nameof(ECallerSource.Internal))
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static RpcContextData Init(this RpcContextData rpcData, String callerSource = nameof(ECallerSource.Internal))
         {
             var rid = CommonHelp.NewGuid();
-             
+
             rpcData.caller.rid = rid;
-            rpcData.caller.source = callerSource; 
+            rpcData.caller.source = callerSource;
 
             return rpcData;
         }
 
- 
 
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static RpcContextData Init(this RpcContextData data, string url, string httpMethod = null)
         {
             data.http.url = "http://sers.internal" + url;
@@ -39,18 +42,18 @@ namespace Vit.Extensions
 
                 // b2?a=c
                 if (queryIndex >= 0)
-{
+                {
                     data.route = url.Substring(0, queryIndex);
                 }
                 else
-{
+                {
                     data.route = url;
                 }
             }
             #endregion              
 
             //(x.3)设置httpMethod
-            if (httpMethod != null) data.http.method=httpMethod;
+            if (httpMethod != null) data.http.method = httpMethod;
 
             return data;
         }
@@ -59,6 +62,7 @@ namespace Vit.Extensions
 
         #region InitFromRpcContext
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static RpcContextData InitFromRpcContext(this RpcContextData rpcData)
         {
             rpcData.Init();
@@ -80,7 +84,7 @@ namespace Vit.Extensions
             //rpcData.http=rpcDataFromContext.http;
 
             //(x.4) user
-            rpcData.user = rpcDataFromContext.user;    
+            rpcData.user = rpcDataFromContext.user;
 
 
             return rpcData;
@@ -97,6 +101,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static String http_url_search_Get(this RpcContextData data)
         {
             // "http://127.0.0.1/Station1/fold1/a/1/2.html?c=9"
@@ -120,6 +125,7 @@ namespace Vit.Extensions
         /// <para>（若 route为"/Station1/fold1/a/*"，url为"http://127.0.0.1/Station1/fold1/a/1/2.html?c=9",则 relativePath为"1/2.html"）</para>
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string http_url_RelativeUrl_Get(this RpcContextData rpcData)
         {
             // "1/2.html?c=9"
@@ -144,6 +150,7 @@ namespace Vit.Extensions
         /// <para>（若 route为"/Station1/fold1/a/*"，url为"http://127.0.0.1/Station1/fold1/a/1/2.html?c=9",则 relativePath为"1\\2.html"）</para>
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string http_url_RelativePath_Get(this RpcContextData rpcData)
         {
             String relativePath = http_url_RelativeUrl_Get(rpcData);
@@ -155,14 +162,16 @@ namespace Vit.Extensions
 
 
         #region Content-Type
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static String http_header_ContentType_Get(this RpcContextData data)
         {
             return data.http.GetHeader("Content-Type");
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static RpcContextData http_header_ContentType_Set(this RpcContextData data, String value)
         {
-             data.http.headers["Content-Type"]=value;
+            data.http.headers["Content-Type"] = value;
             return data;
         }
         #endregion
@@ -170,6 +179,7 @@ namespace Vit.Extensions
 
 
         #region apiStationName_Get
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string apiStationName_Get(this RpcContextData data)
         {
             var arr = data.route?.Split('/');
@@ -179,14 +189,16 @@ namespace Vit.Extensions
         #endregion
 
         #region caller_callStack
-       
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static String caller_parentRid_Get(this RpcContextData data)
         {
-            var ja = data.caller.callStack ;
+            var ja = data.caller.callStack;
             if (null == ja || ja.Count == 0) return null;
             return ja[ja.Count - 1];
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static String caller_rootRid_Get(this RpcContextData data)
         {
             var ja = data.caller.callStack;

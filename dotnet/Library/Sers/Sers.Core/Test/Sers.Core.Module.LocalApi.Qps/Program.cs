@@ -16,19 +16,19 @@ namespace DeliveryTest
         {
             try
             {
-                int requestTreadCount = 16;
+                
                 LocalApiTest.workThreadCount = 16;
-
+                int requestTreadCount = 32;
                 if (args != null)
                 {
                     if (args.Length >=1)
                     {
-                        int.TryParse(args[0], out requestTreadCount);
+                        int.TryParse(args[0], out LocalApiTest.workThreadCount);
                     }
 
                     if (args.Length >= 2)
                     {
-                        int.TryParse(args[1], out LocalApiTest.workThreadCount);
+                        int.TryParse(args[1], out requestTreadCount);
                     }
                 }
                 for (var t = 0; t < requestTreadCount; t++)
