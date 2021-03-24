@@ -21,7 +21,7 @@ namespace Sers.Core.Util.Consumer
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class Consumer_Disruptor<T> : IConsumer<T>
-        where T: class,new()
+        //where T: class,new()
     {
 
         /// <summary>
