@@ -97,7 +97,7 @@ namespace Sers.Core.Module.Api.LocalApi
         /// <param name="apiRequest"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal ApiMessage CallLocalApi(ApiMessage apiRequest)
+        public ApiMessage CallLocalApi(ApiMessage apiRequest)
         {           
             using (var rpcContext = new RpcContext())
             using (var localApiEvent = LocalApiEventMng.Instance.CreateApiEvent())
@@ -292,15 +292,14 @@ namespace Sers.Core.Module.Api.LocalApi
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             void Processor(RequestInfo requestInfo)
-            {
-                ApiMessage apiReply;
+            {             
 
                 try
                 {
                     CommunicationManageServer.CurConn = requestInfo.conn;
 
                     //处理请求
-                    apiReply = callLocalApi(requestInfo.apiRequest);
+                    ApiMessage apiReply = callLocalApi(requestInfo.apiRequest);
 
                     //调用请求回调
                     requestInfo.callback(requestInfo.sender, apiReply);

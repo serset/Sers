@@ -20,7 +20,7 @@ namespace Sers.Core.Module.Message
                 var files = base.Files;
                 if (files == null)
                 {
-                    base.Files= files = new List<ArraySegment<byte>>(2) { ArraySegmentByteExtensions.Null, ArraySegmentByteExtensions.Null};
+                    base.Files = files = new List<ArraySegment<byte>>(2) { ArraySegmentByteExtensions.Null, ArraySegmentByteExtensions.Null };
                 }
                 return files;
             }

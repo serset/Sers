@@ -1,19 +1,19 @@
 ﻿using Sers.Core.Module.Message;
 using Sers.Core.Module.Rpc;
 using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Vit.Core.Module.Log;
+using Vit.Extensions.IEnumerable;
 
 namespace Sers.Core.Module.Api.LocalApi.Event
 {
     public class LocalApiEvent : IDisposable
     {         
 
-        private List<IDisposable> events_OnDispose;
+        private IDisposable[] events_OnDispose;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal LocalApiEvent(List<IDisposable> events_OnDispose)
+        internal LocalApiEvent(IDisposable[] events_OnDispose)
         {
             this.events_OnDispose = events_OnDispose;
         }
@@ -26,7 +26,7 @@ namespace Sers.Core.Module.Api.LocalApi.Event
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public virtual void Dispose()
+        public void Dispose()
         {
             if (events_OnDispose == null) return;
 

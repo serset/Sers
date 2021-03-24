@@ -1,25 +1,30 @@
 ﻿using Sers.Core.Module.Rpc;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Vit.Extensions;
 
 namespace Sers.Core.Module.Api.LocalApi
 {
+    /// <summary>
+    ///  https://www.xin3721.com/ArticlecSharp/net17449.html
+    /// </summary>
     public class ApiNodeMng
     {
+        //SortedDictionary
 
         /// <summary>
         /// 映射  /{httpMethod}{route} -> LocalApiNode
         /// 例如 "/POST/api/value"
         /// </summary>
-        protected readonly SortedDictionary<string, IApiNode> apiNodeMapWithMethod = new SortedDictionary<string, IApiNode>();
+        protected ImmutableSortedDictionary<string, IApiNode> apiNodeMapWithMethod =  ImmutableSortedDictionary<string, IApiNode>.Empty;
 
         /// <summary>
         /// 映射  {route} -> LocalApiNode
         /// 例如 "/api/value"
         /// </summary>
-        protected readonly SortedDictionary<string, IApiNode> apiNodeMapWithoutMethod = new SortedDictionary<string, IApiNode>();
+        protected ImmutableSortedDictionary<string, IApiNode> apiNodeMapWithoutMethod = ImmutableSortedDictionary<string, IApiNode>.Empty;
         
 
         public IEnumerable<IApiNode> apiNodes => apiNodeMapWithMethod.Select((kv) => kv.Value).Concat(apiNodeMapWithoutMethod.Select((kv) => kv.Value));
@@ -43,11 +48,13 @@ namespace Sers.Core.Module.Api.LocalApi
 
             if (string.IsNullOrEmpty(method))
             {
-                apiNodeMapWithoutMethod[route] = apiNode;
+                //apiNodeMapWithoutMethod[route] = apiNode;
+                apiNodeMapWithoutMethod = apiNodeMapWithoutMethod.SetItem(route, apiNode);            
             }
             else
             {
-                apiNodeMapWithMethod[method + route] = apiNode;
+                //apiNodeMapWithMethod[method + route] = apiNode;
+                apiNodeMapWithMethod = apiNodeMapWithMethod.SetItem(method + route, apiNode);         
             }            
         }
 

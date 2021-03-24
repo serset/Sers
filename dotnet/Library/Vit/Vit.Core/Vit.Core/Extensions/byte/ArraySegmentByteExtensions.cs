@@ -7,7 +7,8 @@ namespace Vit.Extensions
 {
     public static partial class ArraySegmentByteExtensions
     {
-        public static readonly ArraySegment<byte> Null = new ArraySegment<byte>(new byte[0],0,0);
+        //public static readonly ArraySegment<byte> Null = new ArraySegment<byte>(new byte[0], 0, 0);
+        public static readonly ArraySegment<byte> Null = default;
 
         //public static ArraySegment<T> Null<T>()
         //{

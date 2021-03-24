@@ -47,7 +47,7 @@ namespace Sers.Core.Module.Api.LocalApi.Event
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddEvent_ApiScope( params IApiScopeEvent[] apiScopeEvents)
         {
-            if (null == apiScopeEvents) return;
+            if (null == apiScopeEvents || apiScopeEvents.Length==0) return;
 
             if (null == apiScopeEventList)
             {
@@ -61,8 +61,10 @@ namespace Sers.Core.Module.Api.LocalApi.Event
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public LocalApiEvent CreateApiEvent()
         {
-            List<IDisposable> events_OnDispose =
-                apiScopeEventList?.Select(apiScope =>
+            if (apiScopeEventList == null) return null;
+
+            var events_OnDispose =
+                apiScopeEventList.Select(apiScope =>
                 {
                     try
                     {
@@ -74,7 +76,7 @@ namespace Sers.Core.Module.Api.LocalApi.Event
                     }
                     return null;
                 })
-                .ToList();
+                .ToArray();
 
             return new LocalApiEvent(events_OnDispose);
         }

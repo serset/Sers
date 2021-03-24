@@ -2,7 +2,7 @@
 using Statistics;
 using Sers.Core.Module.Api.LocalApi;
 using Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions;
-
+using System.Threading.Tasks;
 
 namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
 {
@@ -27,8 +27,37 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
         }
 
 
-
         public static void StartThread()
+        {
+            QpsData qpsInfo = new QpsData(statisticsQps);
+            Task.Run(() =>
+            {
+
+                while (true)
+                {
+                    try
+                    {
+                        for (var t = 0; t < 10000; t++)
+                        {
+                            //string route = "/Test/api/GetDeviceGuidList";
+                            //string arg = "asfsdf";
+                            //object argValue = new { arg };
+
+                            var apiReplyMessage = localApiService.CallLocalApi("/a", null);                    
+                        }
+
+                        qpsInfo.RequestCount++;
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+
+            });
+
+        }
+
+        public static void StartThread_Async()
         {
             QpsData qpsInfo = new QpsData(statisticsQps);
 
@@ -40,7 +69,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
             {
 
                 t++;
-                if (t >= 1000)
+                if (t >= 10000)
                 {
                     t = 0;
                     qpsInfo.RequestCount++;
@@ -50,7 +79,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
                 //string arg = "asfsdf";
                 //object argValue = new { arg };
 
-                localApiService.CallLocalApi<string>("/a", null, callApi);
+                localApiService.CallLocalApiAsync<string>("/a", null, callApi);
             };
 
             callApi(null);
