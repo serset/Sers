@@ -9,9 +9,15 @@ namespace Vit.Extensions
 
         public static void InitByConfigurationManager(this LogMng data)
         {
+            if (false != ConfigurationManager.Instance.GetByPath<bool?>("Vit.Logger.PrintToTxt"))
+            {
+                Logger.OnLog += Logger.log.LogTxt;
+            }
+
+
             if (true == ConfigurationManager.Instance.GetByPath<bool?>("Vit.Logger.PrintToConsole"))
             {
-                Logger.OnLog = (level, msg)=> { Console.WriteLine("[" + level + "]" + DateTime.Now.ToString("[HH:mm:ss.ffff]") + msg);   };
+                Logger.OnLog += (level, msg)=> { Console.WriteLine("[" + level + "]" + DateTime.Now.ToString("[HH:mm:ss.ffff]") + msg);   };
             }
         }
 

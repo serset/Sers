@@ -66,7 +66,7 @@ namespace SerslotDemo
           "className": "Sers.CL.Socket.Iocp.OrganizeClientBuilder",
 
           /* (x.2) conn config */
-          /* 服务端 host地址。例如： "127.0.0.1"、"sers.com" */
+          /* 服务端 host地址。例如： "127.0.0.1"、"sers.cloud" */
           "host": "127.0.0.1",
           /* 服务端 监听端口号。例如： 4501 */
           "port": 4501,

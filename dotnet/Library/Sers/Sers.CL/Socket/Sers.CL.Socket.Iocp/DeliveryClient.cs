@@ -53,7 +53,7 @@ namespace Sers.CL.Socket.Iocp
 
 
         /// <summary>
-        ///  服务端 host地址（默认 "127.0.0.1" ）。例如： "127.0.0.1"、"sers.com"。
+        ///  服务端 host地址（默认 "127.0.0.1" ）。例如： "127.0.0.1"、"sers.cloud"。
         /// </summary>
         public string host = "127.0.0.1";
         /// <summary>

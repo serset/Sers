@@ -11,8 +11,19 @@ namespace Vit.Core.Module.Log
     /// </summary>
     public class LogMng
     {
-        #region private
+        #region LogTxt
+        public string NewLine = Environment.NewLine;
 
+        public void LogTxt(Level level, string message)
+        {
+            //加锁 以避免多线程抢占文件错误
+            // IOException: The process cannot access the file 'file path' because it is being used by another process
+
+            string finalMsg = DateTime.Now.ToString("[HH:mm:ss.ffff]") + message + NewLine;
+            string filePath = GetLogPath(level);
+            lock (filePath)
+                File.AppendAllText(filePath, finalMsg);
+        }
 
 
         #region class LogFilePathCache
@@ -90,16 +101,6 @@ namespace Vit.Core.Module.Log
         
 
 
-        public void LogTxt(Level level, string message)
-        {
-            //加锁 以避免多线程抢占文件错误
-            // IOException: The process cannot access the file 'file path' because it is being used by another process
-
-            string finalMsg = DateTime.Now.ToString("[HH:mm:ss.ffff]") + message + Environment.NewLine;
-            string filePath = GetLogPath(level);
-            lock (filePath)
-                File.AppendAllText(filePath, finalMsg);
-        }
 
 
         #endregion
@@ -114,7 +115,7 @@ namespace Vit.Core.Module.Log
         {
             try
             {              
-                LogTxt(level, message);
+                //LogTxt(level, message);
                 OnLog?.Invoke(level, message);
             }
             catch { }
@@ -189,8 +190,8 @@ namespace Vit.Core.Module.Log
                 ex = ex.GetBaseException();
                 var ssError = ex.ToSsError().Serialize();
                 //if (!string.IsNullOrWhiteSpace(ssError))
-                strMsg += Environment.NewLine + " ssError:" + ssError;
-                strMsg += Environment.NewLine + " StackTrace:" + ex.StackTrace;
+                strMsg += NewLine + " ssError:" + ssError;
+                strMsg += NewLine + " StackTrace:" + ex.StackTrace;
             }
             Error(strMsg);
         }
@@ -212,7 +213,7 @@ namespace Vit.Core.Module.Log
         public void Error(string message, SsError ssError)
         {
             var strMsg = "";
-            if (!string.IsNullOrWhiteSpace(message)) strMsg += " message:" + message + Environment.NewLine;
+            if (!string.IsNullOrWhiteSpace(message)) strMsg += " message:" + message + NewLine;
             if (null != ssError)
             {
                 strMsg += " ssError:" + ssError.Serialize();
