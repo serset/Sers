@@ -1,32 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-
- 
+using System.Runtime.CompilerServices;
 
 namespace Sers.Core.Module.Rpc
 {
     public class RpcContextData
     {
-        public RpcContextData() 
-        {
-        }
+        //public RpcContextData() 
+        //{
+        //}
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string Serialize()
         {
             //return Vit.Core.Module.Serialization.Serialization.Instance.SerializeToString(this);
-
-            return Vit.Core.Module.Serialization.Serialization_Text.Instance.SerializeToString(this);
-        
+            return Vit.Core.Module.Serialization.Serialization_Text.Instance.SerializeToString(this);        
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] ToBytes() 
         {
             //return Vit.Core.Module.Serialization.Serialization.Instance.SerializeToBytes(this);
             return Vit.Core.Module.Serialization.Serialization_Text.Instance.SerializeToBytes(this);
         }
 
-        public  static RpcContextData FromBytes(ReadOnlySpan<byte>data)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static RpcContextData FromBytes(ReadOnlySpan<byte>data)
         {
             //return Vit.Core.Module.Serialization.Serialization.Instance.DeserializeFromSpan<RpcContextData>(data);
             return Vit.Core.Module.Serialization.Serialization_Text.Instance.DeserializeFromSpan<RpcContextData>(data);
