@@ -226,12 +226,7 @@ namespace Sers.Core.Module.Api.LocalApi
         class Worker : IWorker
         {
 
-            IConsumer<RequestInfo> taskToCallApi = new Consumer_BlockingCollection<RequestInfo>();
-            //IConsumer<RequestInfo> taskToCallApi = new Consumer_Disruptor<RequestInfo>();
-            //IConsumer<RequestInfo> taskToCallApi = new Consumer_WorkerPool<RequestInfo>();
-            //IConsumer<RequestInfo> taskToCallApi = new Consumer_WorkerPoolCache<RequestInfo>();
-            //IConsumer<RequestInfo> taskToCallApi = new Consumer_WorkerPoolCascade<RequestInfo>();
-            //IConsumer<RequestInfo> taskToCallApi = new ConsumerCache<RequestInfo,Consumer_BlockingCollection<RequestInfo>>();
+            IConsumer<RequestInfo> taskToCallApi = ConsumerFactory.CreateConsumer<RequestInfo>();
 
 
             Func<ApiMessage, ApiMessage> callLocalApi;

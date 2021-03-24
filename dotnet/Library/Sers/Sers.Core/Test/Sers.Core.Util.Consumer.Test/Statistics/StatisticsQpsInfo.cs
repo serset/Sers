@@ -1,4 +1,4 @@
-/// v3
+/// v4
 
 using System;
 using System.Threading;
@@ -63,15 +63,17 @@ namespace CLClient.Statistics
             var curCount = RequestCount;
             var curRequestTicks = RequestTicks;
 
-            var msg = $"[{name}]ReqCount: {curCount}";
+            var msg = name;
 
             double d;
 
-            if (curCount > 0)
-            {
-                d = ErrorCount * 100.0 / curCount;
-                msg += $",error:{ErrorCount}({d.ToString("0.00")}%)";
-            }
+            //msg += $"ReqCount: {curCount}";
+            //if (curCount > 0)
+            //{
+            //    d = ErrorCount * 100.0 / curCount;
+            //    msg += $",error:{ErrorCount}({d.ToString("0.00")}%)";
+            //}
+
             if (startTime.HasValue)
             {
                 if (lastCount == 0)
@@ -79,20 +81,21 @@ namespace CLClient.Statistics
                     lastTime = startTime.Value;
                 }
                 var curTime = DateTime.Now;
+                double ms;
 
                 //sum
-                var ms = (curTime - startTime.Value).TotalMilliseconds;
-                d =  curCount / ms * 1000;
-                msg += $",qps:{ d.ToString("0.00") }";
+                //ms = (curTime - startTime.Value).TotalMilliseconds;
+                //d =  curCount / ms * 1000;
+                //msg += $",qps:{ d.ToString("0.00") }";
 
-                ms = 1.0 * curRequestTicks / TimeSpan.TicksPerMillisecond;
-                d = (curCount <= 0 ? 0 : ms / curCount);
-                msg += $",ms/req:{ d.ToString("0.00") }";
+                //ms = 1.0 * curRequestTicks / TimeSpan.TicksPerMillisecond;
+                //d = (curCount <= 0 ? 0 : ms / curCount);
+                //msg += $",ms/req:{ d.ToString("0.00") }";
 
 
                 //cur
-                msg += $",------Cur";                
-                msg += $",ReqCount: {curCount}";
+                //msg += $",------Cur ";                
+                msg += $" ReqCount: {curCount}";
                 ms = (curTime - lastTime).TotalMilliseconds;
                 d = (curCount - lastCount) / ms * 1000;
                 msg += $",qps:{ d.ToString("0.00")  }";

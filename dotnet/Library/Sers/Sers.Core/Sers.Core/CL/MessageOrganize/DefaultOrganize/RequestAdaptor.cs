@@ -201,11 +201,8 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         #region deliveryToOrganize_MessageFrameQueue  
 
 
-        IConsumer<DeliveryToOrganize_MessageFrame> task_DeliveryToOrganize_Processor = new Consumer_BlockingCollection<DeliveryToOrganize_MessageFrame>();
-        //IConsumer<DeliveryToOrganize_MessageFrame> task_DeliveryToOrganize_Processor = new Consumer_Disruptor<DeliveryToOrganize_MessageFrame>();
-        //IConsumer<DeliveryToOrganize_MessageFrame> task_DeliveryToOrganize_Processor = new Consumer_WorkerPool<DeliveryToOrganize_MessageFrame>();
-        //IConsumer<DeliveryToOrganize_MessageFrame> task_DeliveryToOrganize_Processor = new Consumer_WorkerPoolCache<DeliveryToOrganize_MessageFrame>();
-        //IConsumer<DeliveryToOrganize_MessageFrame> task_DeliveryToOrganize_Processor = new Consumer_WorkerPoolCascade<DeliveryToOrganize_MessageFrame>();
+        IConsumer<DeliveryToOrganize_MessageFrame> task_DeliveryToOrganize_Processor = ConsumerFactory.CreateConsumer<DeliveryToOrganize_MessageFrame>();
+ 
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

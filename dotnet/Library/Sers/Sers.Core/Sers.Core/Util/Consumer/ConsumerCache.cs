@@ -6,6 +6,7 @@ using System.Threading;
 namespace Sers.Core.Util.Consumer
 {
     /// <summary> 
+    /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="Consumer"></typeparam>

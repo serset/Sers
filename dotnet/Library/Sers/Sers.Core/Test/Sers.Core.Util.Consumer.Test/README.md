@@ -1,7 +1,7 @@
 
 #--------------------------------
  
-dotnet Sers.Core.Util.Consumer.Test/Sers.Core.Util.Consumer.Test.dll 
+dotnet /root/app/publish/Sers.Core.Util.Consumer.Test.dll  8 16 BufferBlock
 
 启动20个发布者
 启动22个订阅者

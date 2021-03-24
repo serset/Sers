@@ -7,6 +7,8 @@ using System.Runtime.CompilerServices;
 namespace Sers.Core.Util.Consumer
 {
     /// <summary>
+    ///  代码有异常，不可使用
+    /// 
     /// qps : 400万   producer:16    consumer:16
     /// 
     /// qps 1200万 - 2000万   1个对象，producer:2    consumer:2
