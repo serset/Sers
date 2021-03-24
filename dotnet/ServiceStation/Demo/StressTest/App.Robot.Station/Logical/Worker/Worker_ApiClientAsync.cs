@@ -29,7 +29,7 @@ namespace App.Robot.Station.Logical.Worker
 
         bool needRunning = false;
 
-        public bool IsRunning => RunningThreadCount==0;
+        public bool IsRunning => RunningThreadCount>0;
  
         public long targetCount;
 
