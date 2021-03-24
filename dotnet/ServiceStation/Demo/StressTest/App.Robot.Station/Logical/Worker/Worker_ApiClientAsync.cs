@@ -14,6 +14,8 @@ namespace App.Robot.Station.Logical.Worker
         public Worker_ApiClientAsync(TaskConfig config)
         {
             this.config = config;
+
+            targetCount= config.threadCount * config.loopCountPerThread;
         }
 
 
@@ -29,26 +31,28 @@ namespace App.Robot.Station.Logical.Worker
 
         public bool IsRunning => RunningThreadCount==0;
  
-        public int targetCount => config.threadCount * config.loopCountPerThread;
+        public int targetCount;
 
         public int sumCount = 0;
         public int sumFailCount = 0;
 
         public int curCount=0;
         public int failCount=0;
-        public TaskConfig config { get; set; }
+        public TaskConfig config { get; }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void StepUp(bool success)
-        {
+        {          
             Interlocked.Increment(ref curCount);
-            Interlocked.Increment(ref sumCount);
+            if (Interlocked.Increment(ref sumCount) >= targetCount) 
+            {
+                needRunning = false;
+            }
             if (!success)
             {
                 Interlocked.Increment(ref sumFailCount);
                 Interlocked.Increment(ref failCount);
-            }
-
+            }         
         }
 
       

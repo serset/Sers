@@ -8,7 +8,7 @@ namespace App.Robot.Station.Logical.Worker
     {
         int id { get; set; }
 
-        TaskConfig config { get; set; }
+        TaskConfig config { get;  }
 
         void Start();
 
