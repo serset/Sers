@@ -213,7 +213,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             }
 
             #region 填充文件头
-            headers["Content-Disposition"] = "attachment;filename=" + HttpUtility.UrlEncode(fileName, Vit.Core.Module.Serialization.Serialization.Instance.encoding);
+            headers["Content-Disposition"] = "attachment;filename=" + HttpUtility.UrlEncode(fileName, Vit.Core.Module.Serialization.Serialization_Newtonsoft.Instance.encoding);
             headers["Content-Length"] = info.Length.ToString();
             #endregion
 

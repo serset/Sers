@@ -24,8 +24,7 @@ namespace Vit.Core.MsTest.Module
 
             var modelA = new ModelA { id=1,name = testString, time=DateTime.Now };
 
-            #region (x.1)bytes <--> String
-            Assert.AreEqual(Serialization.Instance.BytesToString(Serialization.Instance.StringToBytes(testString)), testString);
+            #region (x.1)bytes <--> String      
             Assert.AreEqual(testString.StringToBytes().BytesToString(), testString);
             #endregion
 
@@ -40,17 +39,11 @@ namespace Vit.Core.MsTest.Module
             Assert.AreEqual(Serialization.Instance.DeserializeFromBytes<ModelA>(Serialization.Instance.SerializeToBytes(modelA))?.name, testString);
             Assert.AreEqual(modelA.SerializeToBytes().DeserializeFromBytes<ModelA>()?.name, testString);
             #endregion
-
-
-            #region (x.4)object <--> ArraySegmentByte
-            Assert.AreEqual(Serialization.Instance.DeserializeFromArraySegmentByte<ModelA>(Serialization.Instance.SerializeToArraySegmentByte(modelA))?.name, testString);
-            Assert.AreEqual(modelA.SerializeToArraySegmentByte().DeserializeFromArraySegmentByte<ModelA>()?.name, testString);
-            #endregion
+ 
 
             #region (x.5)ConvertBySerialize
             var obj_ori = new { id = 1, name = testString, time = DateTime.Now };
-
-            Assert.AreEqual(Serialization.Instance.ConvertBySerialize<ModelA>(obj_ori)?.name, testString);
+ 
             Assert.AreEqual(obj_ori.ConvertBySerialize<ModelA>()?.name, testString);
             #endregion
 
@@ -64,7 +57,7 @@ namespace Vit.Core.MsTest.Module
 
             string str = obj.Serialize();
 
-            Serialization_Newtonsoft.Instance.SetDateTimeFormat("yyyy-MM-dd");
+            Serialization_Newtonsoft.Instance.serializeSetting.DateFormatString="yyyy-MM-dd";
 
             string str2 = obj.Serialize();
             var jtObj = str2.Deserialize<JObject>();

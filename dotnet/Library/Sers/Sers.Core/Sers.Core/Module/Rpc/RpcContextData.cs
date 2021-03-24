@@ -1,35 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Vit.Core.Module.Serialization;
+using Vit.Core.Util.ComponentModel.SsError;
+using Vit.Core.Util.ConfigurationManager;
+using Vit.Extensions;
 
 namespace Sers.Core.Module.Rpc
 {
     public class RpcContextData
-    { 
+    {
+
+        #region Serialization
+        public static ISerialization Serialization;
+
+        static RpcContextData()
+        {
+            string rpcDataSerializeMode = ConfigurationManager.Instance.GetByPath<string>("Sers.RpcDataSerializeMode")
+                ?? "MessagePack";
+
+            switch (rpcDataSerializeMode) 
+            {
+                case "Newtonsoft": Serialization = Vit.Core.Module.Serialization.Serialization_Newtonsoft.Instance; break;
+                case "MessagePack": Serialization = Vit.Core.Module.Serialization.Serialization_MessagePack.Instance; break;
+                case "Text": Serialization = Vit.Core.Module.Serialization.Serialization_Text.Instance; break;
+                default: Serialization = Vit.Core.Module.Serialization.Serialization_Text.Instance; break;
+            }
+        }
+
+        #endregion
+
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string Serialize()
-        {
-            //return Vit.Core.Module.Serialization.Serialization.Instance.SerializeToString(this);
-            //return Vit.Core.Module.Serialization.Serialization_Text.Instance.SerializeToString(this);        
-            return Vit.Core.Module.Serialization.Serialization_MessagePack.Instance.SerializeToString(this);
+        {     
+            return Serialization.SerializeToString(this);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] ToBytes() 
         {
-            //return Vit.Core.Module.Serialization.Serialization.Instance.SerializeToBytes(this);
-            //return Vit.Core.Module.Serialization.Serialization_Text.Instance.SerializeToBytes(this);
-            return Vit.Core.Module.Serialization.Serialization_MessagePack.Instance.SerializeToBytes(this);
+            return Serialization.SerializeToBytes(this);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static RpcContextData FromBytes(ReadOnlySpan<byte>data)
+        public static RpcContextData FromBytes(ArraySegment<byte>data)
         {
-            //return Vit.Core.Module.Serialization.Serialization.Instance.DeserializeFromSpan<RpcContextData>(data);
-            //return Vit.Core.Module.Serialization.Serialization_Text.Instance.DeserializeFromSpan<RpcContextData>(data);
-            return Vit.Core.Module.Serialization.Serialization_MessagePack.Instance.DeserializeFromSpan<RpcContextData>(data);
+            return Serialization.DeserializeFromArraySegmentByte<RpcContextData>(data);
         }
 
 
@@ -107,9 +125,12 @@ namespace Sers.Core.Module.Rpc
 
         public object error;
 
-        public object user;
+        //public object user { get; set; }
 
- 
+        object user_;
+        public object user { get => user_?.Serialize(); set => user_ = value; }
+
+
 
     }
 }

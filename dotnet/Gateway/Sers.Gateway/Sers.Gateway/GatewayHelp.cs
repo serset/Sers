@@ -237,7 +237,7 @@ namespace Sers.Gateway
             return apiRequestMsg;
         }
 
-        static readonly string Response_ContentType_Json = ("application/json; charset=" + Vit.Core.Module.Serialization.Serialization.Instance.charset);
+        static readonly string Response_ContentType_Json = ("application/json; charset=" + Vit.Core.Module.Serialization.Serialization_Newtonsoft.Instance.charset);
 
         static readonly string ResponseDefaultContentType = ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.WebHost.ResponseDefaultContentType") ?? Response_ContentType_Json;
         async Task WriteApiReplyMessage(HttpResponse response,ApiMessage apiReply)

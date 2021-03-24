@@ -18,7 +18,7 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.AccountInCookie
         {
             public string userToken;
             public string CallerSource;
-            public JObject userInfo;
+            public object userInfo;
         }
 
         SortedDictionary<string, Account> userMap = new SortedDictionary<string, Account>();
@@ -94,7 +94,7 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.AccountInCookie
                     }
                     if (account.userInfo != null)
                     {
-                        rpcData.user=new { account.userInfo };
+                        rpcData.user = new { userInfo = account.userInfo };
                     }
                     requestMessage.rpcContextData_OriData = ArraySegmentByteExtensions.Null;
                 }

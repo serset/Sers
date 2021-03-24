@@ -6,16 +6,16 @@ namespace Sers.Core.Util.Consumer
     {
 
         /// <summary>
-        /// 队列类型。可为 BlockingCollection(默认)、 ConsumerCache_BlockingCollection(高性能) 、ActionBlock、BufferBlock 
+        /// 队列模式。可为 BlockingCollection(默认)、 ConsumerCache_BlockingCollection(高性能) 、ActionBlock、BufferBlock 
         /// </summary>
-        public static string consumerType = ConfigurationManager.Instance.GetByPath<string>("Vit.ConsumerType");
+        public static string ConsumerMode = ConfigurationManager.Instance.GetByPath<string>("Vit.ConsumerMode");
 
         public static IConsumer<T> CreateConsumer<T>() 
         {
 
             //return new ConsumerCache<T, Consumer_BlockingCollection<T>>();
             IConsumer<T> consumer;
-            switch (consumerType)
+            switch (ConsumerMode)
             {
                 case "ActionBlock":
                     consumer = new Consumer_ActionBlock<T>();  // 16 16 700万     24 24 900-1000万

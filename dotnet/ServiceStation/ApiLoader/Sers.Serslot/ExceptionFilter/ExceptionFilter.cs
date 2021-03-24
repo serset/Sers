@@ -15,7 +15,7 @@ namespace Sers.Serslot.ExceptionFilter
     public class ExceptionFilter : IExceptionFilter
     {
 
-        static readonly string Response_ContentType_Json = ("application/json; charset=" + Vit.Core.Module.Serialization.Serialization.Instance.charset);
+        static readonly string Response_ContentType_Json = ("application/json; charset=" + Vit.Core.Module.Serialization.Serialization_Newtonsoft.Instance.charset);
 
         /// <summary>
         /// 发生异常时进入

@@ -111,7 +111,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ArraySegment<byte> SerializeToArraySegmentByte(this object value)
         {
-            return Serialization.Instance.SerializeToArraySegmentByte(value);
+            return Serialization.Instance.SerializeToBytes(value).BytesToArraySegmentByte();
         }
         #endregion
 
@@ -126,7 +126,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T DeserializeFromArraySegmentByte<T>(this ArraySegment<byte> value)
         {
-            return Serialization.Instance.DeserializeFromArraySegmentByte<T>(value);
+            return Serialization_Newtonsoft.Instance.DeserializeFromArraySegmentByte<T>(value);
         }
 
         /// <summary>
@@ -138,10 +138,13 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object DeserializeFromArraySegmentByte(this ArraySegment<byte> value, Type type)
         {
-            return Serialization.Instance.DeserializeFromArraySegmentByte(value, type);
+            return Serialization_Newtonsoft.Instance.DeserializeFromArraySegmentByte(value, type);
         }
         #endregion
         #endregion
+
+               
+
 
 
 
@@ -157,19 +160,21 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object ConvertBySerialize(this object value, Type type)
         {
-            return Serialization.Instance.ConvertBySerialize(value, type);
+            var str = Serialization.Instance.SerializeToString(value);
+            return Serialization.Instance.DeserializeFromString(str, type); 
         }
 
         /// <summary>
         /// 通过序列化克隆对象
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TTarget"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T ConvertBySerialize<T>(this object value)
+        public static TTarget ConvertBySerialize<TTarget>(this object value)
         {
-            return Serialization.Instance.ConvertBySerialize<T>(value);
+            var str = Serialization.Instance.SerializeToString(value);
+            return Serialization.Instance.DeserializeFromString<TTarget>(str);
         }
         #endregion
 

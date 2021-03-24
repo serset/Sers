@@ -15,7 +15,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string SpanToString(this ReadOnlySpan<byte> data, Encoding encoding = null)
         {
-            return Serialization.Instance.SpanToString(data, encoding);
+            return Serialization_Newtonsoft.Instance.SpanToString(data, encoding);
         }
 
         #endregion

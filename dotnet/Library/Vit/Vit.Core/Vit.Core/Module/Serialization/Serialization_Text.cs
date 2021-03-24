@@ -1,15 +1,14 @@
-﻿
-using Vit.Extensions;
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 namespace Vit.Core.Module.Serialization
 {
-    public class Serialization_Text : Serialization
+    public class Serialization_Text : ISerialization
     {
 
-        public new static readonly Serialization_Text Instance = new Serialization_Text();
+        public static readonly Serialization_Text Instance = new Serialization_Text();
+
 
         public JsonSerializerOptions serializeOptions = new JsonSerializerOptions
         {
@@ -24,12 +23,12 @@ namespace Vit.Core.Module.Serialization
         };
 
 
-        #region (x.2)object <--> String
+        #region (x.1)object <--> String
 
         #region SerializeToString
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string SerializeToString<T>(T value)
+        public string SerializeToString<T>(T value)
         {  
             return JsonSerializer.Serialize(value, serializeOptions);
         }
@@ -37,32 +36,27 @@ namespace Vit.Core.Module.Serialization
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string SerializeToString(object value,Type type)
+        public string SerializeToString(object value,Type type)
         {
             return JsonSerializer.Serialize(value, type, serializeOptions);
         }
 
         #endregion
 
-        #region DeserializeFromString
 
-   
 
-        /// <summary>
-        /// 使用Newtonsoft反序列化。T也可为值类型（例如 int?、bool） 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="type"></param>
-        /// <returns></returns>
+        #region DeserializeFromString   
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override object DeserializeFromString(string value, Type type)
+        public T DeserializeFromString<T>(string value)
         {
-            if (null == value || null == type) return null;
+            return (T)DeserializeFromString(value, typeof(T));
+        }
 
-            if (type.TypeIsValueTypeOrStringType())
-            {
-                return DeserializeStruct(value, type);
-            }
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public object DeserializeFromString(string value, Type type)
+        {  
             return JsonSerializer.Deserialize(value, type, deserializeOptions);
         }
 
@@ -72,24 +66,13 @@ namespace Vit.Core.Module.Serialization
 
 
 
-        #region (x.3)object <--> bytes
+        #region  (x.2)object <--> bytes
 
         #region SerializeToBytes
 
-        /// <summary>
-        /// obj 可以为   byte[]、string、 object       
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override byte[] SerializeToBytes<T>(T value)
-        {
-            if (null == value) return new byte[0];
-            
-            if (value is byte[] bytes)
-            {
-                return bytes;
-            }
+        public byte[] SerializeToBytes<T>(T value)
+        {           
 
             return JsonSerializer.SerializeToUtf8Bytes(value, serializeOptions); 
         }
@@ -97,15 +80,8 @@ namespace Vit.Core.Module.Serialization
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override byte[] SerializeToBytes(object value,Type type)
+        public byte[] SerializeToBytes(object value,Type type)
         {
-            if (null == value) return new byte[0];
-
-            if (value is byte[] bytes)
-            {
-                return bytes;
-            }
-
             return JsonSerializer.SerializeToUtf8Bytes(value,type, serializeOptions);
         }
         #endregion
@@ -114,25 +90,15 @@ namespace Vit.Core.Module.Serialization
         #region DeserializeFromBytes
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override T DeserializeFromBytes<T>(byte[] bytes)
-        {
-            if (bytes == null || bytes.Length == 0) return default;
+        public T DeserializeFromBytes<T>(byte[] bytes)
+        {          
             return JsonSerializer.Deserialize<T>(bytes, deserializeOptions);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override object DeserializeFromBytes(byte[] bytes, Type type)
+        public object DeserializeFromBytes(byte[] bytes, Type type)
         {
-            if (bytes == null || bytes.Length == 0) return default;
-            //if (type == typeof(byte[]))
-            //{
-            //    return bytes;
-            //}
-            //if (type == typeof(ArraySegment<byte>))
-            //{
-            //    return bytes.BytesToArraySegmentByte();
-            //}
-            return JsonSerializer.Deserialize(bytes,type, deserializeOptions);
+            return JsonSerializer.Deserialize(bytes, type, deserializeOptions);
         }
         #endregion
 
@@ -141,82 +107,38 @@ namespace Vit.Core.Module.Serialization
 
 
 
-        #region DeserializeFromSpan
+        #region (x.3)DeserializeFromSpan
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override T DeserializeFromSpan<T>(ReadOnlySpan<byte> bytes)
+        public T DeserializeFromSpan<T>(ReadOnlySpan<byte> bytes)
         {
             if (bytes.Length == 0) return default;
             return JsonSerializer.Deserialize<T>(bytes, deserializeOptions);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override object DeserializeFromSpan(ReadOnlySpan<byte> bytes, Type type)
+        public object DeserializeFromSpan(ReadOnlySpan<byte> bytes, Type type)
         {
             if (bytes.Length == 0) return default;
-
             return JsonSerializer.Deserialize(bytes, type, deserializeOptions);
         }
         #endregion
 
 
-        #region (x.4)object <--> ArraySegmentByte
-
-        #region SerializeToArraySegmentByte
-        /// <summary>
-        /// obj 可以为   byte[]、string、 object       
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ArraySegment<byte> SerializeToArraySegmentByte(object obj)
-        {
-            if (null == obj) return ArraySegmentByteExtensions.Null;
-
-            if (obj is ArraySegment<byte> asbs)
-            {
-                return asbs;
-            }
-            if (obj is byte[] bytes)
-            {
-                return bytes.BytesToArraySegmentByte();
-            }
-            
-            return SerializeToBytes(obj).BytesToArraySegmentByte();
-        }
-        #endregion
-
-        #region DeserializeFromArraySegmentByte
+        #region (x.4)DeserializeFromArraySegmentByte
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T DeserializeFromArraySegmentByte<T>(ArraySegment<byte> bytes)
         {
-            if (bytes.Count == 0) return default;
-
-            return JsonSerializer.Deserialize<T>(bytes, deserializeOptions);
+            return DeserializeFromSpan<T>(bytes);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object DeserializeFromArraySegmentByte(ArraySegment<byte> bytes, Type type)
         {
-            if (bytes.Count == 0) return default;
-
-            //if (type == typeof(byte[]))
-            //{
-            //    return bytes.ArraySegmentByteToBytes();
-            //}
-            //if (type == typeof(ArraySegment<byte>))
-            //{
-            //    return bytes;
-            //}
-            return JsonSerializer.Deserialize(bytes, type, deserializeOptions);
+            return DeserializeFromSpan(bytes, type);
         }
         #endregion
-
-        #endregion
-
-
- 
 
     }
 }

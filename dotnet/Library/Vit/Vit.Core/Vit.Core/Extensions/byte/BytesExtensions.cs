@@ -14,14 +14,14 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string BytesToString(this byte[] data, Encoding encoding = null)
         {             
-            return Serialization.Instance.BytesToString(data, encoding); 
+            return Serialization_Newtonsoft.Instance.BytesToString(data, encoding); 
         }
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] StringToBytes(this string data, Encoding encoding = null)
         {
-            return Serialization.Instance.StringToBytes(data, encoding);
+            return Serialization_Newtonsoft.Instance.StringToBytes(data, encoding);
         }
         #endregion
 

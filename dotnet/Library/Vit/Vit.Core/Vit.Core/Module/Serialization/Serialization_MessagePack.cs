@@ -7,52 +7,45 @@ namespace Vit.Core.Module.Serialization
     /// <summary>
     /// 参考 https://github.com/neuecc/MessagePack-CSharp
     /// </summary>
-    public class Serialization_MessagePack : Serialization
+    public class Serialization_MessagePack : ISerialization
     {
 
-        public new static readonly Serialization_MessagePack Instance = new Serialization_MessagePack();
+        public static readonly Serialization_MessagePack Instance = new Serialization_MessagePack();
 
 
 
-        #region (x.2)object <--> String
+        #region (x.1)object <--> String
 
         #region SerializeToString
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string SerializeToString<T>(T value)
+        public string SerializeToString<T>(T value)
         {
-            //var bin = MessagePackSerializer.Serialize(
-            // value,
-            // MessagePack.Resolvers.ContractlessStandardResolver.Options);
-
             return MessagePackSerializer.ConvertToJson(SerializeToBytes(value));
         }
 
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string SerializeToString(object value,Type type)
-        {     
-            return MessagePackSerializer.SerializeToJson(value);
+        public string SerializeToString(object value,Type type)
+        {
+            return MessagePackSerializer.ConvertToJson(SerializeToBytes(value));
         }
 
         #endregion
 
         #region DeserializeFromString
 
-   
-
-        /// <summary>
-        /// 使用Newtonsoft反序列化。T也可为值类型（例如 int?、bool） 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="type"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override object DeserializeFromString(string value, Type type)
+        public T DeserializeFromString<T>(string value)
+        {
+            throw new NotImplementedException(); 
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public object DeserializeFromString(string value, Type type)
         {
             throw new NotImplementedException();
-            //return MessagePackSerializer.Deserialize(type, value);
         }
 
         #endregion
@@ -61,17 +54,13 @@ namespace Vit.Core.Module.Serialization
 
 
 
-        #region (x.3)object <--> bytes
+        #region (x.2)object <--> bytes
 
         #region SerializeToBytes
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+ 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override byte[] SerializeToBytes<T>(T value)
+        public byte[] SerializeToBytes<T>(T value)
         {
             return MessagePackSerializer.Serialize<T>(value,
              MessagePack.Resolvers.ContractlessStandardResolver.Options);          
@@ -80,7 +69,7 @@ namespace Vit.Core.Module.Serialization
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override byte[] SerializeToBytes(object value,Type type)
+        public byte[] SerializeToBytes(object value,Type type)
         {
             return MessagePackSerializer.Serialize(type,value,
              MessagePack.Resolvers.ContractlessStandardResolver.Options);
@@ -91,29 +80,55 @@ namespace Vit.Core.Module.Serialization
         #region DeserializeFromBytes
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override T DeserializeFromBytes<T>(byte[] bytes)
-        {   
+        public T DeserializeFromBytes<T>(byte[] bytes)
+        {
+            return DeserializeFromSpan<T>(bytes);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public object DeserializeFromBytes(byte[] bytes, Type type)
+        {        
+            return DeserializeFromSpan(bytes, type);
+        }
+        #endregion
+
+        #endregion
+
+
+
+
+        #region (x.3)DeserializeFromSpan
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T DeserializeFromSpan<T>(ReadOnlyMemory<byte> bytes)
+        {        
             return MessagePackSerializer.Deserialize<T>(bytes,
              MessagePack.Resolvers.ContractlessStandardResolver.Options);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override object DeserializeFromBytes(byte[] bytes, Type type)
-        {
-            return MessagePackSerializer.Deserialize(type,bytes,
+        public object DeserializeFromSpan(ReadOnlyMemory<byte> bytes, Type type)
+        {    
+            return MessagePackSerializer.Deserialize(type, bytes,
              MessagePack.Resolvers.ContractlessStandardResolver.Options);
         }
         #endregion
 
+
+        #region (x.4)DeserializeFromArraySegmentByte
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T DeserializeFromArraySegmentByte<T>(ArraySegment<byte> bytes)
+        {
+            return DeserializeFromSpan<T>(bytes);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public object DeserializeFromArraySegmentByte(ArraySegment<byte> bytes, Type type)
+        {
+            return DeserializeFromSpan(bytes, type);
+        }
         #endregion
-
-
-
-
- 
-
-
- 
 
     }
 }

@@ -25,10 +25,10 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer
         string Api_verifyAt;
         string Api_httpMethod;
 
-        ApiReturn<JObject> VerifyAt(string at)
+        ApiReturn<Object> VerifyAt(string at)
         {
             //var arg = "{\"at\":\"" + at + "\"}";
-            return ApiClient.CallRemoteApi<ApiReturn<JObject>>(Api_verifyAt, new { at }, Api_httpMethod);
+            return ApiClient.CallRemoteApi<ApiReturn<Object>>(Api_verifyAt, new { at }, Api_httpMethod);
         }
 
 
@@ -50,7 +50,7 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer
 
                 if (null != rpcData.user) return;
 
-                ApiReturn<JObject> ret;
+                ApiReturn<Object> ret;
                 using (var rpcContext = new RpcContext())
                 {
                     //RpcContext.Current.rpcData=rpcData;
@@ -60,7 +60,7 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer
 
                 if (null != ret && ret.success)
                 {
-                    rpcData.user=new { userInfo = ret.data };
+                    rpcData.user = new { userInfo = ret.data };
                     requestMessage.rpcContextData_OriData = ArraySegmentByteExtensions.Null;
                 }
                 #endregion

@@ -12,7 +12,7 @@ namespace Vit.Extensions
     {
         #region Init
 
-        static readonly string Response_ContentType_Json = ("application/json; charset=" + Vit.Core.Module.Serialization.Serialization.Instance.charset);
+        static readonly string Response_ContentType_Json = ("application/json; charset=" + Vit.Core.Module.Serialization.Serialization_Newtonsoft.Instance.charset);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ApiMessage InitAsApiReplyMessageByError(this ApiMessage data, SsError error)

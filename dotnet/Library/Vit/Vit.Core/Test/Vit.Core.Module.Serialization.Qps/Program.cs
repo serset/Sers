@@ -47,14 +47,16 @@ namespace App
             QpsData qpsInfo = new QpsData(statisticsQps);
             Task.Run(() =>
             {
-                // 4线程 71万
-                // var Instance = Vit.Core.Module.Serialization.Serialization_Newtonsoft.Instance;
+                // 4线程 72万(cpu 50%)
+                // 8线程 79万(cpu 86%)
+                //var Instance = Vit.Core.Module.Serialization.Serialization_Newtonsoft.Instance;
 
 
-                // 4线程 87万
-                //var Instance = Vit.Core.Module.Serialization.Serialization_Text.Instance;
+                // 4线程 87万(cpu 52%)
+                // 8线程 103万(cpu 95%)
+                // var Instance = Vit.Core.Module.Serialization.Serialization_Text.Instance;
 
-                // 4线程 200万
+                // 4线程 200万(cpu 50%)
                 var Instance = Vit.Core.Module.Serialization.Serialization_MessagePack.Instance;
 
                 while (true)
@@ -68,6 +70,8 @@ namespace App
                             //var str = Instance.SerializeToString(data);
 
                             var bytes = Instance.SerializeToBytes(data);
+
+                            //var ss = bytes.BytesToString();
 
                             var data2 = Instance.DeserializeFromBytes<RpcContextData>(bytes);
                         }
