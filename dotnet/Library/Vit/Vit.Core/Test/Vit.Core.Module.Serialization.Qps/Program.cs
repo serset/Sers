@@ -56,29 +56,44 @@ namespace App
 
                 // 4线程 87万(cpu 52%)
                 // 8线程 103万(cpu 95%)
-                // var Instance = Vit.Core.Module.Serialization.Serialization_Text.Instance;
+                var Instance = Vit.Core.Module.Serialization.Serialization_Text.Instance;
 
                 // 4线程 200万(cpu 50%)
-                var Instance = Vit.Core.Module.Serialization.Serialization_MessagePack.Instance;
+                // var Instance = Vit.Core.Module.Serialization.Serialization_MessagePack.Instance;
 
                 while (true)
                 {
                     try
                     {
+                        byte[] bytes;
+                        JObject jo;
+                        string str;
+                        RpcContextData data, data2;
+
                         for (var t = 0; t < 10000; t++)
                         {
-                            var data = new RpcContextData { route = "/a" };
+                            data = new RpcContextData { route = "/a" };
                             data.http.method = "GET";
 
-                            data.user = new JObject() { ["userInfo"] = "dd" };
-                            data.joUser = new JObject() { ["userInfo"] = "jo", ["age"] = 12, ["n"] = null, ["obj"] = new JArray { 1,true,12.5,DateTime.Now } };
+                            bytes = Instance.SerializeToBytes(data);
+                            data2 = Instance.DeserializeFromBytes<RpcContextData>(bytes);
 
-                            var str = Instance.SerializeToString(data);
 
-                            var bytes = Instance.SerializeToBytes(data);
- 
 
-                            var data2 = Instance.DeserializeFromBytes<RpcContextData>(bytes);
+                            data = new RpcContextData { route = "/a" };
+                            jo = new JObject() { ["userInfo11"] = 11.545, ["userInfo12"] = 123456789012456 };
+                            jo["userInfo13"] = new JObject() { ["userInfo131"] = "131", ["userInfo132"] = "132" };
+                            jo["userInfo14"] = null;
+                            jo["userInfo15"] = new JArray { 1, true, 12.5, null, DateTime.Now };
+
+                            data.user = jo;
+                            data.joUser = jo;
+
+                            str = Instance.SerializeToString(data);
+
+                            bytes = Instance.SerializeToBytes(data);
+
+                            data2 = Instance.DeserializeFromBytes<RpcContextData>(bytes);
                         }
 
                         qpsInfo.RequestCount++;
