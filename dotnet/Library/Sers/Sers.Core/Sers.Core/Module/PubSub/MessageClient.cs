@@ -7,6 +7,7 @@ using Vit.Extensions;
 using System.Collections.Concurrent;
 using Sers.Core.CL.MessageOrganize;
 using Vit.Core.Util.Pipelines;
+using System.Runtime.CompilerServices;
 
 namespace Sers.Core.Module.PubSub
 {
@@ -14,8 +15,9 @@ namespace Sers.Core.Module.PubSub
     {
         public static readonly MessageClient Instance = new MessageClient();
 
-        
 
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OnGetMessage(IOrganizeConnection conn,ArraySegment<byte> messageData)
         {
             SersFile frame = new SersFile().Unpack(messageData);
@@ -72,8 +74,9 @@ namespace Sers.Core.Module.PubSub
  
 
         #region 延迟发送队列
-        readonly ConcurrentQueue<Vit.Core.Util.Pipelines.ByteData> msgFrameToSend = new ConcurrentQueue<Vit.Core.Util.Pipelines.ByteData>();       
-       
+        readonly ConcurrentQueue<Vit.Core.Util.Pipelines.ByteData> msgFrameToSend = new ConcurrentQueue<Vit.Core.Util.Pipelines.ByteData>();
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void SendFrame(Vit.Core.Util.Pipelines.ByteData frame)
         {
             if (null == _OnSendMessage)
@@ -90,8 +93,9 @@ namespace Sers.Core.Module.PubSub
                
 
         internal Action<string, ArraySegment<byte>> Message_Consumer { get; set; }
-         
 
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Message_Publish(string msgTitle, ArraySegment<byte> msgData)
         {
             //publish,msgTitle,msgData 
@@ -127,12 +131,14 @@ namespace Sers.Core.Module.PubSub
 
         #region static 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Publish(string msgTitle, object msgBody)
         {
             Instance.Message_Publish(msgTitle, msgBody.SerializeToArraySegmentByte());
         }
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Publish(string msgTitle, byte[] msgBody)
         {
             Instance.Message_Publish(msgTitle, msgBody.BytesToArraySegmentByte());

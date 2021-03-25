@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using Sers.Core.Module.Message;
 using Sers.Core.Module.Rpc;
@@ -45,10 +46,11 @@ namespace Sers.Gover.RateLimit
 
         private int reqCount = 0;
         private long timeStampStart=0;
-        private long timeStampEnd=0;       
+        private long timeStampEnd=0;
 
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public SsError BeforeLoadBalancing(RpcContextData rpcData, ApiMessage requestMessage)
         {
             //以_开始的系统节点不限流 
@@ -89,6 +91,7 @@ namespace Sers.Gover.RateLimit
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public SsError BeforeCallRemoteApi(RpcContextData rpcData, ApiMessage requestMessage, ApiNode apiNode)
         {
             return null;

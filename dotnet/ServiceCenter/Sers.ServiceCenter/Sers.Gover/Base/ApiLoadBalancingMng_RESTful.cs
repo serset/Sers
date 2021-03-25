@@ -1,6 +1,7 @@
 ﻿using Sers.Core.Module.Api.RouteMap;
 using Sers.Core.Module.Rpc;
 using Sers.ServiceCenter.Entity;
+using System.Runtime.CompilerServices;
 using Vit.Extensions;
 
 namespace Sers.Gover.Base
@@ -15,6 +16,7 @@ namespace Sers.Gover.Base
         /// </summary>
         /// <param name="apiNode"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         static string GetHttpMethod(ApiNode apiNode)
         {
             var method = apiNode.apiDesc?.HttpMethodGet()?.ToUpper();
@@ -22,7 +24,7 @@ namespace Sers.Gover.Base
             return method;
         }
 
-         
+
 
         /// <summary>
         /// 通过负载均衡算法 获取可调用的ApiNode
@@ -30,6 +32,7 @@ namespace Sers.Gover.Base
         /// <param name="rpcData"></param>
         /// <param name="routeType"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override ApiNode GetCurApiNodeByLoadBalancing(RpcContextData rpcData, out ERouteType routeType)
         {
             var method= rpcData.http.method?.ToUpper();
@@ -63,9 +66,10 @@ namespace Sers.Gover.Base
             return null;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override string GetApiRoute(ApiNode apiNode)
         {
-            var route=  "/"+GetHttpMethod(apiNode) + apiNode.apiDesc.route;
+            var route = "/" + GetHttpMethod(apiNode) + apiNode.apiDesc.route;
 
             return route;
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Sers.Gover.Base;
 using Sers.Gover.Base.Model;
 using Sers.ServiceCenter.Entity;
@@ -8,7 +9,8 @@ namespace Vit.Extensions
     public static partial class ApiNodeExtensions
     {
 
-       
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static EServiceStationStatus  Status_Get(this ApiNode data)
         {
             return data?.GetDataByConvert<EServiceStationStatus?>("Status")?? EServiceStationStatus.暂停;
@@ -16,12 +18,11 @@ namespace Vit.Extensions
 
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Status_Set(this ApiNode data, EServiceStationStatus value)
         {
             data?.SetData("Status", value);
-        }
-
-      
+        }      
 
 
 

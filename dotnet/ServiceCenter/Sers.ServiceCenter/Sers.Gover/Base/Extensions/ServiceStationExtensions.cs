@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Sers.Gover.Base.Model;
 using Sers.ServiceCenter.Entity;
 
@@ -8,11 +9,14 @@ namespace Vit.Extensions
     public static partial class ServiceStationExtensions
     {
 
-       
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static EServiceStationStatus? Status_Get(this ServiceStation data)
         {
             return data?.GetDataByConvert<EServiceStationStatus?>("Status");
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Status_Set(this ServiceStation data, EServiceStationStatus value)
         {
             data?.SetData("Status", value);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sers.Core.Module.Message;
@@ -96,6 +97,7 @@ namespace Sers.Gover.RateLimit
         /// <param name="rpcData"></param>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public SsError BeforeLoadBalancing(RpcContextData rpcData, ApiMessage requestMessage)
         {
             foreach (var rateLimit in limits)
@@ -115,6 +117,7 @@ namespace Sers.Gover.RateLimit
         /// <param name="requestMessage"></param>
         /// <param name="apiNode"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public SsError BeforeCallRemoteApi(RpcContextData rpcData, ApiMessage requestMessage,ApiNode apiNode)
         {
             foreach (var rateLimit in limits)

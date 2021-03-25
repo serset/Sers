@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using Sers.Core.Module.Api.ApiDesc;
 using Sers.Core.Module.Counter;
@@ -34,6 +34,7 @@ namespace Sers.ServiceCenter.Entity
         #endregion
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CallApiAsync(RpcContextData rpcContextData, ApiMessage reqMessage, Object sender,  Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
             //count

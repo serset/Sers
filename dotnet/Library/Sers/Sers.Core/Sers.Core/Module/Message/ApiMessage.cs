@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Sers.Core.Module.Rpc;
 using Vit.Extensions;
 
@@ -41,6 +42,7 @@ namespace Sers.Core.Module.Message
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void RpcContextData_OriData_Set(RpcContextData rpcData)
         {
             rpcContextData_OriData = rpcData.ToBytes().BytesToArraySegmentByte();

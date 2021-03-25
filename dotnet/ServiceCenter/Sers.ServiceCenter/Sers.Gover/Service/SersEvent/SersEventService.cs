@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Sers.Core.Module.PubSub;
 using Vit.Core.Module.Log;
 
@@ -16,6 +17,7 @@ namespace Sers.Gover.Service.SersEvent
         public const string Event_ServiceStation_Remove = "Remove";
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Publish(string eventName,object msgBody)
         {
             try

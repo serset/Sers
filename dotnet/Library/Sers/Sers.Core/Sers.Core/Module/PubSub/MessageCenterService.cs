@@ -6,6 +6,7 @@ using System.Linq;
 using Sers.Core.CL.MessageOrganize;
 using Vit.Core.Module.Log;
 using Sers.Core.Module.Message;
+using System.Runtime.CompilerServices;
 
 namespace Sers.Core.Module.PubSub
 {
@@ -23,6 +24,7 @@ namespace Sers.Core.Module.PubSub
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OnGetMessage(IOrganizeConnection  conn, ArraySegment<byte> messageData)
         {
             SersFile frame = new SersFile().Unpack(messageData);
@@ -65,6 +67,7 @@ namespace Sers.Core.Module.PubSub
         /// </summary>
         ConcurrentDictionary<string, ConcurrentDictionary<int, IOrganizeConnection >> subscriberMap = new ConcurrentDictionary<string, ConcurrentDictionary<int, IOrganizeConnection >>();
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void Publish(string msgTitle,ArraySegment<byte> msgData)
         {
             if (!subscriberMap.TryGetValue(msgTitle, out var connList)) return;   

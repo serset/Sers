@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using Sers.Core.Module.Api.ApiDesc;
 using Sers.ServiceCenter.Entity;
@@ -25,6 +26,8 @@ namespace Sers.Gover.Base.Model
        
 
         int curIndex = -1;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ApiNode GetCurApiNodeBalancing()
         {
             //TODO： 负载均衡的实现

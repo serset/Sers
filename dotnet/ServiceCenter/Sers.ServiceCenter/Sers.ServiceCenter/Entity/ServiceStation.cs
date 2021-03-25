@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using Sers.Core.CL.MessageOrganize;
 using Sers.Core.Module.Counter;
@@ -9,7 +10,6 @@ using Sers.Core.Module.Message;
 using Sers.Hardware.Env;
 using Sers.Hardware.Usage;
 using Vit.Core.Util.Extensible;
-using Vit.Core.Util.Pipelines;
 using Vit.Extensions;
 
 namespace Sers.ServiceCenter.Entity
@@ -97,7 +97,8 @@ namespace Sers.ServiceCenter.Entity
             return String.Join(",", stationNames); 
         }
 
-     
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SendRequestAsync(Object sender, ApiMessage apiReqMessage, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
             connection.SendRequestAsync(sender,apiReqMessage.Package(), callback);            

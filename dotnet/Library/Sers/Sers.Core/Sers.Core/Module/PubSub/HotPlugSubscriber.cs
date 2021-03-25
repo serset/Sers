@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Vit.Extensions;
 
 namespace Sers.Core.Module.PubSub
@@ -37,6 +38,7 @@ namespace Sers.Core.Module.PubSub
             
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void ISubscriber.OnGetMessage(ArraySegment<byte> msgBody)
         {
             OnGetMessage?.Invoke(msgBody);

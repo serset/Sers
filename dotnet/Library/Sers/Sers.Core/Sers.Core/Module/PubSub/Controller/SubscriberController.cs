@@ -1,6 +1,7 @@
 ﻿using Vit.Core.Module.Log;
 using System;
 using Vit.Extensions;
+using System.Runtime.CompilerServices;
 
 namespace Sers.Core.Module.PubSub.Controller
 {
@@ -14,6 +15,7 @@ namespace Sers.Core.Module.PubSub.Controller
         public string msgTitle { get; protected set; }
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void OnGetMessage(ArraySegment<byte> msgBody)
         {
             T t;
@@ -40,6 +42,7 @@ namespace Sers.Core.Module.PubSub.Controller
         }
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public abstract void Handle(T msgBody);
 
       

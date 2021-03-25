@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
-
+using System.Runtime.CompilerServices;
 
 namespace Sers.Core.Module.PubSub
 {
@@ -23,6 +23,7 @@ namespace Sers.Core.Module.PubSub
         ConcurrentDictionary<string, ConcurrentDictionary<int, ISubscriber>> subscriberMap = new ConcurrentDictionary<string, ConcurrentDictionary<int, ISubscriber>>();
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void Message_Consumer(string msgTitle, ArraySegment<byte> msgData)
         {
             if (!subscriberMap.TryGetValue(msgTitle, out var subscriberList)) return;
@@ -78,6 +79,7 @@ namespace Sers.Core.Module.PubSub
             }     
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Message_Publish(string msgTitle, ArraySegment<byte> msgData)
         {
             MessageClient.Instance.Message_Publish(msgTitle, msgData);

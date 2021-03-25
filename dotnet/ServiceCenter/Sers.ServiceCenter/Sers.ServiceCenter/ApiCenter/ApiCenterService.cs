@@ -32,6 +32,8 @@ namespace Sers.ServiceCenter.ApiCenter
         [JsonIgnore]
         public Action<RpcContextData, ApiMessage> BeforeCallApi;
 
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public abstract void CallApiAsync(ApiMessage requestMessage, Object sender, Action<object, Vit.Core.Util.Pipelines.ByteData> callback);
 
 
