@@ -15,7 +15,7 @@ namespace App.Robot.Station.Logical
         public long curCount = 0;
         public long failCount = 0;
 
-        public long targetCount { get; private set; }
+        public long targetCount = 0;
 
 
         public TaskConfig config { get => config_;  set { config_ = value; EventAfterSetConfig(); }  }
