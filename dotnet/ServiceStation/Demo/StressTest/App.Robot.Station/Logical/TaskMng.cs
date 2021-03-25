@@ -2,33 +2,54 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using App.Robot.Station.Logical.Worker;
 using Newtonsoft.Json;
+using Sers.Core.Module.App;
 using Vit.Core.Util.ConfigurationManager;
+using Vit.Core.Util.Threading;
 
 namespace App.Robot.Station.Logical
 {
     public class TaskMng
     {
-        static TaskMng LoadTaskMng()
+        public static void Init()
         {
-            var taskMng = JsonFile.GetFromFile<TaskMng>(new[] { "Data", "App.Robot.json" }) ;
-
-            if (null == taskMng)
-            {
-                taskMng= new TaskMng();
-            }
-
-            taskMng.tasks.Values.Where(m => m.config.autoStart).ToList().ForEach(task => task.Start());
-            return taskMng;
         }
 
-        public static readonly TaskMng Instance = LoadTaskMng();
 
+        /// <summary>
+        ///  主线程开启的常驻线程，用以启动api触发的任务。
+        ///  若在api中直接调用，则会导致 ApiClient中 RpcData错乱的问题
+        ///  （RpcData通过AsyncCache保存api调用关系，故若api中直接开启线程调用api，可能会出现api中的 RpcData错乱）。
+        /// </summary>
+        public static readonly TaskQueue MainTask = new TaskQueue() { threadName = "Robot-MainTaskToStartTask" };
 
+        public static readonly TaskMng Instance;
+       
+        static TaskMng()
+        {
+            //TaskController.MainTask
+            SersApplication.onStart += () => MainTask.Start();
+            SersApplication.onStop += () => MainTask.Stop();
 
+            Instance = JsonFile.GetFromFile<TaskMng>(new[] { "Data", "App.Robot.json" }) ;
 
+            if (null == Instance)
+            {
+                Instance = new TaskMng();
+            }
 
+            MainTask.AddTask(() =>
+            {
+                Thread.Sleep(2000);
+                Instance.tasks.Values.Where(m => m.config.autoStart).ToList().ForEach(task => task.worker.Start());
+            });
+
+          
+         
+        }
+
+      
+                     
         public void TaskMngSaveToCache()
         {
             JsonFile.SetToFile(this, new[] { "Data", "App.Robot.json" });
@@ -37,43 +58,48 @@ namespace App.Robot.Station.Logical
 
 
         [JsonProperty]
-         ConcurrentDictionary<int, IWorker> tasks = new ConcurrentDictionary<int, IWorker>();
-        [JsonProperty]
-        int curKeyIndex = 0;
+        ConcurrentDictionary<int, TaskItem> tasks = new ConcurrentDictionary<int, TaskItem>();
+
+               
 
 
-
-        public TaskMng()
-        {
-        }
-
-     
-
-        private int GetNewKey() => Interlocked.Increment(ref curKeyIndex);
-
-       
         public bool Add(TaskConfig config)
         {
-            var key = GetNewKey();
-
-            IWorker task;
-
-            switch (config.type)
+            lock (this)
             {
-                case "ApiClientAsync": task = new Worker_ApiClientAsync(config); break;
-                case "HttpClient": task = new Worker_HttpClient(config); break;
-                case "HttpUtil": task = new Worker_HttpUtil(config); break;
-                default: config.type = "ApiClient"; task = new Worker_ApiClient(config); break;
-            }
+                var id = 1;
 
-            task.id = key;
-            return tasks.TryAdd(key, task);
+                if (tasks.Count != 0)
+                {
+                    id = tasks.Keys.Max() + 1;
+                }
+
+                TaskItem taskItem = new TaskItem { config = config, id = id };
+
+                if (!tasks.TryAdd(id, taskItem))
+                {
+                    return false;
+                }
+
+                if (config.autoStart)
+                {
+                    MainTask.AddTask(() =>
+                    {
+                        taskItem.worker.Start();
+                    });
+                }
+                TaskMngSaveToCache();
+                return true;
+            }                     
         }
         public bool Start(int id)
         {
-            if (tasks.TryGetValue(id, out var task))
+            if (tasks.TryGetValue(id, out var taskItem))
             {
-                task.Start();
+                MainTask.AddTask(() =>
+                {
+                    taskItem.worker.Start();
+                });           
                 return true;
             }
             return false;
@@ -83,7 +109,7 @@ namespace App.Robot.Station.Logical
         {
             if (tasks.TryGetValue(id, out var task))
             {
-                task.Stop();
+                task.worker.Stop();
                 return true;
             }
             return false;
@@ -93,15 +119,18 @@ namespace App.Robot.Station.Logical
         {
             if (tasks.TryGetValue(id, out var task))
             {
-                task.Stop();
+                task.worker.Stop();
                 tasks.TryRemove(id, out _);
+
+                TaskMngSaveToCache();
+
                 return true;
             }
             return false;             
         }
 
 
-        public  List<IWorker> GetAll()
+        public  List<TaskItem> GetAll()
         {
             return tasks.Values.ToList();
         }

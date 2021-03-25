@@ -6,9 +6,12 @@ namespace App.Robot.Station.Logical.Worker
 {
     public interface IWorker
     {
-        int id { get; set; }
+        int RunningThreadCount { get; }
 
-        TaskConfig config { get;  }
+        bool IsRunning { get; }
+
+
+        //TaskConfig config { get;  }
 
         void Start();
 

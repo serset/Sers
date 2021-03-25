@@ -14,19 +14,24 @@ namespace App.Robot.Station.Logical.Worker
 
     public class Worker_ApiClient: IWorker
     {
-        public Worker_ApiClient(TaskConfig config)
-        {
-            this.config = config;
+        [JsonIgnore]
+        protected TaskItem taskItem;
 
-            tasks.threadCount = config.threadCount;
-            tasks.repeatCountPerThread = config.loopCountPerThread;
+        public Worker_ApiClient(TaskItem taskItem)
+        {
+            this.taskItem = taskItem;
+ 
+
+            tasks.threadCount = taskItem.config.threadCount;
+            tasks.repeatCountPerThread = taskItem.config.loopCountPerThread;
 
             tasks.action = Processor;
         }
 
 
-        public string name => config.name;
-        public int id { get; set; }
+  
+
+
 
         [JsonIgnore]
         RepeatTaskHelp tasks = new RepeatTaskHelp();
@@ -36,29 +41,7 @@ namespace App.Robot.Station.Logical.Worker
 
         public bool IsRunning => tasks.IsRunning;
  
-        public long targetCount => config.threadCount * config.loopCountPerThread;
-
-        public long sumCount = 0;
-        public long sumFailCount = 0;
-
-        public long curCount =0;
-        public long failCount =0;
-        public TaskConfig config { get; set; }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected void StepUp(bool success)
-        {
-            Interlocked.Increment(ref curCount);
-            Interlocked.Increment(ref sumCount);
-            if (!success)
-            {
-                Interlocked.Increment(ref sumFailCount);
-                Interlocked.Increment(ref failCount);
-            }
-
-        }
-
-      
+  
     
 
 
@@ -69,33 +52,34 @@ namespace App.Robot.Station.Logical.Worker
             try
             {
                 
-                var ret = ApiClient.CallRemoteApi<ApiReturn>(config.apiRoute, config.apiArg, config.httpMethod);
+                var ret = ApiClient.CallRemoteApi<ApiReturn>(taskItem.config.apiRoute, taskItem.config.apiArg, taskItem.config.httpMethod);
                 if (ret == null || ret.success)
                 {
                     success = true;
                 }
                 else
                 {
-                    if(config.logError)
+                    if(taskItem.config.logError)
                     Logger.Info("失败：ret:" + ret.Serialize());
                 }
             }
             catch (Exception ex)
-            {
-                Interlocked.Increment(ref failCount);
+            {               
                 Logger.Error(ex);
             }
-            StepUp(success);
-            if(config.interval>0)
-                Thread.Sleep(config.interval);
+
+            taskItem.StepUp(success);
+
+            if (taskItem.config.interval > 0)
+                Thread.Sleep(taskItem.config.interval);
         }
 
         public void Start()
         {
-            tasks.threadName = "Robot-"+ config.name;
+            tasks.threadName = "Robot-"+ taskItem.config.name;
 
-            curCount = 0;
-            failCount = 0;
+            taskItem.curCount = 0;
+            taskItem.failCount = 0;
             tasks.Start();
         }
 

@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Threading;
+using Newtonsoft.Json;
 using Sers.Core.Module.Api;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.Data;
@@ -11,53 +12,34 @@ namespace App.Robot.Station.Logical.Worker
 
     public class Worker_ApiClientAsync: IWorker
     {
-        public Worker_ApiClientAsync(TaskConfig config)
-        {
-            this.config = config;
+        [JsonIgnore]
+        protected TaskItem taskItem;
 
-            targetCount= config.threadCount * config.loopCountPerThread;
+        public Worker_ApiClientAsync(TaskItem taskItem)
+        {
+            this.taskItem = taskItem;
+
+            interval = taskItem.config.interval;
+            logError = taskItem.config.logError;
+            apiRoute = taskItem.config.apiRoute;
+            apiArg = taskItem.config.apiArg;      
+            httpMethod = taskItem.config.httpMethod;
         }
 
 
-        public string name => config.name;
-        public int id { get; set; }
+        public bool IsRunning => runningThreadCount > 0;
+        public int RunningThreadCount => runningThreadCount;
 
 
-
-        public long RunningThreadCount = 0;
-
-
+        int runningThreadCount = 0;
         bool needRunning = false;
 
-        public bool IsRunning => RunningThreadCount>0;
- 
-        public long targetCount;
 
-        public long sumCount = 0;
-        public long sumFailCount = 0;
-
-        public long curCount =0;
-        public long failCount =0;
-        public TaskConfig config { get; }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected void StepUp(bool success)
-        {          
-            Interlocked.Increment(ref curCount);
-            if (Interlocked.Increment(ref sumCount) >= targetCount) 
-            {
-                needRunning = false;
-            }
-            if (!success)
-            {
-                Interlocked.Increment(ref sumFailCount);
-                Interlocked.Increment(ref failCount);
-            }         
-        }
-
-      
-    
-
+        int interval;
+        bool logError;
+        string apiRoute;
+        string apiArg;
+        string httpMethod;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected  void CallApi()
@@ -71,22 +53,28 @@ namespace App.Robot.Station.Logical.Worker
                 }
                 else
                 {
-                    if (config.logError)
+                    if (logError)
                         Logger.Info("失败：ret:" + ret.Serialize());
                 }
 
-                StepUp(success);
+                taskItem.StepUp(success);
 
-                if (config.interval > 0)
-                    Thread.Sleep(config.interval);
+                if (taskItem.sumCount >= taskItem.targetCount)
+                {
+                    needRunning = false;
+                }
+
+
+                if (interval > 0)
+                    Thread.Sleep(interval);
 
                 if (needRunning) CallApi();
                 else
                 {
-                    Interlocked.Decrement(ref RunningThreadCount);
+                    Interlocked.Decrement(ref runningThreadCount);
                 }
 
-            },config.apiRoute, config.apiArg, config.httpMethod);      
+            }, apiRoute,apiArg, httpMethod);      
           
         }
 
@@ -94,13 +82,14 @@ namespace App.Robot.Station.Logical.Worker
         {
             if (needRunning) return;
 
-            curCount = 0;
-            failCount = 0;
+            taskItem.curCount = 0;
+            taskItem.failCount = 0;
+
             needRunning = true;
 
-            for (var t = 0; t < config.threadCount; t++) 
+            for (var t = 0; t < taskItem.config.threadCount; t++) 
             {
-                Interlocked.Increment(ref RunningThreadCount);
+                Interlocked.Increment(ref runningThreadCount);
                 CallApi();
             }
         }

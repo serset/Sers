@@ -11,18 +11,19 @@ namespace App.Robot.Station.Logical.Worker
 
 
     public class Worker_HttpUtil : Worker_ApiClient
-    {
+    {       
 
         HttpUtil httpUtil;
         RequestParam httpUtil_Request;
-        public Worker_HttpUtil(TaskConfig config) : base(config)
+        public Worker_HttpUtil(TaskItem taskItem) : base(taskItem)
         {
+
             httpUtil = new HttpUtil();
             httpUtil_Request = new RequestParam
             {
-                url = config.apiRoute,
-                body = config.apiArg,
-                Method = config.httpMethod
+                url = taskItem.config.apiRoute,
+                body = taskItem.config.apiArg,
+                Method = taskItem.config.httpMethod
             };
         }
 
@@ -34,23 +35,26 @@ namespace App.Robot.Station.Logical.Worker
             try
             {
                 var ret = httpUtil.Ajax<ApiReturn>(httpUtil_Request);
-                if (ret.success)
+                if (ret == null || ret.success)
                 {
                     success = true;
                 }
                 else
                 {
-                    if (config.logError)
+                    if (taskItem.config.logError)
                         Logger.Info("失败：ret:" + ret.Serialize());
                 }
             }
             catch (Exception ex)
             {
-                Interlocked.Increment(ref failCount);
+               
                 Logger.Error(ex);
             }
-            StepUp(success);
-            Thread.Sleep(config.interval);
+
+            taskItem.StepUp(success);
+
+            if (taskItem.config.interval > 0)
+                Thread.Sleep(taskItem.config.interval);
         }
 
 

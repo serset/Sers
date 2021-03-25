@@ -3,30 +3,18 @@ using App.Robot.Station.Logical;
 using Sers.SersLoader;
 using Sers.SersLoader.ApiDesc.Attribute.Valid;
 using Sers.Core.Module.Rpc;
-using Sers.Core.Module.App;
 using Vit.Core.Util.ComponentModel.Api;
 using Vit.Core.Util.ComponentModel.Data;
-using Vit.Core.Util.Threading;
-using App.Robot.Station.Logical.Worker;
 
 namespace App.Robot.Station.Controllers
 {
     public class TaskController : IApiController
     {
-        /// <summary>
-        ///  主线程开启的常驻线程，用以启动api触发的任务。
-        ///  若在api中直接调用，则会导致 ApiClient中 RpcData错乱的问题
-        ///  （RpcData通过AsyncCache保存api调用关系，故若api中直接开启线程调用api，可能会出现api中的 RpcData错乱）。
-        /// </summary>
-        public static readonly TaskQueue MainTask = new TaskQueue() { threadName = "Robot-MainTaskToStartTask" };
 
         static TaskController()
         {
-            //TaskController.MainTask
-            SersApplication.onStart += () => TaskController.MainTask.Start();
-            SersApplication.onStop += () => TaskController.MainTask.Stop();
-        }
- 
+            TaskMng.Init();
+        } 
 
         /// <summary>
         /// 保存到Cache
@@ -47,7 +35,7 @@ namespace App.Robot.Station.Controllers
         /// <returns>ArgModelDesc-returns</returns>
         [SsRoute("task/getAll")]
         [SsCallerSource(ECallerSource.Internal)]
-        public ApiReturn<List<IWorker>> GetAll()
+        public ApiReturn<List<TaskItem>> GetAll()
         {
             return TaskMng.Instance.GetAll();
         }
@@ -62,11 +50,7 @@ namespace App.Robot.Station.Controllers
         [SsCallerSource(ECallerSource.Internal)]
         public ApiReturn Add(TaskConfig config)
         {
-            MainTask.AddTask(() =>
-            {
-                TaskMng.Instance.Add(config);
-            });
-            return true;
+            return TaskMng.Instance.Add(config);         
         }
 
 
@@ -74,11 +58,7 @@ namespace App.Robot.Station.Controllers
         [SsCallerSource(ECallerSource.Internal)]
         public ApiReturn Start(int id)
         {
-            MainTask.AddTask(() =>
-            {
-                TaskMng.Instance.Start(id);
-            });
-            return true;
+            return TaskMng.Instance.Start(id);
         }
 
         [SsRoute("task/stop")]
