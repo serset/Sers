@@ -124,8 +124,8 @@ namespace Sers.Core.Module.Rpc
 
         public object error;
 
-
-        public object user;
+        [MessagePack.MessagePackFormatter(typeof(Serialization_MessagePack.MessagePackFormatter_JObject))]
+        public object user ;
 
        
 
