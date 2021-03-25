@@ -16,8 +16,7 @@ namespace Sers.Core.Module.Rpc
 
         static RpcContextData()
         {
-            string rpcDataSerializeMode = ConfigurationManager.Instance.GetByPath<string>("Sers.RpcDataSerializeMode")
-                ?? "MessagePack";
+            string rpcDataSerializeMode = ConfigurationManager.Instance.GetByPath<string>("Sers.RpcDataSerializeMode");
 
             switch (rpcDataSerializeMode) 
             {
@@ -125,11 +124,10 @@ namespace Sers.Core.Module.Rpc
 
         public object error;
 
-        //public object user { get; set; }
 
-        object user_;
-        public object user { get => user_?.Serialize(); set => user_ = value; }
+        public object user;
 
+       
 
 
     }

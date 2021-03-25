@@ -43,6 +43,11 @@ win10(vr)      ApiClientAsync 4/8	      32万(50%)
 win10(vr)      ApiClientAsync 4/4	      33万(50%)
 
 
+4/8   55万   52%
+4/16  53万   53%
+8/8   65万   88%
+8/16  63万   86%
+
 
 i7 7700K 4核8线程  ApiClientAsync 
 win10(4.2GHZ)   16/32	      33万(90%)

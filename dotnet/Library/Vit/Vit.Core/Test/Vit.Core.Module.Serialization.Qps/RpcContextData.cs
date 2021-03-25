@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
+using Newtonsoft.Json.Linq;
+
 namespace Sers.Core.Module.Rpc
 {
     public class RpcContextData
@@ -49,7 +51,8 @@ namespace Sers.Core.Module.Rpc
 
         public object user;
 
- 
+        public JObject joUser;
+
 
     }
 }

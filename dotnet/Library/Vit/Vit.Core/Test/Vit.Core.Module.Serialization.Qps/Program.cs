@@ -1,4 +1,6 @@
-﻿using Sers.Core.Module.Rpc;
+﻿using Newtonsoft.Json.Linq;
+
+using Sers.Core.Module.Rpc;
 using Statistics;
 using System;
 using System.Threading;
@@ -8,7 +10,7 @@ namespace App
 {
     class Program
     {
-        public static int workThreadCount = 4;
+        public static int workThreadCount = 1;
 
 
         static void Main(string[] args)
@@ -66,12 +68,15 @@ namespace App
                         for (var t = 0; t < 10000; t++)
                         {
                             var data = new RpcContextData { route = "/a" };
-                            //data.http.method = "GET";
-                            //var str = Instance.SerializeToString(data);
+                            data.http.method = "GET";
+
+                            data.user = new JObject() { ["userInfo"] = "dd" };
+                            data.joUser = new JObject() { ["userInfo"] = "jo", ["age"] = 12, ["n"] = null, ["obj"] = new JArray { 1,true,12.5,DateTime.Now } };
+
+                            var str = Instance.SerializeToString(data);
 
                             var bytes = Instance.SerializeToBytes(data);
-
-                            //var ss = bytes.BytesToString();
+ 
 
                             var data2 = Instance.DeserializeFromBytes<RpcContextData>(bytes);
                         }

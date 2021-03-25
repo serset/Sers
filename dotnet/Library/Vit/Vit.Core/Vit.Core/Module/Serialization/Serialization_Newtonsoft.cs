@@ -169,7 +169,8 @@ namespace Vit.Core.Module.Serialization
 
             if (type.TypeIsValueTypeOrStringType())
             {
-                return value.Convert<string>();
+                //return value.Convert<string>();
+                return value.ToString();
             }
             return JsonConvert.SerializeObject(value, serializeSetting);
         }
@@ -181,13 +182,24 @@ namespace Vit.Core.Module.Serialization
         /// <summary>
         /// 使用Newtonsoft反序列化。T也可为值类型（例如 int?、bool） 
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="type"></param>
+        /// <param name="value"></param>    
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T DeserializeFromString<T>(string value)
         {
-            return (T)DeserializeFromString(value,typeof(T));
+            //return (T)DeserializeFromString(value,typeof(T));
+            if (null == value) return default;
+
+            Type type = typeof(T);
+
+            if (type.TypeIsValueTypeOrStringType())
+            {
+                return (T)DeserializeStruct(value, type);
+            }
+
+            //if (string.IsNullOrWhiteSpace(value)) return type.DefaultValue();
+
+            return JsonConvert.DeserializeObject<T>(value);
         }
 
 
@@ -207,7 +219,7 @@ namespace Vit.Core.Module.Serialization
                 return DeserializeStruct(value, type);
             }
 
-            if (string.IsNullOrWhiteSpace(value)) return type.DefaultValue();
+            //if (string.IsNullOrWhiteSpace(value)) return type.DefaultValue();
 
             return JsonConvert.DeserializeObject(value, type);
         }
@@ -225,7 +237,6 @@ namespace Vit.Core.Module.Serialization
         #region (x.2)object <--> bytes
 
         #region SerializeToBytes
-
         /// <summary>
         /// T 可以为   byte[]、string、 object 、struct
         /// </summary>
@@ -233,7 +244,20 @@ namespace Vit.Core.Module.Serialization
         /// <param name="obj"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public byte[] SerializeToBytes<T>(T obj)
+        public byte[] SerializeToBytes<T>(T obj) 
+        {
+            return SerializeToBytes<T>(obj,null);
+        }
+
+        /// <summary>
+        /// T 可以为   byte[]、string、 object 、struct
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public byte[] SerializeToBytes<T>(T obj, Encoding encoding)
         {
             if (null == obj) return null;
 
@@ -249,7 +273,7 @@ namespace Vit.Core.Module.Serialization
                 default: strValue = SerializeToString(obj); break;
             }
 
-            return StringToBytes(strValue);
+            return StringToBytes(strValue, encoding);
         }
 
 
