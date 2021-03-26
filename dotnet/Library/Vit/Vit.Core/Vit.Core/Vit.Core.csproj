@@ -3,17 +3,22 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Version>2.1.1.499</Version>
-    <Description>https://github.com/serset/Sers/tree/2.1.1/release</Description>
-    <!--<LangVersion>latest</LangVersion>-->
-  </PropertyGroup>
-
-  <PropertyGroup> 
-    <DocumentationFile>bin\Debug\netstandard2.0\Vit.Core.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Authors>Lith</Authors>
+    <PackageProjectUrl>https://github.com/serset/Sers/tree/2.1.1/release</PackageProjectUrl>
+    <Description>.net core common tool. log to txt,serialize(Newtonsoft.Json/System.Text.Json/MessagePack),ConfigurationManager,DynamicMethodExecutor,Guid,Reflection,Shell etc.</Description>
+    <PackageReleaseNotes>Send email to serset@yeah.net if you have any questions.</PackageReleaseNotes>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <!--<LangVersion>latest</LangVersion>-->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Debug\netstandard2.0\Vit.Core.xml</DocumentationFile>
+  </PropertyGroup>
+
+ 
 
   <ItemGroup>
     <Compile Remove="Extensions\byte\ReadOnlySpanByteExtensions.cs" />
