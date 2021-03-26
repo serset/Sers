@@ -17,30 +17,37 @@ namespace Vit.Core.Module.Serialization
 
 
 
-        public readonly MessagePackSerializerOptions options;
+        public  MessagePackSerializerOptions options;
         public Serialization_MessagePack()
         {
- 
-            var resolver = MessagePack.Resolvers.CompositeResolver.Create(
-                new IMessagePackFormatter[]
-                {  
+            options = MessagePack.Resolvers.ContractlessStandardResolver.Options;
 
+            //CompatibleWithNewtonsoft();
+        }
+
+        /// <summary>
+        /// 适配Newtonsoft 如 JObject JArray类型
+        /// </summary>
+        public void CompatibleWithNewtonsoft()
+        {
+
+            var resolver = MessagePack.Resolvers.CompositeResolver.Create(
+              new IMessagePackFormatter[]
+              {
                     MessagePackFormatter_JObject.Instance,
                     MessagePackFormatter_JArray.Instance,
 
                     //NilFormatter.Instance,
                     //new IgnoreFormatter<MethodBase>(),
-                
-                 },
-                new IFormatterResolver[]
-                {                 
-                     //ContractlessStandardResolver.Options.Resolver,
-                     ContractlessStandardResolver.Instance
-                });
+              },
+              new IFormatterResolver[]
+              {                 
+                    // ContractlessStandardResolver.Instance,
+                    // ContractlessStandardResolver.Options.Resolver,
+                    options.Resolver
+              });
 
-            options = MessagePack.Resolvers.ContractlessStandardResolver.Options.WithResolver(resolver);
-
-            //options = MessagePack.Resolvers.ContractlessStandardResolver.Options;
+            options = options.WithResolver(resolver);
         }
 
 

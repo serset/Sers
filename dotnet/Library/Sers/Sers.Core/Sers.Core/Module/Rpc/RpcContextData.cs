@@ -123,8 +123,8 @@ namespace Sers.Core.Module.Rpc
 
 
         public object error;
-
-        [MessagePack.MessagePackFormatter(typeof(Serialization_MessagePack.MessagePackFormatter_JObject))]
+ 
+        [MessagePack.MessagePackFormatter(typeof(Sers.Core.Module.Rpc.Serialize.MessagePackFormatter_Newtonsoft_Object))]
         public object user ;
 
        
