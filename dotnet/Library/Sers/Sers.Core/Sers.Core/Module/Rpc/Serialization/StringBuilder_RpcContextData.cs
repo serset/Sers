@@ -21,7 +21,8 @@ namespace Sers.Core.Module.Rpc.Serialization
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public RpcContextData DeserializeFromBytes(ArraySegment<byte> data)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return Text_RpcContextData.Instance.DeserializeFromBytes(data);
         }
 
 

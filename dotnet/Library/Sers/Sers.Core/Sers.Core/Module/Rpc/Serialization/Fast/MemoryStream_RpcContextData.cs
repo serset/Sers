@@ -31,7 +31,7 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
                 byte[] bytes;
 
                 //(x.1)route
-                stream.WriteByte((byte)ERpcKey.route);
+                stream.WriteByte((byte)ERpcPropertyName.route);
                 stream.WriteByte((byte)data.route.Length);
                 bytes = Encoding.UTF8.GetBytes(data.route);
                 stream.Write(bytes, 0, bytes.Length);
@@ -39,13 +39,13 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
 
                 #region (x.2)caller             
                 //(x.x.1)caller_rid
-                stream.WriteByte((byte)ERpcKey.caller_rid);
+                stream.WriteByte((byte)ERpcPropertyName.caller_rid);
                 stream.WriteByte((byte)data.caller.rid.Length);
                 bytes = Encoding.UTF8.GetBytes(data.caller.rid);
                 stream.Write(bytes, 0, bytes.Length);
 
                 //(x.x.2)caller_source
-                stream.WriteByte((byte)ERpcKey.caller_source);
+                stream.WriteByte((byte)ERpcPropertyName.caller_source);
                 stream.WriteByte((byte)data.caller.source.Length);
                 bytes = Encoding.UTF8.GetBytes(data.caller.source);
                 stream.Write(bytes, 0, bytes.Length);
@@ -54,13 +54,13 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
 
                 #region (x.3)http             
                 //(x.x.1)http_url
-                stream.WriteByte((byte)ERpcKey.http_url);
+                stream.WriteByte((byte)ERpcPropertyName.http_url);
                 stream.WriteByte((byte)data.http.url.Length);
                 bytes = Encoding.UTF8.GetBytes(data.http.url);
                 stream.Write(bytes, 0, bytes.Length);
 
                 //(x.x.2)http_method
-                stream.WriteByte((byte)ERpcKey.http_method);
+                stream.WriteByte((byte)ERpcPropertyName.http_method);
                 stream.WriteByte((byte)data.http.method.Length);
                 bytes = Encoding.UTF8.GetBytes(data.http.method);
                 stream.Write(bytes, 0, bytes.Length);

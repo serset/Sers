@@ -1,7 +1,10 @@
 ﻿
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Vit.Core.Module.Serialization;
 using Vit.Extensions;
 
 namespace Sers.Core.Module.Rpc.Serialization.Fast
@@ -16,12 +19,15 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
 
 
 
+        private static ISerialization Serialization = Serialization_Text.Instance;
+
+
         #region SerializeToBytes  
 
         [ThreadStatic]
         static byte[] fileContent;
+ 
 
-  
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe byte[] SerializeToBytes(RpcContextData data)
@@ -29,30 +35,31 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
             if (fileContent == null) fileContent = new byte[102400];
             int t = 0;
             fixed (byte* bytes = fileContent)
-            {
+            { 
+
                 //(x.1)route
                 if (data.route != null)
                 {
-                    bytes[t++] = (byte)ERpcKey.route;
-                    bytes[t++] = (byte)data.route.Length;
-                    t += StringToBytes(data.route, bytes + t);
+                    AppendStringValue(bytes, ref t, ERpcPropertyName.route, data.route);               
                 }
 
                 #region (x.2)caller             
                 //(x.x.1)caller_rid
                 if (data.caller.rid != null)
                 {
-                    bytes[t++] = (byte)ERpcKey.caller_rid;
-                    bytes[t++] = (byte)data.caller.rid.Length;
-                    t += StringToBytes(data.caller.rid, bytes + t);
+                    AppendStringValue(bytes, ref t, ERpcPropertyName.caller_rid, data.caller.rid);
                 }
 
-                //(x.x.2)caller_source
+                //(x.x.2)caller_callStack
+                if (data.caller.callStack != null)
+                {
+                    AppendStringValue(bytes, ref t, ERpcPropertyName.caller_callStack, Serialization.SerializeToString(data.caller.callStack));
+                }
+
+                //(x.x.3)caller_source
                 if (data.caller.source != null)
                 {
-                    bytes[t++] = (byte)ERpcKey.caller_source;
-                    bytes[t++] = (byte)data.caller.source.Length;
-                    t += StringToBytes(data.caller.source, bytes + t);
+                    AppendStringValue(bytes, ref t, ERpcPropertyName.caller_source, data.caller.source);
                 }
                 #endregion
 
@@ -61,20 +68,51 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
                 //(x.x.1)http_url
                 if (data.http.url != null)
                 {
-                    bytes[t++] = (byte)ERpcKey.http_url;
-                    bytes[t++] = (byte)data.http.url.Length;
-                    t += StringToBytes(data.http.url, bytes + t);
+                    AppendStringValue(bytes, ref t, ERpcPropertyName.http_url, data.http.url);
                 }
 
                 //(x.x.2)http_method
                 if (data.http.method != null)
                 {
-                    bytes[t++] = (byte)ERpcKey.http_method;
-                    bytes[t++] = (byte)data.http.method.Length;
-                    t += StringToBytes(data.http.method, bytes + t);
+                    AppendStringValue(bytes, ref t, ERpcPropertyName.http_method, data.http.method);
                 }
-                #endregion     
-            
+
+                //(x.x.3)http_statusCode
+                if (data.http.statusCode != null)
+                {
+                    bytes[t] = (byte)ERpcPropertyName.http_statusCode;
+                    ((short*)(bytes + t + 1))[0] = (short)4;
+                    ((int*)(bytes + t + 3))[0] = data.http.statusCode.Value;
+                    t += 7;
+                }
+
+                //(x.x.4)http_protocol
+                if (data.http.protocol != null)
+                {
+                    AppendStringValue(bytes, ref t, ERpcPropertyName.http_protocol, data.http.protocol);
+                }
+
+                //(x.x.5)http_headers
+                if (data.http.headers != null)
+                {
+                    AppendStringValue(bytes, ref t, ERpcPropertyName.http_headers, Serialization.SerializeToString(data.http.headers));
+                }
+
+                #endregion
+
+
+                //(x.4)error
+                if (data.error != null)
+                {
+                    AppendStringValue(bytes, ref t, ERpcPropertyName.error, Serialization.SerializeToString(data.error));
+                }
+
+                //(x.5)user
+                if (data.user != null)
+                {
+                    AppendStringValue(bytes, ref t, ERpcPropertyName.user, Serialization.SerializeToString(data.user));
+                }
+
             }
 
             return fileContent.Clone(0, t);
@@ -83,6 +121,23 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
 
 
         #endregion
+
+
+        #region AppendStringValue
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        unsafe void AppendStringValue(byte* bytes, ref int t, ERpcPropertyName property, string value)
+        {
+            bytes[t] = (byte)property;
+
+            int valueByteCount = StringToBytes(value, bytes + t + 3);
+
+            ((short*)(bytes + t + 1))[0] = (short)valueByteCount;
+
+            t += valueByteCount + 3;
+        }
+
+        #endregion
+
 
 
 
@@ -95,30 +150,57 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
             var result = new RpcContextData();
 
             int t = 0;
-            ERpcKey rpcKey;
+            ERpcPropertyName rpcKey;
             fixed (byte* bytes = data.AsSpan())
             {
                 while (t < data.Count)
                 {
-                    rpcKey = (ERpcKey)bytes[t++];
-                    int len = (int)bytes[t++];
-
+                    rpcKey = (ERpcPropertyName)bytes[t];
+                    short len = ((short*)(bytes+t+1))[0];
+                    t += 3;
                     switch (rpcKey)
                     {
-                        case ERpcKey.route:
+                        //(x.1)
+                        case ERpcPropertyName.route:
                             result.route = BytesToString(bytes + t, len);
                             break;
-                        case ERpcKey.caller_rid:
+
+                        //(x.2)
+                        case ERpcPropertyName.caller_rid:
                             result.caller.rid = BytesToString(bytes + t, len);
+                            break;                     
+                        case ERpcPropertyName.caller_callStack:
+                            result.caller.callStack = Serialization.DeserializeFromArraySegmentByte<List<string>>(data.Slice(t, len));
                             break;
-                        case ERpcKey.caller_source:
+                        case ERpcPropertyName.caller_source:
                             result.caller.source = BytesToString(bytes + t, len);
                             break;
-                        case ERpcKey.http_url:
+
+                        //(x.3)
+                        case ERpcPropertyName.http_url:
                             result.http.url = BytesToString(bytes + t, len);
                             break;
-                        case ERpcKey.http_method:
+                        case ERpcPropertyName.http_method:
                             result.http.method = BytesToString(bytes + t, len);
+                            break;
+                        case ERpcPropertyName.http_statusCode:
+                            result.http.statusCode = ((int*)(bytes + t))[0];
+                            break;
+                        case ERpcPropertyName.http_protocol:
+                            result.http.protocol = BytesToString(bytes + t, len);
+                            break;
+                        case ERpcPropertyName.http_headers:
+                            result.http.headers = Serialization.DeserializeFromArraySegmentByte<Dictionary<string, string>>(data.Slice(t, len));
+                            break;
+
+                        //(x.4)
+                        case ERpcPropertyName.error:
+                            result.error = Serialization.DeserializeFromArraySegmentByte<JObject>(data.Slice(t, len));
+                            break;
+
+                        //(x.5)
+                        case ERpcPropertyName.user:
+                            result.user = Serialization.DeserializeFromArraySegmentByte<JObject>(data.Slice(t, len));
                             break;
                     }
                     t += len;

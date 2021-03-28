@@ -26,18 +26,18 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
             int t = 0;
 
             //(x.1)route
-            fileContent[t++] = (byte)ERpcKey.route;
+            fileContent[t++] = (byte)ERpcPropertyName.route;
             fileContent[t++] = (byte)data.route.Length;
             t += StringToByte(data.route, fileContent.AsSpan(t));
 
             #region (x.2)caller             
             //(x.x.1)caller_rid
-            fileContent[t++] = (byte)ERpcKey.caller_rid;
+            fileContent[t++] = (byte)ERpcPropertyName.caller_rid;
             fileContent[t++] = (byte)data.caller.rid.Length;
             t += StringToByte(data.caller.rid, fileContent.AsSpan(t));
 
             //(x.x.2)caller_source
-            fileContent[t++] = (byte)ERpcKey.caller_source;
+            fileContent[t++] = (byte)ERpcPropertyName.caller_source;
             fileContent[t++] = (byte)data.caller.source.Length;
             t += StringToByte(data.caller.source, fileContent.AsSpan(t));
 
@@ -46,12 +46,12 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
 
             #region (x.3)http             
             //(x.x.1)http_url
-            fileContent[t++] = (byte)ERpcKey.http_url;
+            fileContent[t++] = (byte)ERpcPropertyName.http_url;
             fileContent[t++] = (byte)data.http.url.Length;
             t += StringToByte(data.http.url, fileContent.AsSpan(t));
 
             //(x.x.2)http_method
-            fileContent[t++] = (byte)ERpcKey.http_method;
+            fileContent[t++] = (byte)ERpcPropertyName.http_method;
             fileContent[t++] = (byte)data.http.method.Length;
             t += StringToByte(data.http.method, fileContent.AsSpan(t));
 
