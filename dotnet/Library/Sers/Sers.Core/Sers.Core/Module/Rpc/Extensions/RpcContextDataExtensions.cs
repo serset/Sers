@@ -171,7 +171,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static RpcContextData http_header_ContentType_Set(this RpcContextData data, String value)
         {
-            data.http.headers["Content-Type"] = value;
+            data.http.Headers()["Content-Type"] = value;
             return data;
         }
         #endregion

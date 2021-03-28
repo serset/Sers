@@ -33,6 +33,23 @@ namespace Vit.Extensions
 
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static unsafe byte[] Clone(this byte[] source, int sourceOffset, int count)
+        {
+            byte[] dest = new byte[count];
+
+            fixed (byte* pSource = source, pTarget = dest)
+            {
+                Buffer.MemoryCopy(pSource + sourceOffset, pTarget, count, count);
+            }
+            return dest;
+        }
+
+
+
+
+
+
         private static void CopyTo<T>(this ArraySegment<T> seg, T[] bytes, int curIndex = 0)
         {
             //Array.Copy(seg.Array, seg.Offset, bytes, curIndex, seg.Count);

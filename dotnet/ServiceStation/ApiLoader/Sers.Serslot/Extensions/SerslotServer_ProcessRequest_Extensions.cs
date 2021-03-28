@@ -44,10 +44,11 @@ namespace Vit.Extensions
                 };
 
                 #region http header
-                foreach (var t in rpcData.http.headers)
-                {
-                    requestFeature.Headers[t.Key] = t.Value;
-                }
+                if (rpcData.http.headers != null)
+                    foreach (var t in rpcData.http.headers)
+                    {
+                        requestFeature.Headers[t.Key] = t.Value;
+                    }
                 #endregion
 
                 //var requestFeature = new HttpRequestFeature
@@ -79,9 +80,10 @@ namespace Vit.Extensions
                 var replyHeader = responseFeature.Headers;
                 if (replyHeader != null)
                 {
+                    var headers = rpcReply.http.Headers();
                     foreach (var item in replyHeader)
                     {
-                        rpcReply.http.headers[item.Key]=item.Value.ToString();
+                        headers[item.Key] = item.Value.ToString();
                     }
                 }
                 #endregion

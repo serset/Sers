@@ -65,11 +65,12 @@ namespace Sers.Core.Module.Api
 
         #region CallApi ApiMessage
 
-        #region static curAutoResetEvent      
+        #region static curAutoResetEvent
         public static AutoResetEvent curAutoResetEvent =>
-            _curAutoResetEvent.Value ?? (_curAutoResetEvent.Value = new AutoResetEvent(false));
+            _curAutoResetEvent ?? (_curAutoResetEvent = new AutoResetEvent(false));
 
-        static System.Threading.ThreadLocal<AutoResetEvent> _curAutoResetEvent = new System.Threading.ThreadLocal<AutoResetEvent>();
+        [ThreadStatic]
+        static AutoResetEvent _curAutoResetEvent;
         #endregion
 
 

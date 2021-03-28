@@ -22,8 +22,8 @@ namespace Vit.Extensions
         public static void Bearer_Set(this RpcContextData rpcData, string value)
         {
             if (null == rpcData || string.IsNullOrWhiteSpace(value)) return;
-
-            rpcData.http.headers["Authorization"] = "Bearer "+value;
+            
+            rpcData.http.Headers()["Authorization"] = "Bearer "+value;
         } 
    
 

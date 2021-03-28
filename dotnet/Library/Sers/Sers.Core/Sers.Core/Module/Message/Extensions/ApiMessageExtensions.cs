@@ -21,12 +21,13 @@ namespace Vit.Extensions
 
             #region (x.1) set rpcData
             var rpcData = new RpcContextData();
+            var headers = rpcData.http.Headers();
             rpcData.error = error;
 
-            rpcData.http.headers["Content-Type"] = Response_ContentType_Json;
+            headers["Content-Type"] = Response_ContentType_Json;
 
-            rpcData.http.headers["responseState"] = "fail";
-            rpcData.http.headers["responseError_Base64"] = error?.SerializeToBytes()?.BytesToBase64String();
+            headers["responseState"] = "fail";
+            headers["responseError_Base64"] = error?.SerializeToBytes()?.BytesToBase64String();
 
 
             data.RpcContextData_OriData_Set(rpcData);

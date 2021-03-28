@@ -2,17 +2,20 @@
 using Sers.Core.CL.MessageOrganize;
 using System.Threading;
 using Vit.Core.Util.Pipelines;
+using System;
 
 namespace Vit.Extensions
 {
     public static partial class IOrganizeConnectionExtensions
     {
 
+        #region static curAutoResetEvent
         public static AutoResetEvent curAutoResetEvent =>
-           _curAutoResetEvent.Value ?? (_curAutoResetEvent.Value = new AutoResetEvent(false));
+            _curAutoResetEvent ?? (_curAutoResetEvent = new AutoResetEvent(false));
 
-        static System.Threading.ThreadLocal<AutoResetEvent> _curAutoResetEvent = new System.Threading.ThreadLocal<AutoResetEvent>();
-
+        [ThreadStatic]
+        static AutoResetEvent _curAutoResetEvent;
+        #endregion
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool SendRequest(this IOrganizeConnection conn, Vit.Core.Util.Pipelines.ByteData requestData, out ByteData replyData, int requestTimeoutMs = 60000)

@@ -127,15 +127,15 @@ namespace Sers.Gateway
             http.url = request.GetAbsoluteUri();
             #endregion
 
-            #region (x.2) headers
-            var headers = http.headers;
+            #region (x.2) headers            
+            var headers = http.Headers(request.Headers.Count);
             foreach (var kv in request.Headers)
             {
                 headers[kv.Key] = kv.Value.ToString();
             }
 
             //(x.x.2)记录Ip 到 headers
-            if(prefixOfCopyIpToHeader!=null)
+            if (prefixOfCopyIpToHeader!=null)
             {
                 headers[prefixOfCopyIpToHeader+"RemoteIpAddress"] = request.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
                 headers[prefixOfCopyIpToHeader + "RemotePort"] = ""+request.HttpContext.Connection.RemotePort;
@@ -255,8 +255,8 @@ namespace Sers.Gateway
          
             #region (x.2) header
             //(x.x.1)原始header
-            var headers = response.Headers; 
-            if (null != replyRpcData)
+            var headers = response.Headers;
+            if (replyRpcData?.http.headers != null)
             {
                 foreach (var item in replyRpcData.http.headers)
                 {

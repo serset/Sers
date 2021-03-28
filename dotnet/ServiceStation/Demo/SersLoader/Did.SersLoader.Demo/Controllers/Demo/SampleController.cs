@@ -425,8 +425,8 @@ namespace Did.SersLoader.Demo.Controllers.Demo
 
             var replyRpcData = new RpcContextData();
             replyRpcData.http.statusCode = 201;
-            replyRpcData.http.headers["Content-Type"] = "application/json";
-            replyRpcData.http.headers["testHeader"] = "abc";
+            replyRpcData.http.Headers()["Content-Type"] = "application/json";
+            replyRpcData.http.Headers()["testHeader"] = "abc";
      
 
             RpcContext.Current.apiReplyMessage.rpcContextData_OriData = replyRpcData.ToBytes().BytesToArraySegmentByte();

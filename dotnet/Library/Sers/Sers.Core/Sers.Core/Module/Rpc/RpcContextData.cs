@@ -1,29 +1,36 @@
-﻿using System;
+﻿
+using Sers.Core.Module.Rpc.Serialization;
+using Sers.Core.Module.Rpc.Serialization.Fast;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using Vit.Core.Module.Serialization;
-using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Core.Util.ConfigurationManager;
-using Vit.Extensions;
 
 namespace Sers.Core.Module.Rpc
 {
+
+    [MessagePack.MessagePackFormatter(typeof(Sers.Core.Module.Rpc.Serialization.MessagePack_RpcContextData))]
     public class RpcContextData
     {
 
         #region Serialization
-        public static ISerialization Serialization;
+        public static IRpcSerialize Serialization;
 
         static RpcContextData()
         {
             string rpcDataSerializeMode = ConfigurationManager.Instance.GetByPath<string>("Sers.RpcDataSerializeMode");
 
+
             switch (rpcDataSerializeMode) 
             {
-                case "Newtonsoft": Serialization = Vit.Core.Module.Serialization.Serialization_Newtonsoft.Instance; break;
-                case "MessagePack": Serialization = Vit.Core.Module.Serialization.Serialization_MessagePack.Instance; break;
-                case "Text": Serialization = Vit.Core.Module.Serialization.Serialization_Text.Instance; break;
-                default: Serialization = Vit.Core.Module.Serialization.Serialization_Text.Instance; break;
+                case "BytePointor": Serialization = BytePointor_RpcContextData.Instance; break;
+
+
+                //case "Newtonsoft": Serialization = Vit.Core.Module.Serialization.Serialization_Newtonsoft.Instance; break;
+                case "MessagePack": Serialization = MessagePack_RpcContextData.Instance; break;
+                case "StringBuilder": Serialization = StringBuilder_RpcContextData.Instance; break;
+                case "Text": Serialization = Text_RpcContextData.Instance; break;
+                default: Serialization = Text_RpcContextData.Instance; break;
             }
         }
 
@@ -31,22 +38,29 @@ namespace Sers.Core.Module.Rpc
 
 
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string Serialize()
-        {     
-            return Serialization.SerializeToString(this);
-        }
+
+
+
+
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public string Serialize()
+        //{    
+        //    return StringBuilder_RpcContextData.SerializeToString(this);
+        //}
+
+       
+
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] ToBytes() 
         {
-            return Serialization.SerializeToBytes(this);
+            return Serialization.SerializeToBytes(this);     
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static RpcContextData FromBytes(ArraySegment<byte>data)
         {
-            return Serialization.DeserializeFromArraySegmentByte<RpcContextData>(data);
+            return Serialization.DeserializeFromBytes(data);
         }
 
 
@@ -81,6 +95,19 @@ namespace Sers.Core.Module.Rpc
          
          */
 
+        /* ApiClient
+          {
+               "route": "/DemoStation/v1/api/5/rpc/2",
+               "caller": {
+                   "rid": "8320becee0d945e9ab93de6fdac7627a",
+                   "source": "Outside"
+               },
+               "http": {
+                   "url": "https://127.0.0.1:6000/DemoStation/v1/api/5/rpc/2?a=1",
+                   "method":"GET"            
+               }
+           }
+            */
 
 
 
@@ -95,6 +122,10 @@ namespace Sers.Core.Module.Rpc
         {
             public string rid;
             public List<string> callStack;
+
+            /// <summary>
+            /// Internal、Outside
+            /// </summary>
             public string source;
 
         }
@@ -102,20 +133,51 @@ namespace Sers.Core.Module.Rpc
 
 
         #region http
-        public Http http=new Http();
+        public Http http = new Http();
         public class Http
         {
             public string url;
             public string method;
             public int? statusCode;
             public string protocol;
-            public Dictionary<string, string> headers=new Dictionary<string, string>();
 
-            public string GetHeader(string key) 
-            {                
-                if (headers.TryGetValue(key, out var value)) return value;
+
+            public Dictionary<string, string> headers;
+
+
+            #region headers ext
+
+            /// <summary>
+            /// 获取headers,确保不会为null
+            /// </summary>
+            /// <returns></returns>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public Dictionary<string, string> Headers()
+            {
+                if (headers == null) headers = new Dictionary<string, string>();
+                return headers;
+            }
+
+            /// <summary>
+            /// 获取headers,确保不会为null
+            /// </summary>
+            /// <param name="capacity"></param>
+            /// <returns></returns>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public Dictionary<string, string> Headers(int capacity)
+            {
+                if (headers == null) headers = new Dictionary<string, string>(capacity);
+                return headers;
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public string GetHeader(string key)
+            {
+                string value = null;
+                if (true == headers?.TryGetValue(key, out value)) return value;
                 return null;
             }
+            #endregion
 
         }
 
@@ -123,11 +185,11 @@ namespace Sers.Core.Module.Rpc
 
 
         public object error;
- 
-        [MessagePack.MessagePackFormatter(typeof(Sers.Core.Module.Rpc.Serialize.MessagePackFormatter_Newtonsoft_Object))]
-        public object user ;
 
-       
+        [MessagePack.MessagePackFormatter(typeof(Vit.Core.Module.Serialization.MessagePack_Newtonsoft_Object))]
+        public object user;
+
+
 
 
     }

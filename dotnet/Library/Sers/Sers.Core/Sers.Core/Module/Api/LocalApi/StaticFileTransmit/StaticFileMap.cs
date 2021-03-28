@@ -135,18 +135,19 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
 
             #region reply header
             var replyRpcData = new RpcContextData();
+            var rpcHeaders = replyRpcData.http.Headers();
 
-            if (responseHeaders != null) 
-            {
+            if (responseHeaders != null)
+            {             
                 foreach (var item in responseHeaders)
                 {
-                    replyRpcData.http.headers[item.Key]=item.Value;
+                    rpcHeaders[item.Key] = item.Value;
                 }
             }
 
             if (contentTypeProvider.TryGetContentType(absFilePath, out var contentType))
             {
-                replyRpcData.http.headers["Content-Type"] = contentType;             
+                rpcHeaders["Content-Type"] = contentType;             
             }
        
             //replyRpcData.http.headers["Cache-Control"] = "public,max-age=6000";
@@ -200,7 +201,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             #region reply header
             var replyRpcData = new RpcContextData();
 
-            var headers = new Dictionary<string, string>();
+            var headers = replyRpcData.http.Headers();
 
             if (!string.IsNullOrEmpty(contentType))
             {
@@ -216,8 +217,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             headers["Content-Disposition"] = "attachment;filename=" + HttpUtility.UrlEncode(fileName, Vit.Core.Module.Serialization.Serialization_Newtonsoft.Instance.encoding);
             headers["Content-Length"] = info.Length.ToString();
             #endregion
-
-            replyRpcData.http.headers = headers;
+  
 
             RpcContext.Current.apiReplyMessage.rpcContextData_OriData = replyRpcData.ToBytes().BytesToArraySegmentByte();
             #endregion
