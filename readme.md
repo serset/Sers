@@ -31,26 +31,18 @@ Sers为一套跨平台跨语言的开源微服务架构协议。
  robot内部调用	：
   配置	 方式 线程数（处理/请求）     qps	        
 
- 
+
+i7-7700K(4.2GHZ) 4核8线程
+win10  ApiClientAsync 8/8	      140万 
+
+
 CentOs8(2x24核) ApiClient      4/4           6-9万（6%）
 CentOs8(2x24核) ApiClientAsync 16/32	     24-36万（12%）   
  
-i7 7700K 4核8线程
-win10(4.2GHZ)  ApiClientAsync 16/32	      33万(90%)
-win10(vr)      ApiClientAsync 8/16	      38万(90%)
-win10(vr)      ApiClientAsync 8/8	      37万(90%)
-win10(vr)      ApiClientAsync 4/8	      32万(50%)
-win10(vr)      ApiClientAsync 4/4	      33万(50%)
 
 
-4/8   55万   52%
-4/16  53万   53%
-8/8   65万   88%
-8/16  63万   86%
-
-
-i7 7700K 4核8线程  ApiClientAsync 
-win10(4.2GHZ)   16/32	      33万(90%)
+ 
+ 
 
 
    

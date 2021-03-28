@@ -5,6 +5,9 @@ using Vit.Core.Module.Serialization;
 
 namespace Sers.Core.Module.Rpc.Serialization
 {
+    /// <summary>
+    /// 字符串没有转义双引号、换行等
+    /// </summary>
     public class StringBuilder_RpcContextData : IRpcSerialize
     {
         public static readonly StringBuilder_RpcContextData Instance = new StringBuilder_RpcContextData();

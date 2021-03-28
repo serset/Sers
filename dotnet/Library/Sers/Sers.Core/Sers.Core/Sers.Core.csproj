@@ -29,6 +29,7 @@
 
 
   <ItemGroup>
+    <Compile Remove="Module\Rpc\Serialization\StringBuilder_RpcContextData.cs" />
     <Compile Remove="Util\Consumer\Consumer_Disruptor.cs" />
     <Compile Remove="Util\Consumer\Consumer_WorkerPool.cs" />
     <Compile Remove="Util\Consumer\Consumer_WorkerPoolCache.cs" />
