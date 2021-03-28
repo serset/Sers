@@ -46,23 +46,23 @@ namespace Sers.Core.Module.Rpc.Serialization
             //(x.2)caller
             buffer.Append("\",\"caller\":{\"rid\":\"").Append(data.caller.rid);
 
-            if (data.caller.callStack != null)
-                buffer.Append("\",\"callStack\":").Append(Serialization_Newtonsoft.Instance.SerializeToString(data.caller.callStack));
+            buffer.Append("\",\"source\":\"").Append(data.caller.source).Append('"');
 
-            buffer.Append("\",\"source\":").Append(data.caller.source);
+            if (data.caller.callStack != null)
+                buffer.Append(",\"callStack\":").Append(Serialization_Text.Instance.SerializeToString(data.caller.callStack));
 
             //(x.3)http
-            buffer.Append("\"},\"http\":{\"url\":\"").Append(data.http.url)
-                .Append("\",\"method\":\"").Append(data.http.method);
+            buffer.Append("},\"http\":{\"url\":\"").Append(data.http.url)
+                .Append("\",\"method\":\"").Append(data.http.method).Append('"');
 
             if (data.http.statusCode != null)
-                buffer.Append("\",\"statusCode\":").Append(data.http.statusCode.Value);
+                buffer.Append(",\"statusCode\":").Append(data.http.statusCode.Value);
             if (data.http.protocol != null)
-                buffer.Append("\",\"protocol\":").Append(data.http.protocol);
+                buffer.Append(",\"protocol\":").Append(data.http.protocol).Append('"');
             if (data.http.headers != null)
-                buffer.Append("\",\"headers\":").Append(Serialization_Newtonsoft.Instance.SerializeToString(data.http.headers));
+                buffer.Append(",\"headers\":").Append(Serialization_Text.Instance.SerializeToString(data.http.headers));
 
-            buffer.Append("\"}");
+            buffer.Append("}");
 
             if (data.error != null)
                 buffer.Append(",\"error\":").Append(Serialization_Newtonsoft.Instance.SerializeToString(data.error));

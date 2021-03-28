@@ -4,6 +4,10 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Test\WorkerPoolTest.cs" />
+  </ItemGroup>
  
 
   <ItemGroup>
@@ -20,6 +24,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Sers.Core\Sers.Core.csproj" />
+  </ItemGroup>
+ 
+
+  <ItemGroup>
+    <Folder Include="Test\" />
   </ItemGroup>
 
  

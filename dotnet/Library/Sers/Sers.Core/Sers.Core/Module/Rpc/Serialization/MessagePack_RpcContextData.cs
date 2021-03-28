@@ -108,7 +108,9 @@ namespace Sers.Core.Module.Rpc.Serialization
             if (value.error != null)
             {
                 writer.Write("error");
-                MessagePack_Newtonsoft_Object.Instance.Serialize(ref writer, value.error, options);
+                //MessagePack_Newtonsoft_Object.Instance.Serialize(ref writer, value.error, options);
+                var str = Serialization_Newtonsoft.Instance.SerializeToString(value.error);
+                writer.Write(str);
             }
 
 
@@ -116,7 +118,9 @@ namespace Sers.Core.Module.Rpc.Serialization
             if (value.user != null)
             {
                 writer.Write("user");
-                MessagePack_Newtonsoft_Object.Instance.Serialize(ref writer, value.user, options);
+                //MessagePack_Newtonsoft_Object.Instance.Serialize(ref writer, value.user, options);
+                var str = Serialization_Newtonsoft.Instance.SerializeToString(value.user);
+                writer.Write(str);
             }
         }
 
@@ -226,13 +230,15 @@ namespace Sers.Core.Module.Rpc.Serialization
                     case "error":
                         if (!reader.TryReadNil())
                         {
-                            result.error = MessagePack_Newtonsoft_Object.Instance.Deserialize(ref reader, options);
+                            //result.error = MessagePack_Newtonsoft_Object.Instance.Deserialize(ref reader, options);
+                            result.error = Serialization_Newtonsoft.Instance.DeserializeFromString<object>(reader.ReadString());
                         }
                         break;
                     case "user":
                         if (!reader.TryReadNil())
                         {
-                            result.error = MessagePack_Newtonsoft_Object.Instance.Deserialize(ref reader, options);
+                            //result.user = MessagePack_Newtonsoft_Object.Instance.Deserialize(ref reader, options);
+                            result.user = Serialization_Newtonsoft.Instance.DeserializeFromString<object>(reader.ReadString());
                         }
                         break;
                     default:

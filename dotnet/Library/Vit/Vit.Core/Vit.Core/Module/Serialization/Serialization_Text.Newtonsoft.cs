@@ -3,16 +3,12 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-using Vit.Core.Util.ConfigurationManager;
- 
-
-
 
 #region 适配 Newtonsoft
 
 namespace Vit.Core.Module.Serialization
 {
-   
+
     using Newtonsoft.Json.Linq;
     using Vit.Extensions;
 

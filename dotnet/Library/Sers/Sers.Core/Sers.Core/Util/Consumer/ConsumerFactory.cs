@@ -28,12 +28,12 @@ namespace Sers.Core.Util.Consumer
                     break;
 
 
-                case "Disruptor":
-                    consumer = new Consumer_Disruptor<T>(); // 16 16 800万
-                    break;
-                case "WorkerPool":
-                    consumer = new Consumer_WorkerPool<T>(); //16 16 800-900万
-                    break;
+                //case "Disruptor":
+                //    consumer = new Consumer_Disruptor<T>(); // 16 16 800万
+                //    break;
+                //case "WorkerPool":
+                //    consumer = new Consumer_WorkerPool<T>(); //16 16 800-900万
+                //    break;
 
                 case "ConsumerCache_ActionBlock":
                     consumer = new ConsumerCache<T, Consumer_ActionBlock<T>>(); // 16 16  4000-4200万
@@ -47,15 +47,15 @@ namespace Sers.Core.Util.Consumer
 
 
 
-                case "ConsumerCache_WorkerPool":
-                    consumer = new ConsumerCache<T, Consumer_WorkerPool<T>>(); //750万  异常
-                    break;
-                case "WorkerPoolCache":
-                    consumer = new Consumer_WorkerPoolCache<T>();        //940万 异常
-                    break;
-                case "WorkerPoolCascade":
-                    consumer = new Consumer_WorkerPoolCascade<T>();   //1400万 异常
-                    break;
+                //case "ConsumerCache_WorkerPool":
+                //    consumer = new ConsumerCache<T, Consumer_WorkerPool<T>>(); //750万  异常
+                //    break;
+                //case "WorkerPoolCache":
+                //    consumer = new Consumer_WorkerPoolCache<T>();        //940万 异常
+                //    break;
+                //case "WorkerPoolCascade":
+                //    consumer = new Consumer_WorkerPoolCascade<T>();   //1400万 异常
+                //    break;
 
                 default:
                     consumer = new Consumer_BlockingCollection<T>();

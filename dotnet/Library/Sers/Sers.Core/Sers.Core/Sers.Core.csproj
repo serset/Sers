@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -27,8 +27,16 @@
     <None Remove="SersLoader\ApiDesc\Attribute\Valid\delete\**" />
   </ItemGroup>
 
+
   <ItemGroup>
-    <PackageReference Include="Disruptor" Version="3.6.2" />
+    <Compile Remove="Util\Consumer\Consumer_Disruptor.cs" />
+    <Compile Remove="Util\Consumer\Consumer_WorkerPool.cs" />
+    <Compile Remove="Util\Consumer\Consumer_WorkerPoolCache.cs" />
+    <Compile Remove="Util\Consumer\Consumer_WorkerPoolCascade.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<PackageReference Include="Disruptor" Version="3.6.2" />-->
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.0.0" />
     <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
     <PackageReference Include="System.Threading.Tasks.Dataflow" Version="5.0.0" />

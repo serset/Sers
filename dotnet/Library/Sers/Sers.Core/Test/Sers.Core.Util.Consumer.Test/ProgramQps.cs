@@ -84,12 +84,12 @@ namespace CLClient
                     break;
               
   
-                case "Disruptor":
-                    consumer = new Consumer_Disruptor<Product>(); // 16 16 800万
-                    break;
-                case "WorkerPool":
-                    consumer = new Consumer_WorkerPool<Product>(); //16 16 800-900万
-                    break;
+                //case "Disruptor":
+                //    consumer = new Consumer_Disruptor<Product>(); // 16 16 800万
+                //    break;
+                //case "WorkerPool":
+                //    consumer = new Consumer_WorkerPool<Product>(); //16 16 800-900万
+                //    break;
 
                 case "ConsumerCache_ActionBlock":
                     consumer = new ConsumerCache<Product, Consumer_ActionBlock<Product>>(); // 16 16  4000-4200万
@@ -103,15 +103,15 @@ namespace CLClient
 
 
 
-                case "ConsumerCache_WorkerPool":
-                    consumer = new ConsumerCache<Product, Consumer_WorkerPool<Product>>(); //750万  异常
-                    break;
-                case "WorkerPoolCache":
-                    consumer = new Consumer_WorkerPoolCache<Product>();        //940万 异常
-                    break;
-                case "WorkerPoolCascade":
-                    consumer = new Consumer_WorkerPoolCascade<Product>();   //1400万 异常
-                    break;
+                //case "ConsumerCache_WorkerPool":
+                //    consumer = new ConsumerCache<Product, Consumer_WorkerPool<Product>>(); //750万  异常
+                //    break;
+                //case "WorkerPoolCache":
+                //    consumer = new Consumer_WorkerPoolCache<Product>();        //940万 异常
+                //    break;
+                //case "WorkerPoolCascade":
+                //    consumer = new Consumer_WorkerPoolCascade<Product>();   //1400万 异常
+                //    break;
 
                 default:
                     consumer= ConsumerFactory.CreateConsumer<Product>(); 

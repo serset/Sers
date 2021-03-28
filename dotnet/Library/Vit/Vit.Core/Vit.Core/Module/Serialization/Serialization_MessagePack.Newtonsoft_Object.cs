@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 using MessagePack.Formatters;
 using MessagePack;
 using Newtonsoft.Json.Linq;
-using Vit.Core.Module.Serialization;
 using Vit.Extensions;
 
 using static Vit.Core.Module.Serialization.Serialization_MessagePack;
@@ -83,7 +82,17 @@ namespace Vit.Core.Module.Serialization
             }
             else
             {
-                options.Resolver.GetFormatterWithVerify<Object>().Serialize(ref writer, value_, options);
+                throw new NotSupportedException(nameof(MessagePack_Newtonsoft_Object) + " support type JObject,not " + value_.GetType().FullName);
+
+                //options.Resolver.GetFormatterWithVerify<Object>().Serialize(ref writer, value_, options);
+                //try
+                //{               
+                //    MessagePackSerializer.Serialize(value_.GetType(), ref writer, value_, options); 
+                //}
+                //catch (Exception ex)
+                //{
+                //    throw;
+                //}             
             }
         }
 

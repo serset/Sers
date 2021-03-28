@@ -3,6 +3,8 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Vit.Core.Module.Serialization;
+using Vit.Extensions;
 
 namespace Sers.Core.Module.Rpc.Serialization
 {
@@ -11,31 +13,46 @@ namespace Sers.Core.Module.Rpc.Serialization
 
         public static readonly Text_RpcContextData Instance = new Text_RpcContextData();
 
+        JsonSerializerOptions options = Serialization_Text.Instance.options;
+
+        JsonWriterOptions writerOptions = new JsonWriterOptions()
+        {
+            Encoder = Serialization_Text.Instance.options.Encoder,
+            Indented = Serialization_Text.Instance.options.WriteIndented,
+            SkipValidation = true
+        };
+
+        JsonReaderOptions readerOptions = new JsonReaderOptions
+        {
+            AllowTrailingCommas = Serialization_Text.Instance.options.AllowTrailingCommas,
+            CommentHandling = Serialization_Text.Instance.options.ReadCommentHandling,
+            MaxDepth = Serialization_Text.Instance.options.MaxDepth
+        };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] SerializeToBytes(RpcContextData data) 
         {
             using (var stream = new MemoryStream())
-            using (Utf8JsonWriter writer = new Utf8JsonWriter(stream))
+            using (Utf8JsonWriter writer = new Utf8JsonWriter(stream, writerOptions))
             {
-                Instance.Write(writer,data,null);
-                writer.Flush();
+                Instance.Write(writer, data,options);     
+                writer.Flush();        
                 return stream.ToArray();
-            }     
+            }
         }
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public RpcContextData DeserializeFromBytes(ArraySegment<byte> data)
         {
-            Utf8JsonReader reader = new Utf8JsonReader(data);
+            Utf8JsonReader reader = new Utf8JsonReader(data, readerOptions);
 
             if (!reader.Read())
             {
                 return null;
             }
 
-            return Instance.Read(ref reader, null, null);
+            return Instance.Read(ref reader, typeof(RpcContextData), options);
         }
 
 
@@ -104,12 +121,8 @@ namespace Sers.Core.Module.Rpc.Serialization
             //(x.4)error          
             if (value.error != null)
             {
-                writer.WritePropertyName("error");
-                writer.WriteStartObject();               
-              
+                writer.WritePropertyName("error");           
                 JsonSerializer.Serialize(writer, value.error, options);
-
-                writer.WriteEndObject();
             }
 
 
@@ -117,11 +130,7 @@ namespace Sers.Core.Module.Rpc.Serialization
             if (value.user != null)
             {
                 writer.WritePropertyName("user");
-                writer.WriteStartObject();
-
-                JsonSerializer.Serialize(writer, value.error, options);
-
-                writer.WriteEndObject();
+                JsonSerializer.Serialize(writer, value.user,options);
             }
 
 
@@ -205,25 +214,27 @@ namespace Sers.Core.Module.Rpc.Serialization
                                 case "source":
                                     result.caller.source = reader.GetString();
                                     break;
-                                //case "callStack":
-                                    //if (reader.TokenType != JsonTokenType.StartArray)
-                                    //    throw new ArgumentException("json read error");
+                                case "callStack":
+                                    if (reader.TokenType != JsonTokenType.StartArray)
+                                        throw new ArgumentException("json read error");
+                                    var list = result.caller.callStack = new System.Collections.Generic.List<string>();
+                                    while (true)
+                                    {
+                                        if (!reader.Read())
+                                        {
+                                            throw new ArgumentException("json read error");
+                                        }
 
-                                    //arrayCount = reader.ReadArrayHeader();
-                                    //if (arrayCount > 0)
-                                    //{
-                                    //    options.Security.DepthStep(ref reader);
-                                    //    var list = new List<string>(arrayCount);
-                                    //    while ((arrayCount--) > 0)
-                                    //    {
-                                    //        list.Add(reader.ReadString());
-                                    //    }
-                                    //    result.caller.callStack = list;
-                                    //    reader.Depth--;
-                                    //}
-                                    //break;
-                                //default:
-                                //    reader.Skip(); break;
+                                        if (reader.TokenType == JsonTokenType.EndArray)
+                                        {
+                                            reader.Skip();
+                                            break;
+                                        }
+                                        list.Add(reader.GetString());
+                                    }
+                                    break;
+                                default:
+                                    reader.Skip(); break;
                             }
                         } 
                         break;
@@ -270,39 +281,43 @@ namespace Sers.Core.Module.Rpc.Serialization
                                 case "protocol":
                                     result.http.protocol = reader.GetString();
                                     break;
-                                //case "headers":
-                                //    arrayCount = reader.ReadMapHeader();
-                                //    if (arrayCount > 0)
-                                //    {
-                                //        options.Security.DepthStep(ref reader);
-                                //        var headers = new Dictionary<string, string>(arrayCount);
-                                //        while ((arrayCount--) > 0)
-                                //        {
-                                //            headers[reader.ReadString()] = reader.ReadString();
-                                //        }
-                                //        result.http.headers = headers;
-                                //        reader.Depth--;
-                                //    }
-                                //    break;                             
-                              
+
+                                case "headers":
+                                    if (reader.TokenType != JsonTokenType.StartObject)
+                                        throw new ArgumentException("json read error");
+                                    var headers = result.http.Headers();
+                                    while (true)
+                                    {
+                                        if (!reader.Read())
+                                        {
+                                            throw new ArgumentException("json read error");
+                                        }
+
+                                        if (reader.TokenType == JsonTokenType.EndObject)
+                                        {
+                                            reader.Skip();
+                                            break;
+                                        }
+                                        key = reader.GetString();
+                                        if (!reader.Read())
+                                        {
+                                            throw new ArgumentException("json read error");
+                                        }
+                                        headers[key] = reader.GetString();
+                                    }
+                                    break;                                                 
+
                             }
                         }
                         break;
 
 
-                        //case "error":
-                        //    if (!reader.TryReadNil())
-                        //    {
-                        //        result.error = MessagePackFormatter_Newtonsoft_Object.Instance.Deserialize(ref reader, options);
-                        //    }
-                        //    break;
-                        //case "user":
-                        //    if (!reader.TryReadNil())
-                        //    {
-                        //        result.error = MessagePackFormatter_Newtonsoft_Object.Instance.Deserialize(ref reader, options);
-                        //    }
-                        //    break;
-
+                    case "error":
+                        result.error = JsonSerializer.Deserialize(ref reader, typeof(object), options);
+                        break;
+                    case "user":
+                        result.user = JsonSerializer.Deserialize(ref reader, typeof(object), options);
+                        break;
                 }
             }
 

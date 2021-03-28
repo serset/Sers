@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-
+using System.Text.Unicode;
 using Vit.Core.Util.ConfigurationManager;
 
 namespace Vit.Core.Module.Serialization
@@ -16,11 +16,13 @@ namespace Vit.Core.Module.Serialization
     {
 
         public static readonly Serialization_Text Instance = new Serialization_Text();
-                          
+
 
 
         public readonly JsonSerializerOptions options = new JsonSerializerOptions
         {
+            //中文不转义 如 {"title":"\u4ee3\u7801\u6539\u53d8\u4e16\u754c"}
+            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.All),            
             IncludeFields = true,
             DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
         };
