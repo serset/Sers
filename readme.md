@@ -36,8 +36,9 @@ i7-7700K(4.2GHZ) 4核8线程
 win10  ApiClientAsync 8/8	      140万 
 
 
-CentOs8(2x24核) ApiClient      4/4           6-9万（6%）
-CentOs8(2x24核) ApiClientAsync 16/32	     24-36万（12%）   
+ 
+CentOs8(2x24核)
+.net5 ApiClientAsync 12/12	     130-200万（13%）   
  
 
 

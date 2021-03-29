@@ -23,9 +23,9 @@ namespace Sers.ServiceCenter.Entity
 
         #region counter    
         [JsonIgnore]
-        private Counter _counter;
+        //private Counter _counter;
         [JsonProperty]
-        public Counter counter { get => (_counter ?? (_counter = new Counter())); set => _counter = value; }
+        public Counter counter = new Counter();
         #endregion
 
         public void AddApiNode(ApiNode apiNode)
