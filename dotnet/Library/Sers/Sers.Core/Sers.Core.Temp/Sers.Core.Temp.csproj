@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>2.1.1.499</Version>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <Authors>Lith</Authors>
+    <PackageProjectUrl>https://github.com/serset/Sers/tree/2.1.1/release</PackageProjectUrl>
+    <Description>Send email to serset@yeah.net if you have any questions.</Description>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Debug\netstandard2.0\Sers.Core.Temp.xml</DocumentationFile>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Remove="SersLoader\ApiDesc\Attribute\Valid\delete\**" />
+    <Compile Remove="Vit.Core\Extensions\byte\**" />
+    <EmbeddedResource Remove="SersLoader\ApiDesc\Attribute\Valid\delete\**" />
+    <EmbeddedResource Remove="Vit.Core\Extensions\byte\**" />
+    <None Remove="SersLoader\ApiDesc\Attribute\Valid\delete\**" />
+    <None Remove="Vit.Core\Extensions\byte\**" />
+  </ItemGroup>
+
+ 
+ 
+  <ItemGroup>
+    <PackageReference Include="MessagePack" Version="2.2.85" />
+    <PackageReference Include="Disruptor" Version="3.6.2" /> 
+    <PackageReference Include="System.Threading.Tasks.Dataflow" Version="5.0.0" />
+  </ItemGroup>
+
+ 
+ 
+  <ItemGroup>
+    <ProjectReference Include="..\Sers.Core\Sers.Core.csproj" />
+  </ItemGroup>
+
+ 
+ 
+  <ItemGroup>
+    <Folder Include="Vit.Core\Extensions\" />
+  </ItemGroup>
+
+ 
+ 
+ 
+
+</Project>

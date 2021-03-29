@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Sers.Core.Extensions;
-using Sers.Core.Module.SsApiDiscovery.ApiDesc.Attribute.Valid;
-using Sers.Core.Module.SsApiDiscovery.SersValid;
-using Sers.Core.Util.SsError;
+using Sers.Core.Module.Valid.Sers1;
+
+using Vit.Core.Util.ComponentModel.SsError;
+using Vit.Extensions;
 
 namespace Sers.Core.Module.ApiDesc.Attribute
 {

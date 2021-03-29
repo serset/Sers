@@ -9,7 +9,7 @@ using Vit.Core.Util.ConfigurationManager;
 namespace Sers.Core.Module.Rpc
 {
 
-    [MessagePack.MessagePackFormatter(typeof(Sers.Core.Module.Rpc.Serialization.MessagePack_RpcContextData))]
+    //[MessagePack.MessagePackFormatter(typeof(Sers.Core.Module.Rpc.Serialization.MessagePack_RpcContextData))]
     public class RpcContextData
     {
 
@@ -19,8 +19,8 @@ namespace Sers.Core.Module.Rpc
         static RpcContextData()
         {
             // RpcData序列化模式。可不指定。默认为Text。
-            // 可为 Newtonsoft、Text、MessagePack、BytePointor。
-            // 效率依次递增。MessagePack 和 BytePointor 序列化为二进制数据而不是json字符串。
+            // 可为 Newtonsoft、Text、BytePointor。
+            // 效率依次递增。BytePointor 序列化为二进制数据而不是json字符串。
             string rpcDataSerializeMode = ConfigurationManager.Instance.GetByPath<string>("Sers.RpcDataSerializeMode");
  
             switch (rpcDataSerializeMode) 
@@ -28,7 +28,7 @@ namespace Sers.Core.Module.Rpc
                 case "Newtonsoft": Serialization = Newtonsoft_RpcContextData.Instance; break;
                 case "Text": Serialization = Text_RpcContextData.Instance; break;
                 //case "StringBuilder": Serialization = StringBuilder_RpcContextData.Instance; break;
-                case "MessagePack": Serialization = MessagePack_RpcContextData.Instance; break;
+                //case "MessagePack": Serialization = MessagePack_RpcContextData.Instance; break;
                 case "BytePointor": Serialization = BytePointor_RpcContextData.Instance; break;           
                           
                 default: Serialization = Text_RpcContextData.Instance; break;

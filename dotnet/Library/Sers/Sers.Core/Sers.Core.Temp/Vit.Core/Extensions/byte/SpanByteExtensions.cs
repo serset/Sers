@@ -10,13 +10,13 @@ namespace Vit.Extensions
  
         public static string SpanByteToString(this Span<byte> data)
         {             
-            return Serialization.Instance.encoding.GetString(data); 
+            return Serialization_Newtonsoft.Instance.encoding.GetString(data); 
         }
 
 
         public static Span<byte> StringToSpanByte(this string data)
         {
-            return Serialization.Instance.encoding.GetBytes(data);
+            return Serialization_Newtonsoft.Instance.encoding.GetBytes(data);
         }
         #endregion
 

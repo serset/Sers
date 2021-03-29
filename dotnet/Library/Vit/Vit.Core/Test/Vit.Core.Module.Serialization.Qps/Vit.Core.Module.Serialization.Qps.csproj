@@ -6,8 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Sers\Sers.Core\Sers.Core\Sers.Core.csproj" />
-    <ProjectReference Include="..\..\Vit.Core\Vit.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\Sers\Sers.Core\Sers.Core.Temp\Sers.Core.Temp.csproj" />
   </ItemGroup>
  
 

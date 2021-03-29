@@ -23,6 +23,7 @@
  
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Sers.Core.Temp\Sers.Core.Temp.csproj" />
     <ProjectReference Include="..\..\Sers.Core\Sers.Core.csproj" />
   </ItemGroup>
  

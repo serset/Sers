@@ -6,7 +6,7 @@ namespace Sers.Core.Util.Consumer
     {
 
         /// <summary>
-        /// 队列模式。可为 BlockingCollection(默认)、 ConsumerCache_BlockingCollection(高性能) 、ActionBlock、BufferBlock 
+        /// 队列模式。可为 BlockingCollection(默认)、 ConsumerCache_BlockingCollection(高性能)
         /// </summary>
         public static string ConsumerMode = ConfigurationManager.Instance.GetByPath<string>("Vit.ConsumerMode");
 
@@ -17,12 +17,12 @@ namespace Sers.Core.Util.Consumer
             IConsumer<T> consumer;
             switch (ConsumerMode)
             {
-                case "ActionBlock":
-                    consumer = new Consumer_ActionBlock<T>();  // 16 16 700万     24 24 900-1000万
-                    break;
-                case "BufferBlock":
-                    consumer = new Consumer_BufferBlock<T>();   //2 36 800-1000万
-                    break;
+                //case "ActionBlock":
+                //    consumer = new Consumer_ActionBlock<T>();  // 16 16 700万     24 24 900-1000万
+                //    break;
+                //case "BufferBlock":
+                //    consumer = new Consumer_BufferBlock<T>();   //2 36 800-1000万
+                //    break;
                 case "BlockingCollection":
                     consumer = new Consumer_BlockingCollection<T>();  //16 16 440万          2  2  800万
                     break;
@@ -35,12 +35,12 @@ namespace Sers.Core.Util.Consumer
                 //    consumer = new Consumer_WorkerPool<T>(); //16 16 800-900万
                 //    break;
 
-                case "ConsumerCache_ActionBlock":
-                    consumer = new ConsumerCache<T, Consumer_ActionBlock<T>>(); // 16 16  4000-4200万
-                    break;
-                case "ConsumerCache_BufferBlock":
-                    consumer = new ConsumerCache<T, Consumer_BufferBlock<T>>(); // 16 16  1500-1600万
-                    break;
+                //case "ConsumerCache_ActionBlock":
+                //    consumer = new ConsumerCache<T, Consumer_ActionBlock<T>>(); // 16 16  4000-4200万
+                //    break;
+                //case "ConsumerCache_BufferBlock":
+                //    consumer = new ConsumerCache<T, Consumer_BufferBlock<T>>(); // 16 16  1500-1600万
+                //    break;
                 case "ConsumerCache_BlockingCollection":
                     consumer = new ConsumerCache<T, Consumer_BlockingCollection<T>>(); //16 16 4200-4500万
                     break;
