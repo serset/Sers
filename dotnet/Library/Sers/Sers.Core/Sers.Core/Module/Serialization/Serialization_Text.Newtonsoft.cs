@@ -6,10 +6,12 @@ using System.Text.Json.Serialization;
 
 #region 适配 Newtonsoft
 
-namespace Vit.Core.Module.Serialization
+namespace Sers.Core.Module.Serialization
 {
 
     using Newtonsoft.Json.Linq;
+
+    using Vit.Core.Module.Serialization;
     using Vit.Extensions;
 
 

@@ -6,8 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Sers\Sers.Core\Sers.Core.Temp\Sers.Core.Temp.csproj" />
+    <ProjectReference Include="..\..\Sers.Core.Temp\Sers.Core.Temp.csproj" />
   </ItemGroup>
+
+ 
  
 
  

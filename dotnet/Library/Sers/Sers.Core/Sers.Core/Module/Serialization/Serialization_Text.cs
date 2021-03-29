@@ -3,9 +3,10 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Unicode;
+using Vit.Core.Module.Serialization;
 using Vit.Core.Util.ConfigurationManager;
 
-namespace Vit.Core.Module.Serialization
+namespace Sers.Core.Module.Serialization
 {
     /// <summary>
     ///  https://github.com/dotnet/runtime/tree/main/src/libraries/System.Text.Json

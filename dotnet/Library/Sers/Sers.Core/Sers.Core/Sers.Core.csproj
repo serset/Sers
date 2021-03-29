@@ -4,14 +4,14 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Version>2.1.1.499</Version>
   </PropertyGroup>
-  
+
   <PropertyGroup>
     <Authors>Lith</Authors>
     <PackageProjectUrl>https://github.com/serset/Sers/tree/2.1.1/release</PackageProjectUrl>
     <Description>Send email to serset@yeah.net if you have any questions.</Description>
     <PackageReleaseNotes>Send email to serset@yeah.net if you have any questions.</PackageReleaseNotes>
   </PropertyGroup>
-  
+
   <PropertyGroup>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DocumentationFile>bin\Debug\netstandard2.0\Sers.Core.xml</DocumentationFile>
@@ -19,14 +19,15 @@
 
 
   <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="5.0.1" />
     <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
-  </ItemGroup>  
- 
-  
+  </ItemGroup>
+
+
   <ItemGroup>
     <ProjectReference Include="..\..\..\Vit\Vit.Core\Vit.Core\Vit.Core.csproj" />
     <ProjectReference Include="..\..\Sers.Hardware\Sers.Hardware\Sers.Hardware.csproj" />
-  </ItemGroup> 
- 
+  </ItemGroup>
+
 
 </Project>

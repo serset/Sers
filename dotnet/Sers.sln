@@ -171,9 +171,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CmServer", "Library\Sers\Se
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sers.Core.Module.LocalApi.Qps", "Library\Sers\Sers.Core\Test\Sers.Core.Module.LocalApi.Qps\Sers.Core.Module.LocalApi.Qps.csproj", "{A2E07766-8290-446D-AD4E-D8277687D4C0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vit.Core.Module.Serialization.Qps", "Library\Vit\Vit.Core\Test\Vit.Core.Module.Serialization.Qps\Vit.Core.Module.Serialization.Qps.csproj", "{8D55E47B-102B-4905-BA35-40CDD2430B54}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sers.Core.Temp", "Library\Sers\Sers.Core\Sers.Core.Temp\Sers.Core.Temp.csproj", "{F0FB825C-DB85-4268-8396-51CEF5AEAB50}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sers.Core.Module.Serialization.Qps", "Library\Sers\Sers.Core\Test\Sers.Core.Module.Serialization.Qps\Sers.Core.Module.Serialization.Qps.csproj", "{DCB42B65-E24A-43AC-9102-E7CDF9B32590}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -559,14 +559,6 @@ Global
 		{A2E07766-8290-446D-AD4E-D8277687D4C0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A2E07766-8290-446D-AD4E-D8277687D4C0}.Release|x86.ActiveCfg = Release|Any CPU
 		{A2E07766-8290-446D-AD4E-D8277687D4C0}.Release|x86.Build.0 = Release|Any CPU
-		{8D55E47B-102B-4905-BA35-40CDD2430B54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D55E47B-102B-4905-BA35-40CDD2430B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D55E47B-102B-4905-BA35-40CDD2430B54}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{8D55E47B-102B-4905-BA35-40CDD2430B54}.Debug|x86.Build.0 = Debug|Any CPU
-		{8D55E47B-102B-4905-BA35-40CDD2430B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D55E47B-102B-4905-BA35-40CDD2430B54}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D55E47B-102B-4905-BA35-40CDD2430B54}.Release|x86.ActiveCfg = Release|Any CPU
-		{8D55E47B-102B-4905-BA35-40CDD2430B54}.Release|x86.Build.0 = Release|Any CPU
 		{F0FB825C-DB85-4268-8396-51CEF5AEAB50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F0FB825C-DB85-4268-8396-51CEF5AEAB50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0FB825C-DB85-4268-8396-51CEF5AEAB50}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -575,6 +567,14 @@ Global
 		{F0FB825C-DB85-4268-8396-51CEF5AEAB50}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F0FB825C-DB85-4268-8396-51CEF5AEAB50}.Release|x86.ActiveCfg = Release|Any CPU
 		{F0FB825C-DB85-4268-8396-51CEF5AEAB50}.Release|x86.Build.0 = Release|Any CPU
+		{DCB42B65-E24A-43AC-9102-E7CDF9B32590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCB42B65-E24A-43AC-9102-E7CDF9B32590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCB42B65-E24A-43AC-9102-E7CDF9B32590}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DCB42B65-E24A-43AC-9102-E7CDF9B32590}.Debug|x86.Build.0 = Debug|Any CPU
+		{DCB42B65-E24A-43AC-9102-E7CDF9B32590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCB42B65-E24A-43AC-9102-E7CDF9B32590}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCB42B65-E24A-43AC-9102-E7CDF9B32590}.Release|x86.ActiveCfg = Release|Any CPU
+		{DCB42B65-E24A-43AC-9102-E7CDF9B32590}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -660,8 +660,8 @@ Global
 		{1B6172BF-405A-4752-B0A3-040F2E951F2A} = {0EF01864-BC8C-4C94-8F83-5BB6CC4FECB8}
 		{EBB905C2-7D58-4A4A-A7F7-2171DB1724AB} = {0EF01864-BC8C-4C94-8F83-5BB6CC4FECB8}
 		{A2E07766-8290-446D-AD4E-D8277687D4C0} = {37633A5F-54B5-4179-8BCD-B7B422B4857C}
-		{8D55E47B-102B-4905-BA35-40CDD2430B54} = {B0C8734C-7CAC-4EA4-BF49-4ECE4876BB5D}
 		{F0FB825C-DB85-4268-8396-51CEF5AEAB50} = {C3954FC1-88A0-4915-AF47-E0B75AAAA63A}
+		{DCB42B65-E24A-43AC-9102-E7CDF9B32590} = {37633A5F-54B5-4179-8BCD-B7B422B4857C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C7DA16E3-9949-49FA-B0B4-F830636DE60F}

@@ -1,5 +1,6 @@
 ﻿
 using Newtonsoft.Json.Linq;
+using Sers.Core.Module.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;

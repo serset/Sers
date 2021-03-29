@@ -6,11 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Test\WorkerPoolTest.cs" />
-  </ItemGroup>
- 
-
-  <ItemGroup>
     <Content Include="StartConsole.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -25,13 +20,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Sers.Core.Temp\Sers.Core.Temp.csproj" />
     <ProjectReference Include="..\..\Sers.Core\Sers.Core.csproj" />
-  </ItemGroup>
+  </ItemGroup> 
  
-
-  <ItemGroup>
-    <Folder Include="Test\" />
-  </ItemGroup>
-
  
 
 </Project>

@@ -2,6 +2,7 @@
 using Sers.Core.Module.Rpc;
 using Sers.Core.Module.Rpc.Serialization;
 using Sers.Core.Module.Rpc.Serialization.Fast;
+using Sers.Core.Module.Serialization;
 using Statistics;
 using System;
 using System.Collections.Generic;
@@ -142,7 +143,7 @@ namespace App
             {
                 
  
-                var Instance = Vit.Core.Module.Serialization.Serialization_Text.Instance;
+                var Instance =  Serialization_Text.Instance;
 
                 byte[] bytes;
                 JObject jo;
@@ -213,7 +214,7 @@ namespace App
                 //vr 1线程 17-19万
                 // 4线程 87万(cpu 52%)
                 // 8线程 103万(cpu 95%)
-                var Instance = Vit.Core.Module.Serialization.Serialization_Text.Instance;
+                var Instance = Serialization_Text.Instance;
 
 
                 //vr 1线程 58万
