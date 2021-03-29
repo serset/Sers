@@ -8,7 +8,7 @@
   <PropertyGroup>
     <Authors>Lith</Authors>
     <PackageProjectUrl>https://github.com/serset/Sers/tree/2.1.1/release</PackageProjectUrl>
-    <Description>Send email to serset@yeah.net if you have any questions.</Description>
+    <Description></Description>
     <PackageReleaseNotes>Send email to serset@yeah.net if you have any questions.</PackageReleaseNotes>
   </PropertyGroup>
 
