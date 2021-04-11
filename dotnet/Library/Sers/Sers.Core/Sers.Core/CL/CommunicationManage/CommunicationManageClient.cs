@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Newtonsoft.Json.Linq;
 using Sers.Core.CL.MessageOrganize;
 using Vit.Core.Module.Log;
@@ -44,6 +45,7 @@ namespace Sers.Core.CL.CommunicationManage
         #endregion
 
         #region SendMessageAsync      
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SendMessageAsync(Vit.Core.Util.Pipelines.ByteData message)
         {
             foreach (var conn in connList)

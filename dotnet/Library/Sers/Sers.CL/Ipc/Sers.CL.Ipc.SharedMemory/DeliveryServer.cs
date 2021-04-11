@@ -60,7 +60,7 @@ namespace Sers.CL.Ipc.SharedMemory
         /// <summary>
         /// 共享内存名称
         /// </summary>
-        public string name { get; set; }
+        public string name { get; set; } = "Sers.CL.Ipc";
 
         /// <summary>
         /// 共享内存节点个数

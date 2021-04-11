@@ -3,11 +3,13 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Net;
 using Vit.Core.Util.Pool;
+using Vit.Extensions;
 
 namespace Sers.CL.Socket.Iocp
 {
@@ -119,9 +121,10 @@ namespace Sers.CL.Socket.Iocp
 
         // Signals a connection.
         private AutoResetEvent autoResetEvent_OnConnected = new AutoResetEvent(false);
-      
+
 
         // Calback for connect operation
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void OnConnect(object sender, SocketAsyncEventArgs e)
         {
             // Signals the end of connection.
@@ -140,9 +143,10 @@ namespace Sers.CL.Socket.Iocp
             }
 
         }
- 
- 
 
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void IO_Completed(object sender, SocketAsyncEventArgs e)
         { 
             // determine which type of operation just completed and call the associated handler
@@ -167,6 +171,7 @@ namespace Sers.CL.Socket.Iocp
         // If the remote host closed the connection, then the socket is closed.  
         // If data was received then the data is echoed back to the client.
         //
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ProcessReceive(SocketAsyncEventArgs e)
         {
             try

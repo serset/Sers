@@ -29,7 +29,7 @@ namespace Sers.CL.Ipc.NamedPipe
         /// </summary>
         public string serverName = ".";
         /// <summary>
-        /// 如： "Sers.CL.Ipc"
+        /// 默认 "Sers.CL.Ipc"
         /// </summary>
         public string pipeName = "Sers.CL.Ipc";
  

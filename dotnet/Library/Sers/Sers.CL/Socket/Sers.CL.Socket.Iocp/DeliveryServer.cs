@@ -6,11 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Net;
 using Vit.Core.Util.Pool;
+using Vit.Extensions;
 
 namespace Sers.CL.Socket.Iocp
 {
@@ -143,6 +145,7 @@ namespace Sers.CL.Socket.Iocp
 
         #region ReceiveEventArgs
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         SocketAsyncEventArgs ReceiveEventArgs_Create(global::System.Net.Sockets.Socket socket)
         {
             var conn = Delivery_OnConnected(socket);           
@@ -162,6 +165,7 @@ namespace Sers.CL.Socket.Iocp
 
         //ObjectPool<SocketAsyncEventArgs> pool_ReceiveEventArgs = new ObjectPool<SocketAsyncEventArgs>();
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void ReceiveEventArgs_Release(SocketAsyncEventArgs receiveEventArgs)
         {
             receiveEventArgs.UserToken = null;
@@ -175,6 +179,7 @@ namespace Sers.CL.Socket.Iocp
         //
         // <param name="acceptEventArg">The context object to use when issuing 
         // the accept operation on the server's listening socket</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void StartAccept(SocketAsyncEventArgs acceptEventArgs)
         {
             if (acceptEventArgs == null)
@@ -198,6 +203,7 @@ namespace Sers.CL.Socket.Iocp
         // This method is the callback method associated with Socket.AcceptAsync 
         // operations and is invoked when an accept operation is complete
         //
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void AcceptEventArg_Completed(object sender, SocketAsyncEventArgs acceptEventArgs)
         {
             try
@@ -222,6 +228,7 @@ namespace Sers.CL.Socket.Iocp
         }
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void IO_Completed(object sender, SocketAsyncEventArgs e)
         {
             // determine which type of operation just completed and call the associated handler
@@ -247,6 +254,7 @@ namespace Sers.CL.Socket.Iocp
         // If the remote host closed the connection, then the socket is closed.  
         // If data was received then the data is echoed back to the client.
         //
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ProcessReceive(SocketAsyncEventArgs e)
         {
             //读取数据
@@ -283,6 +291,7 @@ namespace Sers.CL.Socket.Iocp
 
         #region Delivery_Event
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private DeliveryConnection Delivery_OnConnected(global::System.Net.Sockets.Socket socket)
         {
             var conn = new DeliveryConnection();
@@ -305,6 +314,7 @@ namespace Sers.CL.Socket.Iocp
             return conn;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void Delivery_OnDisconnected(IDeliveryConnection _conn)
         {
             // decrement the counter keeping track of the total number of clients connected to the server

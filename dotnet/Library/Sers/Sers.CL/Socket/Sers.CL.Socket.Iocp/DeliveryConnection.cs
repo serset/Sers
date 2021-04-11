@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Pipelines;
@@ -32,6 +33,7 @@ namespace Sers.CL.Socket.Iocp
 
         public Action<IDeliveryConnection> Conn_OnDisconnected { get; set; }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SendFrameAsync(Vit.Core.Util.Pipelines.ByteData data)
         {
             if (data == null || socket == null) return;
@@ -108,6 +110,7 @@ namespace Sers.CL.Socket.Iocp
 
         PipeFrame pipe = new PipeFrame() {  OnDequeueData= ArraySegmentByteExtensions.ReturnToPool };
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AppendData(ArraySegment<byte> data)
         {
             pipe.Write(data);
