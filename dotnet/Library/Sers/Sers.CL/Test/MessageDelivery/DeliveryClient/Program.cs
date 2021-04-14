@@ -78,7 +78,7 @@ namespace DeliveryTest
 
         static void StartClient()
         {
-            var client = new Sers.CL.Socket.Iocp.Mode.Fast.DeliveryClient();
+            var client = new Sers.CL.Socket.Iocp.Mode.Timer.DeliveryClient();
             //var client = new Sers.CL.Socket.ThreadWait.DeliveryClient();
 
             //client.host = host;

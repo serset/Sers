@@ -43,7 +43,7 @@ namespace DeliveryTest
 
         static void StartServer()
         {
-            var server = new Sers.CL.Socket.Iocp.Mode.Fast.DeliveryServer();
+            var server = new Sers.CL.Socket.Iocp.Mode.Timer.DeliveryServer();
             //var server = new Sers.CL.Socket.ThreadWait.DeliveryServer();
             // server.port = port;
 

@@ -5,13 +5,14 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using Sers.CL.Socket.Iocp.Mode.Timer;
 using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Net;
 using Vit.Core.Util.Pool;
 using Vit.Core.Util.Threading;
 
-namespace Sers.CL.Socket.Iocp.Mode.Fast
+namespace Sers.CL.Socket.Iocp.Mode.SpinWait
 {
     public class DeliveryClient : IDeliveryClient
     {
@@ -101,9 +102,10 @@ namespace Sers.CL.Socket.Iocp.Mode.Fast
 
 
 
-                //(x.4)                
-                Send_timer.timerCallback = Send_Flush;
-                Send_timer.Start();
+                //(x.4)   
+                Send_task.threadCount = 1;
+                Send_task.action = Send_Flush;
+                Send_task.Start();
 
 
 
@@ -122,7 +124,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Fast
 
         public void Close()
         {
-            Send_timer.Stop();
+            Send_task.Stop();
 
             if (null == _conn) return;
             var conn = _conn;
@@ -226,20 +228,24 @@ namespace Sers.CL.Socket.Iocp.Mode.Fast
 
         #region Send
 
-        SersTimer_SingleThread Send_timer = new SersTimer_SingleThread { intervalMs = 1 };
+        LongTaskHelp Send_task = new LongTaskHelp();
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void Send_Flush(object state)
+        void Send_Flush()
         {
-            try
+            while (true) 
             {
-                _conn.Flush();
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
-            }
+                try
+                {
+                    _conn.Flush();
+                    global::System.Threading.SpinWait.SpinUntil(() => false, 1);
+                }
+                catch (Exception ex) when (!(ex.GetBaseException() is ThreadInterruptedException))
+                {
+                    Logger.Error(ex);
+                }
+            }           
         }
 
         #endregion

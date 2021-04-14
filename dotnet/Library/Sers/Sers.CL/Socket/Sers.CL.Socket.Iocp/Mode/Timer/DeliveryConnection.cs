@@ -7,7 +7,7 @@ using Vit.Core.Module.Log;
 using Vit.Core.Util.Pipelines;
 using Vit.Extensions;
 
-namespace Sers.CL.Socket.Iocp.Mode.Fast
+namespace Sers.CL.Socket.Iocp.Mode.Timer
 {
     public class DeliveryConnection : IDeliveryConnection
     {

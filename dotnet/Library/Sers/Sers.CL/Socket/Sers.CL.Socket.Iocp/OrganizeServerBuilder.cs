@@ -36,11 +36,22 @@ namespace Sers.CL.Socket.Iocp
                         organizeList.Add(new OrganizeServer(delivery, config));
                     }
                     break;
+                case "Timer":          
+                    {
+                        var delivery = new Mode.Timer.DeliveryServer();
 
-                //case "Fast":
+                        delivery.securityManager = securityManager;
+
+                        delivery.host = config["host"].ConvertToString();
+                        delivery.port = config["port"].Convert<int>();
+
+                        organizeList.Add(new OrganizeServer(delivery, config));
+                    }
+                    break;
+                //case "SpinWait":
                 default:
                     {
-                        var delivery = new Mode.Fast.DeliveryServer();
+                        var delivery = new Mode.SpinWait.DeliveryServer();
 
                         delivery.securityManager = securityManager;
 
