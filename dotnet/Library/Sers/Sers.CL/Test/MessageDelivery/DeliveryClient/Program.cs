@@ -78,10 +78,11 @@ namespace DeliveryTest
 
         static void StartClient()
         {
-            var client = new Sers.CL.Socket.Iocp.DeliveryClient();
+            var client = new Sers.CL.Socket.Iocp.Mode.Fast.DeliveryClient();
             //var client = new Sers.CL.Socket.ThreadWait.DeliveryClient();
-            client.host = host;
-            client.port = port;
+
+            //client.host = host;
+            //client.port = port;
 
             //var client = new Sers.CL.WebSocket.DeliveryClient();
             //var client = new Sers.CL.ClrZmq.ThreadWait.DeliveryClient();
