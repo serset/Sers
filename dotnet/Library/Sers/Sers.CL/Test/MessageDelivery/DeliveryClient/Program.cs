@@ -70,7 +70,7 @@ namespace DeliveryTest
         static int port = 4501;
 
         static int thread = 1;
-        static int msgLen = 10;
+        static int msgLen = 1;
 
 
 

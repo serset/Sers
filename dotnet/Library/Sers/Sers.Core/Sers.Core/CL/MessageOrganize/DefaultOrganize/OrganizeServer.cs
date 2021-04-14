@@ -117,7 +117,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         /// <summary>
         /// 会在内部线程中被调用 
         /// </summary>
-        public Action<IOrganizeConnection, object, ApiMessage, Action<object, Vit.Core.Util.Pipelines.ByteData>> conn_OnGetRequest
+        public Action<IOrganizeConnection, object, ArraySegment<byte>, Action<object, Vit.Core.Util.Pipelines.ByteData>> conn_OnGetRequest
         {
             set
             {
@@ -126,7 +126,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                     var deliveryConn = organizeConn.GetDeliveryConn();
                     if (deliveryConn.state == DeliveryConnState.certified)
                     {
-                        value(organizeConn, sender, new ApiMessage(requestData), callback);
+                        value(organizeConn, sender, requestData, callback);
                         return;
                     }
 

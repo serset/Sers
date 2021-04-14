@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using CLServer.Statistics;
 using Sers.Core.CL.CommunicationManage;
 using Sers.Core.CL.MessageOrganize;
-using Sers.Core.Module.Message;
-
 using Vit.Core.Module.Log;
+using Vit.Core.Util.Pipelines;
 
 namespace CLServer
 {
@@ -28,14 +26,14 @@ namespace CLServer
             cm.conn_OnGetMessage = (conn, msg) =>
             {
                 qpsInfo.IncrementRequest();
-                conn.SendMessageAsync(new Vit.Core.Util.Pipelines.ByteData(msg));
+                conn.SendMessageAsync(new ByteData(msg));
             };
 
 
-            cm.conn_OnGetRequest = (IOrganizeConnection  conn, Object sender, ApiMessage apiRequestMessage, Action<object, Vit.Core.Util.Pipelines.ByteData> callback) =>
+            cm.conn_OnGetRequest = (IOrganizeConnection  conn, Object sender, ArraySegment<byte> apiRequest, Action<object, Vit.Core.Util.Pipelines.ByteData> callback) =>
             {
                 qpsInfo.IncrementRequest();
-                callback(sender, apiRequestMessage.Package());
+                callback(sender, new ByteData(apiRequest));
             };
 
             cm.Conn_OnConnected = (conn) =>

@@ -16,6 +16,15 @@ namespace Sers.ServiceCenter.ApiCenter
     {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void CallApiAsync(IOrganizeConnection conn, Object sender, ArraySegment<byte> apiRequest, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
+        {
+            CommunicationManageServer.CurConn = conn;
+
+            CallApiAsync(new ApiMessage(apiRequest), sender, callback);
+        }
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CallApiAsync(IOrganizeConnection conn, Object sender, ApiMessage apiRequestMessage, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
             CommunicationManageServer.CurConn = conn;

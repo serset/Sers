@@ -17,7 +17,7 @@ namespace Sers.Core.CL.MessageOrganize
         /// 会在内部线程中被调用 
         /// (conn,sender,requestData, callback)
         /// </summary>
-        Action<IOrganizeConnection, object, ApiMessage, Action<object, Vit.Core.Util.Pipelines.ByteData>> conn_OnGetRequest { set; }
+        Action<IOrganizeConnection, object, ArraySegment<byte>, Action<object, Vit.Core.Util.Pipelines.ByteData>> conn_OnGetRequest { set; }
 
         Action<IOrganizeConnection, ArraySegment<byte>> conn_OnGetMessage { set; }
     }

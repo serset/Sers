@@ -188,11 +188,11 @@ namespace Sers.CL.Socket.Iocp.Mode.Fast
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         unsafe byte[] ByteDataArrayToBytes(ByteData[] byteDataArray, int arrayCount)
         {
-            //(x.1)get count
             int sumCount = 0;
-
             int curCount;
             int arrayIndex;
+
+            //(x.1)get count
             for (arrayIndex = 0; arrayIndex < arrayCount; arrayIndex++)
             {
                 var byteData = byteDataArray[arrayIndex];
@@ -228,9 +228,10 @@ namespace Sers.CL.Socket.Iocp.Mode.Fast
                         {
                             Buffer.MemoryCopy(pSource + item.Offset, pTarget + curCount, item.Count, item.Count);
                         }
+                        curCount += item.Count;
                     }
-                    _securityManager?.Encryption(new ArraySegment<byte>(bytes, curCount, curLength));
-                    curCount += curLength;
+                    _securityManager?.Encryption(new ArraySegment<byte>(bytes, curCount- curLength, curLength));
+                    
                 }
             }
             return bytes;
