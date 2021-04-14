@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Vit.Core.MsTest.Util.Threading
 {
-    public class LongTaskHelpTest
+    public class LongTaskHelp_Test
     {
         public static void Test()
         {
@@ -33,11 +33,7 @@ namespace Vit.Core.MsTest.Util.Threading
             });
 
 
-            while (true)
-            {
-                Console.WriteLine("run in Main");
-                Thread.Sleep(1000);
-            }
+            Thread.Sleep(10000);
         }
     }
 }

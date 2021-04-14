@@ -10,21 +10,46 @@ namespace Sers.CL.Socket.Iocp
     {
         public void Build(List<IOrganizeClient> organizeList, JObject config)
         {
-            var delivery = new DeliveryClient();
-
-            #region security        
+            #region security     
+            Sers.Core.Util.StreamSecurity.SecurityManager securityManager = null;
             if (config["security"] is JArray securityConfigs)
             {
-                var securityManager = Sers.Core.Util.StreamSecurity.SecurityManager.BuildSecurityManager(securityConfigs);
-                ((DeliveryConnection)delivery.conn).securityManager = securityManager;
+                securityManager = Sers.Core.Util.StreamSecurity.SecurityManager.BuildSecurityManager(securityConfigs);
             }
             #endregion
 
-            delivery.host = config["host"].ConvertToString();
-            delivery.port = config["port"].Convert<int>();
-                
 
-            organizeList.Add(new OrganizeClient(delivery, config));
+            string mode = config["mode"]?.ToString();
+
+            switch (mode)
+            {
+                case "Simple":
+                    {
+                        var delivery = new Mode.Simple.DeliveryClient();
+
+                        delivery.host = config["host"].ConvertToString();
+                        delivery.port = config["port"].Convert<int>();
+
+                        ((Mode.Simple.DeliveryConnection)delivery.conn).securityManager = securityManager;
+
+                        organizeList.Add(new OrganizeClient(delivery, config));
+                    }
+                    break;
+
+                //case "Fast":
+                default:
+                    {
+                        var delivery = new Mode.Fast.DeliveryClient();
+
+                        delivery.host = config["host"].ConvertToString();
+                        delivery.port = config["port"].Convert<int>();
+
+                        ((Mode.Fast.DeliveryConnection)delivery.conn).securityManager = securityManager;
+
+                        organizeList.Add(new OrganizeClient(delivery, config));
+                    }
+                    break;
+            }
         }
     }
 }

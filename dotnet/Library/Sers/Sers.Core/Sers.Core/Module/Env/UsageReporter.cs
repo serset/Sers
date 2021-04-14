@@ -37,8 +37,10 @@ namespace Sers.Core.Module.Env
         public static void StartReportTask(double intervalSecond)
         {
             if (null != timer) return;
-            timer = new SersTimer { intervalMs = intervalSecond*1000, timerCallback =
-                (object obj)=> 
+            timer = new SersTimer { 
+                intervalMs = (int)(intervalSecond * 1000),
+                timerCallback =
+                (object obj) =>
                 {
                     Publish();
                 }

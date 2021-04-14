@@ -14,7 +14,7 @@ using Vit.Core.Util.Net;
 using Vit.Core.Util.Pool;
 using Vit.Extensions;
 
-namespace Sers.CL.Socket.Iocp
+namespace Sers.CL.Socket.Iocp.Mode.Simple
 {
     public class DeliveryServer: IDeliveryServer
     {

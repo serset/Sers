@@ -10,20 +10,49 @@ namespace Sers.CL.Socket.Iocp
     {
         public void Build(List<IOrganizeServer> organizeList, JObject config)
         {
-            var delivery = new DeliveryServer();
 
-            #region security        
+            #region security     
+            Sers.Core.Util.StreamSecurity.SecurityManager securityManager = null;
             if (config["security"] is JArray securityConfigs)
             {
-                var securityManager = Sers.Core.Util.StreamSecurity.SecurityManager.BuildSecurityManager(securityConfigs);
-                delivery.securityManager = securityManager;
+                securityManager = Sers.Core.Util.StreamSecurity.SecurityManager.BuildSecurityManager(securityConfigs);
             }
             #endregion
 
-            delivery.host = config["host"].ConvertToString();
-            delivery.port = config["port"].Convert<int>();
 
-            organizeList.Add(new OrganizeServer(delivery, config));
+            string mode = config["mode"]?.ToString();
+
+            switch (mode)
+            {
+                case "Simple":
+                    {
+                        var delivery = new Mode.Simple.DeliveryServer();
+
+                        delivery.securityManager = securityManager;
+
+                        delivery.host = config["host"].ConvertToString();
+                        delivery.port = config["port"].Convert<int>();
+
+                        organizeList.Add(new OrganizeServer(delivery, config));
+                    }
+                    break;
+
+                //case "Fast":
+                default:
+                    {
+                        var delivery = new Mode.Fast.DeliveryServer();
+
+                        delivery.securityManager = securityManager;
+
+                        delivery.host = config["host"].ConvertToString();
+                        delivery.port = config["port"].Convert<int>();
+
+                        organizeList.Add(new OrganizeServer(delivery, config));
+                    }
+                    break;
+            }
+
+
         }
        
     }

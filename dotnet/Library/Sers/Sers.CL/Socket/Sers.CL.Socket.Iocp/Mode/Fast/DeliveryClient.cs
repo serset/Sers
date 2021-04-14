@@ -9,46 +9,22 @@ using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Net;
 using Vit.Core.Util.Pool;
-using Vit.Extensions;
+using Vit.Core.Util.Threading;
 
-namespace Sers.CL.Socket.Iocp
+namespace Sers.CL.Socket.Iocp.Mode.Fast
 {
-    public class DeliveryClient: IDeliveryClient
+    public class DeliveryClient : IDeliveryClient
     {
 
 
         DeliveryConnection _conn = new DeliveryConnection();
         public IDeliveryConnection conn => _conn;
 
-        public Action<IDeliveryConnection, ArraySegment<byte>> Conn_OnGetFrame { set { _conn.OnGetFrame = value; }  }
+
+        public Action<IDeliveryConnection, ArraySegment<byte>> Conn_OnGetFrame { set { _conn.OnGetFrame = value; } }
 
 
         public Action<IDeliveryConnection> Conn_OnDisconnected { set => _conn.Conn_OnDisconnected = value; }
-
-
-
-
-
-        readonly SocketAsyncEventArgs receiveEventArgs ;
-
-        /// <summary>
-        /// 缓存区大小
-        /// </summary>
-        public int receiveBufferSize = 8*1024;
-
-
-        public DeliveryClient()
-        {
-       
-            _conn.receiveEventArgs= receiveEventArgs = new SocketAsyncEventArgs();
-
-            receiveEventArgs.Completed += new EventHandler<SocketAsyncEventArgs>(IO_Completed);
- 
-
-        }
-
-
-
 
 
 
@@ -62,6 +38,32 @@ namespace Sers.CL.Socket.Iocp
         /// 服务端 监听端口号（默认4501）。例如： 4501。
         /// </summary>
         public int port = 4501;
+
+
+        /// <summary>
+        /// 接收缓存区大小
+        /// </summary>
+        public int receiveBufferSize = 8 * 1024;
+
+
+        public DeliveryClient()
+        {
+
+            _conn.receiveEventArgs = receiveEventArgs = new SocketAsyncEventArgs();
+
+            receiveEventArgs.Completed += new EventHandler<SocketAsyncEventArgs>(IO_Completed);
+
+        }
+
+
+
+
+
+
+        #region Connect Close
+
+
+
         public bool Connect()
         {
             try
@@ -75,7 +77,7 @@ namespace Sers.CL.Socket.Iocp
 
                 _conn.Init(socket);
 
-                var buff= DataPool.BytesGet(receiveBufferSize);
+                var buff = DataPool.BytesGet(receiveBufferSize);
                 _conn.receiveEventArgs.SetBuffer(buff, 0, buff.Length);
 
 
@@ -92,11 +94,23 @@ namespace Sers.CL.Socket.Iocp
                 if (!autoResetEvent_OnConnected.WaitOne(10000))
                     return false;
 
-                if (connectArgs.SocketError == SocketError.Success)
+                if (connectArgs.SocketError != SocketError.Success)
                 {
-                    Logger.Info("[CL.DeliveryClient] Socket.Iocp,connected.");
-                    return true;
+                    return false;
                 }
+
+
+
+                //(x.4)                
+                Send_timer.timerCallback = Send_Flush;
+                Send_timer.Start();
+
+
+
+
+                Logger.Info("[CL.DeliveryClient] Socket.Iocp,connected.");
+                return true;
+
             }
             catch (Exception ex)
             {
@@ -105,19 +119,28 @@ namespace Sers.CL.Socket.Iocp
             return false;
         }
 
-    
+
         public void Close()
         {
+            Send_timer.Stop();
+
             if (null == _conn) return;
             var conn = _conn;
             _conn = null;
             conn.Close();
         }
- 
+        #endregion
 
- 
-        private global::System.Net.Sockets.Socket socket=null;
- 
+
+
+        #region Iocp
+
+
+        readonly SocketAsyncEventArgs receiveEventArgs;
+
+
+        private global::System.Net.Sockets.Socket socket = null;
+
 
         // Signals a connection.
         private AutoResetEvent autoResetEvent_OnConnected = new AutoResetEvent(false);
@@ -148,7 +171,7 @@ namespace Sers.CL.Socket.Iocp
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void IO_Completed(object sender, SocketAsyncEventArgs e)
-        { 
+        {
             // determine which type of operation just completed and call the associated handler
             switch (e.LastOperation)
             {
@@ -159,8 +182,8 @@ namespace Sers.CL.Socket.Iocp
                     Logger.Info("[Iocp]IO_Completed Send");
                     return;
 
-                    //ProcessSend(e);
-                    //break;
+                //ProcessSend(e);
+                //break;
                 default:
                     Logger.Info("[Iocp]IO_Completed default");
                     throw new ArgumentException("The last operation completed on the socket was not a receive or send");
@@ -198,10 +221,30 @@ namespace Sers.CL.Socket.Iocp
             Close();
         }
 
+        #endregion
 
 
+        #region Send
 
- 
+        SersTimer_SingleThread Send_timer = new SersTimer_SingleThread { intervalMs = 1 };
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        void Send_Flush(object state)
+        {
+            try
+            {
+                _conn.Flush();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
+        }
+
+        #endregion
+
+
 
 
 

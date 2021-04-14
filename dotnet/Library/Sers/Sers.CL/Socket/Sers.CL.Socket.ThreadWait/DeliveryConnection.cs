@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
+using Vit.Core.Util.Pipelines;
 using Vit.Core.Util.Pool;
 using Vit.Core.Util.Threading;
 using Vit.Extensions;
@@ -36,6 +39,9 @@ namespace Sers.CL.Socket.ThreadWait
         public Action<IDeliveryConnection, ArraySegment<byte>> OnGetFrame { private get; set; }
 
 
+        BlockingCollection<ByteData> queue = new BlockingCollection<ByteData>();
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SendFrameAsync(Vit.Core.Util.Pipelines.ByteData data)
         {
             if (data == null || socket == null) return;
@@ -171,7 +177,7 @@ namespace Sers.CL.Socket.ThreadWait
 
 
 
-     
+
 
         #region (x.x) socket层 封装 ReadMsg 
         //线程不安全
@@ -184,6 +190,7 @@ namespace Sers.CL.Socket.ThreadWait
         */
 
 
+        ArraySegment<byte> bLen = new byte[4].BytesToArraySegmentByte();
         internal ArraySegment<byte> ReadMsg()
         {
             #region Method Receive
@@ -214,8 +221,7 @@ namespace Sers.CL.Socket.ThreadWait
             try
             {
 
-                var bLen = DataPool.ArraySegmentByteGet(4);
-
+                
                 //(x.1)获取 第一部分(len)  
                 Receive(bLen);
                 Int32 len = bLen.ArraySegmentByteToInt32();

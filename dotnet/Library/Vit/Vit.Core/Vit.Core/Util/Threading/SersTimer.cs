@@ -5,13 +5,14 @@ namespace Vit.Core.Util.Threading
 {
     public class SersTimer :  IDisposable
     {
-        private Timer _timer=null;
+        protected Timer _timer=null;
         /// <summary>
         /// 定时器间隔，单位：ms
         /// </summary>
-        public double intervalMs;
-        public TimerCallback timerCallback;
-        public void Start()
+        public virtual int intervalMs { get; set; }
+
+        public virtual TimerCallback timerCallback { get; set; }
+        public virtual void Start()
         {
             Stop();
 
@@ -21,7 +22,7 @@ namespace Vit.Core.Util.Threading
 
    
 
-        public void Stop()
+        public virtual void Stop()
         {
             if (_timer != null)
             {
@@ -31,7 +32,7 @@ namespace Vit.Core.Util.Threading
             }
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             Stop();
         }
