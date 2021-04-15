@@ -331,7 +331,7 @@ namespace Sers.Core.Module.Api.LocalApi
             Func<ApiMessage, ApiMessage> callLocalApi;
 
             /// <summary>
-            /// 超时时间，（主动关闭超过此时间的任务,实际任务强制关闭的时间会在1倍超时时间到2倍超时时间内)。单位：ms。
+            /// 超时时间。（主动关闭超过此时间的任务,实际任务强制关闭的时间会在1倍超时时间到2倍超时时间内)。单位：ms。
             /// 脉冲间隔。
             /// </summary>
             public int timeout_ms { set { taskToCallApi.timeout_ms = value; } }
