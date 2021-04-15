@@ -8,8 +8,10 @@
   <PropertyGroup>
     <Authors>Lith</Authors>
     <PackageProjectUrl>https://github.com/serset/Sers/tree/2.1.1/release</PackageProjectUrl>
-    <Description>.net core common tool. log to txt,Serialize(Newtonsoft.Json),ConfigurationManager,DynamicMethodExecutor,Guid,Reflection,Shell etc.</Description>
-    <PackageReleaseNotes>Send email to serset@yeah.net if you have any questions.</PackageReleaseNotes>
+    <Description>
+		.net core common tool. log to txt,Serialize(Newtonsoft.Json),ConfigurationManager,DynamicMethodExecutor,Guid,Reflection,Shell etc.
+ 		Send email to serset@yeah.net if you have any questions.
+    </Description>
   </PropertyGroup>
 
   <PropertyGroup>
