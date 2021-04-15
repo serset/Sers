@@ -70,7 +70,7 @@ namespace DeliveryTest
         static int port = 4501;
 
         static int thread = 1;
-        static int msgLen = 1;
+        static int msgLen = 1000_000_000;
 
 
 
@@ -78,7 +78,7 @@ namespace DeliveryTest
 
         static void StartClient()
         {
-            var client = new Sers.CL.Socket.Iocp.Mode.Timer.DeliveryClient();
+            //var client = new Sers.CL.Socket.Iocp.Mode.Timer.DeliveryClient();
             //var client = new Sers.CL.Socket.ThreadWait.DeliveryClient();
 
             //client.host = host;
@@ -86,9 +86,11 @@ namespace DeliveryTest
 
             //var client = new Sers.CL.WebSocket.DeliveryClient();
             //var client = new Sers.CL.ClrZmq.ThreadWait.DeliveryClient();
-            //var client = new Sers.CL.Ipc.SharedMemory.DeliveryClient();
+
             //var client = new Sers.CL.Zmq.FullDuplex.DeliveryClient();
-            //var client = new Sers.CL.Ipc.NamedPipe.DeliveryClient();
+
+            //var client = new Sers.CL.Ipc.SharedMemory.DeliveryClient();
+            var client = new Sers.CL.Ipc.NamedPipe.DeliveryClient();
 
             client.Conn_OnGetFrame = (conn, data) =>
            {

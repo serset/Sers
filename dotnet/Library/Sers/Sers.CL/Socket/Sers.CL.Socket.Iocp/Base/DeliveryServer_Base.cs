@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Net;
@@ -274,7 +275,6 @@ namespace Sers.CL.Socket.Iocp.Base
             DeliveryConnection conn = e.UserToken as DeliveryConnection;
             if (conn == null) return;
 
-
             try
             {
 
@@ -287,10 +287,17 @@ namespace Sers.CL.Socket.Iocp.Base
                     byte[] buffData = DataPool.BytesGet(receiveBufferSize);
                     e.SetBuffer(buffData, 0, buffData.Length);
 
+
+
                     // start loop
                     //继续接收. 为什么要这么写,请看Socket.ReceiveAsync方法的说明
                     if (!conn.socket.ReceiveAsync(e))
-                        ProcessReceive(e);
+                    {
+                        Task.Run(() =>
+                        {
+                            ProcessReceive(e);
+                        });
+                    }
                     return;
                 }
             }

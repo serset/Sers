@@ -1,5 +1,3 @@
-//  https://freshflower.iteye.com/blog/2285272 
-
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading;

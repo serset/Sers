@@ -43,17 +43,19 @@ namespace DeliveryTest
 
         static void StartServer()
         {
-            var server = new Sers.CL.Socket.Iocp.Mode.Timer.DeliveryServer();
+            //var server = new Sers.CL.Socket.Iocp.Mode.Timer.DeliveryServer();
             //var server = new Sers.CL.Socket.ThreadWait.DeliveryServer();
             // server.port = port;
 
             //var server = new Sers.CL.WebSocket.DeliveryServer();
             //var server = new Sers.CL.ClrZmq.ThreadWait.DeliveryServer();
-            //var server = new Sers.CL.Ipc.SharedMemory.DeliveryServer();        
+
 
 
             //var server = new Sers.CL.Zmq.FullDuplex.DeliveryServer();
-            //var server = new Sers.CL.Ipc.NamedPipe.DeliveryServer();
+
+            //var server = new Sers.CL.Ipc.SharedMemory.DeliveryServer();     
+            var server = new Sers.CL.Ipc.NamedPipe.DeliveryServer();
 
             server.Conn_OnConnected = (conn) =>
             {

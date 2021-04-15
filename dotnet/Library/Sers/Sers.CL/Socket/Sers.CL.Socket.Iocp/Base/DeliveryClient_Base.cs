@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Net;
@@ -200,7 +201,12 @@ namespace Sers.CL.Socket.Iocp.Base
 
                     // start loop
                     if (!socket.ReceiveAsync(e))
-                        ProcessReceive(e);
+                    {
+                        Task.Run(() =>
+                        {
+                            ProcessReceive(e);
+                        });
+                    }           
                     return;
                 }
             }

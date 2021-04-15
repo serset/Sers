@@ -77,8 +77,7 @@ namespace Sers.CL.Ipc.NamedPipe
             {
                 stream.Close();
                 stream.Dispose();
-
-                //stream.Shutdown(SocketShutdown.Both);
+ 
             }
             catch (Exception ex)
             {
@@ -138,7 +137,7 @@ namespace Sers.CL.Ipc.NamedPipe
                     //异步读取
                     if (stream.IsConnected)
                     {
-                        var result=stream.BeginRead(buffer, 0, receiveBufferSize, new AsyncCallback(AsyncReadCallback), asyncState);                  
+                        var result = stream.BeginRead(buffer, 0, receiveBufferSize, new AsyncCallback(AsyncReadCallback), asyncState);
                         return;
                     }
                 }

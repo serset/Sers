@@ -259,9 +259,9 @@ namespace Vit.Core.Util.Threading
                             //(x.x.4)
                             OnFinish(this);
                         }
-                        catch (Exception ex) when (ex.GetBaseException() is ThreadInterruptedException)                   
+                        catch (Exception ex) when (ex.GetBaseException() is ThreadInterruptedException)
                         {
-                           
+
                             try
                             {
                                 isDealing = false;
@@ -269,12 +269,12 @@ namespace Vit.Core.Util.Threading
                             }
                             catch (Exception ex1)
                             {
-                                Logger.Error(ex1);                              
+                                Logger.Error(ex1);
                                 if (task.stopWhenException)
                                 {
                                     return;
                                 }
-                            }                            
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -284,6 +284,13 @@ namespace Vit.Core.Util.Threading
                             {
                                 return;
                             }
+                        }
+                        finally 
+                        {
+                            workArg = null;                           
+                            workArg2 = null;
+                            workArg3 = null;
+                            workArg4 = null;
                         }
 
                     } while (task.loop);

@@ -49,8 +49,10 @@ namespace CLServer
 
             cm.Start();
 
+            Sers.Core.Module.App.SersApplication.OnStart();
+
             while (true)
-            {                 
+            {
                 Thread.Sleep(5000);
             }
 

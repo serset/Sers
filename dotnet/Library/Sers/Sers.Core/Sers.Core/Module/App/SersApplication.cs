@@ -4,6 +4,7 @@ using Vit.Core.Util.ConfigurationManager;
 using System;
 using System.Threading;
 using Sers.Hardware.Env;
+using Vit.Core.Util.Threading;
 
 namespace Sers.Core.Module.App
 {
@@ -20,14 +21,37 @@ namespace Sers.Core.Module.App
         #endregion
 
 
+
+        #region timer for   System.GC.Collect();
+        static SersTimer gcTimer = new SersTimer()
+        {
+            intervalMs = 10000,
+            timerCallback = (e) =>
+              {
+                  System.GC.Collect();
+              }
+        };
+        #endregion
+
+
         #region Start
         public static void OnStart()
-        {
+        {    
+
             IsRunning = true;
             try
             {
                 onStart?.Invoke();
 
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
+
+            try
+            {
+                gcTimer.Start();
             }
             catch (Exception ex)
             {
@@ -39,6 +63,16 @@ namespace Sers.Core.Module.App
 
         public static void OnStop()
         {
+            try
+            {
+                gcTimer.Stop();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
+          
+
             IsRunning = false;
 
             try

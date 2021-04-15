@@ -1,5 +1,3 @@
-//  https://freshflower.iteye.com/blog/2285272 
-
 using System;
 using Sers.CL.Socket.Iocp.Base;
 using Vit.Core.Module.Log;

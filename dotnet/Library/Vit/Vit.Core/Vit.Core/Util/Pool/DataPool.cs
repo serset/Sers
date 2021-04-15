@@ -20,7 +20,7 @@ namespace Vit.Core.Util.Pool
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void BytesReturn(byte[] data)
         {
-             ArrayPool<byte>.Shared.Return(data);
+            ArrayPool<byte>.Shared.Return(data);
         }
         #endregion
 

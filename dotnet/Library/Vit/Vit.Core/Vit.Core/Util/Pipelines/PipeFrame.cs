@@ -21,6 +21,12 @@ namespace Vit.Core.Util.Pipelines
         int QueueBuff_dataLenOfRemoved = 0;
 
 
+        public void Clear() 
+        {
+            queueBuff.Clear();
+        }
+
+
         public Action<ArraySegment<byte>> OnDequeueData;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

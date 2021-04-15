@@ -26,8 +26,10 @@ namespace CLClient
                 StartThreadSendMessage();
             }
 
+            Sers.Core.Module.App.SersApplication.OnStart();
+
             while (true)
-            { 
+            {              
                 Thread.Sleep(5000);
             }
 
