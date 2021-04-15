@@ -14,7 +14,7 @@ namespace Sers.CL.Socket.Iocp.Mode.SpinWait
     {
         #region Connect Close
 
-        public bool Connect()
+        public override bool Connect()
         {
             try
             {
@@ -42,11 +42,10 @@ namespace Sers.CL.Socket.Iocp.Mode.SpinWait
             }
             return false;
 
-
         }
 
 
-        public void Close()
+        public override void Close()
         {
             try
             {
