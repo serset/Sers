@@ -13,14 +13,14 @@ namespace Vit.Core.Util.Pool
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] BytesGet(int minimumLength)
         {
-            return new byte[minimumLength];
+            //return new byte[minimumLength];
             return ArrayPool<byte>.Shared.Rent(minimumLength);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void BytesReturn(byte[] data)
         {
-             //ArrayPool<byte>.Shared.Return(data);
+             ArrayPool<byte>.Shared.Return(data);
         }
         #endregion
 
