@@ -169,9 +169,9 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         int workThreadCount = 2;
 
         /// <summary>
-        /// 请求超时时间（单位ms，默认60000）
+        /// 请求超时时间（单位ms，默认300000）
         /// </summary>
-        public int requestTimeoutMs = 60000;
+        public int requestTimeoutMs = 300000;
 
         /// <summary>
         /// 心跳检测超时时间（单位ms，默认30000）
@@ -219,8 +219,8 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         #region class DeliveryToOrganize_MessageFrame  DeliveryToOrganize_RequestInfo
         class DeliveryToOrganize_MessageFrame
         {
-            public IOrganizeConnection conn { get; set; }
-            public ArraySegment<byte>? messageFrame;           
+            public IOrganizeConnection conn;
+            public ArraySegment<byte>? messageFrame;
         }
 
 
@@ -259,7 +259,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
                         if (OrganizeToDelivery_RequestMap_TryRemove(reqKey, out var requestInfo))
                         {
-                            requestInfo.callback(requestInfo.sender, new Vit.Core.Util.Pipelines.ByteData(replyData));                         
+                            requestInfo.callback(requestInfo.sender, new Vit.Core.Util.Pipelines.ByteData(replyData));
                         }
                         return;
                     }

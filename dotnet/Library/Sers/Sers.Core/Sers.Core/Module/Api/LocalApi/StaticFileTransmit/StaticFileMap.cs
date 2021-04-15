@@ -10,6 +10,21 @@ using System.Collections.Generic;
 
 namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
 {
+
+    //Response.AppendHeader("Content-Disposition", "attachment;filename=" + HttpUtility.UrlEncode(responseFileName, Encoding.UTF8));
+    //Response.AddHeader("Content-Length", new FileInfo(filePath).Length.ToString());
+    //Response.ContentType = (ContentType ?? MimeMapping(Path.GetExtension(responseFileName)));
+    //Response.ContentEncoding = Encoding.UTF8;
+    //Response.Charset = "utf-8";
+
+    // https://www.cnblogs.com/lonelyxmas/p/12441606.html
+    // https://www.cnblogs.com/Leo_wl/p/6059349.html
+
+    //Response.Headers.Append("Cache-Control", "public,max-age=600");
+    //(小知识: max - age：表示当访问此网页后的max - age秒内再次访问不会去服务器请求，其功能与Expires类似，只是Expires是根据某个特定日期值做比较。一但缓存者自身的时间不准确.则结果可能就是错误的，而max - age,显然无此问题.。Max - age的优先级也是高于Expires的。)
+
+
+
     public class StaticFileMap
     {
 
@@ -120,6 +135,12 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
         }
 
 
+
+
+        #region TransmitFile
+
+      
+
         public byte[] TransmitFile()
         {
             return TransmitFile(GetAbsFilePath());
@@ -128,10 +149,11 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
 
         public byte[] TransmitFile(string absFilePath)
         {
-            if (!File.Exists(absFilePath))
+            var fileInfo = new FileInfo(absFilePath);
+            if (!fileInfo.Exists)
             {
                 return SsError.Err_404.SerializeToBytes();
-            }
+            }           
 
             #region reply header
             var replyRpcData = new RpcContextData();
@@ -149,28 +171,23 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             {
                 rpcHeaders["Content-Type"] = contentType;             
             }
-       
-            //replyRpcData.http.headers["Cache-Control"] = "public,max-age=6000";
+    
+            rpcHeaders["Content-Length"] = fileInfo.Length.ToString();
+
+            //rpcHeaders["Cache-Control"] = "public,max-age=6000";
 
             RpcContext.Current.apiReplyMessage.rpcContextData_OriData= replyRpcData.ToBytes().BytesToArraySegmentByte();
             #endregion
 
           
             return File.ReadAllBytes(absFilePath);
-
-            //Response.AppendHeader("Content-Disposition", "attachment;filename=" + HttpUtility.UrlEncode(responseFileName, Encoding.UTF8));
-            //Response.AddHeader("Content-Length", new FileInfo(filePath).Length.ToString());
-            //Response.ContentType = (ContentType ?? MimeMapping(Path.GetExtension(responseFileName)));
-            //Response.ContentEncoding = Encoding.UTF8;
-            //Response.Charset = "utf-8";
-
-            // https://www.cnblogs.com/lonelyxmas/p/12441606.html
-            // https://www.cnblogs.com/Leo_wl/p/6059349.html
-
-            //ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=600");
-            //(小知识: max - age：表示当访问此网页后的max - age秒内再次访问不会去服务器请求，其功能与Expires类似，只是Expires是根据某个特定日期值做比较。一但缓存者自身的时间不准确.则结果可能就是错误的，而max - age,显然无此问题.。Max - age的优先级也是高于Expires的。)
+  
         }
 
+        #endregion
+
+
+  
 
 
 
@@ -192,8 +209,8 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
 
         public static byte[] DownloadFile(string absFilePath, string contentType, string fileName = null)
         {
-            var info = new FileInfo(absFilePath);
-            if (!info.Exists)
+            var fileInfo = new FileInfo(absFilePath);
+            if (!fileInfo.Exists)
             {
                 return SsError.Err_404.SerializeToBytes();
             }
@@ -215,7 +232,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
 
             #region 填充文件头
             headers["Content-Disposition"] = "attachment;filename=" + HttpUtility.UrlEncode(fileName, Vit.Core.Module.Serialization.Serialization_Newtonsoft.Instance.encoding);
-            headers["Content-Length"] = info.Length.ToString();
+            headers["Content-Length"] = fileInfo.Length.ToString();
             #endregion
   
 
@@ -225,11 +242,6 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
 
             return File.ReadAllBytes(absFilePath);
 
-            //Response.AppendHeader("Content-Disposition", "attachment;filename=" + HttpUtility.UrlEncode(responseFileName, Encoding.UTF8));
-            //Response.AddHeader("Content-Length", new FileInfo(filePath).Length.ToString());
-            //Response.ContentType = (ContentType ?? MimeMapping(Path.GetExtension(responseFileName)));
-            //Response.ContentEncoding = Encoding.UTF8;
-            //Response.Charset = "utf-8";
         }
         #endregion
 

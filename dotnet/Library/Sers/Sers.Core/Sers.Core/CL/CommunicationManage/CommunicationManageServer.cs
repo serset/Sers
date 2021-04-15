@@ -28,14 +28,14 @@ namespace Sers.Core.CL.CommunicationManage
         {
             defaultConfig = ConfigurationManager.Instance.GetByPath<JObject>("Sers.CL.Config") ?? new JObject();
 
-            requestTimeoutMs = defaultConfig["requestTimeoutMs"]?.ConvertBySerialize<int?>() ?? 6000;
+            requestTimeoutMs = defaultConfig["requestTimeoutMs"]?.ConvertBySerialize<int?>() ?? 300000;
         }
 
 
         private JObject defaultConfig;
 
         /// <summary>
-        /// 请求超时时间（单位ms，默认60000）(Config.requestTimeoutMs)
+        /// 请求超时时间（单位ms，默认300000）(Config.requestTimeoutMs)
         /// </summary>
         public int requestTimeoutMs { get; }
 

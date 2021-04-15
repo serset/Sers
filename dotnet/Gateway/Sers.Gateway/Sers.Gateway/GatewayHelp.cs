@@ -242,9 +242,20 @@ namespace Sers.Gateway
         static readonly string ResponseDefaultContentType = ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.WebHost.ResponseDefaultContentType") ?? Response_ContentType_Json;
         async Task WriteApiReplyMessage(HttpResponse response,ApiMessage apiReply)
         {
-            var replyRpcData = GetReplyRpcData();
+            RpcContextData replyRpcData = null;
 
-            #region (x.1)statusCode
+            #region (x.1)GetReplyRpcData
+            {
+                var rpcContextData_OriData = apiReply.rpcContextData_OriData;
+                if (null != rpcContextData_OriData && rpcContextData_OriData.Count > 0)
+                {
+                    replyRpcData = RpcContextData.FromBytes(rpcContextData_OriData);
+                }
+            }
+            #endregion
+
+
+            #region (x.2)statusCode
             var statusCode = replyRpcData?.http.statusCode;
             if (statusCode.HasValue)
             {
@@ -253,7 +264,7 @@ namespace Sers.Gateway
             #endregion
 
          
-            #region (x.2) header
+            #region (x.3) header
             //(x.x.1)原始header
             var headers = response.Headers;
             if (replyRpcData?.http.headers != null)
@@ -263,7 +274,6 @@ namespace Sers.Gateway
                     headers[item.Key] = item.Value;
                 }
             }
-
             
             //(x.x.2)Content-Type → application/json
             if (!headers.ContainsKey("Content-Type"))
@@ -274,25 +284,14 @@ namespace Sers.Gateway
             #endregion
  
 
-            //(x.3) Body
+            //(x.4) Body
             var seg = apiReply.value_OriData;
             if (seg.Array != null && seg.Count > 0)
             {
                 await response.Body.WriteAsync(seg.Array, seg.Offset, seg.Count);
             }
 
-            #region function GetReplyRpcData
-            RpcContextData GetReplyRpcData()
-            {
-                var rpcContextData_OriData = apiReply.rpcContextData_OriData;
-                if (null != rpcContextData_OriData && rpcContextData_OriData.Count > 0)
-                {
-                    return RpcContextData.FromBytes(rpcContextData_OriData);  
-                }
-                return null;
-            }
-
-            #endregion
+           
         }
 
         #endregion
