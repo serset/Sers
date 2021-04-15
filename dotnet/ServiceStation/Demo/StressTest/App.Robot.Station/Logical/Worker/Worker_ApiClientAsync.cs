@@ -44,39 +44,39 @@ namespace App.Robot.Station.Logical.Worker
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected  void CallApi()
         {
-            ApiClient.CallRemoteApiAsync<ApiReturn>((ret) =>
+            if (Interlocked.Decrement(ref leftCount) < 0)
             {
-                bool success = false;
-                if (ret == null || ret.success)
-                {
-                    success = true;
-                }
-                else
-                {
-                    if (logError)
-                        Logger.Info("失败：ret:" + ret.Serialize());
-                }
+                needRunning = false;
+                Interlocked.Decrement(ref runningThreadCount);
+                return;
+            } 
 
-                taskItem.StepUp(success);
-
-                if (taskItem.sumCount >= taskItem.targetCount)
-                {
-                    needRunning = false;
-                }
-
-
-                if (interval > 0)
-                    Thread.Sleep(interval);
-
-                if (needRunning) CallApi();
-                else
-                {
-                    Interlocked.Decrement(ref runningThreadCount);
-                }
-
-            }, apiRoute,apiArg, httpMethod);      
-          
+            ApiClient.CallRemoteApiAsync<ApiReturn>(OnSuc, apiRoute,apiArg, httpMethod);                
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        void OnSuc(ApiReturn ret) 
+        {
+            bool success = false;
+            if (ret == null || ret.success)
+            {
+                success = true;
+            }
+            else
+            {
+                if (logError)
+                    Logger.Info("失败：ret:" + ret.Serialize());
+            }
+
+            taskItem.StepUp(success);
+
+            if (interval > 0)
+                Thread.Sleep(interval);
+
+            CallApi();
+        }
+
+        long leftCount;
 
         public void Start()
         {
@@ -84,6 +84,8 @@ namespace App.Robot.Station.Logical.Worker
 
             taskItem.curCount = 0;
             taskItem.failCount = 0;
+
+            leftCount = taskItem.targetCount - taskItem.sumCount;
 
             needRunning = true;
 
