@@ -44,7 +44,7 @@ namespace App.Robot.Station.Logical.Worker
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected  void CallApi()
         {
-            if (Interlocked.Decrement(ref leftCount) < 0)
+            if (!needRunning || Interlocked.Decrement(ref leftCount) < 0)
             {
                 needRunning = false;
                 Interlocked.Decrement(ref runningThreadCount);
