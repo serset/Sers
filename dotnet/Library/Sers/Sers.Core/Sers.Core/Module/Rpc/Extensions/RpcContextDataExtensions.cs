@@ -73,8 +73,14 @@ namespace Vit.Extensions
 
             #region (x.2) caller_callStack
             String parentRid = rpcDataFromContext.caller.rid;
-
-            rpcData.caller.callStack.AddRange(rpcDataFromContext.caller.callStack);
+            if (rpcData.caller.callStack == null)
+            {
+                rpcData.caller.callStack = new System.Collections.Generic.List<string>();
+            }
+            if (rpcDataFromContext.caller.callStack != null)
+            {
+                rpcData.caller.callStack.AddRange(rpcDataFromContext.caller.callStack);
+            }
             rpcData.caller.callStack.Add(parentRid);
 
             #endregion
