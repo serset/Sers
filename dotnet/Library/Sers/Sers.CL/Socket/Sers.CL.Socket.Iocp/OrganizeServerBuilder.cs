@@ -36,7 +36,8 @@ namespace Sers.CL.Socket.Iocp
                         organizeList.Add(new OrganizeServer(delivery, config));
                     }
                     break;
-                case "Timer":          
+                //case "Timer":
+                default:
                     {
                         var delivery = new Mode.Timer.DeliveryServer();
 
@@ -48,8 +49,8 @@ namespace Sers.CL.Socket.Iocp
                         organizeList.Add(new OrganizeServer(delivery, config));
                     }
                     break;
-                //case "SpinWait":
-                default:
+                 case "SpinWait":
+           
                     {
                         var delivery = new Mode.SpinWait.DeliveryServer();
 
