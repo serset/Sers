@@ -10,6 +10,28 @@ namespace Sers.CL.Socket.Iocp.Mode.SpinWait
 {
     public class DeliveryClient : DeliveryClient_Base<DeliveryConnection>
     {
+        #region NewConnection
+
+        /// <summary>
+        /// 发送缓冲区数据块的最小大小（单位：byte,默认 1000000）
+        /// </summary>
+        public int sendBufferSize = 1_000_000;
+
+        /// <summary>
+        /// 发送缓冲区个数（默认1024）
+        /// </summary>
+        public int sendBufferCount = 1024;
+        public override DeliveryConnection NewConnection()
+        {
+            var conn = base.NewConnection();
+            conn.SetConfig(sendBufferSize, sendBufferCount);
+            return conn;
+        }
+        #endregion
+
+
+
+
         #region Connect Close
 
         public override bool Connect()
@@ -62,14 +84,12 @@ namespace Sers.CL.Socket.Iocp.Mode.SpinWait
 
 
 
-
-
         #region Send
 
         /// <summary>
-        /// 单位：毫秒
+        /// 发送缓冲区刷新间隔（单位：毫秒,默认：1）
         /// </summary>
-        public int sendInterval = 1;
+        public int sendFlushInterval = 1;
 
         LongTaskHelp Send_task = new LongTaskHelp();
 
@@ -82,7 +102,7 @@ namespace Sers.CL.Socket.Iocp.Mode.SpinWait
                 try
                 {
                     _conn.FlushSendFrameQueue();
-                    global::System.Threading.SpinWait.SpinUntil(() => false, sendInterval);
+                    global::System.Threading.SpinWait.SpinUntil(() => false, sendFlushInterval);
                 }
                 catch (Exception ex) when (!(ex.GetBaseException() is ThreadInterruptedException))
                 {

@@ -18,7 +18,7 @@ namespace Sers.CL.Socket.Iocp
                 securityManager = Sers.Core.Util.StreamSecurity.SecurityManager.BuildSecurityManager(securityConfigs);
             }
             #endregion
-
+ 
 
             string mode = config["mode"]?.ToString();
 
@@ -30,8 +30,13 @@ namespace Sers.CL.Socket.Iocp
 
                         delivery.securityManager = securityManager;
 
-                        delivery.host = config["host"].ConvertToString();
-                        delivery.port = config["port"].Convert<int>();
+                        delivery.host = config["host"].ConvertToString() ?? delivery.host;
+                        delivery.port = config["port"]?.ConvertBySerialize<int?>() ?? delivery.port;
+
+                        #region 接收缓存区 配置
+                        // 接收缓存区大小（单位:byte,默认：8192）
+                        delivery.receiveBufferSize = config["receiveBufferSize"]?.ConvertBySerialize<int?>() ?? delivery.receiveBufferSize;
+                        #endregion
 
                         organizeList.Add(new OrganizeServer(delivery, config));
                     }
@@ -43,8 +48,24 @@ namespace Sers.CL.Socket.Iocp
 
                         delivery.securityManager = securityManager;
 
-                        delivery.host = config["host"].ConvertToString();
-                        delivery.port = config["port"].Convert<int>();
+                        delivery.host = config["host"].ConvertToString() ?? delivery.host;
+                        delivery.port = config["port"]?.ConvertBySerialize<int?>() ?? delivery.port;
+
+                        #region 接收缓存区 配置
+                        // 接收缓存区大小（单位:byte,默认：8192）
+                        delivery.receiveBufferSize = config["receiveBufferSize"]?.ConvertBySerialize<int?>() ?? delivery.receiveBufferSize;
+                        #endregion
+
+                        #region 发送缓冲区 配置
+                        // 发送缓冲区刷新间隔（单位：毫秒,默认：1）
+                        delivery.sendFlushInterval = config["sendFlushInterval"].ConvertBySerialize<int?>() ?? delivery.sendFlushInterval;
+
+                        // 发送缓冲区数据块的最小大小（单位：byte,默认 1000000）                     
+                        delivery.sendBufferSize = config["sendBufferSize"].ConvertBySerialize<int?>() ?? delivery.sendBufferSize;
+
+                        // 发送缓冲区个数（默认1024）  
+                        delivery.sendBufferCount = config["sendBufferCount"].ConvertBySerialize<int?>() ?? delivery.sendBufferSize;
+                        #endregion
 
                         organizeList.Add(new OrganizeServer(delivery, config));
                     }
@@ -56,8 +77,25 @@ namespace Sers.CL.Socket.Iocp
 
                         delivery.securityManager = securityManager;
 
-                        delivery.host = config["host"].ConvertToString();
-                        delivery.port = config["port"].Convert<int>();
+                        delivery.host = config["host"].ConvertToString() ?? delivery.host;
+                        delivery.port = config["port"]?.ConvertBySerialize<int?>() ?? delivery.port;
+
+                        #region 接收缓存区 配置
+                        // 接收缓存区大小（单位:byte,默认：8192）
+                        delivery.receiveBufferSize = config["receiveBufferSize"]?.ConvertBySerialize<int?>() ?? delivery.receiveBufferSize;
+                        #endregion
+
+
+                        #region 发送缓冲区 配置
+                        // 发送缓冲区刷新间隔（单位：毫秒,默认：1）
+                        delivery.sendFlushInterval = config["sendFlushInterval"].ConvertBySerialize<int?>() ?? delivery.sendFlushInterval;
+
+                        // 发送缓冲区数据块的最小大小（单位：byte,默认 1000000）                     
+                        delivery.sendBufferSize = config["sendBufferSize"].ConvertBySerialize<int?>() ?? delivery.sendBufferSize;
+
+                        // 发送缓冲区个数（默认1024）  
+                        delivery.sendBufferCount = config["sendBufferCount"].ConvertBySerialize<int?>() ?? delivery.sendBufferSize;
+                        #endregion
 
                         organizeList.Add(new OrganizeServer(delivery, config));
                     }

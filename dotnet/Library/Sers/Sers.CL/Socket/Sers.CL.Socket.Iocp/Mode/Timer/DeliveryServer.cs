@@ -9,6 +9,27 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
     public class DeliveryServer : DeliveryServer_Base<DeliveryConnection>
     {
 
+        #region NewConnection
+      
+        /// <summary>
+        /// 发送缓冲区数据块的最小大小（单位：byte,默认 1000000）
+        /// </summary>
+        public int sendBufferSize = 1_000_000;
+
+        /// <summary>
+        /// 发送缓冲区个数（默认1024）
+        /// </summary>
+        public int sendBufferCount = 1024;
+        public override DeliveryConnection NewConnection()
+        {
+            var conn = base.NewConnection();
+            conn.SetConfig(sendBufferSize, sendBufferCount);
+            return conn;
+        }
+        #endregion
+
+
+
 
         #region Start Stop
 
@@ -24,7 +45,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
                 }
 
                 //(x.2)               
-                Send_timer.intervalMs = sendInterval;
+                Send_timer.intervalMs = sendFlushInterval;
                 Send_timer.timerCallback = Send_Flush;
                 Send_timer.Start();
 
@@ -64,9 +85,9 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
 
         #region Send
         /// <summary>
-        /// 单位：毫秒
+        /// 发送缓冲区刷新间隔（单位：毫秒,默认：1）
         /// </summary>
-        public int sendInterval = 1;
+        public int sendFlushInterval = 1;
 
         SersTimer_SingleThread Send_timer = new SersTimer_SingleThread();
 

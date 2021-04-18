@@ -11,14 +11,34 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
 {
     public class DeliveryConnection : DeliveryConnection_Base
     {
+        public void SetConfig(int sendBufferSize /*= 1_000_000*/, int sendBufferCount /*= 1024*/)
+        {
+            this.sendBufferSize = sendBufferSize;
+            this.sendBufferCount = sendBufferCount;
+            buffer = new ByteData[sendBufferCount];
+            bufferItemCount = new int[sendBufferCount];
+        }
 
         #region Send
 
         ConcurrentQueue<ByteData> frameQueueToSend = new ConcurrentQueue<ByteData>();
 
-        const int buffLength = 1024;
-        ByteData[] buffer = new ByteData[buffLength];
-        int[] bufferItemCount = new int[buffLength];
+
+        /// <summary>
+        /// 发送缓冲区数据块的最小大小（单位：byte）
+        /// </summary>
+        public int sendBufferSize ;
+
+        /// <summary>
+        /// 发送缓冲区个数
+        /// </summary>
+        int sendBufferCount;
+
+        ByteData[] buffer ;
+        int[] bufferItemCount ;
+
+   
+
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void SendFrameAsync(Vit.Core.Util.Pipelines.ByteData data)
@@ -44,7 +64,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
                         {
                             buffer[curIndex++] = item;
 
-                            if (curIndex == buffLength)
+                            if (curIndex == sendBufferCount)
                             {
                                 break;
                             }
@@ -58,7 +78,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
 
                     FlushData(curIndex);
 
-                    if (curIndex < buffLength)
+                    if (curIndex < sendBufferCount)
                     {
                         return;
                     }
@@ -111,7 +131,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
 
 
                 //(x.3)
-                if (sumCount >= 1_000_000)
+                if (sumCount >= sendBufferSize)
                 {
                     bytes = BufferToBytes(startIndex, curIndex, sumCount);
                     socket.SendAsync(bytes.BytesToArraySegmentByte(), SocketFlags.None);

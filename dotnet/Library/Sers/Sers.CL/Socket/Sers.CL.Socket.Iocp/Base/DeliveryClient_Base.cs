@@ -10,14 +10,21 @@ using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Net;
 using Vit.Core.Util.Pool;
-using Vit.Core.Util.Threading;
 
 namespace Sers.CL.Socket.Iocp.Base
 {
     public class DeliveryClient_Base<DeliveryConnection> : IDeliveryClient
         where DeliveryConnection : DeliveryConnection_Base,new()
     {
+        public virtual DeliveryConnection NewConnection()
+        {
+            var conn = _conn;
+            conn.securityManager = securityManager;
+            return conn;
+        }
 
+
+        public Sers.Core.Util.StreamSecurity.SecurityManager securityManager;
 
         protected DeliveryConnection _conn = new DeliveryConnection();
         public IDeliveryConnection conn => _conn;
@@ -43,18 +50,15 @@ namespace Sers.CL.Socket.Iocp.Base
 
 
         /// <summary>
-        /// 接收缓存区大小
+        /// 接收缓存区大小（单位:byte,默认：8192）
         /// </summary>
         public int receiveBufferSize = 8 * 1024;
 
 
         public DeliveryClient_Base()
         {
-
-            _conn.receiveEventArgs = receiveEventArgs = new SocketAsyncEventArgs();
-
+            receiveEventArgs = new SocketAsyncEventArgs();
             receiveEventArgs.Completed += new EventHandler<SocketAsyncEventArgs>(IO_Completed);
-
         }
 
 
@@ -76,6 +80,8 @@ namespace Sers.CL.Socket.Iocp.Base
                 socket = new global::System.Net.Sockets.Socket(hostEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
 
+                var conn = NewConnection();
+                _conn.receiveEventArgs = receiveEventArgs;
                 _conn.Init(socket);
 
                 var buff = DataPool.BytesGet(receiveBufferSize);
@@ -113,8 +119,6 @@ namespace Sers.CL.Socket.Iocp.Base
 
         public virtual void Close()
         {
- 
-
             if (null == _conn) return;
             var conn = _conn;
             _conn = null;
