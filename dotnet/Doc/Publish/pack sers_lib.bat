@@ -162,28 +162,6 @@ cd /d ../../../
 
 ::------------------ServiceStation
 
-echo 'pack Vit.Ioc'
-cd /d ServiceStation\Ioc\Vit.Ioc\Vit.Ioc
-dotnet build --configuration Release
-dotnet pack --configuration Release --output ..\..\..\..\Doc\Publish\nuget
-@if errorlevel 1 (echo . & echo .  & echo 出错，请排查！& pause) 
-cd /d ../../../../
-
-
-
-
-echo 'pack Sers.Ioc'
-cd /d ServiceStation\Ioc\Sers.Ioc\Sers.Ioc
-dotnet build --configuration Release
-dotnet pack --configuration Release --output ..\..\..\..\Doc\Publish\nuget
-@if errorlevel 1 (echo . & echo .  & echo 出错，请排查！& pause) 
-cd /d ../../../../
-
-
-
-
-
-
 
 echo 'pack Sers.Serslot'
 cd /d ServiceStation\ApiLoader\Sers.Serslot
