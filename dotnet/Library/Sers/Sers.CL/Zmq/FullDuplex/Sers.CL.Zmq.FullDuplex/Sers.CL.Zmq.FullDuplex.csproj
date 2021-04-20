@@ -1,49 +1,47 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Version>2.1.1.602</Version>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<Version>2.1.1.602</Version>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <Authors>Lith</Authors>
-    <PackageProjectUrl>https://github.com/serset/Sers/tree/2.1.1/release</PackageProjectUrl>
-    <Description>Send email to serset@yeah.net if you have any questions.</Description>
-  </PropertyGroup>
-  
-  <PropertyGroup>
-    <DocumentationFile>bin\Debug\netstandard2.0\Sers.CL.Zmq.FullDuplex.xml</DocumentationFile>
-  </PropertyGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Sers.Core\Sers.Core\Sers.Core.csproj" />
-  </ItemGroup>
+	<PropertyGroup>
+		<Authors>Lith</Authors>
+		<PackageProjectUrl>https://github.com/serset/Sers/tree/2.1.1/release</PackageProjectUrl>
+		<Description>Send email to serset@yeah.net if you have any questions.</Description>
+	</PropertyGroup>
 
- 
-  <ItemGroup>
-    <None Update="libsodium.dll">
-      <Pack>true</Pack>
-      <PackageCopyToOutput>true</PackageCopyToOutput>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-    <None Update="libzmq.dll">
-      <Pack>true</Pack>
-      <PackageCopyToOutput>true</PackageCopyToOutput>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-    <None Update="libzmq.dylib">
-      <Pack>true</Pack>
-      <PackageCopyToOutput>true</PackageCopyToOutput>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-    <None Update="libzmq.so">
-      <Pack>true</Pack>
-      <PackageCopyToOutput>true</PackageCopyToOutput>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-  </ItemGroup> 
-  
+	<PropertyGroup>
+		<DocumentationFile>bin\Debug\netstandard2.0\Sers.CL.Zmq.FullDuplex.xml</DocumentationFile>
+	</PropertyGroup>
 
-   
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\Sers.Core\Sers.Core\Sers.Core.csproj" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<None Update="libsodium.dll">
+			<Pack>true</Pack>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</None>
+		<None Update="libzmq.dll">
+			<Pack>true</Pack>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</None>
+		<None Update="libzmq.dylib">
+			<Pack>true</Pack>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</None>
+		<None Update="libzmq.so">
+			<Pack>true</Pack>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
 </Project>
