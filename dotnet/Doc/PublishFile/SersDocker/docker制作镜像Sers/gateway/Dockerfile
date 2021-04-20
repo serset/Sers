@@ -1,2 +1,2 @@
-FROM serset/dotnet:5.0
+FROM serset/dotnet:6.0
 COPY root /root
