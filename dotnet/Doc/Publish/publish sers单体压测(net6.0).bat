@@ -1,5 +1,5 @@
 
-set netVersion=net5.0
+set netVersion=net6.0
 
 
 

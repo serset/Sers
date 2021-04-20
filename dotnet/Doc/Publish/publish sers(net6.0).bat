@@ -1,6 +1,6 @@
 
 
-set netVersion=net5.0
+set netVersion=net6.0
 
 :: 调用工具 替换csproj
 cd ..\..\..\..
