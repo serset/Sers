@@ -1,4 +1,4 @@
-#构建多架构镜像
+﻿#构建多架构镜像
 
 #docker login -u serset -p xxxxxxxxx
 
@@ -33,11 +33,11 @@ docker buildx ls
 #(x.2)构建多架构镜像（ arm、arm64 和 amd64 ）并推送到 Docker Hub
 
 #把文件夹拷贝到image下
-cd /home/ec2-user/image 
+cd /root/image
 
 
 #构建镜像并推送到 Docker Hub 
-export tag=2.1.1.602
+export tag=2.1.1.611
 
 cd servicecenter
 docker buildx build . -t serset/servicecenter:${tag} -t serset/servicecenter --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
