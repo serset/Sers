@@ -8,11 +8,12 @@
   <PropertyGroup>
     <Authors>Lith</Authors>
     <PackageProjectUrl>https://github.com/serset/Sers/tree/2.1.1/release</PackageProjectUrl>
-    <Description>Send email to serset@yeah.net if you have any questions.</Description>
+    <Description>在兼容AspNetCore2.1的同时，兼容 AspNetCore3.0、 AspNetCore3.1、 AspNetCore5.0、AspNetCore6.0</Description>
   </PropertyGroup>
 
   <PropertyGroup>
     <DocumentationFile>bin\Debug\netstandard2.0\Sers.Serslot.xml</DocumentationFile>
+    <Copyright />
   </PropertyGroup>
 
 

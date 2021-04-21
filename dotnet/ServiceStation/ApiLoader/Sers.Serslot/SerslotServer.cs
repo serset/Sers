@@ -10,11 +10,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Vit.Core.Module.Log;
 using Vit.Extensions;
+using Vit.Extensions.ObjectExt;
 
 namespace Sers.Serslot
 {
     public class SerslotServer : IServer
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public IServiceProvider serviceProvider { get; set; }
 
         #region PairingToken       
@@ -57,6 +61,14 @@ namespace Sers.Serslot
             var _responseFeature = new HttpResponseFeature() { Body = new MemoryStream() };
             features.Set<IHttpResponseFeature>(_responseFeature);
 
+
+            //IHttpResponseBodyFeature
+            if (Type_IResponseBodyFeature != null)
+            {
+                features[Type_IResponseBodyFeature] = Activator.CreateInstance(Type_ResponseBodyFeature, _responseFeature.Body);
+            }
+
+
             OnProcessRequest(features);
 
             return _responseFeature;
@@ -65,6 +77,14 @@ namespace Sers.Serslot
         #region SerslotResponseFeature
         class SerslotResponseFeature : IHttpResponseFeature
         {
+            public SerslotResponseFeature()
+            {
+                StatusCode = 200;
+                Headers = new HeaderDictionary();
+                Body = Stream.Null;
+            }
+
+
             public int StatusCode
             {
                 get;
@@ -91,12 +111,7 @@ namespace Sers.Serslot
 
             public virtual bool HasStarted { get; set; } = false;
 
-            public SerslotResponseFeature()
-            {
-                StatusCode = 200;
-                Headers = new HeaderDictionary();
-                Body = Stream.Null;
-            }
+
 
 
             private Stack<KeyValuePair<Func<object, Task>, object>> _onStarting;
@@ -110,7 +125,7 @@ namespace Sers.Serslot
                 {
                     if (HasStarted)
                     {
-                        throw new InvalidOperationException(nameof(OnStarting));                        
+                        throw new InvalidOperationException(nameof(OnStarting));
                     }
 
                     if (_onStarting == null)
@@ -183,7 +198,7 @@ namespace Sers.Serslot
                 }
             }
             #endregion
-          
+
 
             #region OnCompleted           
             public virtual void OnCompleted(Func<object, Task> callback, object state)
@@ -237,7 +252,9 @@ namespace Sers.Serslot
         #endregion
 
 
+        Type Type_IResponseBodyFeature = Vit.Core.Util.Reflection.ObjectLoader.GetType("Microsoft.AspNetCore.Http.Features.IHttpResponseBodyFeature", assemblyName: "Microsoft.AspNetCore.Http.Features");
 
+        Type Type_ResponseBodyFeature = Vit.Core.Util.Reflection.ObjectLoader.GetType("Microsoft.AspNetCore.Http.StreamResponseBodyFeature", assemblyName: "Microsoft.AspNetCore.Http");
 
 
         public IFeatureCollection Features { get; } = new FeatureCollection();
@@ -255,15 +272,27 @@ namespace Sers.Serslot
 
                     var httpContext = application.CreateContext(features);
                     try
-                    { 
+                    {
+
+                        //var httpContext_ = httpContext.GetProperty<object>("HttpContext");
+                        //if (httpContext_ is Microsoft.AspNetCore.Http.HttpContext defaultHttpContext)
+                        //{
+                        //    //if (defaultHttpContext.Response.Body == null)                            
+                        //    defaultHttpContext.Response.Body = features.Get<IHttpResponseFeature>().Body;                           
+                        //}
+
+
+
+
                         // Run the application code for this request
-                        application.ProcessRequestAsync(httpContext).GetAwaiter().GetResult();
+                        // application.ProcessRequestAsync(httpContext).GetAwaiter().GetResult();
+                        application.ProcessRequestAsync(httpContext).Wait();
+
 
                         //var _responseFeature = features.Get<IHttpResponseFeature>() as SerslotResponseFeature;
                         //if (_responseFeature != null)
                         //{                           
                         //    _responseFeature.FireOnStarting();
-
                         //    _responseFeature.FireOnCompleted();
                         //}
                     }
@@ -281,7 +310,7 @@ namespace Sers.Serslot
 
                 #region (x.x.1) Init
                 ServiceStation.ServiceStation.Init();
-                Sers.Core.Module.App.SersApplication.onStop += () => 
+                Sers.Core.Module.App.SersApplication.onStop += () =>
                 {
                     if (serviceProvider.GetService(typeof(IApplicationLifetime)) is IApplicationLifetime lifetime)
                     {
@@ -295,8 +324,8 @@ namespace Sers.Serslot
 
                 ServiceStation.ServiceStation.Instance.LoadApi();
 
-                ServiceStation.ServiceStation.Instance.localApiService.LoadSerslotApi(Assembly.GetEntryAssembly(),this);       
-                
+                ServiceStation.ServiceStation.Instance.localApiService.LoadSerslotApi(Assembly.GetEntryAssembly(), this);
+
 
                 #endregion
 
@@ -326,7 +355,7 @@ namespace Sers.Serslot
             catch (Exception ex)
             {
                 Logger.Error(ex);
-            }      
+            }
         }
 
         // Ungraceful shutdown
@@ -336,6 +365,6 @@ namespace Sers.Serslot
             cancelledTokenSource.Cancel();
             StopAsync(cancelledTokenSource.Token).GetAwaiter().GetResult();
         }
-       
+
     }
 }
