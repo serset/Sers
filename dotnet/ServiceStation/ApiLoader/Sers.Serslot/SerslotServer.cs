@@ -283,9 +283,8 @@ namespace Sers.Serslot
                 ServiceStation.ServiceStation.Init();
                 Sers.Core.Module.App.SersApplication.onStop += () => 
                 {
-                    IApplicationLifetime lifetime = serviceProvider.GetService(typeof(IApplicationLifetime)) as IApplicationLifetime;
-
-                    if (lifetime != null) {
+                    if (serviceProvider.GetService(typeof(IApplicationLifetime)) is IApplicationLifetime lifetime)
+                    {
                         lifetime.StopApplication();
                     }
                 };
