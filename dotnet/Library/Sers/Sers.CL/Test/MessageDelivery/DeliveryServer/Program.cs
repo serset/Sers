@@ -1,4 +1,5 @@
 ﻿using CLServer.Statistics;
+using Sers.Core.CL.MessageDelivery;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -43,19 +44,27 @@ namespace DeliveryTest
 
         static void StartServer()
         {
-            //var server = new Sers.CL.Socket.Iocp.Mode.Timer.DeliveryServer();
-            //var server = new Sers.CL.Socket.ThreadWait.DeliveryServer();
-            // server.port = port;
+            IDeliveryServer server;
 
-            //var server = new Sers.CL.WebSocket.DeliveryServer();
-            //var server = new Sers.CL.ClrZmq.ThreadWait.DeliveryServer();
+            {
+                //var delivery = new Sers.CL.Socket.Iocp.Mode.SpinWait.DeliveryServer();
+                var delivery = new Sers.CL.Socket.Iocp.Mode.Timer.DeliveryServer();
+                //delivery.receiveBufferSize = 81920;
+                server = delivery;
+            }
+          
+            //server = new Sers.CL.Socket.ThreadWait.DeliveryServer();
+            //server.port = port;
+
+            //server = new Sers.CL.WebSocket.DeliveryServer();
+            //server = new Sers.CL.ClrZmq.ThreadWait.DeliveryServer();
 
 
 
-            //var server = new Sers.CL.Zmq.FullDuplex.DeliveryServer();
+            //server = new Sers.CL.Zmq.FullDuplex.DeliveryServer();
 
-            //var server = new Sers.CL.Ipc.SharedMemory.DeliveryServer();     
-            var server = new Sers.CL.Ipc.NamedPipe.DeliveryServer();
+            //server = new Sers.CL.Ipc.SharedMemory.DeliveryServer();     
+            //server = new Sers.CL.Ipc.NamedPipe.DeliveryServer();
 
             server.Conn_OnConnected = (conn) =>
             {
@@ -65,15 +74,15 @@ namespace DeliveryTest
                 {
                     //Task.Run(() =>
                     //{
-                        qpsInfo.IncrementRequest();
+                    qpsInfo.IncrementRequest();
 
-                        //Thread.Sleep(1);
+                    //Thread.Sleep(1);
 
-                        //data[0]++;
-                        //data[1] = 5;
+                    //data[0]++;
+                    //data[1] = 5;
 
-                        var byteData = new Vit.Core.Util.Pipelines.ByteData(data);
-                        conn_.SendFrameAsync(byteData);
+                    var byteData = new Vit.Core.Util.Pipelines.ByteData(data);
+                    conn_.SendFrameAsync(byteData);
                     //});
                 };
             };

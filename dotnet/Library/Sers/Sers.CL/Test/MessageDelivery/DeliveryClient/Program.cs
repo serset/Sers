@@ -1,4 +1,5 @@
 ﻿using CLServer.Statistics;
+using Sers.Core.CL.MessageDelivery;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -69,8 +70,8 @@ namespace DeliveryTest
         static string host = "127.0.0.1";
         static int port = 4501;
 
-        static int thread = 1;
-        static int msgLen = 1000_000_000;
+        static int thread = 40000;
+        static int msgLen = 1;
 
 
 
@@ -78,19 +79,28 @@ namespace DeliveryTest
 
         static void StartClient()
         {
-            //var client = new Sers.CL.Socket.Iocp.Mode.Timer.DeliveryClient();
-            //var client = new Sers.CL.Socket.ThreadWait.DeliveryClient();
+            IDeliveryClient client;
+
+            {
+                //var delivery = new Sers.CL.Socket.Iocp.Mode.SpinWait.DeliveryClient();
+                var delivery = new Sers.CL.Socket.Iocp.Mode.Timer.DeliveryClient();
+                //delivery.receiveBufferSize = 81920;
+                client = delivery;
+            }
+ 
+ 
+            //client = new Sers.CL.Socket.ThreadWait.DeliveryClient();
 
             //client.host = host;
             //client.port = port;
 
-            //var client = new Sers.CL.WebSocket.DeliveryClient();
-            //var client = new Sers.CL.ClrZmq.ThreadWait.DeliveryClient();
+            //client = new Sers.CL.WebSocket.DeliveryClient();
+            //client = new Sers.CL.ClrZmq.ThreadWait.DeliveryClient();
 
-            //var client = new Sers.CL.Zmq.FullDuplex.DeliveryClient();
+            //client = new Sers.CL.Zmq.FullDuplex.DeliveryClient();
 
-            //var client = new Sers.CL.Ipc.SharedMemory.DeliveryClient();
-            var client = new Sers.CL.Ipc.NamedPipe.DeliveryClient();
+            //client = new Sers.CL.Ipc.SharedMemory.DeliveryClient();
+            //client = new Sers.CL.Ipc.NamedPipe.DeliveryClient();
 
             client.Conn_OnGetFrame = (conn, data) =>
            {
@@ -111,14 +121,14 @@ namespace DeliveryTest
 
             var connected = client.Connect();
 
-            Console.WriteLine(connected?"连接成功": "连接失败");
+            Console.WriteLine(connected ? "连接成功" : "连接失败");
 
 
             byte[] buff = new byte[msgLen];
 
             for (var t = 0; t < thread; t++)
             {
-                client.conn.SendFrameAsync(new Vit.Core.Util.Pipelines.ByteData(new ArraySegment<byte>(buff))  );
+                client.conn.SendFrameAsync(new Vit.Core.Util.Pipelines.ByteData(new ArraySegment<byte>(buff)));
                 //Task.Run(()=> {
 
                 //    while (true)
@@ -129,7 +139,7 @@ namespace DeliveryTest
                 //        }
                 //        Thread.Sleep(1);
                 //    }
-                
+
                 //});
             }
 
