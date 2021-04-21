@@ -15,11 +15,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\ApiLoader\Sers.Serslot\Sers.Serslot.csproj" />
+    <ProjectReference Include="..\..\..\..\Library\Sers\Sers.Serslot\Sers.Serslot\Sers.Serslot.csproj" />
   </ItemGroup>
 
   <ItemGroup>

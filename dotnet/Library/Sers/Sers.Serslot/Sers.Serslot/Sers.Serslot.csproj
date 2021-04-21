@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -23,11 +23,8 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Library\Sers\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />
-  </ItemGroup>
-
-
- 
+    <ProjectReference Include="..\..\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />
+  </ItemGroup> 
 
 
 </Project>

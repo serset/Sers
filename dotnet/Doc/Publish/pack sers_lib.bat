@@ -160,23 +160,18 @@ cd /d ../../../
 
 
 
-::------------------ServiceStation
+::------------------Sers.Serslot
 
 
 echo 'pack Sers.Serslot'
-cd /d ServiceStation\ApiLoader\Sers.Serslot
+cd /d Library\Sers\Sers.Serslot\Sers.Serslot
 dotnet build --configuration Release
-dotnet pack --configuration Release --output ..\..\..\Doc\Publish\nuget
+dotnet pack --configuration Release --output ..\..\..\..\Doc\Publish\nuget
 @if errorlevel 1 (echo . & echo .  & echo 出错，请排查！& pause) 
-cd /d ../../../  
+cd /d ../../../../  
 
 
-echo 'pack Sers.NetcoreLoader'
-cd /d ServiceStation\ApiLoader\Sers.NetcoreLoader
-dotnet build --configuration Release
-dotnet pack --configuration Release --output ..\..\..\Doc\Publish\nuget
-@if errorlevel 1 (echo . & echo .  & echo 出错，请排查！& pause) 
-cd /d ../../../  
+ 
  
 
 cd /d Doc\Publish
