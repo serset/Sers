@@ -39,32 +39,32 @@ cd /root/image
 #构建镜像并推送到 Docker Hub 
 export tag=2.1.2.618
 
-cd servicecenter
-docker buildx build . -t serset/servicecenter:${tag} -t serset/servicecenter --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+cd sers
+docker buildx build . -t serset/sers:${tag} -t serset/sers --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd .. 
 
 
-cd gover 
-docker buildx build . -t serset/gover:${tag} -t serset/gover --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+cd sers_gover 
+docker buildx build . -t serset/sers_gover:${tag} -t serset/sers_gover --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd ..
 
 
-cd gateway
-docker buildx build . -t serset/gateway:${tag} -t serset/gateway --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+cd sers_gateway
+docker buildx build . -t serset/sers_gateway:${tag} -t serset/sers_gateway --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd ..
 
 
 
-cd demo_robot 
-docker buildx build . -t serset/demo_robot:${tag} -t serset/demo_robot --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+cd sers_demo_robot 
+docker buildx build . -t serset/sers_demo_robot:${tag} -t serset/sers_demo_robot --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd ..
 
-cd demo_station 
-docker buildx build . -t serset/demo_station:${tag} -t serset/demo_station --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+cd sers_demo
+docker buildx build . -t serset/sers_demo:${tag} -t serset/sers_demo --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd ..
 
-cd demo_sersall 
-docker buildx build . -t serset/demo_sersall:${tag} -t serset/demo_sersall --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+cd sers_demo_sersall 
+docker buildx build . -t serset/sers_demo_sersall:${tag} -t serset/sers_demo_sersall --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 cd ..
 
  

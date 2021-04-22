@@ -1,4 +1,4 @@
-#构建多架构镜像
+﻿#构建多架构镜像
 
 #docker login -u serset -p xxxxxxxxx
 
@@ -33,15 +33,16 @@ docker buildx ls
 #(x.2)构建多架构镜像（ arm、arm64 和 amd64 ）并推送到 Docker Hub 
 
 #把本文件所在目录下的cgateway文件夹拷贝到 image 
-cd /home/ec2-user/image 
+cd /root/image 
 
 #构建镜像并推送到 Docker Hub
-cd cgateway_1.2.0
-docker buildx build . -t serset/cgateway:1.2.0 -t serset/cgateway --platform=linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x --push
+cd sers_cgateway_1.2.0
+docker buildx build . -t serset/sers_cgateway:1.2.0 -t serset/sers_cgateway --platform=linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x --push
 cd .. 
 
  
-
+#强制删除镜像名称中包含sers的镜像
+# docker rmi --force $(docker images | grep sers_ | awk '{print $3}')
 
 
 
