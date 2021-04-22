@@ -1,12 +1,12 @@
-docker部署gateway
+docker部署sers_demo
 
- 
 
 ---------------------------------
 #(x.1)文件
   (x.1)把本文件所在目录中所有文件拷贝到宿主机
   (x.2)修改配置文件 appsettings.json
- 
+
+
 
 #(x.2)创建容器并运行
 (--name 容器名称，可自定义)
@@ -17,45 +17,44 @@ docker部署gateway
 
 cd /root/docker
 
-cd Gateway
-docker run --name=gateway --restart=always -d \
--p 4582:4582 \
+cd sers_demo
+docker run --name=sers_demo --restart=always -d \
 -v /etc/localtime:/etc/localtime \
--v $PWD/appsettings.json:/root/app/Gateway/appsettings.json \
--v $PWD/Logs:/root/app/Gateway/Logs \
--v $PWD/Data:/root/app/Gateway/Data \
-serset/gateway
- 
+-v $PWD/appsettings.json:/root/app/Demo/appsettings.json \
+-v $PWD/Logs:/root/app/Demo/Logs \
+serset/sers_demo
+cd ..
 
 #精简
-docker run --name=gateway --restart=always -d -p 4582:4582 serset/gateway
+docker run --name=sers_demo --restart=always -d serset/sers_demo
 
 
+ 
 #(x.3)应用已经运行
-   可在文件夹Gateway/Logs 中查看日志
+   可在文件夹Logs 中查看日志
 
-通信端口 tcp://ip:4582
+
 
 -------------------
 #常用命令
 
 #查看容器logs
-docker logs gateway
+docker logs sers_demo
 
 #在容器内执行命令行
-docker  exec -it gateway /bin/sh
+docker  exec -it sers_demo bash
 
 #停止容器
-docker stop gateway
+docker stop sers_demo
 
 #打开容器
-docker start gateway
+docker start sers_demo
 
 #重启容器
-docker restart gateway
+docker restart sers_demo
 
 
 #删除容器
-docker rm gateway -f
+docker rm sers_demo -f
 
 

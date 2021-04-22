@@ -1,12 +1,12 @@
-﻿docker部署cgateway
+docker部署sers_demo_robot
 
+ 
 
 ---------------------------------
 #(x.1)文件
   (x.1)把本文件所在目录中所有文件拷贝到宿主机
   (x.2)修改配置文件 appsettings.json
  
-
 
 #(x.2)创建容器并运行
 (--name 容器名称，可自定义)
@@ -17,42 +17,47 @@
 
 cd /root/docker
 
-cd CGateway
-docker run --name=cgateway --restart=always -d \
--p 6008:6008 \
+cd sers_demo_robot
+docker run --name=sers_demo_robot --restart=always -d \
 -v /etc/localtime:/etc/localtime \
--v $PWD/appsettings.json:/root/app/CGateway/appsettings.json \
--v $PWD/Logs:/root/app/CGateway/Logs \
-serset/cgateway:1.2.0
+-v $PWD/appsettings.json:/root/app/Robot/appsettings.json \
+-v $PWD/Logs:/root/app/Robot/Logs \
+-v $PWD/Data:/root/app/Robot/Data \
+serset/sers_demo_robot
 cd ..
 
 
-#端口    http://ip:6008
+#精简
+docker run --name=sers_demo_robot --restart=always --net=host -d serset/sers_demo_robot
+
+ 
 
 
 #(x.3)应用已经运行
-   可在文件夹CGateway/Logs 中查看日志
+   可在文件夹Logs 中查看日志
+
+
 
 -------------------
 #常用命令
 
 #查看容器logs
-docker logs cgateway
+docker logs sers_demo_robot
 
 #在容器内执行命令行
-docker  exec -it cgateway /bin/sh
+docker  exec -it sers_demo_robot bash
 
 #停止容器
-docker stop cgateway
+docker stop sers_demo_robot
 
 #打开容器
-docker start cgateway
+docker start sers_demo_robot
 
 #重启容器
-docker restart cgateway
+docker restart sers_demo_robot
 
 
 #删除容器
-docker rm cgateway -f
+docker rm sers_demo_robot -f
 
 

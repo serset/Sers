@@ -1,7 +1,5 @@
-docker部署servicecenter
-
+docker部署sers_demo_sersall
  
-
 ---------------------------------
 #(x.1)文件
   (x.1)把本文件所在目录中所有文件拷贝到宿主机
@@ -18,49 +16,43 @@ docker部署servicecenter
 
 cd /root/docker
 
-cd ServiceCenter
-docker run --name=servicecenter --restart=always -d \
--p 4580:4580 -p 4501:4501 \
+cd sers_demo_sersall
+docker run --name=sers_demo_sersall --restart=always -d --net=host\
 -v /etc/localtime:/etc/localtime \
 -v $PWD/appsettings.json:/root/app/ServiceCenter/appsettings.json \
 -v $PWD/Logs:/root/app/ServiceCenter/Logs \
 -v $PWD/Data:/root/app/ServiceCenter/Data \
-serset/servicecenter
+serset/sers_demo_sersall
 cd ..
 
-
 #精简
-docker run --name=servicecenter --restart=always -d -p 4580:4580 -p 4501:4501 serset/servicecenter
-
-gover     http://ip:4580
-通信端口 tcp://ip:4501
-
+docker run --name=sers_demo_sersall --restart=always -d --net=host serset/sers_demo_sersall
 
 
 #(x.3)应用已经运行
-   可在文件夹ServiceCenter/Logs 中查看日志
+   可在文件夹Logs 中查看日志
 
- 
+
 #---------------------------------------
 #常用命令
 
 #查看容器logs
-docker logs servicecenter
+docker logs sers_demo_sersall 
 
 #在容器内执行命令行
-docker  exec -it servicecenter /bin/sh
+docker  exec -it sers_demo_sersall  bash
 
 #停止容器
-docker stop servicecenter
+docker stop sers_demo_sersall 
 
 #打开容器
-docker start servicecenter
+docker start sers_demo_sersall 
 
 #重启容器
-docker restart servicecenter
+docker restart sers_demo_sersall 
 
 
 #删除容器
-docker rm servicecenter -f
+docker rm sers_demo_sersall -f 
 
 

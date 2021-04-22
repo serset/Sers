@@ -1,5 +1,6 @@
-docker部署demo_sersall
- 
+﻿docker部署sers_cgateway
+
+
 ---------------------------------
 #(x.1)文件
   (x.1)把本文件所在目录中所有文件拷贝到宿主机
@@ -16,43 +17,42 @@ docker部署demo_sersall
 
 cd /root/docker
 
-cd SersAll
-docker run --name=sersall --restart=always -d --net=host\
+cd sers_cgateway
+docker run --name=sers_cgateway --restart=always -d \
+-p 6008:6008 \
 -v /etc/localtime:/etc/localtime \
--v $PWD/appsettings.json:/root/app/ServiceCenter/appsettings.json \
--v $PWD/Logs:/root/app/ServiceCenter/Logs \
--v $PWD/Data:/root/app/ServiceCenter/Data \
-serset/demo_sersall:2.1.2.618
+-v $PWD/appsettings.json:/root/app/CGateway/appsettings.json \
+-v $PWD/Logs:/root/app/CGateway/Logs \
+serset/sers_cgateway:1.2.0
 cd ..
 
-#精简
-docker run --name=sersall --restart=always -d --net=host serset/demo_sersall:2.1.2.618
+
+#端口    http://ip:6008
 
 
 #(x.3)应用已经运行
-   可在文件夹SersAll/Logs 中查看日志
+   可在文件夹Logs 中查看日志
 
-
-#---------------------------------------
+-------------------
 #常用命令
 
 #查看容器logs
-docker logs sersall 
+docker logs sers_cgateway
 
 #在容器内执行命令行
-docker  exec -it sersall  /bin/sh
+docker  exec -it sers_cgateway bash
 
 #停止容器
-docker stop sersall 
+docker stop sers_cgateway
 
 #打开容器
-docker start sersall 
+docker start sers_cgateway
 
 #重启容器
-docker restart sersall 
+docker restart sers_cgateway
 
 
 #删除容器
-docker rm sersall -f 
+docker rm sers_cgateway -f
 
 

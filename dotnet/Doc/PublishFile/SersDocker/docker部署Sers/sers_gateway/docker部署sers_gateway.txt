@@ -1,4 +1,4 @@
-docker部署demo_robot
+docker部署sers_gateway
 
  
 
@@ -17,47 +17,45 @@ docker部署demo_robot
 
 cd /root/docker
 
-cd Robot
-docker run --name=robot --restart=always -d \
+cd sers_gateway
+docker run --name=sers_gateway --restart=always -d \
+-p 4582:4582 \
 -v /etc/localtime:/etc/localtime \
--v $PWD/appsettings.json:/root/app/Robot/appsettings.json \
--v $PWD/Logs:/root/app/Robot/Logs \
--v $PWD/Data:/root/app/Robot/Data \
-serset/demo_robot:2.1.2.618
-cd ..
-
+-v $PWD/appsettings.json:/root/app/Gateway/appsettings.json \
+-v $PWD/Logs:/root/app/Gateway/Logs \
+-v $PWD/Data:/root/app/Gateway/Data \
+serset/sers_gateway
+ 
 
 #精简
-docker run --name=robot --restart=always --net=host -d serset/demo_robot:2.1.2.618
-
- 
+docker run --name=sers_gateway --restart=always -d -p 4582:4582 serset/sers_gateway
 
 
 #(x.3)应用已经运行
-   可在文件夹Robot/Logs 中查看日志
+   可在文件夹Logs 中查看日志
 
-
+通信端口 tcp://ip:4582
 
 -------------------
 #常用命令
 
 #查看容器logs
-docker logs robot
+docker logs sers_gateway
 
 #在容器内执行命令行
-docker  exec -it robot /bin/sh
+docker  exec -it sers_gateway bash
 
 #停止容器
-docker stop robot
+docker stop sers_gateway
 
 #打开容器
-docker start robot
+docker start sers_gateway
 
 #重启容器
-docker restart robot
+docker restart sers_gateway
 
 
 #删除容器
-docker rm robot -f
+docker rm sers_gateway -f
 
 
