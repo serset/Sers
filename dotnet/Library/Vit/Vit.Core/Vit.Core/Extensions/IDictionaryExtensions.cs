@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Vit.Extensions
 {
@@ -16,6 +17,7 @@ namespace Vit.Extensions
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IDictionaryTryAdd<TKey, TValue>(this IDictionary<TKey, TValue> data, TKey key, TValue value)
         {
             if (data == null || data.ContainsKey(key))

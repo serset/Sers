@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Vit.Extensions.ObjectExt
 {
@@ -13,6 +14,7 @@ namespace Vit.Extensions.ObjectExt
         /// <param name="data"></param>
         /// <param name="res"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T CopyProrertyFrom<T>(this T data, object res)
         {
             if (data == null || res == null)
@@ -67,6 +69,7 @@ namespace Vit.Extensions.ObjectExt
         /// <param name="data"></param>
         /// <param name="res"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T CopyNotNullProrertyFrom<T>(this T data, object res)
         {
             if (data == null || res == null)
@@ -123,6 +126,7 @@ namespace Vit.Extensions.ObjectExt
         /// <param name="instance">扩展对象类型</param>
         /// <param name="fieldName">私有字段名称 string</param>
         /// <returns>私有字段值 T</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T GetField<T>(this object instance, string fieldName)
         {          
             return (T)instance.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).GetValue(instance);
@@ -134,6 +138,7 @@ namespace Vit.Extensions.ObjectExt
         /// <param name="instance"></param>
         /// <param name="fieldname">字段名称 string</param>
         /// <param name="value">私有字段新值 object</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetField(this object instance, string fieldname, object value)
         {             
             instance.GetType().GetField(fieldname, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).SetValue(instance, value);
@@ -149,6 +154,7 @@ namespace Vit.Extensions.ObjectExt
         /// <param name="instance"></param>
         /// <param name="propertyName">属性名称 string</param>
         /// <returns>私有字段值 T</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object GetProperty(this object instance, string propertyName)
         {
             return instance.GetType().GetProperty(propertyName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).GetValue(instance);
@@ -163,6 +169,7 @@ namespace Vit.Extensions.ObjectExt
         /// <param name="instance"></param>
         /// <param name="propertyName">属性名称 string</param>
         /// <returns>私有字段值 T</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T GetProperty<T>(this object instance, string propertyName)
         {
             return (T)GetProperty(instance, propertyName); 
@@ -174,6 +181,7 @@ namespace Vit.Extensions.ObjectExt
         /// <param name="instance"></param>
         /// <param name="propertyName">属性名称</param>
         /// <param name="value"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetProperty(this object instance, string propertyName, object value)
         {
             instance.GetType().GetField(propertyName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).SetValue(instance, value);            
@@ -192,6 +200,7 @@ namespace Vit.Extensions.ObjectExt
         /// <param name="methodName">方法名称</param>
         /// <param name="param">参数列表</param>
         /// <returns>调用方法返回值</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T CallMethod<T>(this object instance, string methodName, params object[] param)
         {      
             return (T)instance.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Invoke(instance, param);

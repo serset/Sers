@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace Vit.Extensions
 {
@@ -16,6 +17,7 @@ namespace Vit.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="data"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T StringToEnum<T>(this string data)
         {
             try
@@ -43,6 +45,7 @@ namespace Vit.Extensions
 
 
         #region ValueIsDefined        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool ValueIsDefined(this Enum data, object value)
         {
             return Enum.IsDefined(data.GetType(), value);

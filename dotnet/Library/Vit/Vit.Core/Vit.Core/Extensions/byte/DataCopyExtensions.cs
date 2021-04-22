@@ -50,6 +50,7 @@ namespace Vit.Extensions
 
 
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void CopyTo<T>(this ArraySegment<T> seg, T[] bytes, int curIndex = 0)
         {
             //Array.Copy(seg.Array, seg.Offset, bytes, curIndex, seg.Count);
