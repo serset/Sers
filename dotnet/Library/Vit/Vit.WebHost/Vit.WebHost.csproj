@@ -1,29 +1,29 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.1.2.618</Version>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<Version>2.1.2.618</Version>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <Authors>Lith</Authors>
-    <PackageProjectUrl>https://github.com/serset/Sers/tree/2.1.1/release</PackageProjectUrl>
-    <Description>Send email to serset@yeah.net if you have any questions.</Description>
-  </PropertyGroup>
-  
-  <PropertyGroup>
-    <DocumentationFile>bin\Debug\netstandard2.0\Vit.WebHost.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Authors>Lith</Authors>
+		<Description>对NetCore Host的扩展</Description>
+		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0" />
-  </ItemGroup>
+	<PropertyGroup>
+		<DocumentationFile>bin\Debug\netstandard2.0\Vit.WebHost.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Vit.Core\Vit.Core\Vit.Core.csproj" />
-  </ItemGroup>
-  
-  
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Vit.Core\Vit.Core\Vit.Core.csproj" />
+	</ItemGroup>
+
+
 </Project>

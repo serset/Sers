@@ -1,24 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.1.2.618</Version>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<Version>2.1.2.618</Version>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <Authors>Lith</Authors>
-    <PackageProjectUrl>https://github.com/serset/Sers/tree/2.1.1/release</PackageProjectUrl>
-    <Description>Send email to serset@yeah.net if you have any questions.</Description>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Authors>Lith</Authors>
+		<Description>Sers微服务-通信层</Description>
+		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
+	</PropertyGroup>
 
 
-  <PropertyGroup>
-    <DocumentationFile>bin\Debug\netstandard2.0\Sers.CL.Socket.ThreadWait.xml</DocumentationFile>
-  </PropertyGroup>
- 
+	<PropertyGroup>
+		<DocumentationFile>bin\Debug\netstandard2.0\Sers.CL.Socket.ThreadWait.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Sers.Core\Sers.Core\Sers.Core.csproj" />
-  </ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Sers.Core\Sers.Core\Sers.Core.csproj" />
+	</ItemGroup>
 
 </Project>

@@ -1,25 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
- 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.1.2.618</Version>
-  </PropertyGroup>
 
-  <PropertyGroup>
-    <Authors>Lith</Authors>
-    <PackageProjectUrl>https://github.com/serset/Sers/tree/2.1.1/release</PackageProjectUrl>
-    <Description>Send email to serset@yeah.net if you have any questions.</Description>
-  </PropertyGroup>
-  
-  <PropertyGroup>
-    <DocumentationFile>bin\Debug\netstandard2.0\Sers.ServiceStation.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<Version>2.1.2.618</Version>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Sers.CL\Ipc\Sers.CL.Ipc.NamedPipe\Sers.CL.Ipc.NamedPipe.csproj" />
-    <ProjectReference Include="..\..\Sers.CL\Socket\Sers.CL.Socket.Iocp\Sers.CL.Socket.Iocp.csproj" />
-    <ProjectReference Include="..\..\Sers.CL\Socket\Sers.CL.Socket.ThreadWait\Sers.CL.Socket.ThreadWait.csproj" />
-  </ItemGroup>
+	<PropertyGroup>
+		<Authors>Lith</Authors>
+		<Description>Sers微服务-服务站点核心库</Description>
+		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<DocumentationFile>bin\Debug\netstandard2.0\Sers.ServiceStation.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Sers.CL\Ipc\Sers.CL.Ipc.NamedPipe\Sers.CL.Ipc.NamedPipe.csproj" />
+		<ProjectReference Include="..\..\Sers.CL\Socket\Sers.CL.Socket.Iocp\Sers.CL.Socket.Iocp.csproj" />
+		<ProjectReference Include="..\..\Sers.CL\Socket\Sers.CL.Socket.ThreadWait\Sers.CL.Socket.ThreadWait.csproj" />
+	</ItemGroup>
 
 </Project>

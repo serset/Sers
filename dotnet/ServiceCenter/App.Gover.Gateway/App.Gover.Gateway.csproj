@@ -1,39 +1,39 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <Version>2.1.2.618</Version>
-    <Description>https://github.com/serset/Sers/tree/2.1.1/release</Description>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>netcoreapp2.1</TargetFramework>
+		<Version>2.1.2.618</Version>
+		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
+	</PropertyGroup>
 
- 
-  <ItemGroup>
-    <Compile Include="..\..\Gateway\App.Gateway\Program.cs" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Content Include="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="contentTypeMap.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="web.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\..\Library\Sers\Sers.CL\Ipc\Sers.CL.Ipc.SharedMemory\Sers.CL.Ipc.SharedMemory.csproj" />
-    <ProjectReference Include="..\..\Library\Sers\Sers.CL\WebSocket\Sers.CL.WebSocket\Sers.CL.WebSocket.csproj" />
-    <ProjectReference Include="..\..\Library\Sers\Sers.CL\Zmq\FullDuplex\Sers.CL.Zmq.FullDuplex\Sers.CL.Zmq.FullDuplex.csproj" />
-    <ProjectReference Include="..\..\Library\Sers\Sers.CL\Zmq\ThreadWait\Sers.CL.ClrZmq.ThreadWait\Sers.CL.ClrZmq.ThreadWait.csproj" />
-    <ProjectReference Include="..\..\Gateway\Sers.Gateway\Sers.Gateway\Sers.Gateway.csproj" />
-  </ItemGroup>
- 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="xcopy  &quot;$(ProjectDir)wwwroot&quot; &quot;$(TargetDir)\wwwroot&quot; /e /i /r /y" />
-  </Target>
+
+	<ItemGroup>
+		<Compile Include="..\..\Gateway\App.Gateway\Program.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="contentTypeMap.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="web.config">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Library\Sers\Sers.CL\Ipc\Sers.CL.Ipc.SharedMemory\Sers.CL.Ipc.SharedMemory.csproj" />
+		<ProjectReference Include="..\..\Library\Sers\Sers.CL\WebSocket\Sers.CL.WebSocket\Sers.CL.WebSocket.csproj" />
+		<ProjectReference Include="..\..\Library\Sers\Sers.CL\Zmq\FullDuplex\Sers.CL.Zmq.FullDuplex\Sers.CL.Zmq.FullDuplex.csproj" />
+		<ProjectReference Include="..\..\Library\Sers\Sers.CL\Zmq\ThreadWait\Sers.CL.ClrZmq.ThreadWait\Sers.CL.ClrZmq.ThreadWait.csproj" />
+		<ProjectReference Include="..\..\Gateway\Sers.Gateway\Sers.Gateway\Sers.Gateway.csproj" />
+	</ItemGroup>
+
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<Exec Command="xcopy  &quot;$(ProjectDir)wwwroot&quot; &quot;$(TargetDir)\wwwroot&quot; /e /i /r /y" />
+	</Target>
 
 </Project>
