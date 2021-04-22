@@ -2,13 +2,12 @@
 using Sers.Core.Module.Rpc;
 using Sers.Core.Module.Rpc.Serialization;
 using Sers.Core.Module.Rpc.Serialization.Fast;
-using Sers.Core.Module.Serialization;
+using Sers.Core.Module.Serialization.Text;
 using Statistics;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Vit.Extensions;
 
 namespace App
 {

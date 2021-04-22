@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Sers.Core.Module.Serialization;
+using Sers.Core.Module.Serialization.Text;
 
 namespace Sers.Core.Module.Rpc.Serialization
 {

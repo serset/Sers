@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using Vit.Core.Module.Serialization;
 using Vit.Core.Util.ConfigurationManager;
+using Vit.Extensions;
 
-namespace Sers.Core.Module.Serialization
+namespace Sers.Core.Module.Serialization.Text
 {
     /// <summary>
     ///  https://github.com/dotnet/runtime/tree/main/src/libraries/System.Text.Json
     ///  
     /// System.Text.Json 自定义Converter实现时间转换 https://my.oschina.net/u/4359742/blog/3314243
     /// </summary>
-    public class Serialization_Text : ISerialization
+    public partial class Serialization_Text : ISerialization
     {
 
         public static readonly Serialization_Text Instance = new Serialization_Text();
@@ -23,52 +23,27 @@ namespace Sers.Core.Module.Serialization
         public readonly JsonSerializerOptions options = new JsonSerializerOptions
         {
             //中文不转义 如 {"title":"\u4ee3\u7801\u6539\u53d8\u4e16\u754c"}
-            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.All),            
+            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.All),
             IncludeFields = true,
             DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
         };
 
 
 
-        public readonly JsonConverter_DateTime jsonConverter_DateTime = new Serialization_Text.JsonConverter_DateTime();
+        public readonly JsonConverter_DateTime jsonConverter_DateTime;
 
         public Serialization_Text()
         {
-            options.Converters.Add(jsonConverter_DateTime);
-            options.Converters.Add(JsonConverter_JObject.Instance);
-            options.Converters.Add(JsonConverter_JArray.Instance);
-
+            options.AddConverter_Newtonsoft();
+ 
 
             //日期格式化
             var DateTimeFormat = ConfigurationManager.Instance.GetByPath<string>("Vit.Serialization.DateTimeFormat")
-                ?? "yyyy-MM-dd HH:mm:ss";
-            jsonConverter_DateTime.DateTimeFormat = DateTimeFormat;
+              ?? "yyyy-MM-dd HH:mm:ss";
 
+            jsonConverter_DateTime = options.AddConverter_DateTime(DateTimeFormat);
         }
 
-        #region JsonConverter
-        public class JsonConverter_DateTime : JsonConverter<DateTime>
-        {
-            public string DateTimeFormat;
-
-            public JsonConverter_DateTime(string dateFormatString = "yyyy-MM-dd HH:mm:ss")
-            {
-                DateTimeFormat = dateFormatString;
-            }
-
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            {
-                return DateTime.Parse(reader.GetString());
-            }
-
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
-            {
-                writer.WriteStringValue(value.ToString(DateTimeFormat));
-            }
-        }
-        #endregion
 
 
 

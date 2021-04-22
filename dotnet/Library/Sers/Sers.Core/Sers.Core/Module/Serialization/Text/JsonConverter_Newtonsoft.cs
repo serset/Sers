@@ -2,18 +2,14 @@
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-
+using Newtonsoft.Json.Linq;
+using Vit.Core.Module.Serialization;
+using Vit.Extensions;
 
 #region 适配 Newtonsoft
 
-namespace Sers.Core.Module.Serialization
+namespace Sers.Core.Module.Serialization.Text
 {
-
-    using Newtonsoft.Json.Linq;
-
-    using Vit.Core.Module.Serialization;
-    using Vit.Extensions;
-
 
 
     #region JsonConverter_JObject
@@ -47,10 +43,10 @@ namespace Sers.Core.Module.Serialization
 
                 switch (kv.Value)
                 {
-                    case JObject jo:                      
+                    case JObject jo:
                         Write(writer, jo, options);
                         break;
-                    case JArray ja:                      
+                    case JArray ja:
                         JsonConverter_JArray.Instance.Write(writer, ja, options);
                         break;
 
@@ -82,7 +78,7 @@ namespace Sers.Core.Module.Serialization
         public override JObject Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType != JsonTokenType.StartObject) return null;
-           
+
 
             var result = new JObject();
 
@@ -247,7 +243,7 @@ namespace Sers.Core.Module.Serialization
                 {
                     reader.Skip();
                     break;
-                }              
+                }
 
 
                 switch (reader.TokenType)

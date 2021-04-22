@@ -1,6 +1,4 @@
-﻿using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using System;  
 using Vit.Core.Util.ComponentModel.Model;
 
 namespace Vit.Core.Util.ComponentModel.Data
@@ -27,7 +25,7 @@ namespace Vit.Core.Util.ComponentModel.Data
         /// <param name="errorMessage"></param>
         /// <param name="errorTag">自定义ErrorTag格式。每处ErrorTag建议唯一。建议格式为 日期_作者缩写_自定义序号，例如："150721_lith_1"</param>
         /// <param name="errorDetail"></param>
-        public ApiReturn(int? errorCode = null, string errorMessage = null, string errorTag = null, JObject errorDetail = null)
+        public ApiReturn(int? errorCode = null, string errorMessage = null, string errorTag = null, Newtonsoft.Json.Linq.JObject errorDetail = null)
         {
             success = false;
             error = new SsError.SsError (errorCode, errorMessage, errorTag, errorDetail);
@@ -45,7 +43,7 @@ namespace Vit.Core.Util.ComponentModel.Data
         /// <summary>
         /// 错误信息
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty(NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [SsDescription("错误信息")]
         public SsError.SsError error;
 
