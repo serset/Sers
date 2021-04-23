@@ -259,11 +259,15 @@ namespace Sers.SersLoader
         #endregion
 
 
+        protected virtual ParameterInfo[] MethodInfoGetArgInfos(MethodInfo method)
+        {           
+            return method.GetParameters();
+        }
+
         protected virtual Type MethodInfoGetReturnType(MethodInfo method)
         {
             return method.ReturnType;
         }
-
 
         #region GetApiDesc
         /// <summary>
@@ -286,7 +290,7 @@ namespace Sers.SersLoader
             apiDesc.rpcVerify2 = RpcVerify2Loader.GetRpcVerify2FromMethod(method);
 
             //(x.4)ArgType        
-            apiDesc.argType = ssModelBuilder.BuildSsModel_Arg(method, xmlComment);
+            apiDesc.argType = ssModelBuilder.BuildSsModel_Arg(MethodInfoGetArgInfos(method), xmlComment);
 
             //(x.5)ReturnType
             apiDesc.returnType = ssModelBuilder.BuildSsModel_Return(method, MethodInfoGetReturnType(method));

@@ -6,6 +6,7 @@ using Sers.SersLoader;
 using Sers.Core.Module.Api.ApiDesc;
 using Sers.Core.Module.Api.LocalApi;
 using Vit.Extensions;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Sers.Serslot
 {
@@ -40,7 +41,17 @@ namespace Sers.Serslot
             return ControllerHelp.Controller_GetRoutePrefixs(type);
         }
 
+        protected override ParameterInfo[] MethodInfoGetArgInfos(MethodInfo method)
+        {
+            var argInfos = base.MethodInfoGetArgInfos(method);
 
+            //剔除指定 FromServices 的函数参数
+            if (argInfos != null) 
+            {
+                argInfos = argInfos.AsQueryable().Where(info => info.GetCustomAttribute<FromServicesAttribute>() == null).ToArray();
+            }
+            return argInfos;
+        }
 
         protected override Type MethodInfoGetReturnType(MethodInfo method)
         {

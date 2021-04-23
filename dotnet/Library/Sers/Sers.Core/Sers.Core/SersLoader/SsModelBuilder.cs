@@ -56,16 +56,15 @@ namespace Sers.SersLoader
         }
 
 
-        public SsModel BuildSsModel_Arg(MethodInfo method, MethodComment comment)
+        public SsModel BuildSsModel_Arg(ParameterInfo[] argInfos, MethodComment comment)
         {
-            ParameterInfo[] infos = method.GetParameters();
 
             SsModel model = new SsModel();
 
             //构建 OnDeserialize
 
             #region (x.x.1) 空参数 没有参数
-            if (null == infos || 0 == infos.Length)
+            if (null == argInfos || 0 == argInfos.Length)
             {
                 model.OnDeserialize = (strValue) =>
                 {
@@ -80,13 +79,13 @@ namespace Sers.SersLoader
             // 1)第一个参数有 SsArgEntityAttribute 特性
             // 2)参数个数为1，且(mode 为 object 或者 array),且没有SsArgPropertyAttribute特性
             if (
-                null != infos[0].GetCustomAttribute<SsArgEntityAttribute>() ||
-                (1 == infos.Length && !infos[0].ParameterType.TypeIsValueTypeOrStringType() && null == infos[0].GetCustomAttribute<SsArgPropertyAttribute>())
+                null != argInfos[0].GetCustomAttribute<SsArgEntityAttribute>() ||
+                (1 == argInfos.Length && !argInfos[0].ParameterType.TypeIsValueTypeOrStringType() && null == argInfos[0].GetCustomAttribute<SsArgPropertyAttribute>())
             )
             {
                 #region      
-                int argCount = infos.Length;
-                var argType = infos[0].ParameterType;
+                int argCount = argInfos.Length;
+                var argType = argInfos[0].ParameterType;
                 model.OnDeserialize = (bytes) =>
                 {
                     var args = new object[argCount];
@@ -94,7 +93,7 @@ namespace Sers.SersLoader
                     return args;
                 };
 
-                var argDescType = infos[0].GetCustomAttribute<SsTypeAttribute>()?.Value  ?? argType;
+                var argDescType = argInfos[0].GetCustomAttribute<SsTypeAttribute>()?.Value  ?? argType;
 
                 var modelEntitys = new List<SsModelEntity>();
                 var mEntity = CreateEntityByType(argDescType, modelEntitys);
@@ -105,9 +104,9 @@ namespace Sers.SersLoader
                 model.type = mEntity.type;
 
                 {
-                    model.description = infos[0].GetCustomAttribute<SsDescriptionAttribute>()?.Value;
-                    model.example = infos[0].GetCustomAttribute<SsExampleAttribute>()?.Value;
-                    model.defaultValue = infos[0].GetCustomAttribute<SsDefaultValueAttribute>()?.Value;
+                    model.description = argInfos[0].GetCustomAttribute<SsDescriptionAttribute>()?.Value;
+                    model.example = argInfos[0].GetCustomAttribute<SsExampleAttribute>()?.Value;
+                    model.defaultValue = argInfos[0].GetCustomAttribute<SsDefaultValueAttribute>()?.Value;
                 }
                 #endregion
 
@@ -123,11 +122,11 @@ namespace Sers.SersLoader
                 {
                     var jo = bytes.DeserializeFromArraySegmentByte<JObject>();
 
-                    var arg = new object[infos.Length];
+                    var arg = new object[argInfos.Length];
                     if (null != jo)
                     {
                         int i = 0;
-                        foreach (var info in infos)
+                        foreach (var info in argInfos)
                         {
                             arg[i++] = jo[info.Name].Deserialize(info.ParameterType);
                         }
@@ -136,7 +135,7 @@ namespace Sers.SersLoader
                 };
 
                 var models = new List<SsModelEntity>();
-                var mEntity = CreateEntityByParameterInfo(infos, comment, models);
+                var mEntity = CreateEntityByParameterInfo(argInfos, comment, models);
 
                 model.models = models;
                 model.type = mEntity.type;
@@ -144,9 +143,7 @@ namespace Sers.SersLoader
 
             }
             return model;
-            #endregion
-
-         
+            #endregion         
         }
 
 
