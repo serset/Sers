@@ -133,7 +133,7 @@ namespace Sers.ServiceStation
             appEventList?.ForEach(ev => ev.BeforeStart());
 
 
-            #region (x.1)CL add Builder for Iocp、ThreadWait
+            #region (x.1)CL add builder for Iocp、ThreadWait
             communicationManage.BeforeBuildOrganize = (configs,  organizeList) => 
             {
                 var builderTypeList = new[] {

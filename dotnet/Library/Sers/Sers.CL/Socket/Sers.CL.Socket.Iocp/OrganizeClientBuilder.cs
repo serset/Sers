@@ -24,7 +24,8 @@ namespace Sers.CL.Socket.Iocp
 
             switch (mode)
             {
-                case "Simple":
+                default:
+                //case "Simple":
                     {
                         var delivery = new Mode.Simple.DeliveryClient();
 
@@ -71,8 +72,7 @@ namespace Sers.CL.Socket.Iocp
                         organizeList.Add(new OrganizeClient(delivery, config));
                     }
                     break;
-                //case "SpinWait":
-                default:
+                case "SpinWait":           
                     {
                         var delivery = new Mode.SpinWait.DeliveryClient();
 
