@@ -8,14 +8,23 @@ namespace Vit.Extensions
 {
     public static class IApplicationBuilderExtensions_UseStaticFiles
     {
-
+        /// <summary>
+        /// 启用静态文件服务
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="configPath">在appsettings.json文件中的路径。默认:"server.staticFiles"。</param>
+        /// <returns></returns>
         public static IApplicationBuilder UseStaticFilesFromConfig(this IApplicationBuilder data, string configPath = "server.staticFiles")
         {
-            //配置静态文件
             return data.UseStaticFiles(Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<Vit.WebHost.StaticFilesConfig>(configPath));
         }
 
-
+        /// <summary>
+        /// 启用静态文件服务
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="config"></param>
+        /// <returns></returns>
         public static IApplicationBuilder UseStaticFiles(this IApplicationBuilder data, StaticFilesConfig config)
         {
             if (config == null || data == null) return data;

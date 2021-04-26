@@ -5,7 +5,7 @@ namespace Vit.Extensions
     public static class IWebHostBuilderExtensions_UseUrlsFromConfig
     {
         /// <summary>
-        /// 
+        /// Specify the urls the web host will listen on.
         /// </summary>
         /// <param name="data"></param>
         /// <param name="configPath">在appsettings.json文件中的路径。默认:"server.urls"。其指定的值必须为字符串数组。</param>
