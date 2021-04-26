@@ -1,8 +1,8 @@
-﻿#region << 版本注释-v3 >>
+﻿#region << 版本注释 >>
 /*
  * ========================================================================
- * 版本：v3
- * 时间：2021-01-23
+ * 版本：v4
+ * 时间：2021-04-26
  * 作者：lith
  * 邮箱：serset@yeah.net
  * 说明： 
@@ -16,6 +16,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Common;
 
@@ -35,6 +36,7 @@ namespace Vit.Core.Util.Reflection
         /// <param name="assemblyFile">如： "Vit.Core.dll"</param>
         /// <param name="assemblyName">如： "Vit.Core"</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Assembly LoadAssembly(string assemblyFile = null, string assemblyName = null)
         {
             if (!string.IsNullOrEmpty(assemblyName))
@@ -54,6 +56,7 @@ namespace Vit.Core.Util.Reflection
         /// </summary>
         /// <param name="assemblyFile">如： "Vit.Core.dll"</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Assembly LoadAssemblyFromFile(string assemblyFile)
         {
             if (string.IsNullOrEmpty(assemblyFile))
@@ -119,11 +122,23 @@ namespace Vit.Core.Util.Reflection
         /// <summary>
         /// 若未指定assembly，则从当前加载的所有Assembly中查找
         /// </summary>
-        /// <param name="assembly"></param>
         /// <param name="className">如： "Vit.Core.Util.ConfigurationManager.JsonFile"、"Vit.Core.Util.ConfigurationManager.JsonFile,Vit.Core"</param>
+        /// <param name="assembly"></param>
+        /// <param name="assemblyFile">如： "Vit.Core.dll"</param>
+        /// <param name="assemblyName">如： "Vit.Core"</param>
         /// <returns></returns>
-        public static Type GetType(string className, Assembly assembly)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Type GetType(string className, Assembly assembly = null, string assemblyFile = null, string assemblyName = null)
         {
+            #region (x.1) get assembly
+            if (assembly == null)
+            {
+                assembly = LoadAssembly(assemblyFile, assemblyName);
+            }
+            #endregion
+
+
+            #region (x.2) get type from assembly            
             if (assembly == null)
             {
                 //(x.x.1)
@@ -153,26 +168,9 @@ namespace Vit.Core.Util.Reflection
                 }
             }
             return null;
+            #endregion
         }
 
-
-
-
-
-
-        /// <summary>
-        /// 若未指定assembly，则从当前加载的所有Assembly中查找
-        /// </summary>
-        /// <param name="className">如： "Vit.Core.Util.ConfigurationManager.JsonFile"、"Vit.Core.Util.ConfigurationManager.JsonFile,Vit.Core"</param>
-        /// <param name="assemblyFile">如： "Vit.Core.dll"</param>
-        /// <param name="assemblyName">如： "Vit.Core"</param>
-        /// <returns></returns>
-        public static Type GetType(string className, string assemblyFile = null, string assemblyName = null)
-        {
-            Assembly assembly = LoadAssembly(assemblyFile, assemblyName);
-
-            return GetType(className, assembly);
-        }
         #endregion
 
 
@@ -185,13 +183,13 @@ namespace Vit.Core.Util.Reflection
         /// <param name="className">如： "Vit.Core.Util.ConfigurationManager.JsonFile"、"Vit.Core.Util.ConfigurationManager.JsonFile,Vit.Core"</param>
         /// <param name="assemblyFile">如： "Vit.Core.dll"</param>
         /// <param name="assemblyName">如： "Vit.Core"</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object CreateInstance(string className, string assemblyFile = null, string assemblyName = null)
         {
             var type = GetType(className, assemblyFile: assemblyFile, assemblyName: assemblyName);
             if (type != null) return Activator.CreateInstance(type);
             return null;
         }
-
         #endregion
 
     }
