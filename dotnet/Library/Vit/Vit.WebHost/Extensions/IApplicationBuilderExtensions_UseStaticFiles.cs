@@ -8,6 +8,14 @@ namespace Vit.Extensions
 {
     public static class IApplicationBuilderExtensions_UseStaticFiles
     {
+
+        public static IApplicationBuilder UseStaticFilesFromConfig(this IApplicationBuilder data, string configPath = "server.staticFiles")
+        {
+            //配置静态文件
+            return data.UseStaticFiles(Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<Vit.WebHost.StaticFilesConfig>(configPath));
+        }
+
+
         public static IApplicationBuilder UseStaticFiles(this IApplicationBuilder data, StaticFilesConfig config)
         {
             if (config == null || data == null) return data;
