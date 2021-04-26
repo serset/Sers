@@ -1,6 +1,6 @@
 cd /d "dotnet\Doc\Publish"
-call "pack sers_lib.bat"
-call "push sers_lib to SersNugetServer.bat"
+call "nuget publish.bat"
+call "nuget push to NugetServer.Sers.bat"
 cd /d ../../../
  
 echo succeed
