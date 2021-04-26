@@ -122,7 +122,7 @@ namespace Vit.Core.Util.Reflection
         /// <param name="assembly"></param>
         /// <param name="className">如： "Vit.Core.Util.ConfigurationManager.JsonFile"、"Vit.Core.Util.ConfigurationManager.JsonFile,Vit.Core"</param>
         /// <returns></returns>
-        public static Type GetType(string className, Assembly assembly = null)
+        public static Type GetType(string className, Assembly assembly)
         {
             if (assembly == null)
             {
