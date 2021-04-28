@@ -111,25 +111,17 @@ dotnet pack --configuration Release --output ..\..\..\..\Doc\Publish\nuget
 cd /d ../../../ 
 
 
+echo 'pack Sers.Gateway'
+cd /d Sers\Sers.Gateway\Sers.Gateway
+dotnet build --configuration Release
+dotnet pack --configuration Release --output ..\..\..\..\Doc\Publish\nuget
+@if errorlevel 1 (echo . & echo .  & echo 出错，请排查！& pause) 
+cd /d ../../../  
+
+
 
 
 cd ..
-
-
-
-
-::------------------Gateway
-
-echo 'pack Sers.Gateway'
-cd /d Gateway\Sers.Gateway\Sers.Gateway
-dotnet build --configuration Release
-dotnet pack --configuration Release --output ..\..\..\Doc\Publish\nuget
-@if errorlevel 1 (echo . & echo .  & echo 出错，请排查！& pause) 
-cd /d ../../../
-
-
-
-
 
 
 
