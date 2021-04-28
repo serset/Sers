@@ -41,8 +41,12 @@ namespace Vit.WebHost
                 };
                 OnConfigure += (app) =>
                 {
+                    //支持 net core 5.0及以上版本
+                    //https://blog.csdn.net/Jack_Law/article/details/105212759
+
                     app.UseCors(builder => builder
-                        .AllowAnyOrigin()
+                        //.AllowAnyOrigin()
+                        .SetIsOriginAllowed(_ => true)
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials());
