@@ -8,6 +8,7 @@ using Sers.Gateway.RateLimit;
 using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ConfigurationManager;
@@ -23,8 +24,8 @@ namespace Sers.Gateway
 
         public static void Bridge()
         {
-            HostRunArg arg = ConfigurationManager.Instance.GetByPath<HostRunArg>("Sers.Gateway.WebHost"); 
-            if (arg == null || arg.urls==null || arg.urls.Length == 0) return;
+            HostRunArg arg = ConfigurationManager.Instance.GetByPath<HostRunArg>("Sers.Gateway.WebHost");
+            if (arg == null || arg.urls == null || arg.urls.Length == 0) return;
 
 
             #region (x.2)初始化GatewayHelp
@@ -47,12 +48,12 @@ namespace Sers.Gateway
 
             //(x.x.1)指定可以与iis集成（默认无法与iis集成）
             arg.OnCreateWebHostBuilder = () => Microsoft.AspNetCore.WebHost.CreateDefaultBuilder().UseVitConfig();
-            
+
 
             #region (x.x.2)转发web请求到Sers(网关核心功能)
             arg.OnConfigure = (app) =>
-            {               
-                app.Run(gatewayHelp.Bridge);
+            {
+                app.Run(gatewayHelp.BridgeAsync);
             };
             #endregion
 
@@ -89,7 +90,8 @@ namespace Sers.Gateway
 
 
 
-        public async Task Bridge(HttpContext context)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public async Task BridgeAsync(HttpContext context)
         {
             try
             {
@@ -102,7 +104,7 @@ namespace Sers.Gateway
                 }
                 else
                 {
-                    apiReply = ApiClient.CallRemoteApi(BuildApiRequestMessage(context.Request));
+                    apiReply = ApiClient.CallRemoteApi(await BuildApiRequestMessageAsync(context.Request));
                 }
 
                 await WriteApiReplyMessage(context.Response, apiReply);
@@ -114,103 +116,21 @@ namespace Sers.Gateway
         }
 
 
-        #region input output
+        #region BuildApiRequestMessage
 
-
-        #region BuildHttp
-        static string prefixOfCopyIpToHeader = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.WebHost.prefixOfCopyIpToHeader");
-        protected void BuildHttp(RpcContextData rpcData,HttpRequest request)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected async Task<ApiMessage> BuildApiRequestMessageAsync(HttpRequest request)
         {
-            var http = rpcData.http;
-
-            #region (x.1) url
-            http.url = request.GetAbsoluteUri();
-            #endregion
-
-            #region (x.2) headers            
-            var headers = http.Headers(request.Headers.Count);
-            foreach (var kv in request.Headers)
-            {
-                headers[kv.Key] = kv.Value.ToString();
-            }
-
-            //(x.x.2)记录Ip 到 headers
-            if (prefixOfCopyIpToHeader!=null)
-            {
-                headers[prefixOfCopyIpToHeader+"RemoteIpAddress"] = request.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
-                headers[prefixOfCopyIpToHeader + "RemotePort"] = ""+request.HttpContext.Connection.RemotePort;
-
-                headers[prefixOfCopyIpToHeader + "LocalIpAddress"] = request.HttpContext.Connection.LocalIpAddress.MapToIPv4().ToString();
-                headers[prefixOfCopyIpToHeader + "LocalPort"] = ""+request.HttpContext.Connection.LocalPort;
-            }
-            #endregion
-
-            #region (x.3) method
-            http.method = request.Method;
-            #endregion
-
-            #region (x.4) protocol
-            http.protocol = request.Protocol;
-            #endregion        
-   
-             
-        }
-
-        #endregion
-
-        #region BuildBody
-        byte[] BuildBody(HttpRequest request, RpcContextData rpcData)
-        {
-            #region (x.1)二进制数据
-            using (MemoryStream ms = new MemoryStream())
-            {
-                request.Body.CopyTo(ms);
-                if (ms.Length > 0)
-                {
-                    return ms.ToArray();
-                }
-            }
-            #endregion
-
-
-
-            #region (x.2)从url 构建json参数           
-            try
-            {
-                if (request.Query != null && request.Query.Count != 0)
-                {
-                    var arg = request.Query.ToDictionary(m => m.Key, m => m.Value.ToString());                    
-                    return arg.SerializeToBytes();
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
-            }
-            #endregion
-            return null;
-        }
-
-        #endregion
-
-
-        static string Rpc_CallerSource = ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.Rpc.CallerSource")?? "Outside";
-
-        protected ApiMessage BuildApiRequestMessage(HttpRequest request)
-        {      
-   
             var rpcData = new RpcContextData().Init(Rpc_CallerSource);
 
             rpcData.route = request.Path.Value;
 
-
-            #region (x.1)构建http
+            //(x.1)构建http
             BuildHttp(rpcData, request);
-            #endregion
+         
 
             //(x.2) 构建body
-            var body = BuildBody(request, rpcData);
- 
+            var body = await BuildBodyAsync(request, rpcData);
 
 
             #region (x.3) 构建 ApiRequestMessage
@@ -236,11 +156,103 @@ namespace Sers.Gateway
 
             return apiRequestMsg;
         }
+        #endregion
+
+
+ 
+
+
+        #region BuildHttp
+        static string prefixOfCopyIpToHeader = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.WebHost.prefixOfCopyIpToHeader");
+    
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected void BuildHttp(RpcContextData rpcData, HttpRequest request)
+        {
+            var http = rpcData.http;
+
+            #region (x.1) url
+            http.url = request.GetAbsoluteUri();
+            #endregion
+
+            #region (x.2) headers            
+            var headers = http.Headers(request.Headers.Count);
+            foreach (var kv in request.Headers)
+            {
+                headers[kv.Key] = kv.Value.ToString();
+            }
+
+            //(x.x.2)记录Ip 到 headers
+            if (prefixOfCopyIpToHeader != null)
+            {
+                headers[prefixOfCopyIpToHeader + "RemoteIpAddress"] = request.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+                headers[prefixOfCopyIpToHeader + "RemotePort"] = "" + request.HttpContext.Connection.RemotePort;
+
+                headers[prefixOfCopyIpToHeader + "LocalIpAddress"] = request.HttpContext.Connection.LocalIpAddress.MapToIPv4().ToString();
+                headers[prefixOfCopyIpToHeader + "LocalPort"] = "" + request.HttpContext.Connection.LocalPort;
+            }
+            #endregion
+
+            #region (x.3) method
+            http.method = request.Method;
+            #endregion
+
+            #region (x.4) protocol
+            http.protocol = request.Protocol;
+            #endregion
+
+
+        }
+
+        #endregion
+
+        #region BuildBodyAsync
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        async Task<byte[]> BuildBodyAsync(HttpRequest request, RpcContextData rpcData)
+        {
+            #region (x.1)二进制数据
+            using (MemoryStream ms = new MemoryStream())
+            {
+               await request.Body.CopyToAsync(ms);
+                if (ms.Length > 0)
+                {
+                    return ms.ToArray();
+                }
+            }
+            #endregion
+
+
+
+            #region (x.2)从url 构建json参数           
+            try
+            {
+                if (request.Query != null && request.Query.Count != 0)
+                {
+                    var arg = request.Query.ToDictionary(m => m.Key, m => m.Value.ToString());
+                    return arg.SerializeToBytes();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
+            #endregion
+            return null;
+        }
+
+        #endregion
+
+
+        #region WriteApiReplyMessage     
+
+        static string Rpc_CallerSource = ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.Rpc.CallerSource") ?? "Outside";
 
         static readonly string Response_ContentType_Json = ("application/json; charset=" + Vit.Core.Module.Serialization.Serialization_Newtonsoft.Instance.charset);
 
         static readonly string ResponseDefaultContentType = ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.WebHost.ResponseDefaultContentType") ?? Response_ContentType_Json;
-        async Task WriteApiReplyMessage(HttpResponse response,ApiMessage apiReply)
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        async Task WriteApiReplyMessage(HttpResponse response, ApiMessage apiReply)
         {
             RpcContextData replyRpcData = null;
 
@@ -263,7 +275,7 @@ namespace Sers.Gateway
             }
             #endregion
 
-         
+
             #region (x.3) header
             //(x.x.1)原始header
             var headers = response.Headers;
@@ -274,15 +286,15 @@ namespace Sers.Gateway
                     headers[item.Key] = item.Value;
                 }
             }
-            
+
             //(x.x.2)Content-Type → application/json
             if (!headers.ContainsKey("Content-Type"))
             {
-                headers["Content-Type"]= ResponseDefaultContentType;
+                headers["Content-Type"] = ResponseDefaultContentType;
                 //response.ContentType = "application/json";
             }
             #endregion
- 
+
 
             //(x.4) Body
             var seg = apiReply.value_OriData;
@@ -291,12 +303,15 @@ namespace Sers.Gateway
                 await response.Body.WriteAsync(seg.Array, seg.Offset, seg.Count);
             }
 
-           
+
         }
 
         #endregion
 
 
-       
+      
+
+
+
     }
 }
