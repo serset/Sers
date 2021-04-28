@@ -167,7 +167,7 @@ namespace Vit.Extensions
 
 
 
-        #region Content-Type
+        #region ContentType
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static String http_header_ContentType_Get(this RpcContextData data)
         {
@@ -181,6 +181,25 @@ namespace Vit.Extensions
             return data;
         }
         #endregion
+
+        #region ContentType
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static String http_header_Get(this RpcContextData data, string key)
+        {
+            return data.http.GetHeader(key);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static RpcContextData http_header_Set(this RpcContextData data, string key, String value)
+        {
+            data.http.Headers()[key] = value;
+            return data;
+        }
+        #endregion
+        
+
+
+
 
 
 

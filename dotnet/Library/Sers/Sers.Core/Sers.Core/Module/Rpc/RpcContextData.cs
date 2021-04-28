@@ -156,8 +156,7 @@ namespace Sers.Core.Module.Rpc
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public Dictionary<string, string> Headers()
             {
-                if (headers == null) headers = new Dictionary<string, string>();
-                return headers;
+                return headers??(headers = new Dictionary<string, string>());
             }
 
             /// <summary>
@@ -168,8 +167,7 @@ namespace Sers.Core.Module.Rpc
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public Dictionary<string, string> Headers(int capacity)
             {
-                if (headers == null) headers = new Dictionary<string, string>(capacity);
-                return headers;
+                return headers??(headers = new Dictionary<string, string>(capacity));
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
