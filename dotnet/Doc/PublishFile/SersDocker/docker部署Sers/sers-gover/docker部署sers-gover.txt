@@ -1,4 +1,4 @@
-docker部署sers_gover
+docker部署sers-gover
  
 
 ---------------------------------
@@ -16,17 +16,17 @@ docker部署sers_gover
 
 cd /root/docker
 
-cd sers_gover
-docker run --name=sers_gover --restart=always -d \
+cd sers-gover
+docker run --name=sers-gover --restart=always -d \
 -p 4581:4581 \
 -v /etc/localtime:/etc/localtime \
 -v $PWD/appsettings.json:/root/app/Gover/appsettings.json \
 -v $PWD/Logs:/root/app/Gover/Logs \
-serset/sers_gover
+serset/sers-gover
 cd ..
  
 #精简
-docker run --name=sers_gover --restart=always -d -p 4581:4581 serset/sers_gover
+docker run --name=sers-gover --restart=always -d -p 4581:4581 serset/sers-gover
 
 
 #(x.3)应用已经运行
@@ -40,22 +40,22 @@ docker run --name=sers_gover --restart=always -d -p 4581:4581 serset/sers_gover
 #常用命令
 
 #查看容器logs
-docker logs sers_gover
+docker logs sers-gover
 
 #在容器内执行命令行
-docker  exec -it sers_gover bash
+docker  exec -it sers-gover bash
 
 #停止容器
-docker stop sers_gover
+docker stop sers-gover
 
 #打开容器
-docker start sers_gover
+docker start sers-gover
 
 #重启容器
-docker restart sers_gover
+docker restart sers-gover
 
 
 #删除容器
-docker rm sers_gover  -f
+docker rm sers-gover  -f
 
 

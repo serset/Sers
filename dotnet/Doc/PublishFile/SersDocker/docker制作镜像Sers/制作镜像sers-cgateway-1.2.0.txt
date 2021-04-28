@@ -36,13 +36,13 @@ docker buildx ls
 cd /root/image 
 
 #构建镜像并推送到 Docker Hub
-cd sers_cgateway_1.2.0
-docker buildx build . -t serset/sers_cgateway:1.2.0 -t serset/sers_cgateway --platform=linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x --push
+cd sers-cgateway-1.2.0
+docker buildx build . -t serset/sers-cgateway:1.2.0 -t serset/sers-cgateway --platform=linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x --push
 cd .. 
 
  
 #强制删除镜像名称中包含sers的镜像
-# docker rmi --force $(docker images | grep sers_ | awk '{print $3}')
+# docker rmi --force $(docker images | grep sers- | awk '{print $3}')
 
 
 

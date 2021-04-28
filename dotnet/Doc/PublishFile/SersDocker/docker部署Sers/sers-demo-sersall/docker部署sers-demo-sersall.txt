@@ -1,11 +1,10 @@
-docker部署sers_demo
-
-
+docker部署sers-demo-sersall
+ 
 ---------------------------------
 #(x.1)文件
   (x.1)把本文件所在目录中所有文件拷贝到宿主机
   (x.2)修改配置文件 appsettings.json
-
+ 
 
 
 #(x.2)创建容器并运行
@@ -17,44 +16,43 @@ docker部署sers_demo
 
 cd /root/docker
 
-cd sers_demo
-docker run --name=sers_demo --restart=always -d \
+cd sers-demo-sersall
+docker run --name=sers-demo-sersall --restart=always -d --net=host\
 -v /etc/localtime:/etc/localtime \
--v $PWD/appsettings.json:/root/app/Demo/appsettings.json \
--v $PWD/Logs:/root/app/Demo/Logs \
-serset/sers_demo
+-v $PWD/appsettings.json:/root/app/ServiceCenter/appsettings.json \
+-v $PWD/Logs:/root/app/ServiceCenter/Logs \
+-v $PWD/Data:/root/app/ServiceCenter/Data \
+serset/sers-demo-sersall
 cd ..
 
 #精简
-docker run --name=sers_demo --restart=always -d serset/sers_demo
+docker run --name=sers-demo-sersall --restart=always -d --net=host serset/sers-demo-sersall
 
 
- 
 #(x.3)应用已经运行
    可在文件夹Logs 中查看日志
 
 
-
--------------------
+#---------------------------------------
 #常用命令
 
 #查看容器logs
-docker logs sers_demo
+docker logs sers-demo-sersall 
 
 #在容器内执行命令行
-docker  exec -it sers_demo bash
+docker  exec -it sers-demo-sersall  bash
 
 #停止容器
-docker stop sers_demo
+docker stop sers-demo-sersall 
 
 #打开容器
-docker start sers_demo
+docker start sers-demo-sersall 
 
 #重启容器
-docker restart sers_demo
+docker restart sers-demo-sersall 
 
 
 #删除容器
-docker rm sers_demo -f
+docker rm sers-demo-sersall -f 
 
 
