@@ -1,6 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.FileProviders;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using Vit.Core.Util.Common;
 using Vit.WebHost;
 
@@ -176,13 +182,51 @@ namespace Vit.Extensions
             {
                 var options = new DirectoryBrowserOptions {                   
                     RequestPath = staticfileOptions.RequestPath,
-                    FileProvider = fileProvider
+                    FileProvider = fileProvider,
+                    Formatter = new SortedHtmlDirectoryFormatter()                
                 };
                 data.UseDirectoryBrowser(options);
             }
 
-
             return data;
         }
+
+
+
+        #region SortedHtmlDirectoryFormatter
+
+        /// <summary>
+        /// 自定义DirectoryFormatter
+        ///  https://www.cnblogs.com/artech/p/static-file-for-asp-net-core-04.html
+        ///  
+        /// </summary>
+        public class SortedHtmlDirectoryFormatter : HtmlDirectoryFormatter
+        {
+            /// <summary>
+            /// 默认按文件名称排序。  contents => contents.OrderBy(f => f.Name)
+            /// </summary>
+            public Func<IEnumerable<IFileInfo>, IEnumerable<IFileInfo>> SetOrder = contents => contents.OrderBy(f => f.Name);
+            public SortedHtmlDirectoryFormatter(System.Text.Encodings.Web.HtmlEncoder encoder = null) : base(encoder ?? System.Text.Encodings.Web.HtmlEncoder.Default)
+            {
+            }
+
+            public override async Task GenerateContentAsync(Microsoft.AspNetCore.Http.HttpContext context, IEnumerable<IFileInfo> contents)
+            {
+                contents = SetOrder(contents);
+
+                await base.GenerateContentAsync(context, contents);
+
+                //context.Response.ContentType = "text/html";
+                //await context.Response.WriteAsync("<html><head><title>Index</title><body><ul>");
+                //foreach (var file in contents)
+                //{
+                //    string href = $"{context.Request.Path.Value.TrimEnd('/')}/{file.Name}";
+                //    await context.Response.WriteAsync($"<li><a href='{href}'>{file.Name}</a></li>");
+                //}
+                //await context.Response.WriteAsync("</ul></body></html>");
+            }
+        }
+        #endregion
+
     }
 }
