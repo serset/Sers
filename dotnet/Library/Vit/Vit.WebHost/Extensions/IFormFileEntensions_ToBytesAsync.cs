@@ -4,9 +4,11 @@ using System.Threading.Tasks;
 
 namespace Vit.Extensions
 {
-    public static class IFormFileEntensions_ReadBytes
+    public static partial class IFormFileEntensions_ToBytesAsync
     {
-        public static async Task<byte[]> ReadBytesAsync(this IFormFile data)
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static async Task<byte[]> ToBytesAsync(this IFormFile data)
         {
             using (var stream = new MemoryStream())
             {

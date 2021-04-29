@@ -2,7 +2,7 @@
 
 namespace Vit.Extensions
 {
-    public static class IWebHostBuilderExtensions_UseUrlsFromConfig
+    public static partial class IWebHostBuilderExtensions_UseUrlsFromConfig
     {
         /// <summary>
         /// Specify the urls the web host will listen on.

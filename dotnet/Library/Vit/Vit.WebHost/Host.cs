@@ -35,22 +35,8 @@ namespace Vit.WebHost
             #region (x.1)允许跨域访问
             if (arg.allowAnyOrigin)
             {
-                OnConfigureServices += (services) =>
-                {
-                    services.AddCors();
-                };
-                OnConfigure += (app) =>
-                {
-                    //支持 net core 5.0及以上版本
-                    //https://blog.csdn.net/Jack_Law/article/details/105212759
-
-                    app.UseCors(builder => builder
-                        //.AllowAnyOrigin()
-                        .SetIsOriginAllowed(_ => true)
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials());
-                };
+                OnConfigureServices += IServiceCollectionExtensions_AllowAnyOrigin.AllowAnyOrigin_ConfigureServices;
+                OnConfigure += IServiceCollectionExtensions_AllowAnyOrigin.AllowAnyOrigin_Configure;               
             }
             #endregion
 

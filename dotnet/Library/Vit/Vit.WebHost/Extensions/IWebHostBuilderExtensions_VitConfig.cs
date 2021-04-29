@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Vit.Extensions
 {
-    public static class IWebHostBuilderExtensions_VitConfig
+    public static partial class IWebHostBuilderExtensions_VitConfig
     {
         /// <summary>
         /// 

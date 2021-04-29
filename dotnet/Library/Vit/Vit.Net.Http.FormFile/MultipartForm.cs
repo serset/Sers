@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Net.Http.Headers;
 using System.IO;
 using System.Threading.Tasks;
+using Vit.Extensions;
 
 namespace Vit.Net.Http.FormFile
 {
@@ -77,17 +78,13 @@ namespace Vit.Net.Http.FormFile
             {        
                 ContentDispositionHeaderValue contentDisposition = section.GetContentDispositionHeader();
                 if (contentDisposition == null) continue;
-             
+
                 if (contentDisposition.IsFileDisposition())
                 {
                     var file = section.AsFileSection();
-                    byte[] buff;
-                    using (var stream = new MemoryStream())
-                    {
-                        await section.Body.CopyToAsync(stream);
-                        //await file.FileStream.CopyToAsync(stream);
-                        buff = stream.ToArray();
-                    }
+                    byte[] buff = await section.Body.ToBytesAsync();
+                    //byte[] buff = await file.FileStream.ToBytesAsync();                    
+
                     formData.files.Add(new FormFile { formKey = file.Name, fileName = contentDisposition.FileName.ToString(), content = buff });
                 }
                 else if (contentDisposition.IsFormDisposition())

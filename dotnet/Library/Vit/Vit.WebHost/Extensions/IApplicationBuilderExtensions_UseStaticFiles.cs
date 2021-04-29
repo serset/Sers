@@ -12,7 +12,7 @@ using Vit.WebHost;
 
 namespace Vit.Extensions
 {
-    public static class IApplicationBuilderExtensions_UseStaticFiles
+    public static partial class IApplicationBuilderExtensions_UseStaticFiles
     {
         /// <summary>
         /// 启用静态文件服务

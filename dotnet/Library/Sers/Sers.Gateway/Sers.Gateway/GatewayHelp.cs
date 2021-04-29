@@ -210,16 +210,12 @@ namespace Sers.Gateway
         async Task<byte[]> BuildBodyAsync(HttpRequest request, RpcContextData rpcData)
         {
             #region (x.1)二进制数据
-            using (MemoryStream ms = new MemoryStream())
+            var bytes = await request.Body.ToBytesAsync();
+            if (bytes != null && bytes.Length > 0)
             {
-               await request.Body.CopyToAsync(ms);
-                if (ms.Length > 0)
-                {
-                    return ms.ToArray();
-                }
+                return bytes;
             }
             #endregion
-
 
 
             #region (x.2)从url 构建json参数           
