@@ -6,43 +6,22 @@ no sleep
 #--------------------------------
 
 
-cd /root/app
-dotnet DeliveryServer/DeliveryServer.dll
+#启动服务端
+dotnet /root/app/DeliveryServer/DeliveryServer.dll
+
+
+#启动客户端
+dotnet /root/app/DeliveryClient/DeliveryClient.dll 192.168.10.10 4501 500 1 
+
+
+#后台启动客户端
+dotnet /root/app/DeliveryClient/DeliveryClient.dll 192.168.10.10 4501 500 1 > /root/app/console.log 2>&1 &
 
 
 
 
-cd /root/app
-dotnet DeliveryClient/DeliveryClient.dll 127.0.0.1 4501 1000 1
-
-
-cd /root/app
-dotnet DeliveryClient/DeliveryClient.dll 127.0.0.1 4501 1000 1 > console.log 2>&1 &
-
-
-#杀死mc用户端 
+#杀死所有客户端
 kill -s 9 `pgrep -f 'DeliveryClient.dll'`
-
-#--------------------------------
- 
-dotnet DeliveryClient.dll 192.168.10.11 4501 200 1
-
-qps为 7.3万
-cpu  92%
-
-
-
-
-
-
-cpu  87%
-
-
-
-
-
-
-
 
 
 
@@ -61,3 +40,27 @@ dotnet DeliveryClient.dll 192.168.10.11 4501 300 512 > console.log 2>&1 &
 qps为 1百万
 
 实时网速为   读:500MB/s  写:500MB/s
+
+
+
+
+
+
+#------------------------------------
+windows SpinWait
+thread = 40000		msgLen = 1       qps = 117万
+
+
+#------------------------------------
+windows Timer
+thread = 40000		msgLen = 1       qps = 116万
+
+
+
+
+
+
+
+
+
+

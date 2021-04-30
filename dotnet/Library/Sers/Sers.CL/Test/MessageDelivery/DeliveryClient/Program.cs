@@ -86,13 +86,15 @@ namespace DeliveryTest
                 var delivery = new Sers.CL.Socket.Iocp.Mode.Timer.DeliveryClient();
                 //delivery.receiveBufferSize = 81920;
                 client = delivery;
+
+                delivery.host = host;
+                delivery.port = port;
             }
- 
- 
+
+
             //client = new Sers.CL.Socket.ThreadWait.DeliveryClient();
 
-            //client.host = host;
-            //client.port = port;
+       
 
             //client = new Sers.CL.WebSocket.DeliveryClient();
             //client = new Sers.CL.ClrZmq.ThreadWait.DeliveryClient();

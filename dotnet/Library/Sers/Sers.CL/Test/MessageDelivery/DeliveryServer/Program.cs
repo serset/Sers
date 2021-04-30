@@ -50,11 +50,14 @@ namespace DeliveryTest
                 //var delivery = new Sers.CL.Socket.Iocp.Mode.SpinWait.DeliveryServer();
                 var delivery = new Sers.CL.Socket.Iocp.Mode.Timer.DeliveryServer();
                 //delivery.receiveBufferSize = 81920;
+
+                delivery.port = port;
+
                 server = delivery;
             }
           
             //server = new Sers.CL.Socket.ThreadWait.DeliveryServer();
-            //server.port = port;
+       
 
             //server = new Sers.CL.WebSocket.DeliveryServer();
             //server = new Sers.CL.ClrZmq.ThreadWait.DeliveryServer();
