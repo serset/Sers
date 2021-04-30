@@ -17,8 +17,9 @@ namespace Sers.Gover.Apm.Zipkin
 {
 
     public class AppEvent : IAppEvent
-    {        
+    {
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         Action<Object, Vit.Core.Util.Pipelines.ByteData> ApiScopeEvent(RpcContextData rpcData, ApiMessage apiRequestMessage)
         {
             //记录请求数据
@@ -262,20 +263,28 @@ namespace Sers.Gover.Apm.Zipkin
             Logger.Info("[zipkin]启动成功");
         }
 
-       
 
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void OnStart()
         { 
         }
-        
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void AfterStart()
         {         
         }
+
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void BeforeStop()
         {
             TraceManager.Stop();
            
         }
+
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void AfterStop()
         {
             
@@ -299,16 +308,19 @@ namespace Sers.Gover.Apm.Zipkin
     #region MyLogger       
     class MyLogger : ILogger
     {
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void LogError(string message)
         {
             Logger.Error("[zipkin]" + message);
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void LogInformation(string message)
         {
             Logger.Info("[zipkin]" + message);
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void LogWarning(string message)
         {
             Logger.log.Log(Level.WARN, "[zipkin]" + message);

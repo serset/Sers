@@ -63,6 +63,7 @@ namespace Vit.Core.Util.Threading
 
 
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         void InvokeTaskInQueue()
         {
             while (true)

@@ -25,6 +25,7 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer
         string Api_verifyAt;
         string Api_httpMethod;
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         ApiReturn<Object> VerifyAt(string at)
         {
             //var arg = "{\"at\":\"" + at + "\"}";
@@ -32,13 +33,14 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer
         }
 
 
-      
+
 
         /// <summary>
         /// Bearer。 转换at为对应的用户
         /// </summary>
         /// <param name="rpcData"></param>
         /// <param name="requestMessage"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void BeforeCallApi(RpcContextData rpcData, ApiMessage requestMessage)
         {
             try

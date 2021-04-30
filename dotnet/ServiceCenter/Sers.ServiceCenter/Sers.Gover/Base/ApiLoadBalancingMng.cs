@@ -38,6 +38,7 @@ namespace Sers.Gover.Base
             return routeMap.Routing(rpcData.route, out routeType)?.GetCurApiNodeBalancing();
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected virtual string GetApiRoute(ApiNode apiNode)
         {
             return apiNode.apiDesc.route;

@@ -91,6 +91,7 @@ namespace Sers.Core.Module.Api.RouteMap
                 return BuildPath(path.Split('/'), 1);
 
             }
+
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             Tree<T> BuildPath(string[] path, int index)
             {
@@ -107,6 +108,7 @@ namespace Sers.Core.Module.Api.RouteMap
                 }
                 return tree.BuildPath(path, index + 1);
             }
+
             /// <summary>
             /// path demo：  "/station1/fold2/api1/action2"
             /// </summary>
@@ -140,6 +142,7 @@ namespace Sers.Core.Module.Api.RouteMap
             {
                 return GetChildren(path.Split('/'), 1);
             }
+
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             Tree<T> GetChildren(string[] path, int index)
             {

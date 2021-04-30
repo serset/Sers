@@ -21,6 +21,7 @@ namespace Vit.Core.Util.Net
         /// <typeparam name="T"></typeparam>
         /// <param name="request"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public async Task<HttpResponse<T>> SendAsync<T>(HttpRequest request)
         {
             #region (x.1)构建请求            
@@ -112,6 +113,7 @@ namespace Vit.Core.Util.Net
         /// <param name="url">不可为null,demo："http://www.a.com"、"http://www.a.com?a=1&amp;b=2"</param>
         /// <param name="parameters">可为string、IDictionary、JObject</param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string UrlAddParams(string url, Object parameters)
         {
             string urlParams = FormatUrlParams(parameters);
@@ -136,6 +138,7 @@ namespace Vit.Core.Util.Net
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         static String UrlEncode(String param)
         {
             if (String.IsNullOrEmpty(param))
@@ -161,6 +164,7 @@ namespace Vit.Core.Util.Net
         /// </summary>
         /// <param name="parameters">可为string、IDictionary、JObject,例如："a=3&amp;b=5"</param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         static String FormatUrlParams(Object parameters)
         {
 
@@ -223,6 +227,7 @@ namespace Vit.Core.Util.Net
         /// <typeparam name="ReturnType"></typeparam>
         /// <param name="request"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public HttpResponse<ReturnType> Send<ReturnType>(HttpRequest request)
         {
             return SendAsync<ReturnType>(request).Result;

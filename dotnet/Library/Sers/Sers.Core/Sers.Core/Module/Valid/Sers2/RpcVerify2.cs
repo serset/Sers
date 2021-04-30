@@ -8,6 +8,7 @@ namespace Sers.Core.Module.Valid.Sers2
 {
     public class RpcVerify2
     {
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static bool Verify(JObject rpcData, JObject ssExp, out SsError ssError)
         {
             ssError = null;

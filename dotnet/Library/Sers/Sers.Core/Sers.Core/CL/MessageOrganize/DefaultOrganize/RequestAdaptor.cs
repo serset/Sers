@@ -471,6 +471,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         {
             public readonly List<HeartBeatPackage> list = new List<HeartBeatPackage>();
 
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public bool IsDisconnected(int heartBeatRetryCount)
             {
                 while (list.Count > 0 && list[0].timeouted == false)
@@ -532,6 +533,8 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         }
         Dictionary<IOrganizeConnection , HeartBeatInfo> HeartBeat_info_Before = new Dictionary<IOrganizeConnection , HeartBeatInfo>();
         Dictionary<IOrganizeConnection , HeartBeatInfo> HeartBeat_info_cur = new Dictionary<IOrganizeConnection , HeartBeatInfo>();
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         void HeartBeat_CheckIfDisconnectedAndSendHeartBeat(IOrganizeConnection conn)
         {
             if (HeartBeat_info_Before.TryGetValue(conn, out var info))
@@ -554,6 +557,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         HeartBeatPackage HeartBeat_Send(IOrganizeConnection conn)
         {
             var p = new HeartBeatPackage() { timeoutTime = DateTime.Now.AddMilliseconds(heartBeatTimeoutMs), conn = conn };
@@ -561,6 +565,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             return p;
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         void HeartBeat_callback(object sender,Vit.Core.Util.Pipelines.ByteData replyData)
         {
             HeartBeatPackage package = sender as HeartBeatPackage;

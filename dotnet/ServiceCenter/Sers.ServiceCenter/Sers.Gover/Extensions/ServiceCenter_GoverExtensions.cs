@@ -33,6 +33,8 @@ namespace Vit.Extensions
         #region QpsTimer
 
         static int SaveToFile_tick = 0;
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         static void QpsTimer_Calc()
         {
             //(x.1)计算ApiStation qps
@@ -77,7 +79,11 @@ namespace Vit.Extensions
             }
 
         }
+
         static SersTimer timer = null;
+
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         static void QpsTimer_Start()
         {
             if (null != timer) return;
@@ -93,6 +99,8 @@ namespace Vit.Extensions
             timer.Start();           
         }
 
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         static void QpsTimer_Stop()
         {
             try

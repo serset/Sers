@@ -6,6 +6,7 @@ namespace Vit.Extensions
 {
     public static class HttpRequestExtensions
     {
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string GetAbsoluteUri(this HttpRequest request)
         {
             return new StringBuilder()

@@ -115,6 +115,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
         /// <para>（若 route为"/Station1/fold1/a/*"，url为"http://127.0.0.1/Station1/fold1/a/1/2.html?c=9",则 relativePath为"1/2.html"）</para>
         /// </summary>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public string GetRelativePath()
         {
             return RpcContext.RpcData.http_url_RelativePath_Get();
@@ -124,6 +125,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
         /// 获取当前url映射到文件系统中的绝对路径。demo:"/root/netapp/FileStorage/wwwroot/fold2/a.html"
         /// </summary>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public string GetAbsFilePath()
         {
             var relativePath = GetRelativePath();
@@ -139,14 +141,14 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
 
         #region TransmitFile
 
-      
-
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public byte[] TransmitFile()
         {
             return TransmitFile(GetAbsFilePath());
         }
 
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public byte[] TransmitFile(string absFilePath)
         {
             var fileInfo = new FileInfo(absFilePath);
@@ -187,10 +189,11 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
         #endregion
 
 
-  
 
 
 
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public byte[] DownloadFile(string absFilePath, string fileName=null)
         {
             if (string.IsNullOrEmpty(absFilePath))
@@ -207,6 +210,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
         #region static DownloadFile
 
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static byte[] DownloadFile(string absFilePath, string contentType, string fileName = null)
         {
             var fileInfo = new FileInfo(absFilePath);

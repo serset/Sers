@@ -21,7 +21,8 @@ namespace Sers.Serslot.ExceptionFilter
         /// 发生异常时进入
         /// </summary>
         /// <param name="context"></param>
-        public void OnException(ExceptionContext context)
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void OnException(ExceptionContext context)
         {
             if (context.ExceptionHandled == false)
             {
@@ -47,6 +48,7 @@ namespace Sers.Serslot.ExceptionFilter
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public Task OnExceptionAsync(ExceptionContext context)
         {
             OnException(context);

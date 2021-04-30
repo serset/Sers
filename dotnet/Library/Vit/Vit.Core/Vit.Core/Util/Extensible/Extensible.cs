@@ -23,6 +23,7 @@ namespace Vit.Core.Util.Extensible
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void SetData<T>(string key,T value)
         {
             (extensionData ?? (extensionData = new Dictionary<string, object>()))[key] = value;
@@ -34,6 +35,7 @@ namespace Vit.Core.Util.Extensible
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public T GetData<T>(string key)
         {
             if (extensionData !=null && extensionData.TryGetValue(key,out var value))
@@ -54,6 +56,7 @@ namespace Vit.Core.Util.Extensible
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public T GetDataByConvert<T>(string key)
         {
             if (extensionData != null && extensionData.TryGetValue(key, out var value))
@@ -83,6 +86,7 @@ namespace Vit.Core.Util.Extensible
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public T GetDataBySerialize<T>(string key)
         {
             if (extensionData != null && extensionData.TryGetValue(key, out var value))

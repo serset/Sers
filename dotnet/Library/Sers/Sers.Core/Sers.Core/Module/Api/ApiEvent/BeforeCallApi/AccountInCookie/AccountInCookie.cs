@@ -57,6 +57,7 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.AccountInCookie
         /// </summary>
         /// <param name="rpcData"></param>
         /// <param name="requestMessage"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void BeforeCallApi(RpcContextData rpcData, ApiMessage requestMessage)
         {
             try

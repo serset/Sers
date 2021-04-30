@@ -42,6 +42,7 @@ namespace Vit.Core.Util.Net
         /// <typeparam name="Type"></typeparam>
         /// <param name="source"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static Type CloneStruct<Type>(object source)
         {
             string v = JsonConvert.SerializeObject(source);
@@ -56,6 +57,7 @@ namespace Vit.Core.Util.Net
         /// 设置请求类型为Https
         /// </summary>
         /// <param name="request"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void SetToHttps(HttpWebRequest request)
         {
 
@@ -109,6 +111,7 @@ namespace Vit.Core.Util.Net
         }
         #endregion
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {
             return true; //总是接受  
@@ -122,6 +125,7 @@ namespace Vit.Core.Util.Net
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static String UrlEncode(String param)
         {
             if (String.IsNullOrEmpty(param))
@@ -145,6 +149,7 @@ namespace Vit.Core.Util.Net
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static String UrlDecode(String param)
         {
             if (String.IsNullOrEmpty(param))
@@ -168,6 +173,7 @@ namespace Vit.Core.Util.Net
         /// 获取时间戳 10位
         /// </summary> 
         /// <returns></returns> 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string GetTimeStampTen()
         {
             return ((DateTime.Now.ToUniversalTime().Ticks - 621355968000000000) / 10000000).ToString();
@@ -183,6 +189,7 @@ namespace Vit.Core.Util.Net
         /// </summary>
         /// <param name="parameters">可为string、IDictionary、JObject,例如："a=3&amp;b=5"</param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static String FormatUrlParams(Object parameters)
         {
 
@@ -230,6 +237,7 @@ namespace Vit.Core.Util.Net
         /// <param name="url">不可为null,demo："http://www.a.com"、"http://www.a.com?a=1&amp;b=2"</param>
         /// <param name="parameters">可为string、IDictionary、JObject</param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string UrlAddParams(string url, Object parameters)
         {
             string urlParams = FormatUrlParams(parameters);
@@ -261,6 +269,7 @@ namespace Vit.Core.Util.Net
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected virtual WebRequest GetRequest(String url)
         {
             WebRequest request = WebRequest.Create(url);
@@ -307,6 +316,7 @@ namespace Vit.Core.Util.Net
         /// </summary>
         /// <param name="response"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected Encoding GetResponseEncoding(HttpWebResponse response)
         {
             String strEncoding = response.CharacterSet;
@@ -325,6 +335,7 @@ namespace Vit.Core.Util.Net
 
         #region SendRequestBody
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         static void SendRequestBody(WebRequest request,string _contentType, byte[] _dataToWrite)
         {
             //(x.1)
@@ -352,6 +363,7 @@ namespace Vit.Core.Util.Net
         /// </summary>
         /// <param name="requestParam"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected virtual WebRequest GetRequest(RequestParam requestParam)
         {
             var url = UrlAddParams(requestParam.url, requestParam.urlParams);
@@ -381,6 +393,7 @@ namespace Vit.Core.Util.Net
         #endregion
 
         #region GetResponse
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected virtual HttpWebResponse GetResponse(RequestParam requestParam)
         {
             return GetRequest(requestParam).GetResponse() as HttpWebResponse;
@@ -396,6 +409,7 @@ namespace Vit.Core.Util.Net
         /// <param name="response"></param>
         /// <param name="requestParam"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public virtual String Response_GetString(HttpWebResponse response, RequestParam requestParam)
         {
             using (System.IO.Stream respStream = response.GetResponseStream())
@@ -415,6 +429,7 @@ namespace Vit.Core.Util.Net
         /// <param name="data"></param>
         /// <param name="responseContentType">可为"json",若不指定有效值则默认为'string'</param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public virtual Object FormatResponseData(HttpWebResponse response, String data,string responseContentType)
         {            
             if (0 <= responseContentType.IndexOf("json"))
@@ -433,6 +448,7 @@ namespace Vit.Core.Util.Net
         /// </summary>
         /// <param name="requestParam"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public virtual object Ajax(RequestParam requestParam)
         {
             var response = GetResponse(requestParam);
@@ -452,6 +468,7 @@ namespace Vit.Core.Util.Net
         /// </summary>
         /// <param name="requestParam"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public virtual string Ajax_String(RequestParam requestParam)
         {
             return Response_GetString(GetResponse(requestParam), requestParam);
@@ -461,6 +478,7 @@ namespace Vit.Core.Util.Net
         /// </summary>
         /// <param name="requestParam"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public virtual T Ajax<T>(RequestParam requestParam)
         {          
             return JsonConvert.DeserializeObject<T>(Ajax_String(requestParam)); 
@@ -468,6 +486,7 @@ namespace Vit.Core.Util.Net
         #endregion
 
         #region Ajax_GetByte
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public virtual byte[] Ajax_GetByte(RequestParam requestParam)
         {
             return Response_GetByte(GetResponse(requestParam));
@@ -480,6 +499,7 @@ namespace Vit.Core.Util.Net
         /// 从response 下载byte数据
         /// </summary>
         /// <param name="response"></param> 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected virtual byte[] Response_GetByte(HttpWebResponse response)
         {
             using (System.IO.Stream stream = response.GetResponseStream())
@@ -504,9 +524,10 @@ namespace Vit.Core.Util.Net
             }
         }
         #endregion
-        #endregion   
+        #endregion
 
         #region Ajax_DownloadFile
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public virtual void Ajax_DownloadFile(RequestParam requestParam, String filePath)
         {
             Response_DownloadFile(GetResponse(requestParam), filePath);
@@ -520,6 +541,7 @@ namespace Vit.Core.Util.Net
         /// </summary>
         /// <param name="response"></param>
         /// <param name="filePath"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected virtual void Response_DownloadFile(HttpWebResponse response, String filePath)
         {
             using (System.IO.Stream si = response.GetResponseStream())
@@ -551,7 +573,7 @@ namespace Vit.Core.Util.Net
         /// <param name="url"></param>
         /// <param name="urlParams">放到url中的参数。可为string、IDictionary、JObject</param>
         /// <returns></returns>
-
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public virtual object Ajax_Get(string url, Object urlParams)
         {
             return Ajax(new RequestParam() { url = url, urlParams = urlParams });
@@ -568,6 +590,7 @@ namespace Vit.Core.Util.Net
         /// <param name="getParameters">放到url中的参数。可为string、IDictionary、JObject </param>
         /// <param name="postParameters">post请求参数（消息主体）。可为string、IDictionary、JObject/JArray </param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public virtual object Ajax_Post(string url, Object getParameters, Object postParameters)
         {
             return Ajax(new RequestParam() { url = url, Method = "POST", urlParams = getParameters, body = postParameters });
@@ -578,6 +601,7 @@ namespace Vit.Core.Util.Net
         /// <param name="url"></param>
         /// <param name="postParameters">post请求参数（消息主体）。可为string、IDictionary、JObject/JArray </param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public virtual object Ajax_Post(string url, Object postParameters)
         {
             return Ajax(new RequestParam() { url = url, Method = "POST", body = postParameters });
@@ -821,6 +845,7 @@ BASH<method> <request-URL> <version>
         /// 获取请求Body
         /// </summary>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void GetRequestBodyData(out string contentType, out  byte[] dataToWrite)
         {
             contentType = null;

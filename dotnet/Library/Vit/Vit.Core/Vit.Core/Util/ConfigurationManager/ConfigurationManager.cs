@@ -20,6 +20,8 @@ namespace Vit.Core.Util.ConfigurationManager
 
 
         const string fileName = "appsettings.json";
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected static string GetDefaultPath()
         {
             return fileName; 

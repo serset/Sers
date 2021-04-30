@@ -49,6 +49,7 @@ namespace Sers.Core.Util.StreamSecurity
         }
 
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Encryption(ArraySegment<byte> data)
         {
             foreach (var security in securitys)
@@ -56,7 +57,8 @@ namespace Sers.Core.Util.StreamSecurity
                 security.Encryption(data);
             }
         }
- 
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Decryption(ArraySegment<byte> data)
         {
             for(int t= securitys.Length-1;t>=0;t--)

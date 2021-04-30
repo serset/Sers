@@ -15,6 +15,7 @@ namespace Vit.Extensions
         /// <param name="error"></param>
         /// <param name="defaultMessage"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static Exception ToException(this SsError error,string defaultMessage=null)
         {
             var ex = new Exception(error?.errorMessage ?? defaultMessage ?? "Error");

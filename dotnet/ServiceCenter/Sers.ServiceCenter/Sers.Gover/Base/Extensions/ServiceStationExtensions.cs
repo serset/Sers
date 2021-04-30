@@ -16,6 +16,7 @@ namespace Vit.Extensions
             return data?.GetDataByConvert<EServiceStationStatus?>("Status");
         }
 
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Status_Set(this ServiceStation data, EServiceStationStatus value)
         {

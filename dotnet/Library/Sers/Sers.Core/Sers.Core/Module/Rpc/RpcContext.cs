@@ -27,6 +27,7 @@ namespace Sers.Core.Module.Rpc
 
         #region 构造函数 和 Dispose
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public RpcContext()
         {
             //lock (CurrentRpcContext_AsyncCache)
@@ -35,6 +36,7 @@ namespace Sers.Core.Module.Rpc
             //}
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public virtual void Dispose()
         {
             //lock (CurrentRpcContext_AsyncCache)

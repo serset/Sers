@@ -57,6 +57,7 @@ namespace Sers.Gover.Base
 
         #region ApiStation
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public List<ApiStationData> ApiStation_GetAll()
         {
             return apiStations.Values.OrderBy(m=>m.stationName).ToList();

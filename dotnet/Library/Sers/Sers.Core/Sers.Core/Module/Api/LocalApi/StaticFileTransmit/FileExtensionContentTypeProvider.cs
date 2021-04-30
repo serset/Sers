@@ -439,6 +439,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
         /// <param name="subpath">A file path</param>
         /// <param name="contentType">The resulting MIME type</param>
         /// <returns>True if MIME type could be determined</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool TryGetContentType(string subpath, out string contentType)
         {
             string extension = GetExtension(subpath);
@@ -450,6 +451,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             return Mappings.TryGetValue(extension, out contentType);
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static string GetExtension(string path)
         {
             if (string.IsNullOrWhiteSpace(path))

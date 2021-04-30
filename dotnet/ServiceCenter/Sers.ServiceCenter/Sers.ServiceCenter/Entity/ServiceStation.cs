@@ -76,6 +76,8 @@ namespace Sers.ServiceCenter.Entity
 
         private DateTime? qps_TimeLast = null;
         private int qps_SumCountLast = 0;
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void QpsCalc()
         {
             var curSumCount = counter.sumCount;
@@ -91,6 +93,7 @@ namespace Sers.ServiceCenter.Entity
 
 
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public string GetApiStationNames()
         {
             var stationNames = apiNodes.Select(m => m.apiDesc.ApiStationNameGet());

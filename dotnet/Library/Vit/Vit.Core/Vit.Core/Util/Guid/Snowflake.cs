@@ -100,12 +100,13 @@ namespace Vit.Core.Util.Guid
         #endregion
 
 
-       
+
 
         /// <summary>
         /// 生成当前时间戳
         /// </summary>
         /// <returns>毫秒</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static long GetTimestamp()
         {
             return (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
@@ -116,6 +117,7 @@ namespace Vit.Core.Util.Guid
         /// </summary>
         /// <param name="lastTimestamp"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static long GetNextTimestamp(long lastTimestamp)
         {
             long timestamp = GetTimestamp();
@@ -135,6 +137,7 @@ namespace Vit.Core.Util.Guid
         /// 获取长整形的ID
         /// </summary>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static long GetId()
         {
             lock (syncRoot)

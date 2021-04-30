@@ -70,6 +70,7 @@ namespace Vit.Core.Util.ComponentModel.SsError
 
 
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public virtual SsError LoadFromException(Exception ex)
         {
             errorCode = ex.ErrorCode_Get();
@@ -79,6 +80,7 @@ namespace Vit.Core.Util.ComponentModel.SsError
             return this;
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public virtual Exception SetErrorToException(Exception ex)
         {
             if (null != errorCode) ex.ErrorCode_Set(errorCode);
@@ -90,6 +92,7 @@ namespace Vit.Core.Util.ComponentModel.SsError
 
 
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static implicit operator SsError(Exception ex)
         {
            return new SsError().LoadFromException(ex);

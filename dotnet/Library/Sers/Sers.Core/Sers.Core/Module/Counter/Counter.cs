@@ -18,6 +18,7 @@ namespace Sers.Core.Module.Counter
         /// 计数时 向上级报告
         /// </summary>
         /// <param name="parentCounter"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void ReportTo(Counter parentCounter)
         {
             this.parentCounter = parentCounter;

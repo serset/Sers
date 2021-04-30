@@ -19,6 +19,7 @@ namespace Vit.Core.Util.Common
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string GetAbsPath(params string[] path)
         {
             if (path == null || path.Length == 0) return AppContext.BaseDirectory;
@@ -82,6 +83,7 @@ Debug.WriteLine(guid.ToString("X"));//{0x1f3c6041,0xc68f,0x4ab3,{0xae,0x19,0xf6,
         /// </summary>
         /// <param name="source">源字符串</param>
         /// <returns>加密后的字符串</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string MD5(string source)
         {
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();

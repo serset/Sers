@@ -12,7 +12,8 @@ namespace Sers.Core.Module.Env
 
         public const string Pubsub_UsageInfoReportTitle = "Sers_Sys_UsageInfo";
 
- 
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Publish()
         { 
             try

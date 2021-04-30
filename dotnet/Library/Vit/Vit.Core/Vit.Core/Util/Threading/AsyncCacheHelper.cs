@@ -14,11 +14,14 @@ namespace Vit.Core.Util.Threading
                 return _AsyncCache.Value ?? (_AsyncCache.Value = new ConcurrentDictionary<string, object>());                
             }             
         }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Set(string key,Object value)
         {
             dic[key] = value;
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static Object Get(string key)
         {
             if (dic.TryGetValue(key, out var value))
@@ -28,6 +31,7 @@ namespace Vit.Core.Util.Threading
             return null;
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static T Get<T>(string key)
         {
             try

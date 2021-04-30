@@ -15,8 +15,10 @@ namespace Sers.Gover.Base.Model
     {
         [JsonProperty]
         public string stationName;
+
         [JsonProperty]
         public int apiServiceCount => apiServices.Count;
+
         [JsonProperty]
         public int apiNodeCount => apiServices.Values.Sum((apiService=>apiService.apiNodeCount));
 
@@ -47,7 +49,7 @@ namespace Sers.Gover.Base.Model
         /// <summary>
         /// route ApiService
         /// </summary>
-        [JsonProperty]
+        [JsonIgnore]
         public ConcurrentDictionary<string, ApiService> apiServices = new ConcurrentDictionary<string, ApiService>();
 
 
@@ -96,6 +98,7 @@ namespace Sers.Gover.Base.Model
             if (apiServices.TryGetValue(serviceKey, out var apiService)) return apiService;
             return null; 
         }
+
         public ApiService ApiService_GetOrAdd(SsApiDesc apiDesc)
         {
             var apiService = apiServices.GetOrAdd(apiDesc.ServiceKeyGet(), (n) => { return InitApiService(new ApiService { apiDesc = apiDesc }); });

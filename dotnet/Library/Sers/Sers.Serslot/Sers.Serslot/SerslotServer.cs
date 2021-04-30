@@ -38,6 +38,7 @@ namespace Sers.Serslot
 
         Action<FeatureCollection> OnProcessRequest;
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public IHttpResponseFeature ProcessRequest(HttpRequestFeature requestFeature)
         {
             if (requestFeature.Headers == null)
@@ -119,6 +120,7 @@ namespace Sers.Serslot
 
 
             #region OnStarting
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public virtual void OnStarting(Func<object, Task> callback, object state)
             {
                 lock (this)
@@ -136,6 +138,7 @@ namespace Sers.Serslot
                 }
             }
 
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public Task FireOnStarting()
             {
                 Stack<KeyValuePair<Func<object, Task>, object>> onStarting;
@@ -156,6 +159,8 @@ namespace Sers.Serslot
 
             }
 
+
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             private Task FireOnStartingMayAwait(Stack<KeyValuePair<Func<object, Task>, object>> onStarting)
             {
                 try
@@ -179,6 +184,7 @@ namespace Sers.Serslot
                 return Task.CompletedTask;
             }
 
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             private async Task FireOnStartingAwaited(Task currentTask, Stack<KeyValuePair<Func<object, Task>, object>> onStarting)
             {
                 try
@@ -201,6 +207,7 @@ namespace Sers.Serslot
 
 
             #region OnCompleted           
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public virtual void OnCompleted(Func<object, Task> callback, object state)
             {
                 lock (this)
@@ -213,6 +220,8 @@ namespace Sers.Serslot
                 }
             }
             Stack<KeyValuePair<Func<object, Task>, object>> onCompleted = null;
+
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public Task FireOnCompleted()
             {
                 Stack<KeyValuePair<Func<object, Task>, object>> onCompleted;
@@ -230,6 +239,7 @@ namespace Sers.Serslot
                 return FireOnCompletedAwaited(onCompleted);
             }
 
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             private async Task FireOnCompletedAwaited(Stack<KeyValuePair<Func<object, Task>, object>> onCompleted)
             {
                 foreach (var entry in onCompleted)

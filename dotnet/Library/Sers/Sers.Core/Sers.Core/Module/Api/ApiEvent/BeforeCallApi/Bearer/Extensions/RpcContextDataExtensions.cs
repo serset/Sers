@@ -8,6 +8,7 @@ namespace Vit.Extensions
     public static partial class RpcContextDataExtensions
     {
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string Bearer_Get(this RpcContextData rpcData)
         {
             //http.headers.Authorization = "Bearer atxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
@@ -19,6 +20,7 @@ namespace Vit.Extensions
             return bear;
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Bearer_Set(this RpcContextData rpcData, string value)
         {
             if (null == rpcData || string.IsNullOrWhiteSpace(value)) return;

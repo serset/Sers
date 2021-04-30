@@ -44,7 +44,8 @@ namespace Sers.Core.CL.CommunicationManage
         public Action<IOrganizeConnection,ArraySegment<byte>> conn_OnGetMessage{   get; set;   }
         #endregion
 
-        #region SendMessageAsync      
+        #region SendMessageAsync    
+        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SendMessageAsync(Vit.Core.Util.Pipelines.ByteData message)
         {

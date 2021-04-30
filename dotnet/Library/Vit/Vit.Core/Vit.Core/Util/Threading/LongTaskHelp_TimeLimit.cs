@@ -83,6 +83,7 @@ namespace Vit.Core.Util.Threading
         /// <summary>
         /// 电子脉冲，在固定的时间间隔发送脉冲
         /// </summary>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void PulseMake(object obj)
         {
             if (!IsRunning) return;
@@ -225,6 +226,7 @@ namespace Vit.Core.Util.Threading
                 thread.Start();
             }
 
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             void Run()
             {
                 try

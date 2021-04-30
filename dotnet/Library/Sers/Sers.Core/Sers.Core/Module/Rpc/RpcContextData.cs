@@ -59,6 +59,7 @@ namespace Sers.Core.Module.Rpc
             return Serialization.SerializeToBytes(this);     
         }
 
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static RpcContextData FromBytes(ArraySegment<byte>data)
         {

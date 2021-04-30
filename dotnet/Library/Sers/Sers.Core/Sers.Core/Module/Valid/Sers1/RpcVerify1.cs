@@ -22,7 +22,7 @@ namespace Sers.Core.Module.Valid.Sers1
         //    return validations;
         //}
 
-  
+
         /*
        [   
             SsRegex("^\\d{11}$", ErrorMessage = "手机号格式不正确,不是11位"),
@@ -43,6 +43,7 @@ namespace Sers.Core.Module.Valid.Sers1
          *
          */
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static bool Verify(JObject obj, List<SsValidation> validations,   out SsError ssError)
         {
             ssError = null;
@@ -60,7 +61,8 @@ namespace Sers.Core.Module.Valid.Sers1
         }
 
 
- 
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         static bool Valid(JObject obj, SsValidation validation)
         {
            

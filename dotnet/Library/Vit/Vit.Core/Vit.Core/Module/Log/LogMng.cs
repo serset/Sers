@@ -14,6 +14,7 @@ namespace Vit.Core.Module.Log
         #region LogTxt
         public string NewLine = Environment.NewLine;
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void LogTxt(Level level, string message)
         {
             //加锁 以避免多线程抢占文件错误
@@ -30,6 +31,7 @@ namespace Vit.Core.Module.Log
         class LogFilePathCache
         {
 
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public void SetBasePath(string path)
             {
                 BasePath = path;
@@ -50,6 +52,7 @@ namespace Vit.Core.Module.Log
 
             string[] paths;
 
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public LogFilePathCache()
             {
                 Level[] vs = (Level[])Enum.GetValues(typeof(Level));
@@ -58,6 +61,7 @@ namespace Vit.Core.Module.Log
 
             }
 
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public string GetPath(Level level)
             {
                 if (DateTime.Now.Date != directoryDate)
@@ -93,6 +97,7 @@ namespace Vit.Core.Module.Log
 
         LogFilePathCache fileCache = new LogFilePathCache();
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private string GetLogPath(Level level)
         {
             return fileCache.GetPath(level);
@@ -111,6 +116,8 @@ namespace Vit.Core.Module.Log
         ///  例如    (level, msg)=> { Console.WriteLine("[" + level + "]" + DateTime.Now.ToString("[HH:mm:ss.ffff]") + msg);   };
         /// </summary>
         public Action<Level, string> OnLog = null;
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Log(Level level, string message)
         {
             try
@@ -128,6 +135,7 @@ namespace Vit.Core.Module.Log
         /// DEBUG （调试信息）：记录系统用于调试的一切信息，内容或者是一些关键数据内容的输出
         /// </summary>
         /// <param name="message"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Debug(string message)
         {
             Log(Level.DEBUG, message);
@@ -137,7 +145,8 @@ namespace Vit.Core.Module.Log
         /// INFO（一般信息）：记录系统运行中应该让用户知道的基本信息。例如，服务开始运行，功能已经开户等。
         /// </summary>
         /// <param name="message"></param>
-        public  void Info( string message)
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void Info( string message)
         {
             Log(Level.INFO, message);
         }
@@ -147,6 +156,7 @@ namespace Vit.Core.Module.Log
         /// ERROR（一般错误）：记录系统中出现的导致系统不稳定，部分功能出现混乱或部分功能失效一类的错误。例如，数据字段为空，数据操作不可完成，操作出现异常等。
         /// </summary>
         /// <param name="message"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Error(string message)
         {
             Log(Level.ERROR, message);
@@ -158,6 +168,7 @@ namespace Vit.Core.Module.Log
 
         #region 对外 扩展
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Info(object message)
         {
             Info(message.Serialize());
@@ -169,6 +180,7 @@ namespace Vit.Core.Module.Log
         /// ERROR（一般错误）：记录系统中出现的导致系统不稳定，部分功能出现混乱或部分功能失效一类的错误。例如，数据字段为空，数据操作不可完成，操作出现异常等。
         /// </summary>
         /// <param name="ex"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Error(Exception ex)
         {
             Error(null, ex);
@@ -179,6 +191,7 @@ namespace Vit.Core.Module.Log
         /// </summary> 
         /// <param name="message"></param>
         /// <param name="ex"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Error(string message, Exception ex)
         {
             //if (string.IsNullOrWhiteSpace(message)) message = ex.Message;
@@ -200,6 +213,7 @@ namespace Vit.Core.Module.Log
         /// 
         /// </summary>
         /// <param name="ssError"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Error(SsError ssError)
         {
             Error(null, ssError);
@@ -210,6 +224,7 @@ namespace Vit.Core.Module.Log
         /// </summary>
         /// <param name="message"></param>
         /// <param name="ssError"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Error(string message, SsError ssError)
         {
             var strMsg = "";

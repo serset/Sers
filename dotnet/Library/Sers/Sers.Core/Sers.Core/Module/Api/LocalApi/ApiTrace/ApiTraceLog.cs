@@ -15,6 +15,7 @@ namespace Sers.Core.Module.Api.LocalApi.ApiTrace
             beginTime = DateTime.Now;
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         static void LogTrace(ApiTraceLog trace)
         {
 
@@ -65,6 +66,7 @@ namespace Sers.Core.Module.Api.LocalApi.ApiTrace
         }
 
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Dispose()
         {
             endTime = DateTime.Now;

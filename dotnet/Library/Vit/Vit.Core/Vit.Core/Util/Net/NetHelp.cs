@@ -6,6 +6,7 @@ namespace Vit.Core.Util.Net
     public class NetHelp
     {
         #region ParseToIPAddress
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static IPAddress ParseToIPAddress(string host)
         {
             IPAddress ipAddress;
@@ -22,6 +23,7 @@ namespace Vit.Core.Util.Net
 
 
         #region TestIsConnectedByPoll
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool TestIsConnectedByPoll(Socket socket,int microSeconds = 500)
         {        
             return null != socket && socket.Connected && !(socket.Poll(microSeconds, SelectMode.SelectRead) && (socket.Available == 0));

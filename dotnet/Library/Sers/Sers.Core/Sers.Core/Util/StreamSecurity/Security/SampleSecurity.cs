@@ -58,8 +58,9 @@ namespace Sers.Core.Util.StreamSecurity.Security
 
         byte[] secretBytes;
         int secretLength;
-      
 
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Decryption(ArraySegment<byte> data)
         {
             
@@ -89,7 +90,8 @@ namespace Sers.Core.Util.StreamSecurity.Security
 
 
 
-     
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Encryption(ArraySegment<byte> data)
         {
            

@@ -52,6 +52,7 @@ namespace Vit.Core.Util.ComponentModel.Data
         /// 
         /// </summary>
         /// <param name="error"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static implicit operator ApiReturn(SsError.SsError error)
         {
             return new ApiReturn() { success = false, error = error };
@@ -61,11 +62,13 @@ namespace Vit.Core.Util.ComponentModel.Data
         /// 
         /// </summary>
         /// <param name="success"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static implicit operator ApiReturn(bool success)
         {
             return new ApiReturn(success);
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static implicit operator ApiReturn(Exception ex)
         {
             return (SsError.SsError)ex;
@@ -88,7 +91,7 @@ namespace Vit.Core.Util.ComponentModel.Data
         /// </summary>
         [SsDescription("数据")]
         public T data;
-                                   
+
 
 
 
@@ -96,6 +99,7 @@ namespace Vit.Core.Util.ComponentModel.Data
         /// 隐式转换
         /// </summary>
         /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static implicit operator ApiReturn<T>(T value)
         {
             return new ApiReturn<T>(value);
@@ -106,6 +110,7 @@ namespace Vit.Core.Util.ComponentModel.Data
         /// 
         /// </summary>
         /// <param name="error"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static implicit operator ApiReturn<T>(SsError.SsError error)
         {
             return new ApiReturn<T>(){ success = false, error = error };
@@ -115,6 +120,7 @@ namespace Vit.Core.Util.ComponentModel.Data
         /// 
         /// </summary>
         /// <param name="success"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static implicit operator ApiReturn<T>(bool success)
         {
             return new ApiReturn<T>() { success=success};

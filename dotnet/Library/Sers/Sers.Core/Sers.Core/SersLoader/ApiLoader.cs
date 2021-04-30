@@ -149,6 +149,7 @@ namespace Sers.SersLoader
 
         #region GetStationName
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected virtual List<String> GetStationNames(ApiLoaderConfig config, Type type)
         {
             //（优先级从高到低：  apiStationName_Force 、 在代码上的SsStationNameAttribute特性指定 、 apiStationName 、 appsettings.json指定）
@@ -194,6 +195,7 @@ namespace Sers.SersLoader
 
         #region GetRoutePrefix
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected virtual List<String> GetRoutePrefixs(ApiLoaderConfig config, Type type)
         {
             //（优先级从高到低：  routePrefix_Force、在代码上的SsRoutePrefixAttribute特性指定 、 routePrefix）

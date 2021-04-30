@@ -10,6 +10,7 @@ namespace Vit.Core.Util
             this.onDispose = onDispose;
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Dispose()
         {
             onDispose?.Invoke();

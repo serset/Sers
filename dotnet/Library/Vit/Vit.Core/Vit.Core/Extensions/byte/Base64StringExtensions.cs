@@ -20,13 +20,7 @@ namespace Vit.Extensions
         {
             return Convert.FromBase64String(data);
         }
-        #endregion
-
-
-     
-
-
-         
+        #endregion         
 
 
     }

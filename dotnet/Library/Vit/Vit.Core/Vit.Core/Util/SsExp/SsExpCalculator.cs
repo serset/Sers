@@ -63,6 +63,7 @@ namespace Vit.Core.Util.SsExp
             */
 
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static JToken Calculate(JToken baseValue, JToken ssExp)
         {       
             if (!ssExp.TypeMatch(JTokenType.Object))
@@ -364,6 +365,7 @@ namespace Vit.Core.Util.SsExp
             #endregion
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         static bool  JTokenToBool(JToken value)
         {
             if (value.TryParseIgnore(out bool v)) return v;
@@ -373,6 +375,7 @@ namespace Vit.Core.Util.SsExp
         }
 
         #region GetCurValue
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         static JToken GetCurValue(JToken baseValue, JObject SsExp)
         {
             var path = SsExp["path"].ConvertToString();

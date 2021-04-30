@@ -225,6 +225,7 @@ namespace Sers.Gover.Base
 
             SortedDictionary<KeyType, Item> map = new SortedDictionary<KeyType, Item>();
 
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public ValueType Get(KeyType key)
             {
                 if (map.TryGetValue(key, out var item))
