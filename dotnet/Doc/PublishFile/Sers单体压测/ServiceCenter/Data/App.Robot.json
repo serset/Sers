@@ -31,7 +31,7 @@
         "type": "ApiClientAsync",
         "name": "Async",
         "apiRoute": "/a",
-        "threadCount": 8,
+        "threadCount": 20,
         "loopCountPerThread": 1000000000,
         "interval": 0,
         "autoStart": true,
