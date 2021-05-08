@@ -18,8 +18,8 @@ xcopy  "SersPublish\%netVersion%\Robot\appsettings.json" "SersDocker\docker部署S
 xcopy  "SersPublish\%netVersion%\Robot" "SersDocker\docker制作镜像Sers\sers-demo-robot\root\app\Robot" /e /i /r /y
 
 @echo "copy sers-demo-sersall"
-xcopy  "Sers单体压测\%netVersion%\ServiceCenter\appsettings.json" "SersDocker\docker部署Sers\sers-demo-sersall" 
-xcopy  "Sers单体压测\%netVersion%\ServiceCenter" "SersDocker\docker制作镜像Sers\sers-demo-sersall\root\app\ServiceCenter" /e /i /r /y
+xcopy  "Sers压测\sers压测-单体压测%netVersion%\ServiceCenter\appsettings.json" "SersDocker\docker部署Sers\sers-demo-sersall" 
+xcopy  "Sers压测\sers压测-单体压测%netVersion%\ServiceCenter" "SersDocker\docker制作镜像Sers\sers-demo-sersall\root\app\ServiceCenter" /e /i /r /y
 
 
 

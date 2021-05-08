@@ -19,30 +19,33 @@ for i in {1..100}; do curl -s -H "Cookie: user=admin_123456" http://localhost:45
 
 
 
+dotnet /root/app/ServiceCenter/App.ServiceCenter.dll 
 
- dotnet /root/app/ServiceCenter/App.ServiceCenter.dll
- 
-
- http://lanxing.cloud:4580/_gover_/index.html?user=admin_123456
+http://127.0.0.1:4580/_gover_/index.html?user=admin_123456
 
 
 
- # qps: 150万	workThread: 16	requestThread: 16 
 
- # qps:		workThread: 24	requestThread: 24 
-
-
-方式 线程数（处理/请求）     qps
-workThread/requestThread qps
+#----------------------------------------------
+# sers单体压测(net6.0)
 
 CentOs8(2x24核) .net6
 
-ApiClientAsync 16/16	140-150万（15%）   
-ApiClientAsync 24/24	160-180万（21%）   
 
-   
-ApiClientAsync 22/22	160-190万（19%）	 
+方式 线程数（处理/请求）	qps（cpu利用率）
+type workThread/requestThread	qps（cpu利用率）
+
+
+ApiClientAsync 16/16	140-150万（15%）   
+
+ApiClientAsync 18/18	150-180万（18%） 
 
 ApiClientAsync 20/20	160-230万（18%）
+   
+ApiClientAsync 22/22	160-190万（19%）	
 
-ApiClientAsync 18/18	150-180万（18%）
+ApiClientAsync 24/24	160-180万（21%）   
+
+
+
+
