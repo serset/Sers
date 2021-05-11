@@ -91,7 +91,14 @@ namespace Sers.Gover.Base.Model
             apiService.counter.ReportTo(counter);
             return apiService;
         }
-         
+
+
+        public ApiService ApiService_Remove(string serviceKey)
+        {
+            if (apiServices.TryRemove(serviceKey, out var apiService)) return apiService;
+            return null;         
+        }
+
 
         public ApiService ApiService_Get(string serviceKey)
         {

@@ -29,16 +29,24 @@ namespace Sers.Gover.Persistence
         {
             try
             {
-                var apiDescs = data?.apiServices.Values.Select(m => m.apiDesc).ToList();
-
                 var filePath = GetFilePath(data.stationName + ".json");
 
-                var fileContent = apiDescs.SerializeToBytes();
+                var apiDescs = data.apiServices.Values.Select(m => m.apiDesc).ToList();
 
-                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                if (apiDescs.Count == 0) 
+                {
+                    if(File.Exists(filePath))
+                        File.Delete(filePath);
+                }
+                else
+                {
 
+                    var fileContent = apiDescs.SerializeToBytes();
 
-                File.WriteAllBytes(filePath, fileContent);          
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+                    File.WriteAllBytes(filePath, fileContent);
+                }
             }
             catch (System.Exception ex)
             {

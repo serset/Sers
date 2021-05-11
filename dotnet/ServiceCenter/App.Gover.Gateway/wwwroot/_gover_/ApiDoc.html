@@ -44,6 +44,11 @@
         <a href="#" onclick="openPostmanWeb(true)">打开postmanWeb并加载当前api</a>
         <br />
         markdown文档：<a id="mdDownload" href="#" title="download markdown document File">下载markdown文档</a>
+        <br />
+
+        操作：
+        <a href="#" onclick="removeOfflineApiService()">移除离线接口</a> 
+
     </div>
 
     <div id="test-editormd-view" style="width: 95%;">
@@ -111,6 +116,24 @@
         $('#mdDownload').click(function () {
             sers.SaveFile(mdDoc, 'SersApiDoc(' + new Date().toJSON().slice(0, 10) + ').md');
         });
+
+
+
+
+        function removeOfflineApiService() {
+
+            if (!confirm('移除离线接口，移除后不可恢复，确定继续移除吗？')) return;
+
+            sers.apiClient.apiDesc_removeOffline(function (apiRet) {
+                if (!apiRet.success) {
+                    alert('操作失败，请重试。' + apiRet.error?.errorMessage);
+                    return;
+                }
+                location.reload();
+            });
+        }
+
+
     </script>
 
 </body>

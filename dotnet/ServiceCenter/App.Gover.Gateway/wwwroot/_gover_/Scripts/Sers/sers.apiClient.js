@@ -105,6 +105,9 @@
         obj.ajax({ api: '/_gover_/apiDesc/getAll', type: 'GET', data: arg, onSuc: onSuc }); 
     };
 
+    obj.apiDesc_removeOffline = function (onSuc) {
+        obj.ajax({ api: '/_gover_/apiDesc/removeOffline', type: 'GET', onSuc: onSuc });
+    };
 
 
     obj.serviceStation_getAll = function (onSuc) {

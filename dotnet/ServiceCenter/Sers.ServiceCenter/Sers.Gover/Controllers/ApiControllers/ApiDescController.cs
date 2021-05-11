@@ -18,7 +18,6 @@ namespace Sers.Gover.Controllers.ApiControllers
        
         [SsRoute("apiDesc/getActive")]
         [SsCallerSource(ECallerSource.Internal)]
-        //[CallFromGover]
         [SsName("获取所有可调用api")]
         [SsDescription("获取所有可调用api。返回ApiDesc列表")]
         public ApiReturn<List<SsApiDesc>> GetActive([SsDescription("route前缀（不指定则返回所有），例如 \"_gover_\"、\"/demo/a.html\" "),SsExample("_gover_")]string r)
@@ -35,7 +34,6 @@ namespace Sers.Gover.Controllers.ApiControllers
 
         [SsRoute("apiDesc/getAll")]
         [SsCallerSource(ECallerSource.Internal)]
-        //[CallFromGover]
         [SsName("获取所有api")]
         [SsDescription("获取所有api。返回ApiDesc列表")]
         public ApiReturn<List<SsApiDesc>> GetAll([SsDescription("route前缀（不指定则返回所有），例如 \"_gover_\"、\"/demo/a.html\" "), SsExample("_gover_")]string r)
@@ -49,8 +47,17 @@ namespace Sers.Gover.Controllers.ApiControllers
             return new ApiReturn<List<SsApiDesc>> { data = apiDescs.ToList() }; 
         }
 
- 
- 
+
+        [SsRoute("apiDesc/removeOffline")]
+        [SsCallerSource(ECallerSource.Internal)]
+        [SsName("移除离线的api")]
+        [SsDescription("移除离线的api")]
+        public ApiReturn RemoveOffline()
+        {
+            GoverApiCenterService.Instance.apiStationMng.ApiService_RemoveOffline();
+            return true;
+        }
+
 
 
 

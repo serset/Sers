@@ -19,6 +19,7 @@ namespace Sers.Gover.Base
     {
         [JsonProperty]
         ConcurrentDictionary<string, ApiStationData> apiStations;
+
         GoverApiCenterService goverManage;
         public ApiStationMng()
         {            
@@ -111,12 +112,6 @@ namespace Sers.Gover.Base
             }
             return true;
         }
-        
-
-
-
-
-
 
         ApiStationData ApiStation_Get(string route)
         {
@@ -143,6 +138,60 @@ namespace Sers.Gover.Base
             apiStations.TryRemove(apiStation.stationName,out _);
         }
 
+        #endregion
+
+
+
+        #region ApiService
+        /// <summary>
+        /// 移除离线的ApiService
+        /// </summary>
+        public void ApiService_RemoveOffline()
+        {
+            List<ApiStationData> changedApiStationList;
+ 
+            lock (this)
+            {
+                var apiServiceItems = (from apiStation in apiStations.Values
+                                   from apiService in apiStation.apiServices.Values
+                                   where apiService.apiNodeCount==0
+                                   select (apiStation,apiService)).ToList();
+
+                foreach (var (apiStation, apiService) in apiServiceItems)
+                {
+                    apiStation.ApiService_Remove(apiService.apiDesc.ServiceKeyGet());
+                }
+
+
+                changedApiStationList = apiServiceItems.Select(m => m.apiStation).Distinct().ToList();
+
+                foreach (var apiStation in changedApiStationList)
+                {
+                    if (apiStation.apiServiceCount == 0) 
+                    {
+                        ApiStation_Remove(apiStation);
+                    } 
+                }
+            }
+
+            #region 持久化对应ApiStation中的所有ApiDesc(异步执行)
+            Task.Run(() =>
+            {
+                try
+                {
+                    foreach (var apiStation in changedApiStationList)
+                    {
+                        Persistence_ApiDesc.ApiDesc_SaveApiStationToJsonFile(apiStation);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex);
+                }
+            });
+            #endregion
+
+        }
         #endregion
 
 
@@ -205,6 +254,10 @@ namespace Sers.Gover.Base
 
 
         #endregion
+
+
+
+
 
 
         #region ServiceStation        
