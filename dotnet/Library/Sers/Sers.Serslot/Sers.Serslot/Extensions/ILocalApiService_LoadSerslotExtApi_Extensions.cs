@@ -14,7 +14,7 @@ namespace Vit.Extensions
         /// load api from appsettings.json::serslot.extApi
         /// </summary>
         /// <param name="data"></param>
-        public static void LoadSerslotExtApi(this ILocalApiService data)
+        internal static void LoadSerslotExtApi(this ILocalApiService data)
         {
             Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<List<SsApiDesc>>("serslot.extApi")?.ForEach(apiDesc =>
             {

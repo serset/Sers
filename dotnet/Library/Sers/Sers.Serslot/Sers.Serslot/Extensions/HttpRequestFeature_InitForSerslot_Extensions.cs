@@ -17,7 +17,7 @@ namespace Vit.Extensions
 
         static  Type Type_ResponseBodyFeature = Vit.Core.Util.Reflection.ObjectLoader.GetType("Microsoft.AspNetCore.Http.StreamResponseBodyFeature", assemblyName: "Microsoft.AspNetCore.Http");
 
-        public static void InitForSerslot(this HttpRequestFeature requestFeature,string pairingToken,out HttpResponseFeature _responseFeature, out FeatureCollection features)
+        internal static void InitForSerslot(this HttpRequestFeature requestFeature,string pairingToken,out HttpResponseFeature _responseFeature, out FeatureCollection features)
         {
 
             if (requestFeature.Headers == null)

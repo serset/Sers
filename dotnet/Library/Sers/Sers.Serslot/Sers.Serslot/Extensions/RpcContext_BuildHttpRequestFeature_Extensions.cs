@@ -11,7 +11,7 @@ namespace Vit.Extensions
     {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static HttpRequestFeature BuildHttpRequestFeature(this RpcContext rpcContext)
+        internal static HttpRequestFeature BuildHttpRequestFeature(this RpcContext rpcContext)
         {
             HttpRequestFeature requestFeature;
 
