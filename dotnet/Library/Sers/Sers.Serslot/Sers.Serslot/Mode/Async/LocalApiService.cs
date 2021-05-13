@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 using Sers.Core.Module.Api.LocalApi;
 using System.Threading.Tasks;
 
-namespace Sers.Serslot
+namespace Sers.Serslot.Mode.Async
 {
     public class LocalApiService: ILocalApiService
     {
@@ -104,19 +104,18 @@ namespace Sers.Serslot
 
 
 
-        #region Start Stop
 
-    
 
         public bool Start()
         {
             return true;
         }
 
+
         public void Stop()
         {      
         }
-        #endregion
+     
 
 
        

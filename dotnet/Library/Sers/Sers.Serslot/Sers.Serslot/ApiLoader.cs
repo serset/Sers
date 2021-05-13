@@ -10,14 +10,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Sers.Serslot
 {
-    public class ApiLoader : SersLoader.ApiLoader
+    public class ApiLoader: SersLoader.ApiLoader
     {
 
-        SerslotServer server;
+        Func<SsApiDesc,IApiNode> CreateApiNode;
 
-        public ApiLoader(SerslotServer server) :base()
+        public ApiLoader(Func<SsApiDesc, IApiNode> CreateApiNode) : base()
         {
-            this.server = server;
+            this.CreateApiNode = CreateApiNode;
         }
 
         protected override IEnumerable<Type> LoadControllers(ApiLoaderConfig config)
@@ -88,7 +88,7 @@ namespace Sers.Serslot
                 apiDesc.SysDescAppend("oriRoute: " + oriRoute);
 
 
-                IApiNode apiNode = new LocalApiNode(apiDesc, server);
+                IApiNode apiNode = CreateApiNode(apiDesc);
                 return apiNode;
                 
             }).ToList();                 

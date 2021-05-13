@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http.Features;
 using Sers.Core.Module.Rpc;
 using System.IO;
-using Sers.Serslot;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Vit.Extensions;
 
-namespace Vit.Extensions
+namespace Sers.Serslot.Mode.Async
 {
-    public static partial class SerslotServer_ProcessRequest_Extensions
+    public partial class SerslotServer
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static async Task ProcessRequestByRpcAsync(this SerslotServer data, RpcContext rpcContext)
+        public async Task ProcessRequestByRpcAsync( RpcContext rpcContext)
         {
          
             HttpRequestFeature requestFeature = null;
@@ -21,7 +21,7 @@ namespace Vit.Extensions
                 requestFeature = rpcContext.BuildHttpRequestFeature();
 
                 //(x.2) ProcessRequest
-                responseFeature = await data.ProcessRequestAsync(requestFeature);         
+                responseFeature = await ProcessRequestAsync(requestFeature);         
 
 
                 #region (x.3)build reply

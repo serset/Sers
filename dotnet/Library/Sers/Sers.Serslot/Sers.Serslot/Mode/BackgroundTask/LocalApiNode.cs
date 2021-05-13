@@ -8,17 +8,15 @@ using Vit.Extensions;
 namespace Sers.Serslot
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public class LocalApiNode: IApiNode
+    public class LocalApiNode<TServer> : IApiNode
     {
         [JsonProperty]
         public SsApiDesc apiDesc { get; set; }
 
-
-        SerslotServer server;
-        public LocalApiNode(SsApiDesc apiDesc, SerslotServer server)
+ 
+        public LocalApiNode(SsApiDesc apiDesc)
         {
-            this.apiDesc = apiDesc;
-            this.server = server;
+            this.apiDesc = apiDesc;        
         }
 
 
@@ -26,7 +24,6 @@ namespace Sers.Serslot
         public byte[] Invoke(ArraySegment<byte> arg_OriData)
         {
             throw new NotImplementedException();
-            //return server.ProcessRequestByRpc(arg_OriData);
         }       
 
 

@@ -1,20 +1,17 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Vit.Core.Module.Log;
 using Vit.Extensions;
-using Vit.Extensions.ObjectExt;
 
-namespace Sers.Serslot
+
+namespace Sers.Serslot.Mode.Async
 {
-    public class SerslotServer : IServer
+    public partial class SerslotServer : IServer
     {
         /// <summary>
         /// 
@@ -41,230 +38,17 @@ namespace Sers.Serslot
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public async Task<IHttpResponseFeature> ProcessRequestAsync(HttpRequestFeature requestFeature)
         {
-            if (requestFeature.Headers == null)
-                requestFeature.Headers = new HeaderDictionary();
-
-            //var header = "{\"Cache-Control\":\"max-age=0\",\"Connection\":\"Keep-Alive\",\"Accept\":\"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\",\"Accept-Encoding\":\"gzip, deflate\",\"Accept-Language\":\"zh-CN,zh;q=0.8\",\"Host\":\"localhost:44308\",\"User-Agent\":\"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 SE 2.X MetaSr 1.0\",\"Upgrade-Insecure-Requests\":\"1\",\"X-Forwarded-For\":\"127.0.0.1:53093\",\"X-Forwarded-Proto\":\"https\"}";
-            //header = "{\"Host\":\"localhost:44308\",\"X-Forwarded-For\":\"127.0.0.1:53093\",\"X-Forwarded-Proto\":\"https\"}";
-
-
-            //使用Add可能报错 An item with the same key has already been added. Key: X-Forwarded-Proto"
-            //requestFeature.Headers.Add("MS-ASPNETCORE-TOKEN", pairingToken);
-            //requestFeature.Headers.Add("X-Forwarded-Proto", "https");
-
-            requestFeature.Headers["MS-ASPNETCORE-TOKEN"] = pairingToken;
-            requestFeature.Headers["X-Forwarded-Proto"] = "https";
-
-            var features = new FeatureCollection();
-            features.Set<IHttpRequestFeature>(requestFeature);
-
-            //var _responseFeature = new SerslotResponseFeature() { Body = new MemoryStream() };
-            var _responseFeature = new HttpResponseFeature() { Body = new MemoryStream() };
-            features.Set<IHttpResponseFeature>(_responseFeature);
-
-
-            //IHttpResponseBodyFeature
-            if (Type_IResponseBodyFeature != null)
-            {
-                features[Type_IResponseBodyFeature] = Activator.CreateInstance(Type_ResponseBodyFeature, _responseFeature.Body);
-            }
-
+            requestFeature.InitForSerslot(pairingToken, out var _responseFeature,out var features);
 
             await OnProcessRequest(features);
 
             return _responseFeature;
         }
 
-        #region SerslotResponseFeature
-        class SerslotResponseFeature : IHttpResponseFeature
-        {
-            public SerslotResponseFeature()
-            {
-                StatusCode = 200;
-                Headers = new HeaderDictionary();
-                Body = Stream.Null;
-            }
-
-
-            public int StatusCode
-            {
-                get;
-                set;
-            }
-
-            public string ReasonPhrase
-            {
-                get;
-                set;
-            }
-
-            public IHeaderDictionary Headers
-            {
-                get;
-                set;
-            }
-
-            public Stream Body
-            {
-                get;
-                set;
-            }
-
-            public virtual bool HasStarted { get; set; } = false;
-
-
-
-
-            private Stack<KeyValuePair<Func<object, Task>, object>> _onStarting;
-            private Stack<KeyValuePair<Func<object, Task>, object>> _onCompleted;
-
-
-            #region OnStarting
-            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-            public virtual void OnStarting(Func<object, Task> callback, object state)
-            {
-                lock (this)
-                {
-                    if (HasStarted)
-                    {
-                        throw new InvalidOperationException(nameof(OnStarting));
-                    }
-
-                    if (_onStarting == null)
-                    {
-                        _onStarting = new Stack<KeyValuePair<Func<object, Task>, object>>();
-                    }
-                    _onStarting.Push(new KeyValuePair<Func<object, Task>, object>(callback, state));
-                }
-            }
-
-            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-            public Task FireOnStarting()
-            {
-                Stack<KeyValuePair<Func<object, Task>, object>> onStarting;
-                lock (this)
-                {
-                    onStarting = _onStarting;
-                    _onStarting = null;
-                }
-
-                if (onStarting == null)
-                {
-                    return Task.CompletedTask;
-                }
-                else
-                {
-                    return FireOnStartingMayAwait(onStarting);
-                }
-
-            }
-
-
-            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-            private Task FireOnStartingMayAwait(Stack<KeyValuePair<Func<object, Task>, object>> onStarting)
-            {
-                try
-                {
-                    var count = onStarting.Count;
-                    for (var i = 0; i < count; i++)
-                    {
-                        var entry = onStarting.Pop();
-                        var task = entry.Key.Invoke(entry.Value);
-                        if (!ReferenceEquals(task, Task.CompletedTask))
-                        {
-                            return FireOnStartingAwaited(task, onStarting);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex);
-                }
-
-                return Task.CompletedTask;
-            }
-
-            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-            private async Task FireOnStartingAwaited(Task currentTask, Stack<KeyValuePair<Func<object, Task>, object>> onStarting)
-            {
-                try
-                {
-                    await currentTask;
-
-                    var count = onStarting.Count;
-                    for (var i = 0; i < count; i++)
-                    {
-                        var entry = onStarting.Pop();
-                        await entry.Key.Invoke(entry.Value);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex);
-                }
-            }
-            #endregion
-
-
-            #region OnCompleted           
-            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-            public virtual void OnCompleted(Func<object, Task> callback, object state)
-            {
-                lock (this)
-                {
-                    if (onCompleted == null)
-                    {
-                        onCompleted = new Stack<KeyValuePair<Func<object, Task>, object>>();
-                    }
-                    onCompleted.Push(new KeyValuePair<Func<object, Task>, object>(callback, state));
-                }
-            }
-            Stack<KeyValuePair<Func<object, Task>, object>> onCompleted = null;
-
-            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-            public Task FireOnCompleted()
-            {
-                Stack<KeyValuePair<Func<object, Task>, object>> onCompleted;
-                lock (this)
-                {
-                    onCompleted = _onCompleted;
-                    _onCompleted = null;
-                }
-
-                if (onCompleted == null)
-                {
-                    return Task.CompletedTask;
-                }
-
-                return FireOnCompletedAwaited(onCompleted);
-            }
-
-            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-            private async Task FireOnCompletedAwaited(Stack<KeyValuePair<Func<object, Task>, object>> onCompleted)
-            {
-                foreach (var entry in onCompleted)
-                {
-                    try
-                    {
-                        await entry.Key.Invoke(entry.Value);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Error(ex);
-                    }
-                }
-            }
-            #endregion
-        }
+     
 
         #endregion
 
-        #endregion
-
-
-        Type Type_IResponseBodyFeature = Vit.Core.Util.Reflection.ObjectLoader.GetType("Microsoft.AspNetCore.Http.Features.IHttpResponseBodyFeature", assemblyName: "Microsoft.AspNetCore.Http.Features");
-
-        Type Type_ResponseBodyFeature = Vit.Core.Util.Reflection.ObjectLoader.GetType("Microsoft.AspNetCore.Http.StreamResponseBodyFeature", assemblyName: "Microsoft.AspNetCore.Http");
 
 
         public IFeatureCollection Features { get; } = new FeatureCollection();
@@ -294,7 +78,6 @@ namespace Sers.Serslot
 
                         // Run the application code for this request
                         // application.ProcessRequestAsync(httpContext).GetAwaiter().GetResult();
-
                        
                         await application.ProcessRequestAsync(httpContext);
 
@@ -330,12 +113,11 @@ namespace Sers.Serslot
                 #endregion
 
 
-                #region (x.x.2)加载api           
+                #region (x.x.2)加载api
 
                 ServiceStation.ServiceStation.Instance.LoadApi();
 
-                ServiceStation.ServiceStation.Instance.localApiService.LoadSerslotApi(Assembly.GetEntryAssembly(), this);
-
+                LoadSerslotApi(ServiceStation.ServiceStation.Instance.localApiService,Assembly.GetEntryAssembly());
 
                 #endregion
 
