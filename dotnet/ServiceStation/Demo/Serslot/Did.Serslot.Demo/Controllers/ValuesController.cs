@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Sers.Core.Module.Api;
+using Sers.Core.Module.Rpc;
 using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.ComponentModel.Model;
 
@@ -22,6 +25,7 @@ namespace Did.Serslot.Demo.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [HttpPost]
         public object Route0([FromQuery]string a)
         {
             //var requestFeature = Request.HttpContext.Features.Get<IHttpRequestFeature>();             
@@ -437,5 +441,55 @@ namespace Did.Serslot.Demo.Controllers
         }
         #endregion
 
+
+        #region (x.7)ApiClient
+
+        #region (x.x.1)ApiClient示例,调用其他接口
+        /// <summary>
+        /// ApiClient示例,调用其他接口
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpPost("700/ApiClient700")]
+        public ApiReturn<Object> ApiClient700(
+            [SsExample("/did_serslot/Values")] string apiRoute,
+            [SsExample("{\"a\":\"aaa111\"}")] dynamic arg)
+        {
+            var apiRet = ApiClient.CallRemoteApi<string>((string)arg.apiRoute,(object) arg.arg, "POST");
+            return new ApiReturn<Object>(new
+            {
+                RpcContext.RpcData,
+                apiRet
+            });
+        }
+        #endregion
+
+
+        #region (x.x.2)ApiClient示例,调用其他接口
+        /// <summary>
+        /// ApiClient示例,调用其他接口
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpPost("702/ApiClient")]
+        public ApiReturn<Object> ApiClient702()
+        {
+            return new ApiReturn<Object>(new
+            {
+                RpcContext.RpcData
+            });
+        }
+
+
+        [HttpPost("703/ApiClient")]
+        public string ApiClient703()
+        {
+            var rpc=RpcContext.RpcData;
+            var apiRet = ApiClient.CallRemoteApi<string>("/did_serslot/v1/702/ApiClient", null,"POST");
+            return apiRet;
+        }
+        #endregion
+
+        #endregion
     }
 }

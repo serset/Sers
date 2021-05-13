@@ -81,7 +81,7 @@ namespace Sers.ServiceCenter
 
         private readonly CommunicationManageServer communicationManage = new CommunicationManageServer();
 
-        private readonly LocalApiService localApiService = new LocalApiService();
+        private readonly ILocalApiService localApiService = LocalApiServiceFactory.CreateLocalApiService();
 
         private readonly IOrganizeConnection connForLocalStationService;
 
@@ -91,8 +91,8 @@ namespace Sers.ServiceCenter
         {
             public string connTag { get; set; }
 
-            LocalApiService localApiService;
-            public OrganizeConnection(LocalApiService localApiService)
+            ILocalApiService localApiService;
+            public OrganizeConnection(ILocalApiService localApiService)
             {
                 this.localApiService = localApiService;
             }

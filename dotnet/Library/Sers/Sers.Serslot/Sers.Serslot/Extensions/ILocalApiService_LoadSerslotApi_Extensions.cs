@@ -11,7 +11,7 @@ using LocalApiNode = Sers.Serslot.LocalApiNode;
 
 namespace Vit.Extensions
 {
-    public static partial class LocalApiServiceExtensions
+    public static partial class ILocalApiService_LoadSerslotApi_Extensions
     {
         /// <summary>
         /// 调用Serslot加载器加载api
@@ -19,7 +19,7 @@ namespace Vit.Extensions
         /// <param name="data"></param>
         /// <param name="assembly"></param>
         /// <param name="server"></param>
-        public static void LoadSerslotApi(this LocalApiService data, Assembly assembly, SerslotServer server)
+        public static void LoadSerslotApi(this ILocalApiService data, Assembly assembly, SerslotServer server)
         {
             if (null == data)
             {
@@ -27,7 +27,7 @@ namespace Vit.Extensions
             }
             #region (x.1) api from host
             var config = new ApiLoaderConfig { assembly= assembly };
-            data.apiNodeMng.AddApiNode(new  ApiLoader(server).LoadApi(config));
+            data.ApiNodeMng.AddApiNode(new  ApiLoader(server).LoadApi(config));
             #endregion
 
 
@@ -56,7 +56,7 @@ namespace Vit.Extensions
                     apiNode = new ApiNode_Original(onInvoke, apiDesc);
                 }
 
-                data.apiNodeMng.AddApiNode(apiNode);
+                data.ApiNodeMng.AddApiNode(apiNode);
             });            
             #endregion
 

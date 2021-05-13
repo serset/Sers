@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sers.Core.Module.Api.LocalApi;
 using Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions;
+using Vit.Extensions;
 
 namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
 {
@@ -13,10 +14,11 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
         public void TestCall()
         {
             try
-            {          
- 
+            {
+
                 //(x.1)构建
-                LocalApiService localApiService = new LocalApiService() { workThreadCount =1};
+                LocalApiService localApiService = LocalApiServiceFactory.CreateLocalApiService() as LocalApiService;
+                localApiService.workThreadCount = 1;
                 localApiService.LoadSersApi(this.GetType().Assembly);
 
                 try

@@ -9,6 +9,15 @@ namespace Vit.Extensions
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static async Task<byte[]> ToBytesAsync(this Stream data)
         {
+            if (data is MemoryStream ms_) 
+            {
+                if (ms_.Length > 0)
+                {
+                    return ms_.ToArray();
+                }
+                return null;
+            }
+
             using (MemoryStream ms = new MemoryStream())
             {
                 await data.CopyToAsync(ms);
@@ -16,8 +25,9 @@ namespace Vit.Extensions
                 {
                     return ms.ToArray();
                 }
+                return null;
             }
-            return null;
+           
         }
 
 

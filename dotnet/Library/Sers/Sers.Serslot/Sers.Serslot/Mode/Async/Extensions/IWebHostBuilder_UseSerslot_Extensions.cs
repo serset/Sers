@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
+using Sers.Core.Module.Api.LocalApi;
 using Sers.Serslot;
 
 namespace Vit.Extensions
 {
-    public static partial class WebHostBuilderSerslotExtensions
+    public static partial class IWebHostBuilder_UseSerslot_Extensions
     {
         public static IWebHostBuilder UseSerslot(this IWebHostBuilder hostBuilder)
         {
@@ -17,11 +18,15 @@ namespace Vit.Extensions
             }
 
 
+
             var server = new SerslotServer();
             server.InitPairingToken(hostBuilder);
-       
+
+            LocalApiServiceFactory.CreateLocalApiService = () => new Sers.Serslot.LocalApiService(server);
+
+
             return hostBuilder.ConfigureServices(services =>
-            {                 
+            {
                 services.AddSingleton<IServer>((serviceProvider)=> {
                     server.serviceProvider = serviceProvider;
                     return server;

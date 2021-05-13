@@ -5,12 +5,8 @@ using System.Threading;
 using Vit.Extensions;
 using Vit.Core.Module.Log;
 using Sers.Core.Module.Rpc;
-using Sers.Core.Module.ApiLoader;
 using Vit.Core.Util.ConfigurationManager;
-using Vit.Core.Util.Pool;
 using Vit.Core.Util.Threading;
-using System.Reflection;
-using Sers.SersLoader;
 using Sers.Core.CL.CommunicationManage;
 using Sers.Core.CL.MessageOrganize;
 using Sers.Core.Module.Message;
@@ -21,8 +17,8 @@ using System.Runtime.CompilerServices;
 
 namespace Sers.Core.Module.Api.LocalApi
 {
-    public class LocalApiService
-    {        
+    public class LocalApiService: ILocalApiService
+    {
 
         /// <summary>
         /// 后台服务的线程个数（单位个，默认0,代表不开启服务）(appsettings.json :: Sers.LocalApiService.workThreadCount)
@@ -39,53 +35,15 @@ namespace Sers.Core.Module.Api.LocalApi
             LocalApiEventMng.Instance.UseApiTraceLog();
         }
 
-
-        public readonly ApiLoaderMng apiLoaderMng = new ApiLoaderMng();
-
-
-
-
         /// <summary>
         /// 映射  route -> LocalApiNode
         /// </summary>
-        public readonly ApiNodeMng apiNodeMng = new ApiNodeMng();
+        protected readonly ApiNodeMng apiNodeMng = new ApiNodeMng();
 
         public IEnumerable<IApiNode> apiNodes => apiNodeMng.apiNodes;
 
 
-
-
-        #region LoadApi
-
-
-        /// <summary>
-        /// 从配置文件(appsettings.json  Sers.LocalApiService.ApiLoaders ) 加载api加载器并加载api
-        /// </summary>
-        public void LoadApi()
-        {
-            apiNodeMng.AddApiNode(apiLoaderMng.LoadApi());
-        }
-
-
-        /// <summary>
-        /// 调用SersApi加载器加载api
-        /// </summary>
-        /// <param name="config"></param>
-        public void LoadSersApi(ApiLoaderConfig config)
-        {
-            apiNodeMng.AddApiNode(new SersLoader.ApiLoader().LoadApi(config));
-        }
-
-        /// <summary>
-        /// 调用SersApi加载器加载api
-        /// </summary>
-        /// <param name="assembly"></param>
-        public void LoadSersApi(Assembly assembly)
-        {
-            apiNodeMng.AddApiNode(new SersLoader.ApiLoader().LoadApi(new ApiLoaderConfig { assembly = assembly }));
-        }
-
-        #endregion
+        public ApiNodeMng ApiNodeMng => apiNodeMng;  
 
 
 

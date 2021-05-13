@@ -25,7 +25,8 @@ namespace Sers.Serslot
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] Invoke(ArraySegment<byte> arg_OriData)
         {
-            return server.ProcessRequestByRpc(arg_OriData);
+            throw new NotImplementedException();
+            //return server.ProcessRequestByRpc(arg_OriData);
         }       
 
 

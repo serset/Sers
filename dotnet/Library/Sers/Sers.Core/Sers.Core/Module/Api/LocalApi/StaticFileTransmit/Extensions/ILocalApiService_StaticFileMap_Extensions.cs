@@ -8,7 +8,7 @@ using Vit.Core.Module.Log;
 
 namespace Vit.Extensions
 {
-    public static partial class LocalApiService_StaticFileMap_Extensions
+    public static partial class ILocalApiService_StaticFileMap_Extensions
     {
   
 
@@ -18,7 +18,7 @@ namespace Vit.Extensions
         /// 从配置文件（appsettings.json::Sers.LocalApiService.staticFiles）加载静态文件映射器
         /// </summary>
 
-        public static void LoadApi_StaticFiles(this LocalApiService data)
+        public static void LoadApi_StaticFiles(this ILocalApiService data)
         {
             if (data == null)
             {
@@ -44,7 +44,7 @@ namespace Vit.Extensions
         }
 
 
-        static void LoadApi_StaticFileMap(LocalApiService data, StaticFilesApiNodeConfig config)
+        static void LoadApi_StaticFileMap(ILocalApiService data, StaticFilesApiNodeConfig config)
         {
 
             #region (x.1)创建并初始化StaticFileMap
@@ -61,7 +61,7 @@ namespace Vit.Extensions
 
             apiNode.apiDesc.description = config.apiName;
             apiNode.apiDesc.name = config.apiName;
-            data.apiNodeMng.AddApiNode(apiNode);
+            data.ApiNodeMng.AddApiNode(apiNode);
 
             var msg = "[LocalApiService] 已加载静态文件映射器";
             msg += "," + Environment.NewLine + "apiName:  " + config.apiName;

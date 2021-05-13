@@ -3,6 +3,7 @@ using Statistics;
 using Sers.Core.Module.Api.LocalApi;
 using Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions;
 using System.Threading.Tasks;
+using Vit.Extensions;
 
 namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
 {
@@ -16,7 +17,8 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
         static LocalApiTest()
         {
             //(x.1)构建
-            localApiService = new LocalApiService() { workThreadCount = workThreadCount };
+            localApiService = LocalApiServiceFactory.CreateLocalApiService() as LocalApiService;
+            localApiService.workThreadCount = workThreadCount; 
             localApiService.LoadSersApi(typeof(LocalApiTest).Assembly);
 
             localApiService.Start();

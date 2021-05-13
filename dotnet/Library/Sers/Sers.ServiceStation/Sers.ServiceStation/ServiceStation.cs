@@ -114,7 +114,7 @@ namespace Sers.ServiceStation
 
         List<IAppEvent> appEventList { get; set; }
 
-        public readonly LocalApiService localApiService = new LocalApiService();
+        public readonly ILocalApiService localApiService = LocalApiServiceFactory.CreateLocalApiService();
 
         private readonly CommunicationManageClient communicationManage = new CommunicationManageClient();
 

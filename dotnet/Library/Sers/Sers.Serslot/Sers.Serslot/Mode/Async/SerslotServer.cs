@@ -36,10 +36,10 @@ namespace Sers.Serslot
 
         #region ProcessRequest       
 
-        Action<FeatureCollection> OnProcessRequest;
+        Func<FeatureCollection,Task> OnProcessRequest;
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public IHttpResponseFeature ProcessRequest(HttpRequestFeature requestFeature)
+        public async Task<IHttpResponseFeature> ProcessRequestAsync(HttpRequestFeature requestFeature)
         {
             if (requestFeature.Headers == null)
                 requestFeature.Headers = new HeaderDictionary();
@@ -70,7 +70,7 @@ namespace Sers.Serslot
             }
 
 
-            OnProcessRequest(features);
+            await OnProcessRequest(features);
 
             return _responseFeature;
         }
@@ -275,7 +275,7 @@ namespace Sers.Serslot
             try
             {
                 #region (x.1) build OnProcessRequest               
-                OnProcessRequest = (features) =>
+                OnProcessRequest = async (features) =>
                 {
 
                     Exception _applicationException = null;
@@ -292,11 +292,11 @@ namespace Sers.Serslot
                         //}
 
 
-
-
                         // Run the application code for this request
                         // application.ProcessRequestAsync(httpContext).GetAwaiter().GetResult();
-                        application.ProcessRequestAsync(httpContext).Wait();
+
+                       
+                        await application.ProcessRequestAsync(httpContext);
 
 
                         //var _responseFeature = features.Get<IHttpResponseFeature>() as SerslotResponseFeature;
