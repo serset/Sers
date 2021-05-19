@@ -20,9 +20,9 @@ cd /root/docker
 cd sers-demo-robot
 docker run --name=sers-demo-robot --restart=always -d \
 -v /etc/localtime:/etc/localtime \
--v $PWD/appsettings.json:/root/app/Robot/appsettings.json \
--v $PWD/Logs:/root/app/Robot/Logs \
--v $PWD/Data:/root/app/Robot/Data \
+-v $PWD/appsettings.json:/root/app/appsettings.json \
+-v $PWD/Logs:/root/app/Logs \
+-v $PWD/Data:/root/app/Data \
 serset/sers-demo-robot
 cd ..
 

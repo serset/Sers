@@ -21,8 +21,8 @@ cd sers-cgateway
 docker run --name=sers-cgateway --restart=always -d \
 -p 6008:6008 \
 -v /etc/localtime:/etc/localtime \
--v $PWD/appsettings.json:/root/app/CGateway/appsettings.json \
--v $PWD/Logs:/root/app/CGateway/Logs \
+-v $PWD/appsettings.json:/root/app/appsettings.json \
+-v $PWD/Logs:/root/app/Logs \
 serset/sers-cgateway:1.2.0
 cd ..
 

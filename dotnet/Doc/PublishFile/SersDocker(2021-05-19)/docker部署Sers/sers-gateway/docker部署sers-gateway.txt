@@ -21,9 +21,9 @@ cd sers-gateway
 docker run --name=sers-gateway --restart=always -d \
 -p 4582:4582 \
 -v /etc/localtime:/etc/localtime \
--v $PWD/appsettings.json:/root/app/appsettings.json \
--v $PWD/Logs:/root/app/Logs \
--v $PWD/Data:/root/app/Data \
+-v $PWD/appsettings.json:/root/app/Gateway/appsettings.json \
+-v $PWD/Logs:/root/app/Gateway/Logs \
+-v $PWD/Data:/root/app/Gateway/Data \
 serset/sers-gateway
  
 

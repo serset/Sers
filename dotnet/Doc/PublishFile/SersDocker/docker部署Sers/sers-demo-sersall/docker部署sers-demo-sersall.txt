@@ -19,9 +19,9 @@ cd /root/docker
 cd sers-demo-sersall
 docker run --name=sers-demo-sersall --restart=always -d --net=host\
 -v /etc/localtime:/etc/localtime \
--v $PWD/appsettings.json:/root/app/ServiceCenter/appsettings.json \
--v $PWD/Logs:/root/app/ServiceCenter/Logs \
--v $PWD/Data:/root/app/ServiceCenter/Data \
+-v $PWD/appsettings.json:/root/app/appsettings.json \
+-v $PWD/Logs:/root/app/Logs \
+-v $PWD/Data:/root/app/Data \
 serset/sers-demo-sersall
 cd ..
 
