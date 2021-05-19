@@ -14,8 +14,11 @@ namespace Vit.Extensions
         /// load api from appsettings.json::serslot.extApi
         /// </summary>
         /// <param name="data"></param>
-        internal static void LoadSerslotExtApi(this ILocalApiService data)
+        /// <param name="CreateApiNode"></param>
+        internal static void LoadSerslotExtApi(this ILocalApiService data, Func<SsApiDesc, IApiNode> CreateApiNode = null)
         {
+            if (CreateApiNode == null) CreateApiNode = apiDesc => new ApiNode_Original(apiDesc: apiDesc);
+
             Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<List<SsApiDesc>>("serslot.extApi")?.ForEach(apiDesc =>
             {
                 IApiNode apiNode;
@@ -25,7 +28,7 @@ namespace Vit.Extensions
                 if (reply == null)
                 {
                     //(x.x.1)由host处理
-                    apiNode = new ApiNode_Original(apiDesc: apiDesc);
+                    apiNode = CreateApiNode(apiDesc);
                 }
                 else
                 {

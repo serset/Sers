@@ -38,7 +38,7 @@ namespace Sers.Serslot.Mode.BackgroundTask
 
 
             //(x.2)load api from appsettings.json::serslot.extApi
-            data.LoadSerslotExtApi();
+            data.LoadSerslotExtApi(apiDesc=> new LocalApiNode(apiDesc, this));
 
         }
     }
