@@ -42,7 +42,7 @@ cd ..
 
  
 #强制删除镜像名称中包含sers的镜像
-# docker rmi --force $(docker images | grep sers- | awk '{print $3}')
+# docker rmi --force $(docker images | grep sers | awk '{print $3}')
 
 
 
