@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Vit.Core.Util.Shell.Demo": {
+      "commandName": "Project",
+      "commandLineArgs": "cmd.exe"
+    }
+  }
+}
