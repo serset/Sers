@@ -113,8 +113,9 @@ namespace Vit.Core.Util.Shell
         /// <param name="arguments"></param>
         /// <param name="millisecondsOfWait">等待时间，默认10000。为null则永久等待</param>
         /// <param name="WorkingDirectory">sets the working directory for the process to be started</param>
+        /// <param name="input"></param>
         /// <returns>true if the associated process has exited; otherwise, false.</returns>
-        public static bool Shell(string fileName, string arguments, int? millisecondsOfWait = 10000, string WorkingDirectory = null)
+        public static bool Shell(string fileName, string arguments, int? millisecondsOfWait = 10000, string WorkingDirectory = null, string input = null)
         {
 
             //(x.1)创建Process
@@ -165,8 +166,20 @@ namespace Vit.Core.Util.Shell
 
             #region (x.3)启动Process           
             try
-            {
+            {             
+
+                //(x.x.1)
                 process.Start();
+
+
+                //(x.x.2)write
+                if (input != null)
+                {
+                    process.StandardInput.Write(input);
+                }
+
+
+                //(x.x.3)WaitForExit
                 if (millisecondsOfWait.HasValue)
                     return process.WaitForExit(millisecondsOfWait.Value);
                 else
