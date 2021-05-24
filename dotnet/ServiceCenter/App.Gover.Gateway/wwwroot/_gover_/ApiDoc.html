@@ -126,7 +126,7 @@
 
             sers.apiClient.apiDesc_removeOffline(function (apiRet) {
                 if (!apiRet.success) {
-                    alert('操作失败，请重试。' + apiRet.error?.errorMessage);
+                    alert('操作失败，请重试。' + ((apiRet.error || {}).errorMessage || ''));
                     return;
                 }
                 location.reload();

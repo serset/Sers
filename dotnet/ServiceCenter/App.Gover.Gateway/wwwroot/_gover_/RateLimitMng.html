@@ -69,7 +69,7 @@
 
             if (!apiReturn.success) {
                 console.log(apiReturn);
-                alert('调用失败。' + ((apiReturn.error || {}).messgge || ''));
+                alert('调用失败。' + ((apiReturn.error || {}).errorMessage || ''));
                 return;
             }
 
