@@ -19,8 +19,10 @@ namespace Vit.Extensions
         {
             if (data == null || error == null) return data;
 
-            #region (x.1) set rpcData
+
             var rpcData = new RpcContextData();
+
+            #region (x.1) headers
             var headers = rpcData.http.Headers();
             rpcData.error = error;
 
@@ -29,11 +31,14 @@ namespace Vit.Extensions
             headers["responseState"] = "fail";
             headers["responseError_Base64"] = error?.SerializeToBytes()?.BytesToBase64String();
 
-
-            data.RpcContextData_OriData_Set(rpcData);
             #endregion
 
-            #region (x.2) set body          
+            //(x.2)statusCode
+            rpcData.http.statusCode = error.errorCode;
+            data.RpcContextData_OriData_Set(rpcData);
+
+
+            #region (x.3) set body          
             ApiReturn ret = error;
             data.value_OriData = ret.SerializeToArraySegmentByte();
             #endregion
