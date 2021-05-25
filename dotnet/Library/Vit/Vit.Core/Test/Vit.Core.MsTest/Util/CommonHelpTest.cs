@@ -16,7 +16,7 @@ namespace Vit.Core.MsTest.Util
             var ids = new List<long>();
             for (int i = 0; i < 100; i++)//测试有序ID
             {
-                ids.Add(CommonHelp.NewGuidLong());
+                ids.Add(CommonHelp.NewSnowflakeGuidLong());
             }
             for (int i = 0; i < ids.Count - 1; i++)
             {

@@ -19,7 +19,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static RpcContextData Init(this RpcContextData rpcData, String callerSource = nameof(ECallerSource.Internal))
         {
-            var rid = CommonHelp.NewGuid();
+            var rid = CommonHelp.NewFastGuid();
 
             rpcData.caller.rid = rid;
             rpcData.caller.source = callerSource;

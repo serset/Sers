@@ -28,30 +28,6 @@ namespace Vit.Core.Util.Common
 
 
         /// <summary>
-        /// 获取guid。如："1f3c6041c68f4ab3ae19f66f541e3209"
-        /// </summary>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string NewGuid()
-        {
-            return NewGuidLong().Int64ToHexString();
-            //return NewGuidLong().ToString();
-            //return global::System.Guid.NewGuid().ToString("N");
-            /*
-var guid = Guid.NewGuid();
-Debug.WriteLine(guid.ToString());   //1f3c6041-c68f-4ab3-ae19-f66f541e3209
-Debug.WriteLine(guid.ToString("N"));//1f3c6041c68f4ab3ae19f66f541e3209
-Debug.WriteLine(guid.ToString("D"));//1f3c6041-c68f-4ab3-ae19-f66f541e3209
-Debug.WriteLine(guid.ToString("B"));//{1f3c6041-c68f-4ab3-ae19-f66f541e3209}
-Debug.WriteLine(guid.ToString("P"));//(1f3c6041-c68f-4ab3-ae19-f66f541e3209)
-Debug.WriteLine(guid.ToString("X"));//{0x1f3c6041,0xc68f,0x4ab3,{0xae,0x19,0xf6,0x6f,0x54,0x1e,0x32,0x09}}
-             
-             
-             */
-        }
-
-
-        /// <summary>
         /// 返回随机数
         /// </summary>
         /// <param name="minValue"></param>
@@ -63,19 +39,75 @@ Debug.WriteLine(guid.ToString("X"));//{0x1f3c6041,0xc68f,0x4ab3,{0xae,0x19,0xf6,
             return new Random(global::System.Guid.NewGuid().GetHashCode()).Next(minValue, maxValue);
         }
 
+
+        #region NewGuid    
+
+        /// <summary>
+        /// 通过系统Guid对象生成guid。如："1f3c6041c68f4ab3ae19f66f541e3209"
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string NewGuid()
+        {
+           return global::System.Guid.NewGuid().ToString("N");
+            /*
+var guid = Guid.NewGuid();
+Debug.WriteLine(guid.ToString());   //1f3c6041-c68f-4ab3-ae19-f66f541e3209
+Debug.WriteLine(guid.ToString("N"));//1f3c6041c68f4ab3ae19f66f541e3209
+Debug.WriteLine(guid.ToString("D"));//1f3c6041-c68f-4ab3-ae19-f66f541e3209
+Debug.WriteLine(guid.ToString("B"));//{1f3c6041-c68f-4ab3-ae19-f66f541e3209}
+Debug.WriteLine(guid.ToString("P"));//(1f3c6041-c68f-4ab3-ae19-f66f541e3209)
+Debug.WriteLine(guid.ToString("X"));//{0x1f3c6041,0xc68f,0x4ab3,{0xae,0x19,0xf6,0x6f,0x54,0x1e,0x32,0x09}}             
+             
+             */
+        }
+
+        /// <summary>
+        /// 通过系统Guid对象生成guid
+        /// </summary>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long NewGuidLong()
         {
-            //return Snowflake.GetId();
-            return FastGuid.GetGuid();
+            byte[] buffer = global::System.Guid.NewGuid().ToByteArray();
+            return BitConverter.ToInt64(buffer, 0);
         }
+        #endregion
 
 
+
+        #region Snowflake       
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long NewSnowflakeGuidLong()
         {
             return Snowflake.GetId();           
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string NewSnowflakeGuid()
+        {
+            return NewSnowflakeGuidLong().Int64ToHexString();
+        }
+        #endregion
+
+        #region FastGuid       
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static long NewFastGuidLong()
+        {
+            return FastGuid.GetGuid();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string NewFastGuid()
+        {
+            return NewFastGuidLong().Int64ToHexString();
+        }
+        #endregion
+
+
+
+
+
 
 
         /// <summary>
@@ -86,10 +118,12 @@ Debug.WriteLine(guid.ToString("X"));//{0x1f3c6041,0xc68f,0x4ab3,{0xae,0x19,0xf6,
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string MD5(string source)
         {
-            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-            byte[] bytes = Encoding.UTF8.GetBytes(source);
-            string result = BitConverter.ToString(md5.ComputeHash(bytes));
-            return result.Replace("-", "");
+            using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(source);
+                string result = BitConverter.ToString(md5.ComputeHash(bytes));
+                return result.Replace("-", "");
+            }
         }
 
     }

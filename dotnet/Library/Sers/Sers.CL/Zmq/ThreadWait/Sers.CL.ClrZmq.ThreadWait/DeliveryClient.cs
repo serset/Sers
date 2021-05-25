@@ -13,7 +13,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
     {
 
 
-        DeliveryConnection _conn = new DeliveryConnection() { zmqIdentity = CommonHelp.NewGuidLong().Int64ToBytes() };
+        DeliveryConnection _conn = new DeliveryConnection() { zmqIdentity = CommonHelp.NewFastGuidLong().Int64ToBytes() };
 
         public IDeliveryConnection conn => _conn;
 

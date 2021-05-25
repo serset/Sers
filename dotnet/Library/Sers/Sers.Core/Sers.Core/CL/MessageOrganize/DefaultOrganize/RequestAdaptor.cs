@@ -156,7 +156,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         #region (x.x.1)
 
   
-        long reqKeyIndex = CommonHelp.NewGuidLong();
+        long reqKeyIndex = CommonHelp.NewFastGuidLong();
    
         #endregion
 

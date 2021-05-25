@@ -14,7 +14,7 @@ namespace Sers.CL.Zmq.FullDuplex
 
         public DeliveryClient()
         {
-            _conn.SetIdentity(CommonHelp.NewGuidLong());
+            _conn.SetIdentity(CommonHelp.NewFastGuidLong());
         }
 
         DeliveryConnection _conn = new DeliveryConnection();
