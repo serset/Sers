@@ -73,7 +73,7 @@ namespace Vit.Core.Util.ComponentModel.SsError
 
         #region ErrorDetail
 
-        public JObject ErrorDetail
+        public object ErrorDetail
         {
             get
             {

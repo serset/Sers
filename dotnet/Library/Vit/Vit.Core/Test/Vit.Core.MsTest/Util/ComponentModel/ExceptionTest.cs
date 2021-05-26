@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
 using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Extensions;
 
@@ -20,13 +21,13 @@ namespace Vit.Core.MsTest.Util.ComponentModel
             try
             {
 
-                throw new System.Exception().ErrorCode_Set(ErrorCode).ErrorMessage_Set(ErrorMessage).ErrorDetail_Set(nameof(ErrorDetail_Opt), ErrorDetail_Opt);
+                throw new System.Exception().ErrorCode_Set(ErrorCode).ErrorMessage_Set(ErrorMessage).ErrorDetail_Set(new {  ErrorDetail_Opt });
             }
             catch (System.Exception ex)
             {
                 Assert.AreEqual(ErrorCode, ex.ErrorCode_Get());
                 Assert.AreEqual(ErrorMessage, ex.ErrorMessage_Get());
-                Assert.AreEqual(ErrorDetail_Opt, ex.ErrorDetail_Get(nameof(ErrorDetail_Opt)));
+                Assert.AreEqual(ErrorDetail_Opt, ex.ErrorDetail_Get<JObject>()[nameof(ErrorDetail_Opt)]);
 
             }
 

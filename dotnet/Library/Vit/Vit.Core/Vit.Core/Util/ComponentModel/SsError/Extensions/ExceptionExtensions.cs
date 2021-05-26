@@ -41,7 +41,7 @@ namespace Vit.Extensions
             {
                 throw new ArgumentNullException(nameof(ex));
             }
-            return (ex.Data[key]).Convert<Type>() ;
+            return (ex.Data[key]).ConvertBySerialize<Type>() ;
         }
         #endregion
 
@@ -130,7 +130,7 @@ namespace Vit.Extensions
         /// <param name="ex"></param>
         /// <param name="ErrorDetail"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static Exception ErrorDetail_Set(this Exception ex, JObject ErrorDetail)
+        public static Exception ErrorDetail_Set<Type>(this Exception ex, Type ErrorDetail)
         {
             ex.Data_Set("ErrorDetail", ErrorDetail);
             return ex;
@@ -141,44 +141,22 @@ namespace Vit.Extensions
         /// <param name="ex"></param>
         /// <returns></returns>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static JObject ErrorDetail_Get(this Exception ex)
+        public static Type ErrorDetail_Get<Type>(this Exception ex)
         {
-            return ex.Data_Get<JObject>("ErrorDetail");
-        }
-        #endregion
-
-        #region ErrorDetail
-        /// <summary>
-        /// SsError。设置ErrorDetail的属性值。若ErrorDetail为null,则会自动创建
-        /// </summary>
-        /// <param name="ex"></param>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static Exception ErrorDetail_Set(this Exception ex, string key,object value)
-        {
-            var ErrorDetail = ex.ErrorDetail_Get();
-            if (null == ErrorDetail)
-            {
-                ex.ErrorDetail_Set(ErrorDetail = new JObject());
-            }
-            ErrorDetail[key] = value.ToJToken();
-            return ex;
-
+            return ex.Data_Get<Type>("ErrorDetail");
         }
 
         /// <summary>
-        /// SsError。获取ErrorDetail的属性值
+        /// SsError。获取ErrorDetail，可能为null
         /// </summary>
         /// <param name="ex"></param>
-        /// <param name="key"></param>
         /// <returns></returns>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static object ErrorDetail_Get(this Exception ex, string key)
+        public static object ErrorDetail_Get(this Exception ex)
         {
-            return ex.ErrorDetail_Get()?[key]?.GetValue();
+            return ex.ErrorDetail_Get<object>();
         }
-        #endregion
+        #endregion     
 
 
 

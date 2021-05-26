@@ -66,7 +66,7 @@ namespace Vit.Core.Util.ComponentModel.SsError
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [SsExample("{}")]
         [SsDescription("错误详情（json类型）")]
-        public JObject errorDetail { get; set; }
+        public object errorDetail { get; set; }
 
 
 
