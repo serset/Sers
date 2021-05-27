@@ -124,7 +124,7 @@ namespace Sers.Serslot
         {
             var routes = new List<(string route, string httpMethod, string oriRoute)>();
 
-            if (null!=method.GetCustomAttributes<NonActionAttribute>())
+            if (null!=method.GetCustomAttribute<NonActionAttribute>())
                 return routes;
 
             var attrs = method.GetCustomAttributes<Microsoft.AspNetCore.Mvc.Routing.HttpMethodAttribute>();
