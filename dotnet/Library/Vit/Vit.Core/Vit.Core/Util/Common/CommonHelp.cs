@@ -28,7 +28,7 @@ namespace Vit.Core.Util.Common
 
 
         /// <summary>
-        /// 返回随机数
+        /// 返回随机数。 the range of return values includes minValue but not maxValue. If minValue equals maxValue, minValue is returned.
         /// </summary>
         /// <param name="minValue"></param>
         /// <param name="maxValue"></param>
