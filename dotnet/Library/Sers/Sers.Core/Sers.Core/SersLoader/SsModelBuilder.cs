@@ -14,14 +14,141 @@ using Vit.Extensions;
 
 namespace Sers.SersLoader
 {
+
     public class SsModelBuilder
     {
+        #region Getter value from attribute
+
+        #region (x.1)Getter_Name
+        public static readonly List<Func<Func<Type, System.Attribute>, string>> Getter_Name = new List<Func<Func<Type, Attribute>, string>>();
+        public static string GetNameFromAttribute(Func<Type, System.Attribute> GetAttribute)
+        {
+            foreach (var getter in Getter_Name)
+            {
+                var value = getter(GetAttribute);
+                if (value != null) return value;
+            }
+            return null;
+        }
+        #endregion
+
+        #region (x.2)Getter_Description
+        public static readonly List<Func<Func<Type, System.Attribute>, string>> Getter_Description = new List<Func<Func<Type, Attribute>, string>>();
+        public static string GetDescriptionFromAttribute(Func<Type, System.Attribute> GetAttribute)
+        {
+            foreach (var getter in Getter_Description)
+            {
+                var value = getter(GetAttribute);
+                if (value != null) return value;
+            }
+            return null;
+        }
+        #endregion
+
+        #region (x.3)Getter_Example
+        public static readonly List<Func<Func<Type, System.Attribute>, object>> Getter_Example = new List<Func<Func<Type, Attribute>, object>>();
+        public static object GetExampleFromAttribute(Func<Type, System.Attribute> GetAttribute)
+        {
+            foreach (var getter in Getter_Example)
+            {
+                var value = getter(GetAttribute);
+                if (value != null) return value;
+            }
+            return null;
+        }
+        #endregion
+
+
+        #region (x.4)Getter_DefaultValue       
+        public static readonly List<Func<Func<Type, System.Attribute>, object>> Getter_DefaultValue = new List<Func<Func<Type, Attribute>, object>>();
+        public static object GeDefaultValueFromAttribute(Func<Type, System.Attribute> GetAttribute) 
+        {
+            foreach (var getter in Getter_DefaultValue)
+            {
+                var value = getter(GetAttribute);
+                if (value != null) return value;
+            }
+            return null;
+        }
+        #endregion
+
+
+        #region (x.5)Getter_Type    
+        public static readonly List<Func<Func<Type, System.Attribute>, Type>> Getter_Type = new List<Func<Func<Type, Attribute>, Type>>();
+        public static Type GetTypeFromAttribute(Func<Type, System.Attribute> GetAttribute)
+        {
+            foreach (var getter in Getter_Type)
+            {
+                var value = getter(GetAttribute);
+                if (value != null) return value;
+            }
+            return null;
+        }
+        #endregion
+ 
+
+        static SsModelBuilder() 
+        {
+            SsModelBuilder.Getter_Name.Add(GetAttribute =>
+            {
+                return GetAttribute.GetAttribute<SsNameAttribute>()?.Value;
+            });
+
+            SsModelBuilder.Getter_Description.Add(GetAttribute =>
+            {
+                return GetAttribute.GetAttribute<SsDescriptionAttribute>()?.Value;
+            });
+
+            SsModelBuilder.Getter_Example.Add(GetAttribute =>
+            {
+                return GetAttribute.GetAttribute<SsExampleAttribute>()?.Value;
+            });
+
+
+            SsModelBuilder.Getter_DefaultValue.Add(GetAttribute =>
+            {
+                return GetAttribute.GetAttribute<SsDefaultValueAttribute>()?.Value;
+            });
+
+
+            SsModelBuilder.Getter_Type.Add(GetAttribute =>
+            {
+                return GetAttribute.GetAttribute<SsTypeAttribute>()?.Value;
+            });
+
+            //ComponentModel
+            SsModelBuilder.Getter_Name.Add(GetAttribute =>
+            {
+                return GetAttribute.GetAttribute<System.ComponentModel.DisplayNameAttribute>()?.DisplayName;
+            });
+
+            SsModelBuilder.Getter_Description.Add(GetAttribute =>
+            {
+                return GetAttribute.GetAttribute<System.ComponentModel.DescriptionAttribute>()?.Description;
+            });
+            SsModelBuilder.Getter_DefaultValue.Add(GetAttribute =>
+            {
+                return GetAttribute.GetAttribute<System.ComponentModel.DefaultValueAttribute>()?.Value;
+            });
+
+
+
+        }
+
+
+        #endregion
+
+
+
+
+
+
         public XmlCommentMng xmlMng;
 
         #region SsModel
         public SsModel BuildSsModel_Return(MethodInfo methodInfo, Type returnType)
         {
-            var descType = methodInfo.ReturnParameter.GetCustomAttribute<SsTypeAttribute>()?.Value;
+            var descType = GetTypeFromAttribute(methodInfo.ReturnParameter.GetCustomAttribute);
             if (descType != null) returnType = descType;
 
             SsModel model = new SsModel();
@@ -33,9 +160,9 @@ namespace Sers.SersLoader
             model.mode = modelProperty.mode;
 
             {
-                model.description = methodInfo.ReturnParameter.GetCustomAttribute<SsDescriptionAttribute>()?.Value;
-                model.example = methodInfo.ReturnParameter.GetCustomAttribute<SsExampleAttribute>()?.Value;
-                model.defaultValue = methodInfo.ReturnParameter.GetCustomAttribute<SsDefaultValueAttribute>()?.Value;
+                model.description = GetDescriptionFromAttribute(methodInfo.ReturnParameter.GetCustomAttribute);
+                model.example = GetExampleFromAttribute(methodInfo.ReturnParameter.GetCustomAttribute);                
+                model.defaultValue = GeDefaultValueFromAttribute(methodInfo.ReturnParameter.GetCustomAttribute);
             }
             {
                 if (String.IsNullOrEmpty(model.description))
@@ -93,7 +220,7 @@ namespace Sers.SersLoader
                     return args;
                 };
 
-                var argDescType = argInfos[0].GetCustomAttribute<SsTypeAttribute>()?.Value  ?? argType;
+                var argDescType = GetTypeFromAttribute(argInfos[0].GetCustomAttribute) ?? argType;
 
                 var modelEntitys = new List<SsModelEntity>();
                 var mEntity = CreateEntityByType(argDescType, modelEntitys);
@@ -104,9 +231,9 @@ namespace Sers.SersLoader
                 model.type = mEntity.type;
 
                 {
-                    model.description = argInfos[0].GetCustomAttribute<SsDescriptionAttribute>()?.Value;
-                    model.example = argInfos[0].GetCustomAttribute<SsExampleAttribute>()?.Value;
-                    model.defaultValue = argInfos[0].GetCustomAttribute<SsDefaultValueAttribute>()?.Value;
+                    model.description = GetDescriptionFromAttribute(argInfos[0].GetCustomAttribute);
+                    model.example = GetExampleFromAttribute(argInfos[0].GetCustomAttribute);
+                    model.defaultValue = GeDefaultValueFromAttribute(argInfos[0].GetCustomAttribute);
                 }
                 #endregion
 
@@ -168,7 +295,7 @@ namespace Sers.SersLoader
             {
                 var info = infos[t];
 
-                var argDescType = info.GetCustomAttribute<SsTypeAttribute>()?.Value ?? info.ParameterType;
+                var argDescType = GetTypeFromAttribute(info.GetCustomAttribute) ?? info.ParameterType;
 
                 SsModelProperty m = CreateModelProperty(argDescType, info.GetCustomAttribute, refModels);
                 if (String.IsNullOrWhiteSpace(m.name)) m.name = info.Name;
@@ -191,22 +318,15 @@ namespace Sers.SersLoader
         }
 
 
-        SsModelProperty CreateModelProperty(Type propertyType, Func<Type, System.Attribute> delGetCustomAttribute, List<SsModelEntity> refModels)
+        SsModelProperty CreateModelProperty(Type propertyType, Func<Type, System.Attribute> GetCustomAttribute, List<SsModelEntity> refModels)
         {
-            #region GetCustomAttribute
-            T GetCustomAttribute<T>()
-                where T : System.Attribute
-            {
-                return delGetCustomAttribute(typeof(T)) as T;
-            }
-            #endregion 
-
+             
             SsModelProperty m = new SsModelProperty();
 
-            m.name = GetCustomAttribute<SsNameAttribute>()?.Value;
-            m.description = GetCustomAttribute<SsDescriptionAttribute>()?.Value;
-            m.example = GetCustomAttribute<SsExampleAttribute>()?.Value;
-            m.defaultValue = GetCustomAttribute<SsDefaultValueAttribute>()?.Value;
+            m.name = GetNameFromAttribute(GetCustomAttribute);
+            m.description = GetDescriptionFromAttribute(GetCustomAttribute);
+            m.example = GetExampleFromAttribute(GetCustomAttribute);
+            m.defaultValue = GeDefaultValueFromAttribute(GetCustomAttribute);
 
 
             Type_GetMode(propertyType, out m.mode, out m.type, out Type baseT);

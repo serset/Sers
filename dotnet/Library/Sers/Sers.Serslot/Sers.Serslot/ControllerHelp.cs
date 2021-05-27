@@ -4,17 +4,53 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Sers.SersLoader;
+using Vit.Extensions;
 
 namespace Sers.Serslot
 {
     public class ControllerHelp
     {
 
+        static ControllerHelp()
+        {
+            //SsModelBuilder.Getter_Name.Add(GetAttribute =>
+            //{
+            //    return GetAttribute.GetAttribute<DisplayNameAttribute>()?.DisplayName;
+            //});
+
+            //SsModelBuilder.Getter_Description.Add(GetAttribute =>
+            //{
+            //    return GetAttribute.GetAttribute<DescriptionAttribute>()?.Description;
+            //});
+
+            //SsModelBuilder.Getter_Example.Add(GetAttribute =>
+            //{
+            //    return GetAttribute.GetAttribute<SsExampleAttribute>()?.Value;
+            //});
+
+
+            //SsModelBuilder.Getter_DefaultValue.Add(GetAttribute =>
+            //{
+            //    return GetAttribute.GetAttribute<DefaultValueAttribute>()?.Value;
+            //});
+        
+            SsModelBuilder.Getter_Type.Add(GetAttribute =>
+            {
+                return GetAttribute.GetAttribute<ModelMetadataTypeAttribute>()?.MetadataType;
+            });
+
+        }
+
         #region Assembly_GetControllers
 
         public static IEnumerable<Type> Assembly_GetControllers(Assembly assembly)
         {
-           return assembly.GetTypes().Where(type => typeof(Microsoft.AspNetCore.Mvc.ControllerBase).IsAssignableFrom(type) && !type.IsAbstract && type.IsPublic);
+           return assembly.GetTypes().Where(type => 
+           typeof(Microsoft.AspNetCore.Mvc.ControllerBase).IsAssignableFrom(type)
+           && type.GetCustomAttribute<NonControllerAttribute>()==null
+           && !type.IsAbstract
+           && type.IsPublic);
         }
         #endregion
 
@@ -88,6 +124,8 @@ namespace Sers.Serslot
         {
             var routes = new List<(string route, string httpMethod, string oriRoute)>();
 
+            if (null!=method.GetCustomAttributes<NonActionAttribute>())
+                return routes;
 
             var attrs = method.GetCustomAttributes<Microsoft.AspNetCore.Mvc.Routing.HttpMethodAttribute>();
             if (null == attrs || attrs.Count() == 0) return routes;
