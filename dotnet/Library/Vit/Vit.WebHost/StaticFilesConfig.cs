@@ -1,12 +1,9 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
-using System.IO;
 using Vit.Core.Util.Common;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.StaticFiles;
-using Vit.Core.Util.ConfigurationManager;
 
 namespace Vit.WebHost
 {
@@ -73,7 +70,8 @@ namespace Vit.WebHost
 
 
         #region contentTypeProvider
-        internal IContentTypeProvider contentTypeProvider { get; set; }
+        [JsonIgnore]
+        public IContentTypeProvider contentTypeProvider { get; set; }
 
         /// <summary>
         /// 静态文件类型映射配置的文件路径。可为相对路径或绝对路径。例如"contentTypeMap.json"。若不指定（或指定的文件不存在）则不指定文件类型映射配置
@@ -83,29 +81,7 @@ namespace Vit.WebHost
         {
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    contentTypeProvider = null;
-                    return;
-                }
-
-                var jsonFile = new JsonFile(value);
-                if (File.Exists(jsonFile.configPath))
-                {
-                    var provider = new FileExtensionContentTypeProvider();
-                    contentTypeProvider = provider;
-
-                    if (jsonFile.root is JObject jo)
-                    {
-                        var map = provider.Mappings;
-                        foreach (var item in jo)
-                        {
-                            map.Remove(item.Key);
-                            map[item.Key] = item.Value.Value<string>();
-                        }
-                    }
-                }
-
+                contentTypeProvider = WebHostHelp.BuildContentTypeProvider(value);
             }
         }
 
