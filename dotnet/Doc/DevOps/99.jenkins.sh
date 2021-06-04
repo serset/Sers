@@ -31,12 +31,14 @@ chroot /host bash -c "docker run -i --rm -v $codePath:/root/svn serset/svn-clien
 
 
  
-echo '(x.2)changeVersion'
-chroot /host bash -c "cd $codePath/Sers/dotnet/Doc/DevOps;sh 10.changeVersion.sh;"
+echo '(x.2)code-changeVersion'
+chroot /host bash -c "cd $codePath/Sers/dotnet/Doc/DevOps;sh 10.code-changeVersion.sh"
 
 
  
-
+ 
+echo '(x.3)nuget-publish'
+chroot /host bash -c "cd $codePath/Sers/dotnet/Doc/DevOps;sh 20.nuget-publish-main.sh"
 
 
  
