@@ -8,7 +8,6 @@ echo ["%version%"]
 
 cd /d ..\Publish
  
-pause
 
 mkdir Publish
 mkdir Publish\Sers%version%
