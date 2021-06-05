@@ -25,7 +25,7 @@ namespace Sers.Hardware.Usage
 
                 process.Start();
             }
-            catch (Exception ex)
+            catch
             {
 
             }

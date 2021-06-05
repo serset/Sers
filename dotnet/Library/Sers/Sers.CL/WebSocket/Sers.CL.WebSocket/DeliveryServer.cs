@@ -1,6 +1,6 @@
-﻿/// https://blog.csdn.net/ZslLoveMiwa/article/details/80247739
-/// 
-/// https://www.oschina.net/translate/websocket-libraries-comparison-2
+﻿// https://blog.csdn.net/ZslLoveMiwa/article/details/80247739
+
+// https://www.oschina.net/translate/websocket-libraries-comparison-2
 
 using System;
 using System.Collections.Concurrent;

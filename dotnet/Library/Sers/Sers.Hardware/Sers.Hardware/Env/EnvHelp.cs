@@ -93,7 +93,7 @@ namespace Sers.Hardware.Env
 
                 return GetMachineSimpleInfo();
             }
-            catch (Exception ex)
+            catch
             {
             }
             return null;

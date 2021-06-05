@@ -30,6 +30,7 @@ namespace Vit.Extensions
         /// <summary>
         /// 调用SersApi加载器加载api
         /// </summary>
+        /// <param name="data"></param>
         /// <param name="config"></param>
         public static void LoadSersApi(this ILocalApiService data,ApiLoaderConfig config)
         {
@@ -39,6 +40,7 @@ namespace Vit.Extensions
         /// <summary>
         /// 调用SersApi加载器加载api
         /// </summary>
+        /// <param name="data"></param>
         /// <param name="assembly"></param>
         public static void LoadSersApi(this ILocalApiService data, Assembly assembly)
         {

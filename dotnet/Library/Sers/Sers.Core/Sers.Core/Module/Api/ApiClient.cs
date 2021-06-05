@@ -132,7 +132,6 @@ namespace Sers.Core.Module.Api
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="ReturnType"></typeparam>
         /// <param name="route"></param>
         /// <param name="arg"></param>
         /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>

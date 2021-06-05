@@ -131,7 +131,7 @@ namespace Sers.Serslot.Mode.Async
                 #endregion
 
             }
-            catch (Exception ex)
+            catch
             {
                 Dispose();
                 throw;

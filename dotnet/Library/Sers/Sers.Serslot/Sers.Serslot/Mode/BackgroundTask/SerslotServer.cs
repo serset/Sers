@@ -129,7 +129,7 @@ namespace Sers.Serslot.Mode.BackgroundTask
                 #endregion
 
             }
-            catch (Exception ex)
+            catch
             {
                 Dispose();
                 throw;

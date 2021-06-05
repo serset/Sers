@@ -97,7 +97,7 @@ namespace Sers.Hardware.Env
                     }
                 } 
             }
-            catch (Exception ex)
+            catch
             {    
             }
             return null;
@@ -187,7 +187,7 @@ enp3s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
                         address = File.ReadAllText(addressFilePath).ToUpper()
                     });
                 }
-                catch (Exception ex)
+                catch
                 {
                 }
             }
