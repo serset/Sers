@@ -20,7 +20,7 @@ docker run -i --rm \
 -v $basePath/code:/root/code \
 -v $basePath/nuget/packages:/root/.nuget/packages \
 serset/dotnet:6.0-sdk \
-sh /root/code/Sers/dotnet/Doc/DevOps/21.nuget-publish.sh 
+bash /root/code/Sers/dotnet/Doc/DevOps/21.nuget-publish.sh 
 
 
 
