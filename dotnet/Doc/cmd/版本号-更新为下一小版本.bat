@@ -2,7 +2,7 @@
 
 ::获取当前版本号
 :: set version=2.1.3.356 
-for /f "tokens=3 delims=><" %%a in ('type ..\..\Library\Vit\Vit.Core\Vit.Core\Vit.Core.csproj^|findstr "<Version>.*Version"') do set version=%%a
+for /f "tokens=3 delims=><" %%a in ('type ..\..\Library\Sers\Sers.Core\Sers.Core\Sers.Core.csproj^|findstr "<Version>.*Version"') do set version=%%a
 
 :: v1 v2 v3
 for /f "tokens=1 delims=." %%i in ("%version%") do set v1=%%i
@@ -14,8 +14,8 @@ for /f "tokens=3 delims=." %%i in ("%version%") do set v3=%%i
 :: set v4=356 
 for /f "tokens=4 delims= " %%i in ('svn info "svn://svn.sers.cloud/Sers2.1"^|findstr "Rev:"') do set v4=%%i
 
-:: set /a v3=1+%v3%
-set /a v4=1+%v4%
+set /a v3=1+%v3%
+:: set /a v4=1+%v4%
 set  newVersion=%v1%.%v2%.%v3%.%v4%
 
  
