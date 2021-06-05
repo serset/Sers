@@ -22,7 +22,10 @@ chmod 777 $basePath/nuget
 
 
 #(x.3)从svn拉取code
-docker run -it --rm -v $basePath/code:/root/svn serset/svn-client svn checkout svn://svn.sers.cloud/Sers2.1 /root/svn --username lith --password beyourself --no-auth-cache
+# svnServer=svn://sers.cloud
+# svnUser=lith
+# svnPwd=pwd
+docker run -it --rm -v $basePath/code:/root/svn serset/svn-client svn checkout $svnServer /root/svn --username $svnUser --password $svnPwd --no-auth-cache
 
  
 cd $curWorkDir
