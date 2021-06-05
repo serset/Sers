@@ -8,7 +8,7 @@ codePath=/root/code/Sers/dotnet
 cd ${codePath}
 for file in $(grep -a '<TargetFramework>netstandard2.0</TargetFramework>' . -rl --include *.csproj)
 do
-    if ! [[ $file =~ (Apm|Empty|Temp|Zmq|\-) ]]; then
+    if ! [[ $file =~ (Apm|Empty|Temp|Zmq|SharedMemory|\-) ]]; then
         echo pack $file
 	cd $codePath
         cd $(dirname "$file")
