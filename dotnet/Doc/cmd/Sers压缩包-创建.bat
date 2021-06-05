@@ -1,6 +1,6 @@
 ::ªÒ»°µ±«∞∞Ê±æ∫≈
 :: set version=2.1.1.356 
-for /f "tokens=3 delims=><" %%a in ('type ..\..\Library\Vit\Vit.Core\Vit.Core\Vit.Core.csproj^|findstr "<Version>.*Version"') do set version=%%a
+for /f "tokens=3 delims=><" %%a in ('type ..\..\Library\Sers\Sers.Core\Sers.Core\Sers.Core.csproj^|findstr "<Version>.*Version"') do set version=%%a
 
 
 
@@ -25,7 +25,7 @@ echo 3.¥¥Ω® CL—π≤‚.zip
 dotnet ../cmd/FileZip/FileZip.dll zip -i "CL—π≤‚" -o "Publish/Sers%version%/CL—π≤‚%version%.zip"
 
 echo 4.¥¥Ω® Sers—π≤‚.zip
-dotnet ../cmd/FileZip/FileZip.dll zip -i "Sers—π≤‚" -o ".Publish/Sers%version%/Sers—π≤‚%version%.zip"
+dotnet ../cmd/FileZip/FileZip.dll zip -i "Sers—π≤‚" -o "Publish/Sers%version%/Sers—π≤‚%version%.zip"
 
 
 
