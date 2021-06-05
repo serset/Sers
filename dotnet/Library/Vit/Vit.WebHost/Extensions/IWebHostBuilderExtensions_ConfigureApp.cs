@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace Vit.Extensions
@@ -19,9 +18,7 @@ namespace Vit.Extensions
         public static IWebHostBuilder ConfigureApp(this IWebHostBuilder builder, Action<IApplicationBuilder> beforeConfig=null, Action<IApplicationBuilder> afterConfig=null)
         {
             return builder.ConfigureServices(services=> {
-                services.AddTransient<IStartupFilter>(m=> {
-                    return new IServiceCollectionExtensions_ConfigureApp.AutoRequestServicesStartupFilter { beforeConfig = beforeConfig , afterConfig = afterConfig };
-                });
+                services.ConfigureApp(beforeConfig, afterConfig);
             });
         }
 
