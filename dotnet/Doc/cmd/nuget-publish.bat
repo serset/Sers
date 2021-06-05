@@ -79,14 +79,6 @@ dotnet pack --configuration Release --output ..\..\..\..\..\Doc\Publish\nuget
 cd /d ../../../../
 
 
-echo 'pack Sers.CL.ClrZmq.ThreadWait'
-cd /d Sers\Sers.CL\Zmq\ThreadWait\Sers.CL.ClrZmq.ThreadWait
-dotnet build --configuration Release
-dotnet pack --configuration Release --output ..\..\..\..\..\..\Doc\Publish\nuget
-@if errorlevel 1 (echo . & echo .  & echo 出错，请排查！& pause) 
-cd /d ../../../../../
-
-
 echo 'pack Sers.CL.WebSocket'
 cd /d Sers\Sers.CL\WebSocket\Sers.CL.WebSocket
 dotnet build --configuration Release
@@ -95,12 +87,19 @@ dotnet pack --configuration Release --output ..\..\..\..\..\Doc\Publish\nuget
 cd /d ../../../../
 
 
-echo 'pack Sers.CL.Zmq.FullDuplex'
-cd /d Sers\Sers.CL\Zmq\FullDuplex\Sers.CL.Zmq.FullDuplex
-dotnet build --configuration Release
-dotnet pack --configuration Release --output ..\..\..\..\..\..\Doc\Publish\nuget
-@if errorlevel 1 (echo . & echo .  & echo 出错，请排查！& pause) 
-cd /d ../../../../../
+::echo 'pack Sers.CL.ClrZmq.ThreadWait'
+::cd /d Sers\Sers.CL\Zmq\ThreadWait\Sers.CL.ClrZmq.ThreadWait
+::dotnet build --configuration Release
+::dotnet pack --configuration Release --output ..\..\..\..\..\..\Doc\Publish\nuget
+::@if errorlevel 1 (echo . & echo .  & echo 出错，请排查！& pause) 
+::cd /d ../../../../../
+
+::echo 'pack Sers.CL.Zmq.FullDuplex'
+::cd /d Sers\Sers.CL\Zmq\FullDuplex\Sers.CL.Zmq.FullDuplex
+::dotnet build --configuration Release
+::dotnet pack --configuration Release --output ..\..\..\..\..\..\Doc\Publish\nuget
+::@if errorlevel 1 (echo . & echo .  & echo 出错，请排查！& pause) 
+::cd /d ../../../../../
 
 
 echo 'pack Sers.ServiceStation'
@@ -166,7 +165,7 @@ cd /d ../../../../
  
  
 
-cd /d Doc\Publish
+cd /d Doc\cmd
 
 echo 'pack sers_lib succeed！'
 echo 'pack sers_lib succeed！'
