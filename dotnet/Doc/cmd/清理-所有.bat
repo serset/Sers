@@ -9,4 +9,4 @@ echo succeed
 echo succeed
 echo succeed
 
-:: pause
+pause
