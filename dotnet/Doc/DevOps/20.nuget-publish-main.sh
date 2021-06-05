@@ -10,7 +10,7 @@ curPath=$(dirname $0)
 cd $curPath/../../../../..
 basePath=$PWD
  
-# basePath=/home/DataStore/HDD/Data/008.jenkins/data/PersistentVolume/workspace
+# basePath=/home/DataStore/HDD/Data/008.jenkins/data/PersistentVolume/workspace/Sers
 
 
 echo "(x.2)构建dotnet项目并发布"
