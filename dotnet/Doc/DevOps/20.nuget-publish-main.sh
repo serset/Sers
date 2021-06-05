@@ -1,6 +1,6 @@
 set -e
 
-# cd /home/DataStore/HDD/Data/008.jenkins/data/PersistentVolume/workspace/Sers/code/Sers/dotnet/Doc/DevOps; sh 20.nuget-publish-main.sh
+# cd /home/DataStore/HDD/Data/008.jenkins/data/PersistentVolume/workspace/Sers/code/Sers/dotnet/Doc/DevOps; bash 20.nuget-publish-main.sh
 
 
 #(x.1)当前路径

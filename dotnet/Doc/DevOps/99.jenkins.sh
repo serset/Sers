@@ -1,7 +1,7 @@
 set -e
 
 
-# cd /home/DataStore/HDD/Data/008.jenkins/data/PersistentVolume/workspace/Sers/code/Sers/dotnet/Doc/DevOps; sh 99.jenkins.sh
+# cd /home/DataStore/HDD/Data/008.jenkins/data/PersistentVolume/workspace/Sers/code/Sers/dotnet/Doc/DevOps; bash 99.jenkins.sh
 
 
 
@@ -32,13 +32,13 @@ chroot /host bash -c "docker run -i --rm -v $codePath:/root/svn serset/svn-clien
 
  
 echo '(x.2)code-changeVersion'
-chroot /host bash -c "cd $codePath/Sers/dotnet/Doc/DevOps;sh 10.code-changeVersion.sh"
+chroot /host bash -c "cd $codePath/Sers/dotnet/Doc/DevOps;bash 10.code-changeVersion.sh"
 
 
  
  
 echo '(x.3)nuget-publish'
-chroot /host bash -c "cd $codePath/Sers/dotnet/Doc/DevOps;sh 20.nuget-publish-main.sh"
+chroot /host bash -c "cd $codePath/Sers/dotnet/Doc/DevOps;bash 20.nuget-publish-main.sh"
 
 
  
