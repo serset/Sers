@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<Version>2.1.4.684</Version>
+		<Version>2.1.5.701</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>
