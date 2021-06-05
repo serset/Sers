@@ -1,5 +1,7 @@
 
-set netVersion=netcoreapp2.1
+cd /d ../Publish
+
+set netVersion=net6.0
 set basePath=Sers—π≤‚\sers—π≤‚-µ•ÃÂ—π≤‚%netVersion%
 
 
@@ -22,3 +24,6 @@ xcopy  "SersPublish\%netVersion%\Robot\App.Robot.Station.xml" "%basePath%\Servic
 
 @echo "copy PublishFile"
 xcopy  "..\PublishFile\Sers—π≤‚\µ•ÃÂ—π≤‚" "%basePath%" /e /i /r /y
+
+
+cd /d ../cmd

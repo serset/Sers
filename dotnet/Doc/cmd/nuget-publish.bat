@@ -1,4 +1,4 @@
-cd /d ../../Library/
+cd /d ../../Library
  
 ::------------------Library
 

@@ -1,3 +1,4 @@
+
 cd /d ../../
 
 echo 'publish Client'
@@ -24,3 +25,4 @@ echo 'publish CLÑ¹²â succeed£¡'
 echo 'publish CLÑ¹²â succeed£¡'
 
 
+cd /d ../cmd

@@ -1,4 +1,6 @@
 
+cd /d ../Publish
+
 set netVersion=net6.0
 
 @echo "copy  SersDocker"
@@ -32,7 +34,7 @@ xcopy  "SersPublish\%netVersion%\Gover\appsettings.json" "SersDocker\docker²¿ÊğS
 xcopy  "SersPublish\%netVersion%\Gover" "SersDocker\dockerÖÆ×÷¾µÏñSers\sers-gover\app" /e /i /r /y
 
 
-
+cd /d ../cmd
 
 
  

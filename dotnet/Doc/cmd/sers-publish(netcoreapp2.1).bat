@@ -1,11 +1,9 @@
 
 
-set netVersion=net6.0
+set netVersion=netcoreapp2.1
 
-:: 调用工具 替换csproj
-cd ..\..\..\..
-VsTool.exe replace -r --file "App.Gateway.csproj|App.Gover.Gateway.csproj|App.ServiceCenter.csproj|Did.SersLoader.Demo.csproj|App.Robot.Station.csproj" --old "<TargetFramework>netcoreapp2.1</TargetFramework>" --new "<TargetFramework>net6.0</TargetFramework>"
-cd Sers\dotnet\Doc\Publish
+
+
 
 echo publish sers
 echo dotnet version: %netVersion%
@@ -97,11 +95,8 @@ xcopy  "..\..\ServiceStation\Demo\StressTest\App.Robot.Station\bin\Release\%netV
 xcopy  "..\..\ServiceStation\Demo\SersLoader\Did.SersLoader.Demo\bin\Release\%netVersion%\*.xml" "SersPublish\%netVersion%\Demo" /i /r /y
 
 
+cd /d ..\cmd
 
-:: 调用工具 替换csproj
-cd ..\..\..\..
-VsTool.exe replace -r --file "App.Gateway.csproj|App.Gover.Gateway.csproj|App.ServiceCenter.csproj|Did.SersLoader.Demo.csproj|App.Robot.Station.csproj" --old "<TargetFramework>net6.0</TargetFramework>" --new "<TargetFramework>netcoreapp2.1</TargetFramework>"
-cd Sers\dotnet\Doc\Publish
 
 echo 'publish sers succeed！'
 echo 'publish sers succeed！'
