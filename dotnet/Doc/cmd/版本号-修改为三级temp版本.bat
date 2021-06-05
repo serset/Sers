@@ -16,7 +16,7 @@ for /f "tokens=4 delims= " %%i in ('svn info "svn://svn.sers.cloud/Sers2.1"^|fin
 
 set /a v3=1+%v3%
 :: set /a v4=1+%v4%
-set  newVersion=%v1%.%v2%.%v3%-preview
+set  newVersion=%v1%.%v2%.%v3%-temp
 
  
 echo 自动修改版本号 [%version%]-^>[%newVersion%]
