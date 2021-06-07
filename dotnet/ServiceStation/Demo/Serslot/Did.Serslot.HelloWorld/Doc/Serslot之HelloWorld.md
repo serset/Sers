@@ -65,8 +65,8 @@ namespace SerslotDemo
           /* the class of builder in assemblyFile  */
           "className": "Sers.CL.Socket.Iocp.OrganizeClientBuilder",
 
-          /* 通信模式（默认值：Simple）。可为 Simple、Timer、SpinWait  */
-          //"mode": "Timer",
+          /* 通信模式（默认值：Simple）。可为 Simple、Timer、ThreadWait  */
+          //"mode": "ThreadWait",
 
           /* (x.2) conn config */
           /* 服务端 host地址。例如： "127.0.0.1"、"sers.cloud" */

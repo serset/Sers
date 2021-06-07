@@ -72,9 +72,9 @@ namespace Sers.CL.Socket.Iocp
                         organizeList.Add(new OrganizeClient(delivery, config));
                     }
                     break;
-                case "SpinWait":           
+                case "ThreadWait":           
                     {
-                        var delivery = new Mode.SpinWait.DeliveryClient();
+                        var delivery = new Mode.ThreadWait.DeliveryClient();
 
                         delivery.securityManager = securityManager;
 

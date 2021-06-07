@@ -47,7 +47,7 @@ namespace DeliveryTest
             IDeliveryServer server;
 
             {
-                //var delivery = new Sers.CL.Socket.Iocp.Mode.SpinWait.DeliveryServer();
+                //var delivery = new Sers.CL.Socket.Iocp.Mode.ThreadWait.DeliveryServer();
                 var delivery = new Sers.CL.Socket.Iocp.Mode.Timer.DeliveryServer();
                 //delivery.receiveBufferSize = 81920;
 

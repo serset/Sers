@@ -7,7 +7,7 @@ using Sers.CL.Socket.Iocp.Mode.Timer;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Threading;
 
-namespace Sers.CL.Socket.Iocp.Mode.SpinWait
+namespace Sers.CL.Socket.Iocp.Mode.ThreadWait
 {
     public class DeliveryClient : DeliveryClient_Base<DeliveryConnection>
     {

@@ -82,7 +82,7 @@ namespace DeliveryTest
             IDeliveryClient client;
 
             {
-                //var delivery = new Sers.CL.Socket.Iocp.Mode.SpinWait.DeliveryClient();
+                //var delivery = new Sers.CL.Socket.Iocp.Mode.ThreadWait.DeliveryClient();
                 var delivery = new Sers.CL.Socket.Iocp.Mode.Timer.DeliveryClient();
                 //delivery.receiveBufferSize = 81920;
                 client = delivery;

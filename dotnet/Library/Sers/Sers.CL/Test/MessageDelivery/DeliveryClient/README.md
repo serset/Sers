@@ -47,7 +47,7 @@ qps为 1百万
 
 
 #------------------------------------
-windows SpinWait
+windows ThreadWait
 thread = 40000		msgLen = 1       qps = 117万
 
 
