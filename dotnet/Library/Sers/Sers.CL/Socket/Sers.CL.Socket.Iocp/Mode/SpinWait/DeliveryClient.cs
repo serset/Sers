@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using Sers.CL.Socket.Iocp.Base;
@@ -93,7 +94,7 @@ namespace Sers.CL.Socket.Iocp.Mode.SpinWait
 
         LongTaskHelp Send_task = new LongTaskHelp();
 
-
+ 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void Send_Flush()
         {
@@ -102,7 +103,9 @@ namespace Sers.CL.Socket.Iocp.Mode.SpinWait
                 try
                 {
                     _conn.FlushSendFrameQueue();
-                    global::System.Threading.SpinWait.SpinUntil(() => false, sendFlushInterval);
+ 
+                    //global::System.Threading.SpinWait.SpinUntil(() => false, sendFlushInterval);
+                    Thread.Sleep(sendFlushInterval); 
                 }
                 catch (Exception ex) when (!(ex.GetBaseException() is ThreadInterruptedException))
                 {

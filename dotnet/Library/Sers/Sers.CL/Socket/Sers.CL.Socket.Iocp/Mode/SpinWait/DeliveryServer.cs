@@ -103,7 +103,8 @@ namespace Sers.CL.Socket.Iocp.Mode.SpinWait
                     {
                         conn.FlushSendFrameQueue();
                     }
-                    global::System.Threading.SpinWait.SpinUntil(() => false, sendFlushInterval);
+                    //global::System.Threading.SpinWait.SpinUntil(() => false, sendFlushInterval);
+                    Thread.Sleep(sendFlushInterval);
                 }
                 catch (Exception ex) when (!(ex.GetBaseException() is ThreadInterruptedException))
                 {
