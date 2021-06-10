@@ -1,7 +1,7 @@
 set -e
 
 
-# cd /home/DataStore/HDD/Data/008.jenkins/data/PersistentVolume/workspace/Sers/code/Sers/dotnet/Doc/DevOps; bash 99.jenkins.sh
+# cd /home/DataStore/HDD/Data/008.jenkins/data/PersistentVolume/workspace/Sers/code/Sers/dotnet/Doc/DevOps/k8s; bash 99.jenkins.sh
 
 
 

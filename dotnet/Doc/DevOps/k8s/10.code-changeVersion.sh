@@ -1,13 +1,13 @@
 set -e
 
-# cd /home/DataStore/HDD/Data/008.jenkins/data/PersistentVolume/workspace/Sers/code/Sers/dotnet/Doc/DevOps; bash 10.changeVersion.sh
+# cd /home/DataStore/HDD/Data/008.jenkins/data/PersistentVolume/workspace/Sers/code/Sers/dotnet/Doc/DevOps/k8s; bash 10.changeVersion.sh
 
 
 #(x.1)当前路径
 curWorkDir=$PWD
 curPath=$(dirname $0)
 
-cd $curPath/../../../..
+cd $curPath/../../../../..
 codePath=$PWD 
 # codePath=/home/DataStore/HDD/Data/008.jenkins/data/PersistentVolume/workspace/Sers/code
 

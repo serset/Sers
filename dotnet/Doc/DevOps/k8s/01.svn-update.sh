@@ -1,6 +1,6 @@
 set -e
 
-# cd /home/DataStore/HDD/Data/008.jenkins/data/PersistentVolume/workspace/Sers/code/Sers/dotnet/Doc/DevOps; bash 01.svn-update.sh
+# cd /home/DataStore/HDD/Data/008.jenkins/data/PersistentVolume/workspace/Sers/code/Sers/dotnet/Doc/DevOps/k8s; bash 01.svn-update.sh
 
 
 
@@ -9,7 +9,7 @@ set -e
 curWorkDir=$PWD
 curPath=$(dirname $0)
 
-cd $curPath/../../../..
+cd $curPath/../../../../..
 codePath=$PWD
 # codePath=/home/DataStore/HDD/Data/008.jenkins/data/PersistentVolume/workspace/Sers/code
 

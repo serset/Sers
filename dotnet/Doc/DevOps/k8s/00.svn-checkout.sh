@@ -1,13 +1,13 @@
 set -e
 
-# cd /home/DataStore/HDD/Data/008.jenkins/data/PersistentVolume/workspace/Sers/code/Sers/dotnet/Doc/DevOps; bash 00.svn-checkout.sh
+# cd /home/DataStore/HDD/Data/008.jenkins/data/PersistentVolume/workspace/Sers/code/Sers/dotnet/Doc/DevOps/k8s; bash 00.svn-checkout.sh
 
 
 #(x.1)当前路径
 curWorkDir=$PWD
 curPath=$(dirname $0)
 
-cd $curPath/..
+cd $curPath/../..
 basePath=$PWD
 # basePath=/home/DataStore/HDD/Data/008.jenkins/data/PersistentVolume/workspace/Sers
 
