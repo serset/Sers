@@ -13,12 +13,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="appsettings.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="contentTypeMap.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
+		<Content Include="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="contentTypeMap.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -31,8 +31,11 @@
 		<ProjectReference Include="..\..\Library\Sers\Sers.Gateway\Sers.Gateway\Sers.Gateway.csproj" />
 	</ItemGroup>
 
-	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-		<Exec Command="xcopy  &quot;$(ProjectDir)wwwroot&quot; &quot;$(TargetDir)\wwwroot&quot; /e /i /r /y" />
-	</Target>
+	<ItemGroup>
+		<Content Include="wwwroot\**">
+			<Link>wwwroot\%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
 </Project>

@@ -38,15 +38,4 @@
 		</Content>
 	</ItemGroup>
 
-	<!--<ItemGroup>
-		<Content Include="..\App.Gover.Gateway\**">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Remove="..\App.Gover.Gateway\App.Gover.Gateway.csproj" />
-	</ItemGroup>-->
-
-	<!--<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-		<Exec Command="xcopy  &quot;$(ProjectDir)..\App.Gover.Gateway\wwwroot&quot; &quot;$(TargetDir)\wwwroot&quot; /e /i /r /y" />
-	</Target>-->
-
 </Project>

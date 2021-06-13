@@ -1,48 +1,42 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <RunPostBuildEvent>Always</RunPostBuildEvent>
-    <Version>2.1.6-temp</Version>
-    <Description>https://github.com/serset/Sers</Description>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>netcoreapp2.1</TargetFramework>
+		<RunPostBuildEvent>Always</RunPostBuildEvent>
+		<Version>2.1.6-temp</Version>
+		<Description>https://github.com/serset/Sers</Description>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <DocumentationFile>bin\Debug\netcoreapp2.1\App.Robot.Station.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<DocumentationFile>bin\Debug\netcoreapp2.1\App.Robot.Station.xml</DocumentationFile>
+	</PropertyGroup>
 
- 
+	<ItemGroup>
+		<Content Include="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Include="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="Data\App.Robot.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
- 
+	<ItemGroup>
+		<Content Include="wwwroot\**">
+			<Link>wwwroot\%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Library\Sers\Sers.CL\Ipc\Sers.CL.Ipc.SharedMemory\Sers.CL.Ipc.SharedMemory.csproj" />
-    <ProjectReference Include="..\..\..\..\Library\Sers\Sers.CL\WebSocket\Sers.CL.WebSocket\Sers.CL.WebSocket.csproj" />
-    <ProjectReference Include="..\..\..\..\Library\Sers\Sers.CL\Zmq\FullDuplex\Sers.CL.Zmq.FullDuplex\Sers.CL.Zmq.FullDuplex.csproj" />
-    <ProjectReference Include="..\..\..\..\Library\Sers\Sers.CL\Zmq\ThreadWait\Sers.CL.ClrZmq.ThreadWait\Sers.CL.ClrZmq.ThreadWait.csproj" />
-    <ProjectReference Include="..\..\..\..\Library\Sers\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\Library\Sers\Sers.CL\Ipc\Sers.CL.Ipc.SharedMemory\Sers.CL.Ipc.SharedMemory.csproj" />
+		<ProjectReference Include="..\..\..\..\Library\Sers\Sers.CL\WebSocket\Sers.CL.WebSocket\Sers.CL.WebSocket.csproj" />
+		<ProjectReference Include="..\..\..\..\Library\Sers\Sers.CL\Zmq\FullDuplex\Sers.CL.Zmq.FullDuplex\Sers.CL.Zmq.FullDuplex.csproj" />
+		<ProjectReference Include="..\..\..\..\Library\Sers\Sers.CL\Zmq\ThreadWait\Sers.CL.ClrZmq.ThreadWait\Sers.CL.ClrZmq.ThreadWait.csproj" />
+		<ProjectReference Include="..\..\..\..\Library\Sers\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />
+	</ItemGroup>
 
- 
-
-  <ItemGroup>
-    <None Update="Data\App.Robot.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
- 
-
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="xcopy  &quot;$(ProjectDir)wwwroot&quot; &quot;$(TargetDir)\wwwroot&quot; /e /i /r /y&#xD;&#xA;" />
-  </Target>
-
- 
 </Project>
