@@ -21,7 +21,9 @@ echo '(x.1.2)svn-revert'
 chroot /host bash -c "docker run -i --rm -v $codePath:/root/svn serset/svn-client svn revert /root/svn -R"
 
 echo '(x.1.3)svn-update'
-chroot /host bash -c "docker run -i --rm -v $codePath:/root/svn serset/svn-client svn update /root/svn --username lith --password beyourself --no-auth-cache"
+# svnUser=lith
+# svnPwd=pwd
+chroot /host bash -c "docker run -i --rm -v $codePath:/root/svn serset/svn-client svn update /root/svn --username $svnUser --password $svnPwd --no-auth-cache"
 
 
  

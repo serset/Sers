@@ -28,7 +28,7 @@ export projectPath=Sqler
 
 #----------------------------------------------
 echo "(x.2)get version" 
-export version=`grep '<Version>' ${codePath} -r --include *.csproj | grep -oP '>(.*)<' | tr -d '<>'`
+export version=`grep '<Version>' ${codePath} -r --include Sers.Core.csproj | grep -oP '>(.*)<' | tr -d '<>'`
 # echo $version
 
 

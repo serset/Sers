@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
@@ -9,18 +9,17 @@
 
 
 	<ItemGroup>
-	  <Content Include="appsettings.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
+		<Content Include="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 
-	  <Content Include="contentTypeMap.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
+		<Content Include="contentTypeMap.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.App" />
-		
 		<ProjectReference Include="..\..\Library\Sers\Sers.CL\Ipc\Sers.CL.Ipc.SharedMemory\Sers.CL.Ipc.SharedMemory.csproj" />
 		<ProjectReference Include="..\..\Library\Sers\Sers.CL\WebSocket\Sers.CL.WebSocket\Sers.CL.WebSocket.csproj" />
 		<ProjectReference Include="..\..\Library\Sers\Sers.CL\Zmq\FullDuplex\Sers.CL.Zmq.FullDuplex\Sers.CL.Zmq.FullDuplex.csproj" />
@@ -31,8 +30,23 @@
 	</ItemGroup>
 
 
-	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+
+	<ItemGroup>
+		<Content Include="..\App.Gover.Gateway\wwwroot\**">
+			<Link>wwwroot\%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<!--<ItemGroup>
+		<Content Include="..\App.Gover.Gateway\**">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Remove="..\App.Gover.Gateway\App.Gover.Gateway.csproj" />
+	</ItemGroup>-->
+
+	<!--<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
 		<Exec Command="xcopy  &quot;$(ProjectDir)..\App.Gover.Gateway\wwwroot&quot; &quot;$(TargetDir)\wwwroot&quot; /e /i /r /y" />
-	</Target>
+	</Target>-->
 
 </Project>
