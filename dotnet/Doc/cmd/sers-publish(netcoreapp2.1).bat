@@ -62,36 +62,18 @@ cd /d Doc\Publish
 :: 2 copy Sers Static
 
 ::(x.1)
-@echo "copy PublishFile"
+@echo "copy bat"
 xcopy  "..\PublishFile\SersPublish" "SersPublish\%netVersion%" /e /i /r /y
 
 
-::(x.2)ServiceCenter
-@echo "copy ServiceCenter wwwroot"
-xcopy  "..\..\ServiceCenter\App.Gover.Gateway\wwwroot" "SersPublish\%netVersion%\ServiceCenter\wwwroot" /e /i /r /y
-
-@echo "copy  xml of ServiceCenter"
+::(x.2)copy xml
+@echo "copy ServiceCenter xml "
 xcopy  "..\..\ServiceCenter\App.ServiceCenter\bin\Release\%netVersion%\*.xml" "SersPublish\%netVersion%\ServiceCenter" /i /r /y
 
-
-
-::(x.3)Gover
-@echo "copy Gover wwwroot"
-xcopy  "..\..\ServiceCenter\App.Gover.Gateway\wwwroot" "SersPublish\%netVersion%\Gover\wwwroot" /e /i /r /y
-
-
-
-::(x.4)Robot
-@echo "copy Robot wwwroot"
-xcopy  "..\..\ServiceStation\Demo\StressTest\App.Robot.Station\wwwroot" "SersPublish\%netVersion%\Robot\wwwroot" /e /i /r /y
- 
-@echo "copy  xml of Robot"
+@echo "copy Robot xml"
 xcopy  "..\..\ServiceStation\Demo\StressTest\App.Robot.Station\bin\Release\%netVersion%\*.xml" "SersPublish\%netVersion%\Robot" /i /r /y
 
-
- 
-::(x.5)
-@echo "copy  xml of Demo"
+@echo "copy Demo xml"
 xcopy  "..\..\ServiceStation\Demo\SersLoader\Did.SersLoader.Demo\bin\Release\%netVersion%\*.xml" "SersPublish\%netVersion%\Demo" /i /r /y
 
 

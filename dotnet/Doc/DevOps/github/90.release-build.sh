@@ -7,11 +7,7 @@ args_="
 
 export codePath=/root/docker/jenkins/workspace/sqler/svn 
 
-
-
 export version=`grep '<Version>' ${codePath} -r --include *.csproj | grep -oP '>(.*)<' | tr -d '<>'`
-
-export name=sqler
 
 export export GIT_SSH_SECRET=xxxxxx
 
@@ -29,6 +25,32 @@ mkdir -p $codePath/Publish/release
 cp -rf  $codePath/Publish/04.服务站点 $codePath/Publish/release/04.服务站点
 cp -rf  $codePath/Publish/06.Docker $codePath/Publish/release/06.Docker
 cp -rf  $codePath/Publish/06.Docker/制作镜像/${name}/app $codePath/Publish/release/04.服务站点/${name}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 echo "(x.2.3)发布文件-压缩" 
