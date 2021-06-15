@@ -19,34 +19,28 @@ export export GIT_SSH_SECRET=xxxxxx
 
 #----------------------------------------------
 echo "(x.2.1)发布文件-创建文件夹及内容"
-mkdir -p $codePath/Publish/git
-mkdir -p $codePath/Publish/release
 
-cp -rf  $codePath/Publish/04.服务站点 $codePath/Publish/release/04.服务站点
-cp -rf  $codePath/Publish/06.Docker $codePath/Publish/release/06.Docker
-cp -rf  $codePath/Publish/06.Docker/制作镜像/${name}/app $codePath/Publish/release/04.服务站点/${name}
+mkdir -p $codePath/Doc/Publish/Sers$version
 
+ 
 
+echo 1.创建 nuget-Sers
+/cp -rf  $codePath/Doc/Publish/nuget $codePath/Doc/Publish/Sers$version/nuget-Sers
 
+echo 2.创建 SersPublish
+/cp -rf  $codePath/Doc/Publish/SersPublish $codePath/Doc/Publish/Sers$version/SersPublish
 
+echo 3.创建 CL压测
+/cp -rf  $codePath/Doc/Publish/CL压测 $codePath/Doc/Publish/Sers$version/CL压测
 
+echo 4.创建 Sers压测
+/cp -rf  $codePath/Doc/Publish/Sers压测 $codePath/Doc/Publish/Sers$version/Sers压测
 
+echo 5.创建 docker制作镜像Sers
+/cp -rf  $codePath/Doc/Publish/SersDocker/docker制作镜像Sers $codePath/Doc/Publish/Sers$version/docker制作镜像Sers
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+echo 6.创建 docker部署Sers
+/cp -rf  $codePath/Doc/Publish/SersDocker/docker部署Sers $codePath/Doc/Publish/Sers$version/docker部署Sers
 
 
 
@@ -56,9 +50,7 @@ cp -rf  $codePath/Publish/06.Docker/制作镜像/${name}/app $codePath/Publish/r
 echo "(x.2.3)发布文件-压缩" 
 docker run --rm -i \
 -v $codePath/Publish:/root/file \
-serset/filezip dotnet FileZip.dll zip -i /root/file/release -o /root/file/git/${name}-${version}.zip
-
- 
+serset/filezip dotnet FileZip.dll zip -i /root/file/Doc/Publish/Sers$version -o /root/file/Doc/Publish/Sers-$version.zip
 
 
 
@@ -67,7 +59,7 @@ serset/filezip dotnet FileZip.dll zip -i /root/file/release -o /root/file/git/${
 
 #----------------------------------------------
 echo "(x.3)github-提交release文件到release仓库"
-# releaseFile=$codePath/Publish/git/${name}-${version}.zip
+#releaseFile=$codePath/Doc/Publish/Sers-$version.zip
 
 #复制ssh key
 echo "${GIT_SSH_SECRET}" > $codePath/Publish/git/serset

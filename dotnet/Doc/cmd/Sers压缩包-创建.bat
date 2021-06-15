@@ -8,33 +8,33 @@ echo ["%version%"]
 
 cd /d ..\Publish
  
-
-mkdir Publish
 mkdir Publish\Sers%version%
 
 
 
-echo 1.创建 nuget-Sers.zip
-dotnet ../cmd/FileZip/FileZip.dll zip -i "nuget" -o "Publish/Sers%version%/nuget-Sers%version%.zip"
+echo 1.创建 nuget-Sers
+xcopy "nuget" "Publish/Sers%version%/nuget-Sers" /e /i /r /y 
+
+echo 2.创建 SersPublish
+xcopy "SersPublish" "Publish/Sers%version%/SersPublish" /e /i /r /y
+
+echo 3.创建 CL压测
+xcopy "CL压测" "Publish/Sers%version%/CL压测" /e /i /r /y
+
+echo 4.创建 Sers压测
+xcopy "Sers压测" "Publish/Sers%version%/Sers压测" /e /i /r /y
+
+echo 5.创建 docker制作镜像Sers
+xcopy "SersDocker/docker制作镜像Sers" "Publish/Sers%version%/docker制作镜像Sers" /e /i /r /y
+
+echo 6.创建 docker部署Sers
+xcopy "SersDocker/docker部署Sers" "Publish/Sers%version%/docker部署Sers" /e /i /r /y
  
 
-echo 2.创建 SersPublish.zip
-dotnet ../cmd/FileZip/FileZip.dll zip -i "SersPublish" -o "Publish/Sers%version%/SersPublish%version%.zip"
-
-echo 3.创建 CL压测.zip
-dotnet ../cmd/FileZip/FileZip.dll zip -i "CL压测" -o "Publish/Sers%version%/CL压测%version%.zip"
-
-echo 4.创建 Sers压测.zip
-dotnet ../cmd/FileZip/FileZip.dll zip -i "Sers压测" -o "Publish/Sers%version%/Sers压测%version%.zip"
 
 
-
-
-echo 5.创建 docker制作镜像Sers.zip
-dotnet ../cmd/FileZip/FileZip.dll zip -i "SersDocker/docker制作镜像Sers" -o "Publish/Sers%version%/docker制作镜像Sers%version%.zip"
-
-echo 6.创建 docker部署Sers.zip
-dotnet ../cmd/FileZip/FileZip.dll zip -i "SersDocker/docker部署Sers" -o "Publish/Sers%version%/docker部署Sers%version%.zip" 
+echo 7.创建 Sers%version%.zip
+dotnet ../cmd/FileZip/FileZip.dll zip -i "Publish/Sers%version%" -o "Publish/Sers-%version%.zip" 
 
 
 cd /d ..\cmd

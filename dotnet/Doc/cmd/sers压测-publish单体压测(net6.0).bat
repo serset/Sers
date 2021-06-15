@@ -15,7 +15,7 @@ xcopy  "SersPublish\%netVersion%\Demo\Did.SersLoader.Demo.pdb" "%basePath%\Servi
 xcopy  "SersPublish\%netVersion%\Demo\Did.SersLoader.Demo.xml" "%basePath%\ServiceCenter" /i /r /y
 
 
-@echo "copy  xml of Robot"
+@echo "copy Robot"
 xcopy  "SersPublish\%netVersion%\Robot\wwwroot" "%basePath%\ServiceCenter\wwwroot" /e /i /r /y
 xcopy  "SersPublish\%netVersion%\Robot\App.Robot.Station.dll" "%basePath%\ServiceCenter" /i /r /y
 xcopy  "SersPublish\%netVersion%\Robot\App.Robot.Station.pdb" "%basePath%\ServiceCenter" /i /r /y

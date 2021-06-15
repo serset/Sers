@@ -8,7 +8,7 @@ dotnet publish --configuration Release --output ..\..\..\..\..\..\Doc\Publish\CL
 @if errorlevel 1 (echo . & echo .  & echo ³ö´í£¬ÇëÅÅ²é£¡& pause) 
 cd /d ../../../../../../
    
-echo 'publish Client'
+echo 'publish Server'
 cd /d Library\Sers\Sers.CL\Test\CommunicationManage\CmServer
 dotnet build --configuration Release
 dotnet publish --configuration Release --output ..\..\..\..\..\..\Doc\Publish\CLÑ¹²â\CmServer
