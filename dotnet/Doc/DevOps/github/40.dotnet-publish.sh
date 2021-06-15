@@ -16,7 +16,7 @@ export codePath=/root/temp/svn/dotnet
 echo "(x.2)publish netcoreapp2.1"
 
 export netVersion=netcoreapp2.1 
-bash $codePath/Doc/DevOps/github/41.dotnet-publish-by-netVersion.sh;
+bash $codePath/Doc/DevOps/github/41.dotnet-publish-by-netVersion.bash;
 
 
 
@@ -29,7 +29,7 @@ cd $codePath
 sed -i 's/netcoreapp2.1/net6.0/g'  `grep -a 'netcoreapp2.1' . -rl --include *.csproj`
 
 export netVersion=net6.0
-bash $codePath/Doc/DevOps/github/41.dotnet-publish-by-netVersion.sh;
+bash $codePath/Doc/DevOps/github/41.dotnet-publish-by-netVersion.bash;
 
 
 #修改csproj文件中的版本号为2.1

@@ -28,30 +28,30 @@ mkdir -p $codePath/Doc/Publish/release/${name}-${version}
  
 
 echo 1.创建 nuget-Sers
-/cp -rf  $codePath/Doc/Publish/nuget $codePath/Doc/Publish/release/${name}-${version}/nuget
+\cp -rf  $codePath/Doc/Publish/nuget/. $codePath/Doc/Publish/release/${name}-${version}/nuget
 
 echo 2.创建 SersPublish
-/cp -rf  $codePath/Doc/Publish/SersPublish $codePath/Doc/Publish/release/${name}-${version}/SersPublish
+\cp -rf  $codePath/Doc/Publish/SersPublish/. $codePath/Doc/Publish/release/${name}-${version}/SersPublish
 
 echo 3.创建 CL压测
-/cp -rf  $codePath/Doc/Publish/CL压测 $codePath/Doc/Publish/release/${name}-${version}/CL压测
+\cp -rf  $codePath/Doc/Publish/CL压测/. $codePath/Doc/Publish/release/${name}-${version}/CL压测
 
 echo 4.创建 Sers压测
-/cp -rf  $codePath/Doc/Publish/Sers压测 $codePath/Doc/Publish/release/${name}-${version}/Sers压测
+\cp -rf  $codePath/Doc/Publish/Sers压测/. $codePath/Doc/Publish/release/${name}-${version}/Sers压测
 
 echo 5.创建 docker制作镜像Sers
-/cp -rf  $codePath/Doc/Publish/SersDocker/docker制作镜像Sers $codePath/Doc/Publish/release/${name}-${version}/docker制作镜像Sers
+\cp -rf  $codePath/Doc/Publish/SersDocker/docker制作镜像Sers/. $codePath/Doc/Publish/release/${name}-${version}/docker制作镜像Sers
 
 echo 6.创建 docker部署Sers
-/cp -rf  $codePath/Doc/Publish/SersDocker/docker部署Sers $codePath/Doc/Publish/release/${name}-${version}/docker部署Sers
+\cp -rf  $codePath/Doc/Publish/SersDocker/docker部署Sers/. $codePath/Doc/Publish/release/${name}-${version}/docker部署Sers
 
 
 
 
 echo "(x.2.3)发布文件-压缩" 
 docker run --rm -i \
--v $codePath/Publish:/root/file \
-serset/filezip dotnet FileZip.dll zip -i /root/file/Doc/Publish/release/${name}-${version} -o /root/file/Doc/Publish/release/${name}-${version}.zip
+-v $codePath:/root/file \
+serset/filezip dotnet FileZip.dll zip -p -i /root/file/Doc/Publish/release/${name}-${version} -o /root/file/Doc/Publish/release/${name}-${version}.zip
 
 
 

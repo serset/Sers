@@ -11,6 +11,16 @@ xcopy  "SersPublish\%netVersion%\ServiceCenter\appsettings.json" "SersDocker\doc
 xcopy  "SersPublish\%netVersion%\ServiceCenter" "SersDocker\docker制作镜像Sers\sers\app" /e /i /r /y
 
 
+@echo "copy sers-gateway"
+xcopy  "SersPublish\%netVersion%\Gateway\appsettings.json" "SersDocker\docker部署Sers\sers-gateway" 
+xcopy  "SersPublish\%netVersion%\Gateway" "SersDocker\docker制作镜像Sers\sers-gateway\app" /e /i /r /y
+
+
+@echo "copy sers-gover"
+xcopy  "SersPublish\%netVersion%\Gover\appsettings.json" "SersDocker\docker部署Sers\sers-gover" 
+xcopy  "SersPublish\%netVersion%\Gover" "SersDocker\docker制作镜像Sers\sers-gover\app" /e /i /r /y
+
+
 @echo "copy sers-demo"
 xcopy  "SersPublish\%netVersion%\Demo\appsettings.json" "SersDocker\docker部署Sers\sers-demo" 
 xcopy  "SersPublish\%netVersion%\Demo" "SersDocker\docker制作镜像Sers\sers-demo\app" /e /i /r /y
@@ -19,19 +29,11 @@ xcopy  "SersPublish\%netVersion%\Demo" "SersDocker\docker制作镜像Sers\sers-demo\
 xcopy  "SersPublish\%netVersion%\Robot\appsettings.json" "SersDocker\docker部署Sers\sers-demo-robot" 
 xcopy  "SersPublish\%netVersion%\Robot" "SersDocker\docker制作镜像Sers\sers-demo-robot\app" /e /i /r /y
 
+
 @echo "copy sers-demo-sersall"
 xcopy  "Sers压测\sers压测-单体压测%netVersion%\ServiceCenter\appsettings.json" "SersDocker\docker部署Sers\sers-demo-sersall" 
 xcopy  "Sers压测\sers压测-单体压测%netVersion%\ServiceCenter" "SersDocker\docker制作镜像Sers\sers-demo-sersall\app" /e /i /r /y
 
-
-
-@echo "copy sers-gateway"
-xcopy  "SersPublish\%netVersion%\Gateway\appsettings.json" "SersDocker\docker部署Sers\sers-gateway" 
-xcopy  "SersPublish\%netVersion%\Gateway" "SersDocker\docker制作镜像Sers\sers-gateway\app" /e /i /r /y
-
-@echo "copy sers-gover"
-xcopy  "SersPublish\%netVersion%\Gover\appsettings.json" "SersDocker\docker部署Sers\sers-gover" 
-xcopy  "SersPublish\%netVersion%\Gover" "SersDocker\docker制作镜像Sers\sers-gover\app" /e /i /r /y
 
 
 cd /d ../cmd

@@ -1,5 +1,7 @@
 set -e
 
+# cd /root/temp/svn/dotnet/Doc/DevOps/github;bash startup.sh;
+
 #----------------------------------------------
 #(x.1)当前路径 
 curWorkDir=$PWD
@@ -43,7 +45,9 @@ for file in *.sh
 do
     if [[ $file != "startup.sh" ]]
     then
-        sh $file
+        echo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        echo bash $file
+        bash $file
     fi
 done
 
