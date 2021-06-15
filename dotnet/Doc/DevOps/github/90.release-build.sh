@@ -11,6 +11,9 @@ export version=`grep '<Version>' ${codePath} -r --include *.csproj | grep -oP '>
 
 export export GIT_SSH_SECRET=xxxxxx
 
+export name=Sers
+
+
 # "
 
  
@@ -45,13 +48,10 @@ echo 6.创建 docker部署Sers
 
 
 
-
-
 echo "(x.2.3)发布文件-压缩" 
 docker run --rm -i \
 -v $codePath/Publish:/root/file \
-serset/filezip dotnet FileZip.dll zip -i /root/file/Doc/Publish/Sers$version -o /root/file/Doc/Publish/Sers-$version.zip
-
+serset/filezip dotnet FileZip.dll zip -i /root/file/Doc/Publish/Sers$version -o /root/file/Doc/Publish/${name}-${version}.zip
 
 
 
@@ -59,14 +59,14 @@ serset/filezip dotnet FileZip.dll zip -i /root/file/Doc/Publish/Sers$version -o 
 
 #----------------------------------------------
 echo "(x.3)github-提交release文件到release仓库"
-#releaseFile=$codePath/Doc/Publish/Sers-$version.zip
+# releaseFile=$codePath/Doc/Publish/Sers-$version.zip
 
 #复制ssh key
 echo "${GIT_SSH_SECRET}" > $codePath/Publish/git/serset
 chmod 600 $codePath/Publish/git/serset
 
 #推送到github
-docker run -i --rm -v $codePath/Publish/git:/root/git serset/git-client bash -c " \
+docker run -i --rm -v $codePath/Doc/Publish/${name}-${version}.zip:/root/${name}-${version}.zip serset/git-client bash -c "
 set -e
 ssh-agent bash -c \"
 ssh-add /root/git/serset
@@ -77,7 +77,7 @@ mkdir -p /root/code
 cd /root/code
 git clone git@github.com:serset/release.git /root/code
 mkdir -p /root/code/file/${name}
-cp /root/git/${name}-${version}.zip /root/code/file/${name}
+cp /root/${name}-${version}.zip /root/code/file/${name}
 git add file/${name}/${name}-${version}.zip
 git commit -m 'auto commit ${version}'
 git push -u origin master \" "

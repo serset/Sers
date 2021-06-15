@@ -21,9 +21,9 @@ export name=sqler
 
 #---------------------------------------------------------------------
 #(x.2)初始化github release环境变量
-# releaseFile=$codePath/Publish/git/${name}-${version}.zip
+releaseFile=$codePath/Doc/Publish/Sers-$version.zip
 
-filePath="$codePath/Publish/git/${name}-${version}.zip"
+filePath=${releaseFile}
 #name=Vit.Library
 #version=2.5
 
