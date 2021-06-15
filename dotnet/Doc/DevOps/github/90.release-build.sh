@@ -5,7 +5,7 @@ set -e
 #(x.1)参数
 args_="
 
-export codePath=/root/docker/jenkins/workspace/sqler/svn 
+export codePath=/root/temp/svn/dotnet
 
 export version=`grep '<Version>' ${codePath} -r --include *.csproj | grep -oP '>(.*)<' | tr -d '<>'`
 
@@ -23,27 +23,27 @@ export name=Sers
 #----------------------------------------------
 echo "(x.2.1)发布文件-创建文件夹及内容"
 
-mkdir -p $codePath/Doc/Publish/Sers$version
+mkdir -p $codePath/Doc/Publish/release
 
  
 
 echo 1.创建 nuget-Sers
-/cp -rf  $codePath/Doc/Publish/nuget $codePath/Doc/Publish/Sers$version/nuget-Sers
+/cp -rf  $codePath/Doc/Publish/nuget $codePath/Doc/Publish/release/nuget
 
 echo 2.创建 SersPublish
-/cp -rf  $codePath/Doc/Publish/SersPublish $codePath/Doc/Publish/Sers$version/SersPublish
+/cp -rf  $codePath/Doc/Publish/SersPublish $codePath/Doc/Publish/release/SersPublish
 
 echo 3.创建 CL压测
-/cp -rf  $codePath/Doc/Publish/CL压测 $codePath/Doc/Publish/Sers$version/CL压测
+/cp -rf  $codePath/Doc/Publish/CL压测 $codePath/Doc/Publish/release/CL压测
 
 echo 4.创建 Sers压测
-/cp -rf  $codePath/Doc/Publish/Sers压测 $codePath/Doc/Publish/Sers$version/Sers压测
+/cp -rf  $codePath/Doc/Publish/Sers压测 $codePath/Doc/Publish/release/Sers压测
 
 echo 5.创建 docker制作镜像Sers
-/cp -rf  $codePath/Doc/Publish/SersDocker/docker制作镜像Sers $codePath/Doc/Publish/Sers$version/docker制作镜像Sers
+/cp -rf  $codePath/Doc/Publish/SersDocker/docker制作镜像Sers $codePath/Doc/Publish/release/docker制作镜像Sers
 
 echo 6.创建 docker部署Sers
-/cp -rf  $codePath/Doc/Publish/SersDocker/docker部署Sers $codePath/Doc/Publish/Sers$version/docker部署Sers
+/cp -rf  $codePath/Doc/Publish/SersDocker/docker部署Sers $codePath/Doc/Publish/release/docker部署Sers
 
 
 
@@ -51,7 +51,7 @@ echo 6.创建 docker部署Sers
 echo "(x.2.3)发布文件-压缩" 
 docker run --rm -i \
 -v $codePath/Publish:/root/file \
-serset/filezip dotnet FileZip.dll zip -i /root/file/Doc/Publish/Sers$version -o /root/file/Doc/Publish/${name}-${version}.zip
+serset/filezip dotnet FileZip.dll zip -i /root/file/Doc/Publish/release -o /root/file/Doc/Publish/${name}-${version}.zip
 
 
 

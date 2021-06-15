@@ -9,9 +9,8 @@ export codePath=$PWD
 cd $curWorkDir
 
 
-
-export name=sqler
-export projectPath=Sqler
+# export codePath=/root/temp/svn/dotnet
+export name=Sers
 
 #export DOCKER_USERNAME=serset
 #export DOCKER_PASSWORD=xxx

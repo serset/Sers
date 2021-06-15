@@ -5,7 +5,7 @@ set -e
 #(x.1)参数
 args_="
 
-export codePath=/root/docker/jenkins/workspace/sqler/svn
+export codePath=/root/temp/svn/dotnet
 
 export version=`grep '<Version>' ${codePath} -r --include *.csproj | grep -oP '>(.*)<' | tr -d '<>'`
 
@@ -15,7 +15,6 @@ export DOCKER_PASSWORD=xxx
 # "
 
  
-publishPath=${codePath}/dotnet/Doc/Publish
 netVersion=net6.0
 
 #---------------------------------------------------------------------

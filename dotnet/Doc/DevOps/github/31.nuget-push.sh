@@ -6,17 +6,15 @@ set -e
 #(x.1)参数
 args_="
 
-export codePath=/root/temp/svn
+export codePath=/root/temp/svn/dotnet
 
 export NUGET_SERVER=https://api.nuget.org/v3/index.json
 export NUGET_KEY=xxxxxxxxxx
 
 # "
 
- 
- 
-export nugetPath=dotnet/Doc/Publish/nuget
 
+nugetPath=Doc/Publish/nuget
  
 
 #----------------------------------------------

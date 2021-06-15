@@ -8,33 +8,33 @@ echo ["%version%"]
 
 cd /d ..\Publish
  
-mkdir Publish\Sers%version%
+mkdir release
+mkdir release/Sers-%version%
 
 
-
-echo 1.创建 nuget-Sers
-xcopy "nuget" "Publish/Sers%version%/nuget-Sers" /e /i /r /y 
+echo 1.创建 nuget
+xcopy "nuget" "release/Sers-%version%/nuget" /e /i /r /y 
 
 echo 2.创建 SersPublish
-xcopy "SersPublish" "Publish/Sers%version%/SersPublish" /e /i /r /y
+xcopy "SersPublish" "release/Sers-%version%/SersPublish" /e /i /r /y
 
 echo 3.创建 CL压测
-xcopy "CL压测" "Publish/Sers%version%/CL压测" /e /i /r /y
+xcopy "CL压测" "release/Sers-%version%/CL压测" /e /i /r /y
 
 echo 4.创建 Sers压测
-xcopy "Sers压测" "Publish/Sers%version%/Sers压测" /e /i /r /y
+xcopy "Sers压测" "release/Sers-%version%/Sers压测" /e /i /r /y
 
 echo 5.创建 docker制作镜像Sers
-xcopy "SersDocker/docker制作镜像Sers" "Publish/Sers%version%/docker制作镜像Sers" /e /i /r /y
+xcopy "SersDocker/docker制作镜像Sers" "release/Sers-%version%/docker制作镜像Sers" /e /i /r /y
 
 echo 6.创建 docker部署Sers
-xcopy "SersDocker/docker部署Sers" "Publish/Sers%version%/docker部署Sers" /e /i /r /y
+xcopy "SersDocker/docker部署Sers" "release/Sers-%version%/docker部署Sers" /e /i /r /y
  
 
 
 
-echo 7.创建 Sers%version%.zip
-dotnet ../cmd/FileZip/FileZip.dll zip -i "Publish/Sers%version%" -o "Publish/Sers-%version%.zip" 
+echo 7.创建 Sers-%version%.zip
+dotnet ../cmd/FileZip/FileZip.dll zip -i "release/Sers-%version%" -o "release/Sers-%version%.zip" 
 
 
 cd /d ..\cmd
