@@ -18,7 +18,7 @@ nugetPath=Doc/Publish/nuget
  
 
 #----------------------------------------------
-echo "(x.2)nuget-pack"
+echo "(x.2)nuget-push"
 docker run -i --rm \
 --env LANG=C.UTF-8 \
 -v $codePath:/root/code \
