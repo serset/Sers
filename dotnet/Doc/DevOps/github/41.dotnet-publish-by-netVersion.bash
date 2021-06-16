@@ -53,20 +53,16 @@ dotnet publish --configuration Release --output /root/code/Doc/Publish/SersPubli
 #----------------------------------------------
 echo "(x.3)dotnet-copy file"
 
+targetFolder="$codePath/Doc/Publish/SersPublish/$netVersion"
+
 echo "copy bat"
-cp -rf "$codePath/Doc/PublishFile/SersPublish/." "$codePath/Doc/Publish/SersPublish/$netVersion"
+for file in "$codePath/Doc/PublishFile/SersPublish/*.bat" ; do \cp -rf $file $targetFolder;done
 
 
 echo "copy xml"
-targetFolder="$codePath/Doc/Publish/SersPublish/$netVersion"
-
-for file in "$codePath/ServiceCenter/App.ServiceCenter/bin/Release/$netVersion/*.xml" ; do cp -rf $file $targetFolder/ServiceCenter;done
-
-for file in "$codePath/ServiceStation/Demo/StressTest/App.Robot.Station/bin/Release/$netVersion/*.xml" ; do cp -rf $file $targetFolder/Robot;done
-
-for file in "$codePath/ServiceStation/Demo/SersLoader/Did.SersLoader.Demo/bin/Release/$netVersion/*.xml" ; do cp -rf $file $targetFolder/Demo;done
-
-
+for file in "$codePath/ServiceCenter/App.ServiceCenter/bin/Release/$netVersion/*.xml" ; do \cp -rf $file $targetFolder/ServiceCenter;done
+for file in "$codePath/ServiceStation/Demo/StressTest/App.Robot.Station/bin/Release/$netVersion/*.xml" ; do \cp -rf $file $targetFolder/Robot;done
+for file in "$codePath/ServiceStation/Demo/SersLoader/Did.SersLoader.Demo/bin/Release/$netVersion/*.xml" ; do \cp -rf $file $targetFolder/Demo;done
 
 
 
