@@ -41,7 +41,7 @@ echo "release_contentType=application/${fileType}" >> $GITHUB_ENV
 
 
 
-#版本类型
+# draft or preivew
 if [[ $version =~ "preview" ]]
 then
   echo preivew
