@@ -5,13 +5,13 @@ set -e
 #(x.1)参数
 args_="
 
-export codePath=/root/docker/jenkins/workspace/sqler/svn 
+export codePath=/root/temp/svn 
 
 
 
-export version=`grep '<Version>' ${codePath} -r --include *.csproj | grep -oP '>(.*)<' | tr -d '<>'`
+export version=`grep '<Version>' ${codePath} -r --include Sers.Core.csproj | grep -oP '>(.*)<' | tr -d '<>'`
 
-export name=sqler
+export name=Sers
 
 # "
 
@@ -21,7 +21,7 @@ export name=sqler
 
 #---------------------------------------------------------------------
 #(x.2)初始化github release环境变量
-releaseFile=$codePath/Doc/Publish/Sers-$version.zip
+releaseFile=$codePath/Doc/Publish/release/${name}-${version}.zip
 
 filePath=${releaseFile}
 #name=Vit.Library

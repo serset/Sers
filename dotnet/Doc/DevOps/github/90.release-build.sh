@@ -59,18 +59,20 @@ serset/filezip dotnet FileZip.dll zip -p -i /root/file/Doc/Publish/release/${nam
 
 #----------------------------------------------
 echo "(x.3)github-提交release文件到release仓库"
-# releaseFile=$codePath/Doc/Publish/${name}-${version}.zip
+# releaseFile=$codePath/Doc/Publish/release/${name}-${version}.zip
 
 #复制ssh key
-mkdir -p $codePath/Publish/git
-echo "${GIT_SSH_SECRET}" > $codePath/Publish/git/serset
-chmod 600 $codePath/Publish/git/serset
+echo "${GIT_SSH_SECRET}" > $codePath/Doc/Publish/release/serset
+chmod 600 $codePath/Doc/Publish/release/serset
 
 #推送到github
-docker run -i --rm -v $codePath/Doc/Publish/${name}-${version}.zip:/root/${name}-${version}.zip serset/git-client bash -c "
+docker run -i --rm \
+-v $codePath/Doc/Publish/release/serset:/root/serset \
+-v $codePath/Doc/Publish/release/${name}-${version}.zip:/root/${name}-${version}.zip \
+serset/git-client bash -c "
 set -e
 ssh-agent bash -c \"
-ssh-add /root/git/serset
+ssh-add /root/serset
 ssh -T git@github.com -o StrictHostKeyChecking=no
 git config --global user.email 'serset@yeah.com'
 git config --global user.name 'lith'
