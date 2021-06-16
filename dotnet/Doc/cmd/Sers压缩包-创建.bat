@@ -34,7 +34,7 @@ xcopy "SersDocker/docker部署Sers" "release/Sers-%version%/docker部署Sers" /e /i 
 
 
 echo 7.创建 Sers-%version%.zip
-dotnet ../cmd/FileZip/FileZip.dll zip -i "release/Sers-%version%" -o "release/Sers-%version%.zip" 
+dotnet ../cmd/FileZip/FileZip.dll zip -p -i "release/Sers-%version%" -o "release/Sers-%version%.zip" 
 
 
 cd /d ..\cmd
