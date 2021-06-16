@@ -5,9 +5,7 @@ set -e
 #(x.1)参数
 args_="
 
-export codePath=/root/temp/svn 
-
-
+export codePath=/root/temp/svn
 
 export version=`grep '<Version>' ${codePath} -r --include Sers.Core.csproj | grep -oP '>(.*)<' | tr -d '<>'`
 
@@ -28,7 +26,6 @@ filePath=${releaseFile}
 #version=2.5
 
 
-
 fileType="${filePath##*.}"
 echo "release_name=${name}-${version}" >> $GITHUB_ENV
 echo "release_tag=${version}" >> $GITHUB_ENV
@@ -44,5 +41,18 @@ echo "release_contentType=application/${fileType}" >> $GITHUB_ENV
 
 
 
+#版本类型
+if [[ $version =~ "preview" ]]
+then
+  echo preivew
+  echo "release_prerelease=true" >> $GITHUB_ENV
+else
+  if  [[ "" = $(echo $version | tr -d "0-9\.") ]]
+  then
+    echo release
+  else
+    echo draft
+    echo "release_draft=true" >> $GITHUB_ENV
+  fi
+fi
 
- 
