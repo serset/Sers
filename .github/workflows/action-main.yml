@@ -47,7 +47,7 @@ jobs:
         with:
           release_name: ${{ env.release_name }}
           tag_name: ${{ env.release_tag }}
-          draft: ${{ env.Release_draft }}
+          draft: ${{ env.release_draft }}
           prerelease: ${{ env.release_prerelease }}
           body: ${{ env.release_body }}
       - name: Release-Upload
