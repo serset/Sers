@@ -22,49 +22,46 @@ serset/dotnet:6.0-sdk \
 bash -c "
 set -e
 
-echo 'publish Gateway'
+echo '------ publish Gateway'
 cd /root/code/Gateway/App.Gateway
 dotnet build --configuration Release
 dotnet publish --configuration Release --output /root/code/Doc/Publish/SersPublish/${netVersion}/Gateway
 
-echo 'publish Gover'
+echo '------ publish Gover'
 cd /root/code/ServiceCenter/App.Gover.Gateway
 dotnet build --configuration Release
 dotnet publish --configuration Release --output /root/code/Doc/Publish/SersPublish/${netVersion}/Gover
 
-echo 'publish ServiceCenter'
+echo '------ publish ServiceCenter'
 cd /root/code/ServiceCenter/App.ServiceCenter
 dotnet build --configuration Release
 dotnet publish --configuration Release --output /root/code/Doc/Publish/SersPublish/${netVersion}/ServiceCenter
 
-echo 'publish Demo'
+echo '------ publish Demo'
 cd /root/code/ServiceStation/Demo/SersLoader/Did.SersLoader.Demo
 dotnet build --configuration Release
 dotnet publish --configuration Release --output /root/code/Doc/Publish/SersPublish/${netVersion}/Demo
 
-echo 'publish Robot'
+echo '------ publish Robot'
 cd /root/code/ServiceStation/Demo/StressTest/App.Robot.Station
 dotnet build --configuration Release
 dotnet publish --configuration Release --output /root/code/Doc/Publish/SersPublish/${netVersion}/Robot
      
+
+
+echo '------ copy file'
+targetFolder=/root/code/Doc/Publish/SersPublish/$netVersion
+
+echo 'copy bat'
+#for file in "/root/code/Doc/PublishFile/SersPublish/*.bat" ; do cp -rf \$file \$targetFolder;done
+\\cp -rf /root/code/Doc/PublishFile/SersPublish/. \$targetFolder
+
+echo 'copy xml'
+for file in /root/code/ServiceCenter/App.ServiceCenter/bin/Release/$netVersion/*.xml ; do \\cp -rf \$file \$targetFolder/ServiceCenter;done
+for file in /root/code/ServiceStation/Demo/StressTest/App.Robot.Station/bin/Release/$netVersion/*.xml ; do \\cp -rf \$file \$targetFolder/Robot;done
+for file in /root/code/ServiceStation/Demo/SersLoader/Did.SersLoader.Demo/bin/Release/$netVersion/*.xml ; do \\cp -rf \$file \$targetFolder/Demo;done
+
 " 
-
-
-#----------------------------------------------
-echo "(x.3)dotnet-copy file"
-
-targetFolder="$codePath/Doc/Publish/SersPublish/$netVersion"
-
-echo "copy bat"
-for file in "$codePath/Doc/PublishFile/SersPublish/*.bat" ; do \cp -rf $file $targetFolder;done
-
-
-echo "copy xml"
-for file in "$codePath/ServiceCenter/App.ServiceCenter/bin/Release/$netVersion/*.xml" ; do \cp -rf $file $targetFolder/ServiceCenter;done
-for file in "$codePath/ServiceStation/Demo/StressTest/App.Robot.Station/bin/Release/$netVersion/*.xml" ; do \cp -rf $file $targetFolder/Robot;done
-for file in "$codePath/ServiceStation/Demo/SersLoader/Did.SersLoader.Demo/bin/Release/$netVersion/*.xml" ; do \cp -rf $file $targetFolder/Demo;done
-
-
 
 
 
