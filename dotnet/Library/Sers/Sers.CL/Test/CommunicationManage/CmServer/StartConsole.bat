@@ -1,0 +1,5 @@
+dotnet CmServer.dll
+pause
+
+
+ 

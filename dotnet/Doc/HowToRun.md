@@ -1,15 +1,15 @@
 # How To Run Sers
 
-¿É²¿Êğµ½Linux(centos7»òubuntu) »òWindows¡£
-Îñ±ØÏÈÔËĞĞ·şÎñÖĞĞÄ£¨ServiceCenter£©
->ÔËĞĞ»·¾³ [netcore2.1](https://dotnet.microsoft.com/download/dotnet-core/2.1) 
+å¯éƒ¨ç½²åˆ°Linux(centos7æˆ–ubuntu) æˆ–Windowsã€‚
+åŠ¡å¿…å…ˆè¿è¡ŒæœåŠ¡ä¸­å¿ƒï¼ˆServiceCenterï¼‰
+>è¿è¡Œç¯å¢ƒ [netcore2.1](https://dotnet.microsoft.com/download/dotnet-core/2.1) 
 
-[windowsµãÎÒÏÂÔØnetcore2.1 runtime](https://download.visualstudio.microsoft.com/download/pr/c551fea4-c065-4142-9556-4d78fb949284/efe7c2ef2d51331bd0fced6ea0eadf08/dotnet-runtime-2.1.8-win-x64.exe)
+[windowsç‚¹æˆ‘ä¸‹è½½netcore2.1 runtime](https://download.visualstudio.microsoft.com/download/pr/c551fea4-c065-4142-9556-4d78fb949284/efe7c2ef2d51331bd0fced6ea0eadf08/dotnet-runtime-2.1.8-win-x64.exe)
 
-# ÔËĞĞ²½Öè
+# è¿è¡Œæ­¥éª¤
 
-   (x.1)ÏÂÔØ[³ÌĞòÎÄ¼ş](https://raw.githubusercontent.com/sersms/Sers_NetCore_HelloWorld_Publish/master/Sers/20190306/netapp(190306002).zip)
+   (x.1)ä¸‹è½½[ç¨‹åºæ–‡ä»¶](https://raw.githubusercontent.com/serset/Sers_NetCore_HelloWorld_Publish/master/Sers/20190306/netapp(190306002).zip)
    
-   (x.2) ½âÑ¹zipÎÄ¼ş£¬windowsÏµÍ³Ë«»÷Startup-All.bat£¬LinuxÖ´ĞĞStartup-All.bashÖĞµÄÃüÁî¼´¿É¡£
+   (x.2) è§£å‹zipæ–‡ä»¶ï¼Œwindowsç³»ç»ŸåŒå‡»Startup-All.batï¼ŒLinuxæ‰§è¡ŒStartup-All.bashä¸­çš„å‘½ä»¤å³å¯ã€‚
    
-   (x.3) ´ò¿ª·şÎñÖÎÀíµ¼º½Ò³Ãæ [http://localhost:6022/index.html](http://localhost:6022/index.html)
+   (x.3) æ‰“å¼€æœåŠ¡æ²»ç†å¯¼èˆªé¡µé¢ [http://localhost:6022/index.html](http://localhost:6022/index.html)

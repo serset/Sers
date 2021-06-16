@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<Version>2.1.6-temp</Version>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Authors>Lith</Authors>
+		<Description>Sers微服务-通信层</Description>
+		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<DocumentationFile>bin\Debug\netstandard2.0\Sers.CL.Ipc.SharedMemory.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="SharedMemory" Version="2.2.3" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Sers.Core\Sers.Core\Sers.Core.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -1,5 +1,38 @@
 CUR：
 
+ActionBlock 有bug centos
+ImmutableSortedDictionary 替代Api字典
+
+
+RequestAdaptor.cs  static void PackageReqRepFrame(long reqKey, Vit.Core.Util.Pipelines.ByteData oriMsg, out Vit.Core.Util.Pipelines.ByteData reqRepFrame) 优化减少创建ByteData对象
+
+对象缓存是否弃用
+
+
+-----------------------------------------
+百万优化计划
+
+1.优化Delivery
+优化 Library\Sers\Sers.CL\Test\MessageDelivery中的 DeliveryServer 和 DeliveryClient，使qps达到500万以上
+
+ 
+2.优化CM
+优化Library\Sers\Sers.CL\Test\CommunicationManage中的CmServer和CmClient,使qps达到200万以上
+
+3.优化LocalApiService
+
+
+4.整体性能达到百万以上
+
+
+优化Consumer_WorkerPoolCascade，
+替换Consumer_BlockingCollection
+
+LocalApiService.cs BlockingCollection
+查询所有的队列 酌情优化
+
+ConcurrentBag比较慢 弃用
+
 
 Sers.Core\CL\MessageOrganize\DefaultOrganize\RequestAdaptor.cs L240  使用二级缓冲队列(以及所有使用 BlockingCollection 的地方)
 

@@ -49,9 +49,7 @@ error|SsError|若不为null，则说明接口调用出现异常，只定义架�
                 "Postman-Token": "78c5a1cb-764f-4e04-b2ae-514924a40d5a"
             }
         },
-	"error":{
-		//SsError格式
-	},
-        "user": {}
+	"error":{SsError},
+        "user": {"userInfo":{} }
     }
 ```

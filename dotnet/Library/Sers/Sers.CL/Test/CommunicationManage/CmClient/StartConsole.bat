@@ -1,0 +1,2 @@
+dotnet CmClient.dll
+pause

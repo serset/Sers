@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>服务中心-健康数据</title>
+    <script src="Scripts/vue/vue.js"></script>
+    <script src="Scripts/jquery/jquery.min.js"></script>
+
+
+    <script src="Scripts/Sers/sers.apiClient.js"></script>
+
+    <style>
+
+        .line {
+            border: 1px solid #cccccc;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>服务中心-健康数据</h1>
+
+    <div id="items">
+
+        <div v-for="item in items" style="width:300px;height:500px; float:left;margin:2px;padding:4px;word-wrap:break-word;" class="line">
+            {{ item.route }}  <br />
+            -----------------------<br />
+            <p v-html="item.html"></p>
+
+        </div>
+
+    </div>
+    <script>
+
+
+        var items = new Vue({
+            el: '#items',
+            data: {
+                items: [
+                    {
+                        connGuid: ''
+                    }
+                ]
+            }, methods: {
+                start: function (station) {
+                    sers.apiClient.serviceStation_start(station.connKey, function (data) {
+                        rendItems();
+                    });
+                }, pause: function (station) {
+                    sers.apiClient.serviceStation_pause(station.connKey, function (data) {
+                        rendItems();
+                    });
+                }
+            }
+        });
+
+
+        function rendItems() {
+            sers.apiClient.post({
+                api: '/_gover_/serviceCenter/healthInfo', onSuc: function (data) {
+                    var jsonInfos = data.data;
+                    var infos = [];
+                    for (var route in jsonInfos) {
+                        var html = '';
+                        var jsonInfo = jsonInfos[route];
+                        if (typeof (jsonInfo) == 'object') {
+                            for (var key in jsonInfo) {
+                                var value = jsonInfo[key];
+                                if (typeof (value) == 'object') value = JSON.stringify(value);
+                                html += key + ' ' + value + '<br/>';
+                            }
+                        } else {
+                            html += jsonInfo;
+                        }
+
+                        var info = { route: route, html: html };
+                        infos.push(info);
+
+                    }
+                    items.items = infos;
+                }
+            });
+        }
+
+        rendItems();
+
+
+        var intervals = [];
+        function startRefreshTask() {
+            var interval = setInterval(rendItems, 2000);
+            intervals.push(interval);
+        }
+        function stopRefreshTask() {
+            for (var t in intervals) {
+                clearInterval(intervals[t]);
+            }
+            intervals = [];
+        }
+
+        startRefreshTask();
+    </script>
+</body>
+
+</html>

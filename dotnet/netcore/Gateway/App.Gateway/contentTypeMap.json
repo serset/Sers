@@ -1,4 +1,0 @@
-﻿{
-  /* wwwroot静态文件类型映射配置,可不指定  */
-  ".json": "application/json"
-}

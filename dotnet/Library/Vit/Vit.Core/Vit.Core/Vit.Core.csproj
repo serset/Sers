@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<Version>2.1.5</Version>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Authors>Lith</Authors>
+		<Description>
+			.net core common tool. log to txt,Serialize(Newtonsoft.Json),ConfigurationManager,DynamicMethodExecutor,Guid,Reflection,Shell etc.
+			Send email to serset@yeah.net if you have any questions.
+		</Description>
+		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<!--<LangVersion>latest</LangVersion>-->
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DocumentationFile>bin\Debug\netstandard2.0\Vit.Core.xml</DocumentationFile>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="System.Buffers" Version="4.5.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.1.0" />
+		<PackageReference Include="System.Memory" Version="4.5.4" />
+	</ItemGroup>
+
+</Project>

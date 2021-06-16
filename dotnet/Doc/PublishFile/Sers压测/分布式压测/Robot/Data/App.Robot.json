@@ -1,0 +1,44 @@
+{
+  "tasks": {
+    "1": {
+      "id": 1,
+      "sumCount": 0,
+      "sumFailCount": 0,
+      "curCount": 0,
+      "failCount": 0,
+      "targetCount": 1000000000,
+      "config": {
+        "type": "ApiClient",
+        "name": "saveToCache",
+        "apiRoute": "/_robot_/taskMng/saveToCache",
+        "threadCount": 1,
+        "loopCountPerThread": 1000000000,
+        "interval": 5000,
+        "autoStart": true,
+        "logError": true
+      },
+      "RunningThreadCount": 1,
+      "IsRunning": true
+    },
+    "2": {
+      "id": 2,
+      "sumCount": 0,
+      "sumFailCount": 0,
+      "curCount": 0,
+      "failCount": 0,
+      "targetCount": 8000000000,
+      "config": {
+        "type": "ApiClientAsync",
+        "name": "Async",
+        "apiRoute": "/a",
+        "threadCount": 5000,
+        "loopCountPerThread": 1000000000,
+        "interval": 0,
+        "autoStart": true,
+        "logError": false
+      },
+      "RunningThreadCount": 0,
+      "IsRunning": false
+    }
+  }
+}
