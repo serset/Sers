@@ -51,7 +51,7 @@ echo 6.创建 docker部署Sers
 echo "(x.2.3)发布文件-压缩" 
 docker run --rm -i \
 -v $codePath:/root/file \
-serset/filezip dotnet FileZip.dll zip -p -i /root/file/Doc/Publish/release/$name}-${version} -o /root/file/Doc/Publish/release/${name}-${version}.zip
+serset/filezip dotnet FileZip.dll zip -p -i /root/file/Doc/Publish/release/${name}-${version} -o /root/file/Doc/Publish/release/${name}-${version}.zip
 
 
 
@@ -59,7 +59,7 @@ serset/filezip dotnet FileZip.dll zip -p -i /root/file/Doc/Publish/release/$name
 
 #----------------------------------------------
 echo "(x.3)github-提交release文件到release仓库"
-# releaseFile=$codePath/Doc/Publish/$name}-${version}.zip
+# releaseFile=$codePath/Doc/Publish/${name}-${version}.zip
 
 #复制ssh key
 mkdir -p $codePath/Publish/git
