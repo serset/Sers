@@ -25,15 +25,13 @@ docker run -i --rm \
 serset/dotnet:6.0-sdk \
 bash -c "
 cd /root/code
-for file in \$(grep -a '<TargetFramework>netstandard2.0</TargetFramework>' . -rl --include *.csproj)
+for file in \$(grep -a '<pack/>' . -rl --include *.csproj)
 do
-    if ! [[ \$file =~ (Apm|Empty|Temp|Zmq|SharedMemory|\\-) ]]; then
-        echo pack \$file
-        cd /root/code
+	echo pack \$file
+	cd /root/code
 	cd \$(dirname \"\$file\")
-        dotnet build --configuration Release
+	dotnet build --configuration Release
 	dotnet pack --configuration Release --output '/root/code/$nugetPath'
-    fi
 done
 " 
 
