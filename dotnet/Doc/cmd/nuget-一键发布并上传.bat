@@ -1,5 +1,5 @@
 
-call "nuget-publish.bat"
+call "nuget-pack.bat"
 cd /d "../Publish"
 call "nuget-push to NugetServer.Sers"
 cd /d ../cmd
