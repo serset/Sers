@@ -19,7 +19,7 @@ echo dotnet version: %netVersion%
 
 ::(x.2)获取basePath
 set curPath=%cd%
-cd /D %~dp0
+cd /d %~dp0
 cd /d ../..
 set basePath=%cd%
 set publishPath=%cd%\Publish\Publish\SersPublish\%netVersion%
@@ -30,14 +30,17 @@ VsTool.exe replace -r --path "%basePath%" --file "App.Gateway.csproj|App.Gover.G
 
 
 
+
+
+
 ::(x.3)查找所有需要发布nuget的项目并发布
 for /f "delims=" %%f in ('findstr /M /s /i "<publish>" *.csproj') do (
 	::get name
-	for /f "tokens=3 delims=><" %%a in ('type %basePath%\%%f^|findstr "<publish>.*publish"') do set name=%%a
+	for /f "tokens=3 delims=><" %%a in ('type "%basePath%\%%f"^|findstr "<publish>.*publish"') do set name=%%a
 	echo publish !name!
 
 	::publish
-	cd /d %basePath%\%%f\.. 
+	cd /d "%basePath%\%%f\.."
 	dotnet build --configuration Release
 	dotnet publish --configuration Release --output "%publishPath%\!name!"
 	@if errorlevel 1 (echo . & echo .  & echo 出错，请排查！& pause) 
@@ -46,12 +49,13 @@ for /f "delims=" %%f in ('findstr /M /s /i "<publish>" *.csproj') do (
 	xcopy  "bin\Release\%netVersion%\*.xml" "%publishPath%\!name!" /i /r /y
 )
 
+
  
 
 
  
 ::(x.4)copy bat
-xcopy  "%basePath%\Publish\PublishFile\SersPublish" "%publishPath%" /e /i /r /y
+xcopy "%basePath%\Publish\PublishFile\SersPublish" "%publishPath%" /e /i /r /y
 
  
 
@@ -69,4 +73,4 @@ echo 'publish sers succeed！'
 
 
 
-cd /d %curPath%
+cd /d "%curPath%"
