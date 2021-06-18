@@ -40,23 +40,19 @@ for /f "delims=" %%f in ('findstr /M /s /i "<publish>" *.csproj') do (
 )
 
 
- 
 
 
- 
+
+
 ::(x.4)copy bat
 xcopy "%basePath%\Publish\PublishFile\SersPublish" "%publishPath%" /e /i /r /y
 
- 
 
 
 
- 
-
-echo 'publish sers succeed£¡'
-echo 'publish sers succeed£¡'
-echo 'publish sers succeed£¡'
 
 
+
+echo %~n0.bat Ö´ÐÐ³É¹¦£¡
 
 cd /d "%curPath%"

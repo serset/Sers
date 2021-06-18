@@ -22,7 +22,7 @@ set publishPath=%cd%\Publish\Publish\CL压测
 
 echo ------------------------------------------------------------------
 :: 发布Sers压测CL
-echo "发布Sers压测CL"
+echo 发布Sers压测CL
 ::publish Client
 cd /d "%basePath%\dotnet\Library\Sers\Sers.CL\Test\CommunicationManage\CmClient"
 dotnet build --configuration Release
@@ -48,7 +48,7 @@ for %%i in (netcoreapp2.1,net6.0) do (
 	set netVersion=%%i
 	set appPath=%basePath%\Publish\Publish\SersPublish\!netVersion!
 
-	echo "发布Sers压测-!netVersion!"
+	echo 发布Sers压测-!netVersion!
 
 	::单体压测
 	set targetPath=%basePath%\Publish\Publish\Sers压测\sers压测-单体压测!netVersion!
@@ -93,9 +93,7 @@ for %%i in (netcoreapp2.1,net6.0) do (
  
 
 
-echo 'sers压测-publish succeed！'
-
-
+echo %~n0.bat 执行成功！
 
 cd /d "%curPath%"
 

@@ -62,15 +62,13 @@ xcopy "%basePath%\Publish\PublishFile\SersPublish" "%publishPath%" /e /i /r /y
 
 
 ::还原项目的版本号
+cd /d "%basePath%"
 Publish\cmd\VsTool.exe replace -r --path "%basePath%" --file "App.Gateway.csproj|App.Gover.Gateway.csproj|App.ServiceCenter.csproj|Did.SersLoader.Demo.csproj|App.Robot.Station.csproj" --old "<TargetFramework>net6.0</TargetFramework>" --new "<TargetFramework>netcoreapp2.1</TargetFramework>"
 
 
- 
-
-echo 'publish sers succeed！'
-echo 'publish sers succeed！'
-echo 'publish sers succeed！'
 
 
+
+echo %~n0.bat 执行成功！
 
 cd /d "%curPath%"
