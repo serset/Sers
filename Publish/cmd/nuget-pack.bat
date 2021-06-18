@@ -5,7 +5,7 @@ set curPath=%cd%
 cd /D %~dp0
 cd /d ../..
 set basePath=%cd%
-set nugetPath=%cd%\Doc\Publish\nuget
+set nugetPath=%cd%\Publish\nuget
 
 ::(x.2)查找所有需要发布nuget的项目并发布
 for /f "delims=" %%f in ('findstr /M /s /i "<pack/>" *.csproj') do (
