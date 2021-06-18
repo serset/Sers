@@ -17,7 +17,7 @@ for /f "delims=" %%f in ('findstr /M /s /i "<pack/>" *.csproj') do (
 )
 
 
-echo 'pack nuget succeed£¡'
+echo %~n0.bat Ö´ÐÐ³É¹¦£¡
 
 
 cd /d "%curPath%"

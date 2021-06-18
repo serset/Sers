@@ -3,4 +3,4 @@ rd /s/q ..\Publish\SersPublish
 rd /s/q ..\Publish\CL—π≤‚
 rd /s/q ..\Publish\Sers—π≤‚
 rd /s/q ..\Publish\SersDocker
-rd /s/q ..\Publish\release
+rd /s/q ..\release
