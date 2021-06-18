@@ -39,7 +39,7 @@ dotnet cmd/FileZip/FileZip.dll zip -p -i "release/Sers-%version%" -o "release/Se
 
 echo %~n0.bat Ö´ÐÐ³É¹¦£¡
 
-cd /d ..\cmd
+cd /d cmd
 
 
 :: pause
