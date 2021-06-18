@@ -15,7 +15,7 @@ echo dotnet version: %netVersion%
 
 ::(x.2)ªÒ»°basePath
 set curPath=%cd%
-cd /d %~dp0
+cd /d "%~dp0"
 cd /d ../..
 set basePath=%cd%
 set publishPath=%cd%\Publish\Publish\SersPublish\%netVersion%

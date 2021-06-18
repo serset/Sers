@@ -1,143 +1,103 @@
+@echo off
 
-cd /d ../../
+::∆Ù”√±‰¡ø—”≥Ÿ
+setlocal EnableDelayedExpansion
+
+
+ 
+
+
+
+
+::(x.1)ªÒ»°basePath
+set curPath=%cd%
+cd /d "%~dp0"
+cd /d ../..
+set basePath=%cd%
+set publishPath=%cd%\Publish\Publish\CL—π≤‚
+
+
+
+
 
 echo ------------------------------------------------------------------
-echo '(x.1.1)Sers—π≤‚CL-publish Client'
-cd /d Library\Sers\Sers.CL\Test\CommunicationManage\CmClient
+:: ∑¢≤ºSers—π≤‚CL
+echo "∑¢≤ºSers—π≤‚CL"
+::publish Client
+cd /d "%basePath%\dotnet\Library\Sers\Sers.CL\Test\CommunicationManage\CmClient"
 dotnet build --configuration Release
-dotnet publish --configuration Release --output ..\..\..\..\..\..\Doc\Publish\CL—π≤‚\CmClient
+dotnet publish --configuration Release --output "%publishPath%\CmClient"
 @if errorlevel 1 (echo . & echo .  & echo ≥ˆ¥Ì£¨«Î≈≈≤È£°& pause) 
-cd /d ../../../../../../
-   
-echo '(x.1.2)Sers—π≤‚CL-publish Server'
-cd /d Library\Sers\Sers.CL\Test\CommunicationManage\CmServer
+
+::publish Server
+cd /d "%basePath%\dotnet\Library\Sers\Sers.CL\Test\CommunicationManage\CmServer"
 dotnet build --configuration Release
-dotnet publish --configuration Release --output ..\..\..\..\..\..\Doc\Publish\CL—π≤‚\CmServer
+dotnet publish --configuration Release --output "%publishPath%\CmServer"
 @if errorlevel 1 (echo . & echo .  & echo ≥ˆ¥Ì£¨«Î≈≈≤È£°& pause) 
-cd /d ../../../../../../
-
-cd /d Doc\Publish
-
-@echo "(x.1.3)Sers—π≤‚CL-copy bat"
- xcopy  "..\PublishFile\CL—π≤‚" "CL—π≤‚" /e /i /r /y
 
 
-cd /d ../cmd
+::copy bat
+xcopy  "%basePath%\Publish\PublishFile\CL—π≤‚" "%publishPath%" /e /i /r /y
 
 
 
 
 echo ------------------------------------------------------------------
+:: ∑¢≤ºSers—π≤‚
+for %%i in (netcoreapp2.1,net6.0) do (  
+	set netVersion=%%i
+	set appPath=%basePath%\Publish\Publish\SersPublish\!netVersion!
 
-cd /d ../Publish
+	echo "∑¢≤ºSers—π≤‚-!netVersion!"
 
-set netVersion=netcoreapp2.1
-set basePath=Sers—π≤‚\sers—π≤‚-µ•ÃÂ—π≤‚%netVersion%
+	::µ•ÃÂ—π≤‚
+	set targetPath=%basePath%\Publish\Publish\Sers—π≤‚\sers—π≤‚-µ•ÃÂ—π≤‚!netVersion!
 
+	::(x.x.1)copy ServiceCenter
+	xcopy "!appPath!\ServiceCenter" "!targetPath!\ServiceCenter" /e /i /r /y
 
-@echo "(x.2.1)sers—π≤‚-publishµ•ÃÂ—π≤‚(netcoreapp2.1)-copy  ServiceCenter"
-xcopy  "SersPublish\%netVersion%\ServiceCenter" "%basePath%\ServiceCenter" /e /i /r /y
+	::(x.x.2)copy demo
+	xcopy "!appPath!\Demo\wwwroot" "!targetPath!\ServiceCenter\wwwroot" /e /i /r /y
+	xcopy "!appPath!\Demo\Did.SersLoader.Demo.dll" "!targetPath!\ServiceCenter" /i /r /y
+	xcopy "!appPath!\Demo\Did.SersLoader.Demo.pdb" "!targetPath!\ServiceCenter" /i /r /y
+	xcopy "!appPath!\Demo\Did.SersLoader.Demo.xml" "!targetPath!\ServiceCenter" /i /r /y
 
-@echo "copy demo"
-xcopy  "SersPublish\%netVersion%\Demo\wwwroot" "%basePath%\ServiceCenter\wwwroot" /e /i /r /y
-xcopy  "SersPublish\%netVersion%\Demo\Did.SersLoader.Demo.dll" "%basePath%\ServiceCenter" /i /r /y
-xcopy  "SersPublish\%netVersion%\Demo\Did.SersLoader.Demo.pdb" "%basePath%\ServiceCenter" /i /r /y
-xcopy  "SersPublish\%netVersion%\Demo\Did.SersLoader.Demo.xml" "%basePath%\ServiceCenter" /i /r /y
+	::(x.x.3)copy Robot
+	xcopy "!appPath!\Robot\wwwroot" "!targetPath!\ServiceCenter\wwwroot" /e /i /r /y
+	xcopy "!appPath!\Robot\App.Robot.Station.dll" "!targetPath!\ServiceCenter" /i /r /y
+	xcopy "!appPath!\Robot\App.Robot.Station.pdb" "!targetPath!\ServiceCenter" /i /r /y
+	xcopy "!appPath!\Robot\App.Robot.Station.xml" "!targetPath!\ServiceCenter" /i /r /y
 
-
-@echo "(x.2.2)sers—π≤‚-publishµ•ÃÂ—π≤‚(netcoreapp2.1)-copy Robot"
-xcopy  "SersPublish\%netVersion%\Robot\wwwroot" "%basePath%\ServiceCenter\wwwroot" /e /i /r /y
-xcopy  "SersPublish\%netVersion%\Robot\App.Robot.Station.dll" "%basePath%\ServiceCenter" /i /r /y
-xcopy  "SersPublish\%netVersion%\Robot\App.Robot.Station.pdb" "%basePath%\ServiceCenter" /i /r /y
-xcopy  "SersPublish\%netVersion%\Robot\App.Robot.Station.xml" "%basePath%\ServiceCenter" /i /r /y
-
-
-@echo "(x.2.3)sers—π≤‚-publishµ•ÃÂ—π≤‚(netcoreapp2.1)-copy PublishFile"
-xcopy  "..\PublishFile\Sers—π≤‚\µ•ÃÂ—π≤‚" "%basePath%" /e /i /r /y
-
-cd /d ../cmd
-
-
-
-echo ------------------------------------------------------------------
-
-
-cd /d ../Publish
-
-
-set netVersion=netcoreapp2.1
-set basePath=Sers—π≤‚\sers—π≤‚-∑÷≤º Ω—π≤‚%netVersion%
-
-
-@echo "(x.3.1)sers—π≤‚-publish∑÷≤º Ω—π≤‚(netcoreapp2.1)-copy  station"
-xcopy  "SersPublish\%netVersion%\ServiceCenter" "%basePath%\ServiceCenter" /e /i /r /y
-xcopy  "SersPublish\%netVersion%\Demo" "%basePath%\Demo" /e /i /r /y
-xcopy  "SersPublish\%netVersion%\Robot" "%basePath%\Robot" /e /i /r /y
-
-
-@echo "(x.3.2)sers—π≤‚-publish∑÷≤º Ω—π≤‚(netcoreapp2.1)-copy PublishFile"
-xcopy  "..\PublishFile\Sers—π≤‚\∑÷≤º Ω—π≤‚" "%basePath%" /e /i /r /y
-
-cd /d ../cmd
-
-
-echo ------------------------------------------------------------------
-
-
-cd /d ../Publish
-
-set netVersion=net6.0
-set basePath=Sers—π≤‚\sers—π≤‚-µ•ÃÂ—π≤‚%netVersion%
-
-
-@echo "(x.4.1)sers—π≤‚-publishµ•ÃÂ—π≤‚(net6.0)-copy  ServiceCenter"
-xcopy  "SersPublish\%netVersion%\ServiceCenter" "%basePath%\ServiceCenter" /e /i /r /y
-
-@echo "(x.4.2)sers—π≤‚-publishµ•ÃÂ—π≤‚(net6.0)-copy demo"
-xcopy  "SersPublish\%netVersion%\Demo\wwwroot" "%basePath%\ServiceCenter\wwwroot" /e /i /r /y
-xcopy  "SersPublish\%netVersion%\Demo\Did.SersLoader.Demo.dll" "%basePath%\ServiceCenter" /i /r /y
-xcopy  "SersPublish\%netVersion%\Demo\Did.SersLoader.Demo.pdb" "%basePath%\ServiceCenter" /i /r /y
-xcopy  "SersPublish\%netVersion%\Demo\Did.SersLoader.Demo.xml" "%basePath%\ServiceCenter" /i /r /y
-
-
-@echo "(x.4.3)sers—π≤‚-publishµ•ÃÂ—π≤‚(net6.0)-copy Robot"
-xcopy  "SersPublish\%netVersion%\Robot\wwwroot" "%basePath%\ServiceCenter\wwwroot" /e /i /r /y
-xcopy  "SersPublish\%netVersion%\Robot\App.Robot.Station.dll" "%basePath%\ServiceCenter" /i /r /y
-xcopy  "SersPublish\%netVersion%\Robot\App.Robot.Station.pdb" "%basePath%\ServiceCenter" /i /r /y
-xcopy  "SersPublish\%netVersion%\Robot\App.Robot.Station.xml" "%basePath%\ServiceCenter" /i /r /y
-
-
-@echo "(x.4.4)sers—π≤‚-publishµ•ÃÂ—π≤‚(net6.0)-copy PublishFile"
-xcopy  "..\PublishFile\Sers—π≤‚\µ•ÃÂ—π≤‚" "%basePath%" /e /i /r /y
-
-
-cd /d ../cmd
-
-echo ------------------------------------------------------------------
+	::(x.x.4)copy bat
+	xcopy "%basePath%\Publish\PublishFile\Sers—π≤‚\µ•ÃÂ—π≤‚" "!targetPath!" /e /i /r /y
 
 
 
-cd /d ../Publish
+	::∑÷≤º Ω—π≤‚
+	set targetPath=%basePath%\Publish\Publish\Sers—π≤‚\sers—π≤‚-∑÷≤º Ω—π≤‚!netVersion!
 
+	::(x.x.1)copy  station
+	xcopy "!appPath!\ServiceCenter" "!targetPath!\ServiceCenter" /e /i /r /y
+	xcopy "!appPath!\Demo" "!targetPath!\Demo" /e /i /r /y
+	xcopy "!appPath!\Robot" "!targetPath!\Robot" /e /i /r /y
 
-set netVersion=net6.0
-set basePath=Sers—π≤‚\sers—π≤‚-∑÷≤º Ω—π≤‚%netVersion%
-
-
-@echo "(x.5.1)sers—π≤‚-publish∑÷≤º Ω—π≤‚(net6.0)-copy  station"
-xcopy  "SersPublish\%netVersion%\ServiceCenter" "%basePath%\ServiceCenter" /e /i /r /y
-xcopy  "SersPublish\%netVersion%\Demo" "%basePath%\Demo" /e /i /r /y
-xcopy  "SersPublish\%netVersion%\Robot" "%basePath%\Robot" /e /i /r /y
-
-
-@echo "(x.5.2)sers—π≤‚-publish∑÷≤º Ω—π≤‚(net6.0)-copy PublishFile"
-xcopy  "..\PublishFile\Sers—π≤‚\∑÷≤º Ω—π≤‚" "%basePath%" /e /i /r /y
-
-cd /d ../cmd
+	::(x.x.2)copy bat
+	xcopy  "%basePath%\Publish\PublishFile\Sers—π≤‚\∑÷≤º Ω—π≤‚" "!targetPath!" /e /i /r /y
+)
 
 
 
 
+ 
+
+ 
+
+
+echo 'sers—π≤‚-publish succeed£°'
+
+
+
+cd /d "%curPath%"
 
 
 
