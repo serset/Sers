@@ -67,12 +67,10 @@ chmod 600 $codePath/Doc/Publish/release/serset
 
 #推送到github
 docker run -i --rm \
--v $codePath/Doc/Publish/release/serset:/root/serset \
--v $codePath/Doc/Publish/release/${name}-${version}.zip:/root/${name}-${version}.zip \
-serset/git-client bash -c "
+-v $codePath/Doc/Publish/release:/root/release serset/git-client bash -c "
 set -e
 ssh-agent bash -c \"
-ssh-add /root/serset
+ssh-add /root/release/serset
 ssh -T git@github.com -o StrictHostKeyChecking=no
 git config --global user.email 'serset@yeah.com'
 git config --global user.name 'lith'
@@ -80,7 +78,7 @@ mkdir -p /root/code
 cd /root/code
 git clone git@github.com:serset/release.git /root/code
 mkdir -p /root/code/file/${name}
-cp /root/${name}-${version}.zip /root/code/file/${name}
+cp /root/release/${name}-${version}.zip /root/code/file/${name}
 git add file/${name}/${name}-${version}.zip
 git commit -m 'auto commit ${version}'
 git push -u origin master \" "
