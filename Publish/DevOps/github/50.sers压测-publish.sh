@@ -25,15 +25,15 @@ set -e
 echo 'publish Client'
 cd /root/code/dotnet/Library/Sers/Sers.CL/Test/CommunicationManage/CmClient
 dotnet build --configuration Release
-dotnet publish --configuration Release --output /root/code/Publish/Publish/CL压测/CmClient
+dotnet publish --configuration Release --output /root/code/Publish//release/Sers/CL压测/CmClient
 
 echo 'publish Server'
 cd /root/code/dotnet/Library/Sers/Sers.CL/Test/CommunicationManage/CmServer
 dotnet build --configuration Release
-dotnet publish --configuration Release --output /root/code/Publish/Publish/CL压测/CmServer
+dotnet publish --configuration Release --output /root/code/Publish//release/Sers/CL压测/CmServer
 
 echo 'copy bat'
-\cp -rf /root/code/Publish/PublishFile/CL压测/. /root/code/Publish/Publish/CL压测
+\cp -rf /root/code/Publish/PublishFile/CL压测/. /root/code/Publish//release/Sers/CL压测
 
 " 
 
@@ -46,12 +46,12 @@ echo '(x.3)发布Sers压测'
 for netVersion in netcoreapp2.1 net6.0
 do
 
-	appPath=${codePath}/Publish/Publish/SersPublish/${netVersion}
+	appPath=${codePath}/Publish/release/Sers/SersPublish/${netVersion}
 
 	#---------------------------------------------- 
 	#单体压测
 	echo "(x.4)sers压测-publish单体压测${netVersion}"
-	targetPath=${codePath}/Publish/Publish/Sers压测/sers压测-单体压测${netVersion}
+	targetPath=${codePath}/Publish/release/Sers/Sers压测/sers压测-单体压测${netVersion}
 	mkdir -p $targetPath
 
 	echo "(x.x.1)copy ServiceCenter"
@@ -77,7 +77,7 @@ do
 	#---------------------------------------------- 
 	#分布式压测
 	echo "(x.5)sers压测-publish分布式压测${netVersion}"
-	targetPath=${codePath}/Publish/Publish/Sers压测/sers压测-分布式压测${netVersion}
+	targetPath=${codePath}/Publish/release/Sers/Sers压测/sers压测-分布式压测${netVersion}
 	mkdir -p $targetPath
 
 	echo "(x.x.1)copy  station"

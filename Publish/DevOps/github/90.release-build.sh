@@ -21,37 +21,11 @@ export name=Sers
 
 
 #----------------------------------------------
-echo "(x.2.1)发布文件-创建文件夹及内容"
+echo "(x.2)发布文件-压缩"
 
-mkdir -p $codePath/Publish/release/${name}-${version}
-
- 
-
-echo 1.复制 nuget
-\cp -rf $codePath/Publish/Publish/nuget/. $codePath/Publish/release/${name}-${version}/nuget
-
-echo 2.复制 SersPublish
-\cp -rf $codePath/Publish/Publish/SersPublish/. $codePath/Publish/release/${name}-${version}/SersPublish
-
-echo 3.复制 CL压测
-\cp -rf $codePath/Publish/Publish/CL压测/. $codePath/Publish/release/${name}-${version}/CL压测
-
-echo 4.复制 Sers压测
-\cp -rf $codePath/Publish/Publish/Sers压测/. $codePath/Publish/release/${name}-${version}/Sers压测
-
-echo 5.复制 docker制作镜像Sers
-\cp -rf $codePath/Publish/Publish/SersDocker/docker制作镜像Sers/. $codePath/Publish/release/${name}-${version}/docker制作镜像Sers
-
-echo 6.复制 docker部署Sers
-\cp -rf $codePath/Publish/Publish/SersDocker/docker部署Sers/. $codePath/Publish/release/${name}-${version}/docker部署Sers
-
-
-
-
-echo "(x.2.3)发布文件-压缩" 
 docker run --rm -i \
 -v $codePath:/root/code \
-serset/filezip dotnet FileZip.dll zip -p -i /root/code/Publish/release/${name}-${version} -o /root/code/Publish/release/${name}-${version}.zip
+serset/filezip dotnet FileZip.dll zip -p -i /root/code/Publish/release/${name} -o /root/code/Publish/release/${name}-${version}.zip
 
 
 

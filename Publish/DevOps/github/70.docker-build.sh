@@ -20,37 +20,40 @@ netVersion=net6.0
 #---------------------------------------------------------------------
 echo "(x.2)copy SersDocker"
 
+releasePath=$codePath/Publish/release/Sers
+appPath=$codePath/Publish/release/Sers/SersPublish/$netVersion
+
 echo "copy SersDocker"
-cp -rf "$codePath/Publish/PublishFile/SersDocker/." "$codePath/Publish/Publish/SersDocker"
+cp -rf "$codePath/Publish/PublishFile/SersDocker/." "$releasePath"
 
 echo "copy sers"
-cp -rf "$codePath/Publish/Publish/SersPublish/$netVersion/ServiceCenter/appsettings.json" "$codePath/Publish/Publish/SersDocker/docker部署Sers/sers"
-cp -rf "$codePath/Publish/Publish/SersPublish/$netVersion/ServiceCenter/." "$codePath/Publish/Publish/SersDocker/docker制作镜像Sers/sers/app"
+cp -rf "$appPath/ServiceCenter/appsettings.json" "$releasePath/docker部署Sers/sers"
+cp -rf "$appPath/ServiceCenter/." "$releasePath/docker制作镜像Sers/sers/app"
 
 
 echo "copy sers-gateway"
-cp -rf "$codePath/Publish/Publish/SersPublish/$netVersion/Gateway/appsettings.json" "$codePath/Publish/Publish/SersDocker/docker部署Sers/sers-gateway"
-cp -rf "$codePath/Publish/Publish/SersPublish/$netVersion/Gateway/." "$codePath/Publish/Publish/SersDocker/docker制作镜像Sers/sers-gateway/app"
+cp -rf "$appPath/Gateway/appsettings.json" "$releasePath/docker部署Sers/sers-gateway"
+cp -rf "$appPath/Gateway/." "$releasePath/docker制作镜像Sers/sers-gateway/app"
 
 echo "copy sers-gover"
-cp -rf "$codePath/Publish/Publish/SersPublish/$netVersion/Gover/appsettings.json" "$codePath/Publish/Publish/SersDocker/docker部署Sers/sers-gover"
-cp -rf "$codePath/Publish/Publish/SersPublish/$netVersion/Gover/." "$codePath/Publish/Publish/SersDocker/docker制作镜像Sers/sers-gover/app"
+cp -rf "$appPath/Gover/appsettings.json" "$releasePath/docker部署Sers/sers-gover"
+cp -rf "$appPath/Gover/." "$releasePath/docker制作镜像Sers/sers-gover/app"
 
 
 
 echo "copy sers-demo"
-cp -rf "$codePath/Publish/Publish/SersPublish/$netVersion/Demo/appsettings.json" "$codePath/Publish/Publish/SersDocker/docker部署Sers/sers-demo"
-cp -rf "$codePath/Publish/Publish/SersPublish/$netVersion/Demo/." "$codePath/Publish/Publish/SersDocker/docker制作镜像Sers/sers-demo/app" 
+cp -rf "$appPath/Demo/appsettings.json" "$releasePath/docker部署Sers/sers-demo"
+cp -rf "$appPath/Demo/." "$releasePath/docker制作镜像Sers/sers-demo/app" 
 
 echo "copy sers-demo-robot"
-cp -rf "$codePath/Publish/Publish/SersPublish/$netVersion/Robot/appsettings.json" "$codePath/Publish/Publish/SersDocker/docker部署Sers/sers-demo-robot"
-cp -rf "$codePath/Publish/Publish/SersPublish/$netVersion/Robot/." "$codePath/Publish/Publish/SersDocker/docker制作镜像Sers/sers-demo-robot/app"
+cp -rf "$appPath/Robot/appsettings.json" "$releasePath/docker部署Sers/sers-demo-robot"
+cp -rf "$appPath/Robot/." "$releasePath/docker制作镜像Sers/sers-demo-robot/app"
 
 
 
 echo "copy sers-demo-sersall"
-cp -rf "$codePath/Publish/Publish/Sers压测/sers压测-单体压测$netVersion/ServiceCenter/appsettings.json" "$codePath/Publish/Publish/SersDocker/docker部署Sers/sers-demo-sersall"
-cp -rf "$codePath/Publish/Publish/Sers压测/sers压测-单体压测$netVersion/ServiceCenter" "$codePath/Publish/Publish/SersDocker/docker制作镜像Sers/sers-demo-sersall/app"
+cp -rf "$releasePath/Sers压测/sers压测-单体压测$netVersion/ServiceCenter/appsettings.json" "$releasePath/docker部署Sers/sers-demo-sersall"
+cp -rf "$releasePath/Sers压测/sers压测-单体压测$netVersion/ServiceCenter" "$releasePath/docker制作镜像Sers/sers-demo-sersall/app"
 
 
 
@@ -91,7 +94,7 @@ docker buildx ls
 for name in sers sers-gateway sers-gover sers-demo sers-demo-robot 
 do
 	echo "docker build $name"
-	#docker buildx build $codePath/Publish/Publish/SersDocker/docker制作镜像Sers/$name -t $DOCKER_USERNAME/$name:$version -t $DOCKER_USERNAME/$name --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+	#docker buildx build $codePath/Publish/release/Sers/docker制作镜像Sers/$name -t $DOCKER_USERNAME/$name:$version -t $DOCKER_USERNAME/$name --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 done
 
 

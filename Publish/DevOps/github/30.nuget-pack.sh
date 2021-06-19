@@ -12,7 +12,7 @@ export codePath=/root/temp/svn
 # "
 
 
-nugetPath=Publish/Publish/nuget
+nugetPath=Publish/release/Sers/nuget
 
 
 
