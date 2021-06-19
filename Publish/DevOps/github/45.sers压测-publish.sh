@@ -25,15 +25,15 @@ set -e
 echo 'publish Client'
 cd /root/code/dotnet/Library/Sers/Sers.CL/Test/CommunicationManage/CmClient
 dotnet build --configuration Release
-dotnet publish --configuration Release --output /root/code/Publish//release/Sers/CL压测/CmClient
+dotnet publish --configuration Release --output /root/code/Publish/release/Sers/CL压测/CmClient
 
 echo 'publish Server'
 cd /root/code/dotnet/Library/Sers/Sers.CL/Test/CommunicationManage/CmServer
 dotnet build --configuration Release
-dotnet publish --configuration Release --output /root/code/Publish//release/Sers/CL压测/CmServer
+dotnet publish --configuration Release --output /root/code/Publish/release/Sers/CL压测/CmServer
 
 echo 'copy bat'
-\cp -rf /root/code/Publish/PublishFile/CL压测/. /root/code/Publish//release/Sers/CL压测
+\cp -rf /root/code/Publish/PublishFile/CL压测/. /root/code/Publish/release/Sers/CL压测
 
 " 
 
