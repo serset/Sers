@@ -1,29 +1,33 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.1.6-temp</Version>
-  </PropertyGroup>
+	<PropertyGroup>
+		<pack/>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <Authors>Lith</Authors>
-    <Description>Sers微服务-网关</Description>
-    <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<Version>2.1.6-temp</Version>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Authors>Lith</Authors>
+		<Description>Sers微服务-网关</Description>
+		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
+	</PropertyGroup>
 
 
-  <PropertyGroup>
-    <DocumentationFile>bin\Debug\netstandard2.0\Sers.Gateway.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<DocumentationFile>bin\Debug\netstandard2.0\Sers.Gateway.xml</DocumentationFile>
+	</PropertyGroup>
 
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore" Version="2.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Vit\Vit.WebHost\Vit.WebHost.csproj" />
-    <ProjectReference Include="..\..\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Vit\Vit.WebHost\Vit.WebHost.csproj" />
+		<ProjectReference Include="..\..\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />
+	</ItemGroup>
 
 </Project>

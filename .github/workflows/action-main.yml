@@ -34,8 +34,8 @@ jobs:
            export NUGET_SERVER="${{ secrets.NUGET_SERVER  }}"
            export NUGET_KEY="${{ secrets.NUGET_KEY }}"
            export GIT_SSH_SECRET="${{ secrets.GIT_SSH_SECRET }}"
-           cd ./dotnet/Doc/DevOps/github
-           bash startup.sh
+           cd ./Publish/DevOps/github
+           bash startup.bash
            echo build succeed!
 
       - name: Release-Create

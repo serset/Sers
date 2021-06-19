@@ -126,6 +126,7 @@ namespace Sers.Core.CL.CommunicationManage
 
                 #region (x.1) get configs
                 var configs = ConfigurationManager.Instance.GetByPath<JObject[]>("Sers.CL.Client");
+                if (configs == null) return null;
                 foreach (var config in configs)
                 {
                     foreach (var defaultConfigItem in defaultConfig)
