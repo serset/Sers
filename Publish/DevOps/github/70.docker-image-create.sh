@@ -19,8 +19,8 @@ export version=`grep '<Version>' "${codePath}" -r --include Sers.Core.csproj | g
 echo "(x.2)copy SersDocker"
 
 netVersion=net6.0
-releasePath=$codePath/Publish/release/Sers
-appPath=$codePath/Publish/release/Sers/SersPublish/$netVersion
+releasePath=$codePath/Publish/release/release
+appPath=$codePath/Publish/release/release/SersPublish/$netVersion
 
 echo "copy SersDocker"
 cp -rf "$codePath/Publish/PublishFile/SersDocker/." "$releasePath"

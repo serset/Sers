@@ -14,7 +14,7 @@ export NUGET_KEY=xxxxxxxxxx
 # "
 
 
-nugetPath=Publish/release/Sers/nuget
+nugetPath=Publish/release/release/nuget
  
 
 #----------------------------------------------
