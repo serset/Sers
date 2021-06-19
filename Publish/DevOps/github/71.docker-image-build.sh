@@ -47,7 +47,7 @@ docker buildx ls
 #---------------------------------------------------------------------
 #(x.3)docker-构建多架构镜像（ arm、arm64 和 amd64 ）并推送到 Docker Hub
 
-#docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
 for name in sers sers-gateway sers-gover sers-demo sers-demo-robot 
 do
