@@ -52,7 +52,7 @@ docker buildx ls
 for name in sers sers-gateway sers-gover sers-demo sers-demo-robot 
 do
 	echo "docker build $name"
-	#docker buildx build $codePath/Publish/release/release/docker制作镜像Sers/$name -t $DOCKER_USERNAME/$name:$version -t $DOCKER_USERNAME/$name --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+	docker buildx build $codePath/Publish/release/release/docker制作镜像Sers/$name -t $DOCKER_USERNAME/$name:$version -t $DOCKER_USERNAME/$name --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 done
 
 
