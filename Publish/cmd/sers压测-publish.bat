@@ -14,7 +14,7 @@ set curPath=%cd%
 cd /d "%~dp0"
 cd /d ../..
 set basePath=%cd%
-set publishPath=%basePath%/Publish/release/Sers/CL—π≤‚
+set publishPath=%basePath%/Publish/release/release/CL—π≤‚
 
 
 
@@ -46,12 +46,12 @@ echo ------------------------------------------------------------------
 :: ∑¢≤ºSers—π≤‚
 for %%i in (netcoreapp2.1,net6.0) do (  
 	set netVersion=%%i
-	set appPath=%basePath%/Publish/release/Sers/SersPublish/!netVersion!
+	set appPath=%basePath%/Publish/release/release/SersPublish/!netVersion!
 
 	echo ∑¢≤ºSers—π≤‚-!netVersion!
 
 	::µ•ÃÂ—π≤‚
-	set targetPath=%basePath%/Publish/release/Sers/Sers—π≤‚/sers—π≤‚-µ•ÃÂ—π≤‚!netVersion!
+	set targetPath=%basePath%/Publish/release/release/Sers—π≤‚/sers—π≤‚-µ•ÃÂ—π≤‚!netVersion!
 
 	::(x.x.1)copy ServiceCenter
 	xcopy "!appPath!\ServiceCenter" "!targetPath!\ServiceCenter" /e /i /r /y
@@ -74,7 +74,7 @@ for %%i in (netcoreapp2.1,net6.0) do (
 
 
 	::∑÷≤º Ω—π≤‚
-	set targetPath=%basePath%/Publish/release/Sers/Sers—π≤‚/sers—π≤‚-∑÷≤º Ω—π≤‚!netVersion!
+	set targetPath=%basePath%/Publish/release/release/Sers—π≤‚/sers—π≤‚-∑÷≤º Ω—π≤‚!netVersion!
 
 	::(x.x.1)copy  station
 	xcopy "!appPath!\ServiceCenter" "!targetPath!\ServiceCenter" /e /i /r /y

@@ -8,7 +8,7 @@ echo ["%version%"]
 
 
 echo 创建 Sers-%version%.zip
-dotnet FileZip/FileZip.dll zip -p -i "../release/Sers" -o "../release/Sers-%version%.zip" 
+dotnet FileZip/FileZip.dll zip -p -i "../release/release" -o "../release/Sers-%version%.zip" 
 
 
 echo %~n0.bat 执行成功！

@@ -1,5 +1,5 @@
 
-cd /d ../release/Sers
+cd /d ../release/release
 
 set netVersion=net6.0
 

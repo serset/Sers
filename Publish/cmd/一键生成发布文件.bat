@@ -9,7 +9,7 @@ call "sers-publish(net6.0).bat"
 
 call "sersÑ¹²â-publish.bat"
 
-call "docker-build.bat"
+call "docker-image-create.bat"
 
 call "SersÑ¹Ëõ°ü-´´½¨.bat" 
  

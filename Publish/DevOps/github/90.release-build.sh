@@ -7,7 +7,7 @@ args_="
 
 export codePath=/root/temp/svn
 
-export version=`grep '<Version>' "${codePath}" -r --include Sers.Core.csproj | grep -oP '>(.*)<' | tr -d '<>'`
+export version=`grep '<Version>' $(grep '<pack/>\|<publish>' ${codePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
 
 export export GIT_SSH_SECRET=xxxxxx
 
@@ -25,7 +25,7 @@ echo "(x.2)发布文件-压缩"
 
 docker run --rm -i \
 -v $codePath:/root/code \
-serset/filezip dotnet FileZip.dll zip -p -i /root/code/Publish/release/${name} -o /root/code/Publish/release/${name}-${version}.zip
+serset/filezip filezip zip -p -i /root/code/Publish/release/release -o /root/code/Publish/release/${name}-${version}.zip
 
 
 
