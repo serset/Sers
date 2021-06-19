@@ -1,6 +1,6 @@
 @echo off
 
-::»ñÈ¡µ±Ç°°æ±¾ºÅ
+::èŽ·å–å½“å‰ç‰ˆæœ¬å·
 :: set version=2.1.3.356 
 for /f "tokens=3 delims=><" %%a in ('type ..\..\Library\Sers\Sers.Core\Sers.Core\Sers.Core.csproj^|findstr "<Version>.*Version"') do set version=%%a
 
@@ -10,7 +10,7 @@ for /f "tokens=2 delims=." %%i in ("%version%") do set v2=%%i
 for /f "tokens=3 delims=." %%i in ("%version%") do set v3=%%i
 
 
-:: »ñÈ¡×îÐÂ°æ±¾ºÅ
+:: èŽ·å–æœ€æ–°ç‰ˆæœ¬å·
 :: set v4=356 
 for /f "tokens=4 delims= " %%i in ('svn info "svn://svn.sers.cloud/Sers2.1"^|findstr "Rev:"') do set v4=%%i
 
@@ -19,19 +19,19 @@ set /a v3=1+%v3%
 set  newVersion=%v1%.%v2%.%v3%
 
  
-echo ×Ô¶¯ÐÞ¸Ä°æ±¾ºÅ [%version%]-^>[%newVersion%]
+echo è‡ªåŠ¨ä¿®æ”¹ç‰ˆæœ¬å· [%version%]-^>[%newVersion%]
 echo.
 
-:: µ÷ÓÃ¹¤¾ß Ìæ»»csprojÎÄ¼þÖÐµÄ°æ±¾ºÅ
+:: è°ƒç”¨å·¥å…· æ›¿æ¢csprojæ–‡ä»¶ä¸­çš„ç‰ˆæœ¬å·
 VsTool.exe replace -r --path "..\.." --file "*.csproj" --old "%version%" --new "%newVersion%"
 VsTool.exe replace -r --path "..\.." --file "packages.config" --old "%version%" --new "%newVersion%"
 
-:: µ÷ÓÃ¹¤¾ß Ìæ»»docker¾µÏñÃüÁîÖÐµÄ°æ±¾ºÅ
+:: è°ƒç”¨å·¥å…· æ›¿æ¢dockeré•œåƒå‘½ä»¤ä¸­çš„ç‰ˆæœ¬å·
 VsTool.exe replace -r --path "..\..\Doc\PublishFile\SersDocker" --file "*.txt" --old "%version%" --new "%newVersion%"
 
 
 echo.
 echo.
 echo.
-echo ÒÑ¾­³É¹¦ÐÞ¸Ä°æ±¾ºÅ [%version%]-^>[%newVersion%]
+echo å·²ç»æˆåŠŸä¿®æ”¹ç‰ˆæœ¬å· [%version%]-^>[%newVersion%]
 pause

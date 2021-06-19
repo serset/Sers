@@ -1,6 +1,6 @@
 @echo off
 
-::ÆôÓÃ±äÁ¿ÑÓ³Ù
+::å¯ç”¨å˜é‡å»¶è¿Ÿ
 setlocal EnableDelayedExpansion
 
 
@@ -9,49 +9,49 @@ setlocal EnableDelayedExpansion
 
 
 
-::(x.1)»ñÈ¡basePath
+::(x.1)è·å–basePath
 set curPath=%cd%
 cd /d "%~dp0"
 cd /d ../..
 set basePath=%cd%
-set publishPath=%basePath%/Publish/release/release/CLÑ¹²â
+set publishPath=%basePath%/Publish/release/release/CLå‹æµ‹
 
 
 
 
 
 echo ------------------------------------------------------------------
-:: ·¢²¼SersÑ¹²âCL
-echo ·¢²¼SersÑ¹²âCL
+:: å‘å¸ƒSerså‹æµ‹CL
+echo å‘å¸ƒSerså‹æµ‹CL
 ::publish Client
 cd /d "%basePath%\dotnet\Library\Sers\Sers.CL\Test\CommunicationManage\CmClient"
 dotnet build --configuration Release
 dotnet publish --configuration Release --output "%publishPath%\CmClient"
-@if errorlevel 1 (echo . & echo .  & echo ³ö´í£¬ÇëÅÅ²é£¡& pause) 
+@if errorlevel 1 (echo . & echo .  & echo å‡ºé”™ï¼Œè¯·æ’æŸ¥ï¼& pause) 
 
 ::publish Server
 cd /d "%basePath%\dotnet\Library\Sers\Sers.CL\Test\CommunicationManage\CmServer"
 dotnet build --configuration Release
 dotnet publish --configuration Release --output "%publishPath%\CmServer"
-@if errorlevel 1 (echo . & echo .  & echo ³ö´í£¬ÇëÅÅ²é£¡& pause) 
+@if errorlevel 1 (echo . & echo .  & echo å‡ºé”™ï¼Œè¯·æ’æŸ¥ï¼& pause) 
 
 
 ::copy bat
-xcopy  "%basePath%\Publish\PublishFile\CLÑ¹²â" "%publishPath%" /e /i /r /y
+xcopy  "%basePath%\Publish\PublishFile\CLå‹æµ‹" "%publishPath%" /e /i /r /y
 
 
 
 
 echo ------------------------------------------------------------------
-:: ·¢²¼SersÑ¹²â
+:: å‘å¸ƒSerså‹æµ‹
 for %%i in (netcoreapp2.1,net6.0) do (  
 	set netVersion=%%i
 	set appPath=%basePath%/Publish/release/release/SersPublish/!netVersion!
 
-	echo ·¢²¼SersÑ¹²â-!netVersion!
+	echo å‘å¸ƒSerså‹æµ‹-!netVersion!
 
-	::µ¥ÌåÑ¹²â
-	set targetPath=%basePath%/Publish/release/release/SersÑ¹²â/sersÑ¹²â-µ¥ÌåÑ¹²â!netVersion!
+	::å•ä½“å‹æµ‹
+	set targetPath=%basePath%/Publish/release/release/Serså‹æµ‹/serså‹æµ‹-å•ä½“å‹æµ‹!netVersion!
 
 	::(x.x.1)copy ServiceCenter
 	xcopy "!appPath!\ServiceCenter" "!targetPath!\ServiceCenter" /e /i /r /y
@@ -69,12 +69,12 @@ for %%i in (netcoreapp2.1,net6.0) do (
 	xcopy "!appPath!\Robot\App.Robot.Station.xml" "!targetPath!\ServiceCenter" /i /r /y
 
 	::(x.x.4)copy bat
-	xcopy "%basePath%\Publish\PublishFile\SersÑ¹²â\µ¥ÌåÑ¹²â" "!targetPath!" /e /i /r /y
+	xcopy "%basePath%\Publish\PublishFile\Serså‹æµ‹\å•ä½“å‹æµ‹" "!targetPath!" /e /i /r /y
 
 
 
-	::·Ö²¼Ê½Ñ¹²â
-	set targetPath=%basePath%/Publish/release/release/SersÑ¹²â/sersÑ¹²â-·Ö²¼Ê½Ñ¹²â!netVersion!
+	::åˆ†å¸ƒå¼å‹æµ‹
+	set targetPath=%basePath%/Publish/release/release/Serså‹æµ‹/serså‹æµ‹-åˆ†å¸ƒå¼å‹æµ‹!netVersion!
 
 	::(x.x.1)copy  station
 	xcopy "!appPath!\ServiceCenter" "!targetPath!\ServiceCenter" /e /i /r /y
@@ -82,7 +82,7 @@ for %%i in (netcoreapp2.1,net6.0) do (
 	xcopy "!appPath!\Robot" "!targetPath!\Robot" /e /i /r /y
 
 	::(x.x.2)copy bat
-	xcopy  "%basePath%\Publish\PublishFile\SersÑ¹²â\·Ö²¼Ê½Ñ¹²â" "!targetPath!" /e /i /r /y
+	xcopy  "%basePath%\Publish\PublishFile\Serså‹æµ‹\åˆ†å¸ƒå¼å‹æµ‹" "!targetPath!" /e /i /r /y
 )
 
 
@@ -93,7 +93,7 @@ for %%i in (netcoreapp2.1,net6.0) do (
  
 
 
-echo %~n0.bat Ö´ĞĞ³É¹¦£¡
+echo %~n0.bat æ‰§è¡ŒæˆåŠŸï¼
 
 cd /d "%curPath%"
 

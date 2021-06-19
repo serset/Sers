@@ -1,8 +1,8 @@
 VsTool.exe delete --path "..\.." --file "*.suo|*.user" --directory "obj|bin|.vs|packages"
 
 
-call "ÇåÀí-·¢²¼ÎÄ¼ş.bat"
+call "æ¸…ç†-å‘å¸ƒæ–‡ä»¶.bat"
 
-echo %~n0.bat Ö´ĞĞ³É¹¦£¡
+echo %~n0.bat æ‰§è¡ŒæˆåŠŸï¼
 
 pause

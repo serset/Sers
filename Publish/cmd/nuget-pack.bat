@@ -1,23 +1,23 @@
 @echo off
 
-::(x.1)»ñÈ¡basePath
+::(x.1)è·å–basePath
 set curPath=%cd%
 cd /d "%~dp0"
 cd /d ../..
 set basePath=%cd%
 set nugetPath=%cd%/Publish/release/release/nuget
 
-::(x.2)²éÕÒËùÓĞĞèÒª·¢²¼nugetµÄÏîÄ¿²¢·¢²¼
+::(x.2)æŸ¥æ‰¾æ‰€æœ‰éœ€è¦å‘å¸ƒnugetçš„é¡¹ç›®å¹¶å‘å¸ƒ
 for /f "delims=" %%f in ('findstr /M /s /i "<pack/>" *.csproj') do (
 	echo pack %basePath%\%%f\..
 	cd /d "%basePath%\%%f\.."
 	dotnet build --configuration Release
 	dotnet pack --configuration Release --output "%nugetPath%"
-	@if errorlevel 1 (echo . & echo .  & echo ³ö´í£¬ÇëÅÅ²é£¡& pause) 
+	@if errorlevel 1 (echo . & echo .  & echo å‡ºé”™ï¼Œè¯·æ’æŸ¥ï¼& pause) 
 )
 
 
-echo %~n0.bat Ö´ĞĞ³É¹¦£¡
+echo %~n0.bat æ‰§è¡ŒæˆåŠŸï¼
 
 
 cd /d "%curPath%"

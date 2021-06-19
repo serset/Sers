@@ -1,25 +1,25 @@
-#·¢ËÍ»ñÈ¡qpsÇëÇó
+#å‘é€è·å–qpsè¯·æ±‚
 curl -H "Cookie: user=admin_123456" http://localhost:4580/_gover_/serviceCenter/statistics
 
 
-#ÏÔÊ¾qps
+#æ˜¾ç¤ºqps
 curl -s -H "Cookie: user=admin_123456" http://localhost:4580/_gover_/serviceCenter/statistics | grep -Eo '[0-9|\.]+'
 
 
-#Ã¿3ÃëÏÔÊ¾Ò»´Îqps
+#æ¯3ç§’æ˜¾ç¤ºä¸€æ¬¡qps
 for i in {1..10}   
 do  
 curl -s -H "Cookie: user=admin_123456" http://localhost:4580/_gover_/serviceCenter/statistics | grep -Eo '[0-9|\.]+'
 sleep 3
 done  
 
-#Ã¿3ÃëÏÔÊ¾Ò»´Îqps
+#æ¯3ç§’æ˜¾ç¤ºä¸€æ¬¡qps
 for i in {1..100}; do curl -s -H "Cookie: user=admin_123456" http://localhost:4580/_gover_/serviceCenter/statistics | grep -Eo '[0-9|\.]+'; sleep 3; done 
 
 
 
 #----------------------------------------------
-# sersµ¥ÌåÑ¹²â(net6.0)
+# serså•ä½“å‹æµ‹(net6.0)
 
 dotnet /root/app/ServiceCenter/App.ServiceCenter.dll 
 
@@ -29,7 +29,7 @@ http://127.0.0.1:4580/_gover_/index.html?user=admin_123456
 
 
 
-CentOs8(2x24ºË) .net6
+CentOs8(2x24æ ¸) .net6
 
 Sers.CL.workThreadCount			1
 Sers.CL.Client-Iocp.Mode		Simple
@@ -38,25 +38,25 @@ Sers.LocalApiService.workThreadCount	{workThread}
 Vit.ConsumerMode			ConsumerCache_BlockingCollection
 
 
-·½Ê½ Ïß³ÌÊı£¨´¦Àí/ÇëÇó£©	qps£¨cpuÀûÓÃÂÊ£©
+æ–¹å¼ çº¿ç¨‹æ•°ï¼ˆå¤„ç†/è¯·æ±‚ï¼‰	qpsï¼ˆcpuåˆ©ç”¨ç‡ï¼‰
     workThread/requestThread
 
 
-ApiClientAsync 16/16	140-150Íò£¨15%£©   
+ApiClientAsync 16/16	140-150ä¸‡ï¼ˆ15%ï¼‰   
 
-ApiClientAsync 18/18	150-180Íò£¨18%£© 
+ApiClientAsync 18/18	150-180ä¸‡ï¼ˆ18%ï¼‰ 
 
-ApiClientAsync 20/20	160-230Íò£¨18%£©
+ApiClientAsync 20/20	160-230ä¸‡ï¼ˆ18%ï¼‰
    
-ApiClientAsync 22/22	160-190Íò£¨19%£©	
+ApiClientAsync 22/22	160-190ä¸‡ï¼ˆ19%ï¼‰	
 
-ApiClientAsync 24/24	160-180Íò£¨21%£©   
+ApiClientAsync 24/24	160-180ä¸‡ï¼ˆ21%ï¼‰   
 
 
 
 
 #----------------------------------------------
-# sers·Ö²¼Ê½Ñ¹²â(net6.0)
+# sersåˆ†å¸ƒå¼å‹æµ‹(net6.0)
 
 dotnet /root/app/ServiceCenter/App.ServiceCenter.dll 
 
@@ -69,14 +69,14 @@ dotnet /root/app/Demo/Did.SersLoader.Demo.dll  > console.log 2>&1 &
 dotnet /root/app/Robot/App.Robot.Station.dll  > console.log 2>&1 &
 
 
-#É±ËÀ½ø³Ì
+#æ€æ­»è¿›ç¨‹
 kill -s 9 `pgrep -f 'dotnet'`
 
 
 
 
 
-CentOs8(2x24ºË) .net6
+CentOs8(2x24æ ¸) .net6
 
 
 # ServiceCenter:
@@ -100,7 +100,7 @@ Vit.ConsumerMode			ConsumerCache_BlockingCollection
 
 
 
-·½Ê½ Ïß³ÌÊı£¨´¦Àí/ÇëÇó£©	qps£¨cpuÀûÓÃÂÊ-·şÎñ¶Ë ¿Í»§¶Ë£©
+æ–¹å¼ çº¿ç¨‹æ•°ï¼ˆå¤„ç†/è¯·æ±‚ï¼‰	qpsï¼ˆcpuåˆ©ç”¨ç‡-æœåŠ¡ç«¯ å®¢æˆ·ç«¯ï¼‰
     workThread/requestThread	
 
-ApiClientAsync 20/5000		18-20Íò£¨20% 14%£©   
+ApiClientAsync 20/5000		18-20ä¸‡ï¼ˆ20% 14%ï¼‰   

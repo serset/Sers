@@ -7,16 +7,16 @@ call "sers-publish(netcoreapp2.1).bat"
 
 call "sers-publish(net6.0).bat"
 
-call "sersÑ¹²â-publish.bat"
+call "serså‹æµ‹-publish.bat"
 
 call "docker-image-create.bat"
 
-call "SersÑ¹Ëõ°ü-´´½¨.bat" 
+call "Serså‹ç¼©åŒ…-åˆ›å»º.bat" 
  
 
 :: start ..\release
 
 
-echo %~n0.bat Ö´ĞĞ³É¹¦£¡
+echo %~n0.bat æ‰§è¡ŒæˆåŠŸï¼
 
 pause
