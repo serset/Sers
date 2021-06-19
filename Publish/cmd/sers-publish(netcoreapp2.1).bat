@@ -1,10 +1,10 @@
 @echo off
 
-::å¯ç”¨å˜é‡å»¶è¿Ÿ
+::ÆôÓÃ±äÁ¿ÑÓ³Ù
 setlocal EnableDelayedExpansion
 
 
-::(x.1)åˆå§‹åŒ–
+::(x.1)³õÊ¼»¯
 set netVersion=netcoreapp2.1
 echo publish sers
 echo dotnet version: %netVersion%
@@ -13,7 +13,7 @@ echo dotnet version: %netVersion%
 
 
 
-::(x.2)è·å–basePath
+::(x.2)»ñÈ¡basePath
 set curPath=%cd%
 cd /d "%~dp0"
 cd /d ../..
@@ -23,7 +23,7 @@ set publishPath=%basePath%/Publish/release/release/SersPublish/%netVersion%
 
 
 
-::(x.3)æŸ¥æ‰¾æ‰€æœ‰éœ€è¦å‘å¸ƒçš„é¡¹ç›®å¹¶å‘å¸ƒ
+::(x.3)²éÕÒËùÓĞĞèÒª·¢²¼µÄÏîÄ¿²¢·¢²¼
 for /f "delims=" %%f in ('findstr /M /s /i "<publish>" *.csproj') do (
 	::get name
 	for /f "tokens=3 delims=><" %%a in ('type "%basePath%\%%f"^|findstr "<publish>.*publish"') do set name=%%a
@@ -33,7 +33,7 @@ for /f "delims=" %%f in ('findstr /M /s /i "<publish>" *.csproj') do (
 	cd /d "%basePath%\%%f\.."
 	dotnet build --configuration Release
 	dotnet publish --configuration Release --output "%publishPath%\!name!"
-	@if errorlevel 1 (echo . & echo .  & echo å‡ºé”™ï¼Œè¯·æ’æŸ¥ï¼& pause) 
+	@if errorlevel 1 (echo . & echo .  & echo ³ö´í£¬ÇëÅÅ²é£¡& pause) 
 
 	::copy xml
 	xcopy  "bin\Release\%netVersion%\*.xml" "%publishPath%\!name!" /i /r /y
@@ -53,6 +53,6 @@ xcopy "%basePath%\Publish\PublishFile\SersPublish" "%publishPath%" /e /i /r /y
 
 
 
-echo %~n0.bat æ‰§è¡ŒæˆåŠŸï¼
+echo %~n0.bat Ö´ĞĞ³É¹¦£¡
 
 cd /d "%curPath%"

@@ -7,37 +7,37 @@ echo copy SersDocker
 xcopy  "../../PublishFile/SersDocker" "." /e /i /r /y
 
 echo copy sers
-xcopy  "SersPublish\%netVersion%\ServiceCenter\appsettings.json" "dockeréƒ¨ç½²Sers\sers" 
-xcopy  "SersPublish\%netVersion%\ServiceCenter" "dockeråˆ¶ä½œé•œåƒSers\sers\app" /e /i /r /y
+xcopy  "SersPublish\%netVersion%\ServiceCenter\appsettings.json" "docker²¿ÊğSers\sers" 
+xcopy  "SersPublish\%netVersion%\ServiceCenter" "dockerÖÆ×÷¾µÏñSers\sers\app" /e /i /r /y
 
 
 echo copy sers-gateway
-xcopy  "SersPublish\%netVersion%\Gateway\appsettings.json" "dockeréƒ¨ç½²Sers\sers-gateway" 
-xcopy  "SersPublish\%netVersion%\Gateway" "dockeråˆ¶ä½œé•œåƒSers\sers-gateway\app" /e /i /r /y
+xcopy  "SersPublish\%netVersion%\Gateway\appsettings.json" "docker²¿ÊğSers\sers-gateway" 
+xcopy  "SersPublish\%netVersion%\Gateway" "dockerÖÆ×÷¾µÏñSers\sers-gateway\app" /e /i /r /y
 
 
 echo copy sers-gover
-xcopy  "SersPublish\%netVersion%\Gover\appsettings.json" "dockeréƒ¨ç½²Sers\sers-gover" 
-xcopy  "SersPublish\%netVersion%\Gover" "dockeråˆ¶ä½œé•œåƒSers\sers-gover\app" /e /i /r /y
+xcopy  "SersPublish\%netVersion%\Gover\appsettings.json" "docker²¿ÊğSers\sers-gover" 
+xcopy  "SersPublish\%netVersion%\Gover" "dockerÖÆ×÷¾µÏñSers\sers-gover\app" /e /i /r /y
 
 
 echo copy sers-demo
-xcopy  "SersPublish\%netVersion%\Demo\appsettings.json" "dockeréƒ¨ç½²Sers\sers-demo" 
-xcopy  "SersPublish\%netVersion%\Demo" "dockeråˆ¶ä½œé•œåƒSers\sers-demo\app" /e /i /r /y
+xcopy  "SersPublish\%netVersion%\Demo\appsettings.json" "docker²¿ÊğSers\sers-demo" 
+xcopy  "SersPublish\%netVersion%\Demo" "dockerÖÆ×÷¾µÏñSers\sers-demo\app" /e /i /r /y
 
 
 echo copy sers-demo-robot
-xcopy  "SersPublish\%netVersion%\Robot\appsettings.json" "dockeréƒ¨ç½²Sers\sers-demo-robot" 
-xcopy  "SersPublish\%netVersion%\Robot" "dockeråˆ¶ä½œé•œåƒSers\sers-demo-robot\app" /e /i /r /y
+xcopy  "SersPublish\%netVersion%\Robot\appsettings.json" "docker²¿ÊğSers\sers-demo-robot" 
+xcopy  "SersPublish\%netVersion%\Robot" "dockerÖÆ×÷¾µÏñSers\sers-demo-robot\app" /e /i /r /y
 
 
 echo copy sers-demo-sersall
-xcopy  "Serså‹æµ‹\serså‹æµ‹-å•ä½“å‹æµ‹%netVersion%\ServiceCenter\appsettings.json" "dockeréƒ¨ç½²Sers\sers-demo-sersall" 
-xcopy  "Serså‹æµ‹\serså‹æµ‹-å•ä½“å‹æµ‹%netVersion%\ServiceCenter" "dockeråˆ¶ä½œé•œåƒSers\sers-demo-sersall\app" /e /i /r /y
+xcopy  "SersÑ¹²â\sersÑ¹²â-µ¥ÌåÑ¹²â%netVersion%\ServiceCenter\appsettings.json" "docker²¿ÊğSers\sers-demo-sersall" 
+xcopy  "SersÑ¹²â\sersÑ¹²â-µ¥ÌåÑ¹²â%netVersion%\ServiceCenter" "dockerÖÆ×÷¾µÏñSers\sers-demo-sersall\app" /e /i /r /y
 
 
 
-echo %~n0.bat æ‰§è¡ŒæˆåŠŸï¼
+echo %~n0.bat Ö´ĞĞ³É¹¦£¡
 
 cd /d ../../cmd
 
