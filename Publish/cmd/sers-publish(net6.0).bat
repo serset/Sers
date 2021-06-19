@@ -22,7 +22,7 @@ set curPath=%cd%
 cd /d "%~dp0"
 cd /d ../..
 set basePath=%cd%
-set publishPath=%cd%\Publish\Publish\SersPublish\%netVersion%
+set publishPath=%basePath%/Publish/release/Sers/SersPublish/%netVersion%
 
 
 ::修改要发布项目的netcore版本号为net6.0

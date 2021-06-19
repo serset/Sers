@@ -22,7 +22,7 @@ serset/dotnet:6.0-sdk \
 bash -c "
 set -e
 
-publishPath=/root/code/Publish/Publish/SersPublish/$netVersion
+publishPath=/root/code/Publish/release/Sers/SersPublish/$netVersion
 
 #(x.3)查找所有需要发布的项目并发布
 cd /root/code/dotnet
