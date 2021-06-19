@@ -1,6 +1,6 @@
 set -e
 
-# cd /root/temp/svn/dotnet/Doc/DevOps/github;bash startup.sh;
+# cd /root/temp/svn/Publish/DevOps/github;bash startup.bash;
 
 #----------------------------------------------
 #(x.1)当前路径 
@@ -11,7 +11,7 @@ export codePath=$PWD
 cd $curWorkDir
 
 
-# export codePath=/root/temp/svn/dotnet
+# export codePath=/root/temp/svn
 export name=Sers
 
 #export DOCKER_USERNAME=serset
@@ -29,7 +29,7 @@ export name=Sers
 
 #----------------------------------------------
 echo "(x.2)get version" 
-export version=`grep '<Version>' ${codePath} -r --include Sers.Core.csproj | grep -oP '>(.*)<' | tr -d '<>'`
+export version=`grep '<Version>' "${codePath}" -r --include Sers.Core.csproj | grep -oP '>(.*)<' | tr -d '<>'`
 # echo $version
 
 
@@ -43,12 +43,9 @@ echo "(x.3)自动发布 $name-$version"
 
 for file in *.sh
 do
-    if [[ $file != "startup.sh" ]]
-    then
-        echo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        echo bash $file
-        bash $file
-    fi
+    echo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    echo bash $file
+    bash $file
 done
 
 

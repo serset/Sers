@@ -1,21 +1,20 @@
 set -e
 
-# bash 30.nuget-build.sh
+# bash 30.nuget-pack.sh
 
 
 #---------------------------------------------------------------------
 #(x.1)参数
 args_="
 
-export codePath=/root/temp/svn/dotnet
+export codePath=/root/temp/svn
 
 # "
 
- 
- 
-nugetPath=Doc/Publish/nuget
 
- 
+nugetPath=Publish/Publish/nuget
+
+
 
 #----------------------------------------------
 echo "(x.2)nuget-pack"

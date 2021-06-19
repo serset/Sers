@@ -35,7 +35,7 @@ jobs:
            export NUGET_KEY="${{ secrets.NUGET_KEY }}"
            export GIT_SSH_SECRET="${{ secrets.GIT_SSH_SECRET }}"
            cd ./Publish/DevOps/github
-           bash startup.sh
+           bash startup.bash
            echo build succeed!
 
       - name: Release-Create
