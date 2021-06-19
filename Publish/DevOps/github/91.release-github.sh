@@ -19,7 +19,7 @@ export name=Sers
 
 #---------------------------------------------------------------------
 #(x.2)初始化github release环境变量
-releaseFile=$codePath/Doc/Publish/release/${name}-${version}.zip
+releaseFile=$codePath/Publish/release/${name}-${version}.zip
 
 filePath=${releaseFile}
 #name=Vit.Library
