@@ -23,7 +23,7 @@ set publishPath=%cd%\Publish\Publish\SersPublish\%netVersion%
 
 
 
-::(x.3)查找所有需要发布nuget的项目并发布
+::(x.3)查找所有需要发布的项目并发布
 for /f "delims=" %%f in ('findstr /M /s /i "<publish>" *.csproj') do (
 	::get name
 	for /f "tokens=3 delims=><" %%a in ('type "%basePath%\%%f"^|findstr "<publish>.*publish"') do set name=%%a
