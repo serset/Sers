@@ -1,10 +1,9 @@
 
 call "nuget-pack.bat"
-cd /d "../Publish"
-call "nuget-push to NugetServer.Sers"
-cd /d ../cmd
+
+call "nuget-push to NugetServer.Sers.bat"
+
  
-echo succeed
-echo succeed
-echo succeed
-::pause
+echo %~n0.bat Ö´ÐÐ³É¹¦£¡
+
+pause
