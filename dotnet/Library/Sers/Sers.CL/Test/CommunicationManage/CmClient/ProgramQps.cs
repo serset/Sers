@@ -55,11 +55,11 @@ namespace CLClient
 
             cm.conn_OnGetMessage = (conn,msg) => 
             {
-                Task.Run(() =>
-                {
+                //Task.Run(() =>
+                //{
                     qpsInfo.IncrementRequest();
                     cm.SendMessageAsync(new ByteData(msg));
-                });
+                //});
             };
 
 

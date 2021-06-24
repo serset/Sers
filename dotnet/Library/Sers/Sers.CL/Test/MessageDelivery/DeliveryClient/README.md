@@ -11,12 +11,11 @@ dotnet /root/app/DeliveryServer/DeliveryServer.dll
 
 
 #启动客户端
-dotnet /root/app/DeliveryClient/DeliveryClient.dll 192.168.10.10 4501 500 1 
+dotnet /root/app/DeliveryClient/DeliveryClient.dll 192.168.10.10 4501 20000 150 
 
 
 #后台启动客户端
-dotnet /root/app/DeliveryClient/DeliveryClient.dll 192.168.10.10 4501 500 1 > /root/app/console.log 2>&1 &
-
+dotnet /root/app/DeliveryClient/DeliveryClient.dll 192.168.10.10 4501 10000 150 > /root/app/console.log 2>&1 &
 
 
 
@@ -41,6 +40,11 @@ qps为 1百万
 
 实时网速为   读:500MB/s  写:500MB/s
 
+
+
+#------------------------------------
+centos8 ThreadWait
+thread = 10000*2		msgLen = 150       qps = 180万
 
 
 

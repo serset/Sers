@@ -82,8 +82,8 @@ namespace DeliveryTest
             IDeliveryClient client;
 
             {
-                //var delivery = new Sers.CL.Socket.Iocp.Mode.ThreadWait.DeliveryClient();
-                var delivery = new Sers.CL.Socket.Iocp.Mode.Timer.DeliveryClient();
+                var delivery = new Sers.CL.Socket.Iocp.Mode.ThreadWait.DeliveryClient();
+                // var delivery = new Sers.CL.Socket.Iocp.Mode.Timer.DeliveryClient();
                 //delivery.receiveBufferSize = 81920;
                 client = delivery;
 
@@ -106,8 +106,8 @@ namespace DeliveryTest
 
             client.Conn_OnGetFrame = (conn, data) =>
            {
-               Task.Run(() =>
-               {
+               //Task.Run(() =>
+               //{
                    qpsInfo.IncrementRequest();
 
                    //Thread.Sleep(1);
@@ -117,7 +117,7 @@ namespace DeliveryTest
 
                    var byteData = new Vit.Core.Util.Pipelines.ByteData(data);
                    conn.SendFrameAsync(byteData);
-               });
+               //});
 
            };
 
