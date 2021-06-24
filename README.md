@@ -1,38 +1,48 @@
-# Sers¼ò½é
-SersÎªÒ»Ì×¿çÆ½Ì¨¿çÓïÑÔµÄ¿ªÔ´Î¢·şÎñ¼Ü¹¹Ğ­Òé
->Ô´ÂëµØÖ·£º[https://github.com/serset/Sers](https://github.com/serset/Sers "https://github.com/serset/Sers")  
->µ±Ç°°æ±¾Îª2.1£¬RequestQueueÄ£Ê½¡£  
-
-SersÓµÓĞÈçÏÂÌØĞÔ£º  
-¡ñ ¿çÓïÑÔ¡¢¿çÆ½Ì¨£¬Ä¿Ç°ÒÑÖ§³Öc#¡¢java¡¢c++¡¢javascript  
-¡ñ ¸ßĞ§¸ß²¢·¢£¨°ÙÍò²¢·¢£©£¬µ¥»úQPS:2000000  
-¡ñ ÇáÁ¿¼ò½à£¬¿Éjavascript½ÓÈë£¬´úÂë²»µ½1000ĞĞ£¬Ñ¹ËõºóÖ»ÓĞ8KB  
-¡ñ Ò×À©Õ¹£¬¿ÉÒÔ×ÔĞĞÀ©Õ¹½ÓÈë  
-¡ñ Ö§³Ötcp¡¢zmp¡¢websocket¡¢ipcµÈ¶àÖÖÍ¨Ñ¶·½Ê½  
-¡ñ ÎŞ´úÂëÇÖÈë£¬.net core½ÓÈë´úÂëÖ»ÓĞ1ĞĞ  
+# Sers Introduction
+Sers was a set of cross-platform and cross-language open source micro-service architecture protocol
+>source addressï¼š[https://github.com/serset/Sers](https://github.com/serset/Sers "https://github.com/serset/Sers")  
+>the current version is 2.1, requestQueue mode.
 
 
+Sers has the following features:  
+â— Cross-language, cross-platform, currently supports C #, Java, C ++, JavaScript  
+â— High efficiency and concurrency (millions of concurrency), QPS:2 million  
+â— Lightweight and simple, JavaScript access, less than 1000 lines of code, only 8KB after compression  
+â— Easy to expand, can expand access  
+â— Support TCP, ZMP, WebSocket, IPC and other communication methods  
+â— No code intrusion, only 1 line of .NET Core to join ServiceCenter  
 
-# Õ¾µã»®·Ö
- SersÎªÖĞĞÄ»¯µÄÎ¢·şÎñ¼Ü¹¹Ğ­Òé£¬°´ÕÕÉí·İ·ÖÎª·şÎñÖĞĞÄºÍ·şÎñÕ¾µã¡£
+# Station classification
+ Sers was a centralized micro-service architecture protocol, which was divided into service center and service station according to identity.
 
-## (x.1)·şÎñÖĞĞÄ
-¡¡¡¡·şÎñÖĞĞÄ(ServiceCenter)Ìá¹©·şÎñ×¢²á¡¢·şÎñ·¢ÏÖ¡¢ÇëÇó·Ö·¢£¨¸ºÔØ¾ùºâ£©¡¢ApiÕ¾µã¹ÜÀí¡¢·şÎñÕ¾µã¹ÜÀí¡¢ÏûÏ¢¶©ÔÄµÈµÈ·şÎñ¡£  
-¡¡¡¡ËùÓĞ·şÎñÕ¾µã¶¼ĞèÒªÏò´Ë·şÎñÖĞĞÄ½øĞĞ×¢²á¡£ËùÓĞµÄÇëÇó¶¼»á¾­¹ı·şÎñÖĞĞÄ½øĞĞ×ª·¢¡£  
-¡¡¡¡·şÎñÖĞĞÄÄÚÖÃGover·şÎñÖÎÀí¹¦ÄÜ¡£Ìá¹©·şÎñ¹ÜÀí¼à¿Ø£¬Õ¾µã¹ÜÀí¼à¿Ø£¬·şÎñÏŞÁ÷£¬·şÎñÍ³¼ÆµÈ¹¦ÄÜ¡£·şÎñÖÎÀí²¿ÊğÔÚ·şÎñÖĞĞÄ¡£  
-¡¡¡¡·şÎñÖÎÀíµÄÈë¿ÚµØÖ·Îª¡¡http://ip:6022/_gover_/index.html  
-¡¡¡¡¶Ë¿ÚºÅÔÚappsettings.jsonÅäÖÃÎÄ¼şÖĞÅäÖÃ¡£  
+## (x.1)Service Center
+ServiceCenter provides services such as service registration, service discovery, request distribution (load balancing), API site management, service site management, message subscription, etc.
+
+All service sites need to register with this service center. All requests are forwarded through the service center.
+
+The service center has built-in GOVER service governance function. Provide service management monitoring, site management monitoring, service limit flow, service statistics and other functions. Service governance is deployed in the service center.
+
+The service governance entry address is http://ip:6022/_gover_/index.html
+
+The port number is configured in the appsettings.json configuration file.
 
 
-## (x.2)·şÎñÕ¾µã
-¡¡¡¡·şÎñÕ¾µã(ServiceStation)Ìá¹©Ó¦ÓÃ²ã·şÎñ¡£  
-¡¡¡¡·şÎñÕ¾µã¿ÉÒÔÓĞ¶à¸ö£¬Í¨¹ı·şÎñÖĞĞÄÏà»¥Á¬½Ó¡£ÔÚ·şÎñÕ¾µãÆô¶¯Ê±£¬Ö÷¶¯Ïò·şÎñÖĞĞÄ·¢Æğ·şÎñ×¢²áÇëÇó£¬×¢²á·şÎñ¡£  
-¡¡¡¡·şÎñÕ¾µã×¢²á³É¹¦ºó¼´¿ÉÏòÆäËûÕ¾µã£¨°üº¬·şÎñÍø¹Ø£©Ìá¹©·şÎñ¡£¿Éµ÷ÓÃÆäËûÕ¾µãÌá¹©µÄ·şÎñ¡£  
-¡¡¡¡Ìá¹©µÄ·şÎñÒÔurl(route)×÷Îª·şÎñ±êÊ¶¡£  
-¡¡¡¡¿ÉÒÔ°Ñ·şÎñÕ¾µãÖ±½Ó¸½¼Óµ½·şÎñÖĞĞÄ£¨Ãâ³ıÍ¨ĞÅ²ã£¬µ¥ÌåÄ£Ê½£©Ìá¹©·şÎñ¡£200°ÙÍòqpsµÄĞÔÄÜÊı¾İ¾ÍÊÇÔÚ´ËÄ£Ê½ÏÂ¼ì²âËùµÃ¡£  
+## (x.2)Service Station
+Service station provides application layer services.
 
-## (x.3)·şÎñÍø¹Ø
-¡¡¡¡·şÎñÍø¹Ø(Gateway)Í¨¹ıhttp·½Ê½¶ÔÍâ±©Â¶ÄÚ²¿·şÎñ¡£  
-¡¡¡¡·şÎñÍø¹ØÊÇÒ»¸öÌØÊâµÄ·şÎñÕ¾µã¡£Íø¹ØÓÃhttp¼àÌıÇëÇó£¬°ÑÇëÇó×ª·¢µ½·şÎñÖĞĞÄ¡£·şÎñÍø¹ØÎª·şÎñµÄ¶ÔÍâÈë¿Ú¡£  
-¡¡¡¡·şÎñÖĞĞÄÄÚÖÃÁËÍø¹Ø£¬¿ÉÒÔÔÚappsettings.jsonÅäÖÃÎÄ¼şÖĞÅäÖÃ½øĞĞÆôÓÃ¡£  
-¡¡¡¡Íø¹ØÓĞÁ½¸ö°æ±¾£¬c++°æ£¨CGateway£©ºÍdotnet°æ(Gateway)¡£ c++°æ£¨CGateway£©Ïà¶Ô¸ü¸ßĞ§¡£  
+Service station can have multiple, connected to each other through a service center. When the service station is started, it initiates a service registration request to the service center to register the service.
+
+Once the service station is registered successfully, it can provide services to other stations (including the service gateway). Services provided by other stations can be invoked.
+
+The service provided is identified by a URL (Route).
+
+The service site can be attached directly to the service center (dispensing with the communication layer, monomer mode) to provide services. The performance data of 2 million QPS was measured in this mode.
+
+## (x.3)Service gateway
+The service Gateway exposes internal services to the outside world over HTTP.
+
+A service gateway is a special service site. The gateway listens for the request using HTTP and forwards the request to the service center. The service gateway is the external gateway to the service.
+
+The service center has a built-in gateway that can be configured to enable in the AppSettings. Json configuration file.
+
+There are two versions of the Gateway, the C ++ version and the dotnet version. The C ++ version (CGateway) is relatively efficient.
