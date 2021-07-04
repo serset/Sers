@@ -9,7 +9,7 @@ Sers has the following features:
 2.High efficiency and concurrency (millions of concurrency), QPS:2 million  
 3.Lightweight and simple, JavaScript access, less than 1000 lines of code, only 8KB after compression  
 4.Easy to expand, can expand access  
-5.Support TCP, ZMP, WebSocket, IPC and other communication methods  
+5.Support IOCP, ZMQ, WebSocket, NamedPipe, SharedMemory and other communication methods  
 6.No code intrusion, only 1 line of .NET Core to join ServiceCenter  
    
 

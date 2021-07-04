@@ -8,7 +8,7 @@ Sers拥有如下特性：
 ● 高效高并发（百万并发），单机QPS:2000000  
 ● 轻量简洁，可javascript接入，代码不到1000行，压缩后只有8KB  
 ● 易扩展，可以自行扩展接入  
-● 支持tcp、zmp、websocket、ipc等多种通讯方式  
+● 支持IOCP、ZMQ、WebSocket、NamedPipe、SharedMemory等多种通讯方式  
 ● 无代码侵入，.net core接入代码只有1行  
 
 
