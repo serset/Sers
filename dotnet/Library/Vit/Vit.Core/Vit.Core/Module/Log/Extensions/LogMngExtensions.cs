@@ -15,7 +15,7 @@ namespace Vit.Extensions
             }
 
 
-            if (true == ConfigurationManager.Instance.GetByPath<bool?>("Vit.Logger.PrintToConsole"))
+            if (false != ConfigurationManager.Instance.GetByPath<bool?>("Vit.Logger.PrintToConsole"))
             {
                 Logger.OnLog += (level, msg)=> { Console.WriteLine("[" + level + "]" + DateTime.Now.ToString("[HH:mm:ss.ffff]") + msg);   };
             }

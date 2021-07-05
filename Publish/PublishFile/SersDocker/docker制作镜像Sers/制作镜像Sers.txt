@@ -37,7 +37,7 @@ cd /root/image
 
 
 #构建镜像并推送到 Docker Hub 
-export tag=2.1.6
+export tag=2.1.7-temp
 
 cd sers
 docker buildx build . -t serset/sers:${tag} -t serset/sers --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
