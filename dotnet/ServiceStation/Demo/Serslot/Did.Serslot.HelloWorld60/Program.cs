@@ -20,7 +20,7 @@ namespace Did.Serslot.HelloWorld
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseSerslot()  //----添加代码2
+                .UseSerslot(true)  //----添加代码2
                 .UseStartup<Startup>();
     }
 }

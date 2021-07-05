@@ -19,9 +19,9 @@ namespace Vit.Core.Util.ConfigurationManager
         /// <param name="filePath">json文件路径，例如：new []{"Data", "App.Robot.json"}</param>
         /// <param name="valueKeys">value在json文件中的json路径，可为null。例如：new []{"taskList"}</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void SetToFile(object value,string[] filePath,string []valueKeys = null)
+        public static void SetToFile(object value, string[] filePath, string[] valueKeys = null)
         {
-            new JsonFile(filePath).Set(value, valueKeys);             
+            new JsonFile(filePath).Set(value, valueKeys);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Vit.Core.Util.ConfigurationManager
         /// <param name="valueKeys">value在json文件中的json路径，可为null。例如：new []{"taskList"}</param>
         /// <returns></returns>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static T GetFromFile<T>(string[] filePath,string[] valueKeys = null)
+        public static T GetFromFile<T>(string[] filePath, string[] valueKeys = null)
         {
             try
             {
@@ -47,8 +47,8 @@ namespace Vit.Core.Util.ConfigurationManager
 
         #endregion
 
-        
-    
+
+
         public JToken root { get; protected set; }
         public string configPath { get; protected set; }
 
@@ -71,7 +71,7 @@ namespace Vit.Core.Util.ConfigurationManager
         /// 通过相对路径加载json文件
         /// </summary>
         /// <param name="path">如： new []{"Data","sqler.json"}</param>
-        public JsonFile(params string[] path ):this(path.Length==0?null:CommonHelp.GetAbsPath(path))
+        public JsonFile(params string[] path) : this(path.Length == 0 ? null : CommonHelp.GetAbsPath(path))
         {
         }
 
@@ -90,12 +90,12 @@ namespace Vit.Core.Util.ConfigurationManager
             try
             {
                 string fileContent;
-                if (!File.Exists(configPath) || string.IsNullOrEmpty(fileContent = File.ReadAllText(configPath))  )
+                if (!File.Exists(configPath) || string.IsNullOrEmpty(fileContent = File.ReadAllText(configPath)))
                 {
                     root = new JObject();
                     return;
                 }
-                root =  JsonConvert.DeserializeObject(fileContent) as JToken;
+                root = JsonConvert.DeserializeObject(fileContent) as JToken;
             }
             catch { }
             #endregion
@@ -117,7 +117,7 @@ namespace Vit.Core.Util.ConfigurationManager
             try
             {
                 string dir = Path.GetDirectoryName(configPath);
-                if(!string.IsNullOrWhiteSpace(dir))
+                if (!string.IsNullOrWhiteSpace(dir))
                     Directory.CreateDirectory(dir);
 
                 File.WriteAllText(configPath, root.ToString());
@@ -133,7 +133,7 @@ namespace Vit.Core.Util.ConfigurationManager
         }
 
 
-
+        #region Get    
 
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -151,7 +151,7 @@ namespace Vit.Core.Util.ConfigurationManager
         /// <param name="keys">value在Root中的json路径，可为null。例如：new []{"taskList",0,"name"}</param>
         /// <returns></returns>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public virtual  T Get<T>(params object[] keys)
+        public virtual T Get<T>(params object[] keys)
         {
             JToken cur = root;
             if (null != keys && keys.Length > 0)
@@ -163,6 +163,29 @@ namespace Vit.Core.Util.ConfigurationManager
             }
             return cur.Deserialize<T>();
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="path">value在Root中的json路径，可为null。例如："a.b.c"</param>
+        /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public virtual T GetByPath<T>(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+                return root.Deserialize<T>();
+
+            return root.SelectToken(path).Deserialize<T>();
+        }
+
+        #endregion
+
+
+
+        #region Set
+
 
         /// <summary>
         /// 会自动保存到原始json文件
@@ -184,24 +207,6 @@ namespace Vit.Core.Util.ConfigurationManager
         }
 
 
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="path">value在Root中的json路径，可为null。例如："a.b.c"</param>
-        /// <returns></returns>
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public virtual T GetByPath<T>(string path)
-        {
-            if(string.IsNullOrEmpty(path))
-                return root.Deserialize<T>();
-      
-            return root.SelectToken(path).Deserialize<T>();
-        }
-
-
         /// <summary>
         /// 会自动保存到原始json文件
         /// </summary>
@@ -210,13 +215,12 @@ namespace Vit.Core.Util.ConfigurationManager
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void SetByPath(object value, string path)
         {
-            Set(value,path?.Split('.'));
+            Set(value, path?.Split('.'));
         }
 
+        #endregion
 
-       
 
-     
 
     }
 }
