@@ -7,17 +7,27 @@ namespace Vit.Extensions
     public static partial class IWebHostBuilder_UseSerslot_Extensions
     {
         /// <summary>
-        /// 
+        /// 尝试使用Serslot。若未指定配置则不启用Serslot(即appsettings.json未指定Sers节点时不做任何操作)。
         /// </summary>
         /// <param name="hostBuilder"></param>
-        /// <param name="useDefaultConfig">在不指定配置时是否使用默认配置强制启用Serslot。若为false,且appsettings.json不指定Sers则不做任何操作</param>
         /// <returns></returns>
-        public static IWebHostBuilder UseSerslot(this IWebHostBuilder hostBuilder, bool useDefaultConfig = false)
+        public static IWebHostBuilder TryUseSerslot(this IWebHostBuilder hostBuilder)
         {
-            if (!useDefaultConfig && null == Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.Get<JToken>("Sers"))
+            if (null == Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.Get<JToken>("Sers"))
             {
                 return hostBuilder;
             }
+
+            return hostBuilder.UseSerslot();
+        }
+
+        /// <summary>
+        /// 使用Serslot。若未指定配置则使用默认配置强制启用Serslot。
+        /// </summary>
+        /// <param name="hostBuilder"></param>
+        /// <returns></returns>
+        public static IWebHostBuilder UseSerslot(this IWebHostBuilder hostBuilder)
+        {           
 
             if ("BackgroundTask" == Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetStringByPath("serslot.Mode"))
             {
@@ -27,8 +37,8 @@ namespace Vit.Extensions
             {
                 return hostBuilder.UseSerslot_Async();
             }
-
         }
+
 
     }
 }

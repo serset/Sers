@@ -20,7 +20,7 @@ namespace Did.Serslot.Demo
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseSerslot()  //----添加代码2
+                .TryUseSerslot()  //----添加代码2
                 .UseUrls(Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<string[]>("server.urls")) //----添加代码3
                 .UseStartup<Startup>();
     }
