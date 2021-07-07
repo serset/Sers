@@ -11,7 +11,7 @@ using Vit.Extensions;
 
 namespace Sers.Core.CL.CommunicationManage
 {
-    public class CommunicationManageClient
+    public partial class CommunicationManageClient
     {
 
         public CommunicationManageClient()
@@ -126,7 +126,12 @@ namespace Sers.Core.CL.CommunicationManage
 
                 #region (x.1) get configs
                 var configs = ConfigurationManager.Instance.GetByPath<JObject[]>("Sers.CL.Client");
-                if (configs == null) return null;
+                if (configs == null) 
+                {
+                    //return null;
+                    configs = DefaultClientConfig.Deserialize<JObject[]>();
+                }
+
                 foreach (var config in configs)
                 {
                     foreach (var defaultConfigItem in defaultConfig)
