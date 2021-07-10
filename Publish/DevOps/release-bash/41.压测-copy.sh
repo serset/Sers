@@ -5,19 +5,25 @@ set -e
 #(x.1)参数
 args_="
 
-export codePath=/root/temp/svn
+export basePath=/root/temp/svn
 
 # "
 
- 
+
+#---------------------------------------------------------------------
+#(x.2)
+publishPath=$basePath/Publish/release/release/压测
+
+
 
 
 echo ------------------------------------------------------------------
-echo '(x.2)发布Sers压测CL'
+echo '(x.3)发布CL压测'
 
 docker run -i --rm \
 --env LANG=C.UTF-8 \
--v $codePath:/root/code \
+-v $basePath:/root/code \
+-v $basePath/Publish/release/.nuget:/root/.nuget \
 serset/dotnet:6.0-sdk \
 bash -c "
 set -e
@@ -25,15 +31,15 @@ set -e
 echo 'publish Client'
 cd /root/code/dotnet/Library/Sers/Sers.CL/Test/CommunicationManage/CmClient
 dotnet build --configuration Release
-dotnet publish --configuration Release --output /root/code/Publish/release/release/CL压测/CmClient
+dotnet publish --configuration Release --output /root/code/Publish/release/release/压测/CL压测netcoreapp2.1/CmClient
 
 echo 'publish Server'
 cd /root/code/dotnet/Library/Sers/Sers.CL/Test/CommunicationManage/CmServer
 dotnet build --configuration Release
-dotnet publish --configuration Release --output /root/code/Publish/release/release/CL压测/CmServer
+dotnet publish --configuration Release --output /root/code/Publish/release/release/压测/CL压测netcoreapp2.1/CmServer
 
 echo 'copy bat'
-\cp -rf /root/code/Publish/PublishFile/CL压测/. /root/code/Publish/release/release/CL压测
+\cp -rf /root/code/Publish/ReleaseFile/压测/CL压测/. /root/code/Publish/release/release/压测/CL压测netcoreapp2.1
 
 " 
 
@@ -41,17 +47,17 @@ echo 'copy bat'
 
 
 echo ------------------------------------------------------------------
-echo '(x.3)发布Sers压测'
+echo '(x.4)发布Sers压测'
 
 for netVersion in netcoreapp2.1 net6.0
 do
 
-	appPath=${codePath}/Publish/release/release/SersPublish/${netVersion}
+	appPath=${basePath}/Publish/release/release/Station\(${netVersion}\)
 
 	#---------------------------------------------- 
 	#单体压测
-	echo "(x.4)sers压测-publish单体压测${netVersion}"
-	targetPath=${codePath}/Publish/release/release/Sers压测/sers压测-单体压测${netVersion}
+	echo "(x.5)单体压测${netVersion}"
+	targetPath=${publishPath}/单体压测${netVersion}
 	mkdir -p $targetPath
 
 	echo "(x.x.1)copy ServiceCenter"
@@ -69,15 +75,15 @@ do
 	\cp -rf $appPath/Robot/App.Robot.Station.pdb $targetPath/ServiceCenter
 	\cp -rf $appPath/Robot/App.Robot.Station.xml $targetPath/ServiceCenter 
 
-	echo "(x.x.4)copy bat"
-	\cp -rf $codePath/Publish/PublishFile/Sers压测/单体压测/. $targetPath
+	echo "(x.x.4)copy ReleaseFile"
+	\cp -rf $basePath/Publish/ReleaseFile/压测/单体压测/. $targetPath
 
 
 
 	#---------------------------------------------- 
 	#分布式压测
-	echo "(x.5)sers压测-publish分布式压测${netVersion}"
-	targetPath=${codePath}/Publish/release/release/Sers压测/sers压测-分布式压测${netVersion}
+	echo "(x.6)分布式压测${netVersion}"
+	targetPath=${publishPath}/分布式压测${netVersion}
 	mkdir -p $targetPath
 
 	echo "(x.x.1)copy  station"
@@ -85,9 +91,8 @@ do
 	\cp -rf $appPath/Demo $targetPath
 	\cp -rf $appPath/Robot $targetPath
 
-	echo "(x.x.2)copy bat"
-	\cp -rf $codePath/Publish/PublishFile/Sers压测/分布式压测/. $targetPath
-
+	echo "(x.x.2)copy ReleaseFile"
+	\cp -rf $basePath/Publish/ReleaseFile/压测/分布式压测/. $targetPath
 
 done
 

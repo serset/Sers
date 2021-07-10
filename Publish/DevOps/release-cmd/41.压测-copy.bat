@@ -10,6 +10,10 @@ set curPath=%cd%
 cd /d "%~dp0"
 cd /d ../../..
 set basePath=%cd%
+
+
+
+::(x.2)
 set publishPath=%basePath%/Publish/release/release/Ñ¹²â
 
 
@@ -17,8 +21,7 @@ set publishPath=%basePath%/Publish/release/release/Ñ¹²â
 
 
 echo ------------------------------------------------------------------
-:: ·¢²¼CLÑ¹²â
-echo ·¢²¼CLÑ¹²â
+echo "(x.3)·¢²¼CLÑ¹²â"
 
 ::Client
 cd /d "%basePath%\dotnet\Library\Sers\Sers.CL\Test\CommunicationManage\CmClient"
@@ -40,7 +43,7 @@ xcopy  "%basePath%\Publish\ReleaseFile\Ñ¹²â\CLÑ¹²â" "%publishPath%\CLÑ¹²ânetcore
 
 
 echo ------------------------------------------------------------------
-:: ·¢²¼SersÑ¹²â
+::(x.4)·¢²¼SersÑ¹²â
 for %%i in (netcoreapp2.1,net6.0) do (  
 	set netVersion=%%i
 	set appPath=%basePath%/Publish/release/release/Station^(!netVersion!^)
@@ -78,7 +81,7 @@ for %%i in (netcoreapp2.1,net6.0) do (
 	xcopy "!appPath!\Demo" "!targetPath!\Demo" /e /i /r /y
 	xcopy "!appPath!\Robot" "!targetPath!\Robot" /e /i /r /y
 
-	::(x.x.2)copy bat
+	::(x.x.2)copy ReleaseFile
 	xcopy  "%basePath%\Publish\ReleaseFile\Ñ¹²â\·Ö²¼Ê½Ñ¹²â" "!targetPath!" /e /i /r /y
 )
 
