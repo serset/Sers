@@ -25,8 +25,8 @@ set basePath=%cd%
 set publishPath=%basePath%/Publish/release/release/SersPublish/%netVersion%
 
 
-::修改要发布项目的netcore版本号为net6.0
-Publish\cmd\VsTool.exe replace -r --path "%basePath%" --file "App.Gateway.csproj|App.Gover.Gateway.csproj|App.ServiceCenter.csproj|Did.SersLoader.Demo.csproj|App.Robot.Station.csproj" --old "<TargetFramework>netcoreapp2.1</TargetFramework>" --new "<TargetFramework>net6.0</TargetFramework>"
+::修改要发布项目的netcore版本号
+Publish\cmd\VsTool.exe replace -r --path "%basePath%" --file "App.Gateway.csproj|App.Gover.Gateway.csproj|App.ServiceCenter.csproj|Did.SersLoader.Demo.csproj|App.Robot.Station.csproj" --old "<TargetFramework>netcoreapp2.1</TargetFramework>" --new "<TargetFramework>%netVersion%</TargetFramework>"
 
 
 
@@ -63,7 +63,7 @@ xcopy "%basePath%\Publish\PublishFile\SersPublish" "%publishPath%" /e /i /r /y
 
 ::还原项目的版本号
 cd /d "%basePath%"
-Publish\cmd\VsTool.exe replace -r --path "%basePath%" --file "App.Gateway.csproj|App.Gover.Gateway.csproj|App.ServiceCenter.csproj|Did.SersLoader.Demo.csproj|App.Robot.Station.csproj" --old "<TargetFramework>net6.0</TargetFramework>" --new "<TargetFramework>netcoreapp2.1</TargetFramework>"
+Publish\cmd\VsTool.exe replace -r --path "%basePath%" --file "App.Gateway.csproj|App.Gover.Gateway.csproj|App.ServiceCenter.csproj|Did.SersLoader.Demo.csproj|App.Robot.Station.csproj" --old "<TargetFramework>%netVersion%</TargetFramework>" --new "<TargetFramework>netcoreapp2.1</TargetFramework>"
 
 
 
