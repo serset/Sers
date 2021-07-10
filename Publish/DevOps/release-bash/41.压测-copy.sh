@@ -13,7 +13,7 @@ export basePath=/root/temp/svn
 #---------------------------------------------------------------------
 #(x.2)
 publishPath=$basePath/Publish/release/release/压测
-
+mkdir -p $publishPath
 
 
 
@@ -51,7 +51,6 @@ echo '(x.4)发布Sers压测'
 
 for netVersion in netcoreapp2.1 net6.0
 do
-
 	appPath=${basePath}/Publish/release/release/Station\(${netVersion}\)
 
 	#---------------------------------------------- 
