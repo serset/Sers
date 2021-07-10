@@ -1,15 +1,15 @@
 # Sers Introduction
 Sers was a set of cross-platform and cross-language open source micro-service architecture protocol  
->source addressÔºö[https://github.com/serset/Sers](https://github.com/serset/Sers "https://github.com/serset/Sers")  
+>source address£∫[https://github.com/serset/Sers](https://github.com/serset/Sers "https://github.com/serset/Sers")  
 >the current version is 2.1, requestQueue mode.  
   
 Sers has the following features:  
-‚óè Cross-language, cross-platform, currently supports C #, Java, C ++, JavaScript  
-‚óè High efficiency and concurrency (millions of concurrency), QPS:2 million  
-‚óè Lightweight and simple, JavaScript access, less than 1000 lines of code, only 8KB after compression  
-‚óè Easy to expand, can expand access  
-‚óè Support IOCP, ZMQ, WebSocket, NamedPipe, SharedMemory and other communication methods  
-‚óè No code intrusion, NET Core only takes 1 line of code to join the service center  
+°Ò Cross-language, cross-platform, currently supports C #, Java, C ++, JavaScript  
+°Ò High efficiency and concurrency (millions of concurrency), QPS:2 million  
+°Ò Lightweight and simple, JavaScript access, less than 1000 lines of code, only 8KB after compression  
+°Ò Easy to expand, can expand access  
+°Ò Support IOCP, ZMQ, WebSocket, NamedPipe, SharedMemory and other communication methods  
+°Ò No code intrusion, NET Core only takes 1 line of code to join the service center  
 
 
 

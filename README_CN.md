@@ -1,38 +1,38 @@
-# Sersç®€ä»‹
-Sersä¸ºä¸€å¥—è·¨å¹³å°è·¨è¯­è¨€çš„å¼€æºå¾®æœåŠ¡æž¶æž„åè®®
->æºç åœ°å€ï¼š[https://github.com/serset/Sers](https://github.com/serset/Sers "https://github.com/serset/Sers")  
->å½“å‰ç‰ˆæœ¬ä¸º2.1ï¼ŒRequestQueueæ¨¡å¼ã€‚  
+# Sers¼ò½é
+SersÎªÒ»Ì×¿çÆ½Ì¨¿çÓïÑÔµÄ¿ªÔ´Î¢·þÎñ¼Ü¹¹Ð­Òé
+>Ô´ÂëµØÖ·£º[https://github.com/serset/Sers](https://github.com/serset/Sers "https://github.com/serset/Sers")  
+>µ±Ç°°æ±¾Îª2.1£¬RequestQueueÄ£Ê½¡£  
 
-Sersæ‹¥æœ‰å¦‚ä¸‹ç‰¹æ€§ï¼š  
-â— è·¨è¯­è¨€ã€è·¨å¹³å°ï¼Œç›®å‰å·²æ”¯æŒc#ã€javaã€c++ã€javascript  
-â— é«˜æ•ˆé«˜å¹¶å‘ï¼ˆç™¾ä¸‡å¹¶å‘ï¼‰ï¼Œå•æœºQPS:2000000  
-â— è½»é‡ç®€æ´ï¼Œå¯javascriptæŽ¥å…¥ï¼Œä»£ç ä¸åˆ°1000è¡Œï¼ŒåŽ‹ç¼©åŽåªæœ‰8KB  
-â— æ˜“æ‰©å±•ï¼Œå¯ä»¥è‡ªè¡Œæ‰©å±•æŽ¥å…¥  
-â— æ”¯æŒIOCPã€ZMQã€WebSocketã€NamedPipeã€SharedMemoryç­‰å¤šç§é€šè®¯æ–¹å¼  
-â— æ— ä»£ç ä¾µå…¥ï¼Œ.net coreæŽ¥å…¥æœåŠ¡ä¸­å¿ƒåªéœ€è¦1è¡Œä»£ç   
-
-
-
-# ç«™ç‚¹åˆ’åˆ†
- Sersä¸ºä¸­å¿ƒåŒ–çš„å¾®æœåŠ¡æž¶æž„åè®®ï¼ŒæŒ‰ç…§èº«ä»½åˆ†ä¸ºæœåŠ¡ä¸­å¿ƒå’ŒæœåŠ¡ç«™ç‚¹ã€‚
-
-## (x.1)æœåŠ¡ä¸­å¿ƒ
-ã€€ã€€æœåŠ¡ä¸­å¿ƒ(ServiceCenter)æä¾›æœåŠ¡æ³¨å†Œã€æœåŠ¡å‘çŽ°ã€è¯·æ±‚åˆ†å‘ï¼ˆè´Ÿè½½å‡è¡¡ï¼‰ã€Apiç®¡ç†ã€æœåŠ¡ç«™ç‚¹ç®¡ç†ã€æ¶ˆæ¯è®¢é˜…ç­‰ç­‰æœåŠ¡ã€‚  
-ã€€ã€€æ‰€æœ‰æœåŠ¡ç«™ç‚¹éƒ½éœ€è¦å‘æ­¤æœåŠ¡ä¸­å¿ƒè¿›è¡Œæ³¨å†Œã€‚æ‰€æœ‰çš„è¯·æ±‚éƒ½ä¼šç»è¿‡æœåŠ¡ä¸­å¿ƒè¿›è¡Œè½¬å‘ã€‚  
-ã€€ã€€æœåŠ¡ä¸­å¿ƒå†…ç½®GoveræœåŠ¡æ²»ç†åŠŸèƒ½ã€‚æä¾›æœåŠ¡ç®¡ç†ç›‘æŽ§ï¼Œç«™ç‚¹ç®¡ç†ç›‘æŽ§ï¼ŒæœåŠ¡é™æµï¼ŒæœåŠ¡ç»Ÿè®¡ç­‰åŠŸèƒ½ã€‚æœåŠ¡æ²»ç†éƒ¨ç½²åœ¨æœåŠ¡ä¸­å¿ƒã€‚  
-ã€€ã€€æœåŠ¡æ²»ç†çš„å…¥å£åœ°å€ä¸ºã€€http://ip:6022/_gover_/index.html  
-ã€€ã€€ç«¯å£å·åœ¨appsettings.jsoné…ç½®æ–‡ä»¶ä¸­é…ç½®ã€‚  
+SersÓµÓÐÈçÏÂÌØÐÔ£º  
+¡ñ ¿çÓïÑÔ¡¢¿çÆ½Ì¨£¬Ä¿Ç°ÒÑÖ§³Öc#¡¢java¡¢c++¡¢javascript  
+¡ñ ¸ßÐ§¸ß²¢·¢£¨°ÙÍò²¢·¢£©£¬µ¥»úQPS:2000000  
+¡ñ ÇáÁ¿¼ò½à£¬¿Éjavascript½ÓÈë£¬´úÂë²»µ½1000ÐÐ£¬Ñ¹ËõºóÖ»ÓÐ8KB  
+¡ñ Ò×À©Õ¹£¬¿ÉÒÔ×ÔÐÐÀ©Õ¹½ÓÈë  
+¡ñ Ö§³ÖIOCP¡¢ZMQ¡¢WebSocket¡¢NamedPipe¡¢SharedMemoryµÈ¶àÖÖÍ¨Ñ¶·½Ê½  
+¡ñ ÎÞ´úÂëÇÖÈë£¬.net core½ÓÈë·þÎñÖÐÐÄÖ»ÐèÒª1ÐÐ´úÂë  
 
 
-## (x.2)æœåŠ¡ç«™ç‚¹
-ã€€ã€€æœåŠ¡ç«™ç‚¹(ServiceStation)æä¾›åº”ç”¨å±‚æœåŠ¡ã€‚  
-ã€€ã€€æœåŠ¡ç«™ç‚¹å¯ä»¥æœ‰å¤šä¸ªï¼Œé€šè¿‡æœåŠ¡ä¸­å¿ƒç›¸äº’è¿žæŽ¥ã€‚åœ¨æœåŠ¡ç«™ç‚¹å¯åŠ¨æ—¶ï¼Œä¸»åŠ¨å‘æœåŠ¡ä¸­å¿ƒå‘èµ·æœåŠ¡æ³¨å†Œè¯·æ±‚ï¼Œæ³¨å†ŒæœåŠ¡ã€‚  
-ã€€ã€€æœåŠ¡ç«™ç‚¹æ³¨å†ŒæˆåŠŸåŽå³å¯å‘å…¶ä»–ç«™ç‚¹ï¼ˆåŒ…å«æœåŠ¡ç½‘å…³ï¼‰æä¾›æœåŠ¡ã€‚å¯è°ƒç”¨å…¶ä»–ç«™ç‚¹æä¾›çš„æœåŠ¡ã€‚  
-ã€€ã€€æä¾›çš„æœåŠ¡ä»¥url(route)ä½œä¸ºæœåŠ¡æ ‡è¯†ã€‚  
-ã€€ã€€å¯ä»¥æŠŠæœåŠ¡ç«™ç‚¹ç›´æŽ¥é™„åŠ åˆ°æœåŠ¡ä¸­å¿ƒï¼ˆå…é™¤é€šä¿¡å±‚ï¼Œå•ä½“æ¨¡å¼ï¼‰æä¾›æœåŠ¡ã€‚200ç™¾ä¸‡qpsçš„æ€§èƒ½æ•°æ®å°±æ˜¯åœ¨æ­¤æ¨¡å¼ä¸‹æ£€æµ‹æ‰€å¾—ã€‚  
 
-## (x.3)æœåŠ¡ç½‘å…³
-ã€€ã€€æœåŠ¡ç½‘å…³(Gateway)é€šè¿‡httpæ–¹å¼å¯¹å¤–æš´éœ²å†…éƒ¨æœåŠ¡ã€‚  
-ã€€ã€€æœåŠ¡ç½‘å…³æ˜¯ä¸€ä¸ªç‰¹æ®Šçš„æœåŠ¡ç«™ç‚¹ã€‚ç½‘å…³ç”¨httpç›‘å¬è¯·æ±‚ï¼ŒæŠŠè¯·æ±‚è½¬å‘åˆ°æœåŠ¡ä¸­å¿ƒã€‚æœåŠ¡ç½‘å…³ä¸ºæœåŠ¡çš„å¯¹å¤–å…¥å£ã€‚  
-ã€€ã€€æœåŠ¡ä¸­å¿ƒå†…ç½®äº†ç½‘å…³ï¼Œå¯ä»¥åœ¨appsettings.jsoné…ç½®æ–‡ä»¶ä¸­é…ç½®è¿›è¡Œå¯ç”¨ã€‚  
-ã€€ã€€ç½‘å…³æœ‰ä¸¤ä¸ªç‰ˆæœ¬ï¼Œc++ç‰ˆï¼ˆCGatewayï¼‰å’Œdotnetç‰ˆ(Gateway)ã€‚ c++ç‰ˆï¼ˆCGatewayï¼‰ç›¸å¯¹æ›´é«˜æ•ˆã€‚  
+# Õ¾µã»®·Ö
+ SersÎªÖÐÐÄ»¯µÄÎ¢·þÎñ¼Ü¹¹Ð­Òé£¬°´ÕÕÉí·Ý·ÖÎª·þÎñÖÐÐÄºÍ·þÎñÕ¾µã¡£
+
+## (x.1)·þÎñÖÐÐÄ
+¡¡¡¡·þÎñÖÐÐÄ(ServiceCenter)Ìá¹©·þÎñ×¢²á¡¢·þÎñ·¢ÏÖ¡¢ÇëÇó·Ö·¢£¨¸ºÔØ¾ùºâ£©¡¢Api¹ÜÀí¡¢·þÎñÕ¾µã¹ÜÀí¡¢ÏûÏ¢¶©ÔÄµÈµÈ·þÎñ¡£  
+¡¡¡¡ËùÓÐ·þÎñÕ¾µã¶¼ÐèÒªÏò´Ë·þÎñÖÐÐÄ½øÐÐ×¢²á¡£ËùÓÐµÄÇëÇó¶¼»á¾­¹ý·þÎñÖÐÐÄ½øÐÐ×ª·¢¡£  
+¡¡¡¡·þÎñÖÐÐÄÄÚÖÃGover·þÎñÖÎÀí¹¦ÄÜ¡£Ìá¹©·þÎñ¹ÜÀí¼à¿Ø£¬Õ¾µã¹ÜÀí¼à¿Ø£¬·þÎñÏÞÁ÷£¬·þÎñÍ³¼ÆµÈ¹¦ÄÜ¡£·þÎñÖÎÀí²¿ÊðÔÚ·þÎñÖÐÐÄ¡£  
+¡¡¡¡·þÎñÖÎÀíµÄÈë¿ÚµØÖ·Îª¡¡http://ip:6022/_gover_/index.html  
+¡¡¡¡¶Ë¿ÚºÅÔÚappsettings.jsonÅäÖÃÎÄ¼þÖÐÅäÖÃ¡£  
+
+
+## (x.2)·þÎñÕ¾µã
+¡¡¡¡·þÎñÕ¾µã(ServiceStation)Ìá¹©Ó¦ÓÃ²ã·þÎñ¡£  
+¡¡¡¡·þÎñÕ¾µã¿ÉÒÔÓÐ¶à¸ö£¬Í¨¹ý·þÎñÖÐÐÄÏà»¥Á¬½Ó¡£ÔÚ·þÎñÕ¾µãÆô¶¯Ê±£¬Ö÷¶¯Ïò·þÎñÖÐÐÄ·¢Æð·þÎñ×¢²áÇëÇó£¬×¢²á·þÎñ¡£  
+¡¡¡¡·þÎñÕ¾µã×¢²á³É¹¦ºó¼´¿ÉÏòÆäËûÕ¾µã£¨°üº¬·þÎñÍø¹Ø£©Ìá¹©·þÎñ¡£¿Éµ÷ÓÃÆäËûÕ¾µãÌá¹©µÄ·þÎñ¡£  
+¡¡¡¡Ìá¹©µÄ·þÎñÒÔurl(route)×÷Îª·þÎñ±êÊ¶¡£  
+¡¡¡¡¿ÉÒÔ°Ñ·þÎñÕ¾µãÖ±½Ó¸½¼Óµ½·þÎñÖÐÐÄ£¨Ãâ³ýÍ¨ÐÅ²ã£¬µ¥ÌåÄ£Ê½£©Ìá¹©·þÎñ¡£200°ÙÍòqpsµÄÐÔÄÜÊý¾Ý¾ÍÊÇÔÚ´ËÄ£Ê½ÏÂ¼ì²âËùµÃ¡£  
+
+## (x.3)·þÎñÍø¹Ø
+¡¡¡¡·þÎñÍø¹Ø(Gateway)Í¨¹ýhttp·½Ê½¶ÔÍâ±©Â¶ÄÚ²¿·þÎñ¡£  
+¡¡¡¡·þÎñÍø¹ØÊÇÒ»¸öÌØÊâµÄ·þÎñÕ¾µã¡£Íø¹ØÓÃhttp¼àÌýÇëÇó£¬°ÑÇëÇó×ª·¢µ½·þÎñÖÐÐÄ¡£·þÎñÍø¹ØÎª·þÎñµÄ¶ÔÍâÈë¿Ú¡£  
+¡¡¡¡·þÎñÖÐÐÄÄÚÖÃÁËÍø¹Ø£¬¿ÉÒÔÔÚappsettings.jsonÅäÖÃÎÄ¼þÖÐÅäÖÃ½øÐÐÆôÓÃ¡£  
+¡¡¡¡Íø¹ØÓÐÁ½¸ö°æ±¾£¬c++°æ£¨CGateway£©ºÍdotnet°æ(Gateway)¡£ c++°æ£¨CGateway£©Ïà¶Ô¸ü¸ßÐ§¡£  
