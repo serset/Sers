@@ -9,18 +9,18 @@ set curPath=%cd%
 cd /d "%~dp0"
 cd /d ../../..
 set basePath=%cd%
+
+::(x.2)
 set publishPath=%basePath%/Publish/release/release/Station(net6.0)
 set dockerPath=%basePath%/Publish/release/release/docker-image
-
-
 rd /s /q "%dockerPath%"
 
-::(x.2)copy dir
+
+::(x.3)copy dir
 xcopy "%basePath%/Publish/ReleaseFile/docker-image" "%dockerPath%" /e /i /r /y
 
 
-
-::(x.3)copy station 
+::(x.4)copy station 
 xcopy  "%publishPath%/ServiceCenter" "%dockerPath%/sers/app" /e /i /r /y
 xcopy  "%publishPath%/Gateway" "%dockerPath%/sers-gateway/app" /e /i /r /y
 xcopy  "%publishPath%/Gover" "%dockerPath%/sers-gover/app" /e /i /r /y

@@ -5,9 +5,9 @@ set -e
 #(x.1)参数
 args_="
 
-export codePath=/root/temp/svn
+export basePath=/root/temp/svn
 
-export version=`grep '<Version>' $(grep '<pack/>\|<publish>' ${codePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
+export version=`grep '<Version>' $(grep '<pack/>\|<publish>' ${basePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
 
 export DOCKER_USERNAME=serset
 export DOCKER_PASSWORD=xxx
@@ -52,9 +52,8 @@ docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 for name in sers sers-gateway sers-gover sers-demo sers-demo-robot 
 do
 	echo "docker build $name"
-	docker buildx build $codePath/Publish/release/release/docker制作镜像Sers/$name -t $DOCKER_USERNAME/$name:$version -t $DOCKER_USERNAME/$name --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+	docker buildx build $basePath/Publish/release/release/docker-image/$name -t $DOCKER_USERNAME/$name:$version -t $DOCKER_USERNAME/$name --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 done
-
 
 
 
