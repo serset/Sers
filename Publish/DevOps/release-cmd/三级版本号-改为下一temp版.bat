@@ -2,7 +2,7 @@
 
 ::获取当前版本号
 :: set version=2.1.3
-for /f "tokens=3 delims=><" %%a in ('type ..\..\dotnet\Library\Sers\Sers.Core\Sers.Core\Sers.Core.csproj^|findstr "<Version>.*Version"') do set version=%%a
+for /f "tokens=3 delims=><" %%a in ('type ..\..\..\dotnet\Library\Sers\Sers.Core\Sers.Core\Sers.Core.csproj^|findstr "<Version>.*Version"') do set version=%%a
 
 for /f "tokens=1 delims=-" %%i in ("%version%") do set numVersion=%%i
 
@@ -20,11 +20,11 @@ echo 自动修改版本号 [%version%]-^>[%newVersion%]
 echo.
 
 :: 调用工具 替换csproj文件中的版本号
-VsTool.exe replace -r --path "..\..\dotnet" --file "*.csproj" --old "%version%" --new "%newVersion%"
-VsTool.exe replace -r --path "..\..\dotnet" --file "packages.config" --old "%version%" --new "%newVersion%"
+VsTool.exe replace -r --path "..\..\..\dotnet" --file "*.csproj" --old "%version%" --new "%newVersion%"
+VsTool.exe replace -r --path "..\..\..\dotnet" --file "packages.config" --old "%version%" --new "%newVersion%"
 
 :: 调用工具 替换docker镜像命令中的版本号
-VsTool.exe replace -r --path "..\..\Publish\PublishFile\SersDocker" --file "*.txt" --old "%version%" --new "%newVersion%"
+VsTool.exe replace -r --path "..\..\..\Publish\PublishFile\SersDocker" --file "*.txt" --old "%version%" --new "%newVersion%"
 
 
 echo.
