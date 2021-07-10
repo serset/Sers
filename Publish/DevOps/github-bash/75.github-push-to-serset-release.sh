@@ -40,7 +40,7 @@ mkdir -p /root/code
 cd /root/code
 git clone git@github.com:serset/release.git /root/code
 mkdir -p /root/code/file/${name}/${name}-${version}
-cp /root/release/release-zip/. /root/code/file/${name}/${name}-${version}
+\\cp -rf  /root/release/release-zip/. /root/code/file/${name}/${name}-${version}
 git add /root/code/file/${name}/${name}-${version}/.
 git commit -m 'auto commit ${version}'
 git push -u origin master \" "
