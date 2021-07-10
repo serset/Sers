@@ -15,7 +15,7 @@ cd $curPath
 
 # export basePath=/root/temp/svn
 
-export name=ServiceAdaptor
+export name=Sers
 
 #export DOCKER_USERNAME=serset
 #export DOCKER_PASSWORD=xxx
