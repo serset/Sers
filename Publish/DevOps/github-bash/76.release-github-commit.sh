@@ -33,7 +33,7 @@ echo "release_prerelease=false" >> $GITHUB_ENV
 
 echo "release_body=" >> $GITHUB_ENV
 
-echo "release_assetPath=${filePath}" >> $GITHUB_ENV
+#echo "release_assetPath=${filePath}" >> $GITHUB_ENV
 echo "release_assetName=${name}-${version}.${fileType}" >> $GITHUB_ENV
 echo "release_contentType=application/${fileType}" >> $GITHUB_ENV
 

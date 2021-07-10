@@ -33,4 +33,7 @@ do
   fi
 done
 
+echo zip files:
+ls /root/code/Publish/release/release-zip
+
 "
