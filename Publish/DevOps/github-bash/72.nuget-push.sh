@@ -27,7 +27,7 @@ bash -c "
 for file in /root/code/$nugetPath/*.nupkg
 do
     echo nuget push \$file
-    #dotnet nuget push \$file -k ${NUGET_KEY} -s ${NUGET_SERVER}
+    dotnet nuget push \$file -k ${NUGET_KEY} -s ${NUGET_SERVER}
 done
 " || true
 
