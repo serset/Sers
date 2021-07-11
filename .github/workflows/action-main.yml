@@ -63,7 +63,7 @@ jobs:
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ${{ env.release_dirPath }}/Sers-ServiceCenter(net5.0)-${{ env.release_version }}.zip
-          asset_name: Sers-ServiceCenter(net5.0)-${{ env.release_version }}.zip
+          asset_name: Sers-ServiceCenter-net5.0-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -72,7 +72,7 @@ jobs:
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ${{ env.release_dirPath }}/Sers-ServiceCenter(net6.0)-${{ env.release_version }}.zip
-          asset_name: Sers-ServiceCenter(net6.0)-${{ env.release_version }}.zip
+          asset_name: Sers-ServiceCenter-net6.0-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -81,7 +81,7 @@ jobs:
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ${{ env.release_dirPath }}/Sers-ServiceCenter(netcoreapp2.1)-${{ env.release_version }}.zip
-          asset_name: Sers-ServiceCenter(netcoreapp2.1)-${{ env.release_version }}.zip
+          asset_name: Sers-ServiceCenter-netcoreapp2.1-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -90,7 +90,7 @@ jobs:
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ${{ env.release_dirPath }}/Sers-ServiceCenter(netcoreapp2.2)-${{ env.release_version }}.zip
-          asset_name: Sers-ServiceCenter(netcoreapp2.2)-${{ env.release_version }}.zip
+          asset_name: Sers-ServiceCenter-netcoreapp2.2-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -99,7 +99,7 @@ jobs:
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ${{ env.release_dirPath }}/Sers-ServiceCenter(netcoreapp3.0)-${{ env.release_version }}.zip
-          asset_name: Sers-ServiceCenter(netcoreapp3.0)-${{ env.release_version }}.zip
+          asset_name: Sers-ServiceCenter-netcoreapp3.0-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -108,7 +108,7 @@ jobs:
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ${{ env.release_dirPath }}/Sers-ServiceCenter(netcoreapp3.1)-${{ env.release_version }}.zip
-          asset_name: Sers-ServiceCenter(netcoreapp3.1)-${{ env.release_version }}.zip
+          asset_name: Sers-ServiceCenter-netcoreapp3.1-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -117,7 +117,7 @@ jobs:
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ${{ env.release_dirPath }}/Sers-Station(net5.0)-${{ env.release_version }}.zip
-          asset_name: Sers-Station(net5.0)-${{ env.release_version }}.zip
+          asset_name: Sers-Station-net5.0-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -126,7 +126,7 @@ jobs:
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ${{ env.release_dirPath }}/Sers-Station(net6.0)-${{ env.release_version }}.zip
-          asset_name: Sers-Station(net6.0)-${{ env.release_version }}.zip
+          asset_name: Sers-Station-net6.0-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -135,7 +135,7 @@ jobs:
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ${{ env.release_dirPath }}/Sers-Station(netcoreapp2.1)-${{ env.release_version }}.zip
-          asset_name: Sers-Station(netcoreapp2.1)-${{ env.release_version }}.zip
+          asset_name: Sers-Station-netcoreapp2.1-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -144,7 +144,7 @@ jobs:
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ${{ env.release_dirPath }}/Sers-Station(netcoreapp2.2)-${{ env.release_version }}.zip
-          asset_name: Sers-Station(netcoreapp2.2)-${{ env.release_version }}.zip
+          asset_name: Sers-Station-netcoreapp2.2-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -153,7 +153,7 @@ jobs:
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ${{ env.release_dirPath }}/Sers-Station(netcoreapp3.0)-${{ env.release_version }}.zip
-          asset_name: Sers-Station(netcoreapp3.0)-${{ env.release_version }}.zip
+          asset_name: Sers-Station-netcoreapp3.0-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -162,7 +162,7 @@ jobs:
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ${{ env.release_dirPath }}/Sers-Station(netcoreapp3.1)-${{ env.release_version }}.zip
-          asset_name: Sers-Station(netcoreapp3.1)-${{ env.release_version }}.zip
+          asset_name: Sers-Station-netcoreapp3.1-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -197,6 +197,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-压测-${{ env.release_version }}.zip
-          asset_name: Sers-压测-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/Sers-StressTest-${{ env.release_version }}.zip
+          asset_name: Sers-StressTest-${{ env.release_version }}.zip
           asset_content_type: application/zip
