@@ -47,8 +47,8 @@ xcopy "%basePath%\Publish\ReleaseFile\Station" "%publishPath%" /e /i /r /y
 
 ::(x.5)copy ServiceCenter
 xcopy "%publishPath%\ServiceCenter" "%basePath%\Publish\release\release\ServiceCenter(%netVersion%)\ServiceCenter" /e /i /r /y
-xcopy "%publishPath%\01 ServiceCenter.bat" "%basePath%\Publish\release\release\ServiceCenter(%netVersion%)"
-xcopy "%publishPath%\01 start 4580.bat" "%basePath%\Publish\release\release\ServiceCenter(%netVersion%)"
+xcopy "%publishPath%\01.ServiceCenter.bat" "%basePath%\Publish\release\release\ServiceCenter(%netVersion%)"
+xcopy "%publishPath%\01.Start4580.bat" "%basePath%\Publish\release\release\ServiceCenter(%netVersion%)"
 
 
 
