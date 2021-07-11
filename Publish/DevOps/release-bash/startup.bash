@@ -28,7 +28,7 @@ echo "(x.3)自动发布 $name-$version"
 for file in *.sh
 do
     echo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    echo bash $file
+    echo "[$(date "+%H:%M:%S")]" bash $file
     bash $file
 done
 
