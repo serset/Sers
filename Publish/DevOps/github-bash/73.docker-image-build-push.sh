@@ -52,7 +52,7 @@ docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 for name in sers sers-gateway sers-gover sers-demo sers-demo-robot 
 do
 	echo "docker build $name"
-	docker buildx build $basePath/Publish/release/release/docker-image/$name -t $DOCKER_USERNAME/$name:$version -t $DOCKER_USERNAME/$name --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+	#docker buildx build $basePath/Publish/release/release/docker-image/$name -t $DOCKER_USERNAME/$name:$version -t $DOCKER_USERNAME/$name --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
 done
 
 
