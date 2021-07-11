@@ -65,8 +65,8 @@ done
 #(x.5)copy ServiceCenter
 mkdir -p \"\$basePath/Publish/release/release/ServiceCenter($netVersion)\"
 \cp -rf \$publishPath/ServiceCenter/. \"\$basePath/Publish/release/release/ServiceCenter($netVersion)/ServiceCenter\"
-\cp -rf \"\$publishPath/01 ServiceCenter.bat\" \"\$basePath/Publish/release/release/ServiceCenter($netVersion)\"
-\cp -rf \"\$publishPath/01 start 4580.bat\" \"\$basePath/Publish/release/release/ServiceCenter($netVersion)\"
+\cp -rf \"\$publishPath/01.ServiceCenter.bat\" \"\$basePath/Publish/release/release/ServiceCenter($netVersion)\"
+\cp -rf \"\$publishPath/01.Start4580.bat\" \"\$basePath/Publish/release/release/ServiceCenter($netVersion)\"
 
 
 "
