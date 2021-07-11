@@ -22,7 +22,7 @@ export name=ServiceAdaptor
 
 
 
-fileType="${filePath##*.}"
+
 echo "release_name=${name}-${version}" >> $GITHUB_ENV
 echo "release_tag=${version}" >> $GITHUB_ENV
 
@@ -36,6 +36,7 @@ echo "release_dirPath=${basePath}/Publish/release/release-zip" >> $GITHUB_ENV
 echo "release_version=${version}" >> $GITHUB_ENV
 
 #filePath=$basePath/Publish/release/release-zip/Sers-ServiceCenter(net5.0)-${version}.zip
+#fileType="${filePath##*.}"
 #echo "release_assetPath=${filePath}" >> $GITHUB_ENV
 #echo "release_assetName=${name}-${version}.${fileType}" >> $GITHUB_ENV
 #echo "release_contentType=application/zip" >> $GITHUB_ENV

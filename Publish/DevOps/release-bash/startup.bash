@@ -25,7 +25,12 @@ echo $version
 #----------------------------------------------
 echo "(x.3)自动发布 $name-$version"
 
-bash 30.nuget-pack.sh
+for file in *.sh
+do
+    echo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    echo "[$(date "+%H:%M:%S")]" bash $file
+    bash $file
+done
 
 
 
