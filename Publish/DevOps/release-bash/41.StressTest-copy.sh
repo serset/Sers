@@ -12,7 +12,7 @@ export basePath=/root/temp/svn
 
 #---------------------------------------------------------------------
 #(x.2)
-publishPath=$basePath/Publish/release/release/压测
+publishPath=$basePath/Publish/release/release/StressTest
 mkdir -p $publishPath
 
 
@@ -31,15 +31,15 @@ set -e
 echo 'publish Client'
 cd /root/code/dotnet/Library/Sers/Sers.CL/Test/CommunicationManage/CmClient
 dotnet build --configuration Release
-dotnet publish --configuration Release --output /root/code/Publish/release/release/压测/CL压测netcoreapp2.1/CmClient
+dotnet publish --configuration Release --output /root/code/Publish/release/release/StressTest/CL压测netcoreapp2.1/CmClient
 
 echo 'publish Server'
 cd /root/code/dotnet/Library/Sers/Sers.CL/Test/CommunicationManage/CmServer
 dotnet build --configuration Release
-dotnet publish --configuration Release --output /root/code/Publish/release/release/压测/CL压测netcoreapp2.1/CmServer
+dotnet publish --configuration Release --output /root/code/Publish/release/release/StressTest/CL压测netcoreapp2.1/CmServer
 
 echo 'copy bat'
-\cp -rf /root/code/Publish/ReleaseFile/压测/CL压测/. /root/code/Publish/release/release/压测/CL压测netcoreapp2.1
+\cp -rf /root/code/Publish/ReleaseFile/StressTest/CL压测/. /root/code/Publish/release/release/StressTest/CL压测netcoreapp2.1
 
 " 
 
@@ -75,7 +75,7 @@ do
 	\cp -rf $appPath/Robot/App.Robot.Station.xml $targetPath/ServiceCenter 
 
 	echo "(x.x.4)copy ReleaseFile"
-	\cp -rf $basePath/Publish/ReleaseFile/压测/单体压测/. $targetPath
+	\cp -rf $basePath/Publish/ReleaseFile/StressTest/单体压测/. $targetPath
 
 
 
@@ -91,7 +91,7 @@ do
 	\cp -rf $appPath/Robot $targetPath
 
 	echo "(x.x.2)copy ReleaseFile"
-	\cp -rf $basePath/Publish/ReleaseFile/压测/分布式压测/. $targetPath
+	\cp -rf $basePath/Publish/ReleaseFile/StressTest/分布式压测/. $targetPath
 
 done
 

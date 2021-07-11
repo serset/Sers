@@ -14,7 +14,7 @@ set basePath=%cd%
 
 
 ::(x.2)
-set publishPath=%basePath%/Publish/release/release/—π≤‚
+set publishPath=%basePath%/Publish/release/release/StressTest
 
 
 
@@ -37,7 +37,7 @@ dotnet publish --configuration Release --output "%publishPath%\CL—π≤‚netcoreapp2
 
 
 ::copy bat
-xcopy  "%basePath%\Publish\ReleaseFile\—π≤‚\CL—π≤‚" "%publishPath%\CL—π≤‚netcoreapp2.1" /e /i /r /y
+xcopy  "%basePath%\Publish\ReleaseFile\StressTest\CL—π≤‚" "%publishPath%\CL—π≤‚netcoreapp2.1" /e /i /r /y
 
 
 
@@ -69,7 +69,7 @@ for %%i in (netcoreapp2.1,net6.0) do (
 	xcopy "!appPath!\Robot\App.Robot.Station.xml" "!targetPath!\ServiceCenter" /i /r /y
 
 	::(x.x.4)copy ReleaseFile
-	xcopy "%basePath%\Publish\ReleaseFile\—π≤‚\µ•ÃÂ—π≤‚" "!targetPath!" /e /i /r /y
+	xcopy "%basePath%\Publish\ReleaseFile\StressTest\µ•ÃÂ—π≤‚" "!targetPath!" /e /i /r /y
 
 
 
@@ -82,7 +82,7 @@ for %%i in (netcoreapp2.1,net6.0) do (
 	xcopy "!appPath!\Robot" "!targetPath!\Robot" /e /i /r /y
 
 	::(x.x.2)copy ReleaseFile
-	xcopy  "%basePath%\Publish\ReleaseFile\—π≤‚\∑÷≤º Ω—π≤‚" "!targetPath!" /e /i /r /y
+	xcopy  "%basePath%\Publish\ReleaseFile\StressTest\∑÷≤º Ω—π≤‚" "!targetPath!" /e /i /r /y
 )
 
 
