@@ -31,7 +31,7 @@ echo "(x.4)copy station"
 \cp -rf "$publishPath/Gover/appsettings.json" "$dockerPath/sers-gover"
 \cp -rf "$publishPath/Demo/appsettings.json" "$dockerPath/sers-demo"
 \cp -rf "$publishPath/Robot/appsettings.json" "$dockerPath/sers-demo-robot"
-\cp -rf "$basePath/Publish/release/release/压测/单体压测net6.0/ServiceCenter/appsettings.json" "$dockerPath/sers-demo-sersall"
+\cp -rf "$basePath/Publish/release/release/StressTest/单体压测net6.0/ServiceCenter/appsettings.json" "$dockerPath/sers-demo-sersall"
  
 
 
