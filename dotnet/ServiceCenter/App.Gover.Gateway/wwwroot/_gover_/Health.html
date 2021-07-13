@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-cn">
 <head>
     <title>Sers Dashboard</title>
@@ -15,7 +15,7 @@
     <!-- Font Awesome -->
     <link href="Scripts/blog/css/font-awesome.min.css" rel="stylesheet">
 </head>
-  
+
 <body>
     <style>
         .container {
@@ -99,13 +99,12 @@
     </div>
 
     <!-- Jumbtron / Slider -->
-    <div class="jumbotron-wrap">
+    <!--<div class="jumbotron-wrap">
         <div class="container">
-            <div class="jumbotron jumbotron-narrow static-slider">
-                <h1 class="text-center">Style examples</h1>
+            <div class="jumbotron jumbotron-narrow static-slider"> 
             </div>
         </div>
-    </div>
+    </div>-->
 
     <!-- Main content area -->
     <main class="container">
@@ -115,8 +114,72 @@
             <div class="col">
                 <!--内容区-->
                 <article>
+                    <h1 style="text-align:center;">服务中心-健康信息</h1>
 
-                    hello there!
+                    <style>
+                        .line {
+                            border: 1px solid #cccccc;
+                            border-collapse: collapse;
+                        }
+                    </style>
+                    <script src="Scripts/vue/vue.js"></script>
+                    <!--<script src="Scripts/jquery/jquery.min.js"></script>-->
+
+                    <script src="Scripts/Sers/sers.apiClient.js"></script>
+                    <div id="items">
+
+                        <div v-for="(item, name) in items" style="width:300px;height:200px; float:left;margin:2px;padding:4px;word-wrap:break-word;" class="line">
+                            <font style="font-weight:bold;color:#e84855;">{{ name }} </font><br />
+                            <table>
+                                <tr v-for="(value, key) in item">
+                                    <td> {{ key }} </td>
+                                    <td> : {{ value }}</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div style=" clear: both;"></div>
+                    </div>
+                    <script>
+
+
+                        var items = new Vue({
+                            el: '#items',
+                            data: {
+                                items: [
+                                    {                                        
+                                    }
+                                ]
+                            }
+                        });
+
+
+                        function rendItems() {
+                            sers.apiClient.post({
+                                api: '/_gover_/serviceCenter/healthInfo', onSuc: function (data) {                                    
+                                    items.items = data.data;
+                                }
+                            });
+                        }
+
+                        rendItems();
+
+
+                        var intervals = [];
+                        function startRefreshTask() {
+                            var interval = setInterval(rendItems, 2000);
+                            intervals.push(interval);
+                        }
+                        function stopRefreshTask() {
+                            for (var t in intervals) {
+                                clearInterval(intervals[t]);
+                            }
+                            intervals = [];
+                        }
+
+                        startRefreshTask();
+                    </script>
+
                 </article>
             </div>
         </div>
