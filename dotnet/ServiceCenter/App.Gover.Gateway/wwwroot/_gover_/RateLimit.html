@@ -1,145 +1,254 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-
+﻿<!doctype html>
+<html lang="zh-cn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>服务限流</title>
-    <script src="Scripts/vue/vue.js"></script>
+    <title>Sers Dashboard</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
     <script src="Scripts/jquery/jquery.min.js"></script>
 
- 
-    <script src="Scripts/Sers/sers.apiClient.js"></script>
-    <script src="Scripts/Sers/sers.apiClient.rateLimit.js"></script>
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="Scripts/blog/css/style.css">
 
-    <style>
-
-        .line {
-            border: 1px solid #cccccc;
-            border-collapse: collapse;
-        }
-    </style>
+    <!-- Font Awesome -->
+    <link href="Scripts/blog/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
+    <style>
+        .container {
+            max-width: 1920px !important;
+        }
+    </style>
 
-    <h1>服务限流</h1>
+    <!-- Header -->
+    <div class="container">
+        <div class="header-wrap d-none d-md-block">
+            <div class="row">
 
-    <div id="items">
+                <!-- Left header box -->
+                <header class="col-6 text-left">
+                    <h1><span> Sers </span> Dashboard </h1>
+                </header>
 
-        <div v-for="item in items" style="width:300px;height:400px; float:left;margin:2px;padding:4px;word-wrap:break-word;" class="line">
-            [{{item.rateLimitKey}}]<br />
-            Type:{{item.rateLimitType}}     <br />
-
-            操作：<a href="#" @click="remove(item)">移除</a>
-            <a href="#" @click="refresh(item)">刷新</a><br />
-            -----------------------<br />
-            {{item}}
-
+            </div>
         </div>
-
     </div>
 
-    <div style="clear:both;padding-top:10px;">
-        <a href="javascript:startRefreshTask();">启动自动刷新</a> <a href="javascript:stopRefreshTask();">关闭自动刷新</a><br />
-        task config:  <a href="javascript:addItem();">添加项目</a><br />
-        <textarea id="txtItemConfig" v-model="config" rows="10" cols="100"></textarea>
-        <br />
+
+    <!-- Main navigation -->
+    <div class="container navbar-container">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+            <!-- Company name shown on mobile -->
+            <a class="navbar-brand d-md-none d-lg-none d-xl-none" href="#"><span> Sers </span> Dashboard </a>
+
+            <!-- Mobile menu toggle -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Main navigation items -->
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/_gover_/ActiveApiDoc.html?r=_gover_">ActiveApiDoc</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/_gover_/ApiDoc.html?r=_gover_">ApiDoc</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/_gover_/ApiStation.html">ApiStation</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/_gover_/ServiceStation.html">ServiceStation</a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/_gover_/RateLimit.html">RateLimit</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/_gover_/Health.html">Health</a>
+                    </li>
 
 
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Ext</a>
+                        <div class="dropdown-menu navbar-dark bg-primary">
+                            <a class="dropdown-item" href="/JsStation/JsStation.html">JsStation</a>
+                            <a class="dropdown-item" href="/MicroControl/mc.html">MicroControl</a>
+                            <a class="dropdown-item" href="/_robot_/TaskMng.html">Robot</a>
+                        </div>
+                    </li>
+
+                </ul>
+
+
+            </div>
+        </nav>
     </div>
-    <script>
-        var apiClient = sers.apiClient.rateLimit;
 
-        var items = new Vue({
-            el: '#items',
-            data: {
-                items: []
-            }, methods: {
-                remove: function (item) {
-                    apiClient.remove(item.rateLimitKey, afterApiCalled);
-                }, refresh: function (item) {
-                    rendStations();
-                }
-            }
-        });
+    <!-- Jumbtron / Slider -->
+    <!--<div class="jumbotron-wrap">
+        <div class="container">
+            <div class="jumbotron jumbotron-narrow static-slider"> 
+            </div>
+        </div>
+    </div>-->
 
-        function afterApiCalled(apiReturn) {
+    <!-- Main content area -->
+    <main class="container">
+        <div class="row">
 
-            if (!apiReturn.success) {
-                console.log(apiReturn);
-                alert('调用失败。' + ((apiReturn.error || {}).errorMessage || ''));
-                return;
-            }
+            <!-- Main content -->
+            <div class="col">
+                <!--内容区-->
+                <article>
+                    <h1 style="text-align:center;">服务限流</h1>
 
-            rendStations();
-        }
+                    <style>
+                        .line {
+                            border: 1px solid #cccccc;
+                            border-collapse: collapse;
+                        }
+                    </style>
+                    <script src="Scripts/vue/vue.js"></script>
+                    <!--<script src="Scripts/jquery/jquery.min.js"></script>-->
+
+                    <script src="Scripts/Sers/sers.apiClient.js"></script>
+                    <script src="Scripts/Sers/sers.apiClient.rateLimit.js"></script>
+                    <div id="items">
+
+                        <div v-for="item in items" style="width:300px;height:400px; float:left;margin:2px;padding:4px;word-wrap:break-word;" class="line">
+                            [{{item.rateLimitKey}}]<br />
+                            Type:{{item.rateLimitType}}     <br />
+
+                            操作：<a href="#" @click="remove(item)">移除</a>
+                            <a href="#" @click="refresh(item)">刷新</a><br />
+                            -----------------------<br />
+                            {{item}}
+
+                        </div>
+
+                        <div style=" clear: both;"></div>
+                    </div>
+
+                    <div style="clear:both;padding-top:10px;">
+                        <a href="javascript:startRefreshTask();">启动自动刷新</a> <a href="javascript:stopRefreshTask();">关闭自动刷新</a><br />
+                        task config:  <a href="javascript:addItem();">添加项目</a><br />
+                        <textarea id="txtItemConfig" v-model="config" rows="5" cols="100"></textarea>
+                        <br />
+                    </div>
+                    <script>
+                        var apiClient = sers.apiClient.rateLimit;
+
+                        var items = new Vue({
+                            el: '#items',
+                            data: {
+                                items: []
+                            }, methods: {
+                                remove: function (item) {
+                                    apiClient.remove(item.rateLimitKey, afterApiCalled);
+                                }, refresh: function (item) {
+                                    rendStations();
+                                }
+                            }
+                        });
+
+                        function afterApiCalled(apiReturn) {
+
+                            if (!apiReturn.success) {
+                                console.log(apiReturn);
+                                alert('调用失败。' + ((apiReturn.error || {}).errorMessage || ''));
+                                return;
+                            }
+
+                            rendStations();
+                        }
 
 
-        function rendStations() {
-            apiClient.getAll(function (data) {
-                items.items = data.data;
-            });
-        }
-        rendStations();
+                        function rendStations() {
+                            apiClient.getAll(function (data) {
+                                items.items = data.data;
+                            });
+                        }
+                        rendStations();
+
+
+                        var config = new Vue({
+                            el: '#txtItemConfig',
+                            data: {
+                                config: '{ "rateLimitType": "FixedWindow","rateLimitKey": "rate", "reqLimit": 1000, "msInterval": 1000}'
+                            }
+                        });
+
+                        function addItem() {
+                            var taskConfig = config.config;
+                            try {
+                                taskConfig = eval('(' + taskConfig + ')');
+                            } catch (e) {
+                                alert('出错：json格式不正确。' + e.messgge);
+                                return;
+                            }
+                            apiClient.add(taskConfig, afterApiCalled);
+                        }
 
 
 
+                        var intervals = [];
+                        function startRefreshTask() {
+                            var interval = setInterval(rendStations, 500);
+                            intervals.push(interval);
+                        }
+                        function stopRefreshTask() {
+                            for (var t in intervals) {
+                                clearInterval(intervals[t]);
+                            }
+                            intervals = [];
+                        }
+                                                //startRefreshTask();
+
+                    </script>
+
+                    <br><br>
+                    rateLimitType : 限流规则名称,一般对应一个类。目前支持:"FixedWindow"<br>
+                    rateLimitKey : 限流项名称，必须唯一<br>
+
+                    <br>FixedWindow-固定时间窗口限流:<br>
+                    &nbsp; 时间窗口内最大请求数<br>
+                    &nbsp; msInterval : 时间窗口(ms)
+                </article>
+            </div>
+        </div>
+    </main>
 
 
-        var config = new Vue({
-            el: '#txtItemConfig',
-            data: {
-                config: '{ "rateLimitType": "FixedWindow","rateLimitKey": "rate", "reqLimit": 1000, "msInterval": 1000}'
-            }
-        });
-
-        function addItem() {
-            var taskConfig = config.config;
-            try {
-                taskConfig = eval('(' + taskConfig + ')');
-            } catch (e) {
-                alert('出错：json格式不正确。' + e.messgge);
-                return;
-            }
-            apiClient.add(taskConfig, afterApiCalled);
-        }
+    <!-- Footer -->
+    <div class="container footer-container">
+        <footer class="footer">
+            <div class="footer-bottom">
+                <p class="text-center"> <a target="_blank" href="https://github.com/serset/Sers">github</a> &nbsp;&nbsp; <a target="_blank" href="https://serset.github.io">online doc</a>  &nbsp;&nbsp; email: serset@yeah.net </p>
+                <p class="text-center"><a href="#">Back to top</a></p>
+            </div>
+        </footer>
+    </div>
 
 
-
-
-
-
-
-
-
-
-
-        var intervals = [];
-        function startRefreshTask() {
-            var interval = setInterval(rendStations, 500);
-            intervals.push(interval);
-        }
-        function stopRefreshTask() {
-            for (var t in intervals) {
-                clearInterval(intervals[t]);
-            }
-            intervals = [];
-        }
-        //startRefreshTask();
-
-    </script>
-
-    <br><br>
-    rateLimitType:限流规则名称,一般对应一个类。目前支持:"FixedWindow"<br>
-    rateLimitKey:限流项名称，必须唯一<br>
-
-    <br>FixedWindow-固定时间窗口限流:<br>
-    reqLimit:时间窗口内最大请求数<br>
-    msInterval:时间窗口ms 
-
+    <!-- Bootcamp JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!--<script src="Scripts/blog/js/jquery-3.2.1.slim.min.js"></script>-->
+    <script src="Scripts/blog/js/popper.min.js"></script>
+    <script src="Scripts/blog/js/bootstrap.min.js"></script>
 
 </body>
-
 </html>
