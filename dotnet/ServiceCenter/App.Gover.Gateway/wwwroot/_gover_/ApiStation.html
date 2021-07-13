@@ -1,0 +1,243 @@
+﻿<!doctype html>
+<html lang="zh-cn">
+<head>
+    <title>Sers Dashboard</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <script src="Scripts/jquery/jquery.min.js"></script>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="Scripts/blog/css/style.css">
+
+    <!-- Font Awesome -->
+    <link href="Scripts/blog/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <style>
+        .container {
+            max-width: 1920px !important;
+        }
+    </style>
+
+    <!-- Header -->
+    <div class="container">
+        <div class="header-wrap d-none d-md-block">
+            <div class="row">
+
+                <!-- Left header box -->
+                <header class="col-6 text-left">
+                    <h1><span> Sers </span> Dashboard </h1>
+                </header>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Main navigation -->
+    <div class="container navbar-container">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+            <!-- Company name shown on mobile -->
+            <a class="navbar-brand d-md-none d-lg-none d-xl-none" href="#"><span> Sers </span> Dashboard </a>
+
+            <!-- Mobile menu toggle -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Main navigation items -->
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/_gover_/ActiveApiDoc.html?r=_gover_">ActiveApiDoc</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/_gover_/ApiDoc.html?r=_gover_">ApiDoc</a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/_gover_/ApiStation.html">ApiStation</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/_gover_/ServiceStation.html">ServiceStation</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/_gover_/RateLimit.html">RateLimit</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/_gover_/Health.html">Health</a>
+                    </li>
+
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Ext</a>
+                        <div class="dropdown-menu navbar-dark bg-primary">
+                            <a class="dropdown-item" href="/JsStation/JsStation.html">JsStation</a>
+                            <a class="dropdown-item" href="/MicroControl/mc.html">MicroControl</a>
+                            <a class="dropdown-item" href="/_robot_/TaskMng.html">Robot</a>
+                        </div>
+                    </li>
+
+                </ul>
+
+
+            </div>
+        </nav>
+    </div>
+
+    <!-- Jumbtron / Slider -->
+    <div class="jumbotron-wrap">
+        <div class="container">
+            <div class="jumbotron jumbotron-narrow static-slider">
+
+                <a href="#" onclick="apiStationFilter=null;reloadStations();" title="显示所有的Api站点">显示所有</a>
+
+                <a href="#" onclick="apiStationFilter=apiStationFilter_OnlyOnline;reloadStations();" title="仅显示在线的Api站点（apiNodeCount不为0）（默认为仅显示在线）">仅显示在线</a>
+ 
+                <a href="#" onclick="removeOfflineApi()">移除离线接口</a>
+            </div>
+        </div>
+    </div>
+    <!-- Main content area -->
+    <main class="container">
+        <div class="row">
+
+            <!-- Main content -->
+            <div class="col">
+                <!--内容区-->
+                <article>
+                    <h1 style="text-align:center;">Api站点管理</h1>
+
+                    <style>
+                        .line {
+                            border: 1px solid #cccccc;
+                            border-collapse: collapse;
+                        }                           
+                    </style>
+                    <script src="Scripts/vue/vue.js"></script>
+                    <!--<script src="Scripts/jquery/jquery.min.js"></script>-->
+
+                    <script src="Scripts/Sers/sers.apiClient.js"></script>
+                    <div id="stations">
+
+                        <div v-for="station in stations" style="width:300px;height:250px; float:left;margin:2px;padding:4px;word-wrap:break-word;" class="line">
+                            <font style="font-weight:bold;color:#e84855;">{{ station.stationName }} </font><br />
+                            called(err/sum) : {{(station.counter||{}).errorCount}}/ {{(station.counter||{}).sumCount}}<br />
+                            qps : {{station.qps}}     <br />
+                            apiService : {{station.apiServiceCount}}     <br />
+                            apiNode : {{station.apiNodeCount}}     <br />
+                            activeApiNode : {{station.activeApiNodeCount}}     <br />
+                            状态(正常|暂停) : {{station.status}}<br />
+                            操作 : <a href="#" @click="start(station)">打开</a>   <a href="#" @click="pause(station)">暂停</a><br />
+
+                        </div>
+                        <div style=" clear: both;"></div>
+                    </div>
+                    <script>
+
+
+                        var stations = new Vue({
+                            el: '#stations',
+                            data: {
+                                stations: []
+                            }, methods: {
+                                start: function (station) {
+                                    sers.apiClient.apiStation_start(station.stationName, function (data) {
+                                        rendStations();
+                                    });
+                                }, pause: function (station) {
+                                    sers.apiClient.apiStation_pause(station.stationName, function (data) {
+                                        rendStations();
+                                    });
+                                }
+                            }
+                        });
+
+
+                        function apiStationFilter_OnlyOnline(apiStations) {
+                            return apiStations.filter(function (item) { return item.apiNodeCount; });
+                        }
+
+                        var apiStationFilter = apiStationFilter_OnlyOnline;
+
+                        function reloadStations() {
+                            sers.apiClient.apiStation_getAll(function (apiRet) {
+                                var apiStations = apiRet.data;
+                                if (apiStationFilter) apiStations = apiStationFilter(apiStations);
+                                stations.stations = apiStations;
+                            });
+                        }
+
+                        reloadStations();
+
+
+                        var intervals = [];
+                        function startRefreshTask() {
+                            var interval = setInterval(reloadStations, 2000);
+                            intervals.push(interval);
+                        }
+                        function stopRefreshTask() {
+                            for (var t in intervals) {
+                                clearInterval(intervals[t]);
+                            }
+                            intervals = [];
+                        }
+
+                        startRefreshTask();
+
+
+
+
+
+                        function removeOfflineApi() {
+
+                            if (!confirm('移除离线接口，移除后不可恢复，确定继续移除吗？')) return;
+
+                            sers.apiClient.apiDesc_removeOffline(function (apiRet) {
+                                if (!apiRet.success) {
+                                    alert('操作失败，请重试。' + ((apiRet.error || {}).errorMessage || ''));
+                                    return;
+                                }
+                                alert('已成功移除离线接口');
+                            });
+                        }
+
+                    </script>
+                </article>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- Footer -->
+    <div class="container footer-container">
+        <footer class="footer">
+            <div class="footer-bottom">
+                <p class="text-center"> <a target="_blank" href="https://github.com/serset/Sers">github</a> &nbsp;&nbsp; <a target="_blank" href="https://serset.github.io">online doc</a>  &nbsp;&nbsp; email: serset@yeah.net </p>
+                <p class="text-center"><a href="#">Back to top</a></p>
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- Bootcamp JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!--<script src="Scripts/blog/js/jquery-3.2.1.slim.min.js"></script>-->
+    <script src="Scripts/blog/js/popper.min.js"></script>
+    <script src="Scripts/blog/js/bootstrap.min.js"></script>
+
+</body>
+</html>

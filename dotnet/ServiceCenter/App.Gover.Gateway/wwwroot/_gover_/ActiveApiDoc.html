@@ -1,121 +1,260 @@
-﻿<!DOCTYPE html>
-<html lang="zh">
+﻿<!doctype html>
+<html lang="zh-cn">
 <head>
-    <meta charset="utf-8" />
-    <title>ActiveApiDoc</title>
+    <title>Sers Dashboard</title>
 
-    <link rel="stylesheet" href="Scripts/editormd/css/editormd.css" />
-    <script src="Scripts/editormd/examples/js/jquery.min.js"></script>
-    <script src="Scripts/editormd/lib/marked.min.js"></script>
-    <script src="Scripts/editormd/lib/prettify.min.js"></script>
-    <script src="Scripts/editormd/lib/raphael.min.js"></script>
-    <script src="Scripts/editormd/lib/underscore.min.js"></script>
-    <script src="Scripts/editormd/lib/sequence-diagram.min.js"></script>
-    <script src="Scripts/editormd/lib/flowchart.min.js"></script>
-    <script src="Scripts/editormd/lib/jquery.flowchart.min.js"></script>
-    <script src="Scripts/editormd/editormd.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <script src="Scripts/util/lith.js"></script>
 
-    <script src="Scripts/Sers/sers.apiClient.js"></script>
-    <script src="Scripts/Sers/sers.ssApiDescToMd.js"></script>
-    <script src="Scripts/Sers/sers.ssModel.js"></script>
+    <script src="Scripts/jquery/jquery.min.js"></script>
 
-    <script src="Scripts/Sers/sers.SaveFile.js"></script>
-    <script src="Scripts/Sers/sers.postman.js"></script>
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="Scripts/blog/css/style.css">
 
-    <style type="text/css">
-        #title a {
-            text-decoration: none;
+    <!-- Font Awesome -->
+    <link href="Scripts/blog/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <style>
+        .container {
+            max-width: 1920px !important;
         }
     </style>
-</head>
-<body>
-    <div id="title">
-        <h1>ApiDoc-可用的Api</h1>
-        apiStation: <span id="apiStation"> <a href="?" title="所有">所有</a> | </span>
-        <br />
-        postman导入文件：
-        <a id="postmanCollection" href="#" title="download postman collection File">下载postmanCollection</a> |
-        <a id="postmanEnvironment" href="#" title="download postman environment File">下载postmanEnvironment</a>
-        <br />
-        postmanWeb：
-        <a href="#" onclick="openPostmanWeb(false)">打开postmanWeb</a> |
-        <a href="#" onclick="openPostmanWeb(true)">打开postmanWeb并加载当前api</a>
-        <br />
-        markdown文档：<a id="mdDownload" href="#" title="download markdown document File">下载markdown文档</a>
-    </div>
-    <div id="test-editormd-view" style="width: 95%;">
+
+    <!-- Header -->
+    <div class="container">
+        <div class="header-wrap d-none d-md-block">
+            <div class="row">
+
+                <!-- Left header box -->
+                <header class="col-6 text-left">
+                    <h1><span> Sers </span> Dashboard </h1>
+                </header>
+
+            </div>
+        </div>
     </div>
 
-    <script type="text/javascript">    
+
+    <!-- Main navigation -->
+    <div class="container navbar-container">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+            <!-- Company name shown on mobile -->
+            <a class="navbar-brand d-md-none d-lg-none d-xl-none" href="#"><span> Sers </span> Dashboard </a>
+
+            <!-- Mobile menu toggle -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Main navigation items -->
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/_gover_/ActiveApiDoc.html?r=_gover_">ActiveApiDoc</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/_gover_/ApiDoc.html?r=_gover_">ApiDoc</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/_gover_/ApiStation.html">ApiStation</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/_gover_/ServiceStation.html">ServiceStation</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/_gover_/RateLimit.html">RateLimit</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/_gover_/Health.html">Health</a>
+                    </li>
 
 
-        //加载apiStation
-        sers.apiClient.apiStation_getAll(function (apiRet) {
-            if (!apiRet.success) return;
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Ext</a>
+                        <div class="dropdown-menu navbar-dark bg-primary">
+                            <a class="dropdown-item" href="/JsStation/JsStation.html">JsStation</a>
+                            <a class="dropdown-item" href="/MicroControl/mc.html">MicroControl</a>
+                            <a class="dropdown-item" href="/_robot_/TaskMng.html">Robot</a>
+                        </div>
+                    </li>
 
-            var html = '<a href="?" title="所有">所有</a> | ';
-            var data = apiRet.data;
-            for (var t in data) {
-                var stationName = data[t].stationName;
-                html += '<a href="?r=' + stationName + '" title="' + stationName + '">' + stationName + '</a> | ';
-            }
-            $('#apiStation').html(html);
-        });
+                </ul>
 
 
-        //加载ApiDesc
-        var apiDescs;
-        var mdDoc;
-        var r = lith.document.url_GetArg('r');
-        sers.apiClient.apiDesc_getActive({ r: r }, function (apiReturn) {
-            apiDescs = apiReturn.data;
-            mdDoc = sers.ssApiDescsToMd(apiDescs);
+            </div>
+        </nav>
+    </div>
 
-            var curMdDoc = "[TOC]\n\n" + mdDoc
+    <!-- Jumbtron / Slider -->
+    <div class="jumbotron-wrap">
+        <div class="container">
+            <div class="jumbotron jumbotron-narrow static-slider">              
 
-            editormd.markdownToHTML("test-editormd-view", {
-                markdown: curMdDoc,
-                htmlDecode: true
-            });
-        });
+                apiStation:
+                <br />&nbsp; &nbsp; &nbsp; &nbsp;
+                <span id="apiStation"> <a href="?" title="所有">所有</a> | </span>
+                <br />
 
-        function openPostmanWeb(loadApi) {
+                postman导入文件(用以导入接口至postman)：
+                <br />&nbsp; &nbsp; &nbsp; &nbsp;
+                <a id="postmanCollection" href="#" title="download postman collection File">下载postmanCollection</a> |
+                <a id="postmanEnvironment" href="#" title="download postman environment File">下载postmanEnvironment</a>
+                <br />
 
-            if (loadApi) {
-                var context = sers.postman.apiDescToPostmanConfig(apiDescs);
-                context = JSON.stringify(context, null, 2);
-                localStorage.postmanCollection = context;
+                postmanWeb：
+                <br />&nbsp; &nbsp; &nbsp; &nbsp;
+                <a href="#" onclick="openPostmanWeb(false)">打开postmanWeb</a> |
+                <a href="#" onclick="openPostmanWeb(true)">打开postmanWeb并加载当前api</a>
+                <br />
 
-                context = sers.postman.environmentConfig.value;
-                context = JSON.stringify(context, null, 2);
-                localStorage.postmanEnvironment = context;
-            }
-            window.open('Scripts/PostmanWeb/postman.html');
-        }
+                markdown文档：
+                <br />&nbsp; &nbsp; &nbsp; &nbsp;
+                <a id="mdDownload" href="#" title="download markdown document file">下载markdown文档</a>
+
+            </div>
+        </div>
+    </div>
+    <!-- Main content area -->
+    <main class="container">
+        <div class="row">
+
+            <!-- Main content -->
+            <div class="col">
+                <!--内容区-->
+                <article>
+                    <h1 style="text-align:center;">Api接口文档(不含离线接口)</h1>
+
+                    <link rel="stylesheet" href="Scripts/editormd/css/editormd.css" />
+                    <script src="Scripts/editormd/examples/js/jquery.min.js"></script>
+                    <script src="Scripts/editormd/lib/marked.min.js"></script>
+                    <script src="Scripts/editormd/lib/prettify.min.js"></script>
+                    <script src="Scripts/editormd/lib/raphael.min.js"></script>
+                    <script src="Scripts/editormd/lib/underscore.min.js"></script>
+                    <script src="Scripts/editormd/lib/sequence-diagram.min.js"></script>
+                    <script src="Scripts/editormd/lib/flowchart.min.js"></script>
+                    <script src="Scripts/editormd/lib/jquery.flowchart.min.js"></script>
+                    <script src="Scripts/editormd/editormd.js"></script>
+
+                    <script src="Scripts/util/lith.js"></script>
+
+                    <script src="Scripts/Sers/sers.apiClient.js"></script>
+                    <script src="Scripts/Sers/sers.ssApiDescToMd.js"></script>
+                    <script src="Scripts/Sers/sers.ssModel.js"></script>
+
+                    <script src="Scripts/Sers/sers.SaveFile.js"></script>
+                    <script src="Scripts/Sers/sers.postman.js"></script>
+
+                    <style type="text/css">
+                        #title a {
+                            text-decoration: none;
+                        }
+                    </style>
+                    <div id="test-editormd-view" style="width: 95%;">
+                    </div>
+
+                    <script type="text/javascript">
 
 
-        //postman file
-        $('#postmanCollection').click(function () {
-            var context = sers.postman.apiDescToPostmanConfig(apiDescs);
-            context = JSON.stringify(context, null, 2);
-            sers.SaveFile(context, sers.postman.collectionConfig.fileName);
-        });
+                        //加载apiStation
+                        sers.apiClient.apiStation_getAll(function (apiRet) {
+                            if (!apiRet.success) return;
 
-        $('#postmanEnvironment').click(function () {
-            var context = sers.postman.environmentConfig.value;
-            context = JSON.stringify(context, null, 2);
-            sers.SaveFile(context, sers.postman.environmentConfig.fileName);
-        });
-
-        //mdDownload
-        $('#mdDownload').click(function () {
-            sers.SaveFile(mdDoc, 'SersActiveApiDoc(' + new Date().toJSON().slice(0, 10) + ').md');
-        });
+                            var html = '<a href="?" title="所有">所有</a> | ';
+                            var data = apiRet.data;
+                            for (var t in data) {
+                                var stationName = data[t].stationName;
+                                html += '<a href="?r=' + stationName + '" title="' + stationName + '">' + stationName + '</a> | ';
+                            }
+                            $('#apiStation').html(html);
+                        });
 
 
-    </script>
+                        //加载ApiDesc
+                        var apiDescs;
+                        var mdDoc;
+                        var r = lith.document.url_GetArg('r');
+                        sers.apiClient.apiDesc_getActive({ r: r }, function (apiReturn) {
+                            apiDescs = apiReturn.data;
+                            mdDoc = sers.ssApiDescsToMd(apiDescs);
+
+                            var curMdDoc = "[TOC]\n\n" + mdDoc
+
+                            editormd.markdownToHTML("test-editormd-view", {
+                                markdown: curMdDoc,
+                                htmlDecode: true
+                            });
+                        });
+
+                        function openPostmanWeb(loadApi) {
+
+                            if (loadApi) {
+                                var context = sers.postman.apiDescToPostmanConfig(apiDescs);
+                                context = JSON.stringify(context, null, 2);
+                                localStorage.postmanCollection = context;
+
+                                context = sers.postman.environmentConfig.value;
+                                context = JSON.stringify(context, null, 2);
+                                localStorage.postmanEnvironment = context;
+                            }
+                            window.open('Scripts/PostmanWeb/postman.html');
+                        }
+
+
+                        //postman file
+                        $('#postmanCollection').click(function () {
+                            var context = sers.postman.apiDescToPostmanConfig(apiDescs);
+                            context = JSON.stringify(context, null, 2);
+                            sers.SaveFile(context, sers.postman.collectionConfig.fileName);
+                        });
+
+                        $('#postmanEnvironment').click(function () {
+                            var context = sers.postman.environmentConfig.value;
+                            context = JSON.stringify(context, null, 2);
+                            sers.SaveFile(context, sers.postman.environmentConfig.fileName);
+                        });
+
+                        //mdDownload
+                        $('#mdDownload').click(function () {
+                            sers.SaveFile(mdDoc, 'SersActiveApiDoc(' + new Date().toJSON().slice(0, 10) + ').md');
+                        });
+
+
+                    </script>
+                </article>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- Footer -->
+    <div class="container footer-container">
+        <footer class="footer">
+            <div class="footer-bottom">
+                <p class="text-center"> <a target="_blank" href="https://github.com/serset/Sers">github</a> &nbsp;&nbsp; <a target="_blank" href="https://serset.github.io">online doc</a>  &nbsp;&nbsp; email: serset@yeah.net </p>
+                <p class="text-center"><a href="#">Back to top</a></p>
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- Bootcamp JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!--<script src="Scripts/blog/js/jquery-3.2.1.slim.min.js"></script>-->
+    <script src="Scripts/blog/js/popper.min.js"></script>
+    <script src="Scripts/blog/js/bootstrap.min.js"></script>
 
 </body>
 </html>

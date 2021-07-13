@@ -99,13 +99,13 @@
     </div>
 
     <!-- Jumbtron / Slider -->
-    <!--<div class="jumbotron-wrap">
+    <div class="jumbotron-wrap">
         <div class="container">
-            <div class="jumbotron jumbotron-narrow static-slider">              
+            <div class="jumbotron jumbotron-narrow static-slider">
+                <h1 class="text-center">Style examples</h1>
             </div>
         </div>
-    </div>-->
-
+    </div>
 
     <!-- Main content area -->
     <main class="container">
@@ -116,92 +116,8 @@
                 <!--内容区-->
                 <article>
 
-                    <!--<script src="Scripts/jquery/jquery.min.js"></script>-->
-                    <script src="Scripts/util/lith.js"></script>
-                    <script type="text/javascript">
-
-                        var user = lith.document.url_GetArg('user');
-                        if (user) {
-                            var date = new Date();
-                            date.setSeconds(date.getSeconds() + 3600);
-                            lith.cookie.set('user', user, date);
-                        }
-
-                    </script>
-
-                    <div class="sidebar-box">
-                        <h4>login</h4>
-                        <ul>
-                            <li><a href="index.html?user=admin_123456">login</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="sidebar-box">
-                        <h4>ApiDoc</h4>
-                        <ul>
-                            <li><a href="ActiveApiDoc.html?r=_gover_">ActiveApiDoc</a></li>
-                            <li><a href="ApiDoc.html?r=_gover_">ApiDoc</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="sidebar-box">
-                        <h4>ApiStation</h4>
-                        <ul>
-                            <li><a href="ApiStation.html">ApiStation</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="sidebar-box">
-                        <h4>ServiceStation</h4>
-                        <ul>
-                            <li><a href="ServiceStation.html">ServiceStation</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="sidebar-box">
-                        <h4>服务限流</h4>
-                        <ul>
-                            <li><a href="RateLimit.html">RateLimit</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="sidebar-box">
-                        <h4>Health</h4>
-                        <ul>
-                            <li><a href="Health.html">Health</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="sidebar-box">
-                        <h4>Ext</h4>
-                        <ul>
-                            <li><a href="/JsStation/JsStation.html">JsStation</a></li>
-                            <li><a target="_blank" href="/MicroControl/mc.html">MicroControl</a></li>
-                            <li><a target="_blank" href="/_robot_/TaskMng.html">Robot</a></li>
-
-                        </ul>
-                    </div>
+                    hello there!
                 </article>
-
-                <!--Sers简介-->
-                <article>
-                    <h1>Sers简介</h1>
-                    Sers为一套跨平台跨语言的开源微服务架构协议<br />
-                    源码地址：<a target="_blank" href="https://github.com/serset/Sers">https://github.com/serset/Sers</a> <br />
-                    文档地址：<a target="_blank" href="https://serset.github.io">https://serset.github.io</a> <br />
-                    作者邮箱：serset@yeah.net <br /><br />
-
-                    <h2>Sers拥有如下特性：</h2>
-                    <ul>
-                        <li>跨语言、跨平台，目前已支持c#、java、c++、javascript</li>
-                        <li>高效高并发（百万并发），单机QPS:2000000</li>
-                        <li>轻量简洁，可javascript接入，代码不到1000行，压缩后只有8KB</li>
-                        <li>易扩展，可以自行扩展接入</li>
-                        <li>支持IOCP、ZMQ、WebSocket、NamedPipe、SharedMemory等多种通讯方式</li>
-                        <li>无代码侵入，.net core接入服务中心只需要1行代码</li>
-                    </ul>
-                </article>
-
             </div>
         </div>
     </main>
