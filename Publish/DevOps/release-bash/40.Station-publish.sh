@@ -30,7 +30,7 @@ docker run -i --rm \
 --env LANG=C.UTF-8 \
 -v $basePath/Publish/release/.nuget:/root/.nuget \
 -v $basePath:/root/code \
-serset/dotnet:6.0-sdk \
+serset/dotnet:sdk-6.0 \
 bash -c "
 set -e
 

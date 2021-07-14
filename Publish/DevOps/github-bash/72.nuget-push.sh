@@ -22,7 +22,7 @@ echo "(x.2)nuget-push"
 docker run -i --rm \
 --env LANG=C.UTF-8 \
 -v $basePath:/root/code \
-serset/dotnet:6.0-sdk \
+serset/dotnet:sdk-6.0 \
 bash -c "
 for file in /root/code/$nugetPath/*.nupkg
 do
