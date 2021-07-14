@@ -128,7 +128,7 @@
                     <script src="Scripts/Sers/sers.apiClient.js"></script>
                     <div id="stations">
 
-                        <div v-for="station in stations" style="width:300px;height:540px; float:left;margin:2px;padding:4px;word-wrap:break-word;" class="line">
+                        <div v-for="station in stations" style="width:300px;height:500px;line-height:1.5;float:left;margin:2px;padding:4px;word-wrap:break-word;" class="line">
                             <font style="font-weight:bold;color:#e84855;">{{ (station.serviceStationInfo||{}).serviceStationName }} </font><br />
                             {{station.apiStationNames}} <br />                            
                             操作 : <a href="#" @click="start(station)">打开</a>   <a href="#" @click="pause(station)">暂停</a>  <a href="#" @click="stop(station)">强制关闭</a> 
