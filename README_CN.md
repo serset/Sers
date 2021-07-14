@@ -1,15 +1,15 @@
 # Sers简介
 Sers为一套跨平台跨语言的开源微服务架构协议
->源码地址：[https://github.com/serset/Sers](https://github.com/serset/Sers "https://github.com/serset/Sers")  
+>源码地址: [https://github.com/serset/Sers](https://github.com/serset/Sers "https://github.com/serset/Sers")  
 >当前版本为2.1，RequestQueue模式。  
 
 Sers拥有如下特性：  
-● 跨语言、跨平台，目前已支持c#、java、c++、javascript  
-● 高效高并发（百万并发），单机QPS:2000000  
-● 轻量简洁，可javascript接入，代码不到1000行，压缩后只有8KB  
-● 易扩展，可以自行扩展接入  
-● 支持IOCP、ZMQ、WebSocket、NamedPipe、SharedMemory等多种通讯方式  
-● 无代码侵入，.net core接入服务中心只需要1行代码  
+- 跨语言、跨平台，目前已支持c#、java、c++、javascript  
+- 高效高并发（百万并发），单机QPS:2000000  
+- 轻量简洁，可javascript接入，代码不到1000行，压缩后只有8KB  
+- 易扩展，可以自行扩展接入  
+- 支持IOCP、ZMQ、WebSocket、NamedPipe、SharedMemory等多种通讯方式  
+- 无代码侵入，.net core接入服务中心只需要1行代码  
 
 
 
