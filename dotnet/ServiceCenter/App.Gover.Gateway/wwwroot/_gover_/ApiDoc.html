@@ -182,10 +182,12 @@
 
                         //加载ApiDesc
                         var apiDescs;
+                        var mdDoc;
                         var r = lith.document.url_GetArg('r');
                         sers.apiClient.apiDesc_getAll({ r: r }, function (apiReturn) {
                             apiDescs = apiReturn.data;
-                            var mdDoc = sers.ssApiDescsToMd(apiDescs);
+
+                            mdDoc = sers.ssApiDescsToMd(apiDescs);
 
                             mdDoc = "[TOC]\n\n" + mdDoc
 
