@@ -188,7 +188,9 @@ a {
   color: #111;
   text-decoration: none;
   background-color: transparent;
-  -webkit-text-decoration-skip: objects; }
+  -webkit-text-decoration-skip: objects;
+  cursor: pointer;
+}
   a:hover {
     color: black;
     text-decoration: underline; }
