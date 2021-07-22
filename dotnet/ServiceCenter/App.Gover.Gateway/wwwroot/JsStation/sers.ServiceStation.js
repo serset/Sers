@@ -1,12 +1,13 @@
 ﻿/*
- * sers.ServiceStation.js 扩展  
- * Date   : 2020-07-22
- * Version: 2.1.1.372
+ * sers.ServiceStation.js 扩展
+ * Date   : 2021-07-14
+ * Version: 2.1.7
  * author : Lith
  * email  : serset@yeah.net
+ * 压缩   : http://javascriptcompressor.com/
  */
 
-; var sers = { version: '2.1.1.372' };
+; var sers = { version: '2.1.7' };
 
 /*
  * vit.js 扩展
@@ -204,7 +205,7 @@
 
         logger.error = function (e, message) {
             console.log(e);
-            var msgOut = new Date().pattern("[mm:ss.S]") + '[error]' + message;
+            var msgOut = new Date().pattern("[mm:ss.S]") + '[error]' + (message||e.message||'出错');
             console.log(msgOut);
             try {
                 if (logger.onmessage) logger.onmessage(msgOut);
@@ -321,6 +322,7 @@
         self.event_onDisconnected;
 
         self.sendFrame = function (bytes) {
+            if (!webSocket) throw new Error('连接尚未建立，无法发送数据,请先建立连接');
             vit.bytesInsertInt32(bytes, 0, bytes.length);
             var dataView = vit.bytesToDataView(bytes);
             webSocket.send(dataView);
@@ -332,11 +334,12 @@
 
         //callback: function(isConnected){ }
         self.connect = function (callback) {
+            if (webSocket) throw new Error('连接尚未断开，不可再次连接');
 
             webSocket = new WebSocket(self.host);
             webSocket.binaryType = "arraybuffer";
 
-            webSocket.onerror = function (ev) {
+            webSocket.onerror = function (event) {
                 self.close();
             };
 
@@ -375,16 +378,16 @@
 
 
         self.close = function () {
-            if (!webSocket) return;
+            if (!webSocket) throw new Error('尚未建立连接，无需断开');
 
 
             //(x.1) close socket
-            try {
-                webSocket.close();
-                webSocket = null;
-            } catch (e) {
-                logger.error(e);
+			try {
+				webSocket.close();
+			} catch (e) {
+				logger.error(e);
             }
+            webSocket = null;
 
             logger.info('[sers.CL]DeliveryClient.event_onDisconnected');
 
@@ -508,7 +511,7 @@
                 if (callback)
                     callback(replyData, isSuccess);
             };
-            setTimeout(onCall, 10000);
+            setTimeout(onCall, 60000);
 
             organizeToDelivery_RequestMap[reqKey] = function (replyData) { onCall(replyData, true); };
 
@@ -904,13 +907,22 @@
             self.apiClient = new sers.ApiClient(self.org);
         })();
 
+        //(x.4)
         self.stop = function () {
             logger.info('[sers.ServiceStation]try stop...');
             self.org.stop();
             logger.info('[sers.ServiceStation] stoped.');
         };
 
+        //(x.5)
+        self.serviceStationInfo = {
+            serviceStationName: 'JsStation', serviceStationKey: '', stationVersion: '', info: {}
+        };
 
+        //(x.6)
+        var deviceInfo = { deviceKey: ('' + Math.random()).substr(2) };
+
+        //(x.7)
         //callback: function(isSuccess){}
         self.start = function (callback) {
 
@@ -926,18 +938,14 @@
 
                 //向服务中心注册localApiService
                 logger.info('[ServiceStation] regist serviceStation to ServiceCenter...');
-                var serviceStationInfo = {
-                    serviceStationName: 'JsStation', serviceStationKey: '', stationVersion: '', info: {}
-                };
-                var deviceInfo = { deviceKey: '' + Math.random() };
+                
                 var apiNodes = self.localApiService.getApiNodes();
 
-                var serviceStationData =
-                {
-                    serviceStationInfo: serviceStationInfo,
-                    deviceInfo: deviceInfo,
-                    apiNodes: apiNodes
-                };
+				var serviceStationData = {
+					serviceStationInfo: self.serviceStationInfo,
+					deviceInfo: deviceInfo,
+					apiNodes: apiNodes
+				};
 
                 //(string route, object arg, string httpMethod, function callback)
                 //callback: function(isSuccess,replyData_bytes,replyRpcData_object)
@@ -952,8 +960,9 @@
                     var apiRet = vit.bytesToObject(replyData_bytes);
 
                     if (!apiRet.success) {
-                        logger.info("[ServiceStation] regist - failed. reply:" + vit.bytesToString(replyData));
+                        logger.info("[ServiceStation] regist - failed. reply:" + vit.bytesToString(replyData_bytes));
                         if (callback) callback(false);
+                        return;
                     }
                     logger.info("[ServiceStation] regist - succeed");
                     if (callback) callback(true);

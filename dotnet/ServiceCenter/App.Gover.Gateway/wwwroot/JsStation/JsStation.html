@@ -1,24 +1,105 @@
 ﻿<!DOCTYPE html>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>Sers-JsStation</title>
+    <title>Sers-JsStation</title>   
+
+</head>
+<body>
+    <h2>Sers-JsStation</h2>
+    <div>
+
+        <textarea type="text" id="txt_log" rows="13" cols="200">
+说明:
+请在ServiceCenter配置文件中开启websocket通信，并修改对应的端口号和secretKey
+
+</textarea><br />
+        <input type="button" onclick="startService()" value="启动服务" />
+        <input type="button" onclick="stopService()" value="关闭服务" />
+        <input type="button" onclick="txt_log.value = ''" value="清空" /> <br />
+
+        <table>
+            <tr><td>appsettings：</td><td>api：</td><td>调用接口：<input type="button" onclick="callApi()" value="执行" /> </td></tr>
+            <tr>
+                <td>
+<textarea type="text" id="txt_appsettings" rows="30" cols="40"></textarea>
+                </td>
+                <td>
+<textarea type="text" id="txt_apiNodes" rows="30" cols="80">
+[
+
+{
+    route: '/JsStation/api1', httpMethod: 'GET', apiName: 'js作为服务站点',
+    onInvoke: function (requestData_bytes, rpcData, reply_rpcData) {
+        var request_string = vit.bytesToString(requestData_bytes);
+        vit.logger.info('[api调用] request:' + request_string );
+        var replyData = {
+            success: true,
+            data:
+            {
+                request_string: request_string,
+                _: Math.random()
+            }
+        };
+        return vit.objectSerializeToBytes(replyData);
+    }
+}
+
+
+
+
+]
+</textarea>
+                </td>
+                <td>
+<textarea type="text" id="txt_callApi" rows="30" cols="80">
+serviceStation.apiClient.callApi("/JsStation/api1", {name:'sers'}, 'GET',
+function (isSuccess, replyData_bytes, replyRpcData_object) {
+    if (!isSuccess) {
+        vit.logger.info("接口调用失败！");
+        return;
+    }
+    //var apiRet = vit.bytesToObject(replyData_bytes); 
+    var str = vit.bytesToString(replyData_bytes);
+    vit.logger.info("接口调用成功。 reply:" + vit.bytesToString(replyData_bytes));
+});
+
+
+</textarea>
+                </td>
+            </tr>
+        </table>
+
+
+
+    </div>
 
     <script src="sers.ServiceStation.min.js"></script>
     <script>
 
+        var appsettings =
+        {
+            CL: {
+                host: 'ws://' + (location.hostname || '127.0.0.1') + ':4503',
+                secretKey: 'SersCL'
+            },
+            serviceStationInfo: {
+                serviceStationName: 'JsStation',
+                serviceStationKey: '',
+                stationVersion: '',
+                info: {}
+            }
+        };
 
-        //var clConfig = { host: 'ws://0.0.0.0:4503', secretKey: 'SersCL' };
-        var clConfig = { host: 'ws://' + location.hostname + ':4503', secretKey: 'SersCL' };
+        txt_appsettings.value = JSON.stringify(appsettings, null, 2);
+
 
         var serviceStation = new sers.ServiceStation();
 
-
         /*
            user_ApiNode demo:
-          //onInvoke:   function(requestData_bytes,rpcData_object,reply_rpcData_object){}
-
+           //onInvoke:   function(requestData_bytes,rpcData_object,reply_rpcData_object){}
             {
                 route: '/JsStation/api1', httpMethod: 'GET', apiName: 'js作为服务站点',
                 onInvoke: function (requestData_bytes, rpcData, reply_rpcData) {
@@ -44,10 +125,13 @@
         };
 
 
-        function reloadApiNode() {
+        function startService() {
             try {
-                vit.logger.info('加载api...');
+                vit.logger.info('');
+                vit.logger.info('--------------------------------------------');
 
+                //(x.1)
+                vit.logger.info('加载api...');
                 var str_apiNodes = txt_apiNodes.value;
                 var user_apiNodes = eval('(' + str_apiNodes + ')');
                 serviceStation.localApiService.clearApiNodes();
@@ -58,23 +142,20 @@
                 }
                 vit.logger.info('api已加载，数量：' + user_apiNodes.length);
 
-            } catch (e) {
-                vit.logger.error(e);
-            }
-        }
 
+                //(x.2)appsettings
+                appsettings = eval('(' + txt_appsettings.value + ')');
 
-        function startService() {
-            try {
-
-                //设置websocket host 地址 demo: "ws://127.0.0.1:4503"
-                //serviceStation.org.setHost("ws://127.0.0.1:4503");
-                serviceStation.org.setHost(clConfig.host);
-
+                //设置websocket host 地址
+                serviceStation.org.setHost(appsettings.CL.host);
 
                 //连接秘钥，用以验证连接安全性。服务端和客户端必须一致
-                serviceStation.org.secretKey = clConfig.secretKey;
+                serviceStation.org.secretKey = appsettings.CL.secretKey;
 
+                serviceStation.serviceStationInfo = appsettings.serviceStationInfo;
+
+
+                //(x.3)连接
                 serviceStation.start();
             } catch (e) {
                 vit.logger.error(e);
@@ -83,49 +164,28 @@
 
         function stopService() {
             try {
+                vit.logger.info('');
+                vit.logger.info('--------------------------------------------');
+                vit.logger.info('断开连接...');
                 serviceStation.stop();
+                vit.logger.info('连接已断开');
             } catch (e) {
                 vit.logger.error(e);
             }
         }
-    </script>
 
-</head>
-<body>
-    <h1>Sers-JsStation</h1>
-    <div>
+        function callApi() {
+            try {
+                vit.logger.info('');
+                vit.logger.info('--------------------------------------------');
+                vit.logger.info('调用接口...');
 
-        <textarea type="text" id="txt_log" rows="10" cols="200"></textarea>
-        <br /><input type="button" onclick="reloadApiNode()" value="加载api" />
-        <input type="button" onclick="startService()" value="启动服务" />
-        <input type="button" onclick="stopService()" value="关闭服务" /><br />
-                                                                    <textarea type="text" id="txt_apiNodes" rows="40" cols="200">
-[
-
-{
-    route: '/JsStation/api1', httpMethod: 'GET', apiName: 'js作为服务站点',
-    onInvoke: function (requestData_bytes, rpcData, reply_rpcData) {
-        var request_string = vit.bytesToString(requestData_bytes);
-        vit.logger.info('[api调用] request:' + request_string );
-        var replyData = {
-            success: true,
-            data:
-            {
-                request_string: request_string,
-                _: Math.random()
+                eval(txt_callApi.value);
+            } catch (e) {
+                vit.logger.error(e);
             }
-        };
-        return vit.objectSerializeToBytes(replyData);
-    }
-}
+        }
 
-
-
-
-
-
-]
-</textarea>
-    </div>
+    </script>
 </body>
 </html>
