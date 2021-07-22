@@ -43,7 +43,7 @@
         <nav class="navbar navbar-expand-md navbar-light">
 
             <!-- Company name shown on mobile -->
-            <a class="navbar-brand d-md-none d-lg-none d-xl-none" href><span> Sers </span> Dashboard </a>
+            <a class="navbar-brand d-md-none d-lg-none d-xl-none" href="#"><span> Sers </span> Dashboard </a>
 
             <!-- Mobile menu toggle -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,7 +83,7 @@
 
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href role="button" aria-haspopup="true" aria-expanded="false">Ext</a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ext</a>
                         <div class="dropdown-menu navbar-dark bg-primary">
                             <a class="dropdown-item" href="/JsStation/JsStation.html">JsStation</a>
                             <a class="dropdown-item" href="/MicroControl/mc.html">MicroControl</a>
@@ -103,11 +103,11 @@
         <div class="container">
             <div class="jumbotron jumbotron-narrow static-slider">
 
-                <a href onclick="apiStationFilter=null;reloadStations();" title="显示所有的Api站点">显示所有</a>
+                <a onclick="apiStationFilter=null;reloadStations();" title="显示所有的Api站点">显示所有</a>
 
-                <a href onclick="apiStationFilter=apiStationFilter_OnlyOnline;reloadStations();" title="仅显示在线的Api站点（apiNodeCount不为0）（默认为仅显示在线）">仅显示在线</a>
+                <a onclick="apiStationFilter=apiStationFilter_OnlyOnline;reloadStations();" title="仅显示在线的Api站点（apiNodeCount不为0）（默认为仅显示在线）">仅显示在线</a>
  
-                <a href onclick="removeOfflineApi()">移除离线接口</a>
+                <a onclick="removeOfflineApi()">移除离线接口</a>
             </div>
         </div>
     </div>
@@ -141,7 +141,7 @@
                             apiNode : {{station.apiNodeCount}}     <br />
                             activeApiNode : {{station.activeApiNodeCount}}     <br />
                             状态(正常|暂停) : {{station.status}}<br />
-                            操作 : <a href @click="start(station)">打开</a>   <a href @click="pause(station)">暂停</a><br />
+                            操作 : <a @click="start(station)">打开</a>   <a @click="pause(station)">暂停</a><br />
 
                         </div>
                         <div style=" clear: both;"></div>
