@@ -145,4 +145,9 @@ Serslot 在兼容AspNetCore2.1的同时，兼容 AspNetCore3.0、 AspNetCore3.1、 AspNetCo
 
 
 --------------------------------------
+2021-07-30
+	ServiceCenter添加输出信息到txt功能
+
+
+--------------------------------------
 
