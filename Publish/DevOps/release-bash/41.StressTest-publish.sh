@@ -24,7 +24,7 @@ docker run -i --rm \
 --env LANG=C.UTF-8 \
 -v $basePath:/root/code \
 -v $basePath/Publish/release/.nuget:/root/.nuget \
-serset/dotnet:sdk-6.0 \
+serset/dotnet:sdk-5.0 \
 bash -c "
 set -e
 
@@ -49,7 +49,7 @@ echo 'copy bat'
 echo ------------------------------------------------------------------
 echo '(x.4)发布Sers压测'
 
-for netVersion in netcoreapp2.1 net6.0
+for netVersion in netcoreapp2.1 net5.0
 do
 	appPath=${basePath}/Publish/release/release/Station\(${netVersion}\)
 
