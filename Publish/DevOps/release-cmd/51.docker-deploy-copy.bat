@@ -27,7 +27,7 @@ xcopy "%publishPath%\Gateway\appsettings.json" "%dockerPath%\sers-gateway"
 xcopy "%publishPath%\Gover\appsettings.json" "%dockerPath%\sers-gover"
 xcopy "%publishPath%\Demo\appsettings.json" "%dockerPath%\sers-demo"
 xcopy "%publishPath%\Robot\appsettings.json" "%dockerPath%\sers-demo-robot"
-xcopy "%basePath%\Publish\release\release\—π≤‚\µ•ÃÂ—π≤‚net6.0\ServiceCenter\appsettings.json" "%dockerPath%\sers-demo-sersall"
+xcopy "%basePath%\Publish\release\release\—π≤‚\µ•ÃÂ—π≤‚net5.0\ServiceCenter\appsettings.json" "%dockerPath%\sers-demo-sersall"
 
 
 

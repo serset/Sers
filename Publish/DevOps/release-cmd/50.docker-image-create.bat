@@ -26,7 +26,7 @@ xcopy  "%publishPath%/Gateway" "%dockerPath%/sers-gateway/app" /e /i /r /y
 xcopy  "%publishPath%/Gover" "%dockerPath%/sers-gover/app" /e /i /r /y
 xcopy  "%publishPath%/Demo" "%dockerPath%/sers-demo/app" /e /i /r /y
 xcopy  "%publishPath%/Robot" "%dockerPath%/sers-demo-robot/app" /e /i /r /y
-xcopy  "%basePath%/Publish/release/release/—π≤‚/µ•ÃÂ—π≤‚net6.0/ServiceCenter" "%dockerPath%/sers-demo-sersall/app" /e /i /r /y
+xcopy  "%basePath%/Publish/release/release/—π≤‚/µ•ÃÂ—π≤‚net5.0/ServiceCenter" "%dockerPath%/sers-demo-sersall/app" /e /i /r /y
  
 
 
