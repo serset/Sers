@@ -5,7 +5,6 @@ using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.Data;
 using Vit.Extensions;
 using Vit.Core.Util.Net;
-using Newtonsoft.Json;
 
 namespace App.Robot.Station.Logical.Worker
 {
@@ -14,11 +13,11 @@ namespace App.Robot.Station.Logical.Worker
     public class Worker_HttpClient: Worker_ApiClient
     {
 
-        HttpClient httpClient;
+        Vit.Core.Util.Net.HttpClient httpClient;
         HttpRequest httpClient_ReqParam;
         public Worker_HttpClient(TaskItem taskItem) :base(taskItem)
         {
-            httpClient = new HttpClient();
+            httpClient = new Vit.Core.Util.Net.HttpClient();
             httpClient_ReqParam = new HttpRequest
             {
                 url = taskItem.config.apiRoute,
