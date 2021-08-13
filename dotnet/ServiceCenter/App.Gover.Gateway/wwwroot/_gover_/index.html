@@ -120,11 +120,15 @@
                     <script src="Scripts/util/lith.js"></script>
                     <script type="text/javascript">
 
+
+                        var date = new Date();
+                        date.setSeconds(date.getSeconds() + 7200);
+
                         var user = lith.document.url_GetArg('user');
                         if (user) {
-                            var date = new Date();
-                            date.setSeconds(date.getSeconds() + 3600);
                             lith.cookie.set('user', user, date);
+                        } else if (!lith.cookie.get('user')) {
+                            lith.cookie.set('user', 'admin_123456', date);
                         }
 
                     </script>
@@ -132,7 +136,7 @@
                     <div class="sidebar-box">
                         <h4>login</h4>
                         <ul>
-                            <li><a href="index.html?user=admin_123456">login</a></li>
+                            <li><a href="index.html">login</a></li>
                         </ul>
                     </div>
 

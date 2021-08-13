@@ -7,7 +7,7 @@
 
 	<PropertyGroup>
 		<Authors>Lith</Authors>
-		<Description>Sers微服务-服务中心Apm。对Zipkin的支持。</Description>
+		<Description>Sers微服务-服务中心Apm。推送日志到Zipkin。</Description>
 		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
 	</PropertyGroup>
 
