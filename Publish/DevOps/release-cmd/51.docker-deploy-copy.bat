@@ -12,7 +12,7 @@ set basePath=%cd%
 
 
 ::(x.2)
-set publishPath=%basePath%\Publish\release\release\Station(net6.0)
+set publishPath=%basePath%\Publish\release\release\Station(net5.0)
 set dockerPath=%basePath%\Publish\release\release\docker-deploy
 rd /s /q "%dockerPath%"
 

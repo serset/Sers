@@ -44,7 +44,7 @@ xcopy  "%basePath%\Publish\ReleaseFile\StressTest\CL—π≤‚" "%publishPath%\CL—π≤‚n
 
 echo ------------------------------------------------------------------
 ::(x.4)∑¢≤ºSers—π≤‚
-for %%i in (netcoreapp2.1,net6.0) do (  
+for %%i in (netcoreapp2.1,net5.0) do (  
 	set netVersion=%%i
 	set appPath=%basePath%/Publish/release/release/Station^(!netVersion!^)
 

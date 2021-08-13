@@ -22,7 +22,7 @@ docker run -i --rm \
 --env LANG=C.UTF-8 \
 -v $basePath/Publish/release/.nuget:/root/.nuget \
 -v $basePath:/root/code \
-serset/dotnet:sdk-6.0 \
+serset/dotnet:sdk-5.0 \
 bash -c "
 cd /root/code
 for file in \$(grep -a '<pack/>' . -rl --include *.csproj)

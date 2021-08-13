@@ -39,14 +39,18 @@ namespace Vit.Core.Util.Net
             #region (x.x.2)body
             if (request.body != null)
             {
-                if (request.body is byte[] bytes)
+                switch (request.body)
                 {
-                    httpRequest.Content = new ByteArrayContent(bytes);
-                }
-                else
-                {
-                    var content = Serialization.Instance.SerializeToString(request.body);
-                    httpRequest.Content = new StringContent(content, request.requestEncoding, "application/json");
+                    case byte[] bytes:
+                        httpRequest.Content = new ByteArrayContent(bytes);
+                        break;
+                    case HttpContent httpContent:
+                        httpRequest.Content = httpContent;
+                        break;
+                    default:
+                        var content = Serialization.Instance.SerializeToString(request.body);
+                        httpRequest.Content = new StringContent(content, request.requestEncoding, "application/json");
+                        break;
                 }
             }
             #endregion

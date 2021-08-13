@@ -1,19 +1,16 @@
 ﻿using Newtonsoft.Json.Linq;
-using Sers.Core.Module.App;
 using Sers.Core.Module.App.AppEvent;
 using Sers.Core.Module.Message;
 using Sers.Core.Module.Rpc;
 using Sers.Gover.Base;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Vit.Core.Module.Log;
 using Vit.Extensions;
 using Vit.Extensions.IEnumerable;
-using zipkin4net;
-using zipkin4net.Tracers.Zipkin;
-using zipkin4net.Transport.Http;
 
-namespace Sers.Gover.Apm.Zipkin
+namespace Sers.Gover.Apm.Txt
 {
 
     public class AppEvent : IAppEvent
@@ -24,71 +21,13 @@ namespace Sers.Gover.Apm.Zipkin
         {
             //记录请求数据
 
-            #region (x.1)get id(traceId spanId parentSpanId) and  create trace 
-            Trace trace = null;
-            try
-            {
-                long spanId = 0;
-                long traceId = 0;
-                long? parentSpanId = null;
-
-                {
-                    var hexStr = rpcData.caller.rid;
-                    spanId = hexStr.Substring(0, 16).HexStringToInt64();
-                }
-                {
-                    var hexStr = rpcData.caller_rootRid_Get();
-                    if (hexStr == null)
-                    {
-                        traceId = spanId;
-                    }
-                    else
-                    {
-                        traceId = hexStr.Substring(0, 16).HexStringToInt64();
-                    }
-                }
-                {
-                    var hexStr = rpcData.caller_parentRid_Get();
-                    parentSpanId = hexStr?.Substring(0, 16).HexStringToInt64();
-                }
-
-                var spanState = new zipkin4net.SpanState(traceId, parentSpanId, spanId, true, false);
-                trace = Trace.CreateFromId(spanState);
-            }
-            catch (Exception ex)
-            {
-                trace = Trace.Create();
-                Logger.Error(ex);
-            }
-            Trace.Current = trace;
-            #endregion
-
-
-            trace.Record(Annotations.ClientSend());
-            trace.Record(Annotations.Rpc(config.rpcName));
-            trace.Record(Annotations.ServiceName(rpcData.apiStationName_Get()??"")); 
+            var beginTime = DateTime.Now;       
 
 
             return (s, apiReplyMessage) => {
 
-                //gover会在内部把route处理为真正的route名称
+                var endTime = DateTime.Now;
 
-                #region rpc data
-                //trace.Record(Annotations.Tag("http.url", rpcData.http_url_Get()));
-                //trace.Record(Annotations.Tag("http.method", rpcData.http_method_Get()));
-                //trace.Record(Annotations.Tag("http.path", rpcData.route));
-
-
-                //try
-                //{
-                //    trace.Record(Annotations.Tag("ReqRpc", rpcData.oriJson.ToString()));
-                //    string str = apiRequestMessage.value_OriData.ArraySegmentByteToString() ?? "";
-                //    trace.Record(Annotations.Tag("ReqData", str ));
-                //}
-                //catch
-                //{
-                //}
-                #endregion
 
                 #region method getTagValue
 
@@ -212,55 +151,58 @@ namespace Sers.Gover.Apm.Zipkin
                 }
                 #endregion
 
-                //tags
+
+
+                StringBuilder msg = new StringBuilder();
+
+                msg.Append(Environment.NewLine).Append("┍------------ ---------┑");
+
+                msg.Append(Environment.NewLine).Append("--BeginTime:").Append(beginTime.ToString("[HH:mm:ss.ffffff]"));
+                msg.Append(Environment.NewLine).Append("--EndTime  :").Append(endTime.ToString("[HH:mm:ss.ffffff]"));
+                msg.Append(Environment.NewLine).Append("--duration :").Append((endTime - beginTime).TotalMilliseconds).Append(" ms");
+
+         
                 config.tags?.ForEach(item =>
                 {
-                    var key = GetTagValue(item.Key);
-                    var value = GetTagValue(item.Value);
-                    if (key != null && value != null)
-                    {
-                        trace.Record(Annotations.Tag(key, value));
-                    }
-                });
+                    //try
+                    //{
+                        var key = GetTagValue(item.Key);
+                        var value = GetTagValue(item.Value);
+                        if (key != null)
+                        {
+                            msg.Append(Environment.NewLine).Append("--" + key + ":").Append(value);
+                        }
+                    //}
+                    //catch
+                    //{
+                    //}
+                });                
+                 
 
+                msg.Append(Environment.NewLine).Append("┕------------ ---------┙").Append(Environment.NewLine);
 
-                trace.Record(Annotations.ClientRecv());
+                Logger.log.LogTxt(Level.ApiTrace, msg.ToString()); 
             };
         }
 
 
         public void InitEvent(JObject arg)
-        {           
+        {
             config = arg.Deserialize<Config>();
-            if (string.IsNullOrEmpty(config.rpcName)) config.rpcName = "ServiceCenter";
-            Logger.Info("[zipkin]初始化中... config: " + config?.Serialize());
+
+            Logger.Info("[Sers.Gover.Apm.Txt]初始化中...  ");
         }
 
 
         Config config;
-       
 
         public void BeforeStart()
         {
             if (config == null) return;
-            #region (x.1)注册和启动 Zipkin
-            if (config.SamplingRate <= 0 ) config.SamplingRate = 1;
-
-            TraceManager.SamplingRate = config.SamplingRate;
-
-            // 在链路追踪控制台获取 Zipkin Endpoint,注意 Endpoint 中不包含“/api/v2/spans”。
-            HttpZipkinSender httpSender = new HttpZipkinSender(config.zipkinCollectorUrl, "application/json");
-
-            var tracer = new ZipkinTracer(httpSender, new JSONSpanSerializer());
-
-            TraceManager.RegisterTracer(tracer);
-            TraceManager.Start(new MyLogger());
-            #endregion
-
 
             GoverApiCenterService.Instance.AddApiScopeEvent(ApiScopeEvent);
 
-            Logger.Info("[zipkin]启动成功");
+            Logger.Info("[Sers.Gover.Apm.Txt]初始化成功");
         }
 
 
@@ -279,7 +221,7 @@ namespace Sers.Gover.Apm.Zipkin
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void BeforeStop()
         {
-            TraceManager.Stop();
+          
            
         }
 
@@ -294,37 +236,9 @@ namespace Sers.Gover.Apm.Zipkin
 
     #region Config Model
     class Config
-    {
-        public float SamplingRate;  
-        public string zipkinCollectorUrl;
-        public string rpcName;
-
-        public string serviceStationName;
-
+    {  
         public IDictionary<string, string> tags;
     }
     #endregion
 
-    #region MyLogger       
-    class MyLogger : ILogger
-    {
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void LogError(string message)
-        {
-            Logger.Error("[zipkin]" + message);
-        }
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void LogInformation(string message)
-        {
-            Logger.Info("[zipkin]" + message);
-        }
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void LogWarning(string message)
-        {
-            Logger.log.Log(Level.WARN, "[zipkin]" + message);
-        }
-    }
-    #endregion
 }
