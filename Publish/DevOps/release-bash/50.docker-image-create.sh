@@ -30,7 +30,7 @@ echo "(x.4)copy station"
 \cp -rf "$publishPath/Gover/." "$dockerPath/sers-gover/app"
 \cp -rf "$publishPath/Demo/." "$dockerPath/sers-demo/app"
 \cp -rf "$publishPath/Robot/." "$dockerPath/sers-demo-robot/app"
-\cp -rf "$basePath/Publish/release/release/StressTest/单体压测net6.0/ServiceCenter/." "$dockerPath/sers-demo-sersall/app"
+\cp -rf "$basePath/Publish/release/release/StressTest/单体压测net5.0/ServiceCenter/." "$dockerPath/sers-demo-sersall/app"
  
 
 
