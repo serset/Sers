@@ -40,7 +40,10 @@ jobs:
            cd ./Publish/DevOps/github-bash
            bash startup.bash
            echo build succeed!
-
+           
+           export appName="Sers"
+           
+           
       - name: release_create
         id: release_create
         uses: actions/create-release@v1
@@ -62,8 +65,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-nuget-${{ env.release_version }}.zip
-          asset_name: Sers-nuget-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-nuget-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-nuget-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -71,8 +74,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-docker-image-${{ env.release_version }}.zip
-          asset_name: Sers-docker-image-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-docker-image-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-docker-image-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -80,8 +83,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-docker-deploy-${{ env.release_version }}.zip
-          asset_name: Sers-docker-deploy-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-docker-deploy-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-docker-deploy-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -89,8 +92,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-StressTest-${{ env.release_version }}.zip
-          asset_name: Sers-StressTest-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-StressTest-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-StressTest-${{ env.release_version }}.zip
           asset_content_type: application/zip
         
         
@@ -100,8 +103,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-ServiceCenter(net5.0)-${{ env.release_version }}.zip
-          asset_name: Sers-ServiceCenter-net5.0-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-ServiceCenter(net5.0)-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-ServiceCenter-net5.0-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -109,8 +112,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-ServiceCenter(net6.0)-${{ env.release_version }}.zip
-          asset_name: Sers-ServiceCenter-net6.0-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-ServiceCenter(net6.0)-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-ServiceCenter-net6.0-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -118,8 +121,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-ServiceCenter(netcoreapp2.1)-${{ env.release_version }}.zip
-          asset_name: Sers-ServiceCenter-netcoreapp2.1-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-ServiceCenter(netcoreapp2.1)-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-ServiceCenter-netcoreapp2.1-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -127,8 +130,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-ServiceCenter(netcoreapp2.2)-${{ env.release_version }}.zip
-          asset_name: Sers-ServiceCenter-netcoreapp2.2-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-ServiceCenter(netcoreapp2.2)-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-ServiceCenter-netcoreapp2.2-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -136,8 +139,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-ServiceCenter(netcoreapp3.0)-${{ env.release_version }}.zip
-          asset_name: Sers-ServiceCenter-netcoreapp3.0-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-ServiceCenter(netcoreapp3.0)-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-ServiceCenter-netcoreapp3.0-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -145,8 +148,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-ServiceCenter(netcoreapp3.1)-${{ env.release_version }}.zip
-          asset_name: Sers-ServiceCenter-netcoreapp3.1-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-ServiceCenter(netcoreapp3.1)-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-ServiceCenter-netcoreapp3.1-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -154,8 +157,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-Station(net5.0)-${{ env.release_version }}.zip
-          asset_name: Sers-Station-net5.0-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-Station(net5.0)-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-Station-net5.0-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -163,8 +166,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-Station(net6.0)-${{ env.release_version }}.zip
-          asset_name: Sers-Station-net6.0-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-Station(net6.0)-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-Station-net6.0-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -172,8 +175,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-Station(netcoreapp2.1)-${{ env.release_version }}.zip
-          asset_name: Sers-Station-netcoreapp2.1-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-Station(netcoreapp2.1)-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-Station-netcoreapp2.1-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -181,8 +184,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-Station(netcoreapp2.2)-${{ env.release_version }}.zip
-          asset_name: Sers-Station-netcoreapp2.2-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-Station(netcoreapp2.2)-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-Station-netcoreapp2.2-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -190,8 +193,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-Station(netcoreapp3.0)-${{ env.release_version }}.zip
-          asset_name: Sers-Station-netcoreapp3.0-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-Station(netcoreapp3.0)-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-Station-netcoreapp3.0-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
       - uses: actions/upload-release-asset@v1
@@ -199,6 +202,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-Station(netcoreapp3.1)-${{ env.release_version }}.zip
-          asset_name: Sers-Station-netcoreapp3.1-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-Station(netcoreapp3.1)-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-Station-netcoreapp3.1-${{ env.release_version }}.zip
           asset_content_type: application/zip
