@@ -2,13 +2,14 @@
 
 	<PropertyGroup>
 		<publish>Robot</publish>
+		<docker>sers-demo-robot</docker>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>netcoreapp2.1</TargetFramework>
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
-		<Version>2.1.8</Version>
+		<Version>2.1.9-temp</Version>
 		<Description>https://github.com/serset/Sers</Description>
 	</PropertyGroup>
 
