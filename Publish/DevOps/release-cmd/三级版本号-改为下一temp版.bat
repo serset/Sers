@@ -31,8 +31,8 @@ set newVersion=%v1%.%v2%.%v3%-temp
 echo 自动修改版本号 [%version%]-^>[%newVersion%]
 echo.
 
-VsTool.exe replace -r --path "..\..\..\dotnet" --file "*.csproj" --old "%version%" --new "%newVersion%"
-VsTool.exe replace -r --path "..\..\..\dotnet" --file "packages.config" --old "%version%" --new "%newVersion%"
+VsTool.exe replace -r --path "..\..\.." --file "*.csproj" --old "%version%" --new "%newVersion%"
+VsTool.exe replace -r --path "..\..\.." --file "packages.config" --old "%version%" --new "%newVersion%"
 
 
 ::(x.6)调用工具 替换docker镜像命令中的版本号
