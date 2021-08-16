@@ -49,10 +49,16 @@ docker buildx ls
 
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
-for name in sers sers-gateway sers-gover sers-demo sers-demo-robot 
+
+dockerPath=$basePath/Publish/release/release/docker-image
+
+for dockerName in `ls $dockerPath`
 do
-	echo "docker build $name"
-	docker buildx build $basePath/Publish/release/release/docker-image/$name -t $DOCKER_USERNAME/$name:$version -t $DOCKER_USERNAME/$name --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+  if [ -d $dockerPath/$dockerName ]
+  then 
+    echo "docker build $dockerName"
+    docker buildx build $dockerPath/$dockerName -t $DOCKER_USERNAME/$dockerName:$version -t $DOCKER_USERNAME/$dockerName --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+  fi
 done
 
 
