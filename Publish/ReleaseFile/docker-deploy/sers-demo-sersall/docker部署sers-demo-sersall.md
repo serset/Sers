@@ -1,10 +1,10 @@
-docker部署sers-gover
+#docker部署sers-demo-sersall
  
-
 ---------------------------------
 #(x.1)文件
   (x.1)把本文件所在目录中所有文件拷贝到宿主机
   (x.2)修改配置文件 appsettings.json
+ 
 
 
 #(x.2)创建容器并运行
@@ -16,46 +16,43 @@ docker部署sers-gover
 
 cd /root/docker
 
-cd sers-gover
-docker run --name=sers-gover --restart=always -d \
--p 4581:4581 \
+cd sers-demo-sersall
+docker run --name=sers-demo-sersall --restart=always -d --net=host\
 -v /etc/localtime:/etc/localtime \
 -v $PWD/appsettings.json:/root/app/appsettings.json \
 -v $PWD/Logs:/root/app/Logs \
-serset/sers-gover
+-v $PWD/Data:/root/app/Data \
+serset/sers-demo-sersall
 cd ..
- 
+
 #精简
-docker run --name=sers-gover --restart=always -d -p 4581:4581 serset/sers-gover
+docker run --name=sers-demo-sersall --restart=always -d --net=host serset/sers-demo-sersall
 
 
 #(x.3)应用已经运行
    可在文件夹Logs 中查看日志
 
 
-通信端口 tcp://ip:4581
-
-
--------------------
+#---------------------------------------
 #常用命令
 
 #查看容器logs
-docker logs sers-gover
+docker logs sers-demo-sersall 
 
 #在容器内执行命令行
-docker  exec -it sers-gover bash
+docker  exec -it sers-demo-sersall  bash
 
 #停止容器
-docker stop sers-gover
+docker stop sers-demo-sersall 
 
 #打开容器
-docker start sers-gover
+docker start sers-demo-sersall 
 
 #重启容器
-docker restart sers-gover
+docker restart sers-demo-sersall 
 
 
 #删除容器
-docker rm sers-gover  -f
+docker rm sers-demo-sersall -f 
 
 

@@ -36,7 +36,7 @@ VsTool.exe replace -r --path "..\..\.." --file "packages.config" --old "%version
 
 
 ::(x.6)调用工具 替换docker镜像命令中的版本号
-VsTool.exe replace -r --path "..\..\..\Publish\ReleaseFile\docker-image" --file "*.txt" --old "%version%" --new "%newVersion%"
+VsTool.exe replace -r --path "..\..\..\Publish\ReleaseFile\docker-image" --file "*.md" --old "%version%" --new "%newVersion%"
 
 
 echo.

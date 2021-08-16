@@ -1,12 +1,12 @@
-﻿docker部署sers-cgateway
+#docker部署sers-gateway
 
+ 
 
 ---------------------------------
 #(x.1)文件
   (x.1)把本文件所在目录中所有文件拷贝到宿主机
   (x.2)修改配置文件 appsettings.json
  
-
 
 #(x.2)创建容器并运行
 (--name 容器名称，可自定义)
@@ -17,42 +17,45 @@
 
 cd /root/docker
 
-cd sers-cgateway
-docker run --name=sers-cgateway --restart=always -d \
--p 6008:6008 \
+cd sers-gateway
+docker run --name=sers-gateway --restart=always -d \
+-p 4582:4582 \
 -v /etc/localtime:/etc/localtime \
 -v $PWD/appsettings.json:/root/app/appsettings.json \
 -v $PWD/Logs:/root/app/Logs \
-serset/sers-cgateway:1.2.0
-cd ..
+-v $PWD/Data:/root/app/Data \
+serset/sers-gateway
+ 
 
-
-#端口    http://ip:6008
+#精简
+docker run --name=sers-gateway --restart=always -d -p 4582:4582 serset/sers-gateway
 
 
 #(x.3)应用已经运行
    可在文件夹Logs 中查看日志
 
+通信端口 tcp://ip:4582
+
 -------------------
 #常用命令
 
 #查看容器logs
-docker logs sers-cgateway
+docker logs sers-gateway
 
 #在容器内执行命令行
-docker  exec -it sers-cgateway bash
+docker  exec -it sers-gateway bash
 
 #停止容器
-docker stop sers-cgateway
+docker stop sers-gateway
 
 #打开容器
-docker start sers-cgateway
+docker start sers-gateway
 
 #重启容器
-docker restart sers-cgateway
+docker restart sers-gateway
 
 
 #删除容器
-docker rm sers-cgateway -f
+docker rm sers-gateway -f
 
 
