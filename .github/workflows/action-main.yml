@@ -62,6 +62,44 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
+          asset_path: ${{ env.release_dirPath }}/Sers-nuget-${{ env.release_version }}.zip
+          asset_name: Sers-nuget-${{ env.release_version }}.zip
+          asset_content_type: application/zip
+
+      - uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release_create.outputs.upload_url }}
+          asset_path: ${{ env.release_dirPath }}/Sers-docker-image-${{ env.release_version }}.zip
+          asset_name: Sers-docker-image-${{ env.release_version }}.zip
+          asset_content_type: application/zip
+
+      - uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release_create.outputs.upload_url }}
+          asset_path: ${{ env.release_dirPath }}/Sers-docker-deploy-${{ env.release_version }}.zip
+          asset_name: Sers-docker-deploy-${{ env.release_version }}.zip
+          asset_content_type: application/zip
+
+      - uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release_create.outputs.upload_url }}
+          asset_path: ${{ env.release_dirPath }}/Sers-StressTest-${{ env.release_version }}.zip
+          asset_name: Sers-StressTest-${{ env.release_version }}.zip
+          asset_content_type: application/zip
+        
+        
+        
+      - uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ${{ env.release_dirPath }}/Sers-ServiceCenter(net5.0)-${{ env.release_version }}.zip
           asset_name: Sers-ServiceCenter-net5.0-${{ env.release_version }}.zip
           asset_content_type: application/zip
@@ -163,40 +201,4 @@ jobs:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ${{ env.release_dirPath }}/Sers-Station(netcoreapp3.1)-${{ env.release_version }}.zip
           asset_name: Sers-Station-netcoreapp3.1-${{ env.release_version }}.zip
-          asset_content_type: application/zip
-
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-docker-deploy-${{ env.release_version }}.zip
-          asset_name: Sers-docker-deploy-${{ env.release_version }}.zip
-          asset_content_type: application/zip
-
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-docker-image-${{ env.release_version }}.zip
-          asset_name: Sers-docker-image-${{ env.release_version }}.zip
-          asset_content_type: application/zip
-
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-nuget-${{ env.release_version }}.zip
-          asset_name: Sers-nuget-${{ env.release_version }}.zip
-          asset_content_type: application/zip
-
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/Sers-StressTest-${{ env.release_version }}.zip
-          asset_name: Sers-StressTest-${{ env.release_version }}.zip
           asset_content_type: application/zip
