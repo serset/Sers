@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<pack/>
+		<pack>nuget</pack>
 	</PropertyGroup>
 
 	<PropertyGroup>
