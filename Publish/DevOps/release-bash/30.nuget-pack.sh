@@ -25,7 +25,7 @@ docker run -i --rm \
 serset/dotnet:sdk-5.0 \
 bash -c "
 cd /root/code
-for file in \$(grep -a '<pack/>' . -rl --include *.csproj)
+for file in \$(grep -a '<pack>nuget</pack>' . -rl --include *.csproj)
 do
 	echo pack \$file
 	cd /root/code

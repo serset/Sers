@@ -21,14 +21,36 @@ namespace Did.Serslot.HelloWorld
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers().AddJsonOptions(options =>
+            services.AddControllers()
+                .AddJsonOptions(options =>
             {
+                //Json序列化全局配置
+#if NETCOREAPP3_0_OR_GREATER
+
                 options.JsonSerializerOptions.AddConverter_Newtonsoft();
                 options.JsonSerializerOptions.AddConverter_DateTime();
 
-                options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(System.Text.Unicode.UnicodeRanges.All);
+
                 options.JsonSerializerOptions.IncludeFields = true;
+
+                //JsonNamingPolicy.CamelCase首字母小写（默认）,null则为不改变大小写
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                //取消Unicode编码 
+                options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(System.Text.Unicode.UnicodeRanges.All);
+                //忽略空值
                 options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+                //options.JsonSerializerOptions.IgnoreNullValues = true;
+                //允许额外符号
+                options.JsonSerializerOptions.AllowTrailingCommas = true;
+
+#else
+
+                //忽略循环引用
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
+                //不更改元数据的key的大小写
+                options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
+#endif
             });
 
         }

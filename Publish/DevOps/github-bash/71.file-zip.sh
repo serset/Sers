@@ -7,7 +7,9 @@ args_="
 
 export basePath=/root/temp/svn
 
-export version=`grep '<Version>' $(grep '<pack/>\|<publish>' ${basePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
+export version=`grep '<Version>' $(grep '<pack>\|<publish>' ${basePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
+
+export name=Sers
 
 # "
 
@@ -25,11 +27,11 @@ set -e
 
 releasePath=/root/code/Publish/release
 
-for name in \`ls /root/code/Publish/release/release\`
+for dirname in \`ls /root/code/Publish/release/release\`
 do
-  if [ -d \$releasePath/release/\$name ]
+  if [ -d \$releasePath/release/\$dirname ]
   then
-    filezip zip -p -i \$releasePath/release/\$name -o \$releasePath/release-zip/Sers-\${name}-${version}.zip 
+    filezip zip -p -i \$releasePath/release/\$dirname -o \$releasePath/release-zip/${name}-\${dirname}-${version}.zip 
   fi
 done
 

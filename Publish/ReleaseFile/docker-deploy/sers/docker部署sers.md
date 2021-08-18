@@ -1,4 +1,4 @@
-docker部署sers-demo-robot
+#docker部署sers-servicecenter
 
  
 
@@ -7,6 +7,7 @@ docker部署sers-demo-robot
   (x.1)把本文件所在目录中所有文件拷贝到宿主机
   (x.2)修改配置文件 appsettings.json
  
+
 
 #(x.2)创建容器并运行
 (--name 容器名称，可自定义)
@@ -17,47 +18,49 @@ docker部署sers-demo-robot
 
 cd /root/docker
 
-cd sers-demo-robot
-docker run --name=sers-demo-robot --restart=always -d \
+cd sers
+docker run --name=sers --restart=always -d \
+-p 4580:4580 -p 4501:4501 \
 -v /etc/localtime:/etc/localtime \
 -v $PWD/appsettings.json:/root/app/appsettings.json \
 -v $PWD/Logs:/root/app/Logs \
 -v $PWD/Data:/root/app/Data \
-serset/sers-demo-robot
+serset/sers
 cd ..
 
 
 #精简
-docker run --name=sers-demo-robot --restart=always --net=host -d serset/sers-demo-robot
+docker run --name=sers --restart=always -d -p 4580:4580 -p 4501:4501 serset/sers
 
- 
+gover     http://ip:4580
+通信端口 tcp://ip:4501
+
 
 
 #(x.3)应用已经运行
-   可在文件夹Logs 中查看日志
+   可在文件夹ServiceCenter/Logs 中查看日志
 
-
-
--------------------
+ 
+#---------------------------------------
 #常用命令
 
 #查看容器logs
-docker logs sers-demo-robot
+docker logs sers
 
 #在容器内执行命令行
-docker  exec -it sers-demo-robot bash
+docker  exec -it sers bash
 
 #停止容器
-docker stop sers-demo-robot
+docker stop sers
 
 #打开容器
-docker start sers-demo-robot
+docker start sers
 
 #重启容器
-docker restart sers-demo-robot
+docker restart sers
 
 
 #删除容器
-docker rm sers-demo-robot -f
+docker rm sers -f
 
 

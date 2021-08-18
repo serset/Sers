@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<pack/>
+		<pack>nuget</pack>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
-		<Version>2.1.7</Version>
+		<Version>2.1.8</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>

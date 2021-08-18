@@ -24,12 +24,24 @@ echo "(x.3)copy dir"
 
 #---------------------------------------------------------------------
 echo "(x.4)copy station"
+#查找所有需要发布的项目并copy
+cd $basePath
+for file in $(grep -a '<docker>' . -rl --include *.csproj)
+do
+	cd $basePath
+	
+	#get publishName
+	publishName=`grep '<publish>' $file -r | grep -oP '>(.*)<' | tr -d '<>'`
+	
+	#get dockerName
+	dockerName=`grep '<docker>' $file -r | grep -oP '>(.*)<' | tr -d '<>'`
 
-\cp -rf "$publishPath/ServiceCenter/." "$dockerPath/sers/app"
-\cp -rf "$publishPath/Gateway/." "$dockerPath/sers-gateway/app"
-\cp -rf "$publishPath/Gover/." "$dockerPath/sers-gover/app"
-\cp -rf "$publishPath/Demo/." "$dockerPath/sers-demo/app"
-\cp -rf "$publishPath/Robot/." "$dockerPath/sers-demo-robot/app"
+	echo copy $dockerName
+	\cp -rf "$publishPath/$publishName/." "$dockerPath/$dockerName/app"
+done
+
+
+#copy单体压测
 \cp -rf "$basePath/Publish/release/release/StressTest/单体压测net5.0/ServiceCenter/." "$dockerPath/sers-demo-sersall/app"
  
 

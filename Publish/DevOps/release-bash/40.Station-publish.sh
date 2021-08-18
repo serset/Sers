@@ -12,7 +12,7 @@ export basePath=/root/temp/svn
 
 #----------------------------------------------
 echo "(x.2)获取netVersion" 
-netVersion=`grep '<TargetFramework>' $(grep '<pack/>\|<publish>' ${basePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
+netVersion=`grep '<TargetFramework>' $(grep '<publish>' ${basePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
 
 
 publishPath=$basePath/Publish/release/release/Station\($netVersion\)
