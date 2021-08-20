@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 
 namespace Sers.Core.Util.Consumer
 {
@@ -13,6 +14,10 @@ namespace Sers.Core.Util.Consumer
 
         Action<T> processor { get; set; }
 
+        Action<T> OnFinish { get; set; }
+        Action<T> OnTimeout { get; set; }
+
+        void Init(JObject config);
 
 
         void Publish(T t);

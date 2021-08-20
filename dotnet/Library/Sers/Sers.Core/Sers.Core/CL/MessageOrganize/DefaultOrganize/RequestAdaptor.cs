@@ -99,10 +99,6 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         public void Start()
         {
             //(x.1) task_DeliveryToOrganize_Processor
-            //task_DeliveryToOrganize_Processor.Stop();
-            task_DeliveryToOrganize_Processor.processor = DeliveryToOrganize_ProcessFrame;
-            task_DeliveryToOrganize_Processor.workThreadCount = workThreadCount;
-            task_DeliveryToOrganize_Processor.name = "CL-RequestAdaptor-dealer";
             task_DeliveryToOrganize_Processor.Start(); 
 
             //(x.2) heartBeat thread
@@ -137,11 +133,16 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         #region (x.x.4)构造函数       
         public RequestAdaptor(JObject config)
         {
-            workThreadCount = config["workThreadCount"]?.Deserialize<int?>() ?? workThreadCount;
             heartBeatTimeoutMs = config["heartBeatTimeoutMs"]?.Deserialize<int?>() ?? heartBeatTimeoutMs;
             heartBeatRetryCount = config["heartBeatRetryCount"]?.Deserialize<int?>() ?? heartBeatRetryCount;
             heartBeatIntervalMs = config["heartBeatIntervalMs"]?.Deserialize<int?>() ?? heartBeatIntervalMs;
-            requestTimeoutMs = config["requestTimeoutMs"]?.Deserialize<int?>() ?? requestTimeoutMs;
+
+            requestTimeoutMs = config["workThread"]?["timeoutMs"]?.Deserialize<int?>() ?? 300000;
+
+
+            task_DeliveryToOrganize_Processor = ConsumerFactory.CreateConsumer<DeliveryToOrganize_MessageFrame>(config["workThread"] as JObject);
+            task_DeliveryToOrganize_Processor.processor = DeliveryToOrganize_ProcessFrame;
+            task_DeliveryToOrganize_Processor.name = "CL-RequestAdaptor-dealer";
         }
         #endregion
 
@@ -157,21 +158,19 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
   
         long reqKeyIndex = CommonHelp.NewFastGuidLong();
-   
+
         #endregion
 
 
-        #region (x.x.2)config
+        #region (x.x.2) config      
 
-        /// <summary>
-        /// 后台处理消息的线程个数（单位个，默认2）
-        /// </summary>
-        int workThreadCount = 2;
 
         /// <summary>
         /// 请求超时时间（单位ms，默认300000）
         /// </summary>
-        public int requestTimeoutMs = 300000;
+        public int requestTimeoutMs;
+
+
 
         /// <summary>
         /// 心跳检测超时时间（单位ms，默认30000）
@@ -201,8 +200,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         #region deliveryToOrganize_MessageFrameQueue  
 
 
-        IConsumer<DeliveryToOrganize_MessageFrame> task_DeliveryToOrganize_Processor = ConsumerFactory.CreateConsumer<DeliveryToOrganize_MessageFrame>();
- 
+        readonly IConsumer<DeliveryToOrganize_MessageFrame> task_DeliveryToOrganize_Processor; 
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -80,7 +80,7 @@ namespace CLClient
                     consumer = new Consumer_BufferBlock<Product>();   //2 36 800-1000万
                     break;
                 case "BlockingCollection":
-                    consumer = new Consumer_BlockingCollection<Product>();  //16 16 440万          2  2  800万
+                    consumer = new LongTask<Product>();  //16 16 440万          2  2  800万
                     break;
               
   
@@ -92,13 +92,13 @@ namespace CLClient
                 //    break;
 
                 case "ConsumerCache_ActionBlock":
-                    consumer = new ConsumerCache<Product, Consumer_ActionBlock<Product>>(); // 16 16  4000-4200万
+                    consumer = new ConsumerCascade<Product, Consumer_ActionBlock<Product>>(); // 16 16  4000-4200万
                     break;
                 case "ConsumerCache_BufferBlock":
-                    consumer = new ConsumerCache<Product, Consumer_BufferBlock<Product>>(); // 16 16  1500-1600万
+                    consumer = new ConsumerCascade<Product, Consumer_BufferBlock<Product>>(); // 16 16  1500-1600万
                     break;
                 case "ConsumerCache_BlockingCollection":
-                    consumer = new ConsumerCache<Product, Consumer_BlockingCollection<Product>>(); //16 16 4200-4500万
+                    consumer = new ConsumerCascade<Product, LongTask<Product>>(); //16 16 4200-4500万
                     break;
 
 

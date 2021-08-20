@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using Sers.Core.Module.Api.ApiDesc;
 using Sers.Core.Module.Api.LocalApi;
 
-namespace Sers.Serslot.Mode.BackgroundTask
+namespace Sers.Serslot
 {
     [JsonObject(MemberSerialization.OptIn)]
     public class LocalApiNode : IApiNode

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -10,7 +11,7 @@ namespace Sers.Core.Util.Consumer
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="Consumer"></typeparam>
-    public class ConsumerCache<T,Consumer> : IConsumer<T>
+    public class ConsumerCascade<T,Consumer> : IConsumer<T>
         where Consumer:IConsumer<T>,new()
     {
 
@@ -18,7 +19,10 @@ namespace Sers.Core.Util.Consumer
 
         public string name { get; set; }
 
+
         public Action<T> processor { get; set; }
+        public Action<T> OnFinish { get; set; }
+        public Action<T> OnTimeout { get; set; }
 
 
         int curRootIndex;
@@ -28,6 +32,11 @@ namespace Sers.Core.Util.Consumer
 
 
         public bool IsRunning { get; private set; } = false;
+
+        public void Init(JObject config)
+        {
+        }
+
         public void Start()
         {
             if (IsRunning) return;

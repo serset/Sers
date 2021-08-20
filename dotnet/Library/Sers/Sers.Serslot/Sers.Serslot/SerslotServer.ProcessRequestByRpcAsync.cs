@@ -5,14 +5,10 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using Vit.Extensions;
 
-namespace Sers.Serslot.Mode.BackgroundTask
+namespace Sers.Serslot
 {
     public partial class SerslotServer
     {
-
-
-
-
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] ProcessRequestByRpc(ArraySegment<byte> arg_OriData)

@@ -8,8 +8,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Vit.Core.Module.Log;
 using Vit.Extensions;
 
-
-namespace Sers.Serslot.Mode.Async
+namespace Sers.Serslot
 {
     public partial class SerslotServer : IServer
     {
@@ -33,22 +32,21 @@ namespace Sers.Serslot.Mode.Async
 
         #region ProcessRequest       
 
-        Func<FeatureCollection,Task> OnProcessRequest;
+        Action<FeatureCollection> OnProcessRequest;
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public async Task<IHttpResponseFeature> ProcessRequestAsync(HttpRequestFeature requestFeature)
+        public IHttpResponseFeature ProcessRequest(HttpRequestFeature requestFeature)
         {
-            requestFeature.InitForSerslot(pairingToken, out var _responseFeature,out var features);
+            requestFeature.InitForSerslot(pairingToken, out var _responseFeature, out var features);
 
-            await OnProcessRequest(features);
+            OnProcessRequest(features);
 
             return _responseFeature;
-        }
-
-     
+        } 
 
         #endregion
 
+ 
 
 
         public IFeatureCollection Features { get; } = new FeatureCollection();
@@ -59,7 +57,7 @@ namespace Sers.Serslot.Mode.Async
             try
             {
                 #region (x.1) build OnProcessRequest               
-                OnProcessRequest = async (features) =>
+                OnProcessRequest = (features) =>
                 {
 
                     Exception _applicationException = null;
@@ -76,10 +74,11 @@ namespace Sers.Serslot.Mode.Async
                         //}
 
 
+
+
                         // Run the application code for this request
                         // application.ProcessRequestAsync(httpContext).GetAwaiter().GetResult();
-                       
-                        await application.ProcessRequestAsync(httpContext);
+                        application.ProcessRequestAsync(httpContext).Wait();
 
 
                         //var _responseFeature = features.Get<IHttpResponseFeature>() as SerslotResponseFeature;
@@ -112,14 +111,13 @@ namespace Sers.Serslot.Mode.Async
                 };
                 #endregion
 
+                Logger.Info("[Serslot] Mode: BackgroundTask");
 
-                Logger.Info("[Serslot] Mode: Async");
-
-                #region (x.x.2)º”‘ÿapi
+                #region (x.x.2)º”‘ÿapi           
 
                 ServiceStation.ServiceStation.Instance.LoadApi();
 
-                LoadSerslotApi(ServiceStation.ServiceStation.Instance.localApiService,Assembly.GetEntryAssembly());
+                LoadSerslotApi(ServiceStation.ServiceStation.Instance.localApiService, Assembly.GetEntryAssembly());
 
                 #endregion
 

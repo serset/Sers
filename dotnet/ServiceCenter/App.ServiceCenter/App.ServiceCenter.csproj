@@ -8,7 +8,7 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>netcoreapp2.1</TargetFramework>
-		<Version>2.1.9</Version>
+		<Version>2.1.10-temp</Version>
 		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
 	</PropertyGroup>
 
@@ -36,12 +36,12 @@
 	</ItemGroup>
 
 
-
 	<ItemGroup>
 		<Content Include="..\App.Gover.Gateway\wwwroot\**">
 			<Link>wwwroot\%(RecursiveDir)%(Filename)%(Extension)</Link>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
+
 
 </Project>

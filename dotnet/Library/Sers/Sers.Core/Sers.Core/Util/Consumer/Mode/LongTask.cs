@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -11,20 +12,29 @@ namespace Sers.Core.Util.Consumer
     /// qps : 260万   producer:16    consumer:16
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Consumer_BlockingCollection<T>: IConsumer<T>
+    public class LongTask<T>: IConsumer<T>
     {
 
         public int workThreadCount { get; set; } = 16;
 
         public string name { get; set; }
 
+
         public Action<T> processor { get; set; }
+        public Action<T> OnFinish { get; set; }
+        public Action<T> OnTimeout { get; set; }
 
 
         BlockingCollection<T> queue = new BlockingCollection<T>();
         LongTaskHelp task = new LongTaskHelp();
 
         public bool IsRunning { get => task.IsRunning; }
+
+
+        public void Init(JObject config)
+        {
+        }
+
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Publish(T t) 
@@ -59,8 +69,9 @@ namespace Sers.Core.Util.Consumer
                     #region Process                        
                     while (true)
                     {
-                        //var msgFrame = queue.Take();
-                        processor(queue.Take());
+                        var msgFrame = queue.Take();
+                        processor(msgFrame);
+                        OnFinish?.Invoke(msgFrame);
                     }
                     #endregion
                 }

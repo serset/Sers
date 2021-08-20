@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.1.9</Version>
+    <Version>2.1.10-temp</Version>
   </PropertyGroup>
   
   <PropertyGroup>
@@ -17,10 +17,13 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <Compile Remove="Sers.Core\Util\Consumer\**" />
     <Compile Remove="SersLoader\ApiDesc\Attribute\Valid\delete\**" />
     <Compile Remove="Vit.Core\Extensions\byte\**" />
+    <EmbeddedResource Remove="Sers.Core\Util\Consumer\**" />
     <EmbeddedResource Remove="SersLoader\ApiDesc\Attribute\Valid\delete\**" />
     <EmbeddedResource Remove="Vit.Core\Extensions\byte\**" />
+    <None Remove="Sers.Core\Util\Consumer\**" />
     <None Remove="SersLoader\ApiDesc\Attribute\Valid\delete\**" />
     <None Remove="Vit.Core\Extensions\byte\**" />
   </ItemGroup>
@@ -42,6 +45,7 @@
  
  
   <ItemGroup>
+    <Folder Include="Sers.Core\Util\" />
     <Folder Include="Vit.Core\Extensions\" />
   </ItemGroup>
 

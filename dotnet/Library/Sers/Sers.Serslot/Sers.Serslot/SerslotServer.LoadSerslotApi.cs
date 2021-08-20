@@ -5,7 +5,7 @@ using Sers.Core.Module.Api.LocalApi;
 using Vit.Extensions;
 
 
-namespace Sers.Serslot.Mode.Async
+namespace Sers.Serslot
 {
     public partial class SerslotServer 
     {
@@ -28,7 +28,7 @@ namespace Sers.Serslot.Mode.Async
             Func<SsApiDesc, IApiNode> CreateApiNode =
                 (apiDesc) =>
                 {
-                    return new ApiNode_Original(apiDesc: apiDesc);
+                    return new LocalApiNode( apiDesc,this);
                 };
 
             var apiLoader = new Sers.Serslot.ApiLoader(CreateApiNode);
@@ -38,7 +38,7 @@ namespace Sers.Serslot.Mode.Async
 
 
             //(x.2)load api from appsettings.json::serslot.extApi
-            data.LoadSerslotExtApi();
+            data.LoadSerslotExtApi(apiDesc=> new LocalApiNode(apiDesc, this));
 
         }
     }
