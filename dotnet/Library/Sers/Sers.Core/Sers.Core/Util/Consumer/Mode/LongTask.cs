@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Threading;
+using Vit.Extensions;
 
 namespace Sers.Core.Util.Consumer
 {
@@ -12,13 +13,13 @@ namespace Sers.Core.Util.Consumer
     /// qps : 260万   producer:16    consumer:16
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class LongTask<T>: IConsumer<T>
+    public class LongTask<T> : IConsumer<T>
     {
 
-        public int workThreadCount { get; set; } = 16;
+        public string threadName { get => task.threadName; set => task.threadName = value; }
 
-        public string name { get; set; }
 
+        public int threadCount { get => task.threadCount; set => task.threadCount = value; }
 
         public Action<T> processor { get; set; }
         public Action<T> OnFinish { get; set; }
@@ -28,11 +29,12 @@ namespace Sers.Core.Util.Consumer
         BlockingCollection<T> queue = new BlockingCollection<T>();
         LongTaskHelp task = new LongTaskHelp();
 
-        public bool IsRunning { get => task.IsRunning; }
+        public bool isRunning { get => task.IsRunning; }
 
 
         public void Init(JObject config)
-        {
+        { 
+            threadCount = config["threadCount"]?.Deserialize<int?>() ?? 16;
         }
 
 
@@ -47,8 +49,8 @@ namespace Sers.Core.Util.Consumer
         { 
             task.Stop();
 
-            task.threadName = name;
-            task.threadCount = workThreadCount;
+            task.threadName = threadName;
+            task.threadCount = threadCount;
             task.action = Processor;
             task.Start();
         }

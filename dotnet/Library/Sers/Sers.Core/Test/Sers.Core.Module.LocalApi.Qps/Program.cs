@@ -17,13 +17,13 @@ namespace DeliveryTest
             try
             {
                 
-                LocalApiTest.workThreadCount = 16;
+                LocalApiTest.threadCount = 16;
                 int requestTreadCount = 32;
                 if (args != null)
                 {
                     if (args.Length >=1)
                     {
-                        int.TryParse(args[0], out LocalApiTest.workThreadCount);
+                        int.TryParse(args[0], out LocalApiTest.threadCount);
                     }
 
                     if (args.Length >= 2)

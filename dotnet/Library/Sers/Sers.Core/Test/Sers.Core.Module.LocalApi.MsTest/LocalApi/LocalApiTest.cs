@@ -18,7 +18,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
 
                 //(x.1)构建
                 LocalApiService localApiService = LocalApiServiceFactory.CreateLocalApiService() as LocalApiService;
-                localApiService.workThreadCount = 1;
+                localApiService.threadCount = 1;
                 localApiService.LoadSersApi(this.GetType().Assembly);
 
                 try

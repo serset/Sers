@@ -137,18 +137,18 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             heartBeatRetryCount = config["heartBeatRetryCount"]?.Deserialize<int?>() ?? heartBeatRetryCount;
             heartBeatIntervalMs = config["heartBeatIntervalMs"]?.Deserialize<int?>() ?? heartBeatIntervalMs;
 
-            requestTimeoutMs = config["workThread"]?["timeoutMs"]?.Deserialize<int?>() ?? 300000;
+            requestTimeoutMs = config["requestTimeoutMs"]?.Deserialize<int?>() ?? requestTimeoutMs;
 
 
             task_DeliveryToOrganize_Processor = ConsumerFactory.CreateConsumer<DeliveryToOrganize_MessageFrame>(config["workThread"] as JObject);
             task_DeliveryToOrganize_Processor.processor = DeliveryToOrganize_ProcessFrame;
-            task_DeliveryToOrganize_Processor.name = "CL-RequestAdaptor-dealer";
+            task_DeliveryToOrganize_Processor.threadName = "CL-RequestAdaptor-dealer";
         }
         #endregion
 
 
         #endregion
-               
+
 
 
 

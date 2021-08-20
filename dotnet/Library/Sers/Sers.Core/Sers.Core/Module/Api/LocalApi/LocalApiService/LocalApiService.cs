@@ -20,15 +20,15 @@ namespace Sers.Core.Module.Api.LocalApi
     {
 
         /// <summary>
-        /// 后台服务的线程个数（单位个，默认0,代表不开启服务）(appsettings.json :: Sers.LocalApiService.workThreadCount)
+        /// 后台服务的线程个数（单位个，0代表不开启服务）(appsettings.json :: Sers.LocalApiService.workThread.threadCount)
         /// </summary>
-        public int workThreadCount { get => workThread.workThreadCount; set => workThread.workThreadCount = value; }
+        public int threadCount { get => workThread.threadCount; set => workThread.threadCount = value; }
 
         public LocalApiService()
         {
             workThread = ConsumerFactory.CreateConsumer<RequestInfo>(ConfigurationManager.Instance.GetByPath<JObject>("Sers.LocalApiService.workThread"));
 
-            workThread.name = "LocalApiService";
+            workThread.threadName = "LocalApiService";
             workThread.processor = Consumer_Processor;
             workThread.OnFinish = Consumer_OnFinish;
             workThread.OnTimeout = Consumer_OnTimeout;
@@ -170,13 +170,13 @@ namespace Sers.Core.Module.Api.LocalApi
 
         bool Consumer_Start()
         {
-            if (workThread.IsRunning) return false;
+            if (workThread.isRunning) return false;
             try
             {
-                if (workThreadCount > 0)
+                if (threadCount > 0)
                 {
                     workThread.Start();
-                    Logger.Info("[LocalApiService] Started,workThreadCount:" + workThreadCount);
+                    Logger.Info("[LocalApiService] Started,threadCount:" + threadCount);
 
                 }
                 return true;
@@ -191,7 +191,7 @@ namespace Sers.Core.Module.Api.LocalApi
 
         void Consumer_Stop()
         {
-            if (!workThread.IsRunning) return;
+            if (!workThread.isRunning) return;
 
             try
             {

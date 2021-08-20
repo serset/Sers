@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using Vit.Extensions;
 
 namespace Sers.Core.Util.Consumer
 {
@@ -15,9 +16,9 @@ namespace Sers.Core.Util.Consumer
         where Consumer:IConsumer<T>,new()
     {
 
-        public int workThreadCount { get; set; } = 2;
+        public int threadCount { get; set; } = 16;
 
-        public string name { get; set; }
+        public string threadName { get; set; }
 
 
         public Action<T> processor { get; set; }
@@ -31,23 +32,30 @@ namespace Sers.Core.Util.Consumer
 
 
 
-        public bool IsRunning { get; private set; } = false;
+        public bool isRunning { get; private set; } = false;
 
+        JObject config;
         public void Init(JObject config)
         {
+            this.config = config;
+            threadCount = config["threadCount"]?.Deserialize<int?>() ?? 16;
         }
 
         public void Start()
         {
-            if (IsRunning) return;
-            IsRunning = true;
+            if (isRunning) return;
+            isRunning = true;
 
 
-            rootWorkerList = Enumerable.Range(0, workThreadCount).Select(m =>
+            rootWorkerList = Enumerable.Range(0, threadCount).Select(m =>
             {
                 var worker = new Consumer();
+                worker.Init(config);
                 worker.processor = processor;
-                worker.workThreadCount = 1;
+                worker.OnFinish = OnFinish;
+                worker.OnTimeout = OnTimeout;
+                worker.threadCount = 1;
+                worker.threadName = threadName;
                 //worker.Start();
                 return worker;
             }).ToArray();
@@ -60,8 +68,8 @@ namespace Sers.Core.Util.Consumer
 
         public void Stop()
         {
-            if (!IsRunning) return;
-            IsRunning = false;
+            if (!isRunning) return;
+            isRunning = false;
 
             rootWorkerList?.ToList().ForEach(m => m.Stop());
             rootWorkerList = null;

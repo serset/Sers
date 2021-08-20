@@ -175,7 +175,9 @@
                             var html = '<a href="?" title="所有">所有</a> | ';
                             var data = apiRet.data;
                             for (var t in data) {
-                                var stationName = data[t].stationName;
+                                var station = data[t];
+                                if (station.activeApiNodeCount == 0) continue;
+                                var stationName = station.stationName;
                                 html += '<a href="?r=' + stationName + '" title="' + stationName + '">' + stationName + '</a> | ';
                             }
                             $('#apiStation').html(html);

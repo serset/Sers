@@ -3,6 +3,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
 using Vit.Core.Util.Threading;
+using Vit.Extensions;
 
 namespace Sers.Core.Util.Consumer.Mode
 {
@@ -16,10 +17,10 @@ namespace Sers.Core.Util.Consumer.Mode
         LongTaskHelp_TimeLimit task = new LongTaskHelp_TimeLimit();
 
 
-        public string name { get => task.threadName; set => task.threadName = value; }
+        public string threadName { get => task.threadName; set => task.threadName = value; }
 
 
-        public int workThreadCount { get => task.threadCount; set => task.threadCount = value; }
+        public int threadCount { get => task.threadCount; set => task.threadCount = value; }
 
 
         /// <summary>
@@ -33,10 +34,12 @@ namespace Sers.Core.Util.Consumer.Mode
 
 
 
-        public bool IsRunning { get => task.IsRunning; }
+        public bool isRunning { get => task.IsRunning; }
 
         public void Init(JObject config)
         {
+            threadCount = config["threadCount"]?.Deserialize<int?>() ?? 1;
+            timeout_ms = config["timeoutMs"]?.Deserialize<int?>() ?? 300000;     
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

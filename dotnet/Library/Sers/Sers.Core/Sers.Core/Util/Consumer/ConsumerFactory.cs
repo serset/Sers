@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using Sers.Core.Util.Consumer.Mode;
 
 namespace Sers.Core.Util.Consumer
 {
@@ -10,18 +11,24 @@ namespace Sers.Core.Util.Consumer
 
             IConsumer<T> consumer;
             switch (config["mode"].ToString())
-            {               
-                case "BlockingCollection":
-                    consumer = new LongTask<T>();  //16 16 440万          2  2  800万
+            {
+                case "AsyncTask":
+                    consumer = new AsyncTask<T>();
                     break;
-                case "ConsumerCache_BlockingCollection":
-                    consumer = new ConsumerCascade<T, LongTask<T>>(); //16 16 4200-4500万
+                case "ConsumerCascade":
+                    consumer = new ConsumerCascade<T, LongTask<T>>();
                     break;
-
+                case "LongTask":
+                    consumer = new LongTask<T>();
+                    break;
+                case "LongTask_TimeLimit":
+                    consumer = new LongTask_TimeLimit<T>();
+                    break;
                 default:
                     consumer = new LongTask<T>();
                     break;
             }
+
             consumer.Init(config);
 
             return consumer;

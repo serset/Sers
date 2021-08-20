@@ -124,7 +124,7 @@ namespace CLClient
 
 
             consumer.processor = Processor;
-            consumer.workThreadCount = consumerThreadCount;
+            consumer.threadCount = consumerThreadCount;
             consumer.Start();
 
 
