@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Text;
  
 
-namespace Vit.Core.Util.Threading
+namespace Vit.Core.Util.Threading.Cache
 {
     /// <summary>
     /// 切换线程时依然可以传递数据。(若切换线程不传递则可使用System.Threading.ThreadLocal ,或者使用[ThreadStatic]特性)

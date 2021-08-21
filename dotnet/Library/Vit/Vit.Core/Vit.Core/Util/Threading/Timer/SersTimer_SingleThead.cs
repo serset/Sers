@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace Vit.Core.Util.Threading
+namespace Vit.Core.Util.Threading.Timer
 {
     /// <summary>
     /// 若前序timer回调没有执行结束，则后续回调不会被调用

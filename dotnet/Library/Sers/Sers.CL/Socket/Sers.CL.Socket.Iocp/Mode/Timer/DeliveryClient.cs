@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using Sers.CL.Socket.Iocp.Base;
 using Vit.Core.Module.Log;
-using Vit.Core.Util.Threading;
+using Vit.Core.Util.Threading.Timer;
 
 namespace Sers.CL.Socket.Iocp.Mode.Timer
 {

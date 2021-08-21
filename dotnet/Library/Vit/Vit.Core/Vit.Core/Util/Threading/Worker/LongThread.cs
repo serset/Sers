@@ -2,31 +2,29 @@
 using System.Threading;
 using Vit.Extensions;
 using Vit.Core.Module.Log;
-using Vit.Core.Util.ComponentModel.SsError;
 using System.Runtime.CompilerServices;
 
-namespace Vit.Core.Util.Threading
+namespace Vit.Core.Util.Threading.Worker
 {
     /// <summary>
     /// 注意！！！慎用！！！
     /// 请勿处理ThreadInterruptedException异常，否则导致线程无法正常结束
-    ///         catch (Exception ex) when (!(ex.GetBaseException() is ThreadInterruptedException))
+    /// catch (Exception ex) when (!(ex.GetBaseException() is ThreadInterruptedException))
     /// </summary>
-    public class LongTaskHelp:IDisposable
+    public class LongThread : IDisposable
     {
-        public LongTaskHelp()
-        {
-            threadCount = 1;
-        }
-        ~LongTaskHelp()
-        {
-            Dispose();
-        }
 
-        public virtual void Dispose()
-        {
-            Stop();
-        }
+        /// <summary>
+        /// 请勿处理ThreadInterruptedException异常，否则导致线程无法正常结束
+        /// 不可抛异常
+        /// </summary>
+        public Action Processor;
+
+
+        /// <summary>
+        /// 线程名称
+        /// </summary>
+        public string threadName;
 
 
         private int _threadCount;
@@ -38,7 +36,7 @@ namespace Vit.Core.Util.Threading
             get => _threadCount;
             set
             {
-                if (IsRunning) throw Error_CannotChangeThreadCountWhileRunning.ToException();
+                if (IsRunning) throw WorkerHelp.Error_CannotChangeThreadCountWhileRunning.ToException();
                 _threadCount = value;
                 if (_threadCount > 0)
                     semaphore = new Semaphore(_threadCount, _threadCount);
@@ -49,11 +47,8 @@ namespace Vit.Core.Util.Threading
             }
         }
 
-        /// <summary>
-        /// 请勿处理ThreadInterruptedException异常，否则导致线程无法正常结束
-        /// </summary>
-        public Action action;
-        
+  
+
         /// <summary>
         /// 是否在执行完成后重新执行。
         /// </summary>
@@ -63,13 +58,30 @@ namespace Vit.Core.Util.Threading
         /// </summary>
         public bool stopWhenException = false;
 
-        Thread []threads;
+        Thread[] threads;
 
         Semaphore semaphore;
+
         int runningThreadCount = 0;
         public int RunningThreadCount => runningThreadCount;
 
-        public bool IsRunning => runningThreadCount!=0;//threads != null && threads.Any(item=> item.IsAlive);
+        public bool IsRunning => runningThreadCount != 0;//threads != null && threads.Any(item=> item.IsAlive);
+
+
+        public LongThread()
+        {
+            threadCount = 1;
+        }
+        ~LongThread()
+        {
+            Dispose();
+        }
+
+        public virtual void Dispose()
+        {
+            Stop();
+        }
+
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void Run()
@@ -84,7 +96,7 @@ namespace Vit.Core.Util.Threading
                 return;
                 //throw;
             }
-           
+
             Interlocked.Increment(ref runningThreadCount);
             try
             {
@@ -92,8 +104,8 @@ namespace Vit.Core.Util.Threading
                 {
                     try
                     {
-                        action?.Invoke();
-                    } 
+                        Processor?.Invoke();
+                    }
                     catch (Exception ex) when (ex.GetBaseException() is ThreadInterruptedException)
                     {
                         return;
@@ -115,26 +127,16 @@ namespace Vit.Core.Util.Threading
                 semaphore.Release();
             }
         }
-        internal static SsError Error_CannotChangeThreadCountWhileRunning => new SsError { errorMessage="can't change threadCount while tasks is running.",errorTag="lith_190223_01"
-        };
-        internal static SsError Error_CannotStartWhileRunning => new SsError
-        {
-            errorMessage = "can't  start while task is running.",
-            errorTag = "lith_190223_02"
-        };
+      
 
-        /// <summary>
-        /// 线程名称
-        /// </summary>
-        public string threadName;
-     
+
         public void Start()
         {
             if (IsRunning)
             {
-                throw LongTaskHelp.Error_CannotStartWhileRunning.ToException();
+                throw WorkerHelp.Error_CannotStartWhileRunning.ToException();
             }
-            if (threadCount <=0)
+            if (threadCount <= 0)
             {
                 threads = null;
                 return;
@@ -145,7 +147,7 @@ namespace Vit.Core.Util.Threading
             {
                 var thread = new Thread(Run);
                 thread.IsBackground = true;
-                thread.Name = threadName+"-"+i;
+                thread.Name = threadName + "-" + i;
                 thread.Start();
                 threads[i] = thread;
             }
@@ -160,23 +162,23 @@ namespace Vit.Core.Util.Threading
             if (!IsRunning) return;
 
             if (null != threads)
-            {                
+            {
                 foreach (var thread in threads)
                 {
                     try
                     {
-                        if(thread.IsAlive)
+                        if (thread.IsAlive)
                             thread.Interrupt();
                     }
-                    catch { }                   
-                }               
+                    catch { }
+                }
             }
 
             //if (semaphore.WaitOne(1000))
             //{
             //    semaphore.Release();
             //}
-           
+
         }
     }
 }

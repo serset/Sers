@@ -18,7 +18,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
 
                 //(x.1)构建
                 LocalApiService localApiService = LocalApiServiceFactory.CreateLocalApiService() as LocalApiService;
-                localApiService.threadCount = 1;
+                localApiService.threadCount = 4;
                 localApiService.LoadSersApi(this.GetType().Assembly);
 
                 try
@@ -46,9 +46,9 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
                     };
                     returnValue = localApiService.CallLocalApi<string>(route, argValue);
                     var list = localApiService.CallLocalApi<List<string>>(route, argValue);
-                    Assert.AreEqual(list.Count, 2);
+                    Assert.AreEqual(2,list.Count);
                     string[] arr = localApiService.CallLocalApi<string[]>(route, argValue);
-                    Assert.AreEqual(arr.Length, 2);
+                    Assert.AreEqual(2,arr.Length);
 
                 }
                 finally
@@ -58,7 +58,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
             }
             catch (Exception ex)
             {
-                Assert.Fail();
+                Assert.Fail(ex.Message);
             }
 
         }

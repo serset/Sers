@@ -3,6 +3,8 @@ using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
+
+using Vit.Core.Util.Threading.Worker;
 using Vit.Extensions;
 
 namespace Sers.Core.Util.Consumer
@@ -21,9 +23,8 @@ namespace Sers.Core.Util.Consumer
         public string threadName { get; set; }
 
 
-        public Action<T> processor { get; set; }
-        public Action<T> OnFinish { get; set; }
-        public Action<T> OnTimeout { get; set; }
+        public Action<T> Processor { get; set; }
+        public Action<ETaskFinishStatus,T> OnFinish { get; set; } 
 
 
         int curRootIndex;
@@ -51,12 +52,10 @@ namespace Sers.Core.Util.Consumer
             {
                 var worker = new Consumer();
                 worker.Init(config);
-                worker.processor = processor;
-                worker.OnFinish = OnFinish;
-                worker.OnTimeout = OnTimeout;
+                worker.Processor = Processor;
+                worker.OnFinish = OnFinish;              
                 worker.threadCount = 1;
-                worker.threadName = threadName;
-                //worker.Start();
+                worker.threadName = threadName;      
                 return worker;
             }).ToArray();
 

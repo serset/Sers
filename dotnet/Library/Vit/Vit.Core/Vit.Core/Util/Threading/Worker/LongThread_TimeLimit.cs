@@ -2,30 +2,40 @@
 using System.Threading;
 using Vit.Extensions;
 using Vit.Core.Module.Log;
+using Vit.Core.Util.Threading.Timer;
 
-namespace Vit.Core.Util.Threading
+namespace Vit.Core.Util.Threading.Worker
 {
     /// <summary>
     /// 注意！！！慎用！！！
     /// 请勿处理ThreadInterruptedException异常，否则导致线程无法正常结束
-    /// 若在超时时间内未清理状态，则强制关闭任务
+    /// 若在超时时间内未清理状态，则强制关闭任务。拉任务的模式。
     /// </summary>
-    public class LongTaskHelp_TimeLimit:IDisposable
+    public class LongThread_TimeLimit<T>:IDisposable
     {
-        public LongTaskHelp_TimeLimit()
-        {
-            threadCount = 1;
-        }
-        ~LongTaskHelp_TimeLimit()
-        {
-            Dispose();
-        }
 
-        public virtual void Dispose()
-        {
-            Stop();
-        }
+        /// <summary>
+        /// 不可抛异常
+        /// </summary>
+        public Func<T> GetWork;
 
+        /// <summary>
+        /// 不可抛异常
+        /// </summary>
+        public Action<T> Processor;
+
+        /// <summary>
+        /// 不可抛异常
+        /// status: success/error/timeout
+        /// </summary>
+        public Action<ETaskFinishStatus, T> OnFinish;
+ 
+
+
+        /// <summary>
+        /// 线程名称
+        /// </summary>
+        public string threadName;
 
         private int _threadCount;
         /// <summary>
@@ -36,7 +46,7 @@ namespace Vit.Core.Util.Threading
             get => _threadCount;
             set
             {
-                if (IsRunning) throw LongTaskHelp.Error_CannotChangeThreadCountWhileRunning.ToException();
+                if (IsRunning) throw WorkerHelp.Error_CannotChangeThreadCountWhileRunning.ToException();
                 _threadCount = value;
                 if (_threadCount > 0)
                     semaphore = new Semaphore(_threadCount, _threadCount);
@@ -58,26 +68,46 @@ namespace Vit.Core.Util.Threading
         /// </summary>
         public bool stopWhenException = false;
 
-        Worker[]threads;
+        Worker[] workers;
 
         Semaphore semaphore;
+
         int runningThreadCount = 0;
         public int RunningThreadCount => runningThreadCount;
 
         public bool IsRunning => runningThreadCount!=0;//threads != null && threads.Any(item=> item.IsAlive);
 
-
+        bool NeedRunning { get; set; } = false;      
 
         /// <summary>
         /// 超时时间。脉冲间隔。（主动关闭超过此时间的任务,实际任务强制关闭的时间会在1倍超时时间到2倍超时时间内)。单位：ms。(默认300000)
         /// </summary>
-        public int timeout_ms = 300000;
+        public int timeoutMs { get => pulseMaker.intervalMs; set => pulseMaker.intervalMs = value; }
+
+
+        public LongThread_TimeLimit()
+        {
+            pulseMaker = new SersTimer { intervalMs = 300000, timerCallback = PulseMake };
+
+            threadCount = 1;
+        }
+        ~LongThread_TimeLimit()
+        {
+            Dispose();
+        }
+
+        public virtual void Dispose()
+        {
+            Stop();
+        }
+
+
 
         #region 电子脉冲
         /// <summary>
         /// 脉冲生产器
         /// </summary>
-        SersTimer pulseMaker;
+        readonly SersTimer pulseMaker;
 
         /// <summary>
         /// 电子脉冲，在固定的时间间隔发送脉冲
@@ -86,52 +116,39 @@ namespace Vit.Core.Util.Threading
         public void PulseMake(object obj)
         {
             if (!IsRunning) return;
-            if (threads == null) return;
+            if (workers == null) return;
 
-            foreach (var worker in threads)
-            {    
-                Interlocked.Increment(ref worker.pulseCount);             
-
-                if (worker.isDealing && worker.pulseCount >= 2)
-                {
-                    worker.TryStop();
-                }
+            foreach (var worker in workers)
+            {
+                worker.Pulse();
             }
         }
         #endregion
-
-
-
  
     
          
 
-        /// <summary>
-        /// 线程名称
-        /// </summary>
-        public string threadName;
      
-        public void Start(Action<Worker> GetWork, Action<Worker> DealWork, Action<Worker> OnFinish, Action<Worker> OnTimeout)
+        public void Start()
         {
             if (IsRunning)
             {
-                throw LongTaskHelp.Error_CannotStartWhileRunning.ToException();
+                throw WorkerHelp.Error_CannotStartWhileRunning.ToException();
             }
             if (threadCount <=0)
             {
-                threads = null;
+                workers = null;
                 return;
             }
-
-            threads = new Worker[threadCount];
+            NeedRunning = true;
+            workers = new Worker[threadCount];
             for (int i = 0; i < threadCount; i++)
             {
-                var worker = threads[i] = new Worker() { GetWork = GetWork , DealWork = DealWork, OnFinish = OnFinish, OnTimeout = OnTimeout };              
+                var worker = workers[i] = new Worker() { GetWork = GetWork , Processor = Processor, OnFinish = OnFinish};
                 worker.Start(threadName + "-" + i,this);               
             }
 
             //(x.2)开启脉冲生产器
-            pulseMaker = new SersTimer { intervalMs= timeout_ms,timerCallback=PulseMake };
             pulseMaker.Start();
         }
 
@@ -143,79 +160,70 @@ namespace Vit.Core.Util.Threading
         {
             if (!IsRunning) return;
 
-            if (pulseMaker != null)
-            {
-                try
-                {
-                    pulseMaker.Stop();
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex);
-                }               
-                pulseMaker = null;
-            }
+            NeedRunning = false;
 
-            if (null != threads)
+            if (null != workers)
             {                
-                foreach (var threadItem in threads)
+                foreach (var threadItem in workers)
                 {
                     threadItem.TryStop();
                 }               
+            }
+
+            try
+            {
+                pulseMaker.Stop();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
             }
 
             //if (semaphore.WaitOne(1000))
             //{
             //    semaphore.Release();
             //}
-           
+
         }
 
 
-        public class Worker
+        class Worker
         {
             /*
-             流程为：    获取任务GetWork、执行任务DealWork、任务结束后回调OnFinish、任务超时回调（若超时）OnTimeout
-                 
-                 
-                 */
+                流程为：    获取任务GetWork、执行任务Processor、任务结束后回调OnFinish
+            */
 
-            public object workArg;
-            public object workArg2;
-            public object workArg3;
-            public object workArg4;
-
+            public T workArg; 
 
             /// <summary>
             /// 任务是否在执行中
             /// </summary>
-            public bool isDealing { get; private set; } = false;
+            public bool IsDealing { get; private set; } = false;
             /// <summary>
             /// 阻塞获取任务
             /// </summary>
-            public Action<Worker> GetWork;
+            public Func<T> GetWork;
             /// <summary>
             /// 不可抛异常
             /// </summary>
-            public Action<Worker> DealWork;
+            public Action<T> Processor;
+ 
             /// <summary>
             /// 不可抛异常
+            /// status: success/error/timeout
             /// </summary>
-            public Action<Worker> OnFinish;
-            /// <summary>
-            /// 不可抛异常
-            /// </summary>
-            public Action<Worker> OnTimeout;
+            public Action<ETaskFinishStatus, T> OnFinish;  
 
 
             /// <summary>
             /// 当前任务所经历的脉冲的次数
             /// </summary>
-            internal int pulseCount = 0;
+            int pulseCount = 0;
 
-            LongTaskHelp_TimeLimit task;
+            LongThread_TimeLimit<T> task;
             Thread thread;
-            internal void Start(string threadName, LongTaskHelp_TimeLimit task)
+
+            internal void Start(string threadName, LongThread_TimeLimit<T> task)
             {
                 this.task = task;
 
@@ -246,55 +254,56 @@ namespace Vit.Core.Util.Threading
                     {
                         try
                         {
-                            //(x.x.1)
-                            GetWork(this);
-
-                            //(x.x.2)
-                            pulseCount = 0;
-                            isDealing = true;
-
-                            //(x.x.3)
-                            DealWork(this);
-                            isDealing = false;
-
-                            //(x.x.4)
-                            OnFinish(this);
-                        }
-                        catch (Exception ex) when (ex.GetBaseException() is ThreadInterruptedException)
-                        {
-
+                            ETaskFinishStatus status = ETaskFinishStatus.success;
                             try
                             {
-                                isDealing = false;
-                                OnTimeout(this);
+                                IsDealing = false;
+
+                                //(x.x.1)
+                                workArg = GetWork();
+
+                                //(x.x.2)
+                                pulseCount = 0;
+                                IsDealing = true;
+
+                                //(x.x.3)
+                                Processor(workArg);
+                                IsDealing = false;
                             }
-                            catch (Exception ex1)
+                            catch (Exception ex) when (ex.GetBaseException() is ThreadInterruptedException)
                             {
-                                Logger.Error(ex1);
+                                IsDealing = false;
+                                status = ETaskFinishStatus.timeout;
+                               
+                            }
+                            catch (Exception ex)
+                            {
+                                IsDealing = false;
+                                status = ETaskFinishStatus.error;
+
+                                Logger.Error(ex);
                                 if (task.stopWhenException)
                                 {
                                     return;
                                 }
                             }
+                            finally
+                            {                           
+                                try
+                                {
+                                    OnFinish?.Invoke(status, workArg);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Logger.Error(ex);
+                                }
+                            }
                         }
                         catch (Exception ex)
                         {
-                            isDealing = false;
                             Logger.Error(ex);
-                            if (task.stopWhenException)
-                            {
-                                return;
-                            }
                         }
-                        finally 
-                        {
-                            workArg = null;                           
-                            workArg2 = null;
-                            workArg3 = null;
-                            workArg4 = null;
-                        }
-
-                    } while (task.loop);
+                    } while (task.loop && task.NeedRunning);
                 }
                 finally
                 {
@@ -303,9 +312,20 @@ namespace Vit.Core.Util.Threading
                 }
             }
 
+            public void Pulse()
+            {
+                try
+                {
+                    Interlocked.Increment(ref pulseCount);
+                    if (IsDealing && pulseCount >= 2)
+                    {
+                        TryStop();
+                    }
+                }
+                catch { }
+            }
 
-
-            internal bool TryStop()
+            public bool TryStop()
             {
                 try
                 {

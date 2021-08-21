@@ -1,6 +1,6 @@
-﻿using Vit.Core.Util.Threading;
-using System;
+﻿using System;
 using Sers.Core.Module.Message;
+using Vit.Core.Util.Threading.Cache;
 
 namespace Sers.Core.Module.Rpc
 {
@@ -19,6 +19,7 @@ namespace Sers.Core.Module.Rpc
 
 
         public ApiMessage apiRequestMessage;
+
         public ApiMessage apiReplyMessage;
 
         public RpcContextData rpcData;

@@ -4,25 +4,21 @@ using System.Threading;
 using Vit.Core.Module.Log;
 using Vit.Extensions;
 
-namespace Vit.Core.Util.Threading
+namespace Vit.Core.Util.Threading.Worker
 {
     /// <summary>
     /// 注意！！！慎用！！！
     /// 务必确保可以手动结束任务。
     /// 在每次调用完成后才会检测是否结束。调用过程中是不会结束的，除非手动抛出异常。
     /// </summary>
-    public class RepeatTaskHelp : IDisposable
+    public class RepeatTask : IDisposable
     {
-        
-        ~RepeatTaskHelp()
-        {
-            Dispose();
-        }
 
-        public virtual void Dispose()
-        {
-            sendStopSignal=true;
-        }
+
+        /// <summary>
+        /// 不可抛异常
+        /// </summary>
+        public Action Processor;
 
 
         /// <summary>
@@ -41,32 +37,42 @@ namespace Vit.Core.Util.Threading
         public long repeatCountPerThread =1;
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public Action action;
-
+ 
         /// <summary>
         /// 出现异常时是否终止,默认false
         /// </summary>
-        public bool stopWhenException { get; set; } = false;
+        public bool stopWhenException = false;
 
 
         /// <summary>
         /// 是否发送结束信号
         /// </summary>
-        bool sendStopSignal { get; set; } = false;
+        bool sendStopSignal = false;
 
 
         int runningThreadCount = 0;
+
         /// <summary>
         /// 执行中的线程数
         /// </summary>
-        public int RunningThreadCount => runningThreadCount;
-
-     
+        public int RunningThreadCount => runningThreadCount;     
 
         public bool IsRunning => runningThreadCount != 0;//threads != null && threads.Any(item=> item.IsAlive);
+
+
+
+        ~RepeatTask()
+        {
+            Dispose();
+        }
+
+        public virtual void Dispose()
+        {
+            sendStopSignal = true;
+        }
+
+
+
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void Run()
@@ -81,7 +87,7 @@ namespace Vit.Core.Util.Threading
                     {
                         try
                         {
-                            action?.Invoke();
+                            Processor?.Invoke();
                         }
                         catch (Exception ex)
                         {
@@ -100,7 +106,7 @@ namespace Vit.Core.Util.Threading
                     {
                         try
                         {
-                            action?.Invoke();
+                            Processor?.Invoke();
                         }
                         catch (Exception ex)
                         {
@@ -124,7 +130,7 @@ namespace Vit.Core.Util.Threading
         {
             if (IsRunning)
             {
-                throw LongTaskHelp.Error_CannotStartWhileRunning.ToException();
+                throw WorkerHelp.Error_CannotStartWhileRunning.ToException();
             }
 
             sendStopSignal = false;
@@ -145,6 +151,7 @@ namespace Vit.Core.Util.Threading
             }
 
         }
+
         /// <summary>
         /// 只发送发送结束信号，不保证会立即结束所有任务
         /// </summary>

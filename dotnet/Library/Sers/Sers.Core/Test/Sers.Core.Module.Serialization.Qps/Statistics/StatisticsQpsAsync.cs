@@ -79,7 +79,7 @@ namespace Statistics
 
             //qps
 
-            msg += $" qps: {qps.ToString("0.00")} ";
+            msg += $" qps: {qps.ToString("0.00")}Íò ";
             msg += $" curCount: {curCount} ";
             msg += $" sumCount: {curSumCount} ";
            

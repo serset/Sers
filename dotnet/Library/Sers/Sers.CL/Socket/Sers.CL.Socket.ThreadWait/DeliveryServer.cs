@@ -6,10 +6,12 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Sers.Core.CL.MessageDelivery;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Net;
-using Vit.Core.Util.Threading;
+using Vit.Core.Util.Threading.Worker;
 
 namespace Sers.CL.Socket.ThreadWait
 {
@@ -46,7 +48,7 @@ namespace Sers.CL.Socket.ThreadWait
         public IEnumerable<IDeliveryConnection> ConnectedList => connMap.Values.Select(conn => ((IDeliveryConnection)conn));
 
 
-        LongTaskHelp tcpListenerAccept_BackThread = new LongTaskHelp();
+        LongThread tcpListenerAccept_BackThread = new LongThread();
 
 
         #region Start
@@ -68,7 +70,7 @@ namespace Sers.CL.Socket.ThreadWait
                 listener.Start();
 
                 #region (x.2)启动Task监听listener
-                tcpListenerAccept_BackThread.action = () =>
+                tcpListenerAccept_BackThread.Processor = () =>
                 {
                     try
                     {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Collections.Concurrent;
 
 namespace Statistics
 {
@@ -11,12 +12,9 @@ namespace Statistics
 
     public class QpsData 
     {
-        public QpsData(StatisticsQpsAsync stat) 
+        public QpsData(StatisticsQpsAsync stat)
         {
-            lock (stat.qpsList) 
-            {
-                stat.qpsList.Add(this);
-            }
+            stat.qpsList.Enqueue(this);
         }
 
         public long RequestCount = 0;
@@ -26,7 +24,7 @@ namespace Statistics
 
     public class StatisticsQpsAsync
     {
-        public  List<QpsData> qpsList = new List<QpsData>();
+        public  ConcurrentQueue<QpsData> qpsList = new ConcurrentQueue<QpsData>();
 
   
 
@@ -79,7 +77,7 @@ namespace Statistics
 
             //qps
 
-            msg += $" qps: {qps.ToString("0.00")} ";
+            msg += $" qps: {qps.ToString("0.00")}Íò ";
             msg += $" curCount: {curCount} ";
             msg += $" sumCount: {curSumCount} ";
            

@@ -3,22 +3,23 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading;
 
-namespace Vit.Core.Util.Threading
+namespace Vit.Core.Util.Threading.Worker
 {
+    /// <summary>
+    /// 单工作者的任务队列。入队操作为多线程安全的。
+    /// </summary>
     public class TaskQueue
     {
 
-        #region 后台服务       
+        LongThread taskToInvokeTask = new LongThread() { threadName = nameof(TaskQueue), threadCount = 1 };
+        
+        BlockingCollection<Action> taskQueue = new BlockingCollection<Action>();
 
-        public void AddTask(Action task)
-        {
-            taskQueue.Add(task);
-        }
 
         /// <summary>
         /// 线程名称
         /// </summary>
-        public string threadName{ set { taskToInvokeTask.threadName = value;  } }
+        public string threadName{ get => taskToInvokeTask.threadName; set => taskToInvokeTask.threadName = value; }
 
 
         #region Start Stop
@@ -27,9 +28,9 @@ namespace Vit.Core.Util.Threading
         {
             try
             {
-                taskToInvokeTask.action = InvokeTaskInQueue;
+                taskToInvokeTask.Processor = InvokeTaskInQueue;
                 taskToInvokeTask.Start();
-                Logger.Info("[TaskQueue]"+ taskToInvokeTask.threadName + " Started");
+                Logger.Info("["+ nameof(TaskQueue) + "]"+ taskToInvokeTask.threadName + " Started");
 
                 return true;
             }
@@ -45,7 +46,7 @@ namespace Vit.Core.Util.Threading
             try
             {
                 taskToInvokeTask.Stop();
-                Logger.Info("[TaskQueue]" + taskToInvokeTask.threadName + " Stoped");
+                Logger.Info("[" + nameof(TaskQueue) + "]" + taskToInvokeTask.threadName + " Stoped");
             }
             catch (Exception ex)
             {
@@ -55,13 +56,12 @@ namespace Vit.Core.Util.Threading
         #endregion
 
 
-        #region  后台调用Api线程 taskToCallApi
+        public void AddTask(Action task)
+        {
+            taskQueue.Add(task);
+        }
 
-        LongTaskHelp taskToInvokeTask = new LongTaskHelp() { threadName="TaskQueue",threadCount=1};
-        BlockingCollection<Action> taskQueue = new BlockingCollection<Action>();
-
-
-
+        #region InvokeTaskInQueue
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         void InvokeTaskInQueue()
@@ -86,7 +86,7 @@ namespace Vit.Core.Util.Threading
         }
         #endregion
 
-        #endregion
+ 
 
     }
 }

@@ -1,10 +1,12 @@
 ﻿using Sers.CL.Zmq.FullDuplex.Zmq;
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
+
 using Vit.Core.Module.Log;
-using Vit.Core.Util.Threading;
+using Vit.Core.Util.Threading.Worker;
 
 namespace Sers.CL.Zmq.FullDuplex
 {
@@ -101,14 +103,14 @@ namespace Sers.CL.Zmq.FullDuplex
 
         #region taskToReceiveMsg
 
-        LongTaskHelp taskToReceiveMsg = new LongTaskHelp();
+        LongThread taskToReceiveMsg = new LongThread();
         void StartBackThreadToReceiveMsg()
         {
             taskToReceiveMsg.Stop();
 
             taskToReceiveMsg.threadName = "Sers.CL.Zmq.FullDuplex-taskToReceiveMsg";
             taskToReceiveMsg.threadCount = 1;
-            taskToReceiveMsg.action = TaskToReceiveMsg;
+            taskToReceiveMsg.Processor = TaskToReceiveMsg;
             taskToReceiveMsg.Start();
         }
 
@@ -142,14 +144,14 @@ namespace Sers.CL.Zmq.FullDuplex
         }
 
 
-        LongTaskHelp taskToSendMsg = new LongTaskHelp();
+        LongThread taskToSendMsg = new LongThread();
         void StartBackThreadToSendMsg()
         {
             taskToSendMsg.Stop();
 
             taskToSendMsg.threadName = "Sers.CL.Zmq.FullDuplex-taskToSendMsg";
             taskToSendMsg.threadCount = 1;
-            taskToSendMsg.action = TaskToSendMsg;
+            taskToSendMsg.Processor = TaskToSendMsg;
             taskToSendMsg.Start();
         }
 

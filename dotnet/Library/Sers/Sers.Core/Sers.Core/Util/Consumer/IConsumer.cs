@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 
+using Vit.Core.Util.Threading.Worker;
+
 namespace Sers.Core.Util.Consumer
 {
     public interface IConsumer<T>
@@ -12,10 +14,9 @@ namespace Sers.Core.Util.Consumer
 
         string threadName { get; set; }
 
-        Action<T> processor { get; set; }
+        Action<T> Processor { get; set; }
 
-        Action<T> OnFinish { get; set; }
-        Action<T> OnTimeout { get; set; }
+        Action<ETaskFinishStatus, T> OnFinish { get; set; }
 
         void Init(JObject config);
 

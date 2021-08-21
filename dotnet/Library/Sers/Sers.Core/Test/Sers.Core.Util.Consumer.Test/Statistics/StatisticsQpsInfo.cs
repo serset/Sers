@@ -95,13 +95,13 @@ namespace CLClient.Statistics
 
                 //cur
                 //msg += $",------Cur ";                
-                msg += $" ReqCount: {curCount}";
+                msg += $" ReqCount: {curCount}ǧ";
                 ms = (curTime - lastTime).TotalMilliseconds;
                 d = (curCount - lastCount) / ms * 1000;
-                msg += $",qps:{ d.ToString("0.00")  }";
+                msg += $",qps:{ d.ToString("0.00") }ǧ";
                 ms = 1.0 * (curRequestTicks - lastRequestTicks) / TimeSpan.TicksPerMillisecond;
                 d = (curCount <= lastCount ? 0 : ms / (curCount - lastCount));
-                msg += $",ms/req:{ d.ToString("0.00") }";
+                msg += $",ms/req:{ d.ToString("0.00") }ǧ";
 
 
                 lastRequestTicks = curRequestTicks;

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Threading;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Common;
-using Vit.Core.Util.Threading;
+using Vit.Core.Util.Threading.Worker;
+
 using ZeroMQ;
 
 namespace Sers.CL.ClrZmq.ThreadWait
@@ -128,7 +130,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
 
             taskToReceiveMsg.threadName = "Sers.CL.ClrZmq.ThreadWait-taskToReceiveMsg";
             taskToReceiveMsg.threadCount = 1;
-            taskToReceiveMsg.action = TaskToReceiveMsg;
+            taskToReceiveMsg.Processor = TaskToReceiveMsg;
             taskToReceiveMsg.Start();      
 
         }
@@ -139,7 +141,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
         #region 后台收消息线程      
 
 
-        LongTaskHelp taskToReceiveMsg = new LongTaskHelp();
+        LongThread taskToReceiveMsg = new LongThread();
        
         void TaskToReceiveMsg()
         {            

@@ -13,6 +13,7 @@ using Sers.Core.Module.Api.LocalApi.Event;
 using Sers.Core.Util.Consumer;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json.Linq;
+using Vit.Core.Util.Threading.Worker;
 
 namespace Sers.Core.Module.Api.LocalApi
 {
@@ -29,9 +30,8 @@ namespace Sers.Core.Module.Api.LocalApi
             workThread = ConsumerFactory.CreateConsumer<RequestInfo>(ConfigurationManager.Instance.GetByPath<JObject>("Sers.LocalApiService.workThread"));
 
             workThread.threadName = "LocalApiService";
-            workThread.processor = Consumer_Processor;
+            workThread.Processor = Consumer_Processor;
             workThread.OnFinish = Consumer_OnFinish;
-            workThread.OnTimeout = Consumer_OnTimeout;
         }
 
         public void Init()
@@ -51,6 +51,8 @@ namespace Sers.Core.Module.Api.LocalApi
 
 
         static readonly ApiMessage const_ApiReply_Err_Timeout = new ApiMessage().InitAsApiReplyMessageByError(SsError.Err_HandleTimeout);
+        static readonly ApiMessage const_ApiReply_Err_Overload = new ApiMessage().InitAsApiReplyMessageByError(SsError.Err_RateLimit_Refuse);
+        static readonly ApiMessage const_ApiReply_Err = new ApiMessage().InitAsApiReplyMessageByError(SsError.Err_SysErr);
 
 
 
@@ -224,22 +226,39 @@ namespace Sers.Core.Module.Api.LocalApi
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void Consumer_OnFinish(RequestInfo requestInfo)
+        void Consumer_OnFinish(ETaskFinishStatus status,RequestInfo requestInfo)
         {
-            //调用请求回调
-            requestInfo.callback(requestInfo.sender, requestInfo.apiReply);
-        }
+            ApiMessage apiReply;
+            switch (status)
+            {
+                case ETaskFinishStatus.success:
+                    apiReply = requestInfo.apiReply;
+                    break;
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void Consumer_OnTimeout(RequestInfo requestInfo)
-        {
-            ApiMessage apiReply = new ApiMessage();
-            apiReply.rpcContextData_OriData = const_ApiReply_Err_Timeout.rpcContextData_OriData;
-            apiReply.value_OriData = const_ApiReply_Err_Timeout.value_OriData;
+                case ETaskFinishStatus.timeout:
+                    apiReply = new ApiMessage();
+                    apiReply.rpcContextData_OriData = const_ApiReply_Err_Timeout.rpcContextData_OriData;
+                    apiReply.value_OriData = const_ApiReply_Err_Timeout.value_OriData;
+                    break;
+
+                case ETaskFinishStatus.overload:
+                    apiReply = new ApiMessage();
+                    apiReply.rpcContextData_OriData = const_ApiReply_Err_Overload.rpcContextData_OriData;
+                    apiReply.value_OriData = const_ApiReply_Err_Overload.value_OriData;
+                    break;
+
+                default:
+                    apiReply = new ApiMessage();
+                    apiReply.rpcContextData_OriData = const_ApiReply_Err.rpcContextData_OriData;
+                    apiReply.value_OriData = const_ApiReply_Err.value_OriData;
+                    break;
+            }
 
             //调用请求回调
             requestInfo.callback(requestInfo.sender, apiReply);
         }
+
+       
 
         #endregion
 

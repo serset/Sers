@@ -1,88 +1,63 @@
 ﻿using Newtonsoft.Json.Linq;
+
 using System;
-using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
-using System.Threading;
-using Vit.Core.Module.Log;
-using Vit.Core.Util.Threading;
+using Vit.Core.Util.Threading.Worker;
 using Vit.Extensions;
+
+
 
 namespace Sers.Core.Util.Consumer
 {
-    /// <summary>
-    /// qps : 260万   producer:16    consumer:16
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
+
     public class LongTask<T> : IConsumer<T>
     {
 
-        public string threadName { get => task.threadName; set => task.threadName = value; }
+        public Action<T> Processor { get => task.Processor; set => task.Processor = value; }
+        public Action<ETaskFinishStatus, T> OnFinish { get => task.OnFinish; set => task.OnFinish = value; }
 
+
+
+        Vit.Core.Util.Threading.Worker.LongTask<T> task = new Vit.Core.Util.Threading.Worker.LongTask<T>();
+
+        public string threadName { get; set; }
 
         public int threadCount { get => task.threadCount; set => task.threadCount = value; }
 
-        public Action<T> processor { get; set; }
-        public Action<T> OnFinish { get; set; }
-        public Action<T> OnTimeout { get; set; }
+        /// <summary>
+        /// 等待队列的最大长度（默认：100000）
+        /// </summary>
+        public int pendingQueueLength { get => task.pendingQueueLength; set => task.pendingQueueLength = value; }
 
 
-        BlockingCollection<T> queue = new BlockingCollection<T>();
-        LongTaskHelp task = new LongTaskHelp();
-
-        public bool isRunning { get => task.IsRunning; }
+        public bool isRunning { get => task.IsRunning; }  
 
 
         public void Init(JObject config)
-        { 
+        {
             threadCount = config["threadCount"]?.Deserialize<int?>() ?? 16;
+            pendingQueueLength = config["pendingQueueLength"]?.Deserialize<int?>() ?? 100000;
         }
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Publish(T t) 
+        public void Publish(T t)
         {
-            queue.Add(t);
+            task.Publish(t);
         }
 
 
-        public void Start() 
-        { 
+        public void Start()
+        {
             task.Stop();
-
-            task.threadName = threadName;
-            task.threadCount = threadCount;
-            task.action = Processor;
             task.Start();
         }
 
-        public void Stop() 
+        public void Stop()
         {
             task.Stop();
         }
 
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void Processor()
-        {
-            while (true)
-            {
-                try
-                {
-                    #region Process                        
-                    while (true)
-                    {
-                        var msgFrame = queue.Take();
-                        processor(msgFrame);
-                        OnFinish?.Invoke(msgFrame);
-                    }
-                    #endregion
-                }
-                catch (Exception ex) when (!(ex.GetBaseException() is ThreadInterruptedException))
-                {
-                    Logger.Error(ex);
-                }
-            }
-        }
-
+         
     }
 }

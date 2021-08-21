@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 
 
-namespace Vit.Core.Util.Threading
+namespace Vit.Core.Util.Threading.Cache
 {
     public class AsyncCacheHelper
     {

@@ -5,18 +5,21 @@ namespace Sers.Core.Util.Consumer
 {
     public class ConsumerFactory
     {
-        public static IConsumer<T> CreateConsumer<T>(JObject config) 
+        public static IConsumer<T> CreateConsumer<T>(JObject config=null) 
         {
             if (config == null) config = new JObject();
 
             IConsumer<T> consumer;
-            switch (config["mode"].ToString())
+            switch (config["mode"]?.ToString())
             {
-                case "AsyncTask":
-                    consumer = new AsyncTask<T>();
+                case "LongThread":
+                    consumer = new LongThread<T>();
+                    break;
+                case "LongThread_TimeLimit":
+                    consumer = new LongThread_TimeLimit<T>();
                     break;
                 case "ConsumerCascade":
-                    consumer = new ConsumerCascade<T, LongTask<T>>();
+                    consumer = new ConsumerCascade<T, LongThread<T>>();
                     break;
                 case "LongTask":
                     consumer = new LongTask<T>();
@@ -25,7 +28,7 @@ namespace Sers.Core.Util.Consumer
                     consumer = new LongTask_TimeLimit<T>();
                     break;
                 default:
-                    consumer = new LongTask<T>();
+                    consumer = new LongThread<T>();
                     break;
             }
 

@@ -11,6 +11,7 @@ using Vit.Core.Util.Common;
 using Vit.Core.Util.Pipelines;
 using Vit.Core.Util.Pool;
 using Vit.Core.Util.Threading;
+using Vit.Core.Util.Threading.Timer;
 using Vit.Extensions;
 
 namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
@@ -102,7 +103,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             task_DeliveryToOrganize_Processor.Start(); 
 
             //(x.2) heartBeat thread
-            heartBeat_Timer.timerCallback = (state) => { HeartBeat_Loop(); };
+            heartBeat_Timer.timerCallback = (state) => { HeartBeat_Beat(); };
             heartBeat_Timer.intervalMs = heartBeatIntervalMs;
 
             if (heartBeatIntervalMs > 0)
@@ -140,8 +141,14 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             requestTimeoutMs = config["requestTimeoutMs"]?.Deserialize<int?>() ?? requestTimeoutMs;
 
 
-            task_DeliveryToOrganize_Processor = ConsumerFactory.CreateConsumer<DeliveryToOrganize_MessageFrame>(config["workThread"] as JObject);
-            task_DeliveryToOrganize_Processor.processor = DeliveryToOrganize_ProcessFrame;
+            var workThread = config["workThread"] as JObject ?? new JObject();
+            if (workThread["threadCount"].IsNull())
+            {
+                workThread["threadCount"] = 2;
+            }
+
+            task_DeliveryToOrganize_Processor = ConsumerFactory.CreateConsumer<DeliveryToOrganize_MessageFrame>(workThread);
+            task_DeliveryToOrganize_Processor.Processor = DeliveryToOrganize_ProcessFrame;
             task_DeliveryToOrganize_Processor.threadName = "CL-RequestAdaptor-dealer";
         }
         #endregion
@@ -432,8 +439,11 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
         readonly SersTimer heartBeat_Timer = new SersTimer();
 
+        /// <summary>
+        /// 
+        /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void HeartBeat_Loop()
+        void HeartBeat_Beat()
         {
             try
             {
