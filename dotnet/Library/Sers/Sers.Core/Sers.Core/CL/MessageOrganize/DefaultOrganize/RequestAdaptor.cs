@@ -175,7 +175,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         /// <summary>
         /// 请求超时时间（单位ms，默认300000）
         /// </summary>
-        public int requestTimeoutMs;
+        public int requestTimeoutMs = 300000;
 
 
 
