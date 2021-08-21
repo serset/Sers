@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Sers.Core.CL.MessageOrganize;
-using Sers.Core.Module.Message;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Core.Util.Reflection;
-using Vit.Core.Util.Threading;
+using Vit.Core.Util.Threading.Cache;
 using Vit.Extensions;
 
 namespace Sers.Core.CL.CommunicationManage

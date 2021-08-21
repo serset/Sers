@@ -1,6 +1,8 @@
-﻿
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Server;
 using Newtonsoft.Json.Linq;
+using Sers.Serslot;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Vit.Extensions
 {
@@ -27,16 +29,18 @@ namespace Vit.Extensions
         /// <param name="hostBuilder"></param>
         /// <returns></returns>
         public static IWebHostBuilder UseSerslot(this IWebHostBuilder hostBuilder)
-        {           
+        {
+            var server = new SerslotServer();
+            server.InitPairingToken(hostBuilder);
 
-            if ("BackgroundTask" == Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetStringByPath("serslot.Mode"))
+            return hostBuilder.ConfigureServices(services =>
             {
-                return hostBuilder.UseSerslot_BackgroundTask();
-            }
-            else
-            {
-                return hostBuilder.UseSerslot_Async();
-            }
+                services.AddSingleton<IServer>((serviceProvider) =>
+                {
+                    server.serviceProvider = serviceProvider;
+                    return server;
+                });
+            });
         }
 
 

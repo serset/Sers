@@ -2,8 +2,8 @@
 using Vit.Core.Module.Log;
 using Sers.Core.Module.PubSub;
 using Vit.Core.Util.ConfigurationManager;
-using Vit.Core.Util.Threading;
 using Sers.Hardware.Usage;
+using Vit.Core.Util.Threading.Timer;
 
 namespace Sers.Core.Module.Env
 {

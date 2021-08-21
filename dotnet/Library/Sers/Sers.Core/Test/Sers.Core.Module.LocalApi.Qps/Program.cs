@@ -17,13 +17,13 @@ namespace DeliveryTest
             try
             {
                 
-                LocalApiTest.workThreadCount = 16;
-                int requestTreadCount = 32;
+                LocalApiTest.threadCount = 16;
+                int requestTreadCount = 16;
                 if (args != null)
                 {
                     if (args.Length >=1)
                     {
-                        int.TryParse(args[0], out LocalApiTest.workThreadCount);
+                        int.TryParse(args[0], out LocalApiTest.threadCount);
                     }
 
                     if (args.Length >= 2)
@@ -33,7 +33,9 @@ namespace DeliveryTest
                 }
                 for (var t = 0; t < requestTreadCount; t++)
                 {
-                    LocalApiTest.StartThread();
+                    //LocalApiTest.StartThread();
+                    LocalApiTest.StartThread_Async();
+                    
                 }
 
 

@@ -16,7 +16,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions
         public static ApiMessage CallLocalApi(this LocalApiService data, string route, Object arg)
         {
             var apiRequestMessage = new ApiMessage();
-            //apiRequestMessage.InitAsApiRequestMessage(route, arg);
+            apiRequestMessage.InitAsApiRequestMessage(route, arg);
 
             return data.CallLocalApi(apiRequestMessage);
 

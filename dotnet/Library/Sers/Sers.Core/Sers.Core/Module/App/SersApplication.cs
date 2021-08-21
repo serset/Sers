@@ -4,7 +4,7 @@ using Vit.Core.Util.ConfigurationManager;
 using System;
 using System.Threading;
 using Sers.Hardware.Env;
-using Vit.Core.Util.Threading;
+using Vit.Core.Util.Threading.Timer;
 
 namespace Sers.Core.Module.App
 {
@@ -22,7 +22,7 @@ namespace Sers.Core.Module.App
 
 
 
-        #region timer for   System.GC.Collect();
+        #region timer for System.GC.Collect();
         static SersTimer gcTimer = new SersTimer()
         {
             intervalMs = 10000,

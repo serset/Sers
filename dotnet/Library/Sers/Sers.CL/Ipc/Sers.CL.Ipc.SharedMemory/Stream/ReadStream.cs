@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Threading;
+
 using Sers.Core.CL.MessageDelivery;
+
 using Vit.Core.Module.Log;
-using Vit.Core.Util.Threading;
+using Vit.Core.Util.Threading.Worker;
 using Vit.Extensions;
 
 namespace Sers.CL.Ipc.SharedMemory.Stream
@@ -76,7 +78,7 @@ namespace Sers.CL.Ipc.SharedMemory.Stream
             // start receiveMsg Thread
             receiveMsg_Thread.threadName = "CL-Ipc-SharedMemory-receiveMsg-"+ buffer.Name;
             receiveMsg_Thread.threadCount = 1;
-            receiveMsg_Thread.action = ReceiveMsg_Thread;
+            receiveMsg_Thread.Processor = ReceiveMsg_Thread;
             receiveMsg_Thread.Start();
 
 
@@ -110,7 +112,7 @@ namespace Sers.CL.Ipc.SharedMemory.Stream
 
         #region ReceiveMsg_Thread
 
-        LongTaskHelp receiveMsg_Thread = new LongTaskHelp();
+        LongThread receiveMsg_Thread = new LongThread();
 
         void ReceiveMsg_Thread()
         {

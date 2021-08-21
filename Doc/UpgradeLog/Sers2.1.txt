@@ -150,4 +150,11 @@ Serslot 在兼容AspNetCore2.1的同时，兼容 AspNetCore3.0、 AspNetCore3.1、 AspNetCo
 
 
 --------------------------------------
+[tag] Sers 2.1.10
+
+[2021-08-20]
+  [Serslot]修改Async模式的bug。bug版本试图通过调用IHttpApplication.ProcessRequestAsync方法实现异步，然而此方法不会开启异步线程，故会阻塞请求。
+
+
+--------------------------------------
 

@@ -11,6 +11,7 @@ using Vit.Core.Util.Common;
 using Vit.Core.Util.Pipelines;
 using Vit.Core.Util.Pool;
 using Vit.Core.Util.Threading;
+using Vit.Core.Util.Threading.Timer;
 using Vit.Extensions;
 
 namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
@@ -99,14 +100,10 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         public void Start()
         {
             //(x.1) task_DeliveryToOrganize_Processor
-            //task_DeliveryToOrganize_Processor.Stop();
-            task_DeliveryToOrganize_Processor.processor = DeliveryToOrganize_ProcessFrame;
-            task_DeliveryToOrganize_Processor.workThreadCount = workThreadCount;
-            task_DeliveryToOrganize_Processor.name = "CL-RequestAdaptor-dealer";
             task_DeliveryToOrganize_Processor.Start(); 
 
             //(x.2) heartBeat thread
-            heartBeat_Timer.timerCallback = (state) => { HeartBeat_Loop(); };
+            heartBeat_Timer.timerCallback = (state) => { HeartBeat_Beat(); };
             heartBeat_Timer.intervalMs = heartBeatIntervalMs;
 
             if (heartBeatIntervalMs > 0)
@@ -137,17 +134,28 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         #region (x.x.4)构造函数       
         public RequestAdaptor(JObject config)
         {
-            workThreadCount = config["workThreadCount"]?.Deserialize<int?>() ?? workThreadCount;
             heartBeatTimeoutMs = config["heartBeatTimeoutMs"]?.Deserialize<int?>() ?? heartBeatTimeoutMs;
             heartBeatRetryCount = config["heartBeatRetryCount"]?.Deserialize<int?>() ?? heartBeatRetryCount;
             heartBeatIntervalMs = config["heartBeatIntervalMs"]?.Deserialize<int?>() ?? heartBeatIntervalMs;
+
             requestTimeoutMs = config["requestTimeoutMs"]?.Deserialize<int?>() ?? requestTimeoutMs;
+
+
+            var workThread = config["workThread"] as JObject ?? new JObject();
+            if (workThread["threadCount"].IsNull())
+            {
+                workThread["threadCount"] = 2;
+            }
+
+            task_DeliveryToOrganize_Processor = ConsumerFactory.CreateConsumer<DeliveryToOrganize_MessageFrame>(workThread);
+            task_DeliveryToOrganize_Processor.Processor = DeliveryToOrganize_ProcessFrame;
+            task_DeliveryToOrganize_Processor.threadName = "CL-RequestAdaptor-dealer";
         }
         #endregion
 
 
         #endregion
-               
+
 
 
 
@@ -157,21 +165,19 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
   
         long reqKeyIndex = CommonHelp.NewFastGuidLong();
-   
+
         #endregion
 
 
-        #region (x.x.2)config
+        #region (x.x.2) config      
 
-        /// <summary>
-        /// 后台处理消息的线程个数（单位个，默认2）
-        /// </summary>
-        int workThreadCount = 2;
 
         /// <summary>
         /// 请求超时时间（单位ms，默认300000）
         /// </summary>
         public int requestTimeoutMs = 300000;
+
+
 
         /// <summary>
         /// 心跳检测超时时间（单位ms，默认30000）
@@ -201,8 +207,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         #region deliveryToOrganize_MessageFrameQueue  
 
 
-        IConsumer<DeliveryToOrganize_MessageFrame> task_DeliveryToOrganize_Processor = ConsumerFactory.CreateConsumer<DeliveryToOrganize_MessageFrame>();
- 
+        readonly IConsumer<DeliveryToOrganize_MessageFrame> task_DeliveryToOrganize_Processor; 
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -434,8 +439,11 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
         readonly SersTimer heartBeat_Timer = new SersTimer();
 
+        /// <summary>
+        /// 
+        /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void HeartBeat_Loop()
+        void HeartBeat_Beat()
         {
             try
             {

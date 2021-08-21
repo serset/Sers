@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
-using Vit.Core.Util.Threading;
+using Vit.Core.Util.Threading.Worker;
 
 namespace Sers.CL.Ipc.NamedPipe
 {
@@ -34,7 +34,7 @@ namespace Sers.CL.Ipc.NamedPipe
         public IEnumerable<IDeliveryConnection> ConnectedList => connMap.Values.Select(conn => ((IDeliveryConnection)conn));
 
 
-        LongTaskHelp tcpListenerAccept_BackThread = new LongTaskHelp();
+        LongThread tcpListenerAccept_BackThread = new LongThread();
 
 
         #region Start     
@@ -85,7 +85,7 @@ namespace Sers.CL.Ipc.NamedPipe
 
 
                 #region (x.2)启动Task监听listener
-                tcpListenerAccept_BackThread.action = () =>
+                tcpListenerAccept_BackThread.Processor = () =>
                 {
                     try
                     {

@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Threading;
+
 using Sers.Core.CL.MessageDelivery;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Pipelines;
-using Vit.Core.Util.Threading;
+using Vit.Core.Util.Threading.Worker;
 using Vit.Extensions;
 
 namespace Sers.CL.WebSocket
@@ -116,14 +117,14 @@ namespace Sers.CL.WebSocket
 
         #region taskToReceiveMsg       
 
-        LongTaskHelp taskToReceiveMsg = new LongTaskHelp();
+        LongThread taskToReceiveMsg = new LongThread();
         public void StartBackThreadToReceiveMsg()
         {
             taskToReceiveMsg.Stop();
 
             taskToReceiveMsg.threadName = "Sers.CL.WebSocket-taskToReceiveMsg";
             taskToReceiveMsg.threadCount = 1;
-            taskToReceiveMsg.action = TaskToReceiveMsg;
+            taskToReceiveMsg.Processor = TaskToReceiveMsg;
             taskToReceiveMsg.Start();
         }
         /// <summary>

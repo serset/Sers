@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
+
 using Newtonsoft.Json;
+
 using Sers.Core.Module.Api;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.Data;
-using Vit.Core.Util.Threading;
+using Vit.Core.Util.Threading.Worker;
 using Vit.Extensions;
 
 namespace App.Robot.Station.Logical.Worker
@@ -25,7 +28,7 @@ namespace App.Robot.Station.Logical.Worker
             tasks.threadCount = taskItem.config.threadCount;
             tasks.repeatCountPerThread = taskItem.config.loopCountPerThread;
 
-            tasks.action = Processor;
+            tasks.Processor = Processor;
         }
 
 
@@ -34,7 +37,7 @@ namespace App.Robot.Station.Logical.Worker
 
 
         [JsonIgnore]
-        RepeatTaskHelp tasks = new RepeatTaskHelp();
+        RepeatTask tasks = new RepeatTask();
 
         public int RunningThreadCount => tasks.RunningThreadCount;
 

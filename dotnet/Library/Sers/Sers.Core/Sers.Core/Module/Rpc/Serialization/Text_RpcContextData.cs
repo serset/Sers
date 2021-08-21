@@ -44,6 +44,8 @@ namespace Sers.Core.Module.Rpc.Serialization
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public RpcContextData DeserializeFromBytes(ArraySegment<byte> data)
         {
+            //if (data.Count == 0) return null;
+
             Utf8JsonReader reader = new Utf8JsonReader(data, readerOptions);
 
             if (!reader.Read())

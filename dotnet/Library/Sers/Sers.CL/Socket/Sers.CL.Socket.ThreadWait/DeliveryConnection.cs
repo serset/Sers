@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using System.Threading.Tasks;
+
 using Sers.Core.CL.MessageDelivery;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Pipelines;
 using Vit.Core.Util.Pool;
-using Vit.Core.Util.Threading;
+using Vit.Core.Util.Threading.Worker;
 using Vit.Extensions;
 
 namespace Sers.CL.Socket.ThreadWait
@@ -130,14 +130,14 @@ namespace Sers.CL.Socket.ThreadWait
 
         #region taskToReceiveMsg       
 
-        LongTaskHelp taskToReceiveMsg = new LongTaskHelp();
+        LongThread taskToReceiveMsg = new LongThread();
         public void StartBackThreadToReceiveMsg()
         {
             taskToReceiveMsg.Stop();
              
             taskToReceiveMsg.threadName = "Sers.CL.Socket.ThreadWait-taskToReceiveMsg";
             taskToReceiveMsg.threadCount = 1;
-            taskToReceiveMsg.action = TaskToReceiveMsg;
+            taskToReceiveMsg.Processor = TaskToReceiveMsg;
             taskToReceiveMsg.Start();          
         }
 

@@ -10,9 +10,9 @@ namespace CLClient
     class ProgramQps
     {
 
-        static int producerThreadCount = 8;
+        static int producerThreadCount = 16;
         static int consumerThreadCount = 16;
-        public static string consumerType = "ActionBlock";
+        public static string consumerType = "LongThread";
 
 
         static StatisticsQpsInfo qpsPub = new StatisticsQpsInfo();
@@ -71,19 +71,35 @@ namespace CLClient
     
         public void Start()
         {
+            //consumerType = "LongTask";
+
             switch (consumerType) 
             {
-                case "ActionBlock":
-                    consumer = new Consumer_ActionBlock<Product>();  // 16 16 700万     24 24 900-1000万
+                case "LongThread":
+                    consumer = new LongThread<Product>();  //16 16 1600千            //ori:16 16 440万          2  2  800万
                     break;
-                case "BufferBlock":
-                    consumer = new Consumer_BufferBlock<Product>();   //2 36 800-1000万
+                case "LongTask":
+                    consumer = new LongTask<Product>();  //16 16 1600千   
                     break;
-                case "BlockingCollection":
-                    consumer = new Consumer_BlockingCollection<Product>();  //16 16 440万          2  2  800万
+
+                case "ConsumerCache_LongThread":
+                    consumer = new ConsumerCascade<Product, LongThread<Product>>(); //ori:16 16 4200-4500万
                     break;
-              
-  
+
+                //case "ActionBlock":
+                //    consumer = new Consumer_ActionBlock<Product>();  // 16 16 700万     24 24 900-1000万
+                //    break;
+                //case "BufferBlock":
+                //    consumer = new Consumer_BufferBlock<Product>();   //2 36 800-1000万
+                //    break;
+
+                //case "ConsumerCache_ActionBlock":
+                //    consumer = new ConsumerCascade<Product, Consumer_ActionBlock<Product>>(); // 16 16  4000-4200万
+                //    break;
+                //case "ConsumerCache_BufferBlock":
+                //    consumer = new ConsumerCascade<Product, Consumer_BufferBlock<Product>>(); // 16 16  1500-1600万
+                //    break;
+
                 //case "Disruptor":
                 //    consumer = new Consumer_Disruptor<Product>(); // 16 16 800万
                 //    break;
@@ -91,15 +107,7 @@ namespace CLClient
                 //    consumer = new Consumer_WorkerPool<Product>(); //16 16 800-900万
                 //    break;
 
-                case "ConsumerCache_ActionBlock":
-                    consumer = new ConsumerCache<Product, Consumer_ActionBlock<Product>>(); // 16 16  4000-4200万
-                    break;
-                case "ConsumerCache_BufferBlock":
-                    consumer = new ConsumerCache<Product, Consumer_BufferBlock<Product>>(); // 16 16  1500-1600万
-                    break;
-                case "ConsumerCache_BlockingCollection":
-                    consumer = new ConsumerCache<Product, Consumer_BlockingCollection<Product>>(); //16 16 4200-4500万
-                    break;
+
 
 
 
@@ -123,8 +131,8 @@ namespace CLClient
 
 
 
-            consumer.processor = Processor;
-            consumer.workThreadCount = consumerThreadCount;
+            consumer.Processor = Processor;
+            consumer.threadCount = consumerThreadCount;
             consumer.Start();
 
 

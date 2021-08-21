@@ -10,7 +10,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
     public class LocalApiTest
     {        
     
-        public static int workThreadCount = 4;
+        public static int threadCount = 4;
 
         static StatisticsQpsAsync statisticsQps = new StatisticsQpsAsync();
         static LocalApiService localApiService;
@@ -18,7 +18,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
         {
             //(x.1)构建
             localApiService = LocalApiServiceFactory.CreateLocalApiService() as LocalApiService;
-            localApiService.workThreadCount = workThreadCount; 
+            localApiService.threadCount = threadCount; 
             localApiService.LoadSersApi(typeof(LocalApiTest).Assembly);
 
             localApiService.Start();

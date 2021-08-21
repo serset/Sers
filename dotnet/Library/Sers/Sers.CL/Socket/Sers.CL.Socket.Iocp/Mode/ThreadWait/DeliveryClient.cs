@@ -1,11 +1,10 @@
 using System;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using Sers.CL.Socket.Iocp.Base;
 using Sers.CL.Socket.Iocp.Mode.Timer;
 using Vit.Core.Module.Log;
-using Vit.Core.Util.Threading;
+using Vit.Core.Util.Threading.Worker;
 
 namespace Sers.CL.Socket.Iocp.Mode.ThreadWait
 {
@@ -50,7 +49,7 @@ namespace Sers.CL.Socket.Iocp.Mode.ThreadWait
                            
                 //(x.4)   
                 Send_task.threadCount = 1;
-                Send_task.action = Send_Flush;
+                Send_task.Processor = Send_Flush;
                 Send_task.Start();
 
 
@@ -92,7 +91,7 @@ namespace Sers.CL.Socket.Iocp.Mode.ThreadWait
         /// </summary>
         public int sendFlushInterval = 1;
 
-        LongTaskHelp Send_task = new LongTaskHelp();
+        LongThread Send_task = new LongThread();
 
  
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
