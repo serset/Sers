@@ -31,7 +31,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         [SsRoute("/a")]
         public void Empty()
         {
-            
+            //SpinWait.SpinUntil(() => false, 1000);
         }
 
         #region (x.1)route

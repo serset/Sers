@@ -33,14 +33,21 @@ namespace Sers.Gover.Base
         ///  serviceStationKey 和 服务站点 的映射
         /// </summary>
         /// 
-        readonly Reference<string, UsageStatus> serviceStationKey_UsageStatus_Map = new Reference<string, UsageStatus>();
+        readonly Reference<string, ServiceStation> serviceStationKey_Map = new Reference<string, ServiceStation>();
 
 
         public void SaveUsageInfo(EnvUsageInfo item)
         {
             lock (this)
             {
-                serviceStationKey_UsageStatus_Map.Get(item.serviceStationKey)?.CopyFrom(item.usageStatus);
+                var station = serviceStationKey_Map.Get(item.serviceStationKey);
+                if (station == null) return; 
+
+                if (item.usageStatus != null)
+                    station.usageStatus = item.usageStatus;
+
+                if (item.Process != null)
+                    station.Process = item.Process;
             }
         }
 
@@ -57,6 +64,7 @@ namespace Sers.Gover.Base
                         serviceStationInfo = m.serviceStationInfo,
                         status = "" + m.Status_Get(),
                         usageStatus = m.usageStatus,
+                        Process = m.Process,
                         counter = m.counter,
                         qps = m.qps,
                         apiNodeCount = m.apiNodes.Count,
@@ -88,8 +96,7 @@ namespace Sers.Gover.Base
                 if (string.IsNullOrEmpty(serviceStation.serviceStationInfo.serviceStationKey))
                     serviceStation.serviceStationInfo.serviceStationKey = "tmp" + serviceStation.GetHashCode();
 
-
-                serviceStation.usageStatus = serviceStationKey_UsageStatus_Map.Add(serviceStation.serviceStationKey, serviceStation.usageStatus ?? new UsageStatus());      
+                serviceStationKey_Map.Add(serviceStation.serviceStationKey, serviceStation);
 
                 serviceStation.Status_Set(EServiceStationStatus.正常);
                 goverManage.apiStationMng.ServiceStation_Add(serviceStation);
@@ -109,12 +116,12 @@ namespace Sers.Gover.Base
         {
             lock (this)
             {
-                if (!serviceStation_ConnKey_Map.TryGetValue(newServiceStation.connection.GetHashCode(),out var serviceStation))
+                if (!serviceStation_ConnKey_Map.TryGetValue(newServiceStation.connection.GetHashCode(), out var serviceStation))
                 {
                     return false;
                 }
 
-                serviceStationKey_UsageStatus_Map.Remove(serviceStation.serviceStationKey);
+                serviceStationKey_Map.Remove(serviceStation.serviceStationKey);
 
 
                 if (newServiceStation.serviceStationInfo != null)
@@ -127,8 +134,11 @@ namespace Sers.Gover.Base
 
                 if (newServiceStation.deviceInfo != null)
                     serviceStation.deviceInfo = newServiceStation.deviceInfo;
-           
-                serviceStation.usageStatus = serviceStationKey_UsageStatus_Map.Add(serviceStation.serviceStationKey, serviceStation.usageStatus ?? new UsageStatus());
+
+                if (newServiceStation.Process != null)
+                    serviceStation.Process = newServiceStation.Process;
+
+                serviceStationKey_Map.Add(serviceStation.serviceStationKey, serviceStation);
 
                 return true;
             }
@@ -145,7 +155,7 @@ namespace Sers.Gover.Base
                     return null;
                 }
 
-                serviceStationKey_UsageStatus_Map.Remove(serviceStation.serviceStationKey);
+                serviceStationKey_Map.Remove(serviceStation.serviceStationKey);
 
                 goverManage.apiStationMng.ServiceStation_Remove(serviceStation);
 

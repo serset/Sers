@@ -1,4 +1,5 @@
-﻿using Sers.Hardware.Usage;
+﻿using Sers.Hardware.Process;
+using Sers.Hardware.Usage;
 
 namespace Sers.Core.Module.Env
 {
@@ -8,5 +9,7 @@ namespace Sers.Core.Module.Env
         public string serviceStationKey;    
 
         public UsageStatus usageStatus;
+
+        public ProcessInfo Process;
     }
 }

@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
-using Newtonsoft.Json.Linq;
+
 using Sers.Core.Module.Rpc;
 using Sers.Gover.Base;
+using Sers.Hardware.Process;
 using Sers.Hardware.Usage;
 using Sers.SersLoader;
 using Sers.SersLoader.ApiDesc.Attribute.Valid;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.Api;
 using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.ComponentModel.Model;
-using Vit.Extensions;
 
 namespace Sers.Gover.Controllers.ApiControllers
 {
@@ -20,7 +20,7 @@ namespace Sers.Gover.Controllers.ApiControllers
     {
         #region HealthInfo
 
-     
+
 
         [SsRoute("serviceCenter/healthInfo")]
         [SsCallerSource(ECallerSource.Internal)]
@@ -34,67 +34,20 @@ namespace Sers.Gover.Controllers.ApiControllers
             info.usageStatus = UsageHelp.GetUsageInfo();
 
             //(x.2) Process信息
-            try
-            {
-                var process = Process.GetCurrentProcess();
+            info.Process = ProcessInfo.GetCurrentProcessInfo();
 
-
-                //(x.x.1) ThreadCount
-                info.Process.ThreadCount = process.Threads.Count;
-
-                //(x.x.2) RunningThreadCount
-                int n = 0;        
-                foreach (ProcessThread th in process.Threads)
-                {             
-                    if (th.ThreadState == ThreadState.Running)
-                        n++;
-                }
-                info.Process.RunningThreadCount = n;
-
-                //(x.x.3) WorkingSet
-                info.Process.WorkingSet = process.WorkingSet64 / 1024.0f / 1024;
-
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
-            } 
             return info;
         }
 
 
-        public class HealthInfoData 
+        public class HealthInfoData
         {
             public UsageStatus usageStatus;
 
-            public ProcessInfo Process = new ProcessInfo();
-
-
-            public class ProcessInfo 
-            {
-                /// <summary>
-                /// 总线程数
-                /// </summary>
-                public int ThreadCount;
-
-                /// <summary>
-                /// 活动的线程数
-                /// </summary>
-                public int RunningThreadCount;
-
-
-                /// <summary>
-                /// 占用总内存（单位：MB）
-                /// </summary>
-                public float WorkingSet;
-            }
-
+            public ProcessInfo Process;
         }
 
         #endregion
-
-
-
 
 
 
@@ -114,7 +67,7 @@ namespace Sers.Gover.Controllers.ApiControllers
             try
             {
                 var qps = GoverApiCenterService.Instance.ApiStation_GetAll().Sum(m => m.qps);
-                info.qps= qps;
+                info.qps = qps;
             }
             catch (Exception ex)
             {
@@ -124,7 +77,7 @@ namespace Sers.Gover.Controllers.ApiControllers
             return info;
         }
 
-        public class StatisticsInfo 
+        public class StatisticsInfo
         {
             /// <summary>
             /// 总qps

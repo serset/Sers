@@ -21,11 +21,8 @@ namespace Sers.Core.Util.Consumer
                 case "ConsumerCascade":
                     consumer = new ConsumerCascade<T, LongThread<T>>();
                     break;
-                case "LongTask":
-                    consumer = new LongTask<T>();
-                    break;
-                case "LongTask_TimeLimit":
-                    consumer = new LongTask_TimeLimit<T>();
+                case "ManagedThread":
+                    consumer = new ManagedThread<T>();
                     break;
                 default:
                     consumer = new LongThread<T>();

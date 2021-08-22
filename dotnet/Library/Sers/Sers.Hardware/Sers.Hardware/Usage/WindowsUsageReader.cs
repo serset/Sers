@@ -5,7 +5,7 @@ namespace Sers.Hardware.Usage
 {
     public class WindowsUsageReader : IUsageReader
     {
-        Process process;
+        System.Diagnostics.Process process;
 
         public void Start()
         {
@@ -13,7 +13,7 @@ namespace Sers.Hardware.Usage
             try
             {
                 Dispose();
-                process = new Process
+                process = new System.Diagnostics.Process
                 {
                     StartInfo = new ProcessStartInfo("Sers.Hardware.Net46.Exe.exe")
                     {
