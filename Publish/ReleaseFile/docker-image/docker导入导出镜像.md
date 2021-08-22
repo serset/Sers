@@ -1,5 +1,5 @@
 #导出镜像
-tag=2.1.11-temp
+tag=2.1.11
 
 docker save -o /root/image/dotnet.2.1.tar serset/dotnet:2.1
 docker save -o /root/image/sers-cgateway-1.2.0.tar serset/sers-cgateway:1.2.0
