@@ -4,6 +4,7 @@ using Sers.Core.Module.PubSub;
 using Vit.Core.Util.ConfigurationManager;
 using Sers.Hardware.Usage;
 using Vit.Core.Util.Threading.Timer;
+using Sers.Hardware.Process;
 
 namespace Sers.Core.Module.Env
 {
@@ -15,11 +16,13 @@ namespace Sers.Core.Module.Env
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Publish()
-        { 
+        {
             try
-            {              
+            {
                 var info = new EnvUsageInfo();
                 info.usageStatus = UsageHelp.GetUsageInfo();
+                info.Process = ProcessInfo.GetCurrentProcessInfo();
+
                 info.deviceKey = Sers.Core.Module.Env.SersEnvironment.deviceKey;
                 info.serviceStationKey = Sers.Core.Module.Env.SersEnvironment.serviceStationKey;
 
@@ -28,10 +31,10 @@ namespace Sers.Core.Module.Env
             catch (System.Exception ex)
             {
                 Logger.Error(ex);
-            }                   
+            }
         }
 
-        static SersTimer timer = null;   
+        static SersTimer timer = null;
         /// <summary>
         /// 开启自动上报Usage任务
         /// </summary>

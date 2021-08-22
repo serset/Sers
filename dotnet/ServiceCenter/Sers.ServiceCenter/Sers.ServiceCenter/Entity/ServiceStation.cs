@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+
 using Newtonsoft.Json;
+
 using Sers.Core.CL.MessageOrganize;
 using Sers.Core.Module.Counter;
 using Sers.Core.Module.Env;
 using Sers.Core.Module.Message;
 using Sers.Hardware.Env;
+using Sers.Hardware.Process;
 using Sers.Hardware.Usage;
+
 using Vit.Core.Util.Extensible;
 using Vit.Extensions;
 
@@ -18,7 +22,7 @@ namespace Sers.ServiceCenter.Entity
     /// 对应一个部署的服务站点
     /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
-    public class ServiceStation: Extensible
+    public class ServiceStation : Extensible
     {
         /// <summary>
         /// 服务站点开启时间
@@ -30,7 +34,7 @@ namespace Sers.ServiceCenter.Entity
         /// CL通信层连接对象
         /// </summary>
         [JsonIgnore]
-        public IOrganizeConnection  connection { get; set; }
+        public IOrganizeConnection connection { get; set; }
 
         /// <summary>
         /// 站点软硬件环境信息
@@ -38,13 +42,17 @@ namespace Sers.ServiceCenter.Entity
         [JsonProperty]
         public DeviceInfo deviceInfo;
 
+
+        [JsonProperty]
+        public ProcessInfo Process;
+
         /// <summary>
         /// 站点信息。同一硬件可以部署多个站点，它们软硬件环境是一样的，但站点信息不一样。
         /// </summary>
         [JsonProperty]
         public ServiceStationInfo serviceStationInfo;
-     
- 
+
+
         [JsonProperty]
         public List<ApiNode> apiNodes;
 
@@ -55,7 +63,7 @@ namespace Sers.ServiceCenter.Entity
         public UsageStatus usageStatus;
 
         [JsonIgnore]
-        public string serviceStationKey=> serviceStationInfo?.serviceStationKey;
+        public string serviceStationKey => serviceStationInfo?.serviceStationKey;
 
 
         #region counter    
@@ -97,14 +105,14 @@ namespace Sers.ServiceCenter.Entity
         public string GetApiStationNames()
         {
             var stationNames = apiNodes.Select(m => m.apiDesc.ApiStationNameGet());
-            return String.Join(",", stationNames); 
+            return String.Join(",", stationNames);
         }
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SendRequestAsync(Object sender, ApiMessage apiReqMessage, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
-            connection.SendRequestAsync(sender,apiReqMessage.Package(), callback);            
+            connection.SendRequestAsync(sender, apiReqMessage.Package(), callback);
         }
     }
 }

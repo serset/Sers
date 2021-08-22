@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Sers.Core.Module.Counter;
 using Sers.Core.Module.Env;
 using Sers.Hardware.Env;
+using Sers.Hardware.Process;
 using Sers.Hardware.Usage;
 
 namespace Sers.Gover.Base.Model
@@ -24,6 +25,8 @@ namespace Sers.Gover.Base.Model
         public string status;
 
         public DeviceInfo deviceInfo;
+
+        public ProcessInfo Process;
 
         public ServiceStationInfo serviceStationInfo;
 
