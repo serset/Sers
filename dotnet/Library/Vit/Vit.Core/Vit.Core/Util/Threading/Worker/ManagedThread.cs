@@ -560,6 +560,7 @@ namespace Vit.Core.Util.Threading.Worker
                 finally
                 {
                     Interlocked.Decrement(ref manager.runningThreadCount);
+                    Interlocked.Decrement(ref manager.curThreadCount);
                     manager.threadMap.TryRemove(this.GetHashCode(), out _);
                 }
 

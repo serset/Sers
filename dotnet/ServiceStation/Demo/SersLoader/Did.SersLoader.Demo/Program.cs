@@ -1,8 +1,6 @@
 ﻿using Sers.SersLoader;
 using Sers.ServiceStation;
 
-using System.Collections.Concurrent;
-
 namespace Did.SersLoader.Demo
 {
     public class Program
@@ -10,27 +8,6 @@ namespace Did.SersLoader.Demo
 
         public static void Main(string[] args)
         {
-
-
-            BlockingCollection<object> queue=new BlockingCollection<object>(10);
-            //queue.BoundedCapacity
-            try
-            {
-                for(var t=0;t<10;t++)
-                queue.Add(new object());
-
-                var td = queue.TryAdd(new object());
-
-                queue.Add(new object());
-
-
-            }
-            catch (System.Exception ex)
-            {
-
-                throw;
-            }
-
 
             //ServiceStation.AutoRun();
 

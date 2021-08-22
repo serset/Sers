@@ -28,6 +28,7 @@ namespace Did.Serslot.Demo.Controllers
         [HttpPost]
         public object Route0([FromQuery]string a)
         {
+            //SpinWait.SpinUntil(()=> false, 1000);
             //var requestFeature = Request.HttpContext.Features.Get<IHttpRequestFeature>();             
             return "GET did_serslot/Values?a=" + a;
         }
