@@ -254,7 +254,7 @@ namespace Vit.Core.Util.Threading.Worker
                     {
                         try
                         {
-                            ETaskFinishStatus status = ETaskFinishStatus.success;
+                            ETaskFinishStatus status = ETaskFinishStatus.error;
                             try
                             {
                                 IsDealing = false;
@@ -268,6 +268,7 @@ namespace Vit.Core.Util.Threading.Worker
 
                                 //(x.x.3)
                                 Processor(workArg);
+                                status = ETaskFinishStatus.success;
                                 IsDealing = false;
                             }
                             catch (Exception ex) when (ex.GetBaseException() is ThreadInterruptedException)

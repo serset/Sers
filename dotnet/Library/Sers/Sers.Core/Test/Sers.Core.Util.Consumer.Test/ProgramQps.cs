@@ -78,8 +78,8 @@ namespace CLClient
                 case "LongThread":
                     consumer = new LongThread<Product>();  //16 16 1600千            //ori:16 16 440万          2  2  800万
                     break;
-                case "LongTask":
-                    consumer = new LongTask<Product>();  //16 16 1600千   
+                case "ManagedThread":
+                    consumer = new ManagedThread<Product>();
                     break;
 
                 case "ConsumerCache_LongThread":
