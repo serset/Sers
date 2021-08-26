@@ -3,6 +3,14 @@ Sers为一套跨平台跨语言的开源微服务架构协议
 >源码地址: [https://github.com/serset/Sers](https://github.com/serset/Sers "https://github.com/serset/Sers")  
 >当前版本为2.1，RequestQueue模式。  
 
+![](https://img.shields.io/github/license/Serset/Sers.svg)  
+![](https://img.shields.io/github/repo-size/Serset/Sers.svg)  ![](https://img.shields.io/github/last-commit/Serset/Sers.svg)  
+ 
+
+| Build | NuGet | Docker |
+|--|--|--|
+|![](https://github.com/serset/Sers/workflows/CI/badge.svg) | [![](https://img.shields.io/nuget/v/Sers.ServiceStation.svg)](https://www.nuget.org/packages/Sers.ServiceStation/) ![](https://img.shields.io/nuget/dt/Sers.ServiceStation.svg)   | ![](https://img.shields.io/docker/v/serset/sers/latest.svg) ![](https://img.shields.io/docker/pulls/serset/sers.svg) ![](https://img.shields.io/docker/image-size/serset/sers/latest.svg)
+
 Sers拥有如下特性：  
 - 跨语言、跨平台，目前已支持c#、java、c++、javascript  
 - 高效高并发（百万并发），单机QPS:2000000  

@@ -2,7 +2,16 @@
 Sers was a set of cross-platform and cross-language open source micro-service architecture protocol  
 >source address: [https://github.com/serset/Sers](https://github.com/serset/Sers "https://github.com/serset/Sers")  
 >the current version is 2.1, requestQueue mode.  
-  
+
+![](https://img.shields.io/github/license/Serset/Sers.svg)  
+![](https://img.shields.io/github/repo-size/Serset/Sers.svg)  ![](https://img.shields.io/github/last-commit/Serset/Sers.svg)  
+ 
+
+| Build | NuGet | Docker |
+|--|--|--|
+|![](https://github.com/serset/Sers/workflows/CI/badge.svg) | [![](https://img.shields.io/nuget/v/Sers.ServiceStation.svg)](https://www.nuget.org/packages/Sers.ServiceStation/) ![](https://img.shields.io/nuget/dt/Sers.ServiceStation.svg)   | ![](https://img.shields.io/docker/v/serset/sers/latest.svg) ![](https://img.shields.io/docker/pulls/serset/sers.svg) ![](https://img.shields.io/docker/image-size/serset/sers/latest.svg)
+
+ 
 Sers has the following features:  
 - Cross-language, cross-platform, currently supports C #, Java, C ++, JavaScript  
 - High efficiency and concurrency (millions of concurrency), QPS:2 million  
