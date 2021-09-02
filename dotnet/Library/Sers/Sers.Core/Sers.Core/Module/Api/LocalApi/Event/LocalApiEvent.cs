@@ -3,7 +3,7 @@ using Sers.Core.Module.Rpc;
 using System;
 using System.Runtime.CompilerServices;
 using Vit.Core.Module.Log;
-using Vit.Extensions.IEnumerable;
+using Vit.Extensions;
 
 namespace Sers.Core.Module.Api.LocalApi.Event
 {
@@ -30,7 +30,7 @@ namespace Sers.Core.Module.Api.LocalApi.Event
         {
             if (events_OnDispose == null) return;
 
-            events_OnDispose.ForEach(end =>
+            events_OnDispose.IEnumerable_ForEach(end =>
             {
                 try
                 {

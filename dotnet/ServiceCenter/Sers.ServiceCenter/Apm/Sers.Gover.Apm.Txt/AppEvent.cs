@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Text;
 using Vit.Core.Module.Log;
 using Vit.Extensions;
-using Vit.Extensions.IEnumerable;
 
 namespace Sers.Gover.Apm.Txt
 {
@@ -162,7 +161,7 @@ namespace Sers.Gover.Apm.Txt
                 msg.Append(Environment.NewLine).Append("--duration :").Append((endTime - beginTime).TotalMilliseconds).Append(" ms");
 
          
-                config.tags?.ForEach(item =>
+                config.tags?.IEnumerable_ForEach(item =>
                 {
                     //try
                     //{
