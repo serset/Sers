@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using Vit.Core.Module.Log;
 using Vit.Extensions;
-using Vit.Extensions.IEnumerable;
 using zipkin4net;
 using zipkin4net.Tracers.Zipkin;
 using zipkin4net.Transport.Http;
@@ -213,7 +212,7 @@ namespace Sers.Gover.Apm.Zipkin
                 #endregion
 
                 //tags
-                config.tags?.ForEach(item =>
+                config.tags?.IEnumerable_ForEach(item =>
                 {
                     var key = GetTagValue(item.Key);
                     var value = GetTagValue(item.Value);

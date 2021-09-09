@@ -72,9 +72,7 @@ namespace Sers.Hardware.Env
                               
         
 
-        #region GetCpuSerialNumber
-
-      
+        #region GetCpuSerialNumber    
 
         /// <summary>
         /// 读取CPU序列号信息(不一定能获取到，而且不一定唯一)
@@ -346,6 +344,42 @@ enp3s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         }
         #endregion
 
+
+
+        #region GetCgroupInfo
+        /// <summary>
+        /// cat /proc/1/cgroup
+        /// </summary>
+        /// <returns></returns>
+        public static string GetCgroupInfo()
+        {
+            // https://blog.csdn.net/mar_ljh/article/details/109011822   
+
+
+            /* cat /proc/1/cgroup
+11:devices:/docker/e33bad270f86177ef115bfc8825f1704a630d8e029c09b25262a3ad4274192e1
+10:net_prio,net_cls:/docker/e33bad270f86177ef115bfc8825f1704a630d8e029c09b25262a3ad4274192e1
+9:pids:/docker/e33bad270f86177ef115bfc8825f1704a630d8e029c09b25262a3ad4274192e1
+8:memory:/docker/e33bad270f86177ef115bfc8825f1704a630d8e029c09b25262a3ad4274192e1
+7:cpuset:/docker/e33bad270f86177ef115bfc8825f1704a630d8e029c09b25262a3ad4274192e1
+6:freezer:/docker/e33bad270f86177ef115bfc8825f1704a630d8e029c09b25262a3ad4274192e1
+5:blkio:/docker/e33bad270f86177ef115bfc8825f1704a630d8e029c09b25262a3ad4274192e1
+4:perf_event:/docker/e33bad270f86177ef115bfc8825f1704a630d8e029c09b25262a3ad4274192e1
+3:hugetlb:/docker/e33bad270f86177ef115bfc8825f1704a630d8e029c09b25262a3ad4274192e1
+2:cpuacct,cpu:/docker/e33bad270f86177ef115bfc8825f1704a630d8e029c09b25262a3ad4274192e1
+1:name=systemd:/docker/e33bad270f86177ef115bfc8825f1704a630d8e029c09b25262a3ad4274192e1   
+             */
+
+            try
+            {
+                return File.ReadAllText("/proc/1/cgroup");
+            }
+            catch (Exception)
+            {
+            }
+            return null;
+        }
+        #endregion
 
 
 

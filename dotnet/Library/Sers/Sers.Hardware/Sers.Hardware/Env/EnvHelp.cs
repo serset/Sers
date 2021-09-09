@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
+using System.Linq;
 
 namespace Sers.Hardware.Env
 {
@@ -169,22 +172,42 @@ namespace Sers.Hardware.Env
 
 
             //(x.1)MachineUnqueKey
-            AddItem("MachineUnqueKey", MachineUnqueKey);        
+            AddItem("MachineUnqueKey", MachineUnqueKey);          
 
-            #region (x.2)EnvironmentVariable
-            foreach (var variable in new[] { "HOSTNAME", "COMPUTERNAME", "USER", "ASPNETCORE_HTTPS_PORT"})
+
+            #region (x.2) app directory
+            //AddItem("BaseDirectory", AppContext.BaseDirectory);
+            AddItem("EntryAssembly", Assembly.GetEntryAssembly().Location);
+            #endregion
+
+
+            #region (x.3)EnvironmentVariable
+            try
             {
-                try
+                var vars = Environment.GetEnvironmentVariables();
+
+                var kvs = new List<KeyValuePair<string, string>>();
+                foreach (var item in vars.Keys)
                 {
-                    AddItem("var_"+ variable, Environment.GetEnvironmentVariable(variable));                
+                    kvs.Add(new KeyValuePair<string, string>(item.ToString(), vars[item].ToString()));
                 }
-                catch { }
+
+                kvs.OrderBy(kv => kv.Key).ToList().ForEach(kv =>
+                {
+                    AddItem("var_" + kv.Key, kv.Value);
+                });
+            }
+            catch { }
+            #endregion
+
+
+            #region (x.4) Linux.cgroup
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                AddItem("cgroup", LinuxHelp.GetCgroupInfo());
             }
             #endregion
 
-            #region (3)BaseDirectory
-            AddItem("BaseDirectory", AppContext.BaseDirectory);
-            #endregion            
 
             return oriData;
         }
@@ -198,10 +221,7 @@ namespace Sers.Hardware.Env
         /// <returns>加密后的字符串</returns>
         internal static string MD5(string source)
         {
-            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-            byte[] bytes = Encoding.UTF8.GetBytes(source);
-            string result = BitConverter.ToString(md5.ComputeHash(bytes));
-            return result.Replace("-", "");
+            return Vit.Core.Util.Common.CommonHelp.MD5(source); 
         }
 
 
