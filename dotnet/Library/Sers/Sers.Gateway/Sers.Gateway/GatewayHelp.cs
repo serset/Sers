@@ -47,7 +47,7 @@ namespace Sers.Gateway
             #region (x.3)初始化WebHost
 
             //(x.x.1)指定可以与iis集成（默认无法与iis集成）
-            arg.OnCreateWebHostBuilder = () => Microsoft.AspNetCore.WebHost.CreateDefaultBuilder().UseVitConfig();
+            arg.OnCreateWebHostBuilder = () => Microsoft.AspNetCore.WebHost.CreateDefaultBuilder().UseVitConfig().UseCertificates(arg.certificates);
 
 
             #region (x.x.2)转发web请求到Sers(网关核心功能)

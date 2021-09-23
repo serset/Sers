@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
+using Vit.WebHost.Extensions.UseCertificates;
+
 namespace Vit.WebHost
 {
     [JsonObject(MemberSerialization.OptIn)]
@@ -17,6 +19,13 @@ namespace Vit.WebHost
         /// </summary>       
         [JsonProperty]
         public string[] urls;
+
+
+        /// <summary>
+        /// 
+        /// </summary>       
+        [JsonProperty]
+        public CertificateInfo[] certificates;
 
         /// <summary>
         /// 是否允许跨域访问，默认true

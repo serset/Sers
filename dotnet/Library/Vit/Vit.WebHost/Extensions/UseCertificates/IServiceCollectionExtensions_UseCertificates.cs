@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using Vit.Core.Util.Common;
+using Vit.WebHost.Extensions.UseCertificates;
 
 namespace Vit.Extensions
 {
@@ -32,8 +33,24 @@ namespace Vit.Extensions
         /// <returns></returns>
         public static IServiceCollection UseCertificates(this IServiceCollection data, string configPath = "server.certificates")
         {
+            var configs = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<CertificateInfo[]>(configPath);
+            return data.UseCertificates(configs);
+        }
 
-            //var certificate = new X509Certificate2(@"L:\Code\AliSvn\Lith\ssl证书\sersit-com-iis-0923120142.pfx", "Admin0123");
+
+
+
+        /// <summary>
+        /// 加载https证书
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="certificates">证书配置</param>
+        /// <returns></returns>
+        public static IServiceCollection UseCertificates(this IServiceCollection data, CertificateInfo[] certificates)
+        {
+            if (certificates == null || certificates.Length == 0) return data;
+
+            //var certificate = new X509Certificate2(@"L:\Code\sersit-com-iis-0923120142.pfx", "password");
             ////var dnsName = certificate.GetNameInfo(X509NameType.SimpleName, false);
             //var dnsName = certificate.GetNameInfo(X509NameType.DnsName, false);
 
@@ -41,10 +58,9 @@ namespace Vit.Extensions
             //(x.1)构建证书字典
             X509Certificate2 defaultCert = null;
             Dictionary<string, X509Certificate2> certMap = new Dictionary<string, X509Certificate2>();
-            foreach (var item in Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<Newtonsoft.Json.Linq.JArray>(configPath)
-                ?? new Newtonsoft.Json.Linq.JArray())
+            foreach (var config in certificates)
             {
-                var certificate = new X509Certificate2(CommonHelp.GetAbsPath(item["filePath"].ToString()), item["password"].ToString());
+                var certificate = new X509Certificate2(CommonHelp.GetAbsPath(config.filePath), config.password);
                 var dnsName = certificate.GetNameInfo(X509NameType.DnsName, false);
                 certMap[dnsName] = certificate;
 

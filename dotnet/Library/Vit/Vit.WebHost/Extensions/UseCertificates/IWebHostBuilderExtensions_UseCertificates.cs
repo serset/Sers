@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 
+using Vit.WebHost.Extensions.UseCertificates;
+
 namespace Vit.Extensions
 {
     public static partial class IWebHostBuilderExtensions_UseCertificates
@@ -30,6 +32,19 @@ namespace Vit.Extensions
         public static IWebHostBuilder UseCertificates(this IWebHostBuilder data, string configPath = "server.certificates")
         {
             data?.ConfigureServices(services=> services.UseCertificates(configPath)); 
+            return data;
+        }
+
+
+        /// <summary>
+        /// 加载https证书 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="certificates">证书配置</param>
+        /// <returns></returns>
+        public static IWebHostBuilder UseCertificates(this IWebHostBuilder data, CertificateInfo[] certificates)
+        {
+            data?.ConfigureServices(services => services.UseCertificates(certificates));
             return data;
         }
     }
