@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+
 using Newtonsoft.Json.Linq;
+
 using Sers.Core.Module.Api;
 using Sers.Core.Module.Message;
 using Sers.Core.Module.Rpc;
 using Sers.Gateway.RateLimit;
+
 using System;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Extensions;
@@ -47,10 +50,22 @@ namespace Sers.Gateway
             #region (x.3)初始化WebHost
 
             //(x.x.1)指定可以与iis集成（默认无法与iis集成）
-            arg.OnCreateWebHostBuilder = () => Microsoft.AspNetCore.WebHost.CreateDefaultBuilder().UseVitConfig().UseCertificates(arg.certificates);
+            arg.OnCreateWebHostBuilder = () =>
+                  Microsoft.AspNetCore.WebHost.CreateDefaultBuilder()
+                  .UseVitConfig()
+                  .UseCertificates(arg.certificates) //加载https证书（若指定）
+                    ;
 
+            //(x.x.2)重定向所有的http请求到https
+            if (arg.httpsRedirection != null)
+            {
+                arg.BeforeConfigure = (app) =>
+                {
+                    app.UseHttpsRedirection(arg.httpsRedirection);
+                };
+            }
 
-            #region (x.x.2)转发web请求到Sers(网关核心功能)
+            #region (x.x.3)转发web请求到Sers(网关核心功能)
             arg.OnConfigure = (app) =>
             {
                 app.Run(gatewayHelp.BridgeAsync);
@@ -58,11 +73,11 @@ namespace Sers.Gateway
             #endregion
 
 
-            //(x.x.3)设置异步启动
+            //(x.x.4)设置异步启动
             arg.RunAsync = true;
 
 
-            #region (x.x.4)启动           
+            #region (x.x.5)启动
             Logger.Info("[WebHost]will listening on: " + string.Join(",", arg.urls));
 
             if (arg.staticFiles?.rootPath != null)
@@ -127,7 +142,7 @@ namespace Sers.Gateway
 
             //(x.1)构建http
             BuildHttp(rpcData, request);
-         
+
 
             //(x.2) 构建body
             var body = await BuildBodyAsync(request, rpcData);
@@ -159,12 +174,12 @@ namespace Sers.Gateway
         #endregion
 
 
- 
+
 
 
         #region BuildHttp
         static string prefixOfCopyIpToHeader = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.WebHost.prefixOfCopyIpToHeader");
-    
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void BuildHttp(RpcContextData rpcData, HttpRequest request)
         {
@@ -305,7 +320,7 @@ namespace Sers.Gateway
         #endregion
 
 
-      
+
 
 
 

@@ -1,7 +1,9 @@
 ﻿using System;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+
 using Vit.Extensions;
 
 namespace Vit.WebHost
@@ -16,17 +18,17 @@ namespace Vit.WebHost
         public static void Run(string rootPath = null, Action<IApplicationBuilder> OnConfigure = null, params string[] urls)
         {
             Run(new HostRunArg
-            {                
+            {
                 OnConfigure = OnConfigure,
                 urls = urls,
-                staticFiles=new StaticFilesConfig { rootPath= rootPath }
+                staticFiles = new StaticFilesConfig { rootPath = rootPath }
             });
         }
 
         public static void Run(HostRunArg arg)
         {
             Action<IServiceCollection> OnConfigureServices = null;
-            Action<IApplicationBuilder> OnConfigure = null;
+            Action<IApplicationBuilder> OnConfigure = arg.BeforeConfigure;
 
 
 
@@ -34,38 +36,19 @@ namespace Vit.WebHost
             if (arg.allowAnyOrigin)
             {
                 OnConfigureServices += IServiceCollectionExtensions_AllowAnyOrigin.AllowAnyOrigin_ConfigureServices;
-                OnConfigure += IServiceCollectionExtensions_AllowAnyOrigin.AllowAnyOrigin_Configure;               
+                OnConfigure += IServiceCollectionExtensions_AllowAnyOrigin.AllowAnyOrigin_Configure;
             }
             #endregion
 
             #region (x.2)UseStaticFiles
-            if (arg.staticFiles != null) 
+            if (arg.staticFiles != null)
             {
                 OnConfigure += (app) =>
-                {                   
+                {
                     app.UseStaticFiles(arg.staticFiles);
                 };
             }
-            #endregion
-
-            #region demo OnConfigure
-            //OnConfigure += (app) =>{
-
-            //    app.Use(async (context, next) =>
-            //    {
-            //        await context.Response.WriteAsync("进入第一个委托 执行下一个委托之前\r\n");
-            //        //调用管道中的下一个委托
-            //        await next.Invoke();
-            //        await context.Response.WriteAsync("结束第一个委托 执行下一个委托之后\r\n");
-            //    });
-
-
-            //    app.Run(async (context) =>
-            //    {
-            //        await context.Response.WriteAsync("hello, here is from netcore.");
-            //    });
-            //};
-            #endregion
+            #endregion 
 
 
             #region (x.3) Build host
@@ -74,10 +57,10 @@ namespace Vit.WebHost
             OnConfigure += arg.OnConfigure;
 
             var host =
-                arg.OnCreateWebHostBuilder()               
-                .UseUrls(arg.urls)    
+                arg.OnCreateWebHostBuilder()
+                .UseUrls(arg.urls)
                 .ConfigureServices(OnConfigureServices)
-                .Configure(OnConfigure)               
+                .Configure(OnConfigure)
                 .Build();
             #endregion
 

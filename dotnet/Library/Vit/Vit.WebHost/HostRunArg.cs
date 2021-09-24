@@ -1,9 +1,12 @@
 ﻿using System;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+
 using Newtonsoft.Json;
 
+using Vit.WebHost.Extensions.HttpsRedirection;
 using Vit.WebHost.Extensions.UseCertificates;
 
 namespace Vit.WebHost
@@ -12,7 +15,7 @@ namespace Vit.WebHost
     public partial class HostRunArg
     {
 
-        public Func<IWebHostBuilder> OnCreateWebHostBuilder = () => new WebHostBuilder().UseKestrel();    
+        public Func<IWebHostBuilder> OnCreateWebHostBuilder = () => new WebHostBuilder().UseKestrel();
 
         /// <summary>
         /// 
@@ -23,9 +26,17 @@ namespace Vit.WebHost
 
         /// <summary>
         /// 
+        /// </summary>
+        [JsonProperty]
+        public CertificateInfo[] certificates { get; set; }
+
+
+        /// <summary>
+        /// 
         /// </summary>       
         [JsonProperty]
-        public CertificateInfo[] certificates;
+        public HttpsRedirectionConfig httpsRedirection { get; set; }
+
 
         /// <summary>
         /// 是否允许跨域访问，默认true
@@ -47,6 +58,7 @@ namespace Vit.WebHost
         public bool RunAsync = false;
 
         public Action<IServiceCollection> OnConfigureServices = null;
+        public Action<IApplicationBuilder> BeforeConfigure = null;
         public Action<IApplicationBuilder> OnConfigure = null;
 
 
@@ -56,6 +68,6 @@ namespace Vit.WebHost
             urls = new string[] { "http://*:" + port };
             return this;
         }
- 
+
     }
 }
