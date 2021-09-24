@@ -158,3 +158,5 @@ Serslot 在兼容AspNetCore2.1的同时，兼容 AspNetCore3.0、 AspNetCore3.1、 AspNetCo
 
 --------------------------------------
 
+[2021-09-23]
+  [Vit.WebHost]支持https

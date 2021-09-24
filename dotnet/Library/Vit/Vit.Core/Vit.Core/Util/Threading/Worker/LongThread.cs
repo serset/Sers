@@ -14,6 +14,30 @@ namespace Vit.Core.Util.Threading.Worker
     public class LongThread : IDisposable
     {
 
+        #region Run
+        public static LongThread Run(Action action, int threadCount = 1)
+        {
+            var task = new LongThread(action, threadCount);
+            task.Start();
+            return task;
+        }
+        #endregion
+
+
+
+
+        public LongThread(int threadCount=1) 
+        { 
+            this.threadCount = threadCount;
+        }
+
+        public LongThread(Action action, int threadCount = 1) : this(threadCount)
+        {
+            Processor = action;
+        }
+
+
+
         /// <summary>
         /// 请勿处理ThreadInterruptedException异常，否则导致线程无法正常结束
         /// 不可抛异常
@@ -68,10 +92,7 @@ namespace Vit.Core.Util.Threading.Worker
         public bool IsRunning => runningThreadCount != 0;//threads != null && threads.Any(item=> item.IsAlive);
 
 
-        public LongThread()
-        {
-            threadCount = 1;
-        }
+        
         ~LongThread()
         {
             Dispose();
