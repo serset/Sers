@@ -2,6 +2,9 @@
 
 namespace Vit.Extensions
 {
+    // 参考 https://www.cnblogs.com/longdunxiong/p/14412047.html
+    // https://blog.csdn.net/weixin_33991727/article/details/94272591
+
     public static class TimeStamp_Extensions
     {
         /// <summary>
@@ -9,7 +12,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="AccurateToMilliseconds">是否精确到毫秒</param>
         /// <returns>返回一个长整数时间戳</returns>
-        public static long ToTimeStamp(this DateTime time,bool AccurateToMilliseconds = true)
+        public static long ToTimeStamp(this DateTime time, bool AccurateToMilliseconds = true)
         {
             if (AccurateToMilliseconds)
             {
@@ -26,7 +29,7 @@ namespace Vit.Extensions
         }
 
 
-       
+
         /// <summary>
         /// 时间戳转换为时间
         /// </summary>
@@ -34,7 +37,7 @@ namespace Vit.Extensions
         /// <param name="AccurateToMilliseconds">是否精确到毫秒</param>
         /// <returns>返回一个日期时间</returns>
         public static DateTime TimeStampToDateTime(this long TimeStamp, bool AccurateToMilliseconds = true)
-        {           
+        {
             if (AccurateToMilliseconds)
             {
                 return startTime.AddTicks(TimeStamp * 10000);
@@ -70,6 +73,6 @@ namespace Vit.Extensions
         /// <summary>
         /// 时间戳的起始时间(使用本地时区)
         /// </summary>
-        public static System.DateTime startTimeLocal = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1)); // 当地时区
+        public static System.DateTime startTimeLocal = TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), TimeZoneInfo.Local); // 当地时区
     }
 }
