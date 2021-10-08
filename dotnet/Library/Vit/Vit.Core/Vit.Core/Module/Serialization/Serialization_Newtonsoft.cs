@@ -4,6 +4,7 @@ using System;
 using Vit.Core.Util.ConfigurationManager;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace Vit.Core.Module.Serialization
 {
@@ -166,6 +167,13 @@ namespace Vit.Core.Module.Serialization
         public string SerializeToString(object value, Type type)
         {
             if (null == value) return null;
+
+            if (value is Newtonsoft.Json.Linq.JToken token)
+            {             
+                if(token.TypeMatch(JTokenType.String)) return token.ToString();
+
+                return token.ToString(serializeSetting.Formatting);
+            }
 
             if (type.TypeIsValueTypeOrStringType())
             {
