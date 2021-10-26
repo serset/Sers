@@ -126,5 +126,20 @@ Debug.WriteLine(guid.ToString("X"));//{0x1f3c6041,0xc68f,0x4ab3,{0xae,0x19,0xf6,
             }
         }
 
+        /// <summary>
+        /// MD5加密（32位大写）
+        /// </summary>
+        /// <param name="bytes">源数据</param>
+        /// <returns>加密后的字符串</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static string MD5(byte[] bytes)
+        {
+            using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
+            {            
+                string result = BitConverter.ToString(md5.ComputeHash(bytes));
+                return result.Replace("-", "");
+            }
+        }
+
     }
 }
