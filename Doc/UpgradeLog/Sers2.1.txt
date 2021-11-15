@@ -161,5 +161,5 @@ Serslot 在兼容AspNetCore2.1的同时，兼容 AspNetCore3.0、 AspNetCore3.1、 AspNetCo
   [Vit.WebHost]支持https
 --------------------------------------
 [2021-11-15]
-  服务中心获取并存储服务站点的ip
+  [Gover]服务中心获取并存储服务站点的ip
 
