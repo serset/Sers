@@ -8,7 +8,7 @@ namespace Vit.Extensions
     {
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static IDeliveryConnection GetDeliveryConn(this IOrganizeConnection data)
+        public static IDeliveryConnection GetDeliveryConn(this IOrganizeConnection data)
         {
             return (data as OrganizeConnection)?.deliveryConn;
         }
