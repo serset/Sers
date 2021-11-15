@@ -13,6 +13,15 @@ namespace Sers.Gover.Base.Model
     {
         public string connKey { get; set; }
 
+
+        /// <summary>
+        /// 连接客户端的ip
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string connectionIp;
+
+
+
         /// <summary>
         /// 服务站点开启时间
         /// </summary>

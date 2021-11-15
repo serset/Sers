@@ -59,6 +59,7 @@ namespace Sers.Gover.Base
                     m => new ServiceStationData
                     {
                         connKey = "" + m.connection.GetHashCode(),
+                        connectionIp = m.connectionIp,
                         startTime = m.startTime,
                         deviceInfo = m.deviceInfo,
                         serviceStationInfo = m.serviceStationInfo,

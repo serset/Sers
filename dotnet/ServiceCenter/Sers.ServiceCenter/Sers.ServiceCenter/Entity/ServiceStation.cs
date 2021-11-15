@@ -37,6 +37,12 @@ namespace Sers.ServiceCenter.Entity
         public IOrganizeConnection connection { get; set; }
 
         /// <summary>
+        /// 连接客户端的ip
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string connectionIp;
+
+        /// <summary>
         /// 站点软硬件环境信息
         /// </summary>
         [JsonProperty]
