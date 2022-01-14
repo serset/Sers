@@ -119,8 +119,9 @@ function (isSuccess, replyData_bytes, replyRpcData_object) {
 
 
 
-        vit.logger.onmessage = function (msg) {
-            txt_log.value = txt_log.value + '\n' + msg;
+        vit.logger.onmessage = function (message, type, e) {
+            console.log(message);
+            txt_log.value = txt_log.value + '\n' + message;
             txt_log.scrollTop = txt_log.scrollHeight;
         };
 
@@ -136,8 +137,7 @@ function (isSuccess, replyData_bytes, replyRpcData_object) {
                 var user_apiNodes = eval('(' + str_apiNodes + ')');
                 serviceStation.localApiService.clearApiNodes();
 
-                for (var t in user_apiNodes) {
-                    var item = user_apiNodes[t];
+                for (var item of user_apiNodes) {
                     serviceStation.localApiService.addSimpleApiNode(item.route, item.httpMethod.toUpperCase(), item.apiName, item.onInvoke);
                 }
                 vit.logger.info('api已加载，数量：' + user_apiNodes.length);
