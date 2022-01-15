@@ -850,7 +850,7 @@
 						"success": false,
 						"error": {
 							"errorMessage": e.message,
-							"errorDetail": { source: 'from JsStation' }
+							"errorDetail": { name: e.name, stack:e.stack }
 						}
 					};
 
@@ -862,7 +862,7 @@
 					"success": false,
 					"error": {
 						"errorCode": 404,
-						"errorMessage": "接口不存在",
+						"errorMessage": "Not Found",
 						"errorDetail": { source: 'from JsStation' }
 					}
 				};

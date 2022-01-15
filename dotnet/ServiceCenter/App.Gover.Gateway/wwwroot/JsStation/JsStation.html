@@ -34,6 +34,7 @@
     onInvoke: function (requestData_bytes, rpcData, reply_rpcData) {
         var request_string = vit.bytesToString(requestData_bytes);
         vit.logger.info('[api调用] request:' + request_string );
+
         var replyData = {
             success: true,
             data:
@@ -104,6 +105,7 @@ function (isSuccess, replyData_bytes, replyRpcData_object) {
                 route: '/JsStation/api1', httpMethod: 'GET', apiName: 'js作为服务站点',
                 onInvoke: function (requestData_bytes, rpcData, reply_rpcData) {
                     var request_string = vit.bytesToString(requestData_bytes);
+
                     var replyData = {
                         success: true,
                         data:
@@ -120,6 +122,8 @@ function (isSuccess, replyData_bytes, replyRpcData_object) {
 
 
         vit.logger.onmessage = function (message, type, e) {
+            if (e) message = message + '\n' + e.stack;
+
             console.log(message);
             txt_log.value = txt_log.value + '\n' + message;
             txt_log.scrollTop = txt_log.scrollHeight;
@@ -131,19 +135,20 @@ function (isSuccess, replyData_bytes, replyRpcData_object) {
                 vit.logger.info('');
                 vit.logger.info('--------------------------------------------');
 
-                //(x.1)
-                vit.logger.info('加载api...');
+                //(x.1)load localApi
+                vit.logger.info('[ApiLoader] load localApi...');
                 var str_apiNodes = txt_apiNodes.value;
-                var user_apiNodes = eval('(' + str_apiNodes + ')');
-                serviceStation.localApiService.clearApiNodes();
+                var apiNodes = eval('(' + str_apiNodes + ')');
 
-                for (var item of user_apiNodes) {
+                serviceStation.localApiService.clearApiNodes();
+                for (var item of apiNodes) {
                     serviceStation.localApiService.addSimpleApiNode(item.route, item.httpMethod.toUpperCase(), item.apiName, item.onInvoke);
                 }
-                vit.logger.info('api已加载，数量：' + user_apiNodes.length);
+                vit.logger.info('loaded localApi，count：' + apiNodes.length);
 
 
-                //(x.2)appsettings
+                //(x.2)load configuration
+                vit.logger.info('load configuration...');
                 appsettings = eval('(' + txt_appsettings.value + ')');
 
                 //设置websocket host 地址
@@ -155,7 +160,12 @@ function (isSuccess, replyData_bytes, replyRpcData_object) {
                 serviceStation.serviceStationInfo = appsettings.serviceStationInfo;
 
 
-                //(x.3)连接
+                //(x.3)event
+                serviceStation.org.event_onDisconnected = function () {
+                    vit.logger.info('[sers.CL]org.event_onDisconnected');
+			    };
+
+                //(x.4)connect
                 serviceStation.start();
             } catch (e) {
                 vit.logger.error(e);
