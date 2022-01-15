@@ -808,12 +808,12 @@
 			apiNodeMap[apiKey] = { apiDesc: apiDesc, Invoke: Invoke };
 		};
 
-		//(string route, string httpMethod, string description, Invoke Invoke)
+		//(string route, string httpMethod, string name, string description, Invoke Invoke)
 		//Invoke:   function(requestData_bytes,rpcData_object,reply_rpcData_object){}
-		self.addSimpleApiNode = function (route, httpMethod, description, Invoke) {
+		self.addSimpleApiNode = function (route, httpMethod, name, description, Invoke) {
 			var apiDesc = {
 				route: route,
-				name: description,
+				name: name,
 				description: description,
 				extendConfig: {
 					httpMethod: httpMethod

@@ -26,14 +26,14 @@
 <textarea type="text" id="txt_appsettings" rows="30" cols="40"></textarea>
                 </td>
                 <td>
-<textarea type="text" id="txt_apiNodes" rows="30" cols="80">
+                    <textarea type="text" id="txt_apiNodes" rows="30" cols="80">
 [
 
 {
-    route: '/JsStation/api1', httpMethod: 'GET', apiName: 'js作为服务站点',
+    route: '/JsStation/api', httpMethod: 'GET', name: 'call api in js server', description: 'js作为服务站点',
     onInvoke: function (requestData_bytes, rpcData, reply_rpcData) {
         var request_string = vit.bytesToString(requestData_bytes);
-        vit.logger.info('[api调用] request:' + request_string );
+        vit.logger.info('[api调用] request:' + request_string);
 
         var replyData = {
             success: true,
@@ -112,7 +112,7 @@ function (isSuccess, replyData_bytes, replyRpcData_object) {
         //(Error e,requestData_bytes,rpcData,replyRpcDta)
         //localApiService.onError = function(e,requestData_bytes,rpcData,replyRpcDta){ return {success：false}; }
         serviceStation.localApiService.onError = function (e, requestData_bytes, rpcData, replyRpcDta) {
-            logger.error(e);
+            vit.logger.error(e);
             var reply = {
                 success: false,
                 error: {
@@ -129,14 +129,14 @@ function (isSuccess, replyData_bytes, replyRpcData_object) {
            apiNodes demo:
            //onInvoke:   function(requestData_bytes,rpcData_object,reply_rpcData_object){}
             {
-                route: '/JsStation/api1', httpMethod: 'GET', apiName: 'js作为服务站点',
+                route: '/JsStation/api', httpMethod: 'GET', name: 'call api in js server', description: 'js作为服务站点',
                 onInvoke: function (requestData_bytes, rpcData, reply_rpcData) {
                     var request_string = vit.bytesToString(requestData_bytes);
+                    vit.logger.info('[api调用] request:' + request_string);
 
                     var replyData = {
                         success: true,
-                        data:
-                        {
+                        data:{
                             request_string: request_string,
                             _: Math.random()
                         }
@@ -160,7 +160,7 @@ function (isSuccess, replyData_bytes, replyRpcData_object) {
 
                 serviceStation.localApiService.clearApiNodes();
                 for (var item of apiNodes) {
-                    serviceStation.localApiService.addSimpleApiNode(item.route, item.httpMethod.toUpperCase(), item.apiName, item.onInvoke);
+                    serviceStation.localApiService.addSimpleApiNode(item.route, item.httpMethod.toUpperCase(), item.name, item.description, item.onInvoke);
                 }
                 vit.logger.info('loaded localApi，count：' + apiNodes.length);
 
