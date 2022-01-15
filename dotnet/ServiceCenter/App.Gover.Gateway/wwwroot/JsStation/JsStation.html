@@ -93,13 +93,40 @@ function (isSuccess, replyData_bytes, replyRpcData_object) {
             }
         };
 
-        txt_appsettings.value = JSON.stringify(appsettings, null, 2);
+
+
+        //type: info/error
+		//e: pass error when type is error
+		//function(message,type,e){ }
+        vit.logger.onmessage = function (message, type, e) {
+            if (e) message = message + '\n' + e.stack;
+
+            console.log(message);
+            txt_log.value = txt_log.value + '\n' + message;
+            txt_log.scrollTop = txt_log.scrollHeight;
+        };
 
 
         var serviceStation = new sers.ServiceStation();
 
+        //(Error e,requestData_bytes,rpcData,replyRpcDta)
+        //localApiService.onError = function(e,requestData_bytes,rpcData,replyRpcDta){ return {success：false}; }
+        serviceStation.localApiService.onError = function (e, requestData_bytes, rpcData, replyRpcDta) {
+            logger.error(e);
+            var reply = {
+                success: false,
+                error: {
+                    errorMessage: e.message,
+                    errorDetail: { name: e.name, stack: e.stack }
+                }
+            };
+            return reply;
+        };
+
+
+
         /*
-           user_ApiNode demo:
+           apiNodes demo:
            //onInvoke:   function(requestData_bytes,rpcData_object,reply_rpcData_object){}
             {
                 route: '/JsStation/api1', httpMethod: 'GET', apiName: 'js作为服务站点',
@@ -119,15 +146,6 @@ function (isSuccess, replyData_bytes, replyRpcData_object) {
             }
         */
 
-
-
-        vit.logger.onmessage = function (message, type, e) {
-            if (e) message = message + '\n' + e.stack;
-
-            console.log(message);
-            txt_log.value = txt_log.value + '\n' + message;
-            txt_log.scrollTop = txt_log.scrollHeight;
-        };
 
 
         function startService() {
@@ -196,6 +214,10 @@ function (isSuccess, replyData_bytes, replyRpcData_object) {
             }
         }
 
+
+
+
+        txt_appsettings.value = JSON.stringify(appsettings, null, 2);
     </script>
 </body>
 </html>

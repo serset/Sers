@@ -822,6 +822,20 @@
 			self.addApiNode(apiDesc, Invoke);
 		};
 
+		//(Error e,requestData_bytes,rpcData,replyRpcDta)
+	    //localApiService.onError = function(e,requestData_bytes,rpcData,replyRpcDta){ return {success：false}; }
+		self.onError = function (e, requestData_bytes, rpcData, replyRpcDta) {
+			logger.error(e);
+			var reply = {
+				success: false,
+				error: {
+					errorMessage: e.message,
+					errorDetail: { name: e.name, stack: e.stack }
+				}
+			};
+			return reply;
+		};
+
 		//apiRequestMessage bytes
 		//return apiReplyMessage bytes
 		self.callApi = function (apiRequestMessage) {
@@ -844,26 +858,18 @@
 			if (apiNode && apiNode.Invoke) {
 				try {
 					replyData = apiNode.Invoke(requestData_bytes, rpcData, replyRpcDta);
-				} catch (e) {
-					logger.error(e);
-					var reply = {
-						"success": false,
-						"error": {
-							"errorMessage": e.message,
-							"errorDetail": { name: e.name, stack:e.stack }
-						}
-					};
-
+				} catch (e) {					
+					var reply = self.onError(e, requestData_bytes, rpcData, replyRpcDta);
 					replyData = vit.objectSerializeToBytes(reply);
 				}
 
 			} else {
 				var reply = {
-					"success": false,
-					"error": {
-						"errorCode": 404,
-						"errorMessage": "Not Found",
-						"errorDetail": { source: 'from JsStation' }
+					success: false,
+					error: {
+						errorCode: 404,
+						errorMessage: "Api Not Found",
+						errorDetail: { source: 'from JsStation' }
 					}
 				};
 
