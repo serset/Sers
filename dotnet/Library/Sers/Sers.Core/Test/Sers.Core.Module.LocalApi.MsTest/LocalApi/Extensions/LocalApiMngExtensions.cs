@@ -22,7 +22,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions
             AutoResetEvent mEvent = new AutoResetEvent(false);
             mEvent.Reset();
 
-            data.CallApiAsync(null, apiRequestMessage, (sender,_apiReplyMessage)=> 
+            data.InvokeApiAsync(null, apiRequestMessage, (sender,_apiReplyMessage)=> 
             {
                 apiReplyMessage = _apiReplyMessage;
                 mEvent?.Set();

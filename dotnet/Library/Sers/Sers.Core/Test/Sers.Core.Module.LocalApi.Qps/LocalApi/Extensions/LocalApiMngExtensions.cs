@@ -29,7 +29,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions
         {
             var apiRequestMessage = new ApiMessage().InitAsApiRequestMessage(route, arg);                   
 
-            data.CallApiAsync(null, apiRequestMessage, (sender, apiReplyMessage) => 
+            data.InvokeApiAsync(null, apiRequestMessage, (sender, apiReplyMessage) => 
             {               
                 onSuc(apiReplyMessage);
             });

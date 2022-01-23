@@ -101,7 +101,7 @@ namespace Sers.ServiceCenter
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public void SendRequestAsync(Object sender, Vit.Core.Util.Pipelines.ByteData requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
             {
-                localApiService.CallApiAsync(sender, new ApiMessage(requestData.ToArraySegment()), (sender_, apiReplyMessage) =>
+                localApiService.InvokeApiAsync(sender, new ApiMessage(requestData.ToArraySegment()), (sender_, apiReplyMessage) =>
                 {
                     callback(sender_,apiReplyMessage.Package());
                 });

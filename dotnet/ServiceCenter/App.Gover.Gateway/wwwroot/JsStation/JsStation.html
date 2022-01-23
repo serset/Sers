@@ -51,13 +51,13 @@
                 <td>
                     <textarea type="text" id="txt_callApi" rows="30" cols="80">
 serviceStation.apiClient.callApiAsync("/JsStation/api1", { name: 'sers' }, 'GET',
-    function (isSuccess, replyData_bytes, replyRpcData_object) {
-        if (!isSuccess) {
+    function ({success,replyData_bytes,replyRpcData_object}) {
+        if (!success) {
             vit.logger.info("接口调用失败！");
             return;
         }
-        //var apiRet = vit.bytesToObject(replyData_bytes); 
-        var str = vit.bytesToString(replyData_bytes);
+        //var str = vit.bytesToString(replyData_bytes);
+        //var apiRet = vit.bytesToObject(replyData_bytes);
         vit.logger.info("接口调用成功。 reply:" + vit.bytesToString(replyData_bytes));
     });
 

@@ -9,8 +9,8 @@ var serviceStation = new sers.ServiceStation();
     //      onInvokeAsync:   (requestData_bytes,rpcData_object,replyRpcData_object,onInvokeFinish)=>{ }
     //					    onInvokeFinish :(replyData_bytes)=>{ }
 
-    //demo:
-    {
+    //onInvoke demo:
+    var apiInvoke = {
         route: '/JsStation/api', httpMethod: 'GET', name: 'call api in js server', description: 'js作为服务站点',
             onInvoke: function (requestData_bytes, rpcData_object, replyRpcData_object) {
                 var request_string = vit.bytesToString(requestData_bytes);
@@ -24,6 +24,25 @@ var serviceStation = new sers.ServiceStation();
                     }
                 };
                 return vit.objectSerializeToBytes(replyData);
+            }
+    }
+
+    //onInvokeAsync demo:
+    var apiInvoke = {
+        route: '/JsStation/api', httpMethod: 'GET', name: 'call api in js server', description: 'js作为服务站点',
+            onInvokeAsync: function (requestData_bytes, rpcData_object, replyRpcData_object,onInvokeFinish) {
+                var request_string = vit.bytesToString(requestData_bytes);
+                vit.logger.info('[api调用] request:' + request_string);
+
+                var replyData = {
+                    success: true,
+                    data: {
+                        request_string: request_string,
+                        _: Math.random()
+                    }
+                };
+                var replyData_bytes = vit.objectSerializeToBytes(replyData);
+                setTimeout(()=>{       onInvokeFinish(replyData_bytes);         },1000);
             }
     }
 //*/
@@ -144,13 +163,13 @@ function startService() {
 //------------------------------------------------------------------------
 //(x.5) call api
 serviceStation.apiClient.callApiAsync("/JsStation/api1", { name: 'sers' }, 'GET',
-    function (isSuccess, replyData_bytes, replyRpcData_object) {
-        if (!isSuccess) {
+    function ({ success, replyData_bytes, replyRpcData_object }) {
+        if (!success) {
             vit.logger.info("接口调用失败！");
             return;
         }
-        //var apiRet = vit.bytesToObject(replyData_bytes); 
-        var str = vit.bytesToString(replyData_bytes);
+        //var str = vit.bytesToString(replyData_bytes);
+        //var apiRet = vit.bytesToObject(replyData_bytes);
         vit.logger.info("接口调用成功。 reply:" + vit.bytesToString(replyData_bytes));
     });
 

@@ -334,7 +334,7 @@
 
 		var webSocket = null;
 
-		//callback: function(isConnected){ }
+		//callback: function(success){ }
 		self.connect = function (callback) {
 			if (webSocket) throw new Error('连接尚未断开，不可再次连接');
 
@@ -351,10 +351,10 @@
 
 			//成功被调用 或者超时被调用
 			var isCalled = false;
-			var onCall = function (isSuccess) {
+			var onCall = function (success) {
 				if (isCalled) return;
 				isCalled = true;
-				callback(isSuccess);
+				callback(success);
 			};
 			setTimeout(onCall, 10000);
 
@@ -424,8 +424,8 @@
 		self.event_onSendFrame;
 
 		//事件，delivery向Organize发送请求时被调用
-		//function (requestData, callback) { }
-		//callback: function(replyData){ }
+		//function (apiRequestMessage_bytes, callback) { }
+		//	callback: function(apiReplyMessage_bytes){ }
 		self.event_onGetRequest;
 
 		//请求超时时间（单位ms，默认300000）
@@ -474,8 +474,8 @@
 
 			switch (requestType) {
 				case ERequestType.app:
-					self.event_onGetRequest(requestData, function (replyData) {
-						deliveryToOrganize_sendReply(reqKey_bytes, replyData);
+					self.event_onGetRequest(requestData, function (apiReplyMessage_bytes) {
+						deliveryToOrganize_sendReply(reqKey_bytes, apiReplyMessage_bytes);
 					});
 					return;
 				case ERequestType.heartBeat:
@@ -500,25 +500,25 @@
 
 
 
-		//callback: function(replyData,isSuccess){ }
-		self.sendRequest = function (requestData, callback, requestType) {
+		//callback: ({success,replyData})=>{ }
+		self.sendRequest = function (requestType,requestData, callback) {
 			var reqKey = reqKeyIndex++;
 
 			//成功被调用 或者超时被调用
 			var isCalled = false;
-			var onCall = function (replyData, isSuccess) {
-				if (isCalled) return;
-				isCalled = true;
+			var onRequestFinish = function (success,replyData) {
+                if (isCalled) return;
+                isCalled = true;
 
-				if (!isSuccess) {
-					delete organizeToDelivery_RequestMap[reqKey];
-				}
-				if (callback)
-					callback(replyData, isSuccess);
+                //if (!success)
+                delete organizeToDelivery_RequestMap[reqKey];
+
+                if (callback)
+					callback({ success, replyData });
 			};
-			setTimeout(onCall, self.requestTimeoutMs);
+			setTimeout(onRequestFinish, self.requestTimeoutMs);
 
-			organizeToDelivery_RequestMap[reqKey] = function (replyData) { onCall(replyData, true); };
+			organizeToDelivery_RequestMap[reqKey] = function (replyData) { onRequestFinish(true,replyData); };
 
 			var reqKey_bytes = vit.int32ToBytes(reqKey);
 			reqKey_bytes.push(0, 0, 0, 0);
@@ -578,8 +578,8 @@
 				requestAdaptor.deliveryToOrganize_onGetMessageFrame(bytes);
 			};
 
-			requestAdaptor.event_onGetRequest = function (requestData, callback) {
-				self.event_onGetRequest(requestData, callback);
+			requestAdaptor.event_onGetRequest = function (apiRequestMessage_bytes, callback) {
+				self.event_onGetRequest(apiRequestMessage_bytes, callback);
 			};
 
 			requestAdaptor.event_onSendFrame = function (bytes) {
@@ -597,29 +597,29 @@
 		//function (event) { }
 		self.event_onDisconnected = null;
 
-		//function (requestData,callback) { }
-		//callback function(replyData){}
+		//function (apiRequestMessage_bytes,callback) { }
+		//	callback function(apiReplyMessage_bytes){}
 		self.event_onGetRequest = null;
 
-		//callback: function(replyData,isSuccess){ }
+		//callback: ({success,replyData})=>{ }
 		self.sendRequest = function (requestData, callback) {
-			requestAdaptor.sendRequest(requestData, callback);
+			requestAdaptor.sendRequest(null,requestData, callback);
 		};
 
-		//callback:   function (isSuccess) { }
+		//callback:   function (success) { }
 		self.connect = function (callback) {
 
-			delivery.connect(function (isSuccess) {
+			delivery.connect(function (success) {
 				//(x.1)连接不成功
-				if (!isSuccess)
+				if (!success)
 					callback(false);
 
 				//(x.2)进行权限校验
 				//setTimeout(function () {
-				self.sendRequest(vit.stringToBytes(self.secretKey), function (replyData, isSuccess) {
+				self.sendRequest(vit.stringToBytes(self.secretKey), function ({ success, replyData }) {
 
 					//(x.x.1)请求不成功
-					if (!isSuccess) {
+					if (!success) {
 						callback(false);
 						return;
 					}
@@ -753,34 +753,34 @@
 	};
 
 
-	sers.ApiMessage = ApiMessage;
+    sers.ApiMessage = ApiMessage;
 
-	//ApiClient
-	sers.ApiClient = function (organizeClient) {
+    //ApiClient
+    sers.ApiClient = function (organizeClient) {
 
-		//(string route, object arg, string httpMethod, function callback)
-		//callback: function(isSuccess,replyData_bytes,replyRpcData_object)
-		this.callApiAsync = function (route, arg, httpMethod, callback) {
-			var apiRequestMessage = new ApiMessage();
-			apiRequestMessage.initAsApiRequestMessage(route, arg, httpMethod);
+        //(string route, object arg, string httpMethod, function callback)
+        //	callback: function({success,replyData_bytes,replyRpcData_object})
+        this.callApiAsync = function (route, arg, httpMethod, callback) {
+            var apiRequestMessage = new ApiMessage();
+            apiRequestMessage.initAsApiRequestMessage(route, arg, httpMethod);
 
-			organizeClient.sendRequest(apiRequestMessage.package(), function (replyData, isSuccess) {
-				if (!callback) return;
-				if (!isSuccess) {
-					callback(false);
-				} else {
-					var apiMessage = new ApiMessage();
-					apiMessage.unpackage(replyData);
+            organizeClient.sendRequest(apiRequestMessage.package(), function ({ success, replyData }) {
+                if (!callback) return;
+                if (!success) {
+                    callback({ success: false });
+                } else {
+                    var apiMessage = new ApiMessage();
+                    apiMessage.unpackage(replyData);
 
-					var rpcData = apiMessage.getRpcData();
-					var value = apiMessage.getValueBytes();
+                    var value = apiMessage.getValueBytes();
+                    var replyRpcData = apiMessage.getRpcData();
 
-					callback(true, value, rpcData);
-				}
-			});
-		};
+                    callback({ success: true, replyData_bytes: value, replyRpcData_object: replyRpcData });
+                }
+            });
+        };
 
-	};
+    };
 
 	//LocalApiService
 	sers.LocalApiService = function () {
@@ -860,13 +860,12 @@
 		};
 
 		//invoke local api
-		//apiRequestMessage:bytes
-		//callback: (reply_bytes)=>{ }
-		self.invokeApiAsync = (apiRequestMessage, callback)=>{
+		//callback: (apiReplyMessage_bytes)=>{ }
+		self.invokeApiAsync = (apiRequestMessage_bytes, callback)=>{
 
 			//(x.1) 解析请求数据
 			var apiMessage = new ApiMessage();
-			apiMessage.unpackage(apiRequestMessage);
+			apiMessage.unpackage(apiRequestMessage_bytes);
 
 			var rpcData_object = apiMessage.getRpcData();
 			var requestData_bytes = apiMessage.getValueBytes();
@@ -964,13 +963,13 @@
 		var deviceInfo = { deviceKey: ('' + Math.random()).substr(2) };
 
 		//(x.7)
-		//callback: function(isSuccess){}
+		//callback: function(success){}
 		self.start = function (callback) {
 
 			logger.info('[sers.CL] try connect...');
-			self.org.connect(function (isSuccess) {
+			self.org.connect(function (success) {
 
-				if (!isSuccess) {
+				if (!success) {
 					logger.info('[sers.CL] org cannot connect to server!');
 					if (callback) callback(false);
 					return;
@@ -989,10 +988,10 @@
 				};
 
 				//(string route, object arg, string httpMethod, function callback)
-				//callback: function(isSuccess,replyData_bytes,replyRpcData_object)
-				self.apiClient.callApiAsync("/_sys_/serviceStation/regist", serviceStationData, 'POST', function (isSuccess, replyData_bytes, replyRpcData_object) {
+				//	callback: function({success,replyData_bytes,replyRpcData_object})
+				self.apiClient.callApiAsync("/_sys_/serviceStation/regist", serviceStationData, 'POST', function ({ success, replyData_bytes, replyRpcData_object }) {
 
-					if (!isSuccess) {
+					if (!success) {
 						logger.info("[ServiceStation] regist - failed");
 						if (callback) callback(false);
 						return;

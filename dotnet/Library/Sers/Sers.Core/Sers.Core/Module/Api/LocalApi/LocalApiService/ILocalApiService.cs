@@ -16,6 +16,6 @@ namespace Sers.Core.Module.Api.LocalApi
         IEnumerable<IApiNode> apiNodes { get; }
 
 
-        void CallApiAsync(Object sender, ApiMessage apiRequest, Action<object, ApiMessage> callback);
+        void InvokeApiAsync(Object sender, ApiMessage apiRequest, Action<object, ApiMessage> callback);
     }
 }
