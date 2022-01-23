@@ -1,12 +1,12 @@
 ﻿/*
  * sers.ServiceStation.js
- * Date   : 2022-01-15
- * Version: 2.1.16
+ * Date   : 2022-01-23
+ * Version: 2.1.17-temp
  * author : Lith
  * email  : serset@yeah.net
  */
 
-; sers = { version: '2.1.16' };
+; sers = { version: '2.1.17-temp' };
 
 /*
  * vit.js 扩展
@@ -428,6 +428,9 @@
 		//callback: function(replyData){ }
 		self.event_onGetRequest;
 
+		//请求超时时间（单位ms，默认300000）
+		self.requestTimeoutMs = 300000;
+
 		//外部调用，当外部从delivery读取到数据时调用
 		self.deliveryToOrganize_onGetMessageFrame = function (bytes) {
 			//deliveryToOrganize_ProcessFrame
@@ -513,7 +516,7 @@
 				if (callback)
 					callback(replyData, isSuccess);
 			};
-			setTimeout(onCall, 60000);
+			setTimeout(onCall, self.requestTimeoutMs);
 
 			organizeToDelivery_RequestMap[reqKey] = function (replyData) { onCall(replyData, true); };
 
@@ -568,7 +571,7 @@
 		var requestAdaptor = new RequestAdaptor();
 
 
-		//<<<<<<<<<<<<<<<< 初始化requestAdaptor 和 delivery
+		//初始化requestAdaptor 和 delivery
 		(function () {
 
 			delivery.event_onGetFrame = function (bytes) {
@@ -589,7 +592,7 @@
 			};
 
 		})();
-		//>>>>>>>>>>>>>>>>>
+	 
 
 		//function (event) { }
 		self.event_onDisconnected = null;
@@ -757,7 +760,7 @@
 
 		//(string route, object arg, string httpMethod, function callback)
 		//callback: function(isSuccess,replyData_bytes,replyRpcData_object)
-		this.callApi = function (route, arg, httpMethod, callback) {
+		this.callApiAsync = function (route, arg, httpMethod, callback) {
 			var apiRequestMessage = new ApiMessage();
 			apiRequestMessage.initAsApiRequestMessage(route, arg, httpMethod);
 
@@ -776,19 +779,22 @@
 				}
 			});
 		};
+
 	};
 
 	//LocalApiService
 	sers.LocalApiService = function () {
 		var self = this;
 
-		// key   route_httpMehtod
-		// value   {  apiDesc:apiDesc,Invoke:onInvoke  }
-		// onInvoke:   function(requestData_bytes,rpcData,reply_rpcData){}
+		// route_httpMethod -> ApiNode
+		// ApiNode:   {  apiDesc,onInvoke,onInvokeAsync  }  //onInvoke 和 onInvokeAsync 指定其一即可
+        //      onInvoke:   (requestData_bytes,rpcData_object,replyRpcData_object)=>{ return replyData_bytes; }	 //onInvoke 和 onInvokeAsync 指定其一即可
+        //      onInvokeAsync:   (requestData_bytes,rpcData_object,replyRpcData_object,onInvokeFinish)=>{ }
+        //					    onInvokeFinish :(replyData_bytes)=>{ }
 		var apiNodeMap = {};
 
-		//return [  apiNode,  ];
-		//apiNode  {apiDesc:apiDesc }
+		//return [  ApiNode ];
+		//ApiNode  {apiDesc:apiDesc }
 		self.getApiNodes = function () {
 			var apiNodes = [];
 			for (var key in apiNodeMap) {
@@ -802,29 +808,46 @@
 			apiNodeMap = {};
 		};
 
-		//Invoke:   function(requestData_bytes,rpcData_object,reply_rpcData_object){}
-		self.addApiNode = function (apiDesc, Invoke) {
-			var apiKey = apiDesc.route + '_' + apiDesc.extendConfig.httpMethod;
-			apiNodeMap[apiKey] = { apiDesc: apiDesc, Invoke: Invoke };
-		};
 
-		//(string route, string httpMethod, string name, string description, Invoke Invoke)
-		//Invoke:   function(requestData_bytes,rpcData_object,reply_rpcData_object){}
-		self.addSimpleApiNode = function (route, httpMethod, name, description, Invoke) {
-			var apiDesc = {
-				route: route,
-				name: name,
-				description: description,
-				extendConfig: {
-					httpMethod: httpMethod
+		// ApiNode:   {  apiDesc,onInvoke,onInvokeAsync  }  //onInvoke 和 onInvokeAsync 指定其一即可
+        //      onInvoke:   (requestData_bytes,rpcData_object,replyRpcData_object)=>{ return replyData_bytes; }	 //onInvoke 和 onInvokeAsync 指定其一即可
+        //      onInvokeAsync:   (requestData_bytes,rpcData_object,replyRpcData_object,onInvokeFinish)=>{ }
+        //					    onInvokeFinish :(replyData_bytes)=>{ }
+		self.addApiNode = function (apiNode) {		 
+			var apiKey = apiNode.apiDesc.route + '_' + apiNode.apiDesc.extendConfig.httpMethod;
+            apiNodeMap[apiKey] = apiNode;
+        };
+
+
+        // apiInvoke  {route: '/JsStation/api', httpMethod: 'GET', name: 'call api in js server', description: 'js作为服务站点', onInvoke,onInvokeAsync}
+        //      onInvoke:   (requestData_bytes,rpcData_object,replyRpcData_object)=>{ return replyData_bytes; }	 //onInvoke 和 onInvokeAsync 指定其一即可
+        //      onInvokeAsync:   (requestData_bytes,rpcData_object,replyRpcData_object,onInvokeFinish)=>{ }
+        //					    onInvokeFinish :(replyData_bytes)=>{ }
+        self.addApiInvoke = function (apiInvoke) {
+            var apiDesc = {
+                route: apiInvoke.route,
+                name: apiInvoke.name,
+                description: apiInvoke.description,
+                extendConfig: {
+					httpMethod: apiInvoke.httpMethod
 				}
 			};
-			self.addApiNode(apiDesc, Invoke);
+			self.addApiNode({ apiDesc, onInvoke: apiInvoke.onInvoke, onInvokeAsync: apiInvoke.onInvokeAsync });
 		};
 
-		//(Error e,requestData_bytes,rpcData,replyRpcDta)
-	    //localApiService.onError = function(e,requestData_bytes,rpcData,replyRpcDta){ return {success：false}; }
-		self.onError = function (e, requestData_bytes, rpcData, replyRpcDta) {
+        // apiInvoke  {route: '/JsStation/api', httpMethod: 'GET', name: 'call api in js server', description: 'js作为服务站点', onInvoke,onInvokeAsync}
+        //      onInvoke:   (requestData_bytes,rpcData_object,replyRpcData_object)=>{ return replyData_bytes; }	 //onInvoke 和 onInvokeAsync 指定其一即可
+        //      onInvokeAsync:   (requestData_bytes,rpcData_object,replyRpcData_object,onInvokeFinish)=>{ }
+        //					    onInvokeFinish :(replyData_bytes)=>{ }
+		self.addApiInvokeArray = function (apiInvokeArray) {
+			for (var apiInvoke of apiInvokeArray) {
+				self.addApiInvoke(apiInvoke);
+			}
+		};
+
+		//(Error e,requestData_bytes,rpcData_object,replyRpcData_object)
+	    //localApiService.onError = (e,requestData_bytes,rpcData_object,replyRpcData_object)=>{ return {success:false}; }
+		self.onError = function (e, requestData_bytes, rpcData_object, replyRpcData_object) {
 			logger.error(e);
 			var reply = {
 				success: false,
@@ -836,31 +859,50 @@
 			return reply;
 		};
 
-		//apiRequestMessage bytes
-		//return apiReplyMessage bytes
-		self.callApi = function (apiRequestMessage) {
+		//invoke local api
+		//apiRequestMessage:bytes
+		//callback: (reply_bytes)=>{ }
+		self.invokeApiAsync = (apiRequestMessage, callback)=>{
 
 			//(x.1) 解析请求数据
 			var apiMessage = new ApiMessage();
 			apiMessage.unpackage(apiRequestMessage);
 
-			var rpcData = apiMessage.getRpcData();
+			var rpcData_object = apiMessage.getRpcData();
 			var requestData_bytes = apiMessage.getValueBytes();
 
 			//(x.2)解析路由获得 处理函数
-			var route = rpcData.route;
-			var httpMethod = rpcData.http.method;
+			var route = rpcData_object.route;
+			var httpMethod = rpcData_object.http.method;
 			var apiKey = route + '_' + httpMethod;
 			var apiNode = apiNodeMap[apiKey];
 
+	
+
 			//(x.3)进行处理获得结果数据
-			var replyRpcDta = {}, replyData;
-			if (apiNode && apiNode.Invoke) {
+			var replyRpcData_object = {}, replyData_bytes;
+			var onInvokeFinish = (replyData_bytes) => {
+				//返回结果数据
+				var apiReplyMessage_bytes = ApiMessage.package(
+					vit.objectSerializeToBytes(replyRpcData_object),
+					replyData_bytes
+				);
+				callback(apiReplyMessage_bytes);
+			};
+
+			if (apiNode) {
+				
 				try {
-					replyData = apiNode.Invoke(requestData_bytes, rpcData, replyRpcDta);
+                    if (apiNode.onInvoke) {
+                        replyData_bytes = apiNode.onInvoke(requestData_bytes, rpcData_object, replyRpcData_object);
+                    } else if (apiNode.onInvokeAsync) {
+                        apiNode.onInvokeAsync(requestData_bytes, rpcData_object, replyRpcData_object, onInvokeFinish);
+                        return;
+                    }
+					
 				} catch (e) {					
-					var reply = self.onError(e, requestData_bytes, rpcData, replyRpcDta);
-					replyData = vit.objectSerializeToBytes(reply);
+					var reply = self.onError(e, requestData_bytes, rpcData_object, replyRpcData_object);
+					replyData_bytes = vit.objectSerializeToBytes(reply);
 				}
 
 			} else {
@@ -873,15 +915,9 @@
 					}
 				};
 
-				replyData = vit.objectSerializeToBytes(reply);
-			}
-
-			//(x.4)返回结果数据
-			var apiReplyMessage_bytes = ApiMessage.package(
-				vit.objectSerializeToBytes(replyRpcDta),
-				replyData
-			);
-			return apiReplyMessage_bytes;
+				replyData_bytes = vit.objectSerializeToBytes(reply);
+			} 
+			onInvokeFinish(replyData_bytes);
 		};
 	};
 
@@ -903,10 +939,7 @@
 			//    logger.info('[sers.CL]org.event_onDisconnected');
 			//};
 
-			self.org.event_onGetRequest = function (requestData, callback) {
-				var reply_bytes = self.localApiService.callApi(requestData);
-				callback(reply_bytes);
-			};
+			self.org.event_onGetRequest = self.localApiService.invokeApiAsync;
 		})();
 
 
@@ -917,7 +950,7 @@
 
 		//(x.4)
 		self.stop = function () {
-			logger.info('[sers.ServiceStation]try stop...');
+			logger.info('[sers.ServiceStation] try stop...');
 			self.org.stop();
 			logger.info('[sers.ServiceStation] stoped.');
 		};
@@ -934,11 +967,11 @@
 		//callback: function(isSuccess){}
 		self.start = function (callback) {
 
-			logger.info('[sers.CL]try connect...');
+			logger.info('[sers.CL] try connect...');
 			self.org.connect(function (isSuccess) {
 
 				if (!isSuccess) {
-					logger.info('[sers.CL]org cannot connect to server!');
+					logger.info('[sers.CL] org cannot connect to server!');
 					if (callback) callback(false);
 					return;
 				}
@@ -957,7 +990,7 @@
 
 				//(string route, object arg, string httpMethod, function callback)
 				//callback: function(isSuccess,replyData_bytes,replyRpcData_object)
-				self.apiClient.callApi("/_sys_/serviceStation/regist", serviceStationData, 'POST', function (isSuccess, replyData_bytes, replyRpcData_object) {
+				self.apiClient.callApiAsync("/_sys_/serviceStation/regist", serviceStationData, 'POST', function (isSuccess, replyData_bytes, replyRpcData_object) {
 
 					if (!isSuccess) {
 						logger.info("[ServiceStation] regist - failed");
