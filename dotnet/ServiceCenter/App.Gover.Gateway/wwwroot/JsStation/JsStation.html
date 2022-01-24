@@ -26,7 +26,7 @@
 <textarea type="text" id="txt_appsettings" rows="30" cols="40"></textarea>
                 </td>
                 <td>
-                    <textarea type="text" id="txt_apiNodes" rows="30" cols="80">
+                    <textarea type="text" id="txt_apiInvokes" rows="30" cols="80">
 [
     {
         route: '/JsStation/api', httpMethod: 'GET', name: 'call api in js server', description: 'js作为服务站点',
@@ -160,7 +160,7 @@ serviceStation.apiClient.callApiAsync("/JsStation/api1", { name: 'sers' }, 'GET'
         function startService() {
             try {
                 appsettings = eval('(' + txt_appsettings.value + ')');
-                var apiInvokeArray = eval('(' + txt_apiNodes.value + ')');
+                var apiInvokeArray = eval('(' + txt_apiInvokes.value + ')');
 
 
 
