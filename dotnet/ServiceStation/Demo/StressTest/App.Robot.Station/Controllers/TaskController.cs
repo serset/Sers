@@ -11,11 +11,6 @@ namespace App.Robot.Station.Controllers
     public class TaskController : IApiController
     {
 
-        static TaskController()
-        {
-            TaskMng.Init();
-        } 
-
         /// <summary>
         /// 保存到Cache
         /// </summary>

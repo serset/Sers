@@ -1,4 +1,6 @@
-﻿using Sers.SersLoader;
+﻿using App.Robot.Station.Logical;
+
+using Sers.SersLoader;
 using Sers.ServiceStation;
 using Vit.Extensions;
 
@@ -13,6 +15,8 @@ namespace App.Robot.Station
 
             //Sers.Core.Module.App.SersApplication.serviceStationInfo.stationVersion = "2.0.1";
 
+
+            TaskMng.Init();
 
             //(x.1) Init
             ServiceStation.Init();

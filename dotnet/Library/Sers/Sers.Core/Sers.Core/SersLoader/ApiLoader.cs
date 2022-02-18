@@ -378,7 +378,7 @@ namespace Sers.SersLoader
             #endregion
 
             object apiController_Obj = null;
-            if (config?.controllerLifetime == "Scoped" || config?.controllerLifetime == "Transient")
+            if (config?.controllerLifetime != "Scoped" && config?.controllerLifetime != "Transient")
                 apiController_Obj = Activator.CreateInstance(method.DeclaringType);
 
             //(x.2) apiDescs -> apiNode
