@@ -16,8 +16,6 @@ namespace App.Robot.Station
             //Sers.Core.Module.App.SersApplication.serviceStationInfo.stationVersion = "2.0.1";
 
 
-            TaskMng.Init();
-
             //(x.1) Init
             ServiceStation.Init();
 

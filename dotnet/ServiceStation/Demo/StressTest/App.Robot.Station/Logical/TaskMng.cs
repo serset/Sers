@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
@@ -14,10 +15,6 @@ namespace App.Robot.Station.Logical
 {
     public class TaskMng
     {
-        public static void Init()
-        {
-        }
-
 
         /// <summary>
         ///  主线程开启的常驻线程，用以启动api触发的任务。
@@ -47,7 +44,8 @@ namespace App.Robot.Station.Logical
                 Instance.tasks.Values.Where(m => m.config.autoStart).ToList().ForEach(task => task.worker.Start());
             });
 
-          
+
+            if (SersApplication.IsRunning) Task.Run(MainTask.Start);
          
         }
 
