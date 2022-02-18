@@ -2,6 +2,8 @@ using System;
 using System.Reflection;
 using Sers.Core.Module.Api.ApiDesc;
 using Sers.Core.Module.Api.LocalApi;
+using Sers.SersLoader;
+
 using Vit.Extensions;
 
 
@@ -25,10 +27,10 @@ namespace Sers.Serslot
             #region (x.1) api from host
             var config = new SersLoader.ApiLoaderConfig { assembly = assembly };
 
-            Func<SsApiDesc, IApiNode> CreateApiNode =
-                (apiDesc) =>
+            Func<SsApiDesc, ApiLoaderConfig, IApiNode> CreateApiNode =
+                (apiDesc, _) =>
                 {
-                    return new LocalApiNode( apiDesc,this);
+                    return new LocalApiNode(apiDesc, this);
                 };
 
             var apiLoader = new Sers.Serslot.ApiLoader(CreateApiNode);
