@@ -13,9 +13,9 @@ namespace Sers.Serslot
     public class ApiLoader: SersLoader.ApiLoader
     {
 
-        Func<SsApiDesc,IApiNode> CreateApiNode;
+        Func<SsApiDesc, ApiLoaderConfig,IApiNode> CreateApiNode;
 
-        public ApiLoader(Func<SsApiDesc, IApiNode> CreateApiNode) : base()
+        public ApiLoader(Func<SsApiDesc, ApiLoaderConfig, IApiNode> CreateApiNode) : base()
         {
             this.CreateApiNode = CreateApiNode;
         }
@@ -70,7 +70,8 @@ namespace Sers.Serslot
         /// <param name="routePrefixs">demo:   ["/Auth/fold1/fold2","/api"]</param>   
         /// <param name="method"></param>
         /// <param name="CreateApiDesc"></param>
-        protected override List<IApiNode> LoadApiNodes(List<String> routePrefixs, MethodInfo method, Func<SsApiDesc> CreateApiDesc)
+        /// <param name="config"></param>
+        protected override List<IApiNode> LoadApiNodes(List<String> routePrefixs, MethodInfo method, Func<SsApiDesc> CreateApiDesc, ApiLoaderConfig config)
         {
          
             var routes = ControllerHelp.Action_GetRoutes(routePrefixs, method);
@@ -88,7 +89,7 @@ namespace Sers.Serslot
                 apiDesc.SysDescAppend("oriRoute: " + oriRoute);
 
 
-                IApiNode apiNode = CreateApiNode(apiDesc);
+                IApiNode apiNode = CreateApiNode(apiDesc,config);
                 return apiNode;
                 
             }).ToList();                 

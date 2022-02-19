@@ -3,7 +3,7 @@
 <html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>Sers-JsStation</title>   
+    <title>Sers-JsStation</title>
 
 </head>
 <body>
@@ -26,44 +26,40 @@
 <textarea type="text" id="txt_appsettings" rows="30" cols="40"></textarea>
                 </td>
                 <td>
-<textarea type="text" id="txt_apiNodes" rows="30" cols="80">
+                    <textarea type="text" id="txt_apiInvokes" rows="30" cols="80">
 [
+    {
+        route: '/JsStation/api', httpMethod: 'GET', name: 'call api in js server', description: 'js作为服务站点',
+        onInvoke: function (requestData_bytes, rpcData_object, replyRpcData_object) {
+            var request_string = vit.bytesToString(requestData_bytes);
+            vit.logger.info('[api调用] request:' + request_string);
 
-{
-    route: '/JsStation/api1', httpMethod: 'GET', apiName: 'js作为服务站点',
-    onInvoke: function (requestData_bytes, rpcData, reply_rpcData) {
-        var request_string = vit.bytesToString(requestData_bytes);
-        vit.logger.info('[api调用] request:' + request_string );
-        var replyData = {
-            success: true,
-            data:
-            {
-                request_string: request_string,
-                _: Math.random()
-            }
-        };
-        return vit.objectSerializeToBytes(replyData);
+            var replyData = {
+                success: true,
+                data:
+                {
+                    request_string: request_string,
+                    _: Math.random()
+                }
+            };
+            return vit.objectSerializeToBytes(replyData);
+        }
     }
-}
-
-
-
-
 ]
 </textarea>
                 </td>
                 <td>
-<textarea type="text" id="txt_callApi" rows="30" cols="80">
-serviceStation.apiClient.callApi("/JsStation/api1", {name:'sers'}, 'GET',
-function (isSuccess, replyData_bytes, replyRpcData_object) {
-    if (!isSuccess) {
-        vit.logger.info("接口调用失败！");
-        return;
-    }
-    //var apiRet = vit.bytesToObject(replyData_bytes); 
-    var str = vit.bytesToString(replyData_bytes);
-    vit.logger.info("接口调用成功。 reply:" + vit.bytesToString(replyData_bytes));
-});
+                    <textarea type="text" id="txt_callApi" rows="30" cols="80">
+serviceStation.apiClient.callApiAsync("/JsStation/api1", { name: 'sers' }, 'GET',
+    function ({success,replyData_bytes,replyRpcData_object}) {
+        if (!success) {
+            vit.logger.info("接口调用失败！");
+            return;
+        }
+        //var str = vit.bytesToString(replyData_bytes);
+        //var apiRet = vit.bytesToObject(replyData_bytes);
+        vit.logger.info("接口调用成功。 reply:" + vit.bytesToString(replyData_bytes));
+    });
 
 
 </textarea>
@@ -77,7 +73,10 @@ function (isSuccess, replyData_bytes, replyRpcData_object) {
 
     <script src="sers.ServiceStation.min.js"></script>
     <script>
+        var serviceStation = new sers.ServiceStation();
 
+        //------------------------------------------------------------------------
+        //(x.1)appsettings.json
         var appsettings =
         {
             CL: {
@@ -92,59 +91,91 @@ function (isSuccess, replyData_bytes, replyRpcData_object) {
             }
         };
 
-        txt_appsettings.value = JSON.stringify(appsettings, null, 2);
 
+        //------------------------------------------------------------------------
+        //(x.2)event
 
-        var serviceStation = new sers.ServiceStation();
+        //(x.x.1)register logger.onmessage
+        //type: info/error
+        //e: pass error when type is error
+        //function(message,type,e){ }
+        vit.logger.onmessage = function (message, type, e) {
+            if (e) message = message + '\n' + e.stack;
 
-        /*
-           user_ApiNode demo:
-           //onInvoke:   function(requestData_bytes,rpcData_object,reply_rpcData_object){}
-            {
-                route: '/JsStation/api1', httpMethod: 'GET', apiName: 'js作为服务站点',
-                onInvoke: function (requestData_bytes, rpcData, reply_rpcData) {
-                    var request_string = vit.bytesToString(requestData_bytes);
-                    var replyData = {
-                        success: true,
-                        data:
-                        {
-                            request_string: request_string,
-                            _: Math.random()
-                        }
-                    };
-                    return vit.objectSerializeToBytes(replyData);
-                }
-            }
-        */
-
-
-
-        vit.logger.onmessage = function (msg) {
-            txt_log.value = txt_log.value + '\n' + msg;
+            console.log(message);
+            txt_log.value = txt_log.value + '\n' + message;
             txt_log.scrollTop = txt_log.scrollHeight;
         };
 
+        //(x.x.2)register localApiService.onError
+        //(Error e,requestData_bytes,rpcData_object,replyRpcData_object)
+        //localApiService.onError = (e,requestData_bytes,rpcData_object,replyRpcData_object)=>{ return {success:false}; }
+        serviceStation.localApiService.onError = function (e, requestData_bytes, rpcData_object, replyRpcData_object) {
+            vit.logger.error(e);
+            var reply = {
+                success: false,
+                error: {
+                    errorMessage: e.message,
+                    errorDetail: { name: e.name, stack: e.stack }
+                }
+            };
+            return reply;
+        };
 
+        //(x.x.3)register onDisconnected from serviceCenter
+        serviceStation.org.event_onDisconnected = function () {
+            vit.logger.info('[sers.CL]org.event_onDisconnected');
+        };
+
+        //------------------------------------------------------------------------
+        //(x.3)api controller
+
+        /*
+            // apiInvoke  {route: '/JsStation/api', httpMethod: 'GET', name: 'call api in js server', description: 'js作为服务站点', onInvoke,onInvokeAsync}
+            // onInvoke:   (requestData_bytes,rpcData_object,replyRpcData_object)=>{ return replyData_bytes; }	 //onInvoke 和 onInvokeAsync 指定其一即可
+            // onInvokeAsync:   (requestData_bytes,rpcData_object,replyRpcData_object,onInvokeFinish)=>{ }
+            //					onInvokeFinish :(replyData_bytes)=>{ }
+
+            //demo:
+            {
+                route: '/JsStation/api', httpMethod: 'GET', name: 'call api in js server', description: 'js作为服务站点',
+                    onInvoke: function (requestData_bytes, rpcData_object, replyRpcData_object) {
+                        var request_string = vit.bytesToString(requestData_bytes);
+                        vit.logger.info('[api调用] request:' + request_string);
+
+                        var replyData = {
+                            success: true,
+                            data: {
+                                request_string: request_string,
+                                _: Math.random()
+                            }
+                        };
+                        return vit.objectSerializeToBytes(replyData);
+                    }
+            }
+        //*/
+
+        //------------------------------------------------------------------------
+        //(x.4)startService
         function startService() {
             try {
+                appsettings = eval('(' + txt_appsettings.value + ')');
+                var apiInvokeArray = eval('(' + txt_apiInvokes.value + ')');
+
+
+
                 vit.logger.info('');
                 vit.logger.info('--------------------------------------------');
 
-                //(x.1)
-                vit.logger.info('加载api...');
-                var str_apiNodes = txt_apiNodes.value;
-                var user_apiNodes = eval('(' + str_apiNodes + ')');
+                //(x.1)load localApi
+                vit.logger.info('[ApiLoader] load localApi...');
                 serviceStation.localApiService.clearApiNodes();
-
-                for (var t in user_apiNodes) {
-                    var item = user_apiNodes[t];
-                    serviceStation.localApiService.addSimpleApiNode(item.route, item.httpMethod.toUpperCase(), item.apiName, item.onInvoke);
-                }
-                vit.logger.info('api已加载，数量：' + user_apiNodes.length);
+                serviceStation.localApiService.addApiInvokeArray(apiInvokeArray);
+                vit.logger.info('loaded localApi，count：' + apiInvokeArray.length);
 
 
-                //(x.2)appsettings
-                appsettings = eval('(' + txt_appsettings.value + ')');
+                //(x.2)load configuration
+                vit.logger.info('load configuration...');
 
                 //设置websocket host 地址
                 serviceStation.org.setHost(appsettings.CL.host);
@@ -155,7 +186,7 @@ function (isSuccess, replyData_bytes, replyRpcData_object) {
                 serviceStation.serviceStationInfo = appsettings.serviceStationInfo;
 
 
-                //(x.3)连接
+                //(x.3)connect
                 serviceStation.start();
             } catch (e) {
                 vit.logger.error(e);
@@ -186,6 +217,10 @@ function (isSuccess, replyData_bytes, replyRpcData_object) {
             }
         }
 
+
+
+
+        txt_appsettings.value = JSON.stringify(appsettings, null, 2);
     </script>
 </body>
 </html>

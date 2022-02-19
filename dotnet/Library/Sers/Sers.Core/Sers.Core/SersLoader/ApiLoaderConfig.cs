@@ -80,5 +80,15 @@ namespace Sers.SersLoader
         }
 
 
+        /// <summary>
+        /// 生命周期。可为 Scoped(每次请求都创建一个新的controller对象)、Singleton（请求共用一个在服务启动时初始化的controller对象）、Transient（同Scoped）。默认Singleton
+        /// </summary>
+        public string controllerLifetime
+        {
+            get => GetData<string>("controllerLifetime");
+            set => SetData("controllerLifetime", value);
+        }
+
+
     }
 }

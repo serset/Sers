@@ -232,7 +232,7 @@ namespace Sers.ServiceStation
 
             communicationManage.conn_OnGetRequest = (IOrganizeConnection conn,Object sender, ArraySegment<byte> requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback) => 
             {
-                localApiService.CallApiAsync(sender, new ApiMessage(requestData), (object sender1, ApiMessage apiReplyMessage) =>
+                localApiService.InvokeApiAsync(sender, new ApiMessage(requestData), (object sender1, ApiMessage apiReplyMessage) =>
                 {
                      callback(sender1, apiReplyMessage.Package());
                 });

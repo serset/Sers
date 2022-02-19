@@ -21,7 +21,7 @@ namespace Sers.SersLoader
         public LocalApiNode(SsApiDesc apiDesc,  MethodInfo apiController_Method,Object apiController_Obj)
         {
             this.apiDesc = apiDesc;
-            //this.apiController_Method = apiController_Method;
+            this.apiController_Method = apiController_Method;
             this.apiController_Obj = apiController_Obj;
             executor = new DynamicMethodExecutor(apiController_Method);
         }
@@ -36,7 +36,7 @@ namespace Sers.SersLoader
 
             //(x.2) Invoke
             //var returnValue = apiController_Method.Invoke(apiController_Obj, args);
-            var returnValue = executor.Execute(apiController_Obj, args);
+            var returnValue = executor.Execute(apiController_Obj ?? Activator.CreateInstance(apiController_Method.DeclaringType), args);
 
             //(x.3) 序列化 返回数据
             return returnValue?.SerializeToBytes();
@@ -46,7 +46,7 @@ namespace Sers.SersLoader
         #region apiController        
 
         //private Type apiController_Type;
-        //MethodInfo apiController_Method;
+        MethodInfo apiController_Method;
         Object apiController_Obj;
         #endregion
 

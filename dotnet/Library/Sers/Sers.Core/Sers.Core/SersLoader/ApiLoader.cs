@@ -120,10 +120,11 @@ namespace Sers.SersLoader
                         SsApiDesc sampleApiDesc = null;
 
                         //(x.x.x.2) 构建apiNodes
-                        var nodes = LoadApiNodes(routePrefixs, method, () => {
-                            if(sampleApiDesc==null) return sampleApiDesc = GetApiDesc(method);
+                        var nodes = LoadApiNodes(routePrefixs, method, () =>
+                        {
+                            if (sampleApiDesc == null) return sampleApiDesc = GetApiDesc(method);
                             return sampleApiDesc.Clone();
-                        });
+                        }, config);
                         if (nodes != null && nodes.Count > 0)
                         {
                             //apiNodes.AddRange(nodes);
@@ -325,7 +326,8 @@ namespace Sers.SersLoader
         /// <param name="routePrefixs">demo:   ["/Auth/fold1/fold2","/api","/"]</param>   
         /// <param name="method"></param>
         /// <param name="CreateApiDesc"></param> 
-        protected virtual List<IApiNode> LoadApiNodes(List<String> routePrefixs, MethodInfo method, Func<SsApiDesc> CreateApiDesc)
+        /// <param name="config"></param>
+        protected virtual List<IApiNode> LoadApiNodes(List<String> routePrefixs, MethodInfo method, Func<SsApiDesc> CreateApiDesc, ApiLoaderConfig config)
         {
             if (null == routePrefixs || routePrefixs.Count == 0) return null;
 
@@ -375,7 +377,9 @@ namespace Sers.SersLoader
             }
             #endregion
 
-            var apiController_Obj = Activator.CreateInstance(method.DeclaringType);
+            object apiController_Obj = null;
+            if (config?.controllerLifetime != "Scoped" && config?.controllerLifetime != "Transient")
+                apiController_Obj = Activator.CreateInstance(method.DeclaringType);
 
             //(x.2) apiDescs -> apiNode
             return apiDescs.Select(apiDesc =>

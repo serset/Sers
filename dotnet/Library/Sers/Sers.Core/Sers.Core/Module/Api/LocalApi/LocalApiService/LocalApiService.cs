@@ -142,7 +142,7 @@ namespace Sers.Core.Module.Api.LocalApi
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void CallApiAsync(Object sender, ApiMessage apiRequest, Action<object, ApiMessage> callback)
+        public void InvokeApiAsync(Object sender, ApiMessage apiRequest, Action<object, ApiMessage> callback)
         {
             var requestInfo = new RequestInfo();
 
