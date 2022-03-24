@@ -322,7 +322,7 @@ namespace Sers.Gover.Apm.Zipkin
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void LogWarning(string message)
         {
-            Logger.log.Log(Level.WARN, "[zipkin]" + message);
+            Logger.log.Log(Level.warn, "[zipkin]" + message);
         }
     }
     #endregion

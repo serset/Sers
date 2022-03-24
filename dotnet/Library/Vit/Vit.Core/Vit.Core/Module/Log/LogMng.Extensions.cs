@@ -17,7 +17,7 @@ namespace Vit.Core.Module.Log
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Debug(string message, params object[] metadata)
         {
-            Log(Level.DEBUG, message, metadata);
+            Log(Level.debug, message, metadata);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Vit.Core.Module.Log
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Info(string message, params object[] metadata)
         {
-            Log(Level.INFO, message, metadata);
+            Log(Level.info, message, metadata);
         }
 
 
@@ -40,14 +40,14 @@ namespace Vit.Core.Module.Log
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Error(string message, params object[] metadata)
         {
-            Log(Level.ERROR, message,metadata);
+            Log(Level.error, message,metadata);
         }
 
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Warn(string message, params object[] metadata)
         {
-            Log(Level.WARN, message, metadata);
+            Log(Level.warn, message, metadata);
         }
 
 

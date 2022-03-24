@@ -29,6 +29,6 @@ DEBUG （调试信息）：记录系统用于调试的一切信息，内容或�
     /// </summary>
     public enum Level
     {
-        OFF = 0, FATAL = 1, ERROR = 2, WARN = 3, INFO = 4, DEBUG = 5, ALL = 6,ApiTrace=7
+        off = 0, fatal = 1, error = 2, warn = 3, info = 4, debug = 5, all = 6, ApiTrace = 7
     }
 }
