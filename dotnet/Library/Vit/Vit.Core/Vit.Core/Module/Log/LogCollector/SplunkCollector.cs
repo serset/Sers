@@ -110,10 +110,13 @@ namespace Vit.Core.Module.Log.LogCollector
                 "sourcetype": "my_sample_data",
                 "index": "index_prod",
                 "event": { 
+                    "level": "info",
                     "message": "Something happened",
-                    "severity": "INFO"
+                    "metadata": [],
+                    "namespace": "mc.sers.cloud",
+                    "app":"mc"
                 }
-            }
+             }
              */
         }
         public Message message;
