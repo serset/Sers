@@ -16,7 +16,7 @@ namespace DeliveryTest
         static StatisticsQpsInfo qpsInfo = new StatisticsQpsInfo();
         static void Main(string[] args)
         {
-            Logger.OnLog = (level, msg) => { Console.Write("[" + level + "]" + msg); };
+            Logger.PrintToConsole = true;
 
             try
             {

@@ -20,9 +20,9 @@ namespace CLClient
         static StatisticsQpsInfo qpsSub = new StatisticsQpsInfo();
 
         static void Main(string[] args)
-        {             
+        {
 
-            Logger.OnLog = (level, msg) => { Console.Write("[" + level + "]" + msg); };
+            Logger.PrintToConsole = true;
 
             qpsPub.Start(" Pub");
             qpsSub.Start("                                                    Sub");

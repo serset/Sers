@@ -11,7 +11,7 @@ namespace DeliveryTest
    
         static void Main(string[] args)
         {
-            Logger.OnLog = (level, msg) => { Console.Write("[" + level + "]" + msg); };
+            Logger.PrintToConsole = true;
 
             StartServer();
             StartClient();
