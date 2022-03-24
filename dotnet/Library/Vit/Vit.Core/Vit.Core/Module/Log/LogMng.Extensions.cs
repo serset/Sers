@@ -13,22 +13,22 @@ namespace Vit.Core.Module.Log
         /// DEBUG （调试信息）：记录系统用于调试的一切信息，内容或者是一些关键数据内容的输出
         /// </summary>
         /// <param name="message"></param>
-        /// <param name="objs"></param>
+        /// <param name="metadata"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void Debug(string message, params object[] objs)
+        public void Debug(string message, params object[] metadata)
         {
-            Log(Level.DEBUG, message, objs);
+            Log(Level.DEBUG, message, metadata);
         }
 
         /// <summary>
         /// INFO（一般信息）：记录系统运行中应该让用户知道的基本信息。例如，服务开始运行，功能已经开户等。
         /// </summary>
         /// <param name="message"></param>
-        /// <param name="objs"></param>
+        /// <param name="metadata"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void Info(string message, params object[] objs)
+        public void Info(string message, params object[] metadata)
         {
-            Log(Level.INFO, message, objs);
+            Log(Level.INFO, message, metadata);
         }
 
 
@@ -36,18 +36,18 @@ namespace Vit.Core.Module.Log
         /// ERROR（一般错误）：记录系统中出现的导致系统不稳定，部分功能出现混乱或部分功能失效一类的错误。例如，数据字段为空，数据操作不可完成，操作出现异常等。
         /// </summary>
         /// <param name="message"></param>
-        /// <param name="objs"></param>
+        /// <param name="metadata"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void Error(string message, params object[] objs)
+        public void Error(string message, params object[] metadata)
         {
-            Log(Level.ERROR, message,objs);
+            Log(Level.ERROR, message,metadata);
         }
 
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void Warn(string message, params object[] objs)
+        public void Warn(string message, params object[] metadata)
         {
-            Log(Level.WARN, message, objs);
+            Log(Level.WARN, message, metadata);
         }
 
 

@@ -8,6 +8,6 @@ namespace Vit.Core.Module.Log
     {
         public Level level;
         public string message;
-        public IEnumerable<Object> objs;
+        public IEnumerable<Object> metadata;
     }
 }

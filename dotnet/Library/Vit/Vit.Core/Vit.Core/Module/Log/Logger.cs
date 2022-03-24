@@ -27,6 +27,13 @@ namespace Vit.Core.Module.Log
             {
                 PrintToConsole = true;
             }
+
+            //splunk
+            var splunk = ConfigurationManager.Instance.GetByPath<SplunkCollector>("Vit.Logger.Splunk");
+            if (splunk!=null)
+            {
+                log.collectors.Add(splunk);
+            }
         }
         #endregion
 
@@ -84,9 +91,9 @@ namespace Vit.Core.Module.Log
         }
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void Log(Level level, string message, params object[] objs)
+        public static void Log(Level level, string message, params object[] metadata)
         {
-            log.Log(level, message, objs);
+            log.Log(level, message, metadata);
         }
         #endregion
 
@@ -97,18 +104,18 @@ namespace Vit.Core.Module.Log
         /// DEBUG （调试信息）：记录系统用于调试的一切信息，内容或者是一些关键数据内容的输出
         /// </summary>
         /// <param name="message"></param>
-        /// <param name="objs"></param>
+        /// <param name="metadata"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void Debug(string message, params object[] objs)
+        public static void Debug(string message, params object[] metadata)
         {
-            log.Debug(message, objs);
+            log.Debug(message, metadata);
         }
 
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void Warn(string message, params object[] objs)
+        public static void Warn(string message, params object[] metadata)
         {
-            log.Warn(message, objs);
+            log.Warn(message, metadata);
         }
 
 
@@ -118,11 +125,11 @@ namespace Vit.Core.Module.Log
         /// INFO（一般信息）：记录系统运行中应该让用户知道的基本信息。例如，服务开始运行，功能已经开户等。
         /// </summary>
         /// <param name="message"></param>
-        /// <param name="objs"></param>
+        /// <param name="metadata"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void Info(string message, params object[] objs)
+        public static void Info(string message, params object[] metadata)
         {
-            log.Info(message, objs);
+            log.Info(message, metadata);
         }
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -140,11 +147,11 @@ namespace Vit.Core.Module.Log
         /// ERROR（一般错误）：记录系统中出现的导致系统不稳定，部分功能出现混乱或部分功能失效一类的错误。例如，数据字段为空，数据操作不可完成，操作出现异常等。
         /// </summary>
         /// <param name="message"></param>
-        /// <param name="objs"></param>
+        /// <param name="metadata"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void Error(string message, params object[] objs)
+        public static void Error(string message, params object[] metadata)
         {
-            log.Error(message, objs);
+            log.Error(message, metadata);
         }
 
         /// <summary>

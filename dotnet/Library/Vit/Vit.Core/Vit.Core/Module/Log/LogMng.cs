@@ -18,7 +18,7 @@ namespace Vit.Core.Module.Log
         }
         public void AddCollector(Action<LogMessage> OnLog)
         {
-            collectors.Add(new LogCollector.Collector { OnLog= OnLog });
+            collectors.Add(new LogCollector.Collector { OnLog = OnLog });
         }
 
 
@@ -34,15 +34,15 @@ namespace Vit.Core.Module.Log
             catch { }
         }
         #endregion
- 
+
 
 
         #region Log
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void Log(Level level, string message, params object[] objs)
+        public void Log(Level level, string message, params object[] metadata)
         {
-            Log(new LogMessage { level = level, message = message, objs = objs });
+            Log(new LogMessage { level = level, message = message, metadata = metadata });
         }
         #endregion
 

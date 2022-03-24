@@ -14,9 +14,9 @@ namespace Vit.Core.Module.Log.LogCollector
             #region build log string
             string logString = DateTime.Now.ToString("[HH:mm:ss.ffff]") + msg.message + NewLine;
 
-            if (msg.objs != null)
+            if (msg.metadata != null)
             {
-                foreach (var obj in msg.objs)
+                foreach (var obj in msg.metadata)
                 {
                     logString += obj.Serialize() + NewLine;
                 }

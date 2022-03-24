@@ -12,9 +12,9 @@ namespace Vit.Core.Module.Log.LogCollector
             #region build log string
             string logString = msg.message;
 
-            if (msg.objs != null)
+            if (msg.metadata != null)
             {
-                foreach (var obj in msg.objs)
+                foreach (var obj in msg.metadata)
                 {
                     logString += Environment.NewLine + obj.Serialize();
                 }
