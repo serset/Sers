@@ -180,10 +180,11 @@ namespace Sers.Gover.Apm.Txt
 
                 msg.Append(Environment.NewLine).Append("┕------------ ---------┙").Append(Environment.NewLine);
 
-                Logger.log.LogTxt(Level.ApiTrace, msg.ToString()); 
+                logCollector.Write(Level.ApiTrace, msg.ToString()); 
             };
         }
 
+        Vit.Core.Module.Log.LogCollector.TxtCollector logCollector = new Vit.Core.Module.Log.LogCollector.TxtCollector();
 
         public void InitEvent(JObject arg)
         {

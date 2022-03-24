@@ -146,7 +146,10 @@
         return JSON.stringify(obj, null, 2);
     }
 
-
+    function getNotNullString(str) {
+        if (str == null || typeof (str) == 'undefined') return '';
+        return str;
+    }
 
 
     function apiDescToPostmanItem(apiDesc, index) {
@@ -159,7 +162,7 @@
         }
 
         var item = {
-            "name": "x." + (1 + parseInt(index)) + " " + route + " " + apiDesc.name,
+            "name": "x." + (1 + parseInt(index)) + " " + route + " " + getNotNullString(apiDesc.name),
             "protocolProfileBehavior": {
                 "disableBodyPruning": true
             },

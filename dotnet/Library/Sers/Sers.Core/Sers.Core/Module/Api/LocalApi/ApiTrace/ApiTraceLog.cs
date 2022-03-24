@@ -61,10 +61,10 @@ namespace Sers.Core.Module.Api.LocalApi.ApiTrace
 
             msg.Append(Environment.NewLine).Append("┕------------ ---------┙").Append(Environment.NewLine);
 
-            Logger.log.LogTxt(Level.ApiTrace, msg.ToString());
-
+            logCollector.Write(Level.ApiTrace, msg.ToString());
         }
 
+        static Vit.Core.Module.Log.LogCollector.TxtCollector logCollector = new Vit.Core.Module.Log.LogCollector.TxtCollector();
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Dispose()

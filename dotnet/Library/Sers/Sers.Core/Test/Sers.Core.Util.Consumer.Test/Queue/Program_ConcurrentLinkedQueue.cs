@@ -19,9 +19,9 @@ namespace CLClient1
 
         static void Main11(string[] args)
         {
-             
 
-            Logger.OnLog = (level, msg) => { Console.Write("[" + level + "]" + msg); };
+
+            Logger.PrintToConsole = true;
 
             qpsPub.Start(" Pub");
             //qpsSub.Start(" Sub");

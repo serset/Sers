@@ -45,9 +45,9 @@ namespace CLClient1
 
         static void Mainwww(string[] args)
         {
-             
 
-            Logger.OnLog = (level, msg) => { Console.Write("[" + level + "]" + msg); };
+
+            Logger.PrintToConsole = true;
 
             qpsPub.Start(" Pub");
             qpsSub.Start(" Sub");
