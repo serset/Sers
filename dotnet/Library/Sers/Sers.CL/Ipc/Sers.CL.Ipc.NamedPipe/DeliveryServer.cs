@@ -49,7 +49,7 @@ namespace Sers.CL.Ipc.NamedPipe
         {
             try
             {
-                Logger.Info("[CL.DeliveryServer] Ipc.NamedPipe, starting", new { pipeName });
+                Logger.Info("[CL.DeliveryServer] Ipc.NamedPipe, starting", new { pipeName = pipeName });
 
                 #region (x.1)检测命名管道是否已经在使用
                 try

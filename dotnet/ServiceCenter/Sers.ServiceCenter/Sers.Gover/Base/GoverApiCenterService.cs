@@ -342,13 +342,13 @@ namespace Sers.Gover.Base
 
         public bool ApiStation_Pause(string stationName)
         {
-            Logger.Info("[ApiCenterService]Pause ApiStation", new { stationName });
+            Logger.Info("[ApiCenterService]Pause ApiStation", new { stationName = stationName });
             return apiStationMng.ApiStation_Pause(stationName);
         }
 
         public bool ApiStation_Start(string stationName)
         {
-            Logger.Info("[ApiCenterService]Start ApiStation", new { stationName });
+            Logger.Info("[ApiCenterService]Start ApiStation", new { stationName = stationName });
             return apiStationMng.ApiStation_Start(stationName);
         }
         #endregion

@@ -29,11 +29,11 @@ namespace Sers.Core.Module.Api.LocalApi.ApiTrace
 
             if (ApiTraceMng.collectorMap.TryGetValue(collectorName, out collector))
             {
-                Logger.Info("[LocalApiService.ApiTracePublisher]加载成功", new { collectorName });     
+                Logger.Info("[LocalApiService.ApiTracePublisher]加载成功", new { collectorName = collectorName });
             }
             else
             {
-                Logger.Info("[LocalApiService.ApiTracePublisher]加载失败，没有配置指定的collector", new { collectorName, Message = "请在appsettings.json中配置正确的Sers.ApiTrace.Collector" });
+                Logger.Info("[LocalApiService.ApiTracePublisher]加载失败，没有配置指定的collector", new { collectorName = collectorName, Message = "请在appsettings.json中配置正确的Sers.ApiTrace.Collector" });
             }
         }
 

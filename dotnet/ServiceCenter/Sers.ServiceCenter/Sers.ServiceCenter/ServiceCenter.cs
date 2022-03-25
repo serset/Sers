@@ -235,12 +235,12 @@ namespace Sers.ServiceCenter
 
             communicationManage.Conn_OnConnected = (IOrganizeConnection conn) =>
               {
-                  Logger.Info("[CL] OnConnected",new { conn.connTag });
+                  Logger.Info("[CL] OnConnected", new { connTag = conn.connTag });
               };
 
             communicationManage.Conn_OnDisconnected = (IOrganizeConnection conn) =>
             {
-                Logger.Info("[CL] OnDisconnected,connTag", new { conn.connTag });
+                Logger.Info("[CL] OnDisconnected", new { connTag = conn.connTag });
 
                 MessageCenterService.Instance.Conn_OnDisconnected(conn);
 

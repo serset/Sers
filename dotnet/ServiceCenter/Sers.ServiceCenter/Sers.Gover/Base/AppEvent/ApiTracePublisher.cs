@@ -52,11 +52,11 @@ namespace Sers.Gover.Base.AppEvent
             Logger.Info("[Gover.ApiTracePublisher]初始化中");
             if (ApiTraceMng.collectorMap.TryGetValue(collectorName, out collector))
             {
-                Logger.Info("[Gover.ApiTracePublisher]已绑定collector", new { collectorName });
+                Logger.Info("[Gover.ApiTracePublisher]已绑定collector", new { collectorName = collectorName });
             }
             else
             {
-                Logger.Info("[Gover.ApiTracePublisher]初始化失败，没有配置指定的collector", new { collectorName, Message = "请在appsettings.json中配置正确的Sers.ApiTrace.Collector" });
+                Logger.Info("[Gover.ApiTracePublisher]初始化失败，没有配置指定的collector", new { collectorName = collectorName, Message = "请在appsettings.json中配置正确的Sers.ApiTrace.Collector" });
             }
         }
 

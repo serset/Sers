@@ -31,7 +31,7 @@ namespace Sers.CL.WebSocket
         {
             try
             {
-                Logger.Info("[CL.DeliveryClient] WebSocket,connecting", new { host });
+                Logger.Info("[CL.DeliveryClient] WebSocket,connecting", new { host = host });
 
                 ClientWebSocket _webSocket = new ClientWebSocket();
                 _webSocket.ConnectAsync(new Uri(host), new CancellationToken()).GetAwaiter().GetResult();

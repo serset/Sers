@@ -42,7 +42,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
             try
             {
 
-                Logger.Info("[CL.DeliveryClient] Zmq.ThreadWait,connecting", new { endpoint });
+                Logger.Info("[CL.DeliveryClient] Zmq.ThreadWait,connecting", new { endpoint = endpoint });
 
                 //(x.1)
                 _conn.OnSendFrameAsync = Zmq_SendMessageAsync;

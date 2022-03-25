@@ -12,7 +12,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Simple
         {  
             try
             {
-                Logger.Info("[CL.DeliveryServer] Socket.Iocp,starting", new { host, port });
+                Logger.Info("[CL.DeliveryServer] Socket.Iocp,starting", new { host = host, port = port });
 
                 if (!base.Start()) 
                 {

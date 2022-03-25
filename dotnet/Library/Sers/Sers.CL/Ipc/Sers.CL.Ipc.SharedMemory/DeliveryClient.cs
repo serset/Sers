@@ -44,7 +44,7 @@ namespace Sers.CL.Ipc.SharedMemory
         public bool Connect()
         {
 
-            Logger.Info("[CL.Ipc] Ipc.SharedMemory,connecting", new { name });
+            Logger.Info("[CL.Ipc] Ipc.SharedMemory,connecting", new { name = name });
 
             if (!_conn.InitAsClient(name))
             {

@@ -62,7 +62,7 @@ namespace Sers.CL.Socket.ThreadWait
             {
                 if (listener != null) return false;
 
-                Logger.Info("[CL.DeliveryServer] Socket.ThreadWait,starting", new { host, port });
+                Logger.Info("[CL.DeliveryServer] Socket.ThreadWait,starting", new { host = host, port = port });
 
                 // IPEndPoint类将网络标识为IP地址和端口号
                 IPEndPoint localEndPoint = new IPEndPoint(String.IsNullOrEmpty(host) ? IPAddress.Any : NetHelp.ParseToIPAddress(host), port);

@@ -81,7 +81,7 @@ namespace Sers.CL.Ipc.SharedMemory
 
         public bool Start()
         {
-            Logger.Info("[CL.Ipc] Ipc.SharedMemory,starting", new { name });
+            Logger.Info("[CL.Ipc] Ipc.SharedMemory,starting", new { name = name });
 
 
             if (!_conn.InitAsServer(name, nodeCount, nodeBufferSize))

@@ -44,7 +44,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
         {
             try
             {
-                Logger.Info("[CL.DeliveryServer] Zmq.ThreadWait,starting", new { endpoint });
+                Logger.Info("[CL.DeliveryServer] Zmq.ThreadWait,starting", new { endpoint = endpoint });
 
                 //(x.1) create zmq conn
                 var socket = new ZSocket(ZSocketType.ROUTER);
