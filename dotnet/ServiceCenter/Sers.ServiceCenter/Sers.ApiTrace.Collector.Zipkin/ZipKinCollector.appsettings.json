@@ -1,0 +1,49 @@
+{
+  "Sers": {
+
+    /* ApiTrace 搜集器配置,可不指定 */
+    "ApiTrace": {
+      "Collector": [
+        { //搜集ApiTrace到Zipkin链路追踪
+
+          /* 搜集器名称（ApiTrace推送端根据此名称推送到对应的搜集器）,若不指定则不加载 */
+          "collectorName": "Zipkin",
+
+          /* 在此Assembly中加载类 */
+          "assemblyFile": "Sers.ApiTrace.Collector.Zipkin.dll",
+          /* 动态加载的类名，必须继承接口 Sers.Core.Module.ApiTrace.Collector.IApiTraceCollector */
+          //"className": "Sers.ApiTrace.Collector.Zipkin.ZipKinCollector",
+
+          /* 配置 */
+          "SamplingRate": "1.0",
+          "zipkinCollectorUrl": "http://sers.cloud:9411",
+
+          /* 若不指定则默认为ServiceCenter */
+          "rpcName": "ServiceCenter",
+          "tags": {
+            // 可为 requestRpc requestData responseRpc responseData
+            "traceName": "demoTrace",
+
+            "route": "{{requestRpc.route}}",
+            "{{requestRpc.route}}": "route",
+            "url": "{{requestRpc.http.url}}",
+            "method": "{{requestRpc.http.method}}",
+            "requestRpc": "{{requestRpc}}",
+            //"requestData": "{{requestData}}",
+
+
+            "responseRpc": "{{responseRpc}}",
+            "responseState": "{{responseRpc.http.headers.responseState}}",
+            "responseError_Base64": "{{responseRpc.http.headers.responseError_Base64}}"
+
+            //"responseData": "{{responseData}}",
+            //"responseData.error": "{{responseData.error}}"
+
+          }
+        }
+      ]
+    }
+
+  }
+
+}
