@@ -4,34 +4,66 @@ using Sers.Core.Module.Rpc;
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Vit.Extensions;
 using Vit.Core.Module.Log;
+using Vit.Core.Module.Log.LogCollector.Splunk;
 
 namespace Sers.Core.Module.ApiTrace.Collector
 {
-    public class TxtCollector : IApiTraceCollector
+    public class SplunkCollector : IApiTraceCollector
     {
+        /*
+{
+    "host": "localhost",
+    "source": "random-data-generator",
+    "sourcetype": "my_sample_data",
+    "index": "dev",
+    "event": { 
+        "level": "ApiTrace",
+
+        "appInfo": { //custome object
+            "namespace": "mc.sers.cloud",
+            "appName": "mc",
+            "moduleName": "sers"
+            //,"...": {}
+        },
+
+        "beginTime":"2022-03-26 02:52:00.123456",
+        "endTime":"2022-03-26 02:52:04.123456",
+        "duration":"4000.0",
+
+        //extTags
+    }
+}
+        */
+
+
+
+        SplunkClient client;
+        SplunkRecord message;
+        JObject appInfo;
 
         IDictionary<string, string> tagsTemplate;
+
         public void Init(JObject arg)
         {
-            Logger.Info("[ApiTrace.TxtCollector]初始化中");
-
+            Logger.Info("[ApiTrace.SplunkCollector]初始化中");
+            client = arg["client"].Deserialize<SplunkClient>();
+            client.Init();
+            message = arg?["message"]?.Deserialize<SplunkRecord>();
+            appInfo = arg?["appInfo"]?.Deserialize<JObject>();
             tagsTemplate = arg?["tags"]?.Deserialize<IDictionary<string, string>>();
         }
 
         public void AppBeforeStart()
         {
-            Logger.Info("[ApiTrace.TxtCollector]初始化成功");
+            Logger.Info("[ApiTrace.SplunkCollector]初始化成功");
         }
 
         public void AppBeforeStop()
         {
 
         }
-
-        Vit.Core.Module.Log.LogCollector.TxtCollector logCollector = new Vit.Core.Module.Log.LogCollector.TxtCollector();
 
         public object TraceStart(RpcContextData rpcData)
         {
@@ -42,6 +74,15 @@ namespace Sers.Core.Module.ApiTrace.Collector
             var beginTime = (DateTime)traceData;
 
             var endTime = DateTime.Now;
+
+
+            JObject eventData = new JObject();
+            eventData["level"] = "ApiTrace";
+            if (appInfo != null) eventData["appInfo"] = appInfo;
+
+            eventData["beginTime"] = beginTime.ToString("yyyy-MM-dd HH:mm:ss.ffffff");
+            eventData["endTime"] = endTime.ToString("yyyy-MM-dd HH:mm:ss.ffffff");
+            eventData["duration"] = (endTime - beginTime).TotalMilliseconds;
 
 
             #region method getTagValue
@@ -60,7 +101,7 @@ namespace Sers.Core.Module.ApiTrace.Collector
             string responseData_oriString = null;
             JObject responseData_json = null;
 
-            string GetTagValue(string valueString)
+            JToken GetTagValue(string valueString)
             {
                 if (string.IsNullOrEmpty(valueString)) return null;
                 if (!valueString.StartsWith("{{") || !valueString.EndsWith("}}")) return valueString;
@@ -93,15 +134,15 @@ namespace Sers.Core.Module.ApiTrace.Collector
                             {
                                 requestRpc_oriString = apiRequestMessage.rpcContextData_OriData.ArraySegmentByteToString();
                             }
-                            if (string.IsNullOrEmpty(path))
-                            {
-                                return requestRpc_oriString;
-                            }
                             if (requestRpc_json == null)
                             {
                                 requestRpc_json = requestRpc_oriString.Deserialize<JObject>();
                             }
-                            return requestRpc_json?.SelectToken(path).ConvertToString();
+                            if (string.IsNullOrEmpty(path))
+                            {
+                                return requestRpc_json;
+                            }
+                            return requestRpc_json?.SelectToken(path);
 
                         case "requestData":
                             if (requestData_oriString == null)
@@ -116,7 +157,7 @@ namespace Sers.Core.Module.ApiTrace.Collector
                             {
                                 requestData_json = requestData_oriString.Deserialize<JObject>();
                             }
-                            return requestData_json?.SelectToken(path).ConvertToString();
+                            return requestData_json?.SelectToken(path);
 
                         case "responseRpc":
                             if (apiResponseMessage == null)
@@ -127,15 +168,15 @@ namespace Sers.Core.Module.ApiTrace.Collector
                             {
                                 responseRpc_oriString = apiResponseMessage.rpcContextData_OriData.ArraySegmentByteToString();
                             }
-                            if (string.IsNullOrEmpty(path))
-                            {
-                                return responseRpc_oriString;
-                            }
                             if (responseRpc_json == null)
                             {
                                 responseRpc_json = responseRpc_oriString.Deserialize<JObject>();
                             }
-                            return responseRpc_json?.SelectToken(path).ConvertToString();
+                            if (string.IsNullOrEmpty(path))
+                            {
+                                return responseRpc_json;
+                            }
+                            return responseRpc_json?.SelectToken(path);
 
                         case "responseData":
                             if (apiResponseMessage == null)
@@ -154,7 +195,7 @@ namespace Sers.Core.Module.ApiTrace.Collector
                             {
                                 responseData_json = responseData_oriString.Deserialize<JObject>();
                             }
-                            return responseData_json?.SelectToken(path).ConvertToString();
+                            return responseData_json?.SelectToken(path);
                     }
                 }
                 catch
@@ -165,31 +206,29 @@ namespace Sers.Core.Module.ApiTrace.Collector
             #endregion
 
 
-
-            StringBuilder msg = new StringBuilder(1024 * 4);
-
-            msg.Append(Environment.NewLine).Append("┍------------ ---------┑");
-
-            msg.Append(Environment.NewLine).Append("--beginTime:").Append(beginTime.ToString("[HH:mm:ss.ffffff]"));
-            msg.Append(Environment.NewLine).Append("--endTime  :").Append(endTime.ToString("[HH:mm:ss.ffffff]"));
-            msg.Append(Environment.NewLine).Append("--duration :").Append((endTime - beginTime).TotalMilliseconds).Append(" ms");
-
-
+ 
             tagsTemplate?.IEnumerable_ForEach(item =>
             {
-                var key = GetTagValue(item.Key);
+                var key = GetTagValue(item.Key)?.ConvertToString();
+                if (string.IsNullOrEmpty(key)) return;
+
                 var value = GetTagValue(item.Value);
-                if (key != null)
-                {
-                    msg.Append(Environment.NewLine).Append("--" + key + ":").Append(value);
-                }
+                eventData[key] = value;
+
             });
 
+            var record = new SplunkRecord
+            {
+                index = message?.index,
+                host = message?.host ?? Environment.MachineName,
+                source = message?.source,
+                sourcetype = message?.sourcetype,
 
-            msg.Append(Environment.NewLine).Append("┕------------ ---------┙").Append(Environment.NewLine);
+                @event = eventData
+            };
+            client.SendAsync(record);
 
-            logCollector.Write(Level.ApiTrace, msg.ToString());
+ 
         }
-
     }
 }
