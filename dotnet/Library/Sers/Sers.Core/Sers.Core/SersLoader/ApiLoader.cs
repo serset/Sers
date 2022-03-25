@@ -87,7 +87,7 @@ namespace Sers.SersLoader
 
 
             #region (x.3)LoadApi
-            Logger.Info("[ApiLoader] LoadApi,assembly:[" + config.assembly.FullName + "]");
+            Logger.Info("[ApiLoader] LoadApi", new { assembly = config.assembly.FullName });
 
             //List<IApiNode> apiNodes = new List<IApiNode>();
 

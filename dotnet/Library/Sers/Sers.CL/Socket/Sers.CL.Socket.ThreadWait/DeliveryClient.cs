@@ -35,7 +35,7 @@ namespace Sers.CL.Socket.ThreadWait
 
         public bool Connect()
         {
-            Logger.Info("[CL.DeliveryClient] Socket.ThreadWait,connecting... host:" + host + " port:" + port);
+            Logger.Info("[CL.DeliveryClient] Socket.ThreadWait,connecting", new { host, port });
             TcpClient client = null;
             try
             {
@@ -51,7 +51,7 @@ namespace Sers.CL.Socket.ThreadWait
             _conn.Init(client);
 
             _conn.StartBackThreadToReceiveMsg();
-            Logger.Info("[CL.DeliveryClient] Socket.ThreadWait,connected.");
+            Logger.Info("[CL.DeliveryClient] Socket.ThreadWait,connected");
             return true;
         }
 

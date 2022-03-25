@@ -43,8 +43,6 @@ namespace Vit.Core.Module.Log.LogCollector
                     level = msg.level.ToString(),
                     message = msg.message,
                     metadata = msg.metadata,
-
-                    @namespace = message?.@event?.@namespace,
                     app = message?.@event?.app
                 }
             };
@@ -54,10 +52,10 @@ namespace Vit.Core.Module.Log.LogCollector
 
             // TODO:    retry when fail. 
             //          batch:  batchIntervalInSeconds, batchSizeLimit, queueLimit
-            httpClient.SendAsync(request);
+            //httpClient.SendAsync(request);
 
             //var strMsg = msgBody.Serialize();
-            //var response = httpClient.SendAsync(request).Result;
+            var response = httpClient.SendAsync(request).Result;
 
         }
 
@@ -79,7 +77,7 @@ namespace Vit.Core.Module.Log.LogCollector
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public string sourcetype;
 
-            [JsonProperty("event")]
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public Event @event;
 
             public class Event
@@ -94,27 +92,28 @@ namespace Vit.Core.Module.Log.LogCollector
                 [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
                 public object metadata;
 
-
                 [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-                public string @namespace;
-
-                [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-                public string app;
+                public object app;
             }
 
             /*
              {
-                "time": 1426279439,  
+                "time": 1426279439.123,  
                 "host": "localhost",
                 "source": "random-data-generator",
                 "sourcetype": "my_sample_data",
-                "index": "index_prod",
+                "index": "dev",
                 "event": { 
                     "level": "info",
                     "message": "Something happened",
                     "metadata": [],
-                    "namespace": "mc.sers.cloud",
-                    "app":"mc"
+                     //custome object
+                    "app": {
+                      "namespace": "mc.sers.cloud",
+                      "appName": "mc",
+                      "moduleName": "sers"
+                      //,"...": {}
+                    }
                 }
              }
              */

@@ -549,7 +549,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             {
                 if (info.IsDisconnected(heartBeatRetryCount))
                 {
-                    Logger.Info("[CL.RequestAdaptor]HeartBeat,conn disconnected. connTag:" + conn.connTag);
+                    Logger.Info("[CL.RequestAdaptor]HeartBeat,conn disconnected", new { connTag = conn.connTag });
                     conn.Close();                    
                     return;
                 }

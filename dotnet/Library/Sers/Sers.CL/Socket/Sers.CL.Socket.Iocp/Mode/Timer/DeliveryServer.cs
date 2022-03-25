@@ -37,7 +37,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
         {
             try
             {
-                Logger.Info("[CL.DeliveryServer] Socket.Iocp,starting... host:" + host + " port:" + port);
+                Logger.Info("[CL.DeliveryServer] Socket.Iocp,starting", new { host, port });
 
                 if (!base.Start())
                 {
@@ -49,7 +49,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
                 Send_timer.timerCallback = Send_Flush;
                 Send_timer.Start();
 
-                Logger.Info("[CL.DeliveryServer] Socket.Iocp,started.");
+                Logger.Info("[CL.DeliveryServer] Socket.Iocp,started");
                 return true;
             }
             catch (Exception ex)

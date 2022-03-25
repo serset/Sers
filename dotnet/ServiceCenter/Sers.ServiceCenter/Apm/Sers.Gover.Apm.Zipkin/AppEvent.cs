@@ -232,7 +232,7 @@ namespace Sers.Gover.Apm.Zipkin
         {           
             config = arg.Deserialize<Config>();
             if (string.IsNullOrEmpty(config.rpcName)) config.rpcName = "ServiceCenter";
-            Logger.Info("[zipkin]初始化中... config: " + config?.Serialize());
+            Logger.Info("[zipkin]初始化中",config);
         }
 
 

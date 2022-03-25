@@ -206,7 +206,7 @@ namespace Sers.Gover.Base
             {
                 if (Config_ApiRegistEvent_Print)
                 {
-                    Logger.Info("[ApiCenterService]Add ApiNode,serviceKey:" + apiNode.apiDesc.ServiceKeyGet());
+                    Logger.Info("[ApiCenterService]Add ApiNode", apiNode.apiDesc.ServiceKeyGet());
                 }
                 
 
@@ -231,7 +231,7 @@ namespace Sers.Gover.Base
 
             if (Config_ApiRegistEvent_Print)
             {
-                Logger.Info("[ApiCenterService]Remove ApiNode,serviceKey:" + apiNode.apiDesc.ServiceKeyGet());
+                Logger.Info("[ApiCenterService]Remove ApiNode", apiNode.apiDesc.ServiceKeyGet());
             }
 
             var apiStation = ApiStation_Get(route);

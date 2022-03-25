@@ -4,6 +4,7 @@ using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Core.Util.ConfigurationManager;
 using System.Linq;
 using Vit.Core.Module.Log.LogCollector;
+using Vit.Extensions;
 
 namespace Vit.Core.Module.Log
 {

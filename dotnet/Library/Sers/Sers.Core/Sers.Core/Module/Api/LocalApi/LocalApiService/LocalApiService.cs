@@ -178,7 +178,7 @@ namespace Sers.Core.Module.Api.LocalApi
                 if (threadCount > 0)
                 {
                     workThread.Start();
-                    Logger.Info("[LocalApiService] Started,threadCount:" + threadCount);
+                    Logger.Info("[LocalApiService] Started", new { threadCount });
 
                 }
                 return true;

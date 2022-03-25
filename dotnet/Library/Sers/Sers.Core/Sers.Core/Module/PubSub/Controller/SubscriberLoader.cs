@@ -13,7 +13,7 @@ namespace Sers.Core.Module.PubSub.Controller
             var types = assembly.GetTypes().Where(type => typeof(ISubscriberController).IsAssignableFrom(type) && !type.IsAbstract && type.IsPublic);
             if (types == null || types.Count() == 0) return;
 
-            Logger.Info("[SubscriberLoader] LoadSubscriber,assembly:[" + assembly.FullName + "]");
+            Logger.Info("[SubscriberLoader]LoadSubscriber", new { assembly = assembly.FullName });
 
             foreach (var type in types)
             {

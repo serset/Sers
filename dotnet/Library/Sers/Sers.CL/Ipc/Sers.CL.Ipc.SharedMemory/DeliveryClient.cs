@@ -1,6 +1,8 @@
 ﻿using System;
+
 using Sers.CL.Ipc.SharedMemory.Stream;
 using Sers.Core.CL.MessageDelivery;
+
 using Vit.Core.Module.Log;
 
 namespace Sers.CL.Ipc.SharedMemory
@@ -10,7 +12,7 @@ namespace Sers.CL.Ipc.SharedMemory
 
         public DeliveryClient()
         {
-            _conn = new DeliveryConnection();      
+            _conn = new DeliveryConnection();
         }
 
         /// <summary>
@@ -18,15 +20,15 @@ namespace Sers.CL.Ipc.SharedMemory
         /// </summary>
         public Action<IDeliveryConnection, ArraySegment<byte>> Conn_OnGetFrame { set => _conn.OnGetFrame = value; }
 
-        public Action<IDeliveryConnection> Conn_OnDisconnected {  set => _conn.OnDisconnected = value; }
+        public Action<IDeliveryConnection> Conn_OnDisconnected { set => _conn.OnDisconnected = value; }
 
-        readonly DeliveryConnection _conn ;
+        readonly DeliveryConnection _conn;
         public IDeliveryConnection conn => _conn;
 
 
 
         //-------------------------------------------------------
- 
+
 
         /// <summary>
         /// 共享内存名称
@@ -36,13 +38,13 @@ namespace Sers.CL.Ipc.SharedMemory
 
         public void Close()
         {
-            _conn.Close();           
+            _conn.Close();
         }
 
         public bool Connect()
         {
 
-            Logger.Info("[CL.Ipc] Ipc.SharedMemory,connecting... name:" + name);          
+            Logger.Info("[CL.Ipc] Ipc.SharedMemory,connecting", new { name });
 
             if (!_conn.InitAsClient(name))
             {
@@ -57,8 +59,8 @@ namespace Sers.CL.Ipc.SharedMemory
                 return false;
             }
 
-          
-            Logger.Info("[CL.Ipc] Ipc.SharedMemory,connected.");
+
+            Logger.Info("[CL.Ipc] Ipc.SharedMemory,connected");
             return true;
         }
     }

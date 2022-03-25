@@ -142,7 +142,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             var requestData = new ByteData(secretKey.SerializeToBytes());
 
             //发送身份验证
-            Logger.Info("[CL.OrganizeClient] Authentication - sending SecretKey...");
+            Logger.Info("[CL.OrganizeClient] Authentication - sending SecretKey");
 
             bool success = false;
             try
@@ -150,7 +150,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                 if (conn.SendRequest(requestData, out var replyData, requestAdaptor.requestTimeoutMs) && replyData.ByteDataToString() == "true")
                 {
                     success = true;
-                    Logger.Info("[CL.OrganizeClient] Authentication - succeed.");
+                    Logger.Info("[CL.OrganizeClient] Authentication - succeed");
                     return true;
                 }
                 return false;
@@ -159,7 +159,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             {
                 if (!success)
                 {
-                    Logger.Info("[CL.OrganizeClient] Authentication - failed.");
+                    Logger.Info("[CL.OrganizeClient] Authentication - failed");
                 }
             }
             

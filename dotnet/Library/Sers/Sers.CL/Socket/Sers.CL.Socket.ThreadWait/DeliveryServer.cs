@@ -15,7 +15,7 @@ using Vit.Core.Util.Threading.Worker;
 
 namespace Sers.CL.Socket.ThreadWait
 {
-    public class DeliveryServer: IDeliveryServer
+    public class DeliveryServer : IDeliveryServer
     {
         public Sers.Core.Util.StreamSecurity.SecurityManager securityManager;
 
@@ -30,7 +30,7 @@ namespace Sers.CL.Socket.ThreadWait
 
         public Action<IDeliveryConnection> Conn_OnDisconnected { private get; set; }
         public Action<IDeliveryConnection> Conn_OnConnected { private get; set; }
-                           
+
 
 
 
@@ -60,9 +60,9 @@ namespace Sers.CL.Socket.ThreadWait
         {
             try
             {
-                if ( listener!=null ) return false;
+                if (listener != null) return false;
 
-                Logger.Info("[CL.DeliveryServer] Socket.ThreadWait,starting... host:" + host + " port:" + port);
+                Logger.Info("[CL.DeliveryServer] Socket.ThreadWait,starting", new { host, port });
 
                 // IPEndPoint类将网络标识为IP地址和端口号
                 IPEndPoint localEndPoint = new IPEndPoint(String.IsNullOrEmpty(host) ? IPAddress.Any : NetHelp.ParseToIPAddress(host), port);
@@ -91,14 +91,14 @@ namespace Sers.CL.Socket.ThreadWait
                 tcpListenerAccept_BackThread.Start();
                 #endregion               
 
-                Logger.Info("[CL.DeliveryServer] Socket.ThreadWait,started.");
+                Logger.Info("[CL.DeliveryServer] Socket.ThreadWait,started");
                 return true;
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
             }
-            return false;         
+            return false;
 
         }
 
@@ -112,16 +112,16 @@ namespace Sers.CL.Socket.ThreadWait
         /// </summary>
         public void Stop()
         {
-            if (listener==null) return;
+            if (listener == null) return;
 
             //(x.1) stop conn
-            ConnectedList.ToList().ForEach(Delivery_OnDisconnected);            
+            ConnectedList.ToList().ForEach(Delivery_OnDisconnected);
             connMap.Clear();
 
             //(x.2) close socket
             Task.Run(() =>
             {
-                Logger.Info("[CL.DeliveryServer] Socket.ThreadWait,stop...");       
+                Logger.Info("[CL.DeliveryServer] Socket.ThreadWait,stoping");
 
                 tcpListenerAccept_BackThread.Stop();
                 try
@@ -168,8 +168,8 @@ namespace Sers.CL.Socket.ThreadWait
             var conn = new DeliveryConnection();
             conn.securityManager = securityManager;
             conn.Init(client);
-        
-            conn.Conn_OnDisconnected = Delivery_OnDisconnected; 
+
+            conn.Conn_OnDisconnected = Delivery_OnDisconnected;
             connMap[conn.GetHashCode()] = conn;
             try
             {
@@ -186,8 +186,8 @@ namespace Sers.CL.Socket.ThreadWait
         }
 
         private void Delivery_OnDisconnected(IDeliveryConnection _conn)
-        { 
-            var conn = (DeliveryConnection)_conn; 
+        {
+            var conn = (DeliveryConnection)_conn;
 
             connMap.TryRemove(conn.GetHashCode(), out _);
 
