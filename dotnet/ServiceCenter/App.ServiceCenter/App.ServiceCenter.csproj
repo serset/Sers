@@ -30,8 +30,6 @@
 		<ProjectReference Include="..\..\Library\Sers\Sers.CL\Zmq\FullDuplex\Sers.CL.Zmq.FullDuplex\Sers.CL.Zmq.FullDuplex.csproj" />
 		<ProjectReference Include="..\..\Library\Sers\Sers.CL\Zmq\ThreadWait\Sers.CL.ClrZmq.ThreadWait\Sers.CL.ClrZmq.ThreadWait.csproj" />
 		<ProjectReference Include="..\..\Library\Sers\Sers.Gateway\Sers.Gateway\Sers.Gateway.csproj" />
-		<ProjectReference Include="..\Sers.ServiceCenter\Apm\Sers.Gover.Apm.Txt\Sers.Gover.Apm.Txt.csproj" />
-		<ProjectReference Include="..\Sers.ServiceCenter\Apm\Sers.Gover.Apm.Zipkin\Sers.Gover.Apm.Zipkin.csproj" />
 		<ProjectReference Include="..\Sers.ServiceCenter\Sers.Gover\Sers.Gover.csproj" />
 	</ItemGroup>
 

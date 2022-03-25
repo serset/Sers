@@ -1,11 +1,14 @@
 ﻿using Newtonsoft.Json.Linq;
+
 using Sers.Core.Module.Api.ApiEvent.ApiScope;
 using Sers.Core.Module.Message;
 using Sers.Core.Module.Rpc;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ConfigurationManager;
 
@@ -17,9 +20,6 @@ namespace Sers.Core.Module.Api.LocalApi.Event
     public class LocalApiEventMng
     {
 
-        public static readonly LocalApiEventMng Instance  = new LocalApiEventMng();
-
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public LocalApiEventMng()
         {
@@ -27,7 +27,7 @@ namespace Sers.Core.Module.Api.LocalApi.Event
             {
                 var apiScopeEvents = Sers.Core.Module.Api.ApiEvent.EventBuilder.LoadEvent_OnCreateScope(ConfigurationManager.Instance.GetByPath<JArray>("Sers.LocalApiService.OnCreateScope"));
 
-                 AddEvent_ApiScope(apiScopeEvents.ToArray());
+                AddEvent_ApiScope(apiScopeEvents.ToArray());
             }
             #endregion
 
@@ -45,9 +45,9 @@ namespace Sers.Core.Module.Api.LocalApi.Event
         internal List<IApiScopeEvent> apiScopeEventList = null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AddEvent_ApiScope( params IApiScopeEvent[] apiScopeEvents)
+        public void AddEvent_ApiScope(params IApiScopeEvent[] apiScopeEvents)
         {
-            if (null == apiScopeEvents || apiScopeEvents.Length==0) return;
+            if (null == apiScopeEvents || apiScopeEvents.Length == 0) return;
 
             if (null == apiScopeEventList)
             {
@@ -78,7 +78,7 @@ namespace Sers.Core.Module.Api.LocalApi.Event
                 })
                 .ToArray();
 
-            return new LocalApiEvent(events_OnDispose);
+            return new LocalApiEvent(events_OnDispose, this);
         }
 
 
@@ -86,7 +86,6 @@ namespace Sers.Core.Module.Api.LocalApi.Event
         /// BeforeCallApi(IRpcContextData rpcData, ApiMessage requestMessage)
         /// </summary>
         internal Action<RpcContextData, ApiMessage> BeforeCallApi = null;
-
 
     }
 }

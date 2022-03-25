@@ -7,16 +7,21 @@
 
 	<PropertyGroup>
 		<Authors>Lith</Authors>
-		<Description>Sers微服务-服务中心Apm。记录日志到txt文件。</Description>
+		<Description>Sers微服务-Zipkin收集器,推送Api Trace到Zipkin</Description>
 		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<DocumentationFile>bin\Debug\netstandard2.0\Sers.Gover.Apm.Txt.xml</DocumentationFile>
+		<DocumentationFile>bin\Debug\netstandard2.0\Sers.ApiTrace.Collector.Zipkin.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Sers.Gover\Sers.Gover.csproj" />
+		<PackageReference Include="zipkin4net" Version="1.5.0" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Library\Sers\Sers.Core\Sers.Core\Sers.Core.csproj" />
+	</ItemGroup>
+
 
 </Project>

@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using Sers.Core.Module.Message;
-using Sers.Core.Module.Rpc;
+
 using System;
 
 namespace Sers.Core.Module.Api.ApiEvent.ApiScope
@@ -10,6 +9,10 @@ namespace Sers.Core.Module.Api.ApiEvent.ApiScope
     /// </summary>
     public interface  IApiScopeEvent
     {
+        /// <summary>
+        /// 在初始化时被调用，会传递配置为config
+        /// </summary>
+        /// <param name="config"></param>
         void Init(JObject config);
 
    

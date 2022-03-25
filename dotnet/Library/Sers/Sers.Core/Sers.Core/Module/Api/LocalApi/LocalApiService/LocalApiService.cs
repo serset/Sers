@@ -36,8 +36,10 @@ namespace Sers.Core.Module.Api.LocalApi
 
         public void Init()
         {
-            LocalApiEventMng.Instance.UseApiTraceLog();
+            localApiEventMng = new LocalApiEventMng();
         }
+
+        LocalApiEventMng localApiEventMng;
 
         /// <summary>
         /// 映射  route -> LocalApiNode
@@ -66,7 +68,7 @@ namespace Sers.Core.Module.Api.LocalApi
         public ApiMessage CallLocalApi(ApiMessage apiRequest)
         {           
             using (var rpcContext = new RpcContext())
-            using (var localApiEvent = LocalApiEventMng.Instance.CreateApiEvent())
+            using (var localApiEvent = localApiEventMng.CreateApiEvent())
             {
                 try
                 {

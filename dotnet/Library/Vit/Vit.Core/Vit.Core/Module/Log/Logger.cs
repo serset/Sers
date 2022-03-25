@@ -14,7 +14,7 @@ namespace Vit.Core.Module.Log
     public static class Logger
     {
 
-        public static readonly LogMng log = new LogMng();
+        public static   LogMng log { get; set; } = new LogMng();
 
         #region static Logger
         static Logger()
