@@ -42,7 +42,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
             try
             {
 
-                Logger.Info("[CL.DeliveryClient] Zmq.ThreadWait,connecting...  endpoint: \"" + endpoint + "\"");
+                Logger.Info("[CL.DeliveryClient] Zmq.ThreadWait,connecting", new { endpoint });
 
                 //(x.1)
                 _conn.OnSendFrameAsync = Zmq_SendMessageAsync;
@@ -56,7 +56,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
                 //(x.3) init poller
                 poller.OnReceiveMessage = Zmq_OnReceiveMessage;
                 poller.Start(socket);
-                Logger.Info("[CL.DeliveryClient] Zmq.ThreadWait,connected.");
+                Logger.Info("[CL.DeliveryClient] Zmq.ThreadWait,connected");
                 return true;
             }
             catch (Exception ex)

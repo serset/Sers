@@ -10,6 +10,7 @@ namespace Vit.Extensions
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="time"></param>
         /// <param name="AccurateToMilliseconds">是否精确到毫秒</param>
         /// <returns>返回一个长整数时间戳</returns>
         public static long ToTimeStamp(this DateTime time, bool AccurateToMilliseconds = true)
@@ -50,7 +51,7 @@ namespace Vit.Extensions
         /// <summary>
         /// 时间戳的起始时间
         /// </summary>
-        public static System.DateTime startTime = new System.DateTime(1970, 1, 1);
+        private static System.DateTime startTime = new System.DateTime(1970, 1, 1);
 
 
         /// <summary>
@@ -73,6 +74,6 @@ namespace Vit.Extensions
         /// <summary>
         /// 时间戳的起始时间(使用本地时区)
         /// </summary>
-        public static System.DateTime startTimeLocal = TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), TimeZoneInfo.Local); // 当地时区
+        private static System.DateTime startTimeLocal = TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), TimeZoneInfo.Local); // 当地时区
     }
 }

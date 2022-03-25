@@ -6,13 +6,15 @@ using System.IO.Pipes;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Sers.Core.CL.MessageDelivery;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Threading.Worker;
 
 namespace Sers.CL.Ipc.NamedPipe
 {
-    public class DeliveryServer: IDeliveryServer
+    public class DeliveryServer : IDeliveryServer
     {
         public Sers.Core.Util.StreamSecurity.SecurityManager securityManager;
 
@@ -23,7 +25,7 @@ namespace Sers.CL.Ipc.NamedPipe
 
 
         public Action<IDeliveryConnection> Conn_OnDisconnected { private get; set; }
-        public Action<IDeliveryConnection> Conn_OnConnected { private get; set; } 
+        public Action<IDeliveryConnection> Conn_OnConnected { private get; set; }
 
 
         /// <summary>
@@ -47,13 +49,13 @@ namespace Sers.CL.Ipc.NamedPipe
         {
             try
             {
-                Logger.Info("[CL.DeliveryServer] Ipc.NamedPipe, starting... pipeName:" + pipeName);
+                Logger.Info("[CL.DeliveryServer] Ipc.NamedPipe, starting", new { pipeName });
 
                 #region (x.1)检测命名管道是否已经在使用
                 try
                 {
 
-                    if (File.Exists("\\\\.\\pipe\\" + pipeName)) 
+                    if (File.Exists("\\\\.\\pipe\\" + pipeName))
                     {
                         Logger.Info("[CL.DeliveryServer] Ipc.NamedPipe, not started.pipeName already exists!");
                         return false;
@@ -78,7 +80,7 @@ namespace Sers.CL.Ipc.NamedPipe
                 catch (Exception ex)
                 {
                     Logger.Error(ex);
-                }               
+                }
                 #endregion
 
 
@@ -91,7 +93,7 @@ namespace Sers.CL.Ipc.NamedPipe
                     {
                         while (true)
                         {
-                            NamedPipeServerStream server = new NamedPipeServerStream(pipeName, PipeDirection.InOut, NamedPipeServerStream.MaxAllowedServerInstances,PipeTransmissionMode.Byte,PipeOptions.Asynchronous);
+                            NamedPipeServerStream server = new NamedPipeServerStream(pipeName, PipeDirection.InOut, NamedPipeServerStream.MaxAllowedServerInstances, PipeTransmissionMode.Byte, PipeOptions.Asynchronous);
 
                             //Console.WriteLine($"[{id}]服务器管道已创建。");
 
@@ -120,7 +122,7 @@ namespace Sers.CL.Ipc.NamedPipe
             {
                 Logger.Error(ex);
             }
-            return false;         
+            return false;
 
         }
 
@@ -129,7 +131,7 @@ namespace Sers.CL.Ipc.NamedPipe
 
         #region Stop
 
-      
+
 
         /// <summary>
         /// 停止服务
@@ -137,15 +139,15 @@ namespace Sers.CL.Ipc.NamedPipe
         public void Stop()
         {
             //(x.1) stop conn
-            ConnectedList.ToList().ForEach(Delivery_OnDisconnected);            
+            ConnectedList.ToList().ForEach(Delivery_OnDisconnected);
             connMap.Clear();
 
             //(x.2) close
             Task.Run(() =>
             {
-                Logger.Info("[CL.DeliveryServer] Ipc.NamedPipe, stop...");       
+                Logger.Info("[CL.DeliveryServer] Ipc.NamedPipe, stoping");
 
-                tcpListenerAccept_BackThread.Stop();                 
+                tcpListenerAccept_BackThread.Stop();
 
                 Logger.Info("[CL.DeliveryServer] Ipc.NamedPipe, stoped");
 
@@ -163,8 +165,8 @@ namespace Sers.CL.Ipc.NamedPipe
             var conn = new DeliveryConnection();
             conn.securityManager = securityManager;
             conn.Init(client);
-        
-            conn.Conn_OnDisconnected = Delivery_OnDisconnected; 
+
+            conn.Conn_OnDisconnected = Delivery_OnDisconnected;
             connMap[conn.GetHashCode()] = conn;
 
             try
@@ -182,8 +184,8 @@ namespace Sers.CL.Ipc.NamedPipe
         }
 
         private void Delivery_OnDisconnected(IDeliveryConnection _conn)
-        { 
-            var conn = (DeliveryConnection)_conn; 
+        {
+            var conn = (DeliveryConnection)_conn;
 
             connMap.TryRemove(conn.GetHashCode(), out _);
 

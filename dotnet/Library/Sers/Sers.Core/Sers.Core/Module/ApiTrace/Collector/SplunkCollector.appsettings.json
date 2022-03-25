@@ -1,0 +1,61 @@
+{
+  "Sers": {
+
+    /* ApiTrace 搜集器配置,可不指定 */
+    "ApiTrace": {
+      "Collector": [
+        { //搜集ApiTrace到 splunk
+
+          /* 搜集器名称（ApiTrace推送端根据此名称推送到对应的搜集器）,若不指定则不加载 */
+          "collectorName": "default",
+
+          /* 在此Assembly中加载类 */
+          "assemblyFile": "Sers.Core.dll",
+          /* 动态加载的类名，必须继承接口 Sers.Core.Module.ApiTrace.Collector.IApiTraceCollector */
+          "className": "Sers.Core.Module.ApiTrace.Collector.SplunkCollector",
+
+
+          "client": {
+            "url": "http://192.168.20.20:8088/services/collector",
+            "authToken": "xxxxx"
+          },
+
+          "//message": {
+            "index": "dev",
+            "host": "192.168.20.20:8088",
+            "source": "http:mc",
+            "sourcetype": "httpevent"
+          },
+
+          //custome object
+          "//appInfo": {
+            "namespace": "mc.sers.cloud",
+            "appName": "mc",
+            "moduleName": "sers"
+            //,"...": {}
+          },
+
+          "//tags": {
+            // 可为 requestRpc requestData responseRpc responseData
+            "route": "{{requestRpc.route}}",
+            //"{{requestRpc.route}}": "route",
+
+            "url": "{{requestRpc.http.url}}",
+            "method": "{{requestRpc.http.method}}",
+            "requestRpc": "{{requestRpc}}",
+            "requestData": "{{requestData}}",
+
+            "responseRpc": "{{responseRpc}}",
+            "responseState": "{{responseRpc.http.headers.responseState}}",
+            //"responseError_Base64": "{{responseRpc.http.headers.responseError_Base64}}"
+
+            "responseData": "{{responseData}}",
+            "responseData.error": "{{responseData.error}}"
+          }
+        }
+      ]
+    }
+
+  }
+
+}

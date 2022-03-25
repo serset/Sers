@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 using Vit.Extensions;
 
@@ -11,19 +12,7 @@ namespace Vit.Core.Module.Log.LogCollector
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Write(LogMessage msg)
         {
-            #region build log string
-            string logString = DateTime.Now.ToString("[HH:mm:ss.ffff]") + msg.message + NewLine;
-
-            if (msg.metadata != null)
-            {
-                foreach (var obj in msg.metadata)
-                {
-                    logString += obj.Serialize() + NewLine;
-                }
-            }
-            #endregion
-
-            Write(msg.level, logString);
+            Write(msg.level, BuildMessageData(msg, NewLine));
         }
 
 
@@ -31,6 +20,26 @@ namespace Vit.Core.Module.Log.LogCollector
 
 
         public static string NewLine = Environment.NewLine;
+
+        public static string metadataSeparator = "    ";
+        public static string BuildMessageData(LogMessage msg, string prefix = null)
+        {
+            if (msg.metadata == null)
+            {
+                return prefix + DateTime.Now.ToString("[HH:mm:ss.ffff]") + msg.message;
+            }
+
+
+            StringBuilder builder = new StringBuilder(prefix);
+            builder.Append(DateTime.Now.ToString("[HH:mm:ss.ffff]")).Append(msg.message);
+            foreach (var obj in msg.metadata)
+            {
+                builder.Append(metadataSeparator).Append(obj.Serialize());
+            }
+            return builder.ToString();
+        }
+
+
 
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

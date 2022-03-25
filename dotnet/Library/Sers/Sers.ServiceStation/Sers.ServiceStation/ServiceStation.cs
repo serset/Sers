@@ -307,7 +307,7 @@ namespace Sers.ServiceStation
 
                         if (!ret.success)
                         {
-                            Logger.Info("[ServiceStation] regist - failed. reply: " + ret.Serialize());
+                            Logger.Info("[ServiceStation] regist - failed", ret);
                             return false;
                         }
                     }
@@ -334,7 +334,7 @@ namespace Sers.ServiceStation
 
                                 if (!ret.success)
                                 {
-                                    Logger.Info("[ServiceStation] updateStationInfo - failed. reply: " + ret.Serialize());                                  
+                                    Logger.Info("[ServiceStation] updateStationInfo - failed", ret);
                                 }
                             }
                         }
@@ -367,7 +367,7 @@ namespace Sers.ServiceStation
             SersApplication.ResistConsoleCancelKey(Stop);
             SersApplication.OnStart();
 
-            Logger.Info("[ServiceStation] started - stationName:" + SersApplication.serviceStationInfo.serviceStationName);
+            Logger.Info("[ServiceStation] started",SersApplication.serviceStationInfo.serviceStationName);
 
             //(x.9) appEvent AfterStart
             appEventList?.ForEach(ev => ev.AfterStart());

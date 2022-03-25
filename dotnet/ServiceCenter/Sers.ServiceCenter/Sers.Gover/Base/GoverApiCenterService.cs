@@ -272,7 +272,7 @@ namespace Sers.Gover.Base
 
         public override void ServiceStation_Regist(ServiceStation serviceStation)
         {
-            Logger.Info("[ApiCenterService]Regist serviceStation,stationName:" + serviceStation?.serviceStationInfo?.serviceStationName);
+            Logger.Info("[ApiCenterService]Regist serviceStation", new { stationName = serviceStation?.serviceStationInfo?.serviceStationName });
             serviceStationMng.ServiceStation_Add(serviceStation);
         }
 
@@ -282,7 +282,7 @@ namespace Sers.Gover.Base
         /// <param name="serviceStation"></param>
         public override bool ServiceStation_UpdateStationInfo(ServiceStation serviceStation)
         {
-            Logger.Info("[ApiCenterService]ServiceStation_UpdateStationInfo,stationName:" + serviceStation?.serviceStationInfo?.serviceStationName);
+            Logger.Info("[ApiCenterService]ServiceStation_UpdateStationInfo", new { stationName = serviceStation?.serviceStationInfo?.serviceStationName });
             return serviceStationMng.ServiceStation_UpdateStationInfo(serviceStation);
         }
 
@@ -293,7 +293,7 @@ namespace Sers.Gover.Base
             var serviceStation = serviceStationMng.ServiceStation_Remove(connKey);
             if (serviceStation != null)
             {
-                Logger.Info("[ApiCenterService]Remove serviceStation,stationName:" + serviceStation?.serviceStationInfo?.serviceStationName);
+                Logger.Info("[ApiCenterService]Remove serviceStation", new { stationName = serviceStation?.serviceStationInfo?.serviceStationName });
             }
         }
 
@@ -303,7 +303,7 @@ namespace Sers.Gover.Base
             var serviceStation = serviceStationMng.ServiceStation_Pause(connKey);
             if (serviceStation != null)
             {
-                Logger.Info("[ApiCenterService]Pause serviceStation,stationName:" + serviceStation?.serviceStationInfo?.serviceStationName);
+                Logger.Info("[ApiCenterService]Pause serviceStation", new { stationName = serviceStation?.serviceStationInfo?.serviceStationName });
             } 
             return serviceStation != null;
         }
@@ -313,7 +313,7 @@ namespace Sers.Gover.Base
             var serviceStation = serviceStationMng.ServiceStation_Start(connKey);
             if (serviceStation != null)
             {
-                Logger.Info("[ApiCenterService]Start serviceStation,stationName:" + serviceStation?.serviceStationInfo?.serviceStationName);
+                Logger.Info("[ApiCenterService]Start serviceStation", new { stationName = serviceStation?.serviceStationInfo?.serviceStationName });
             }
             return serviceStation != null; 
         }
@@ -323,7 +323,7 @@ namespace Sers.Gover.Base
             var serviceStation = serviceStationMng.ServiceStation_Remove(connKey);
             if (serviceStation != null)
             {
-                Logger.Info("[ApiCenterService]Stop serviceStation,stationName:" + serviceStation?.serviceStationInfo?.serviceStationName);
+                Logger.Info("[ApiCenterService]Stop serviceStation", new { stationName = serviceStation?.serviceStationInfo?.serviceStationName });
                 serviceStation.connection.Close();
             }
             return serviceStation != null;
@@ -342,13 +342,13 @@ namespace Sers.Gover.Base
 
         public bool ApiStation_Pause(string stationName)
         {
-            Logger.Info("[ApiCenterService]Pause ApiStation,stationName:" + stationName);
+            Logger.Info("[ApiCenterService]Pause ApiStation", new { stationName });
             return apiStationMng.ApiStation_Pause(stationName);
         }
 
         public bool ApiStation_Start(string stationName)
         {
-            Logger.Info("[ApiCenterService]Start ApiStation,stationName:" + stationName);
+            Logger.Info("[ApiCenterService]Start ApiStation", new { stationName });
             return apiStationMng.ApiStation_Start(stationName);
         }
         #endregion

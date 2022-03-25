@@ -6,7 +6,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
-		<Version>2.1.17-temp</Version>
+		<Version>2.1.17-preview</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -25,6 +25,7 @@
 		<ProjectReference Include="..\..\..\Library\Sers\Sers.CL\Ipc\Sers.CL.Ipc.NamedPipe\Sers.CL.Ipc.NamedPipe.csproj" />
 		<ProjectReference Include="..\..\..\Library\Sers\Sers.CL\Socket\Sers.CL.Socket.Iocp\Sers.CL.Socket.Iocp.csproj" />
 		<ProjectReference Include="..\..\..\Library\Sers\Sers.CL\Socket\Sers.CL.Socket.ThreadWait\Sers.CL.Socket.ThreadWait.csproj" />
+		<ProjectReference Include="..\Sers.ApiTrace.Collector.Zipkin\Sers.ApiTrace.Collector.Zipkin.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -192,7 +192,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                 {
                     //验证不通过
                     deliveryConn.state = DeliveryConnState.waitForClose;
-                    Logger.Info("[CL.OrganizeServer] Authentication - failed！(" + reqSecretKey + ")");
+                    Logger.Info("[CL.OrganizeServer] Authentication - failed", new { reqSecretKey });
                     replyData = "false".SerializeToArraySegmentByte();
                     callback?.Invoke(sender, new Vit.Core.Util.Pipelines.ByteData(replyData));
                 }

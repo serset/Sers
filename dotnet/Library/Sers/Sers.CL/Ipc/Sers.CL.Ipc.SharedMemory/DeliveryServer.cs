@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Sers.Core.CL.MessageDelivery;
+
 using Vit.Core.Module.Log;
 
 namespace Sers.CL.Ipc.SharedMemory
 {
-    public class DeliveryServer :  IDeliveryServer
+    public class DeliveryServer : IDeliveryServer
     {
         public Sers.Core.Util.StreamSecurity.SecurityManager securityManager { set => _conn.securityManager = value; }
 
@@ -46,15 +48,15 @@ namespace Sers.CL.Ipc.SharedMemory
 
         }
 
-        public Action<IDeliveryConnection > Conn_OnDisconnected { private get; set; }
+        public Action<IDeliveryConnection> Conn_OnDisconnected { private get; set; }
         public Action<IDeliveryConnection> Conn_OnConnected { private get; set; }
 
         readonly DeliveryConnection _conn;
- 
-        public IEnumerable<IDeliveryConnection> ConnectedList =>new[]{ _conn };
+
+        public IEnumerable<IDeliveryConnection> ConnectedList => new[] { _conn };
 
 
- 
+
 
 
         /// <summary>
@@ -69,8 +71,8 @@ namespace Sers.CL.Ipc.SharedMemory
         /// <summary>
         /// 共享内存节点大小
         /// </summary>
-        public int nodeBufferSize { get; set; } = 10240;   
- 
+        public int nodeBufferSize { get; set; } = 10240;
+
 
         public void Stop()
         {
@@ -79,9 +81,8 @@ namespace Sers.CL.Ipc.SharedMemory
 
         public bool Start()
         {
-            Logger.Info("[CL.Ipc] Ipc.SharedMemory,starting... name:" + name);
+            Logger.Info("[CL.Ipc] Ipc.SharedMemory,starting", new { name });
 
-  
 
             if (!_conn.InitAsServer(name, nodeCount, nodeBufferSize))
             {
@@ -97,9 +98,9 @@ namespace Sers.CL.Ipc.SharedMemory
             {
                 Stop();
                 return false;
-            }             
+            }
 
-            Logger.Info("[CL.Ipc] Ipc.SharedMemory,started.");
+            Logger.Info("[CL.Ipc] Ipc.SharedMemory,started");
             return true;
         }
     }

@@ -16,7 +16,7 @@ namespace Sers.Core.Util.StreamSecurity
             if (configs == null || configs.Count == 0) return null;
 
 
-            Logger.Info("[CL.SecurityManager] init... ");
+            Logger.Info("[CL.SecurityManager] initing");
 
             //(x.1) Build security
             var securitys =configs.Select(config =>
@@ -44,7 +44,7 @@ namespace Sers.Core.Util.StreamSecurity
             }).ToArray();
 
 
-            Logger.Info("[CL.SecurityManager] inited.");
+            Logger.Info("[CL.SecurityManager] inited");
             return new SecurityManager { securitys= securitys };
         }
 

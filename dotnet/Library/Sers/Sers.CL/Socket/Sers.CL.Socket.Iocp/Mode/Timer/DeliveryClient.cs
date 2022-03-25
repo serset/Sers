@@ -35,7 +35,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
         {
             try
             {
-                Logger.Info("[CL.DeliveryClient] Socket.Iocp,connecting... host:" + host + " port:" + port);
+                Logger.Info("[CL.DeliveryClient] Socket.Iocp,connecting", new { host, port });
 
 
                 if (!base.Connect())
@@ -49,7 +49,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
                 Send_timer.Start();
 
 
-                Logger.Info("[CL.DeliveryClient] Socket.Iocp,connected.");
+                Logger.Info("[CL.DeliveryClient] Socket.Iocp,connected");
                 return true;
             }
             catch (Exception ex)

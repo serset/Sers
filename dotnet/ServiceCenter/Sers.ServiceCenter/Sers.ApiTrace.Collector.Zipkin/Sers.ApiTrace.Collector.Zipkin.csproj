@@ -2,17 +2,17 @@
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
-		<Version>2.1.17-temp</Version>
+		<Version>2.1.17-preview</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<Authors>Lith</Authors>
-		<Description>Sers微服务-服务中心Apm。推送日志到Zipkin。</Description>
+		<Description>Sers微服务-Zipkin收集器,推送Api Trace到Zipkin</Description>
 		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<DocumentationFile>bin\Debug\netstandard2.0\Sers.Gover.Apm.Zipkin.xml</DocumentationFile>
+		<DocumentationFile>bin\Debug\netstandard2.0\Sers.ApiTrace.Collector.Zipkin.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -20,9 +20,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Sers.Gover\Sers.Gover.csproj" />
+	  <ProjectReference Include="..\..\..\Library\Sers\Sers.Core\Sers.Core\Sers.Core.csproj" />
 	</ItemGroup>
-
 
 
 </Project>

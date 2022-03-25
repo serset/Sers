@@ -44,7 +44,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
         {
             try
             {
-                Logger.Info("[CL.DeliveryServer] Zmq.ThreadWait,starting...   endpoint: \"" + endpoint + "\"");
+                Logger.Info("[CL.DeliveryServer] Zmq.ThreadWait,starting", new { endpoint });
 
                 //(x.1) create zmq conn
                 var socket = new ZSocket(ZSocketType.ROUTER);
@@ -54,7 +54,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
                 poller.OnReceiveMessage = Zmq_OnReceiveMessage;
                 poller.Start(socket);
 
-                Logger.Info("[CL.DeliveryServer] Zmq.ThreadWait,started.");
+                Logger.Info("[CL.DeliveryServer] Zmq.ThreadWait,started");
                 return true;
             }
             catch (Exception ex)
@@ -138,7 +138,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
         /// </summary>
         public void Stop()
         {
-            Logger.Info("[ServerMq] Zmq.ThreadWait,stop...");
+            Logger.Info("[ServerMq] Zmq.ThreadWait,stoping");
 
             //(x.1) stop conn
             ConnectedList.ToList().ForEach(Delivery_OnDisconnected);

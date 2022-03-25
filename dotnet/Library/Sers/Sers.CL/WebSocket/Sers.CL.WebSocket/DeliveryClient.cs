@@ -31,7 +31,7 @@ namespace Sers.CL.WebSocket
         {
             try
             {
-                Logger.Info("[CL.DeliveryClient] WebSocket,connecting... host:" + host);
+                Logger.Info("[CL.DeliveryClient] WebSocket,connecting", new { host });
 
                 ClientWebSocket _webSocket = new ClientWebSocket();
                 _webSocket.ConnectAsync(new Uri(host), new CancellationToken()).GetAwaiter().GetResult();
@@ -39,7 +39,7 @@ namespace Sers.CL.WebSocket
 
                 _conn.StartBackThreadToReceiveMsg();
 
-                Logger.Info("[CL.DeliveryClient] WebSocket,connected.");
+                Logger.Info("[CL.DeliveryClient] WebSocket,connected");
                 return true;
             }
             catch (Exception ex)

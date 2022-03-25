@@ -43,7 +43,7 @@ namespace Sers.CL.Zmq.FullDuplex
             try
             {
 
-                Logger.Info("[CL.DeliveryClient] Zmq.FullDuplex,connecting...  endpoint: \"" + endpoint + "\"");
+                Logger.Info("[CL.DeliveryClient] Zmq.FullDuplex,connecting", new { endpoint });
 
                 //(x.1)
                 _conn.OnSendFrameAsync = SendMessageAsync;
@@ -70,7 +70,7 @@ namespace Sers.CL.Zmq.FullDuplex
                 };
                 //stream.AfterStop = () => {  };
                 stream.Start(socketReader, socketWriter);
-                Logger.Info("[CL.DeliveryClient] Zmq.FullDuplex,connected.");
+                Logger.Info("[CL.DeliveryClient] Zmq.FullDuplex,connected");
                 return true;
             }
             catch (Exception ex)

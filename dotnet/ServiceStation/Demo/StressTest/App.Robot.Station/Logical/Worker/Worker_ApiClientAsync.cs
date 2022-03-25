@@ -65,7 +65,7 @@ namespace App.Robot.Station.Logical.Worker
             else
             {
                 if (logError)
-                    Logger.Info("失败：ret:" + ret.Serialize());
+                    Logger.Info("失败", ret);
             }
 
             taskItem.StepUp(success);

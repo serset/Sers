@@ -13,7 +13,7 @@ namespace Vit.Core.Module.Log
     public static class Logger
     {
 
-        public static readonly LogMng log = new LogMng();
+        public static  readonly LogMng log = new LogMng();
 
         #region static Logger
         static Logger()
@@ -29,9 +29,10 @@ namespace Vit.Core.Module.Log
             }
 
             //splunk
-            var splunk = ConfigurationManager.Instance.GetByPath<SplunkCollector>("Vit.Logger.Splunk");
-            if (splunk!=null)
+            var splunk = ConfigurationManager.Instance.GetByPath<LogCollector.Splunk.SplunkCollector>("Vit.Logger.Splunk");
+            if (splunk != null && splunk.client != null)
             {
+                splunk.client.Init();
                 log.collectors.Add(splunk);
             }
         }
