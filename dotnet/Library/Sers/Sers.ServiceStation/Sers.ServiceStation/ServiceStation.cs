@@ -251,7 +251,7 @@ namespace Sers.ServiceStation
             
             if (!communicationManage.Start())
             {
-                Logger.Info("[CL] Connect - failed");
+                Logger.Error("[CL] Connect - failed");
                 return false;
             }
 
@@ -305,9 +305,9 @@ namespace Sers.ServiceStation
                     {
                         ApiReturn ret = apiClient.CallApi<ApiReturn>("/_sys_/serviceStation/regist", serviceStationData);
 
-                        if (!ret.success)
+                        if (ret?.success != true)
                         {
-                            Logger.Info("[ServiceStation] regist - failed", ret);
+                            Logger.Error("[ServiceStation] regist - failed", ret);
                             return false;
                         }
                     }
@@ -332,9 +332,9 @@ namespace Sers.ServiceStation
                             {
                                 ApiReturn ret = apiClient.CallApi<ApiReturn>("/_sys_/serviceStation/updateStationInfo", strServiceStationData);
 
-                                if (!ret.success)
+                                if (ret?.success != true)
                                 {
-                                    Logger.Info("[ServiceStation] updateStationInfo - failed", ret);
+                                    Logger.Error("[ServiceStation] updateStationInfo - failed", ret);
                                 }
                             }
                         }

@@ -42,7 +42,7 @@ namespace App.Robot.Station.Logical.Worker
                 else
                 {
                     if (taskItem.config.logError)
-                        Logger.Info("失败", ret);
+                        Logger.Error("[App.Robot.Station] Worker_HttpUtil.cs Processor 失败", ret);
                 }
             }
             catch (Exception ex)

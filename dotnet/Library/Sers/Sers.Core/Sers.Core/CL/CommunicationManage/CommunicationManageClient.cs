@@ -99,7 +99,7 @@ namespace Sers.Core.CL.CommunicationManage
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error(ex.Message,ex);
+                    Logger.Error(ex);
                     return false;
                 }
             }

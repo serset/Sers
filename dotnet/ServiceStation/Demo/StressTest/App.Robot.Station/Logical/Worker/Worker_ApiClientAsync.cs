@@ -65,7 +65,7 @@ namespace App.Robot.Station.Logical.Worker
             else
             {
                 if (logError)
-                    Logger.Info("失败", ret);
+                    Logger.Error("[App.Robot.Station] Worker_ApiClientAsync.cs OnSuc 失败", ret);
             }
 
             taskItem.StepUp(success);

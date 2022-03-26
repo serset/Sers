@@ -307,7 +307,7 @@ namespace Sers.ServiceCenter
 
             if (!communicationManage.Start())
             {
-                Logger.Info("[CL] start - failed");
+                Logger.Error("[CL] start - failed");
                 return false;
             }
             Logger.Info("[CL] started");

@@ -12,13 +12,13 @@ namespace App.Gateway
             try
             {
 
-                #region (x.1)初始化ServiceStation                
+                #region (x.1)初始化ServiceStation
                 ServiceStation.Init();
 
                 //ServiceStation.Discovery(typeof(Program).Assembly);
                 if (!ServiceStation.Start())
                 {
-                    Logger.Info("无法连接服务中心。站点关闭...");
+                    Logger.Error("无法连接服务中心。站点关闭");
                     return;
                 }
 
