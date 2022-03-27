@@ -44,7 +44,9 @@ namespace Sers.Core.Module.PubSub
             OnGetMessage?.Invoke(msgBody);
         }
 
-
+        /// <summary>
+        /// 回调不会在消息线程中执行。 will be invoked in Task.Run(()=>{     });
+        /// </summary>
         public Action<ArraySegment<byte>> OnGetMessage;
 
         #region IDisposable Support
@@ -66,13 +68,26 @@ namespace Sers.Core.Module.PubSub
 
 
         #region static Subscribe
-
+        /// <summary>
+        /// 回调不会在消息线程中执行。 will be invoked in Task.Run(()=>{     });
+        /// </summary>
+        /// <param name="msgTitle"></param>
+        /// <param name="OnMessage"></param>
+        /// <returns></returns>
         public static HotPlugSubscriber Subscribe(string msgTitle, Action<ArraySegment<byte>> OnMessage)
         {
             var subscriber = new HotPlugSubscriber(msgTitle);
             subscriber.OnGetMessage = OnMessage;
             return subscriber;
         }
+
+        /// <summary>
+        /// 回调不会在消息线程中执行。 will be invoked in Task.Run(()=>{     });
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="msgTitle"></param>
+        /// <param name="OnMessage"></param>
+        /// <returns></returns>
         public static HotPlugSubscriber Subscribe<T>(string msgTitle, Action<T> OnMessage)
         {
             var subscriber = new HotPlugSubscriber(msgTitle);
