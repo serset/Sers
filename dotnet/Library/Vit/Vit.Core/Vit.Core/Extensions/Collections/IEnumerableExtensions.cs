@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace Vit.Extensions
 {
@@ -23,6 +24,21 @@ namespace Vit.Extensions
             foreach (var item in data)
             {
                 action(item);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <param name="action"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static async Task IEnumerable_ForEachAsync<T>(this IEnumerable<T> data, Func<T, Task> action)
+        {
+            foreach (var item in data)
+            {
+                await action(item);
             }
         }
 
