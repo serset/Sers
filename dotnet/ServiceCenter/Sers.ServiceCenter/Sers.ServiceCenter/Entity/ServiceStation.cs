@@ -36,6 +36,9 @@ namespace Sers.ServiceCenter.Entity
         [JsonIgnore]
         public IOrganizeConnection connection { get; set; }
 
+        [JsonProperty]
+        public int connKey => connection?.GetHashCode() ?? 0;
+
         /// <summary>
         /// 连接客户端的ip
         /// </summary>

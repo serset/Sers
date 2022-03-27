@@ -58,7 +58,7 @@ namespace Sers.Gover.Base
                 .Select(
                     m => new ServiceStationData
                     {
-                        connKey = "" + m.connection.GetHashCode(),
+                        connKey = "" + m.connKey,
                         connectionIp = m.connectionIp,
                         startTime = m.startTime,
                         deviceInfo = m.deviceInfo,
@@ -91,7 +91,7 @@ namespace Sers.Gover.Base
             {
                 serviceStation.startTime=DateTime.Now;
                 
-                serviceStation_ConnKey_Map[serviceStation.connection.GetHashCode()] = serviceStation;
+                serviceStation_ConnKey_Map[serviceStation.connKey] = serviceStation;
 
 
                 if (string.IsNullOrEmpty(serviceStation.serviceStationInfo.serviceStationKey))
@@ -117,7 +117,7 @@ namespace Sers.Gover.Base
         {
             lock (this)
             {
-                if (!serviceStation_ConnKey_Map.TryGetValue(newServiceStation.connection.GetHashCode(), out var serviceStation))
+                if (!serviceStation_ConnKey_Map.TryGetValue(newServiceStation.connKey, out var serviceStation))
                 {
                     return false;
                 }
