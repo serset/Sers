@@ -6,7 +6,7 @@ using System.Threading;
 namespace Vit.Core.Util.Threading.Worker
 {
     /// <summary>
-    /// 单工作者的任务队列。入队操作为多线程安全的。
+    /// 单工作者的任务队列。入队操作为线程安全的。
     /// </summary>
     public class TaskQueue
     {
