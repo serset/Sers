@@ -28,8 +28,6 @@ namespace Sers.ServiceCenter.Controllers
         {
             serviceStation.connection = CommunicationManageServer.CurConn;
 
-            if (serviceStation.connection != null)
-                serviceStation.connection.connTag = serviceStation?.serviceStationInfo?.serviceStationName;
 
             #region (x.2)获取客户端ip地址
             try

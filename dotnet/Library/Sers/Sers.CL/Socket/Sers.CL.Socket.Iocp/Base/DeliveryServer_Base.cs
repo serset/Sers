@@ -258,12 +258,12 @@ namespace Sers.CL.Socket.Iocp.Base
                     ProcessReceive(e);
                     break;
                 case SocketAsyncOperation.Send:
-                    Logger.Warn("[Iocp]IO_Completed Send", new { RemoteEndPoint = e.RemoteEndPoint, LastOperation = e.LastOperation });
+                    Logger.Warn("[Iocp]IO_Completed Send", new { e.RemoteEndPoint, e.LastOperation });
                     return;
                 //    ProcessSend(e);
                 //    break;
                 default:
-                    Logger.Error("[Iocp]he last operation completed on the socket was not a receive or send", new { RemoteEndPoint = e.RemoteEndPoint, LastOperation = e.LastOperation });
+                    Logger.Error("[Iocp]he last operation completed on the socket was not a receive or send", new { e.RemoteEndPoint, e.LastOperation });
                     throw new ArgumentException("The last operation completed on the socket was not a receive or send");
             }
 

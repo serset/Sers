@@ -36,7 +36,7 @@ namespace Sers.CL.Ipc.NamedPipe
 
         public bool Connect()
         {
-            Logger.Info("[CL.DeliveryClient] Ipc.NamedPipe, connecting", new { serverName = serverName, pipeName = pipeName });
+            Logger.Info("[CL.DeliveryClient] Ipc.NamedPipe, connecting", new { serverName, pipeName });
 
             NamedPipeClientStream client;
             try

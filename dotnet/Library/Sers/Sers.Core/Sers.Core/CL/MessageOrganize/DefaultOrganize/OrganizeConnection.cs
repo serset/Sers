@@ -6,8 +6,6 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 {
     public class OrganizeConnection : IOrganizeConnection
     {
-        public string connTag { get; set; }
-
         internal IDeliveryConnection deliveryConn { get; private set; }
 
         private RequestAdaptor requestAdaptor;

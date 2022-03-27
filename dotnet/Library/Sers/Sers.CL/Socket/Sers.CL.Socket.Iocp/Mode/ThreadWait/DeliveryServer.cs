@@ -37,7 +37,7 @@ namespace Sers.CL.Socket.Iocp.Mode.ThreadWait
         {
             try
             {
-                Logger.Info("[CL.DeliveryServer] Socket.Iocp,starting", new { host = host, port = port });
+                Logger.Info("[CL.DeliveryServer] Socket.Iocp,starting", new { host, port });
 
                 if (!base.Start())
                 {

@@ -52,7 +52,7 @@ namespace Sers.Gover.Base.AppEvent
             Logger.Info("[Gover.ApiTracePublisher]初始化中");
             if (ApiTraceMng.collectorMap.TryGetValue(collectorName, out collector))
             {
-                Logger.Info("[Gover.ApiTracePublisher]已绑定collector", new { collectorName = collectorName });
+                Logger.Info("[Gover.ApiTracePublisher]已绑定collector", new { collectorName });
             }
             else
             {

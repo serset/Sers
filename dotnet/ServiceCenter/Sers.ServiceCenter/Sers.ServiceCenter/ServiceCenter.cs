@@ -89,7 +89,6 @@ namespace Sers.ServiceCenter
 
         class OrganizeConnection : IOrganizeConnection
         {
-            public string connTag { get; set; }
 
             ILocalApiService localApiService;
             public OrganizeConnection(ILocalApiService localApiService)
@@ -212,7 +211,7 @@ namespace Sers.ServiceCenter
         #region (x.4) StartCenter 
         public bool StartCenter()
         {
-            Logger.Info("[ServiceCenter] starting ...");
+            Logger.Info("[ServiceCenter] starting");
 
             //(x.0) appEvent OnStart
             appEventList?.ForEach(ev => ev.OnStart());
@@ -235,24 +234,24 @@ namespace Sers.ServiceCenter
 
             communicationManage.Conn_OnConnected = (IOrganizeConnection conn) =>
               {
-                  Logger.Info("[CL] OnConnected", new { connTag = conn.connTag });
+                  Logger.Info("[CL] OnConnected", new { connKey = conn.GetConnKey() });
               };
 
             communicationManage.Conn_OnDisconnected = (IOrganizeConnection conn) =>
             {
-                Logger.Info("[CL] OnDisconnected", new { connTag = conn.connTag });
+                Logger.Info("[CL] OnDisconnected", new { connKey = conn.GetConnKey() });
 
                 MessageCenterService.Instance.Conn_OnDisconnected(conn);
 
                 apiCenterService.ServiceStation_Remove(conn);
-            };         
+            };
 
             #endregion
 
 
             #region (x.3)注册 localApiService 到 apiCenterService
             {
-                Logger.Info("[ServiceCenter] regist localApiService to apiCenterService...");
+                Logger.Info("[ServiceCenter] registing localApiService to apiCenterService");
 
 
                 var serviceStationData = new
@@ -303,7 +302,7 @@ namespace Sers.ServiceCenter
 
 
             #region (x.4)CL Start 
-            Logger.Info("[CL] starting...");
+            Logger.Info("[CL] starting");
 
             if (!communicationManage.Start())
             {
@@ -359,7 +358,7 @@ namespace Sers.ServiceCenter
         #region (x.5) StopCenter
         public void StopCenter()
         { 
-            Logger.Info("[ServiceCenter] stop...");
+            Logger.Info("[ServiceCenter] stoping");
 
             //(x.1) appEvent BeforeStop
             appEventList?.ForEach(ev => ev.BeforeStop());
@@ -380,7 +379,7 @@ namespace Sers.ServiceCenter
                 Logger.Info("[CL] stoped");
                 #endregion
 
-                Logger.Info("[LocalApiService] stop...");
+                Logger.Info("[LocalApiService] stoping");
                 try
                 {
                     localApiService.Stop();

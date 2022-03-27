@@ -43,7 +43,7 @@ namespace Sers.CL.Zmq.FullDuplex
             try
             {
 
-                Logger.Info("[CL.DeliveryClient] Zmq.FullDuplex,connecting", new { endpoint = endpoint });
+                Logger.Info("[CL.DeliveryClient] Zmq.FullDuplex,connecting", new { endpoint });
 
                 //(x.1)
                 _conn.OnSendFrameAsync = SendMessageAsync;

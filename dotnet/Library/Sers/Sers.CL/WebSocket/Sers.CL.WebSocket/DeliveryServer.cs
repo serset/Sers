@@ -36,7 +36,7 @@ namespace Sers.CL.WebSocket
 
             try
             {
-                Logger.Info("[CL.DeliveryServer] WebSocket,starting", new { host = host });
+                Logger.Info("[CL.DeliveryServer] WebSocket,starting", new { host });
 
                 connMap.Clear();
 

@@ -29,7 +29,7 @@ namespace Sers.Core.Module.Api.LocalApi.ApiTrace
 
             if (ApiTraceMng.collectorMap.TryGetValue(collectorName, out collector))
             {
-                Logger.Info("[LocalApiService.ApiTracePublisher]加载成功", new { collectorName = collectorName });
+                Logger.Info("[LocalApiService.ApiTracePublisher]加载成功", new { collectorName });
             }
             else
             {

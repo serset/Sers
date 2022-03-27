@@ -43,7 +43,7 @@ namespace Sers.CL.Zmq.FullDuplex
         {
             try
             {
-                Logger.Info("[CL.DeliveryServer] Zmq.FullDuplex,starting", new { endpoint = endpoint });
+                Logger.Info("[CL.DeliveryServer] Zmq.FullDuplex,starting", new { endpoint });
 
                 //(x.1) create zmq conn
                 socketRouter = new ZSocket(ZSocketType.ROUTER);

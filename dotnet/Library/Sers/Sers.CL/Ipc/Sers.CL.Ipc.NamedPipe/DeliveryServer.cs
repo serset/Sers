@@ -49,7 +49,7 @@ namespace Sers.CL.Ipc.NamedPipe
         {
             try
             {
-                Logger.Info("[CL.DeliveryServer] Ipc.NamedPipe, starting", new { pipeName = pipeName });
+                Logger.Info("[CL.DeliveryServer] Ipc.NamedPipe, starting", new { pipeName });
 
                 #region (x.1)检测命名管道是否已经在使用
                 try
@@ -57,7 +57,7 @@ namespace Sers.CL.Ipc.NamedPipe
 
                     if (File.Exists("\\\\.\\pipe\\" + pipeName))
                     {
-                        Logger.Error("[CL.DeliveryServer] Ipc.NamedPipe, not started. pipeName already exists!", new { pipeName = pipeName });
+                        Logger.Error("[CL.DeliveryServer] Ipc.NamedPipe, not started. pipeName already exists!", new { pipeName });
                         return false;
                     }
 
