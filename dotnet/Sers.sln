@@ -151,9 +151,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sers.Gateway", "Library\Ser
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vit.Core.Util.Shell.Demo", "Library\Vit\Vit.Core\Test\Vit.Core.Util.Shell.Demo\Vit.Core.Util.Shell.Demo.csproj", "{E230747C-FA8C-4BAB-801E-3AA7A07FD9D0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vit.Core.Util.Threading.Worker.MsTest", "Library\Vit\Vit.Core\Test\Vit.Core.Util.Threading.Worker.MsTest\Vit.Core.Util.Threading.Worker.MsTest.csproj", "{44CEAA92-EE19-4524-8129-9EDD5C085BEB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sers.ApiTrace.Collector.Zipkin", "ServiceCenter\Sers.ServiceCenter\Sers.ApiTrace.Collector.Zipkin\Sers.ApiTrace.Collector.Zipkin.csproj", "{B464178B-2397-4E83-9320-CFB5A6485378}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vit.Core.Util.Threading.MsTest", "Library\Vit\Vit.Core\Test\Vit.Core.Util.Threading.MsTest\Vit.Core.Util.Threading.MsTest.csproj", "{6A154DEE-D6EB-4DD5-B1EC-CF23ED89D743}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -507,14 +507,6 @@ Global
 		{E230747C-FA8C-4BAB-801E-3AA7A07FD9D0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E230747C-FA8C-4BAB-801E-3AA7A07FD9D0}.Release|x86.ActiveCfg = Release|Any CPU
 		{E230747C-FA8C-4BAB-801E-3AA7A07FD9D0}.Release|x86.Build.0 = Release|Any CPU
-		{44CEAA92-EE19-4524-8129-9EDD5C085BEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44CEAA92-EE19-4524-8129-9EDD5C085BEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44CEAA92-EE19-4524-8129-9EDD5C085BEB}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{44CEAA92-EE19-4524-8129-9EDD5C085BEB}.Debug|x86.Build.0 = Debug|Any CPU
-		{44CEAA92-EE19-4524-8129-9EDD5C085BEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44CEAA92-EE19-4524-8129-9EDD5C085BEB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44CEAA92-EE19-4524-8129-9EDD5C085BEB}.Release|x86.ActiveCfg = Release|Any CPU
-		{44CEAA92-EE19-4524-8129-9EDD5C085BEB}.Release|x86.Build.0 = Release|Any CPU
 		{B464178B-2397-4E83-9320-CFB5A6485378}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B464178B-2397-4E83-9320-CFB5A6485378}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B464178B-2397-4E83-9320-CFB5A6485378}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -523,6 +515,14 @@ Global
 		{B464178B-2397-4E83-9320-CFB5A6485378}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B464178B-2397-4E83-9320-CFB5A6485378}.Release|x86.ActiveCfg = Release|Any CPU
 		{B464178B-2397-4E83-9320-CFB5A6485378}.Release|x86.Build.0 = Release|Any CPU
+		{6A154DEE-D6EB-4DD5-B1EC-CF23ED89D743}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A154DEE-D6EB-4DD5-B1EC-CF23ED89D743}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A154DEE-D6EB-4DD5-B1EC-CF23ED89D743}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6A154DEE-D6EB-4DD5-B1EC-CF23ED89D743}.Debug|x86.Build.0 = Debug|Any CPU
+		{6A154DEE-D6EB-4DD5-B1EC-CF23ED89D743}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A154DEE-D6EB-4DD5-B1EC-CF23ED89D743}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A154DEE-D6EB-4DD5-B1EC-CF23ED89D743}.Release|x86.ActiveCfg = Release|Any CPU
+		{6A154DEE-D6EB-4DD5-B1EC-CF23ED89D743}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -598,8 +598,8 @@ Global
 		{7C7DDF36-CB84-45A4-ABE3-BDBF1C239D68} = {015B5793-0478-4884-A58B-8889639FD65A}
 		{4EADA81F-6554-4A2E-A0F5-2B9459558347} = {E07D5AC5-2B0F-4916-9B10-5038C8C16B71}
 		{E230747C-FA8C-4BAB-801E-3AA7A07FD9D0} = {B0C8734C-7CAC-4EA4-BF49-4ECE4876BB5D}
-		{44CEAA92-EE19-4524-8129-9EDD5C085BEB} = {B0C8734C-7CAC-4EA4-BF49-4ECE4876BB5D}
 		{B464178B-2397-4E83-9320-CFB5A6485378} = {97C34C06-AE79-4E1A-8D04-EB0107643302}
+		{6A154DEE-D6EB-4DD5-B1EC-CF23ED89D743} = {B0C8734C-7CAC-4EA4-BF49-4ECE4876BB5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C7DA16E3-9949-49FA-B0B4-F830636DE60F}

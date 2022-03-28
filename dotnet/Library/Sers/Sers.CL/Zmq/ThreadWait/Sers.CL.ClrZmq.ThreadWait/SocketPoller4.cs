@@ -160,7 +160,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
                         {
                             if (error != null)
                             {
-                                Logger.Error("zmq.PollIn error : "+ error.ToString());                                
+                                Logger.Error("zmq.PollIn error", error.ToString());                                
                             }
 
                             if (msgs[0] != null)

@@ -57,7 +57,7 @@ namespace Sers.CL.Ipc.NamedPipe
 
                     if (File.Exists("\\\\.\\pipe\\" + pipeName))
                     {
-                        Logger.Info("[CL.DeliveryServer] Ipc.NamedPipe, not started.pipeName already exists!");
+                        Logger.Error("[CL.DeliveryServer] Ipc.NamedPipe, not started. pipeName already exists!", new { pipeName });
                         return false;
                     }
 

@@ -6,7 +6,7 @@ using System.Threading;
 namespace Vit.Core.Util.Threading.Worker
 {
     /// <summary>
-    /// 单工作者的任务队列。入队操作为多线程安全的。
+    /// 单工作者的任务队列。入队操作为线程安全的。
     /// </summary>
     public class TaskQueue
     {
@@ -30,7 +30,7 @@ namespace Vit.Core.Util.Threading.Worker
             {
                 taskToInvokeTask.Processor = InvokeTaskInQueue;
                 taskToInvokeTask.Start();
-                Logger.Info("["+ nameof(TaskQueue) + "]"+ taskToInvokeTask.threadName + " Started");
+                Logger.Info("["+ nameof(TaskQueue) + "] Thread Started", taskToInvokeTask.threadName);
 
                 return true;
             }
@@ -46,7 +46,7 @@ namespace Vit.Core.Util.Threading.Worker
             try
             {
                 taskToInvokeTask.Stop();
-                Logger.Info("[" + nameof(TaskQueue) + "]" + taskToInvokeTask.threadName + " Stoped");
+                Logger.Info("[" + nameof(TaskQueue) + "] Thread Stoped", taskToInvokeTask.threadName);
             }
             catch (Exception ex)
             {

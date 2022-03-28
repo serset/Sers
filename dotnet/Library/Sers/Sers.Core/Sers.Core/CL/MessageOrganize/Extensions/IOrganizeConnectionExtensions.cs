@@ -9,6 +9,14 @@ namespace Vit.Extensions
     public static partial class IOrganizeConnectionExtensions
     {
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int GetConnKey(this IOrganizeConnection conn)
+        {
+            return conn.GetHashCode();
+        }
+
+
+
         #region static curAutoResetEvent
         public static AutoResetEvent curAutoResetEvent =>
             _curAutoResetEvent ?? (_curAutoResetEvent = new AutoResetEvent(false));

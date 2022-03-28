@@ -43,7 +43,7 @@ namespace Sers.Gover.Base.AppEvent
             var collectorName = arg?["collectorName"]?.ToString();
             if (string.IsNullOrEmpty(collectorName)) 
             {
-                Logger.Info("[Gover.ApiTracePublisher]跳过初始化，没有指定collectorName");
+                Logger.Warn("[Gover.ApiTracePublisher]跳过初始化，没有指定collectorName");
                 return;
             }
 
@@ -56,7 +56,7 @@ namespace Sers.Gover.Base.AppEvent
             }
             else
             {
-                Logger.Info("[Gover.ApiTracePublisher]初始化失败，没有配置指定的collector", new { collectorName, Message = "请在appsettings.json中配置正确的Sers.ApiTrace.Collector" });
+                Logger.Error("[Gover.ApiTracePublisher]初始化失败，没有配置指定的collector", new { collectorName = collectorName, Message = "请在appsettings.json中配置正确的Sers.ApiTrace.Collector" });
             }
         }
 

@@ -159,7 +159,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             {
                 if (!success)
                 {
-                    Logger.Info("[CL.OrganizeClient] Authentication - failed");
+                    Logger.Error("[CL.OrganizeClient] Authentication - failed");
                 }
             }
             
