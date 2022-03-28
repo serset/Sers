@@ -24,22 +24,22 @@ docker run -i --rm \
 --env LANG=C.UTF-8 \
 -v $basePath:/root/code \
 -v $basePath/Publish/release/.nuget:/root/.nuget \
-serset/dotnet:sdk-5.0 \
+serset/dotnet:sdk-6.0 \
 bash -c "
 set -e
 
 echo 'publish Client'
 cd /root/code/dotnet/Library/Sers/Sers.CL/Test/CommunicationManage/CmClient
 dotnet build --configuration Release
-dotnet publish --configuration Release --output /root/code/Publish/release/release/StressTest/CL压测netcoreapp2.1/CmClient
+dotnet publish --configuration Release --output /root/code/Publish/release/release/StressTest/CL压测net5.0/CmClient
 
 echo 'publish Server'
 cd /root/code/dotnet/Library/Sers/Sers.CL/Test/CommunicationManage/CmServer
 dotnet build --configuration Release
-dotnet publish --configuration Release --output /root/code/Publish/release/release/StressTest/CL压测netcoreapp2.1/CmServer
+dotnet publish --configuration Release --output /root/code/Publish/release/release/StressTest/CL压测net5.0/CmServer
 
 echo 'copy bat'
-\cp -rf /root/code/Publish/ReleaseFile/StressTest/CL压测/. /root/code/Publish/release/release/StressTest/CL压测netcoreapp2.1
+\cp -rf /root/code/Publish/ReleaseFile/StressTest/CL压测/. /root/code/Publish/release/release/StressTest/CL压测net5.0
 
 " 
 
