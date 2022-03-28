@@ -12,7 +12,7 @@ set basePath=%cd%
 
 
 ::(x.2)»ñÈ¡netVersion
-set netVersion=netcoreapp2.1
+set netVersion=net5.0
 for /f "tokens=3 delims=><" %%a in ('type %basePath%\dotnet\ServiceCenter\App.ServiceCenter\App.ServiceCenter.csproj^|findstr "<TargetFramework>.*TargetFramework"') do set netVersion=%%a
 
 
