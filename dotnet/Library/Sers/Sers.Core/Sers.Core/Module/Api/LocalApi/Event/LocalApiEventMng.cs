@@ -10,7 +10,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 
 using Vit.Core.Module.Log;
-using Vit.Core.Util.ConfigurationManager;
 
 namespace Sers.Core.Module.Api.LocalApi.Event
 {
@@ -20,25 +19,24 @@ namespace Sers.Core.Module.Api.LocalApi.Event
     public class LocalApiEventMng
     {
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public LocalApiEventMng()
+        public void Init(JToken config)
         {
+            if (config == null) return;
+
             #region (x.1)构建 Api Event OnCreateScope
             {
-                var apiScopeEvents = Sers.Core.Module.Api.ApiEvent.EventBuilder.LoadEvent_OnCreateScope(ConfigurationManager.Instance.GetByPath<JArray>("Sers.LocalApiService.OnCreateScope"));
-
+                var apiScopeEvents = Sers.Core.Module.Api.ApiEvent.EventBuilder.LoadEvent_OnCreateScope(config["OnCreateScope"] as JArray);
                 AddEvent_ApiScope(apiScopeEvents.ToArray());
             }
             #endregion
 
             #region (x.2)构建 Api Event BeforeCallApi
             {
-                var beforeCallApi = Sers.Core.Module.Api.ApiEvent.EventBuilder.LoadEvent_BeforeCallApi(ConfigurationManager.Instance.GetByPath<JArray>("Sers.LocalApiService.BeforeCallApi"));
+                var beforeCallApi = Sers.Core.Module.Api.ApiEvent.EventBuilder.LoadEvent_BeforeCallApi(config["BeforeCallApi"] as JArray);
                 if (beforeCallApi != null) BeforeCallApi += beforeCallApi;
             }
             #endregion
         }
-
 
 
         #region OnCreateScope
