@@ -36,10 +36,12 @@ namespace Sers.Core.Module.Api.LocalApi
 
         public void Init()
         {
-            localApiEventMng = new LocalApiEventMng();
+            var localApiServiceConfig = ConfigurationManager.Instance.GetByPath<JToken>("Sers.LocalApiService");
+            if (localApiServiceConfig != null)
+                localApiEventMng.Init(localApiServiceConfig);
         }
 
-        LocalApiEventMng localApiEventMng;
+        public readonly LocalApiEventMng localApiEventMng = new LocalApiEventMng();
 
         /// <summary>
         /// 映射  route -> LocalApiNode
