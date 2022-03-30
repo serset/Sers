@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+
+using System;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,6 +11,11 @@ namespace Vit.Core.Module.Log.LogCollector
 {
     public class TxtCollector : ILogCollector
     {
+        public void Init(JObject config)
+        {
+        }
+
+
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Write(LogMessage msg)
         {

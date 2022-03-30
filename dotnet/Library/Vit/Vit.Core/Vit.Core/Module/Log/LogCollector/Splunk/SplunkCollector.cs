@@ -1,13 +1,30 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 using System;
 
-using Vit.Core.Module.Log.LogCollector.Splunk;
+using Vit.Extensions;
 
 namespace Vit.Core.Module.Log.LogCollector.Splunk
 {
     public class SplunkCollector : ILogCollector
     {
+        public JObject config;
+        public void Init(JObject config)
+        {
+            if (config == null) return;
+
+            this.config = config;
+
+
+            client = config["client"]?.Deserialize<SplunkClient>();
+            message = config["message"]?.Deserialize<SplunkRecord>();
+            appInfo = config["appInfo"]?.Deserialize<object>();
+
+        }
+
+
+
 
         /*
             {

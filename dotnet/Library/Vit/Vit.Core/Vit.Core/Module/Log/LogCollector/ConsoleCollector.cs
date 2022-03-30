@@ -1,11 +1,17 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+
+using System;
 
 using Vit.Extensions;
 
 namespace Vit.Core.Module.Log.LogCollector
 {
     public class ConsoleCollector : ILogCollector
-    { 
+    {
+        public void Init(JObject config)
+        {
+        }
+
         public static Action<LogMessage> OnLog = (msg) =>
         {
             Console.WriteLine(TxtCollector.BuildMessageData(msg, prefix: "[" + msg.level + "]"));
