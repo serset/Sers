@@ -20,7 +20,7 @@ namespace Vit.Core.Module.Log.LogCollector.Splunk
             client = config["client"]?.Deserialize<SplunkClient>();
             message = config["message"]?.Deserialize<SplunkRecord>();
             appInfo = config["appInfo"]?.Deserialize<object>();
-
+            client?.Init();
         }
 
 
