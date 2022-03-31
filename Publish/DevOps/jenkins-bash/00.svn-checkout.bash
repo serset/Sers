@@ -10,9 +10,6 @@ export SVN_PASSWORD=xxxxxx
 mkdir -p $basePath/code
 chmod 777 $basePath/code
 
-mkdir -p $basePath/nuget
-chmod 777 $basePath/nuget
-
 
 
 #(x.3)从svn拉取code
