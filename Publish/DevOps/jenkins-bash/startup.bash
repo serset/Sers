@@ -33,18 +33,26 @@ cd $curWorkDir
 
 
 #----------------------------------------------
-#(x.3)svn-update
+echo '(x.3)svn-update'
 bash 01.svn-update.sh;
 
 
  
 
 #---------------------------------------------- 
-echo '(x.4)release-bash'
-cd $codePath/Publish/DevOps/release-bash;bash startup.bash;
+echo '(x.4)build'
+cd $codePath/Publish/DevOps/build-bash; bash startup.bash;
 
+
+
+#---------------------------------------------- 
+echo '(x.5)release-bash'
+cd $codePath/Publish/DevOps/release-bash; bash startup.bash;
  
- 
+
+
+
+
 #----------------------------------------------
 #(x.9)
 #cd $curWorkDir

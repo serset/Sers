@@ -1,6 +1,6 @@
 set -e
 
-# cd /root/temp/svn/Publish/DevOps/build-bash;bash startup.bash;
+# cd /root/docker-data/dev/jenkins/jenkins_home/workspace/Repo/Sers/code/Publish/DevOps/build-bash;bash startup.bash;
 
 #----------------------------------------------
 #(x.1)当前路径 
