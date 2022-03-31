@@ -32,13 +32,13 @@ cd $curPath
 
 #---------------------------------------------- 
 echo '(x.4)build'
-cd $codePath/Publish/DevOps/build-bash; bash startup.bash;
+cd $basePath/Publish/DevOps/build-bash; bash startup.bash;
 
 
 
 #---------------------------------------------- 
 echo '(x.5)release-bash'
-cd $codePath/Publish/DevOps/release-bash; bash startup.bash;
+cd $basePath/Publish/DevOps/release-bash; bash startup.bash;
  
 
 
