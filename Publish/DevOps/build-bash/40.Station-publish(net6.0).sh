@@ -11,6 +11,7 @@ export basePath=/root/temp/svn
 
 curPath=$PWD
 
+
 #----------------------------------------------
 echo "(x.2)netVersion"
 netVersion=net6.0
