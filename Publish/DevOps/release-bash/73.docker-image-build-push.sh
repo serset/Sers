@@ -34,7 +34,7 @@ ls -al /proc/sys/fs/binfmt_misc/
 
 
 #创建一个新的构建器
-docker buildx create --use --name mybuilder
+docker buildx create --use --name mybuilder || echo 'mybuilder already exists!'
 
 #启动构建器
 docker buildx inspect mybuilder --bootstrap
