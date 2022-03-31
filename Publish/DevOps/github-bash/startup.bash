@@ -1,19 +1,14 @@
 set -e
 
-# cd /root/temp/svn/Publish/DevOps/release-bash;bash startup.bash;
+# cd /root/temp/svn/Publish/DevOps/github-bash;bash startup.bash;
 
 #---------------------------------------------------------------------
 #(x.1)参数
 args_="
 
-
 export name=Sers
 
-export DOCKER_USERNAME=serset
-export DOCKER_PASSWORD=xxx
-
-export NUGET_SERVER=https://api.nuget.org/v3/index.json
-export NUGET_KEY=xxxxxxxxxx
+export export GIT_SSH_SECRET=xxxxxx
 
 # "
 
@@ -32,13 +27,11 @@ cd $curPath
 
 
 
+
 #----------------------------------------------
 echo "(x.3)get version" 
 export version=`grep '<Version>' $(grep '<pack>\|<publish>' ${basePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
 echo $version
-
-
-
 
 
 

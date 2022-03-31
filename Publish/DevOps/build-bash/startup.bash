@@ -1,6 +1,6 @@
 set -e
 
-# cd /root/temp/svn/Publish/DevOps/builld-bash;bash startup.bash;
+# cd /root/temp/svn/Publish/DevOps/build-bash;bash startup.bash;
 
 #----------------------------------------------
 #(x.1)当前路径 
