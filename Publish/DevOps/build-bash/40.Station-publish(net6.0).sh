@@ -9,6 +9,7 @@ export basePath=/root/temp/svn
 
 # "
 
+curPath=$PWD
 
 #----------------------------------------------
 echo "(x.2)netVersion"
@@ -23,7 +24,7 @@ echo "(x.3)publish $netVersion"
 cd $basePath
 sed -i 's/net5.0/'"$netVersion"'/g'  `grep -a '<publish>' . -rl --include *.csproj`
 
-cd $basePath/Publish/DevOps/release-bash
+cd $curPath
 bash 40.Station-publish.sh;
 
 
@@ -32,5 +33,5 @@ cd $basePath
 sed -i 's/'"$netVersion"'/net5.0/g'  `grep -a '<publish>' . -rl --include *.csproj`
 
 
-cd $basePath/Publish/DevOps/release-bash
+cd $curPath
 
