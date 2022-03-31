@@ -8,8 +8,11 @@ set -e
 args_="
 
 export basePath=/root/temp/svn
+export _nugetPath=$basePath/Publish/release/.nuget
 
 # "
+
+if [ ! $_nugetPath ]; then _nugetPath=$basePath/Publish/release/.nuget; fi
 
 mkdir -p $basePath/Publish/release/release/nuget
 nugetPath=Publish/release/release/nuget
@@ -20,7 +23,7 @@ nugetPath=Publish/release/release/nuget
 echo "(x.2)nuget-pack"
 docker run -i --rm \
 --env LANG=C.UTF-8 \
--v $basePath/Publish/release/.nuget:/root/.nuget \
+-v $_nugetPath:/root/.nuget \
 -v $basePath:/root/code \
 serset/dotnet:sdk-6.0 \
 bash -c "

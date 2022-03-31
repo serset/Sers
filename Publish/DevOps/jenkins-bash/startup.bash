@@ -17,10 +17,11 @@ export DOCKER_PASSWORD=xxxxxx
 export NUGET_SERVER=https://api.nuget.org/v3/index.json
 export NUGET_KEY=xxxxxx
 
+export _nugetPath=/root/docker-data/dev/jenkins/jenkins_home/workspace/.nuget
+
 # "
 
 export name=Sers
-
 
 #----------------------------------------------
 #(x.2)µ±Ç°Â·¾¶ 
@@ -46,12 +47,10 @@ echo '(x.4)build'
 cd $basePath/Publish/DevOps/build-bash; bash startup.bash;
 
 
-
 #---------------------------------------------- 
 echo '(x.5)release-bash'
 cd $basePath/Publish/DevOps/release-bash; bash startup.bash;
  
-
 
 
 
