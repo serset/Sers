@@ -27,7 +27,6 @@ cd $curPath/../../..
 export basePath=$PWD
 cd $curPath
 
-
 # export basePath=/root/temp/svn
 
 

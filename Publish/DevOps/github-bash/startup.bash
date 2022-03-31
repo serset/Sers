@@ -6,13 +6,17 @@ set -e
 #(x.1)参数
 args_="
 
-export name=Sers
+export DOCKER_USERNAME=serset
+export DOCKER_PASSWORD=xxxxxx
+
+export NUGET_SERVER=https://api.nuget.org/v3/index.json
+export NUGET_KEY=xxxxxx
 
 export export GIT_SSH_SECRET=xxxxxx
 
 # "
 
-
+export name=Sers
 
 #----------------------------------------------
 #(x.2)当前路径
@@ -22,9 +26,7 @@ cd $curPath/../../..
 export basePath=$PWD
 cd $curPath
 
-
 # export basePath=/root/temp/svn
-
 
 
 

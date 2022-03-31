@@ -24,11 +24,13 @@ export name=Sers
 
 #----------------------------------------------
 #(x.2)µ±Ç°Â·¾¶ 
-curWorkDir=$PWD
+curPath=$PWD
 
-cd $curWorkDir/../../..
-export codePath=$PWD
-cd $curWorkDir
+cd $curPath/../../..
+export basePath=$PWD
+cd $curPath
+
+# export basePath=/root/temp/svn
 
 
 
@@ -41,13 +43,13 @@ bash 01.svn-update.sh;
 
 #---------------------------------------------- 
 echo '(x.4)build'
-cd $codePath/Publish/DevOps/build-bash; bash startup.bash;
+cd $basePath/Publish/DevOps/build-bash; bash startup.bash;
 
 
 
 #---------------------------------------------- 
 echo '(x.5)release-bash'
-cd $codePath/Publish/DevOps/release-bash; bash startup.bash;
+cd $basePath/Publish/DevOps/release-bash; bash startup.bash;
  
 
 
@@ -55,4 +57,4 @@ cd $codePath/Publish/DevOps/release-bash; bash startup.bash;
 
 #----------------------------------------------
 #(x.9)
-#cd $curWorkDir
+#cd $curPath

@@ -12,27 +12,28 @@ export SVN_PASSWORD=xxxxxx
 
 #---------------------------------------------------------------------
 #(x.2)当前路径
-curWorkDir=$PWD
-curPath=$(dirname $0)
+curPath=$PWD
 
 cd $curPath/../../..
-codePath=$PWD
-# codePath=/root/docker-data/dev/jenkins/jenkins_home/workspace/Repo/Sers/code
+export basePath=$PWD
+cd $curPath
+
+# export basePath=/root/docker-data/dev/jenkins/jenkins_home/workspace/Repo/Sers/code
 
 
 
 #---------------------------------------------------------------------
 #(x.3)cleanup
-docker run -i --rm -v $codePath:/root/svn serset/svn-client svn cleanup /root/svn --remove-unversioned
+docker run -i --rm -v $basePath:/root/svn serset/svn-client svn cleanup /root/svn --remove-unversioned
 
 
 #(x.4)revert
-docker run -i --rm -v $codePath:/root/svn serset/svn-client svn revert /root/svn -R
+docker run -i --rm -v $basePath:/root/svn serset/svn-client svn revert /root/svn -R
 
 
 #(x.5)拉取最新代码
-docker run -i --rm -v $codePath:/root/svn serset/svn-client svn update /root/svn --username "$SVN_USERNAME" --password "$SVN_PASSWORD" --no-auth-cache
+docker run -i --rm -v $basePath:/root/svn serset/svn-client svn update /root/svn --username "$SVN_USERNAME" --password "$SVN_PASSWORD" --no-auth-cache
 
 
 
-cd $curWorkDir
+cd $curPath
