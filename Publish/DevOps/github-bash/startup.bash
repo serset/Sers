@@ -30,6 +30,18 @@ cd $curPath
 
 
 
+#---------------------------------------------- 
+echo '(x.4)build'
+cd $codePath/Publish/DevOps/build-bash; bash startup.bash;
+
+
+
+#---------------------------------------------- 
+echo '(x.5)release-bash'
+cd $codePath/Publish/DevOps/release-bash; bash startup.bash;
+ 
+
+
 #----------------------------------------------
 echo "(x.3)get version" 
 export version=`grep '<Version>' $(grep '<pack>\|<publish>' ${basePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
