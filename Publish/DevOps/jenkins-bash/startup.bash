@@ -8,8 +8,6 @@ set -e
 #(x.1)²ÎÊý
 args_="
 
-export name=Sers
-
 export SVN_USERNAME=jenkins
 export SVN_PASSWORD=xxxxxx
 
@@ -20,6 +18,8 @@ export NUGET_SERVER=https://api.nuget.org/v3/index.json
 export NUGET_KEY=xxxxxx
 
 # "
+
+export name=Sers
 
 
 #----------------------------------------------
