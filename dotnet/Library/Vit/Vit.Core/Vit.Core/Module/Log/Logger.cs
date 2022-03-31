@@ -4,6 +4,10 @@ using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Core.Util.ConfigurationManager;
 using System.Linq;
 using Vit.Core.Module.Log.LogCollector;
+using Newtonsoft.Json.Linq;
+using Vit.Core.Util.Reflection;
+using Vit.Extensions;
+using Vit.Core.Module.Log.LogCollector.Splunk;
 
 namespace Vit.Core.Module.Log
 {
@@ -15,7 +19,7 @@ namespace Vit.Core.Module.Log
 
         public static  readonly LogMng log = new LogMng();
 
-        #region static Logger
+        #region static Init
         static Logger()
         {
             if (false != ConfigurationManager.Instance.GetByPath<bool?>("Vit.Logger.PrintToTxt"))
@@ -27,15 +31,61 @@ namespace Vit.Core.Module.Log
             {
                 PrintToConsole = true;
             }
-
-            //splunk
-            var splunk = ConfigurationManager.Instance.GetByPath<LogCollector.Splunk.SplunkCollector>("Vit.Logger.Splunk");
-            if (splunk != null && splunk.client != null)
-            {
-                splunk.client.Init();
-                log.collectors.Add(splunk);
-            }
+            LoadCollector();
         }
+
+
+        private static void LoadCollector()
+        {
+            #region GetInstance
+            ILogCollector GetInstance(JObject config)
+            {
+                //(x.x.1) get className
+                var className = config["className"].ConvertToString();
+                if (string.IsNullOrEmpty(className)) return null;
+
+                #region (x.x.2)是否内置对象
+                if (className == "SplunkCollector" || className == "Vit.Core.Module.Log.LogCollector.Splunk.SplunkCollector")
+                {
+                    return new SplunkCollector();
+                }
+                #endregion
+
+                var assemblyFile = config["assemblyFile"].ConvertToString();
+                if (string.IsNullOrEmpty(assemblyFile))
+                {
+                    return null;
+                }
+                return ObjectLoader.CreateInstance(className, assemblyFile: assemblyFile) as ILogCollector;
+            }
+            #endregion
+
+
+            var configs = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<JObject[]>("Vit.Logger.Collector");
+            if (configs == null || configs.Length == 0) return;
+            configs.IEnumerable_ForEach(config =>
+            {
+                try
+                {
+                    //(x.x.1) GetInstance
+                    var collector = GetInstance(config);
+                    if (collector == null) return;
+
+
+                    //(x.x.2) init
+                    collector.Init(config);
+
+
+                    log.AddCollector(collector);
+                }
+                catch (Exception ex)
+                {
+                }
+            });
+
+
+        }
+
         #endregion
 
         #region PrintToTxt  

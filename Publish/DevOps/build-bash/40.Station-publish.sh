@@ -6,8 +6,11 @@ set -e
 args_="
 
 export basePath=/root/temp/svn
+export NUGET_PATH=$basePath/Publish/release/.nuget
 
 # "
+
+if [ ! $NUGET_PATH ]; then NUGET_PATH=$basePath/Publish/release/.nuget; fi
 
 
 #----------------------------------------------
@@ -28,7 +31,7 @@ mkdir -p $publishPath
 
 docker run -i --rm \
 --env LANG=C.UTF-8 \
--v $basePath/Publish/release/.nuget:/root/.nuget \
+-v $NUGET_PATH:/root/.nuget \
 -v $basePath:/root/code \
 serset/dotnet:sdk-6.0 \
 bash -c "

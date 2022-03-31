@@ -41,7 +41,7 @@ namespace Sers.Core.Module.Api.LocalApi
                 localApiEventMng.Init(localApiServiceConfig);
         }
 
-        public readonly LocalApiEventMng localApiEventMng = new LocalApiEventMng();
+        public LocalApiEventMng localApiEventMng { get; } = new LocalApiEventMng();
 
         /// <summary>
         /// 映射  route -> LocalApiNode

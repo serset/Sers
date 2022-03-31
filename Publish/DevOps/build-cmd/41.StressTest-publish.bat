@@ -26,18 +26,18 @@ echo "(x.3)·¢²¼CLÑ¹²â"
 ::Client
 cd /d "%basePath%\dotnet\Library\Sers\Sers.CL\Test\CommunicationManage\CmClient"
 dotnet build --configuration Release
-dotnet publish --configuration Release --output "%publishPath%\CLÑ¹²ânetcoreapp2.1\CmClient"
+dotnet publish --configuration Release --output "%publishPath%\CLÑ¹²ânet5.0\CmClient"
 @if errorlevel 1 (echo . & echo .  & echo ³ö´í£¬ÇëÅÅ²é£¡& pause) 
 
 ::Server
 cd /d "%basePath%\dotnet\Library\Sers\Sers.CL\Test\CommunicationManage\CmServer"
 dotnet build --configuration Release
-dotnet publish --configuration Release --output "%publishPath%\CLÑ¹²ânetcoreapp2.1\CmServer"
+dotnet publish --configuration Release --output "%publishPath%\CLÑ¹²ânet5.0\CmServer"
 @if errorlevel 1 (echo . & echo .  & echo ³ö´í£¬ÇëÅÅ²é£¡& pause) 
 
 
 ::copy bat
-xcopy  "%basePath%\Publish\ReleaseFile\StressTest\CLÑ¹²â" "%publishPath%\CLÑ¹²ânetcoreapp2.1" /e /i /r /y
+xcopy  "%basePath%\Publish\ReleaseFile\StressTest\CLÑ¹²â" "%publishPath%\CLÑ¹²ânet5.0" /e /i /r /y
 
 
 

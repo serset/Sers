@@ -5,7 +5,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<DocumentationFile>bin\Debug\netcoreapp2.1\Did.Serslot.HelloWorld60.xml</DocumentationFile>
+		<DocumentationFile>bin\Debug\net6.0\Did.Serslot.HelloWorld60.xml</DocumentationFile>
 	</PropertyGroup>
 
 

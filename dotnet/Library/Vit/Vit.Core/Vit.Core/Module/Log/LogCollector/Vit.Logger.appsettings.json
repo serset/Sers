@@ -1,4 +1,5 @@
-﻿{
+{
+
   /* Vit工具配置，可不指定 */
   "Vit": {
 
@@ -8,10 +9,6 @@
       "PrintToTxt": true,
       /* print the log to console. default:true  */
       "PrintToConsole": true,
-
-
-      /* print the error happened in log module to console. default:false  */
-      "PrintLogErrorToConsole": false,
 
       /* [optional]collector to send log to */
       "//Collector": [
@@ -42,16 +39,8 @@
           }
         }
       ]
-    }
-  },
+    } 
 
-  "Test": {
-
-    "DateTime": "2010-12-12 15:12",
-    "long": 1234567890123,
-    "int": 123456,
-    "float": 123.456,
-    "double": 1234567890123.45,
-    "String": "String"
   }
+
 }
