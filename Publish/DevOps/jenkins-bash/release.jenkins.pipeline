@@ -12,6 +12,16 @@ pipeline {
         NUGET_PATH = "/root/docker-data/dev/jenkins/jenkins_home/workspace/.nuget"
     }
     stages {
+        stage('(x.0)confirm') { 
+            agent any 
+            steps {
+                timeout(10) {
+                    script { 
+                        inputData = input message: "Are you sure to build and release?", ok: 'Proceed?', parameters: [string(defaultValue: '', description: 'text comment', name: 'comment')], submitterParameter: 'APPROVER' 
+                    } 
+                }
+            } 
+        }
         stage('(x.1)svn-update') { 
             agent any 
             steps {
