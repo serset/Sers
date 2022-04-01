@@ -64,4 +64,4 @@ done
 
 #---------------------------------------------------------------------
 echo "(x.4)docker - remove buildx"
-if [ "$(docker buildx ls | grep mybuilder)" ]; then docker buildx rm mybuilder -f; fi
+if [ "$(docker buildx ls | grep mybuilder)" ]; then docker buildx rm mybuilder; fi
