@@ -6,9 +6,6 @@ set -e
 #(x.1)参数
 args_="
 
-
-export name=Sers
-
 export DOCKER_USERNAME=serset
 export DOCKER_PASSWORD=xxx
 

@@ -30,8 +30,6 @@ export NUGET_PATH=/root/docker-data/dev/jenkins/jenkins_home/workspace/.nuget
 
 # "
 
-export name=Sers
-
 #----------------------------------------------
 #(x.2)µ±Ç°Â·¾¶ 
 curPath=$PWD
