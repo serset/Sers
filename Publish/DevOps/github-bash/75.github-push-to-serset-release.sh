@@ -9,9 +9,9 @@ export basePath=/root/temp/svn
 
 export version=`grep '<Version>' $(grep '<pack>\|<publish>' ${basePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
 
-export name=ServiceAdaptor
+export APPNAME=xxxxxx
 
-export export GIT_SSH_SECRET=xxxxxx
+export GIT_SSH_SECRET=xxxxxx
 
 # "
 
@@ -39,9 +39,9 @@ git config --global user.name 'lith'
 mkdir -p /root/code
 cd /root/code
 git clone git@github.com:serset/release.git /root/code
-mkdir -p /root/code/file/${name}/${name}-${version}
-\\cp -rf  /root/release/release-zip/. /root/code/file/${name}/${name}-${version}
-git add /root/code/file/${name}/${name}-${version}/.
+mkdir -p /root/code/file/${APPNAME}/${APPNAME}-${version}
+\\cp -rf  /root/release/release-zip/. /root/code/file/${APPNAME}/${APPNAME}-${version}
+git add /root/code/file/${APPNAME}/${APPNAME}-${version}/.
 git commit -m 'auto commit ${version}'
 git push -u origin master \" "
 

@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         basePath = "/root/docker-data/dev/jenkins/jenkins_home/workspace/Repo/Sers/code"
+        APPNAME = "Sers"
         SVN_USERNAME = "jenkins"
         SVN_PASSWORD = "xxxxxx"
         DOCKER_USERNAME = "serset"
@@ -25,21 +26,21 @@ pipeline {
         stage('(x.1)svn-update') { 
             agent any 
             steps {
-                sh "chroot /host bash -c 'set -e; export SVN_USERNAME=$SVN_USERNAME;export SVN_PASSWORD=$SVN_PASSWORD;export DOCKER_USERNAME=$DOCKER_USERNAME;export DOCKER_PASSWORD=$DOCKER_PASSWORD;export NUGET_KEY=$NUGET_KEY;export NUGET_SERVER=$NUGET_SERVER;export NUGET_PATH=$NUGET_PATH;    cd $basePath/Publish/DevOps/jenkins-bash;bash 01.svn-update.sh;  '"
+                sh "chroot /host bash -c 'set -e; export APPNAME=$APPNAME;export SVN_USERNAME=$SVN_USERNAME;export SVN_PASSWORD=$SVN_PASSWORD;export DOCKER_USERNAME=$DOCKER_USERNAME;export DOCKER_PASSWORD=$DOCKER_PASSWORD;export NUGET_KEY=$NUGET_KEY;export NUGET_SERVER=$NUGET_SERVER;export NUGET_PATH=$NUGET_PATH;    cd $basePath/Publish/DevOps/jenkins-bash;bash 01.svn-update.sh;  '"
             } 
         }
 
         stage('(x.4)build') {
             agent any 
             steps {
-                sh "chroot /host bash -c 'set -e; export SVN_USERNAME=$SVN_USERNAME;export SVN_PASSWORD=$SVN_PASSWORD;export DOCKER_USERNAME=$DOCKER_USERNAME;export DOCKER_PASSWORD=$DOCKER_PASSWORD;export NUGET_KEY=$NUGET_KEY;export NUGET_SERVER=$NUGET_SERVER;export NUGET_PATH=$NUGET_PATH;    cd $basePath/Publish/DevOps/build-bash; bash startup.bash;  '"
+                sh "chroot /host bash -c 'set -e; export APPNAME=$APPNAME;export SVN_USERNAME=$SVN_USERNAME;export SVN_PASSWORD=$SVN_PASSWORD;export DOCKER_USERNAME=$DOCKER_USERNAME;export DOCKER_PASSWORD=$DOCKER_PASSWORD;export NUGET_KEY=$NUGET_KEY;export NUGET_SERVER=$NUGET_SERVER;export NUGET_PATH=$NUGET_PATH;    cd $basePath/Publish/DevOps/build-bash; bash startup.bash;  '"
             } 
         }
 
         stage('(x.5)release-bash') { 
             agent any 
             steps {
-                sh "chroot /host bash -c 'set -e; export SVN_USERNAME=$SVN_USERNAME;export SVN_PASSWORD=$SVN_PASSWORD;export DOCKER_USERNAME=$DOCKER_USERNAME;export DOCKER_PASSWORD=$DOCKER_PASSWORD;export NUGET_KEY=$NUGET_KEY;export NUGET_SERVER=$NUGET_SERVER;export NUGET_PATH=$NUGET_PATH;    cd $basePath/Publish/DevOps/release-bash; bash startup.bash;  '"
+                sh "chroot /host bash -c 'set -e; export APPNAME=$APPNAME;export SVN_USERNAME=$SVN_USERNAME;export SVN_PASSWORD=$SVN_PASSWORD;export DOCKER_USERNAME=$DOCKER_USERNAME;export DOCKER_PASSWORD=$DOCKER_PASSWORD;export NUGET_KEY=$NUGET_KEY;export NUGET_SERVER=$NUGET_SERVER;export NUGET_PATH=$NUGET_PATH;    cd $basePath/Publish/DevOps/release-bash; bash startup.bash;  '"
             } 
         }
     } 
