@@ -126,8 +126,13 @@ namespace Sers.ServiceStation
 
         public void InitStation()
         {
-
-            Logger.Info("[ServiceStation] init...");
+            string FileVersion = null;
+            try
+            {
+                FileVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetEntryAssembly().Location).FileVersion;
+            }
+            catch { }
+            Logger.Info("[ServiceStation] initializing", new { FileVersion });
 
             //(x.0) appEvent BeforeStart
             appEventList?.ForEach(ev => ev.BeforeStart());
