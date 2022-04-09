@@ -67,13 +67,13 @@ namespace Sers.Core.Module.ApiTrace.Collector
 
         public object TraceStart(RpcContextData rpcData)
         {
-            return DateTime.UtcNow;
+            return DateTime.Now;
         }
         public void TraceEnd(object traceData, RpcContextData rpcData, ApiMessage apiRequestMessage, Func<ApiMessage> GetApiReplyMessage)
         {
             var beginTime = (DateTime)traceData;
 
-            var endTime = DateTime.UtcNow;
+            var endTime = DateTime.Now;
 
 
             JObject eventData = new JObject();
@@ -219,7 +219,7 @@ namespace Sers.Core.Module.ApiTrace.Collector
 
             var record = new SplunkRecord
             {
-                Time = beginTime,
+                Time = DateTime.UtcNow,
                 index = message?.index,
                 host = message?.host ?? Environment.MachineName,
                 source = message?.source,
