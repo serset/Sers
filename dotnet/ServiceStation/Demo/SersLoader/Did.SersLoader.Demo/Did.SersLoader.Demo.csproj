@@ -8,7 +8,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>2.1.18-preview7</Version>
+    <Version>2.1.18-preview8</Version>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <Description>https://github.com/serset/Sers</Description>
   </PropertyGroup>
