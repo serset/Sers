@@ -25,7 +25,7 @@ namespace Vit.Extensions
                 return;
             }
 
-            var configs = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<StaticFilesApiNodeConfig[]>("Sers.LocalApiService.staticFiles");
+            var configs = Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<StaticFilesApiNodeConfig[]>("Sers.LocalApiService.staticFiles");
 
             if (configs == null || configs.Length == 0) return;
 

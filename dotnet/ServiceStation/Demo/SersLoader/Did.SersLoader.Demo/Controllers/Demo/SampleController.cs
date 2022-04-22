@@ -573,7 +573,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         #region (x.7) UseStaticFiles
 
         // wwwroot 路径从配置文件获取
-        static StaticFileMap staticFileMap = new StaticFileMap(ConfigurationManager.Instance.GetByPath<StaticFilesConfig>("Demo.staticFiles"));
+        static StaticFileMap staticFileMap = new StaticFileMap(Appsettings.json.GetByPath<StaticFilesConfig>("Demo.staticFiles"));
 
         /// <summary>
         /// UseStaticFiles

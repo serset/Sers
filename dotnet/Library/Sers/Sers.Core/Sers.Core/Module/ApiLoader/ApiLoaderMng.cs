@@ -18,7 +18,7 @@ namespace Sers.Core.Module.ApiLoader
         public IEnumerable<IApiNode> LoadApi()
         {
       
-            var configs = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<JObject[]>("Sers.LocalApiService.ApiLoaders");
+            var configs = Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<JObject[]>("Sers.LocalApiService.ApiLoaders");
             if (configs == null || configs.Length == 0) return null;
 
             List<IApiNode> apiNodes = new List<IApiNode>();

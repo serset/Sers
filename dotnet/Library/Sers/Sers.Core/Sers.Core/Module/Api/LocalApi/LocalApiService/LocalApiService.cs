@@ -27,7 +27,7 @@ namespace Sers.Core.Module.Api.LocalApi
 
         public LocalApiService()
         {
-            workThread = ConsumerFactory.CreateConsumer<RequestInfo>(ConfigurationManager.Instance.GetByPath<JObject>("Sers.LocalApiService.workThread"));
+            workThread = ConsumerFactory.CreateConsumer<RequestInfo>(Appsettings.json.GetByPath<JObject>("Sers.LocalApiService.workThread"));
 
             workThread.threadName = "LocalApiService";
             workThread.Processor = Consumer_Processor;
@@ -36,7 +36,7 @@ namespace Sers.Core.Module.Api.LocalApi
 
         public void Init()
         {
-            var localApiServiceConfig = ConfigurationManager.Instance.GetByPath<JToken>("Sers.LocalApiService");
+            var localApiServiceConfig = Appsettings.json.GetByPath<JToken>("Sers.LocalApiService");
             if (localApiServiceConfig != null)
                 localApiEventMng.Init(localApiServiceConfig);
         }

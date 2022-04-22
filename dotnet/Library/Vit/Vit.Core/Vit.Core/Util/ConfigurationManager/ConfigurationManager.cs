@@ -1,42 +1,20 @@
 ﻿using System;
-using System.IO;
 
 namespace Vit.Core.Util.ConfigurationManager
 {
-    public class ConfigurationManager: JsonFile
+
+    /// <summary>
+    /// use Vit.Core.Util.ConfigurationManager.Appsetting instead.
+    /// </summary>
+    //[Obsolete("use Vit.Core.Util.ConfigurationManager.Appsetting instead.")]
+    public class ConfigurationManager
     {
-        #region Instance        
-        private static JsonFile instance;
+
         /// <summary>
-        /// 获取appsettings.json中的配置
+        /// use Vit.Core.Util.ConfigurationManager.Appsetting.json instead.
         /// </summary>
-        public static JsonFile Instance
-        {
-            get { return instance ?? (instance = new ConfigurationManager()); }
-            set { instance = value; }
-        }
-        #endregion
-
-
-
-        const string fileName = "appsettings.json";
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        protected static string GetDefaultPath()
-        {
-            return fileName; 
-        }
-
- 
-        public ConfigurationManager(string configPath = null):base(configPath ?? GetDefaultPath())
-        {           
-        }
-
-        public override void SaveToFile()
-        {
-            throw new Exception("[ConfigurationManager] not allowed to Save to " + fileName);
-        }
-
+        //[Obsolete("use Vit.Core.Util.ConfigurationManager.Appsetting.json instead.")]
+        public static JsonFile Instance => Appsettings.json;
 
     }
 }

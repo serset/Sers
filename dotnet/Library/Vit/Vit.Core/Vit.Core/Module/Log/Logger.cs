@@ -22,12 +22,12 @@ namespace Vit.Core.Module.Log
         #region static Init
         static Logger()
         {
-            if (false != ConfigurationManager.Instance.GetByPath<bool?>("Vit.Logger.PrintToTxt"))
+            if (false != Appsettings.json.GetByPath<bool?>("Vit.Logger.PrintToTxt"))
             {
                 PrintToTxt = true;
             }
 
-            if (false != ConfigurationManager.Instance.GetByPath<bool?>("Vit.Logger.PrintToConsole"))
+            if (false != Appsettings.json.GetByPath<bool?>("Vit.Logger.PrintToConsole"))
             {
                 PrintToConsole = true;
             }
@@ -61,7 +61,7 @@ namespace Vit.Core.Module.Log
             #endregion
 
 
-            var configs = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<JObject[]>("Vit.Logger.Collector");
+            var configs = Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<JObject[]>("Vit.Logger.Collector");
             if (configs == null || configs.Length == 0) return;
             configs.IEnumerable_ForEach(config =>
             {

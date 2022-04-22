@@ -15,7 +15,7 @@ namespace Vit.Extensions
         /// <returns></returns>
         public static IWebHostBuilder TryUseSerslot(this IWebHostBuilder hostBuilder)
         {
-            if (null == Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.Get<JToken>("Sers"))
+            if (null == Vit.Core.Util.ConfigurationManager.Appsettings.json.Get<JToken>("Sers"))
             {
                 return hostBuilder;
             }

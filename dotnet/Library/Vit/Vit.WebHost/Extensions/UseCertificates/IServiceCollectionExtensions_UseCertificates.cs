@@ -33,7 +33,7 @@ namespace Vit.Extensions
         /// <returns></returns>
         public static IServiceCollection UseCertificates(this IServiceCollection data, string configPath = "server.certificates")
         {
-            var configs = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<CertificateInfo[]>(configPath);
+            var configs = Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<CertificateInfo[]>(configPath);
             return data.UseCertificates(configs);
         }
 

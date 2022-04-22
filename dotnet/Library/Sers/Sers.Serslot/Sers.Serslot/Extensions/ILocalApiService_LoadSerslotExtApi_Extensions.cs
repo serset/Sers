@@ -19,7 +19,7 @@ namespace Vit.Extensions
         {
             if (CreateApiNode == null) CreateApiNode = apiDesc => new ApiNode_Original(apiDesc: apiDesc);
 
-            Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<List<SsApiDesc>>("serslot.extApi")?.ForEach(apiDesc =>
+            Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<List<SsApiDesc>>("serslot.extApi")?.ForEach(apiDesc =>
             {
                 IApiNode apiNode;
 

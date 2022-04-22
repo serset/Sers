@@ -45,7 +45,7 @@ namespace Sers.Core.Module.ApiTrace
             #endregion
 
 
-            var configs = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<JObject[]>("Sers.ApiTrace.Collector");
+            var configs = Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<JObject[]>("Sers.ApiTrace.Collector");
             if (configs == null || configs.Length == 0) return;
 
             Logger.Info("[ApiTraceMng]collector loading");

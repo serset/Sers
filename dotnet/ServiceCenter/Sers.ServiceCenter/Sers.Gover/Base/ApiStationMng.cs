@@ -198,7 +198,7 @@ namespace Sers.Gover.Base
 
         #region ApiNode
 
-        static bool Config_ApiRegistEvent_Print = (false != ConfigurationManager.Instance.GetByPath<bool?>("Sers.ServiceCenter.ApiRegistEvent_Print"));
+        static bool Config_ApiRegistEvent_Print = (false != Appsettings.json.GetByPath<bool?>("Sers.ServiceCenter.ApiRegistEvent_Print"));
 
         void ApiNode_Add(string route, ApiNode apiNode)
         {

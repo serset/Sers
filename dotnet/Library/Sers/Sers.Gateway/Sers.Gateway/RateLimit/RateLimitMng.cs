@@ -42,7 +42,7 @@ namespace Sers.Gateway.RateLimit
         /// </summary>
         public void LoadFromConfiguration()
         {
-            var rateLimits = ConfigurationManager.Instance.GetByPath<List<JObject>>("Sers.Gateway.rateLimit");
+            var rateLimits = Appsettings.json.GetByPath<List<JObject>>("Sers.Gateway.rateLimit");
             if (null != rateLimits)
             {
                 foreach (var item in rateLimits)

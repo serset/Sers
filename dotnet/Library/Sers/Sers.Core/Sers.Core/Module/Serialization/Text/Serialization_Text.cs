@@ -38,7 +38,7 @@ namespace Sers.Core.Module.Serialization.Text
  
 
             //日期格式化
-            var DateTimeFormat = ConfigurationManager.Instance.GetByPath<string>("Vit.Serialization.DateTimeFormat")
+            var DateTimeFormat = Appsettings.json.GetByPath<string>("Vit.Serialization.DateTimeFormat")
               ?? "yyyy-MM-dd HH:mm:ss";
 
             jsonConverter_DateTime = options.AddConverter_DateTime(DateTimeFormat);

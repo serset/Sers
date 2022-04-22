@@ -68,7 +68,7 @@ namespace Sers.ServiceCenter
         {
             connForLocalStationService = new OrganizeConnection(localApiService);
 
-            appEventList = AppEventLoader.LoadAppEvent(Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<JArray>("Sers.AppEvent"))
+            appEventList = AppEventLoader.LoadAppEvent(Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<JArray>("Sers.AppEvent"))
                 ?.ToList();
         }
 

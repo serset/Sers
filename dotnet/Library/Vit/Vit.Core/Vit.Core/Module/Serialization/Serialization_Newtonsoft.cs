@@ -12,7 +12,7 @@ namespace Vit.Core.Module.Serialization
     {
         #region defaultEncoding
         public static Encoding defaultEncoding { get; set; } =
-            ConfigurationManager.Instance.GetByPath<string>("Vit.Serialization.Encoding")?.StringToEnum<EEncoding>().ToEncoding() ?? Encoding.UTF8;
+            Appsettings.json.GetByPath<string>("Vit.Serialization.Encoding")?.StringToEnum<EEncoding>().ToEncoding() ?? Encoding.UTF8;
 
         #endregion
 
@@ -128,7 +128,7 @@ namespace Vit.Core.Module.Serialization
             serializeSetting.Formatting = Formatting.None;
 
             //日期格式化
-            var DateTimeFormat = ConfigurationManager.Instance.GetByPath<string>("Vit.Serialization.DateTimeFormat")
+            var DateTimeFormat = Appsettings.json.GetByPath<string>("Vit.Serialization.DateTimeFormat")
                 ?? "yyyy-MM-dd HH:mm:ss";
 
             serializeSetting.DateFormatHandling = global::Newtonsoft.Json.DateFormatHandling.IsoDateFormat;

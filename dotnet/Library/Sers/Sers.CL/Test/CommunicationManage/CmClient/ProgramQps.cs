@@ -21,7 +21,7 @@ namespace CLClient
             qpsInfo.Start("Msg");
 
 
-            for (int i = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<int>("PressureTest.clientCount"); i >0; i--)
+            for (int i = Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<int>("PressureTest.clientCount"); i >0; i--)
             {
                 StartThreadSendMessage();
             }
@@ -75,16 +75,16 @@ namespace CLClient
             }
 
 
-            byte[] buff = new byte[Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<int>("PressureTest.msgLen")];
+            byte[] buff = new byte[Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<int>("PressureTest.msgLen")];
 
 
-            for (int i = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<int>("PressureTest.messageThreadCount"); i > 0; i--)
+            for (int i = Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<int>("PressureTest.messageThreadCount"); i > 0; i--)
             {
                 cm.SendMessageAsync(new ByteData(buff));
             }
 
 
-            int theadCount = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<int>("PressureTest.requestThreadCount");
+            int theadCount = Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<int>("PressureTest.requestThreadCount");
 
             if (theadCount >= 0)
             {

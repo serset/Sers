@@ -50,7 +50,7 @@ namespace Sers.Gover.Base
         public GoverApiCenterService()
         {
             //init apiLoadBalancingMng
-            switch (ConfigurationManager.Instance.GetStringByPath("Sers.ServiceCenter.ApiRouteType"))
+            switch (Appsettings.json.GetStringByPath("Sers.ServiceCenter.ApiRouteType"))
             {
                 case "IgnoreHttpMethod": apiLoadBalancingMng = new ApiLoadBalancingMng(); break;
                 default: apiLoadBalancingMng = new ApiLoadBalancingMng_RESTful(); break;
