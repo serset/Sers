@@ -200,10 +200,12 @@ namespace Vit.Core.Module.Serialization
 
             Type type = typeof(T);
 
+            if (type.GetUnderlyingTypeIfNullable().IsEnum)
+                return value.StringToEnum<T>();
+
             if (type.TypeIsValueTypeOrStringType())
-            {
                 return (T)DeserializeStruct(value, type);
-            }
+
 
             //if (string.IsNullOrWhiteSpace(value)) return type.DefaultValue();
 
@@ -222,10 +224,11 @@ namespace Vit.Core.Module.Serialization
         {
             if (null == value || null == type) return null;
 
+            if (type.GetUnderlyingTypeIfNullable().IsEnum)
+                return value.StringToEnum(type);
+
             if (type.TypeIsValueTypeOrStringType())
-            {
                 return DeserializeStruct(value, type);
-            }
 
             //if (string.IsNullOrWhiteSpace(value)) return type.DefaultValue();
 

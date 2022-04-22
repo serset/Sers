@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace Vit.Extensions
 {
@@ -45,16 +43,16 @@ namespace Vit.Extensions
 
 
 
-        #region IfNullable
+        #region IsNullable
         /// <summary>
         /// 是否为Nullable类型（例如 long?）
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IfNullable(this Type type)
+        public static bool IsNullable(this Type type)
         {
-            return true== type?.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
+            return true == type?.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
         #endregion
 
@@ -68,7 +66,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static global::System.Type GetUnderlyingTypeIfNullable(this global::System.Type type)
         {
-            return type.IfNullable() ? type.GetGenericArguments()[0] : type;
+            return type.IsNullable() ? type.GetGenericArguments()[0] : type;
 
 
             //if (type == null)
