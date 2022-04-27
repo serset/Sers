@@ -1,6 +1,6 @@
 ﻿using System;
+
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.ComponentModel.Model;
