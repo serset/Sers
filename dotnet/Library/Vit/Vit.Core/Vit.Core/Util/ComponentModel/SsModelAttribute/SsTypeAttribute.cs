@@ -3,7 +3,7 @@
 namespace Vit.Core.Util.ComponentModel.Model
 {
     /// <summary>
-    /// 指定类型
+    /// specified type
     /// </summary>
     [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = false)]
     public class SsTypeAttribute : System.Attribute

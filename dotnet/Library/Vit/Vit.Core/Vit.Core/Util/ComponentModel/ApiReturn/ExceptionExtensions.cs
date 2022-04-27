@@ -1,7 +1,7 @@
 ﻿using System;
-using Newtonsoft.Json.Linq;
+
+using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.ComponentModel.SsError;
-using Vit.Extensions;
 
 namespace Vit.Extensions
 {
@@ -160,29 +160,31 @@ namespace Vit.Extensions
 
 
 
-        #region SsError
-        /// <summary>
-        /// SsError
-        /// </summary>
-        /// <param name="ex"></param>
-        /// <param name="ssError"></param>
-        /// <returns></returns>
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static Exception SsError_Set(this Exception ex, SsError ssError)
-        {
-            ssError?.SetErrorToException(ex);
-            return ex;
-        }
+        #region ToSsError
 
-        /// <summary>
-        /// SsError
-        /// </summary>
-        /// <param name="ex"></param>
-        /// <returns></returns>
+ 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static SsError ToSsError(this Exception ex)
         {
-            return new SsError().LoadFromException(ex);
+            return new SsError(ex);
+        }
+        #endregion
+
+
+        #region ToApiReturn
+
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static ApiReturn ToApiReturn(this Exception ex)
+        {
+            return new SsError(ex);
+        }
+
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static ApiReturn<T> ToApiReturn<T>(this Exception ex)
+        {
+            return new SsError(ex);
         }
         #endregion
 

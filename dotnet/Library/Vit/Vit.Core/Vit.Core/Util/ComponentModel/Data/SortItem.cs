@@ -5,17 +5,17 @@ namespace Vit.Core.Util.ComponentModel.Query
     public class SortItem
     {
         /// <summary>
-        /// 字段名(可多级，例如 "parent.name")
+        /// field name(can be cascaded). demo "parent.id"
         /// </summary>
         [SsExample("id")]
-        [SsDescription("字段名(可多级，例如 \"parent.name\")")]
+        [SsDescription("field name(can be cascaded). demo \"parent.id\"")]
         public string field;
 
         /// <summary>
-        /// 是否为正向排序
+        /// whether is order by ascendin
         /// </summary>
         [SsExample("true")]
-        [SsDescription("是否为正向排序")]
+        [SsDescription("whether is order by ascending")]
         public bool asc;
     }
 }

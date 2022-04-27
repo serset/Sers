@@ -33,32 +33,5 @@ namespace Vit.Core.MsTest.Util.ComponentModel
 
         }
 
-
-
-        [TestMethod]
-        public void SersException_Test()
-        {
-
-            string msg = "";
-            SsException.Event_OnCreateException += (ex) =>
-            {
-                msg += "Event_OnCreateException called";
-            };
-
-            try
-            {
-
-                throw new SsException();
-            }
-            catch (System.Exception ex)
-            {
-            }
-
-            Assert.AreEqual(msg, "Event_OnCreateException called");
-
-            SsException.Event_OnCreateException = null;
-
-        }
-
     }
 }

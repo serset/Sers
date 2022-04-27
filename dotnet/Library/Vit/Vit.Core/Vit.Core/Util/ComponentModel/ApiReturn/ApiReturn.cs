@@ -1,4 +1,5 @@
-﻿using System;  
+﻿using System;
+
 using Vit.Core.Util.ComponentModel.Model;
 
 namespace Vit.Core.Util.ComponentModel.Data
@@ -6,7 +7,7 @@ namespace Vit.Core.Util.ComponentModel.Data
     public class ApiReturn
     {
         /// <summary>
-        /// 构建成功的返回数据
+        /// construct with success result
         /// </summary>
         public ApiReturn()
         {
@@ -19,54 +20,50 @@ namespace Vit.Core.Util.ComponentModel.Data
 
 
         /// <summary>
-        /// 构造失败的返回数据
+        /// construct with error result
         /// </summary>
         /// <param name="errorCode"></param>
         /// <param name="errorMessage"></param>
-        /// <param name="errorTag">自定义ErrorTag格式。每处ErrorTag建议唯一。建议格式为 日期_作者缩写_自定义序号，例如："150721_lith_1"</param>
+        /// <param name="errorTag">demo: "150721_lith_1"</param>
         /// <param name="errorDetail"></param>
-        public ApiReturn(int? errorCode = null, string errorMessage = null, string errorTag = null, Newtonsoft.Json.Linq.JObject errorDetail = null)
+        public ApiReturn(int? errorCode = null, string errorMessage = null, string errorTag = null, object errorDetail = null)
         {
             success = false;
-            error = new SsError.SsError (errorCode, errorMessage, errorTag, errorDetail);
+            error = new SsError.SsError(errorCode, errorMessage, errorTag, errorDetail);
         }
 
 
 
         /// <summary>
-        /// 是否成功
+        /// whether success
         /// </summary>
         [SsExample("true")]
-        [SsDescription("是否成功")]
-        public bool success=true;
+        [SsDescription("whether success")]
+        public bool success = true;
 
         /// <summary>
-        /// 错误信息
+        /// error info
         /// </summary>
         [Newtonsoft.Json.JsonProperty(NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        [SsDescription("错误信息")]
+        [SsDescription("error info")]
         public SsError.SsError error;
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="error"></param>
+
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static implicit operator ApiReturn(bool success)
+        {
+            return new ApiReturn(success);
+        }
+
+
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static implicit operator ApiReturn(SsError.SsError error)
         {
             return new ApiReturn() { success = false, error = error };
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="success"></param>
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static implicit operator ApiReturn(bool success)
-        {
-            return new ApiReturn(success);
-        }
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static implicit operator ApiReturn(Exception ex)
@@ -78,27 +75,21 @@ namespace Vit.Core.Util.ComponentModel.Data
     }
 
 
-    public class ApiReturn<T>: ApiReturn
+    public class ApiReturn<T> : ApiReturn
     {
-
         public ApiReturn() { }
 
         public ApiReturn(T data) { this.data = data; }
 
 
         /// <summary>
-        /// 数据
+        /// data
         /// </summary>
-        [SsDescription("数据")]
+        [SsDescription("data")]
         public T data;
 
 
 
-
-        /// <summary>
-        /// 隐式转换
-        /// </summary>
-        /// <param name="value"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static implicit operator ApiReturn<T>(T value)
         {
@@ -106,24 +97,24 @@ namespace Vit.Core.Util.ComponentModel.Data
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="error"></param>
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static implicit operator ApiReturn<T>(SsError.SsError error)
-        {
-            return new ApiReturn<T>(){ success = false, error = error };
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="success"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static implicit operator ApiReturn<T>(bool success)
         {
-            return new ApiReturn<T>() { success=success};
+            return new ApiReturn<T>() { success = success };
+        }
+
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static implicit operator ApiReturn<T>(SsError.SsError error)
+        {
+            return new ApiReturn<T>() { success = false, error = error };
+        }
+
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static implicit operator ApiReturn<T>(Exception ex)
+        {
+            return (SsError.SsError)ex;
         }
     }
 }

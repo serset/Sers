@@ -1,7 +1,7 @@
 ﻿namespace Vit.Core.Util.ComponentModel.Model
 {
     /// <summary>
-    /// 描述
+    /// description
     /// </summary>
     public class SsDescriptionAttribute : System.Attribute
     {

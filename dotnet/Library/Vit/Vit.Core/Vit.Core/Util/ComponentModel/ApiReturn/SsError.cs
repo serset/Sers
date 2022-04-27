@@ -1,6 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+
+using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.ComponentModel.Model;
 using Vit.Extensions;
 
@@ -22,9 +24,9 @@ namespace Vit.Core.Util.ComponentModel.SsError
         /// </summary>
         /// <param name="errorCode"></param>
         /// <param name="errorMessage"></param>
-        /// <param name="errorTag">自定义ErrorTag格式。每处ErrorTag建议唯一。建议格式为 日期_作者缩写_自定义序号，例如："150721_lith_1"</param>
+        /// <param name="errorTag">demo: "150721_lith_1"</param>
         /// <param name="errorDetail"></param>
-        public SsError(int? errorCode = null, string errorMessage = null, string errorTag = null, JObject errorDetail=null)
+        public SsError(int? errorCode = null, string errorMessage = null, string errorTag = null, object errorDetail = null)
         {
             this.errorCode = errorCode;
             this.errorMessage = errorMessage;
@@ -46,26 +48,25 @@ namespace Vit.Core.Util.ComponentModel.SsError
         /// 
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        [SsExample("操作出现异常")]
+        [SsExample("error occurred in the operation")]
         public string errorMessage { get; set; }
 
 
         /// <summary>
-        /// 自定义ErrorTag格式。每处ErrorTag建议唯一。建议格式为 日期_作者缩写_自定义序号，例如："150721_lith_1"
+        /// demo: "150721_lith_1"
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [SsExample("150721_lith_1")]
-        [SsDescription("自定义ErrorTag格式。每处ErrorTag建议唯一。建议格式为 日期_作者缩写_自定义序号，例如：\"150721_lith_1\"")]
         public string errorTag { get; set; }
 
 
 
         /// <summary>
-        /// 错误详情（json类型）
+        /// errorDetail(json)
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [SsExample("{}")]
-        [SsDescription("错误详情（json类型）")]
+        [SsDescription("errorDetail(json)")]
         public object errorDetail { get; set; }
 
 
@@ -97,5 +98,34 @@ namespace Vit.Core.Util.ComponentModel.SsError
         {
            return new SsError().LoadFromException(ex);
         }
+
+
+        #region ToApiReturn
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ApiReturn ToApiReturn()
+        {
+            return this;
+        }
+
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ApiReturn<T> ToApiReturn<T>()
+        {
+            return this;
+        }
+        #endregion
+
+
+        #region ToException
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Exception ToException(string defaultMessage = null)
+        {
+            var ex = new Exception(errorMessage ?? defaultMessage ?? "Error");
+            SetErrorToException(ex);
+            return ex;
+        }
+        #endregion
     }
 }
