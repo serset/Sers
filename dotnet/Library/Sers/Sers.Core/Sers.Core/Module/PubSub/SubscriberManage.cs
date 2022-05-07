@@ -82,7 +82,7 @@ namespace Sers.Core.Module.PubSub
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Message_Publish(string msgTitle, ArraySegment<byte> msgData)
         {
-            MessageClient.Instance.Message_Publish(msgTitle, msgData);
+            MessageClient.Publish(msgTitle, msgData);
         }
     }
 }
