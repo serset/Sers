@@ -1,12 +1,10 @@
 ﻿using Vit.Core.Module.Log;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sers.Core.Module.Message;
 using Vit.Extensions;
 using System.Collections.Concurrent;
 using Sers.Core.CL.MessageOrganize;
-using Vit.Core.Util.Pipelines;
 using System.Runtime.CompilerServices;
 
 namespace Sers.Core.Module.PubSub
@@ -98,7 +96,7 @@ namespace Sers.Core.Module.PubSub
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Message_Publish(string msgTitle, ArraySegment<byte> msgData)
         {
-            //publish,msgTitle,msgData 
+            //EFrameType.publish, msgTitle, msgData 
             var frame = new SersFile().SetFiles(
                 new[] { (byte)EFrameType.publish }.BytesToArraySegmentByte(),
                  msgTitle.SerializeToArraySegmentByte(),
@@ -109,7 +107,7 @@ namespace Sers.Core.Module.PubSub
 
         public void Message_Subscribe(string msgTitle)
         {
-            //subscribe,msgTitle
+            //EFrameType.subscribe, msgTitle
             var frame = new SersFile().SetFiles(
                 new[] { (byte)EFrameType.subscribe }.BytesToArraySegmentByte(),
                  msgTitle.SerializeToArraySegmentByte()
@@ -117,11 +115,11 @@ namespace Sers.Core.Module.PubSub
             SendFrame(frame);
         }
 
-        public void Message_SubscribeCancel(string msgTitle)
+        public void Message_UnSubscribe(string msgTitle)
         {
-            //subscribeCancel,msgTitle
+            //EFrameType.unSubscribe, msgTitle
             var frame = new SersFile().SetFiles(
-                new[] { (byte)EFrameType.subscribeCancel }.BytesToArraySegmentByte(),
+                new[] { (byte)EFrameType.unSubscribe }.BytesToArraySegmentByte(),
                  msgTitle.SerializeToArraySegmentByte()
                 ).Package();
             SendFrame(frame);

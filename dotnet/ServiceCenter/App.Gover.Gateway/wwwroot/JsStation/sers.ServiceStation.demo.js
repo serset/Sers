@@ -174,7 +174,14 @@ serviceStation.apiClient.callApiAsync("/JsStation/api1", { name: 'sers' }, 'GET'
     });
 
 
+//------------------------------------------------------------------------
+//(x.6) subscribe message
+var subscriber = serviceStation.subscriberManage.createSubscribe('SersEvent.ServiceStation.Add', (message_bytes) => {
+    vit.logger.info("get message :" + vit.bytesToString(message_bytes));
+    subscriber.unSubscribe();
+});
 
+subscriber.subscribe();
 
 
 

@@ -6,12 +6,12 @@ using System.Runtime.CompilerServices;
 
 namespace Sers.Core.Module.PubSub
 {
-    public class EndpointManage
+    public class SubscriberManage
     {
-        public static readonly EndpointManage Instance = new EndpointManage();
+        public static readonly SubscriberManage Instance = new SubscriberManage();
 
 
-        public EndpointManage()
+        public SubscriberManage()
         {
             MessageClient.Instance.Message_Consumer = Message_Consumer;
         }
@@ -64,7 +64,7 @@ namespace Sers.Core.Module.PubSub
                 subscriberList.TryAdd(subscriber.GetHashCode(), subscriber);
             }
         }
-        public void Message_SubscribeCancel(HotPlugSubscriber subscriber)
+        public void Message_UnSubscribe(HotPlugSubscriber subscriber)
         {
             lock (this)
             {
@@ -74,7 +74,7 @@ namespace Sers.Core.Module.PubSub
                 if (subscriberList.IsEmpty)
                 {
                     subscriberMap.TryRemove(subscriber.msgTitle, out _);
-                    MessageClient.Instance.Message_SubscribeCancel(subscriber.msgTitle);
+                    MessageClient.Instance.Message_UnSubscribe(subscriber.msgTitle);
                 }
             }     
         }

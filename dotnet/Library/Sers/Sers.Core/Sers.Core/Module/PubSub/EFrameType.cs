@@ -3,20 +3,20 @@
     public enum EFrameType : byte
     {
         /// <summary>
-        ///  publish,msgTitle,msgData
+        ///  publish, msgTitle, msgData
         /// </summary>
-        publish,
+        publish = 0,
         /// <summary>
-        /// subscribe,msgTitle
+        /// subscribe, msgTitle
         /// </summary>
-        subscribe,
+        subscribe = 1,
         /// <summary>
-        /// subscribeCancel,msgTitle
+        /// unSubscribe, msgTitle
         /// </summary>
-        subscribeCancel,
+        unSubscribe = 2,
         /// <summary>
-        /// message,msgTitle,msgData
+        /// message, msgTitle, msgData
         /// </summary>
-        message
+        message = 3
     }
 }
