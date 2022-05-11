@@ -20,12 +20,15 @@ namespace Vit.Core.Util.Threading.Worker
         /// 线程名称
         /// </summary>
         public string threadName{ get => taskToInvokeTask.threadName; set => taskToInvokeTask.threadName = value; }
+        public bool IsRunning => taskToInvokeTask.IsRunning;
+
 
 
         #region Start Stop
 
         public bool Start()
         {
+            if (IsRunning) return false;
             try
             {
                 taskToInvokeTask.Processor = InvokeTaskInQueue;
@@ -37,21 +40,26 @@ namespace Vit.Core.Util.Threading.Worker
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                return false;
             }
+
+            return false;
         }
 
-        public void Stop()
+        public bool Stop()
         {
+            if (!IsRunning) return false;
             try
             {
                 taskToInvokeTask.Stop();
                 Logger.Info("[" + nameof(TaskQueue) + "] Thread Stoped", taskToInvokeTask.threadName);
+                return true;
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
             }
+
+            return false;
         }
         #endregion
 
