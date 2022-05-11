@@ -11,17 +11,22 @@ namespace Vit.Core.Util.Threading.Worker
     public class TaskQueue
     {
 
-        LongThread taskToInvokeTask = new LongThread() { threadName = nameof(TaskQueue), threadCount = 1 };
-        
+        LongThread taskToInvokeTask;
+
         BlockingCollection<Action> taskQueue = new BlockingCollection<Action>();
 
 
         /// <summary>
         /// 线程名称
         /// </summary>
-        public string threadName{ get => taskToInvokeTask.threadName; set => taskToInvokeTask.threadName = value; }
+        public string threadName { get => taskToInvokeTask.threadName; set => taskToInvokeTask.threadName = value; }
         public bool IsRunning => taskToInvokeTask.IsRunning;
+        public int threadCount { get => taskToInvokeTask.threadCount; set => taskToInvokeTask.threadCount = value; }
 
+        public TaskQueue(int threadCount = 1)
+        {
+            taskToInvokeTask = new LongThread() { threadName = nameof(TaskQueue), threadCount = threadCount };
+        }
 
 
         #region Start Stop
@@ -33,7 +38,7 @@ namespace Vit.Core.Util.Threading.Worker
             {
                 taskToInvokeTask.Processor = InvokeTaskInQueue;
                 taskToInvokeTask.Start();
-                Logger.Info("["+ nameof(TaskQueue) + "] Thread Started", taskToInvokeTask.threadName);
+                Logger.Info("[" + nameof(TaskQueue) + "] Thread Started", taskToInvokeTask.threadName);
 
                 return true;
             }
@@ -94,7 +99,7 @@ namespace Vit.Core.Util.Threading.Worker
         }
         #endregion
 
- 
+
 
     }
 }
