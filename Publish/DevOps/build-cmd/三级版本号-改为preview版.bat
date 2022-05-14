@@ -22,7 +22,7 @@ for /f "tokens=3 delims=." %%i in ("%numVersion%") do set v3=%%i
 
 ::(x.4)newVersion
 :: set /a v3=1+%v3%
-set newVersion=%v1%.%v2%.%v3%-preview10
+set newVersion=%v1%.%v2%.%v3%-preview
 :: echo %newVersion%
 
 
