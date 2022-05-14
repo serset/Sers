@@ -12,7 +12,11 @@
 	<PropertyGroup>
 		<Authors>Lith</Authors>
 		<Description>
-			.net core common tool. log to txt,Serialize(Newtonsoft.Json),ConfigurationManager,DynamicMethodExecutor,Guid,Reflection,Shell etc.
+			.net core common tool.
+			log to txt(Vit.Core.Module.Log.Logger),
+			Serialize(Vit.Core.Module.Serialization.Json),
+			ConfigurationManager(Vit.Core.Util.ConfigurationManager.Appsettings.json),
+			DynamicMethodExecutor, Guid, Reflection, Shell etc.
 			Send email to serset@yeah.net if you have any questions.
 		</Description>
 		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>

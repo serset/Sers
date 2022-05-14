@@ -30,13 +30,13 @@ namespace Vit.Core.MsTest.Module
 
 
             #region (x.2)object <--> String
-            Assert.AreEqual(Serialization.Instance.DeserializeFromString<ModelA>(Serialization.Instance.SerializeToString(modelA))?.name, testString);
+            Assert.AreEqual(Json.Instance.DeserializeFromString<ModelA>(Json.Instance.SerializeToString(modelA))?.name, testString);
             Assert.AreEqual(modelA.Serialize().Deserialize<ModelA>()?.name, testString);
             #endregion
 
 
             #region (x.3)object <--> bytes
-            Assert.AreEqual(Serialization.Instance.DeserializeFromBytes<ModelA>(Serialization.Instance.SerializeToBytes(modelA))?.name, testString);
+            Assert.AreEqual(Json.Instance.DeserializeFromBytes<ModelA>(Json.Instance.SerializeToBytes(modelA))?.name, testString);
             Assert.AreEqual(modelA.SerializeToBytes().DeserializeFromBytes<ModelA>()?.name, testString);
             #endregion
  

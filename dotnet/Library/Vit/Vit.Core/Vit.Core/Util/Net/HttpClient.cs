@@ -48,7 +48,7 @@ namespace Vit.Core.Util.Net
                         httpRequest.Content = httpContent;
                         break;
                     default:
-                        var content = Serialization.Instance.SerializeToString(request.body);
+                        var content = Json.Instance.SerializeToString(request.body);
                         httpRequest.Content = new StringContent(content, request.requestEncoding, "application/json");
                         break;
                 }
