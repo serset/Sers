@@ -37,7 +37,7 @@ namespace Sers.CL.WebSocket
         public class CertificateInfo
         {
             /// <summary>
-            /// data/serset-com-iis-0923120142.pfx
+            /// Data/ssl.pfx
             /// </summary>
             [JsonProperty]
             public string filePath { get; set; }
