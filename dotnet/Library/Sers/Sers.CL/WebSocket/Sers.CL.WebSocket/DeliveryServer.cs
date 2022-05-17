@@ -6,8 +6,11 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 using Fleck;
+
+using Newtonsoft.Json;
 
 using Sers.Core.CL.MessageDelivery;
 
@@ -20,10 +23,30 @@ namespace Sers.CL.WebSocket
         public Sers.Core.Util.StreamSecurity.SecurityManager securityManager;
 
         /// <summary>
-        /// 服务端地址(默认为 "ws://0.0.0.0:4503")
+        /// server address(default: "ws://0.0.0.0:4503")
         /// </summary>
         public string host = "ws://0.0.0.0:4503";
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public CertificateInfo certificate;
+
+        #region CertificateInfo
+        [JsonObject(MemberSerialization.OptIn)]
+        public class CertificateInfo
+        {
+            /// <summary>
+            /// data/serset-com-iis-0923120142.pfx
+            /// </summary>
+            [JsonProperty]
+            public string filePath { get; set; }
+
+            [JsonProperty]
+            public string password { get; set; }
+
+        }
+        #endregion
 
         public Action<IDeliveryConnection> Conn_OnDisconnected { private get; set; }
         public Action<IDeliveryConnection> Conn_OnConnected { private get; set; }
@@ -41,6 +64,12 @@ namespace Sers.CL.WebSocket
                 connMap.Clear();
 
                 listenSocket = new WebSocketServer(host);
+
+                if (certificate != null)
+                {
+                    listenSocket.Certificate = new System.Security.Cryptography.X509Certificates.X509Certificate2(certificate.filePath, certificate.password,
+                        X509KeyStorageFlags.Exportable | X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet);
+                }
 
                 //出错后进行重启
                 listenSocket.RestartAfterListenError = true;

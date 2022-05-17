@@ -20,7 +20,9 @@ namespace Sers.CL.WebSocket
             }
             #endregion
 
-            delivery.host = config["host"].ConvertToString() ?? delivery.host;
+            delivery.host = config["host"]?.ConvertToString() ?? delivery.host;
+
+            delivery.certificate = config["certificate"]?.Deserialize<DeliveryServer.CertificateInfo>() ?? delivery.certificate;
 
             organizeList.Add(new OrganizeServer(delivery, config));
         }
