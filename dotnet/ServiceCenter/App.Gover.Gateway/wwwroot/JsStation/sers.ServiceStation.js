@@ -1,12 +1,12 @@
 ﻿/*
  * sers.ServiceStation.js
- * Date   : 2022-05-07
- * Version: 2.1.18-preview9
+ * Date   : 2022-05-18
+ * Version: 2.1.18-preview902
  * author : Lith
  * email  : serset@yeah.net
  */
 
-; sers = { version: '2.1.18-preview9' };
+; sers = { version: '2.1.18-preview902' };
 
 /*
  * vit.js 扩展
@@ -433,7 +433,7 @@
 		//事件，delivery向Organize发送请求时被调用
 		//function (bytes) { }
 		self.event_onGetMessage;
-		
+
 
 		//请求超时时间（单位ms，默认300000）
 		self.requestTimeoutMs = 300000;
@@ -627,7 +627,7 @@
 			requestAdaptor.sendRequest(null, requestData, callback);
 		};
 
- 
+
 		self.sendMessage = function (message_bytes) {
 			requestAdaptor.sendMessage(message_bytes);
 		};
@@ -757,6 +757,9 @@
 
 		for (var t = 0; t < files.length; t++) {
 			var file = files[t];
+			//if (file instanceof ArrayBuffer) {
+			//	file = vit.arrayBufferToBytes(file);
+			//}
 			vit.arrayConcat(oriData, vit.int32ToBytes(file.length));
 			vit.arrayConcat(oriData, file);
 		}
@@ -819,19 +822,19 @@
 			/// <summary>
 			///  publish, msgTitle, msgData
 			/// </summary>
-			publish : 0,
+			publish: 0,
 			/// <summary>
 			/// subscribe, msgTitle
 			/// </summary>
-			subscribe : 1,
+			subscribe: 1,
 			/// <summary>
 			/// unSubscribe, msgTitle
 			/// </summary>
-			unSubscribe : 2,
+			unSubscribe: 2,
 			/// <summary>
 			/// message, msgTitle, msgData
 			/// </summary>
-			message : 3
+			message: 3
 		};
 
 
@@ -844,16 +847,16 @@
 
 			let msgType = frame[0][0];
 
-            switch (msgType) {
+			switch (msgType) {
 
-                case EFrameType.message:
+				case EFrameType.message:
 
-                    let msgTitle = vit.bytesToString(frame[1]);
-                    let msgData = frame[2];
+					let msgTitle = vit.bytesToString(frame[1]);
+					let msgData = frame[2];
 
-                    this.message_Consumer(msgTitle, msgData);
-                    break;
-            }
+					this.message_Consumer(msgTitle, msgData);
+					break;
+			}
 		};
 
 
@@ -866,7 +869,7 @@
 				[EFrameType.publish],
 				vit.stringToBytes(msgTitle),
 				msgData);
-            sendFrame(frame);
+			sendFrame(frame);
 		};
 
 		this.message_Subscribe = function (msgTitle) {
@@ -905,7 +908,7 @@
 			let subscriberList = subscriberMap[subscriber.msgTitle];
 
 			if (!subscriberList) {
-				subscriberList=subscriberMap[subscriber.msgTitle] = [];
+				subscriberList = subscriberMap[subscriber.msgTitle] = [];
 				messageClient.message_Subscribe(subscriber.msgTitle);
 			}
 
@@ -928,28 +931,30 @@
 			}
 		};
 
+		this.message_Publish = function (msgTitle, msgData) {
+			messageClient.message_Publish(msgTitle, msgData);
+		};
 
-		this.message_Consumer = function (msgTitle, msgData) {
+
+		messageClient.message_Consumer = (msgTitle, msgData) => {
 			let subscriberList = subscriberMap[msgTitle];
 
 			if (!subscriberList || !subscriberList.length) return;
 
-            for (let subscriber of subscriberList) {
-                try {
-                    if (!subscriber || !subscriber.onGetMessage) continue;
-                    subscriber.onGetMessage(msgData);
-                } catch (ex) {
-                    logger.error(ex);
-                }
-            }
+			for (let subscriber of subscriberList) {
+				try {
+					if (!subscriber || !subscriber.onGetMessage) continue;
+					subscriber.onGetMessage(msgData);
+				} catch (ex) {
+					logger.error(ex);
+				}
+			}
 		};
-
-		messageClient.message_Consumer = this.message_Consumer;
 
 	};
 
 	//MessageSubscriber
-	sers.MessageSubscriber = function (subscriberManage,msgTitle, onGetMessage) {
+	sers.MessageSubscriber = function (subscriberManage, msgTitle, onGetMessage) {
 
 		this.msgTitle = msgTitle;
 

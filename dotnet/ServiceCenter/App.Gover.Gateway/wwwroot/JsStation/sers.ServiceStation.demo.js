@@ -183,7 +183,14 @@ var subscriber = serviceStation.subscriberManage.createSubscribe('SersEvent.Serv
 
 subscriber.subscribe();
 
+//------------------------------------------------------------------------
+//(x.7) publish message
+var msgTitle = 'msg.test';
+var msgData = [0,1,2,3];
+serviceStation.subscriberManage.message_Publish(msgTitle, msgData);
 
+var arrayBuffer = vit.bytesToArrayBuffer(bytes);
+serviceStation.subscriberManage.message_Publish(msgTitle, vit.arrayBufferToBytes(arrayBuffer));
 
 //------------------------------------------------------------------------
 //(x.9)stopService
