@@ -17,8 +17,8 @@ namespace Vit.Core.Module.Log.LogCollector.Splunk
             this.config = config;
 
 
-            client = config["client"]?.Deserialize<SplunkClient>();
-            message = config["message"]?.Deserialize<SplunkRecord>();
+            client = config["client"]?.Deserialize<LogClient>();
+            message = config["message"]?.Deserialize<LogMessage>();
             appInfo = config["appInfo"]?.Deserialize<object>();
             client?.Init();
         }
@@ -26,7 +26,7 @@ namespace Vit.Core.Module.Log.LogCollector.Splunk
 
 
 
-        /*
+        /* SplunkMessage Format:
             {
                "time": 1426279439.123,  
                "host": "localhost",
@@ -49,17 +49,17 @@ namespace Vit.Core.Module.Log.LogCollector.Splunk
             */
 
 
-        public SplunkClient client;
-        public SplunkRecord message;
+        internal LogClient client;
+        internal LogMessage message;
         public object appInfo;
 
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void Write(LogMessage msg)
+        public void Write(Log.LogMessage msg)
         {
             if (msg.metadata != null && msg.metadata.Length == 0) msg.metadata = null;
 
-            var record = new SplunkRecord
+            var record = new LogMessage
             {
                 Time = DateTime.UtcNow,
                 index = message?.index,
@@ -78,9 +78,9 @@ namespace Vit.Core.Module.Log.LogCollector.Splunk
 
             client.SendAsync(record);
         }
-       
 
-        public class Event
+
+        internal class Event
         {
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

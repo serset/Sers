@@ -7,7 +7,7 @@ using System.Collections.Concurrent;
 
 namespace Vit.Core.Module.Log.LogCollector.Splunk
 {
-    public class SplunkClient
+    internal class LogClient
     {
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Vit.Core.Module.Log.LogCollector.Splunk
 
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void SendAsync(SplunkRecord record)
+        public void SendAsync(LogMessage record)
         {
             if (recordList == null)
                 SendToServer(record);
@@ -64,7 +64,7 @@ namespace Vit.Core.Module.Log.LogCollector.Splunk
         }
 
 
-        ~SplunkClient()
+        ~LogClient()
         {
             if (time != null)
             {
@@ -75,16 +75,16 @@ namespace Vit.Core.Module.Log.LogCollector.Splunk
 
 
         #region Timer
-        ConcurrentBag<SplunkRecord> recordList;
-        ConcurrentBag<SplunkRecord> recordList_Swap;
+        ConcurrentBag<LogMessage> recordList;
+        ConcurrentBag<LogMessage> recordList_Swap;
         Util.Threading.Timer.SersTimer_SingleThread time;
 
         private void InitTimer()
         {
             if (intervalMs.HasValue && intervalMs.Value > 0)
             {
-                recordList = new ConcurrentBag<SplunkRecord>();
-                recordList_Swap = new ConcurrentBag<SplunkRecord>();
+                recordList = new ConcurrentBag<LogMessage>();
+                recordList_Swap = new ConcurrentBag<LogMessage>();
                 time = new Util.Threading.Timer.SersTimer_SingleThread();
                 time.intervalMs = intervalMs.Value;
                 time.timerCallback = (e) =>

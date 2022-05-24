@@ -4,49 +4,42 @@ using System;
 
 using Vit.Extensions;
 
-namespace Vit.Core.Module.Log.LogCollector.Splunk
+namespace Vit.Core.Module.Log.LogCollector.ElasticSearch
 {
-    public class SplunkRecord
-    {/*
-             {
-                "time": 1426279439.123,  
-                "host": "localhost",
-                "source": "random-data-generator",
-                "sourcetype": "my_sample_data",
-                "index": "dev",
-                "event": { 
-                    "level": "info",
-                    "message": "Something happened",
-                    "metadata": [],
-                     //custome object
-                    "app": {
-                      "namespace": "mc.sers.cloud",
-                      "appName": "mc",
-                      "moduleName": "sers"
-                      //,"...": {}
-                    }
-                }
-             }
-             */
+    internal class LogMessage
+    {
+        /* ElasticSearchMessage Format:
+        // "index": "dev", "type": "_doc",
+          {
+              "time": 1426279439.123, 
+              "level": "info",
+              "message": "Something happened",
+              "metadata": [],
+              //custome object
+              "appInfo": {
+                  "namespace": "mc.sers.cloud",
+                  "appName": "mc",
+                  "moduleName": "sers"
+                  //,"...": {}
+              }
+          }
+      */
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public double? time;
 
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string index;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string host;
+        public string level;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string source;
+        public string message;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string sourcetype;
+        public object metadata;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public object @event;
-
-
+        public object appInfo;
 
 
         public DateTime Time { set => time = ToEpoch(value); }

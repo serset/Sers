@@ -47,7 +47,12 @@ namespace Vit.Core.Module.Log
                 #region (x.x.2)是否内置对象
                 if (className == "SplunkCollector" || className == "Vit.Core.Module.Log.LogCollector.Splunk.SplunkCollector")
                 {
-                    return new SplunkCollector();
+                    return new LogCollector.Splunk.SplunkCollector();
+                }
+
+                if (className == "ElasticSearchCollector" || className == "Vit.Core.Module.Log.LogCollector.ElasticSearch.ElasticSearchCollector")
+                {
+                    return new LogCollector.ElasticSearch.ElasticSearchCollector();
                 }
                 #endregion
 
