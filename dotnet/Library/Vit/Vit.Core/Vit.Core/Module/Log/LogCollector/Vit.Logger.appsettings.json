@@ -1,5 +1,4 @@
 {
-
   /* Vit工具配置，可不指定 */
   "Vit": {
 
@@ -10,6 +9,10 @@
       /* print the log to console. default:true  */
       "PrintToConsole": true,
 
+
+      /* print the error happened in log module to console. default:false  */
+      "PrintLogErrorToConsole": false,
+
       /* [optional]collector to send log to */
       "Collector": [
         {
@@ -18,22 +21,22 @@
           /* 动态加载的类名，必须继承接口 Vit.Core.Module.Log.LogCollector.ILogCollector */
           //"className": "Vit.Core.Module.Log.LogCollector.Splunk.SplunkCollector",
 
-          "client": {
+          "server": {
             "url": "https://192.168.20.20:8088/services/collector",
             "authToken": "xxxxx",
+            "index": "dev",
             //若指定则在指定时间间隔统一推送数据，若不指定则立即推送。单位:ms
             "//intervalMs": 2000
           },
 
-          "message": {
-            "index": "dev",
+          "//hostInfo": {
             "host": "192.168.20.20:8088",
             "source": "http:mc",
             "sourcetype": "httpevent"
           },
 
           //custome object
-          "appInfo": {
+          "//appInfo": {
             "namespace": "sers.cloud",
             "appName": "mc",
             "moduleName": "ServiceCenter"
@@ -44,13 +47,13 @@
           /* 在此Assembly中加载类 */
           "assemblyFile": "Vit.Core.dll",
           /* 动态加载的类名，必须继承接口 Vit.Core.Module.Log.LogCollector.ILogCollector */
-          //"className": "Vit.Core.Module.Log.LogCollector.ElasticSearch.ElasticSearchCollector",
+          "className": "Vit.Core.Module.Log.LogCollector.ElasticSearch.ElasticSearchCollector",
 
-          "client": {
+          "server": {
             // es address, example:"http://192.168.20.20:9200"
             "url": "http://192.168.20.20:9200",
             //es index, example:"dev"
-            "index": "dev",
+            "index": "dev_log",
             //es type, example:"_doc"
             //"type": "_doc",
             //若指定则在指定时间间隔统一推送数据，若不指定则立即推送。单位:ms
@@ -67,7 +70,5 @@
         }
       ]
     }
-
   }
-
 }

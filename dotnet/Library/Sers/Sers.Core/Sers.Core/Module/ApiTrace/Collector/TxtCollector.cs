@@ -53,7 +53,7 @@ namespace Sers.Core.Module.ApiTrace.Collector
             msg.Append(Environment.NewLine).Append("--duration :").Append((endTime - beginTime).TotalMilliseconds).Append(" ms");
 
 
-            JObject eventData = SplunkCollector.BuildEventData(traceData, rpcData, apiRequestMessage, GetApiReplyMessage, tagsTemplate);
+            JObject eventData = SplunkCollector.BuildEventData(null, rpcData, apiRequestMessage, GetApiReplyMessage, tagsTemplate);
             foreach (var kv in eventData)
             {
                 var key = kv.Key;

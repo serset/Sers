@@ -99,18 +99,20 @@ namespace Sers.Core.Module.ApiTrace.Collector
 
 
         #region BuildEventData    
-        public static JObject BuildEventData(object traceData, RpcContextData rpcData, ApiMessage apiRequestMessage, Func<ApiMessage> GetApiReplyMessage, IDictionary<string, string> tagsTemplate)
+        public static JObject BuildEventData(object beginTime, RpcContextData rpcData, ApiMessage apiRequestMessage, Func<ApiMessage> GetApiReplyMessage, IDictionary<string, string> tagsTemplate)
         {
-            var beginTime = (DateTime)traceData;
-
-            var endTime = DateTime.Now;
 
             JObject eventData = new JObject();
             eventData["level"] = "ApiTrace";
 
-            eventData["beginTime"] = beginTime.ToString("yyyy-MM-dd HH:mm:ss.ffffff");
-            eventData["endTime"] = endTime.ToString("yyyy-MM-dd HH:mm:ss.ffffff");
-            eventData["duration"] = (endTime - beginTime).TotalMilliseconds;
+            if (beginTime is DateTime _beginTime) 
+            {
+                var endTime = DateTime.Now;
+
+                eventData["beginTime"] = _beginTime.ToString("yyyy-MM-dd HH:mm:ss.ffffff");
+                eventData["endTime"] = endTime.ToString("yyyy-MM-dd HH:mm:ss.ffffff");
+                eventData["duration"] = (endTime - _beginTime).TotalMilliseconds;
+            }
 
 
             #region method getTagValue
