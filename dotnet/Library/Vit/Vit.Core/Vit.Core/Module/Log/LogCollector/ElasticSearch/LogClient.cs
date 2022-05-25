@@ -127,7 +127,7 @@ namespace Vit.Core.Module.Log.LogCollector.ElasticSearch
             httpClient.SendAsync(request);
 
 
-            //var reply = httpClient.SendAsync(request).Result;
+            //var response = httpClient.SendAsync(request).Result;
         }
     }
 }
