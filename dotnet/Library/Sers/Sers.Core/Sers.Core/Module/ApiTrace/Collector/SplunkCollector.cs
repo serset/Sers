@@ -6,41 +6,46 @@ using System;
 using System.Collections.Generic;
 using Vit.Extensions;
 using Vit.Core.Module.Log;
-using Vit.Core.Module.Log.LogCollector.Splunk;
+using Vit.Core.Module.Log.LogCollector.Splunk.Client;
 
 namespace Sers.Core.Module.ApiTrace.Collector
 {
     public class SplunkCollector : IApiTraceCollector
     {
-        /*
-{
-    "host": "localhost",
-    "source": "random-data-generator",
-    "sourcetype": "my_sample_data",
-    "index": "dev",
-    "event": { 
-        "level": "ApiTrace",
+        // Splunk ApiTrace Record Format:
+        /* 
+        {
+            "time": 1426279439.123,
 
-        "appInfo": { //custome object
-            "namespace": "mc.sers.cloud",
-            "appName": "mc",
-            "moduleName": "sers"
-            //,"...": {}
-        },
+            "index": "dev",
 
-        "beginTime":"2022-03-26 02:52:00.123456",
-        "endTime":"2022-03-26 02:52:04.123456",
-        "duration":"4000.0",
+            "host": "localhost",
+            "source": "random-data-generator",
+            "sourcetype": "my_sample_data",
 
-        //extTags
-    }
-}
+            "event": { 
+                "level": "ApiTrace",
+
+                "appInfo": { //custome object
+                    "namespace": "mc.sers.cloud",
+                    "appName": "mc",
+                    "moduleName": "sers"
+                    //,"...": {}
+                },
+
+                "beginTime":"2022-03-26 02:52:00.123456",
+                "endTime":"2022-03-26 02:52:04.123456",
+                "duration":"4000.0",
+
+                //extTags
+            }
+        }
         */
 
 
 
         SplunkClient client;
-        SplunkRecord message;
+        SplunkRecord hostInfo;
         JObject appInfo;
 
         IDictionary<string, string> tagsTemplate;
@@ -48,11 +53,13 @@ namespace Sers.Core.Module.ApiTrace.Collector
         public void Init(JObject arg)
         {
             Logger.Info("[ApiTrace.SplunkCollector]初始化中");
-            client = arg["client"].Deserialize<SplunkClient>();
-            client.Init();
-            message = arg?["message"]?.Deserialize<SplunkRecord>();
+            client = arg["server"].Deserialize<SplunkClient>();
+
+            hostInfo = arg?["hostInfo"]?.Deserialize<SplunkRecord>();
             appInfo = arg?["appInfo"]?.Deserialize<JObject>();
             tagsTemplate = arg?["tags"]?.Deserialize<IDictionary<string, string>>();
+
+            client?.Init();
         }
 
         public void AppBeforeStart()
@@ -69,16 +76,37 @@ namespace Sers.Core.Module.ApiTrace.Collector
         {
             return DateTime.Now;
         }
+
         public void TraceEnd(object traceData, RpcContextData rpcData, ApiMessage apiRequestMessage, Func<ApiMessage> GetApiReplyMessage)
+        {
+            JObject eventData = BuildEventData(traceData, rpcData, apiRequestMessage, GetApiReplyMessage, tagsTemplate);
+            if (appInfo != null) eventData["appInfo"] = appInfo;
+
+            var record = new SplunkRecord
+            {
+                Time = DateTime.UtcNow,
+                index = hostInfo?.index,
+
+                host = hostInfo?.host ?? Environment.MachineName,
+                source = hostInfo?.source,
+                sourcetype = hostInfo?.sourcetype,
+
+                @event = eventData
+            };
+            client.SendAsync(record);
+        }
+
+
+
+        #region BuildEventData    
+        public static JObject BuildEventData(object traceData, RpcContextData rpcData, ApiMessage apiRequestMessage, Func<ApiMessage> GetApiReplyMessage, IDictionary<string, string> tagsTemplate)
         {
             var beginTime = (DateTime)traceData;
 
             var endTime = DateTime.Now;
 
-
             JObject eventData = new JObject();
             eventData["level"] = "ApiTrace";
-            if (appInfo != null) eventData["appInfo"] = appInfo;
 
             eventData["beginTime"] = beginTime.ToString("yyyy-MM-dd HH:mm:ss.ffffff");
             eventData["endTime"] = endTime.ToString("yyyy-MM-dd HH:mm:ss.ffffff");
@@ -206,7 +234,7 @@ namespace Sers.Core.Module.ApiTrace.Collector
             #endregion
 
 
- 
+
             tagsTemplate?.IEnumerable_ForEach(item =>
             {
                 var key = GetTagValue(item.Key)?.ConvertToString();
@@ -217,19 +245,10 @@ namespace Sers.Core.Module.ApiTrace.Collector
 
             });
 
-            var record = new SplunkRecord
-            {
-                Time = DateTime.UtcNow,
-                index = message?.index,
-                host = message?.host ?? Environment.MachineName,
-                source = message?.source,
-                sourcetype = message?.sourcetype,
-
-                @event = eventData
-            };
-            client.SendAsync(record);
-
- 
+            return eventData;
         }
+
+        #endregion
+
     }
 }

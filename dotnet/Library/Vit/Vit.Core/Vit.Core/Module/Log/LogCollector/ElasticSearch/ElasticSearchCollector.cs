@@ -4,6 +4,7 @@ using System;
 
 using Vit.Extensions;
 using System.Linq;
+using Vit.Core.Module.Log.LogCollector.ElasticSearch.Client;
 
 namespace Vit.Core.Module.Log.LogCollector.ElasticSearch
 {
@@ -16,19 +17,19 @@ namespace Vit.Core.Module.Log.LogCollector.ElasticSearch
 
             this.config = config;
 
-            client = config["client"]?.Deserialize<LogClient>();
+            client = config["client"]?.Deserialize<ElasticSearchClient>();
             appInfo = config["appInfo"]?.Deserialize<object>();
             client?.Init();
         }
 
-        internal LogClient client;
+        internal ElasticSearchClient client;
         public object appInfo;
 
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Write(Log.LogMessage msg)
         {
-            var record = new LogMessage
+            var record = new LogRecord
             {
                 Time = DateTime.UtcNow,
                 level = msg.level.ToString(),

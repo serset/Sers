@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 
 using System;
 
+using Vit.Core.Module.Log.LogCollector.Splunk.Client;
 using Vit.Extensions;
 
 namespace Vit.Core.Module.Log.LogCollector.Splunk
@@ -16,51 +16,44 @@ namespace Vit.Core.Module.Log.LogCollector.Splunk
 
             this.config = config;
 
-
-            client = config["client"]?.Deserialize<LogClient>();
-            message = config["message"]?.Deserialize<LogMessage>();
+            client = config["server"]?.Deserialize<SplunkClient>();
+            hostInfo = config["hostInfo"]?.Deserialize<SplunkRecord>();
             appInfo = config["appInfo"]?.Deserialize<object>();
             client?.Init();
         }
 
 
 
-        internal LogClient client;
-        internal LogMessage message;
+        internal SplunkClient client;
+        internal SplunkRecord hostInfo;
         public object appInfo;
 
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Write(Log.LogMessage msg)
         {
-            var record = new LogMessage
+            var recordEvent = new LogEvent
+            {
+                level = msg.level.ToString(),
+                message = msg.message,
+                metadata = msg.metadata,
+                appInfo = appInfo
+            };
+            if (recordEvent.metadata != null && recordEvent.metadata.Length == 0) recordEvent.metadata = null;
+            var record = new SplunkRecord
             {
                 Time = DateTime.UtcNow,
-                index = message?.index,
-                host = message?.host ?? Environment.MachineName,
-                source = message?.source,
-                sourcetype = message?.sourcetype,
+                host = hostInfo?.host ?? Environment.MachineName,
+                source = hostInfo?.source,
+                sourcetype = hostInfo?.sourcetype,
 
-                @event = new Event
-                {
-                    level = msg.level.ToString(),
-                    message = msg.message,
-                    metadata = msg.metadata,
-                    appInfo = appInfo
-                }
+                @event = recordEvent
             };
-
-            if (record.@event.metadata != null && record.@event.metadata.Length == 0) record.@event.metadata = null;
 
             client.SendAsync(record);
         }
 
 
-
-
-
-
-
-
+ 
     }
 }
