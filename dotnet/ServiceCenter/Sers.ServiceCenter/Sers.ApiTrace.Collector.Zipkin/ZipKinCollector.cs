@@ -16,17 +16,19 @@ using zipkin4net.Transport.Http;
 
 namespace Sers.ApiTrace.Collector.Zipkin
 {
-    public class ZipKinCollector : IApiTraceCollector
+    public class ZipKinCollector : IApiTraceCollector,IDisposable
     {
+        ~ZipKinCollector() 
+        {
+            Dispose();
+        }
+
         public void Init(JObject arg)
         {
             config = arg.Deserialize<Config>();
             if (string.IsNullOrEmpty(config.rpcName)) config.rpcName = "ServiceCenter";
-            Logger.Info("[ApiTrace.ZipKinCollector]加载中", config);
-        }
-
-        public void AppBeforeStart()
-        {
+            Logger.Info("[ApiTrace.ZipKinCollector] init ...", config);
+ 
             if (config == null) return;
             #region (x.1)注册和启动 Zipkin
             if (config.SamplingRate <= 0) config.SamplingRate = 1;
@@ -41,12 +43,19 @@ namespace Sers.ApiTrace.Collector.Zipkin
             TraceManager.Start(new MyLogger());
             #endregion
 
-            Logger.Info("[ApiTrace.ZipKinCollector]加载成功");
+            Logger.Info("[ApiTrace.ZipKinCollector] init success.");
         }
 
-        public void AppBeforeStop()
+        public void Dispose()
         {
-            TraceManager.Stop();
+            try
+            {
+                TraceManager.Stop();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("[ApiTrace.ZipKinCollector] Dispose", ex);
+            }
         }
 
 

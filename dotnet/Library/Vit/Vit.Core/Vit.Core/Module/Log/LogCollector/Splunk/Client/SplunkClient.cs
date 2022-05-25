@@ -124,6 +124,7 @@ namespace Vit.Core.Module.Log.LogCollector.Splunk.Client
 
             //var strMsg = record.Serialize();
             //var response = httpClient.SendAsync(request).Result;
+            //var body = response.Content.ReadAsStringAsync().Result;
         }
     }
 }

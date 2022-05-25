@@ -11,20 +11,10 @@ namespace Sers.Core.Module.ApiTrace.Collector
     {
         void Init(JObject config);
 
-        void AppBeforeStart();
-
-        void AppBeforeStop();
-
-
-
-
  
         object TraceStart(RpcContextData rpcData);
 
  
         void TraceEnd(object traceData, RpcContextData rpcData, ApiMessage apiRequestMessage, Func<ApiMessage> GetApiReplyMessage);
-
-
-
     }
 }

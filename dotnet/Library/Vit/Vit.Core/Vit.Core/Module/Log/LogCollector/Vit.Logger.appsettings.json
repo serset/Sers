@@ -47,7 +47,7 @@
           /* 在此Assembly中加载类 */
           "assemblyFile": "Vit.Core.dll",
           /* 动态加载的类名，必须继承接口 Vit.Core.Module.Log.LogCollector.ILogCollector */
-          "className": "Vit.Core.Module.Log.LogCollector.ElasticSearch.ElasticSearchCollector",
+          //"className": "Vit.Core.Module.Log.LogCollector.ElasticSearch.ElasticSearchCollector",
 
           "server": {
             // es address, example:"http://192.168.20.20:9200"

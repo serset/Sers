@@ -52,7 +52,7 @@ namespace Sers.Core.Module.ApiTrace.Collector
 
         public void Init(JObject arg)
         {
-            Logger.Info("[ApiTrace.SplunkCollector]初始化中");
+            Logger.Info("[ApiTrace.SplunkCollector] init ...");
             client = arg["server"].Deserialize<SplunkClient>();
 
             hostInfo = arg?["hostInfo"]?.Deserialize<SplunkRecord>();
@@ -60,16 +60,6 @@ namespace Sers.Core.Module.ApiTrace.Collector
             tagsTemplate = arg?["tags"]?.Deserialize<IDictionary<string, string>>();
 
             client?.Init();
-        }
-
-        public void AppBeforeStart()
-        {
-            Logger.Info("[ApiTrace.SplunkCollector]初始化成功");
-        }
-
-        public void AppBeforeStop()
-        {
-
         }
 
         public object TraceStart(RpcContextData rpcData)

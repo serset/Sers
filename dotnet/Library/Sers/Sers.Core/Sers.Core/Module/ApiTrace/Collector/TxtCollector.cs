@@ -16,19 +16,9 @@ namespace Sers.Core.Module.ApiTrace.Collector
         IDictionary<string, string> tagsTemplate;
         public void Init(JObject arg)
         {
-            Logger.Info("[ApiTrace.TxtCollector]初始化中");
+            Logger.Info("[ApiTrace.TxtCollector] init ...");
 
             tagsTemplate = arg?["tags"]?.Deserialize<IDictionary<string, string>>();
-        }
-
-        public void AppBeforeStart()
-        {
-            Logger.Info("[ApiTrace.TxtCollector]初始化成功");
-        }
-
-        public void AppBeforeStop()
-        {
-
         }
 
         Vit.Core.Module.Log.LogCollector.TxtCollector logCollector = new Vit.Core.Module.Log.LogCollector.TxtCollector();

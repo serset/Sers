@@ -19,7 +19,7 @@
             // es address, example:"http://192.168.20.20:9200"
             "url": "http://192.168.20.20:9200",
             //es index, example:"dev"
-            "index": "dev_apiTrace",
+            "index": "dev_apitrace",
             //es type, example:"_doc"
             //"type": "_doc",
             //若指定则在指定时间间隔统一推送数据，若不指定则立即推送。单位:ms

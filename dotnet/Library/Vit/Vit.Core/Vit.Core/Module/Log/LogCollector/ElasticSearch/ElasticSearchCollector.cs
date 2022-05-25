@@ -17,7 +17,7 @@ namespace Vit.Core.Module.Log.LogCollector.ElasticSearch
 
             this.config = config;
 
-            client = config["client"]?.Deserialize<ElasticSearchClient>();
+            client = config["server"]?.Deserialize<ElasticSearchClient>();
             appInfo = config["appInfo"]?.Deserialize<object>();
             client?.Init();
         }
