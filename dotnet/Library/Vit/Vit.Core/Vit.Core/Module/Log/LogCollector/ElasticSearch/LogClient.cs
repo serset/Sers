@@ -109,24 +109,25 @@ namespace Vit.Core.Module.Log.LogCollector.ElasticSearch
         private StringBuilder buffer = new StringBuilder();
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        private void SendToServer<T>(IEnumerable<T> records)
+        private void SendToServer(IEnumerable<LogMessage> records)
         {
-            buffer.Clear();
-            foreach (var record in records)
-            {
-                buffer.AppendLine("{\"create\":{}}").AppendLine(record.Serialize());
-            }
-
             var request = new HttpRequestMessage(HttpMethod.Post, bulkUrl);
-            request.Content = new StringContent(buffer.ToString(), Vit.Core.Module.Serialization.Serialization_Newtonsoft.defaultEncoding, "application/json");
-            buffer.Clear();
-
+            lock (buffer)
+            {
+                buffer.Clear();
+                foreach (var record in records)
+                {
+                    buffer.AppendLine("{\"create\":{}}").AppendLine(record.Serialize());
+                }
+                request.Content = new StringContent(buffer.ToString(), Vit.Core.Module.Serialization.Serialization_Newtonsoft.defaultEncoding, "application/json");
+                buffer.Clear();
+            }
             // TODO:    retry when fail. 
             //          batch:  batchIntervalInSeconds, batchSizeLimit, queueLimit
-            //httpClient.SendAsync(request);
+            httpClient.SendAsync(request);
 
 
-            var reply = httpClient.SendAsync(request).Result;
+            //var reply = httpClient.SendAsync(request).Result;
         }
     }
 }

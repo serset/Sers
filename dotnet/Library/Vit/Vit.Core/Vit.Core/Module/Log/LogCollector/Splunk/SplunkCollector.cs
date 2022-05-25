@@ -25,30 +25,6 @@ namespace Vit.Core.Module.Log.LogCollector.Splunk
 
 
 
-
-        /* SplunkMessage Format:
-            {
-               "time": 1426279439.123,  
-               "host": "localhost",
-               "source": "random-data-generator",
-               "sourcetype": "my_sample_data",
-               "index": "dev",
-               "event": { 
-                   "level": "info",
-                   "message": "Something happened",
-                   "metadata": [],
-                    //custome object
-                   "appInfo": {
-                     "namespace": "mc.sers.cloud",
-                     "appName": "mc",
-                     "moduleName": "sers"
-                     //,"...": {}
-                   }
-               }
-            }
-            */
-
-
         internal LogClient client;
         internal LogMessage message;
         public object appInfo;
@@ -57,8 +33,6 @@ namespace Vit.Core.Module.Log.LogCollector.Splunk
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Write(Log.LogMessage msg)
         {
-            if (msg.metadata != null && msg.metadata.Length == 0) msg.metadata = null;
-
             var record = new LogMessage
             {
                 Time = DateTime.UtcNow,
@@ -76,25 +50,12 @@ namespace Vit.Core.Module.Log.LogCollector.Splunk
                 }
             };
 
+            if (record.@event.metadata != null && record.@event.metadata.Length == 0) record.@event.metadata = null;
+
             client.SendAsync(record);
         }
 
 
-        internal class Event
-        {
-
-            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-            public string level;
-
-            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-            public string message;
-
-            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-            public object metadata;
-
-            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-            public object appInfo;
-        }
 
 
 

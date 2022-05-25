@@ -2,8 +2,6 @@
 
 using System;
 
-using Vit.Extensions;
-
 namespace Vit.Core.Module.Log.LogCollector.ElasticSearch
 {
     internal class LogMessage
@@ -11,7 +9,8 @@ namespace Vit.Core.Module.Log.LogCollector.ElasticSearch
         /* ElasticSearchMessage Format:
         // "index": "dev", "type": "_doc",
           {
-              "time": 1426279439.123, 
+              "@timestamp":1653468236619,
+              "time": "2022-05-25T08:19:36.686Z", 
               "level": "info",
               "message": "Something happened",
               "metadata": [],
@@ -24,9 +23,12 @@ namespace Vit.Core.Module.Log.LogCollector.ElasticSearch
               }
           }
       */
+        [JsonProperty("@timestamp", NullValueHandling = NullValueHandling.Ignore)]
+        public string timestamp;
+
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public double? time;
+        public string time;
 
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -36,23 +38,25 @@ namespace Vit.Core.Module.Log.LogCollector.ElasticSearch
         public string message;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public object metadata;
+        public Object[] metadata;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public object appInfo;
 
 
-        public DateTime Time { set => time = ToEpoch(value); }
-        
-
-        public static double ToEpoch(DateTime value)
+        public DateTime Time 
         {
-            // From Splunk HTTP Collector Protocol
-            // The default time format is epoch time format, in the format <sec>.<ms>. 
-            // For example, 1433188255.500 indicates 1433188255 seconds and 500 milliseconds after epoch, 
-            // or Monday, June 1, 2015, at 7:50:55 PM GMT.
-            // See: http://dev.splunk.com/view/SP-CAAAE6P
-            return value.ToTimeStamp() / 1000.0;
+            set
+            {
+                //timestamp = value.ToTimeStamp();
+                timestamp = time = ToTimeString(value);
+            }
+        }
+
+
+        public static string ToTimeString(DateTime value)
+        {
+            return value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
         }
     }
 }

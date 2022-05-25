@@ -3,6 +3,7 @@
 using System;
 
 using Vit.Extensions;
+using System.Linq;
 
 namespace Vit.Core.Module.Log.LogCollector.ElasticSearch
 {
@@ -27,8 +28,6 @@ namespace Vit.Core.Module.Log.LogCollector.ElasticSearch
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Write(Log.LogMessage msg)
         {
-            if (msg.metadata != null && msg.metadata.Length == 0) msg.metadata = null;
-
             var record = new LogMessage
             {
                 Time = DateTime.UtcNow,
@@ -37,6 +36,17 @@ namespace Vit.Core.Module.Log.LogCollector.ElasticSearch
                 metadata = msg.metadata,
                 appInfo = appInfo
             };
+
+            if (record.metadata != null)
+            {
+                if (record.metadata.Length == 0)
+                    record.metadata = null;
+                else
+                {
+                    record.metadata = record.metadata.Select(m => m?.IsValueTypeOrStringType() == true ? new { value = m } : m).ToArray();
+                }
+            }
+
             client.SendAsync(record);
         }
 
