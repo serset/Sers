@@ -5,7 +5,7 @@ using Vit.Core.Util.ComponentModel.SsError;
 
 namespace Vit.Extensions
 {
-    public static partial class ExceptionExtensions 
+    public static partial class Exception_Extensions 
     {
         #region Data
 
@@ -156,13 +156,28 @@ namespace Vit.Extensions
         {
             return ex.ErrorDetail_Get<object>();
         }
-        #endregion     
+        #endregion
 
 
+
+        #region SetSsError
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static Exception SetSsError(this Exception ex, SsError error)
+        {
+            if (ex != null && error != null)
+            {
+                if (null != error.errorCode) ex.ErrorCode_Set(error.errorCode);
+                if (null != error.errorMessage) ex.ErrorMessage_Set(error.errorMessage);
+                if (null != error.errorTag) ex.ErrorTag_Set(error.errorTag);
+                if (null != error.errorDetail) ex.ErrorDetail_Set(error.errorDetail);
+            }
+            return ex;
+        }
+        #endregion
 
         #region ToSsError
 
- 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static SsError ToSsError(this Exception ex)
         {

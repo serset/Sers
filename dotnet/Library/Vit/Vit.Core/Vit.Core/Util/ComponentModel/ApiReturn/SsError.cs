@@ -74,21 +74,20 @@ namespace Vit.Core.Util.ComponentModel.SsError
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public virtual SsError LoadFromException(Exception ex)
         {
-            errorCode = ex.ErrorCode_Get();
-            errorMessage = ex.ErrorMessage_Get();
-            errorTag = ex.ErrorTag_Get();
-            errorDetail = ex.ErrorDetail_Get();
+            if (ex != null)
+            {
+                errorCode = ex.ErrorCode_Get();
+                errorMessage = ex.ErrorMessage_Get();
+                errorTag = ex.ErrorTag_Get();
+                errorDetail = ex.ErrorDetail_Get();
+            }
             return this;
         }
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public virtual Exception SetErrorToException(Exception ex)
         {
-            if (null != errorCode) ex.ErrorCode_Set(errorCode);
-            if (null != errorMessage) ex.ErrorMessage_Set(errorMessage);
-            if (null != errorTag) ex.ErrorTag_Set(errorTag);
-            if (null != errorDetail) ex.ErrorDetail_Set(errorDetail);            
-            return ex;
+            return ex.SetSsError(this);
         }
 
 
@@ -97,35 +96,6 @@ namespace Vit.Core.Util.ComponentModel.SsError
         public static implicit operator SsError(Exception ex)
         {
            return new SsError().LoadFromException(ex);
-        }
-
-
-        #region ToApiReturn
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public ApiReturn ToApiReturn()
-        {
-            return this;
-        }
-
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public ApiReturn<T> ToApiReturn<T>()
-        {
-            return this;
-        }
-        #endregion
-
-
-        #region ToException
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Exception ToException(string defaultMessage = null)
-        {
-            var ex = new Exception(errorMessage ?? defaultMessage ?? "Error");
-            SetErrorToException(ex);
-            return ex;
-        }
-        #endregion
+        } 
     }
 }
