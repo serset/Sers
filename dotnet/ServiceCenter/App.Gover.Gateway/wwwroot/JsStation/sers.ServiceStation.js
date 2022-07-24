@@ -1,12 +1,12 @@
 ﻿/*
  * sers.ServiceStation.js
- * Date   : 2022-01-23
- * Version: 2.1.17-temp
+ * Date   : 2022-05-18
+ * Version: 2.1.18-preview902
  * author : Lith
  * email  : serset@yeah.net
  */
 
-; sers = { version: '2.1.17-temp' };
+; sers = { version: '2.1.18-preview902' };
 
 /*
  * vit.js 扩展
@@ -230,6 +230,7 @@
 
 /*
 * sers.CL.js 扩展
+*    PipeFrame CL.DeliveryClient RequestAdaptor CL.OrganizeClient
 * author : Lith
 * email  : serset@yeah.net
 */
@@ -428,6 +429,12 @@
 		//	callback: function(apiReplyMessage_bytes){ }
 		self.event_onGetRequest;
 
+
+		//事件，delivery向Organize发送请求时被调用
+		//function (bytes) { }
+		self.event_onGetMessage;
+
+
 		//请求超时时间（单位ms，默认300000）
 		self.requestTimeoutMs = 300000;
 
@@ -465,7 +472,7 @@
 					break;
 
 				case EFrameType.message:
-					//TODO
+					self.event_onGetMessage(msgData);
 					break;
 			}
 		};
@@ -530,6 +537,12 @@
 
 
 
+		self.sendMessage = function (message_bytes) {
+			delivery_sendFrame(EFrameType.message, 0, message_bytes);
+		};
+
+
+
 		function delivery_sendFrame(msgType, requestType, bytes) {
 			bytes.splice(0, 0, msgType, requestType);
 			self.event_onSendFrame(bytes);
@@ -548,6 +561,7 @@
 		}
 
 	}
+
 
 
 	//websocketHost demo: "ws://127.0.0.1:4503"
@@ -582,6 +596,10 @@
 				self.event_onGetRequest(apiRequestMessage_bytes, callback);
 			};
 
+			requestAdaptor.event_onGetMessage = function (bytes) {
+				self.event_onGetMessage(bytes);
+			};
+
 			requestAdaptor.event_onSendFrame = function (bytes) {
 				delivery.sendFrame(bytes);
 			};
@@ -601,9 +619,17 @@
 		//	callback function(apiReplyMessage_bytes){}
 		self.event_onGetRequest = null;
 
+		//function (bytes) { }
+		self.event_onGetMessage = null;
+
 		//callback: ({success,replyData})=>{ }
 		self.sendRequest = function (requestData, callback) {
 			requestAdaptor.sendRequest(null, requestData, callback);
+		};
+
+
+		self.sendMessage = function (message_bytes) {
+			requestAdaptor.sendMessage(message_bytes);
 		};
 
 		//callback:   function (success) { }
@@ -649,6 +675,7 @@
 
 /*
 * sers.ServiceStation.js 扩展
+*   sers.ApiMessage	sers.ApiClient sers.MessageClient sers.LocalApiService sers.ServiceStation
 * author : Lith
 * email  : serset@yeah.net
 */
@@ -722,23 +749,25 @@
 		};
 	};
 
-	//(bytes files)
-	//return bytes
+	//arg		files(bytes[])
+	//return	bytes
 	ApiMessage.package = function () {
 		var files = arguments;
 		var oriData = [];
 
 		for (var t = 0; t < files.length; t++) {
 			var file = files[t];
+			//if (file instanceof ArrayBuffer) {
+			//	file = vit.arrayBufferToBytes(file);
+			//}
 			vit.arrayConcat(oriData, vit.int32ToBytes(file.length));
 			vit.arrayConcat(oriData, file);
 		}
 		return oriData;
 	};
 
-
-	//(bytes oriData)
-	//return  bytes fileArray
+	//arg		oriData(bytes)
+	//return	bytes[]			file[]
 	ApiMessage.unpackage = function (oriData) {
 		var files = [];
 
@@ -784,6 +813,167 @@
 		};
 
 	};
+
+
+	//MessageClient
+	sers.MessageClient = function (organizeClient) {
+
+		let EFrameType = {
+			/// <summary>
+			///  publish, msgTitle, msgData
+			/// </summary>
+			publish: 0,
+			/// <summary>
+			/// subscribe, msgTitle
+			/// </summary>
+			subscribe: 1,
+			/// <summary>
+			/// unSubscribe, msgTitle
+			/// </summary>
+			unSubscribe: 2,
+			/// <summary>
+			/// message, msgTitle, msgData
+			/// </summary>
+			message: 3
+		};
+
+
+		function sendFrame(frame) {
+			organizeClient.sendMessage(frame);
+		}
+
+		this.onGetMessage = (messageData) => {
+			let frame = ApiMessage.unpackage(messageData);
+
+			let msgType = frame[0][0];
+
+			switch (msgType) {
+
+				case EFrameType.message:
+
+					let msgTitle = vit.bytesToString(frame[1]);
+					let msgData = frame[2];
+
+					this.message_Consumer(msgTitle, msgData);
+					break;
+			}
+		};
+
+
+		// (msgTitle,msgData)=>void
+		this.message_Consumer;
+
+		this.message_Publish = function (msgTitle, msgData) {
+			//EFrameType.publish, msgTitle, msgData 
+			let frame = ApiMessage.package(
+				[EFrameType.publish],
+				vit.stringToBytes(msgTitle),
+				msgData);
+			sendFrame(frame);
+		};
+
+		this.message_Subscribe = function (msgTitle) {
+			//EFrameType.subscribe, msgTitle
+			let frame = ApiMessage.package(
+				[EFrameType.subscribe],
+				vit.stringToBytes(msgTitle)
+			);
+			sendFrame(frame);
+		};
+
+		this.message_UnSubscribe = function (msgTitle) {
+			//EFrameType.unSubscribe, msgTitle
+			let frame = ApiMessage.package(
+				[EFrameType.unSubscribe],
+				vit.stringToBytes(msgTitle)
+			);
+			sendFrame(frame);
+		};
+	};
+
+	//SubscriberManage
+	sers.SubscriberManage = function (messageClient) {
+
+		this.createSubscribe = (msgTitle, onGetMessage) => {
+			return new sers.MessageSubscriber(this, msgTitle, onGetMessage);
+		};
+
+
+		//消息订阅者   msgTitle ->    Subscriber[]
+		let subscriberMap = {};
+
+		// subscriber:MessageSubscriber
+		this.message_Subscribe = function (subscriber) {
+
+			let subscriberList = subscriberMap[subscriber.msgTitle];
+
+			if (!subscriberList) {
+				subscriberList = subscriberMap[subscriber.msgTitle] = [];
+				messageClient.message_Subscribe(subscriber.msgTitle);
+			}
+
+			subscriberList.push(subscriber);
+		};
+
+
+		this.message_UnSubscribe = function (subscriber) {
+			let subscriberList = subscriberMap[subscriber.msgTitle];
+
+			if (!subscriberList) {
+				return false;
+			}
+
+			subscriberList = subscriberList.filter(m => m != subscriber);
+
+			if (subscriberList.length == 0) {
+				delete subscriberMap[subscriber.msgTitle];
+				messageClient.message_UnSubscribe(subscriber.msgTitle);
+			}
+		};
+
+		this.message_Publish = function (msgTitle, msgData) {
+			messageClient.message_Publish(msgTitle, msgData);
+		};
+
+
+		messageClient.message_Consumer = (msgTitle, msgData) => {
+			let subscriberList = subscriberMap[msgTitle];
+
+			if (!subscriberList || !subscriberList.length) return;
+
+			for (let subscriber of subscriberList) {
+				try {
+					if (!subscriber || !subscriber.onGetMessage) continue;
+					subscriber.onGetMessage(msgData);
+				} catch (ex) {
+					logger.error(ex);
+				}
+			}
+		};
+
+	};
+
+	//MessageSubscriber
+	sers.MessageSubscriber = function (subscriberManage, msgTitle, onGetMessage) {
+
+		this.msgTitle = msgTitle;
+
+		// bytes=>void
+		this.onGetMessage = onGetMessage;
+
+
+		this.subscribe = function () {
+			subscriberManage.message_Subscribe(this);
+			return this;
+		};
+
+		this.unSubscribe = function () {
+			subscriberManage.message_UnSubscribe(this);
+			return this;
+		};
+	};
+
+
 
 	//LocalApiService
 	sers.LocalApiService = function () {
@@ -925,10 +1115,11 @@
 
 
 	//ServiceStation
+	//	localApiService org apiClient serviceStationInfo
 	sers.ServiceStation = function () {
 		var self = this;
 
-		//(x.1) LocalApiService
+		//(x.1) localApiService
 		(function () {
 			self.localApiService = new sers.LocalApiService();
 		})();
@@ -945,27 +1136,37 @@
 		})();
 
 
-		//(x.3) ApiClient
+		//(x.3) apiClient
 		(function () {
 			self.apiClient = new sers.ApiClient(self.org);
 		})();
 
-		//(x.4)
+
+		//(x.4) subscriberManage
+		(function () {
+			let messageClient = new sers.MessageClient(self.org);
+			self.subscriberManage = new sers.SubscriberManage(messageClient);
+
+			self.org.event_onGetMessage = messageClient.onGetMessage;
+		})();
+
+
+		//(x.5)
 		self.stop = function () {
 			logger.info('[sers.ServiceStation] try stop...');
 			self.org.stop();
 			logger.info('[sers.ServiceStation] stoped.');
 		};
 
-		//(x.5)
+		//(x.6)
 		self.serviceStationInfo = {
 			serviceStationName: 'JsStation', serviceStationKey: '', stationVersion: '', info: {}
 		};
 
-		//(x.6)
+		//(x.7)
 		var deviceInfo = { deviceKey: ('' + Math.random()).substr(2) };
 
-		//(x.7)
+		//(x.8)
 		//callback: function(success){}
 		self.start = function (callback) {
 

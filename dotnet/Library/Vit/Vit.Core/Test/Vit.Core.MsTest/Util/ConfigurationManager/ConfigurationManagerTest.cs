@@ -15,7 +15,7 @@ namespace Vit.Core.MsTest.Util.ConfigurationManager
         [TestMethod]
         public void Test()
         {
-            var Instance= Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance;
+            var Instance= Vit.Core.Util.ConfigurationManager.Appsettings.json;
 
             #region (x.1)DateTime 
             var date = Instance.Get<DateTime>("Test", "DateTime");

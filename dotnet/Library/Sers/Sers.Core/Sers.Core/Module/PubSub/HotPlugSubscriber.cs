@@ -21,7 +21,7 @@ namespace Sers.Core.Module.PubSub
         public void Subscribe()
         {
             if (subscribing) return;
-            EndpointManage.Instance.Message_Subscribe(this);
+            SubscriberManage.Instance.Message_Subscribe(this);
             subscribing = true;
         }
 
@@ -32,7 +32,7 @@ namespace Sers.Core.Module.PubSub
         {
             if (subscribing)
             {
-                EndpointManage.Instance.Message_SubscribeCancel(this);
+                SubscriberManage.Instance.Message_UnSubscribe(this);
                 subscribing = false;
             }
             

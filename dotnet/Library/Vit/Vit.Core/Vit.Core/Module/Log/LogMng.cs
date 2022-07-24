@@ -25,7 +25,7 @@ namespace Vit.Core.Module.Log
 
         #region Log
 
-        static bool? PrintLogErrorToConsole = ConfigurationManager.Instance.GetByPath<bool?>("Vit.Logger.PrintLogErrorToConsole");
+        static bool? PrintLogErrorToConsole = Appsettings.json.GetByPath<bool?>("Vit.Logger.PrintLogErrorToConsole");
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Log(LogMessage msg)

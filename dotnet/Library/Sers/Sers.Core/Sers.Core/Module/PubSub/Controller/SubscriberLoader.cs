@@ -18,7 +18,7 @@ namespace Sers.Core.Module.PubSub.Controller
             foreach (var type in types)
             {
                 ISubscriber subscriber = (ISubscriber)Activator.CreateInstance(type);
-                EndpointManage.Instance.Message_Subscribe(subscriber);
+                SubscriberManage.Instance.Message_Subscribe(subscriber);
             }
         }
     }

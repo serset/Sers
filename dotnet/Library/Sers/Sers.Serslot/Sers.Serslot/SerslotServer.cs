@@ -139,15 +139,17 @@ namespace Sers.Serslot
         // Graceful shutdown if possible
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-
-            try
+            await Task.Run(() =>
             {
-                ServiceStation.ServiceStation.Stop();
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
-            }
+                try
+                {
+                    ServiceStation.ServiceStation.Stop();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex);
+                }
+            });
         }
 
         // Ungraceful shutdown

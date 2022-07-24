@@ -187,7 +187,7 @@ namespace Sers.SersLoader
 
 
             //(x.4)  appsettings.json指定
-            stationNames = ConfigurationManager.Instance.GetByPath<List<String>>("Sers.LocalApiService.apiStationNames");
+            stationNames = Appsettings.json.GetByPath<List<String>>("Sers.LocalApiService.apiStationNames");
             return stationNames;
 
         }

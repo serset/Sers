@@ -27,7 +27,7 @@ namespace Sers.Gateway
 
         public static void Bridge()
         {
-            HostRunArg arg = ConfigurationManager.Instance.GetByPath<HostRunArg>("Sers.Gateway.WebHost");
+            HostRunArg arg = Appsettings.json.GetByPath<HostRunArg>("Sers.Gateway.WebHost");
             if (arg == null || arg.urls == null || arg.urls.Length == 0) return;
 
 
@@ -36,7 +36,7 @@ namespace Sers.Gateway
             var gatewayHelp = new GatewayHelp();
 
             #region (x.x.1)构建 Api Event BeforeCallApi
-            var BeforeCallApi = Sers.Core.Module.Api.ApiEvent.EventBuilder.LoadEvent_BeforeCallApi(ConfigurationManager.Instance.GetByPath<JArray>("Sers.Gateway.BeforeCallApi"));
+            var BeforeCallApi = Sers.Core.Module.Api.ApiEvent.EventBuilder.LoadEvent_BeforeCallApi(Appsettings.json.GetByPath<JArray>("Sers.Gateway.BeforeCallApi"));
             if (BeforeCallApi != null) gatewayHelp.BeforeCallApi += BeforeCallApi;
             #endregion
 
@@ -178,7 +178,7 @@ namespace Sers.Gateway
 
 
         #region BuildHttp
-        static string prefixOfCopyIpToHeader = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.WebHost.prefixOfCopyIpToHeader");
+        static string prefixOfCopyIpToHeader = Vit.Core.Util.ConfigurationManager.Appsettings.json.GetStringByPath("Sers.Gateway.WebHost.prefixOfCopyIpToHeader");
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void BuildHttp(RpcContextData rpcData, HttpRequest request)
@@ -255,11 +255,11 @@ namespace Sers.Gateway
 
         #region WriteApiReplyMessage     
 
-        static string Rpc_CallerSource = ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.Rpc.CallerSource") ?? "Outside";
+        static string Rpc_CallerSource = Appsettings.json.GetStringByPath("Sers.Gateway.Rpc.CallerSource") ?? "Outside";
 
         static readonly string Response_ContentType_Json = ("application/json; charset=" + Vit.Core.Module.Serialization.Serialization_Newtonsoft.Instance.charset);
 
-        static readonly string ResponseDefaultContentType = ConfigurationManager.Instance.GetStringByPath("Sers.Gateway.WebHost.ResponseDefaultContentType") ?? Response_ContentType_Json;
+        static readonly string ResponseDefaultContentType = Appsettings.json.GetStringByPath("Sers.Gateway.WebHost.ResponseDefaultContentType") ?? Response_ContentType_Json;
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

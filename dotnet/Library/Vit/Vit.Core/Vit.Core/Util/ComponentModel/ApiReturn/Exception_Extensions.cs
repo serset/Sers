@@ -1,11 +1,11 @@
 ﻿using System;
-using Newtonsoft.Json.Linq;
+
+using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.ComponentModel.SsError;
-using Vit.Extensions;
 
 namespace Vit.Extensions
 {
-    public static partial class ExceptionExtensions 
+    public static partial class Exception_Extensions 
     {
         #region Data
 
@@ -156,33 +156,50 @@ namespace Vit.Extensions
         {
             return ex.ErrorDetail_Get<object>();
         }
-        #endregion     
+        #endregion
 
 
 
-        #region SsError
-        /// <summary>
-        /// SsError
-        /// </summary>
-        /// <param name="ex"></param>
-        /// <param name="ssError"></param>
-        /// <returns></returns>
+        #region SetSsError
+
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static Exception SsError_Set(this Exception ex, SsError ssError)
+        public static Exception SetSsError(this Exception ex, SsError error)
         {
-            ssError?.SetErrorToException(ex);
+            if (ex != null && error != null)
+            {
+                if (null != error.errorCode) ex.ErrorCode_Set(error.errorCode);
+                if (null != error.errorMessage) ex.ErrorMessage_Set(error.errorMessage);
+                if (null != error.errorTag) ex.ErrorTag_Set(error.errorTag);
+                if (null != error.errorDetail) ex.ErrorDetail_Set(error.errorDetail);
+            }
             return ex;
         }
+        #endregion
 
-        /// <summary>
-        /// SsError
-        /// </summary>
-        /// <param name="ex"></param>
-        /// <returns></returns>
+        #region ToSsError
+
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static SsError ToSsError(this Exception ex)
         {
-            return new SsError().LoadFromException(ex);
+            return new SsError(ex);
+        }
+        #endregion
+
+
+        #region ToApiReturn
+
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static ApiReturn ToApiReturn(this Exception ex)
+        {
+            return new SsError(ex);
+        }
+
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static ApiReturn<T> ToApiReturn<T>(this Exception ex)
+        {
+            return new SsError(ex);
         }
         #endregion
 

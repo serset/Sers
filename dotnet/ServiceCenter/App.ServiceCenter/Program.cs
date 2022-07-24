@@ -23,7 +23,7 @@ namespace App.ServiceCenter
 
 
             #region (x.x.2)加载 ServiceCenter ApiEvent BeforeCallApi
-            var BeforeCallApi = Sers.Core.Module.Api.ApiEvent.EventBuilder.LoadEvent_BeforeCallApi(ConfigurationManager.Instance.GetByPath<JArray>("Sers.ServiceCenter.BeforeCallApi"));
+            var BeforeCallApi = Sers.Core.Module.Api.ApiEvent.EventBuilder.LoadEvent_BeforeCallApi(Appsettings.json.GetByPath<JArray>("Sers.ServiceCenter.BeforeCallApi"));
             if (BeforeCallApi != null) Sers.ServiceCenter.ServiceCenter.Instance.apiCenterService.BeforeCallApi += BeforeCallApi;
             #endregion
 

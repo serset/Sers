@@ -68,7 +68,7 @@ namespace Sers.ServiceCenter
         {
             connForLocalStationService = new OrganizeConnection(localApiService);
 
-            appEventList = AppEventLoader.LoadAppEvent(Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<JArray>("Sers.AppEvent"))
+            appEventList = AppEventLoader.LoadAppEvent(Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<JArray>("Sers.AppEvent"))
                 ?.ToList();
         }
 
@@ -132,7 +132,13 @@ namespace Sers.ServiceCenter
 
         public void InitCenter()
         {
-            Logger.Info("初始化ServiceCenter...");
+            string FileVersion = null;
+            try
+            {
+                FileVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetEntryAssembly().Location).FileVersion;
+            }
+            catch { }
+            Logger.Info("[ServiceCenter] initializing", new { FileVersion });
 
             //(x.0) appEvent BeforeStart
             appEventList?.ForEach(ev=>ev.BeforeStart());

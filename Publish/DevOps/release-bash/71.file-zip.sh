@@ -9,13 +9,9 @@ export basePath=/root/temp/svn
 
 export version=`grep '<Version>' $(grep '<pack>\|<publish>' ${basePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
 
-export name=Sers
+export APPNAME=xxxxxx
 
 # "
-
- 
-
-
 
 #----------------------------------------------
 echo "压缩文件"
@@ -31,7 +27,7 @@ for dirname in \`ls /root/code/Publish/release/release\`
 do
   if [ -d \$releasePath/release/\$dirname ]
   then
-    filezip zip -p -i \$releasePath/release/\$dirname -o \$releasePath/release-zip/${name}-\${dirname}-${version}.zip 
+    filezip zip -p -i \$releasePath/release/\$dirname -o \$releasePath/release-zip/${APPNAME}-\${dirname}-${version}.zip 
   fi
 done
 

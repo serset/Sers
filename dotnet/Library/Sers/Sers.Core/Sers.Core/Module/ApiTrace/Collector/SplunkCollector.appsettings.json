@@ -15,13 +15,15 @@
           "className": "Sers.Core.Module.ApiTrace.Collector.SplunkCollector",
 
 
-          "client": {
+          "server": {
             "url": "http://192.168.20.20:8088/services/collector",
-            "authToken": "xxxxx"
+            "authToken": "xxxxx",
+            "index": "dev",
+            //若指定则在指定时间间隔统一推送数据，若不指定则立即推送。单位:ms
+            "//intervalMs": 2000
           },
 
-          "//message": {
-            "index": "dev",
+          "//hostInfo": {
             "host": "192.168.20.20:8088",
             "source": "http:mc",
             "sourcetype": "httpevent"
@@ -35,7 +37,7 @@
             //,"...": {}
           },
 
-          "//tags": {
+          "tags": {
             // 可为 requestRpc requestData responseRpc responseData
             "route": "{{requestRpc.route}}",
             //"{{requestRpc.route}}": "route",

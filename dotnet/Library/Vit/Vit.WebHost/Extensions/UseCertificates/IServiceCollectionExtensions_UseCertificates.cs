@@ -15,10 +15,10 @@ namespace Vit.Extensions
         ///   //appsettings.json
         ///   //...
         ///   "server": {
-        ///    /* https证书配置，可不指定。若urls中指定了https协议，请在此指定对应的https证书 */
+        ///    /* ssl证书，可不指定。若urls中指定了https协议，请在此指定对应的https证书 */
         ///    "certificates": [
         ///      {
-        ///        "filePath": "data/serset-com-iis-0923120142.pfx",
+        ///        "filePath": "Data/ssl.pfx",
         ///        "password": "password"
         ///      }
         ///    ]
@@ -33,7 +33,7 @@ namespace Vit.Extensions
         /// <returns></returns>
         public static IServiceCollection UseCertificates(this IServiceCollection data, string configPath = "server.certificates")
         {
-            var configs = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<CertificateInfo[]>(configPath);
+            var configs = Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<CertificateInfo[]>(configPath);
             return data.UseCertificates(configs);
         }
 

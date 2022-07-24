@@ -16,7 +16,7 @@ namespace Vit.Extensions
             if (data == null) return data;
 
             #region (x.1)urls         
-            var urls = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<string[]>(urlsPath);
+            var urls = Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<string[]>(urlsPath);
             if (urls != null && urls.Length > 0)
             {
                 data.UseUrls(urls);

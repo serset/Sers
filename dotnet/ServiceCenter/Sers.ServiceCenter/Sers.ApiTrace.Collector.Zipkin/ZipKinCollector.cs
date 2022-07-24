@@ -16,17 +16,19 @@ using zipkin4net.Transport.Http;
 
 namespace Sers.ApiTrace.Collector.Zipkin
 {
-    public class ZipKinCollector : IApiTraceCollector
+    public class ZipKinCollector : IApiTraceCollector,IDisposable
     {
+        ~ZipKinCollector() 
+        {
+            Dispose();
+        }
+
         public void Init(JObject arg)
         {
             config = arg.Deserialize<Config>();
             if (string.IsNullOrEmpty(config.rpcName)) config.rpcName = "ServiceCenter";
-            Logger.Info("[ApiTrace.ZipKinCollector]加载中", config);
-        }
-
-        public void AppBeforeStart()
-        {
+            Logger.Info("[ApiTrace.ZipKinCollector] init ...", config);
+ 
             if (config == null) return;
             #region (x.1)注册和启动 Zipkin
             if (config.SamplingRate <= 0) config.SamplingRate = 1;
@@ -41,12 +43,19 @@ namespace Sers.ApiTrace.Collector.Zipkin
             TraceManager.Start(new MyLogger());
             #endregion
 
-            Logger.Info("[ApiTrace.ZipKinCollector]加载成功");
+            Logger.Info("[ApiTrace.ZipKinCollector] init success.");
         }
 
-        public void AppBeforeStop()
+        public void Dispose()
         {
-            TraceManager.Stop();
+            try
+            {
+                TraceManager.Stop();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("[ApiTrace.ZipKinCollector] Dispose", ex);
+            }
         }
 
 
@@ -120,139 +129,18 @@ namespace Sers.ApiTrace.Collector.Zipkin
             //catch
             //{
             //}
-            #endregion
+            #endregion 
 
-            #region method getTagValue
-
-            string requestRpc_oriString = null;
-            JObject requestRpc_json = null;
-
-            string requestData_oriString = null;
-            JObject requestData_json = null;
-
-            ApiMessage apiResponseMessage = null;
-
-            string responseRpc_oriString = null;
-            JObject responseRpc_json = null;
-
-            string responseData_oriString = null;
-            JObject responseData_json = null;
-
-            string GetTagValue(string valueString)
+            JObject eventData = SplunkCollector.BuildEventData(null, rpcData, apiRequestMessage, GetApiReplyMessage, config.tags);
+            foreach (var kv in eventData)
             {
-                if (string.IsNullOrEmpty(valueString)) return null;
-                if (!valueString.StartsWith("{{") || !valueString.EndsWith("}}")) return valueString;
-
-                try
-                {
-
-                    valueString = valueString.Substring(2, valueString.Length - 4);
-
-                    string dataType;
-                    string path;
-
-                    var splitIndex = valueString.IndexOf('.');
-                    if (splitIndex < 0)
-                    {
-                        dataType = valueString;
-                        path = "";
-                    }
-                    else
-                    {
-                        dataType = valueString.Substring(0, splitIndex);
-                        path = valueString.Substring(splitIndex + 1);
-                    }
-
-                    switch (dataType)
-                    {
-                        case "requestRpc":
-
-                            if (requestRpc_oriString == null)
-                            {
-                                requestRpc_oriString = apiRequestMessage.rpcContextData_OriData.ArraySegmentByteToString();
-                            }
-                            if (string.IsNullOrEmpty(path))
-                            {
-                                return requestRpc_oriString;
-                            }
-                            if (requestRpc_json == null)
-                            {
-                                requestRpc_json = requestRpc_oriString.Deserialize<JObject>();
-                            }
-                            return requestRpc_json?.SelectToken(path).ConvertToString();
-
-                        case "requestData":
-                            if (requestData_oriString == null)
-                            {
-                                requestData_oriString = apiRequestMessage.value_OriData.ArraySegmentByteToString();
-                            }
-                            if (string.IsNullOrEmpty(path))
-                            {
-                                return requestData_oriString;
-                            }
-                            if (requestData_json == null)
-                            {
-                                requestData_json = requestData_oriString.Deserialize<JObject>();
-                            }
-                            return requestData_json?.SelectToken(path).ConvertToString();
-
-                        case "responseRpc":
-                            if (apiResponseMessage == null)
-                            {
-                                apiResponseMessage = GetApiReplyMessage();
-                            }
-                            if (responseRpc_oriString == null)
-                            {
-                                responseRpc_oriString = apiResponseMessage.rpcContextData_OriData.ArraySegmentByteToString();
-                            }
-                            if (string.IsNullOrEmpty(path))
-                            {
-                                return responseRpc_oriString;
-                            }
-                            if (responseRpc_json == null)
-                            {
-                                responseRpc_json = responseRpc_oriString.Deserialize<JObject>();
-                            }
-                            return responseRpc_json?.SelectToken(path).ConvertToString();
-
-                        case "responseData":
-                            if (apiResponseMessage == null)
-                            {
-                                apiResponseMessage = GetApiReplyMessage();
-                            }
-                            if (responseData_oriString == null)
-                            {
-                                responseData_oriString = apiResponseMessage.value_OriData.ArraySegmentByteToString();
-                            }
-                            if (string.IsNullOrEmpty(path))
-                            {
-                                return responseData_oriString;
-                            }
-                            if (responseData_json == null)
-                            {
-                                responseData_json = responseData_oriString.Deserialize<JObject>();
-                            }
-                            return responseData_json?.SelectToken(path).ConvertToString();
-                    }
-                }
-                catch
-                {
-                }
-                return null;
-            }
-            #endregion
-
-            //tags
-            config.tags?.IEnumerable_ForEach(item =>
-            {
-                var key = GetTagValue(item.Key);
-                var value = GetTagValue(item.Value);
+                var key = kv.Key;
+                var value = kv.Value;
                 if (key != null && value != null)
                 {
-                    trace.Record(Annotations.Tag(key, value));
+                    trace.Record(Annotations.Tag(key, value.ConvertToString()));
                 }
-            });
-
+            }
 
             trace.Record(Annotations.ClientRecv());
         }

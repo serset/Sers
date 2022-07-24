@@ -24,18 +24,18 @@ namespace Vit.Core.Util.ComponentModel.Data
         }
 
         /// <summary>
-        /// 数据
+        /// rows
         /// </summary>
-        [SsDescription("数据")]
+        [SsDescription("rows")]
         public List<T> rows;
 
 
         /// <summary>
-        /// 总数据个数
+        /// totalCount
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [SsExample("1000")]
-        [SsDescription("总数据个数")]
+        [SsDescription("totalCount")]
         public int totalCount;
     }
 }

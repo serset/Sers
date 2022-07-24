@@ -1,12 +1,12 @@
 ﻿namespace Vit.Core.Util.ComponentModel.Model
 {
     /// <summary>
-    /// 名称
+    /// name
     /// </summary> 
     public class SsNameAttribute : System.Attribute
     {
         /// <summary>
-        /// 名称
+        /// name
         /// </summary>
         public string Value { get; set; }
        

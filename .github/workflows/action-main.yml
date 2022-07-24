@@ -32,6 +32,7 @@ jobs:
         run: |
            set -e
            echo start build
+           export APPNAME="Sers"
            export DOCKER_USERNAME="${{ secrets.DOCKER_USERNAME  }}"
            export DOCKER_PASSWORD="${{ secrets.DOCKER_PASSWORD }}"
            export NUGET_SERVER="${{ secrets.NUGET_SERVER  }}"

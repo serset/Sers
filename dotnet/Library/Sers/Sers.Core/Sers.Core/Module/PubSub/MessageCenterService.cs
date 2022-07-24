@@ -45,7 +45,7 @@ namespace Sers.Core.Module.PubSub
                     case (byte)EFrameType.subscribe:
                         Subscribe(conn, msgTitle);
                         break;
-                    case (byte)EFrameType.subscribeCancel:
+                    case (byte)EFrameType.unSubscribe:
                         SubscribeCancel(conn, msgTitle);
                         break;
                 }

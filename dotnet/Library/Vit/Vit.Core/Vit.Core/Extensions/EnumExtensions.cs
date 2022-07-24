@@ -12,7 +12,24 @@ namespace Vit.Extensions
         #region String --> Enum
 
         /// <summary>
-        /// T 必须为Enum,且不可为Nullable
+        /// enumType must be Enum, can be Nullable
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="enumType"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static object StringToEnum(this string data,Type enumType)
+        {
+            try
+            {
+                return Enum.Parse(enumType.GetUnderlyingTypeIfNullable(), data);
+            }
+            catch { }
+            return default;
+        }
+
+        /// <summary>
+        /// T must be Enum, can be Nullable
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="data"></param>
@@ -22,13 +39,11 @@ namespace Vit.Extensions
         {
             try
             {
-                return (T)Enum.Parse(typeof(T), data);
+                return (T)Enum.Parse(typeof(T).GetUnderlyingTypeIfNullable(), data);
             }
             catch { }
             return default(T);
         }
-
-
 
 
         //public static string EnumToString(this Enum data)

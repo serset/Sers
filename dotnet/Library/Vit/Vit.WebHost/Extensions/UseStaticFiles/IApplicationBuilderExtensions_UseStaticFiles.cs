@@ -53,7 +53,7 @@ namespace Vit.Extensions
         /// <returns></returns>
         public static IApplicationBuilder UseStaticFilesFromConfig(this IApplicationBuilder data, string configPath = "server.staticFiles")
         {
-            return data.UseStaticFiles(Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<Vit.WebHost.StaticFilesConfig>(configPath));
+            return data.UseStaticFiles(Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<Vit.WebHost.StaticFilesConfig>(configPath));
         }
 
         /// <summary>

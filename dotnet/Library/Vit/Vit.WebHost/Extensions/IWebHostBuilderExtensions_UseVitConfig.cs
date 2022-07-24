@@ -19,21 +19,21 @@ namespace Vit.Extensions
                 services.Configure(delegate (Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions options)
                 {                    
                     //限制body的大小
-                    options.Limits.MaxRequestBodySize = Vit.Core.Util.ConfigurationManager.ConfigurationManager
-                    .Instance.GetByPath<long?>("Vit.Kestrel.MaxRequestBodySize");
+                    options.Limits.MaxRequestBodySize = Vit.Core.Util.ConfigurationManager.Appsettings
+                    .json.GetByPath<long?>("Vit.Kestrel.MaxRequestBodySize");
                 });
 
                 //解决Multipart body length limit 134217728 exceeded
                 services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(x =>
                 {
                     
-                    var ValueLengthLimit = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<int?>("Vit.Kestrel.ValueLengthLimit");
+                    var ValueLengthLimit = Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<int?>("Vit.Kestrel.ValueLengthLimit");
                     if (ValueLengthLimit.HasValue)
                     {
                         x.ValueLengthLimit = ValueLengthLimit.Value;
                     }
 
-                    var MultipartBodyLengthLimit = Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<long?>("Vit.Kestrel.MultipartBodyLengthLimit");
+                    var MultipartBodyLengthLimit = Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<long?>("Vit.Kestrel.MultipartBodyLengthLimit");
                     if (MultipartBodyLengthLimit.HasValue)
                     {
                         x.MultipartBodyLengthLimit = MultipartBodyLengthLimit.Value;// In case of multipart
@@ -41,7 +41,7 @@ namespace Vit.Extensions
                 });
             });
 
-            if (null == Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.Get<JToken>("Logging"))
+            if (null == Vit.Core.Util.ConfigurationManager.Appsettings.json.Get<JToken>("Logging"))
             {
                 data.ConfigureLogging((Microsoft.Extensions.Logging.ILoggingBuilder logging) =>
                 {

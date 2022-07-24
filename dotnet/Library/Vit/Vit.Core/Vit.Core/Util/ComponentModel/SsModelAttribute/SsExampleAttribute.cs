@@ -1,13 +1,13 @@
 ﻿namespace Vit.Core.Util.ComponentModel.Model
 {
     /// <summary>
-    /// 默认值
+    /// example
     /// </summary>
-    public class SsDefaultValueAttribute : System.Attribute
+    public class SsExampleAttribute : System.Attribute
     {
         public object Value { get; set; }
        
-        public SsDefaultValueAttribute(object Value = null)
+        public SsExampleAttribute(object Value = null)
         {
             this.Value = Value;
         }

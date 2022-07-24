@@ -25,7 +25,7 @@ namespace Sers.Core.CL.CommunicationManage
 
         public CommunicationManageServer()
         {
-            defaultConfig = ConfigurationManager.Instance.GetByPath<JObject>("Sers.CL.Config") ?? new JObject();
+            defaultConfig = Appsettings.json.GetByPath<JObject>("Sers.CL.Config") ?? new JObject();
 
             requestTimeoutMs = defaultConfig["requestTimeoutMs"]?.ConvertBySerialize<int?>() ?? 300000;
         }
@@ -130,7 +130,7 @@ namespace Sers.Core.CL.CommunicationManage
 
    
                 #region (x.1) get configs
-                var configs = ConfigurationManager.Instance.GetByPath<JObject[]>("Sers.CL.Server");
+                var configs = Appsettings.json.GetByPath<JObject[]>("Sers.CL.Server");
                 if (configs == null) return null;
                 foreach (var config in configs)
                 {

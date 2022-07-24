@@ -6,19 +6,19 @@ namespace Vit.Core.Util.ComponentModel.Data
     public class PageInfo
     {
         /// <summary>
-        /// 每页数据条数
+        /// pageSize
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [SsExample("10")]
-        [SsDescription("每页数据条数")]
+        [SsDescription("pageSize")]
         public int pageSize;
 
         /// <summary>
-        /// 页码，从1开始
+        /// pageIndex, starting from 1
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [SsExample("1")]
-        [SsDescription("页码，从1开始")]
+        [SsDescription("pageIndex, starting from 1")]
         public int pageIndex;     
        
     }

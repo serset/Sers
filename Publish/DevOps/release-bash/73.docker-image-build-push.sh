@@ -55,9 +55,12 @@ dockerPath=$basePath/Publish/release/release/docker-image
 for dockerName in `ls $dockerPath`
 do
   if [ -d $dockerPath/$dockerName ]
-  then 
-    echo "docker build $dockerName"
-    docker buildx build $dockerPath/$dockerName -t $DOCKER_USERNAME/$dockerName:$version -t $DOCKER_USERNAME/$dockerName --platform=linux/amd64,linux/arm64,linux/arm/v7 --push
+  then
+    platform="linux/amd64,linux/arm64,linux/arm/v7"
+    if [ -f "$dockerPath/$dockerName/Dockerfile.platform" ]; then platform=`cat "$dockerPath/$dockerName/Dockerfile.platform"`; fi
+
+    echo "docker build $dockerName, platform: $platform"
+    docker buildx build $dockerPath/$dockerName -t $DOCKER_USERNAME/$dockerName:$version -t $DOCKER_USERNAME/$dockerName --platform=$platform --push
   fi
 done
 

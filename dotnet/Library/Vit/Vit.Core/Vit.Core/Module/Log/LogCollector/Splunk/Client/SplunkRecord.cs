@@ -4,30 +4,29 @@ using System;
 
 using Vit.Extensions;
 
-namespace Vit.Core.Module.Log.LogCollector.Splunk
+namespace Vit.Core.Module.Log.LogCollector.Splunk.Client
 {
+
+    /* Splunk Record Format:
+    {
+       "time": 1426279439.123,  
+
+       "index": "dev",
+
+       "host": "localhost",
+       "source": "random-data-generator",
+       "sourcetype": "my_sample_data",
+
+       "event": { 
+          //"..."
+       }
+    }
+    */
+
+
     public class SplunkRecord
-    {/*
-             {
-                "time": 1426279439.123,  
-                "host": "localhost",
-                "source": "random-data-generator",
-                "sourcetype": "my_sample_data",
-                "index": "dev",
-                "event": { 
-                    "level": "info",
-                    "message": "Something happened",
-                    "metadata": [],
-                     //custome object
-                    "app": {
-                      "namespace": "mc.sers.cloud",
-                      "appName": "mc",
-                      "moduleName": "sers"
-                      //,"...": {}
-                    }
-                }
-             }
-             */
+    {
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public double? time;
 
@@ -48,9 +47,8 @@ namespace Vit.Core.Module.Log.LogCollector.Splunk
 
 
 
-
         public DateTime Time { set => time = ToEpoch(value); }
-        
+
 
         public static double ToEpoch(DateTime value)
         {

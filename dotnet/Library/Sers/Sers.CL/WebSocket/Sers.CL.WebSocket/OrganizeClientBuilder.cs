@@ -20,7 +20,8 @@ namespace Sers.CL.WebSocket
             }
             #endregion
 
-            delivery.host = config["host"].ConvertToString() ?? delivery.host;
+            delivery.host = config["host"]?.ConvertToString() ?? delivery.host;
+            delivery.validateRemoteCertificate = config["validateRemoteCertificate"]?.Deserialize<bool?>() ?? delivery.validateRemoteCertificate;
 
 
             organizeList.Add(new OrganizeClient(delivery, config));

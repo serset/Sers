@@ -12,7 +12,7 @@ namespace Vit.Core.Module.Serialization
     {
         #region defaultEncoding
         public static Encoding defaultEncoding { get; set; } =
-            ConfigurationManager.Instance.GetByPath<string>("Vit.Serialization.Encoding")?.StringToEnum<EEncoding>().ToEncoding() ?? Encoding.UTF8;
+            Appsettings.json.GetByPath<string>("Vit.Serialization.Encoding")?.StringToEnum<EEncoding>().ToEncoding() ?? Encoding.UTF8;
 
         #endregion
 
@@ -128,7 +128,7 @@ namespace Vit.Core.Module.Serialization
             serializeSetting.Formatting = Formatting.None;
 
             //日期格式化
-            var DateTimeFormat = ConfigurationManager.Instance.GetByPath<string>("Vit.Serialization.DateTimeFormat")
+            var DateTimeFormat = Appsettings.json.GetByPath<string>("Vit.Serialization.DateTimeFormat")
                 ?? "yyyy-MM-dd HH:mm:ss";
 
             serializeSetting.DateFormatHandling = global::Newtonsoft.Json.DateFormatHandling.IsoDateFormat;
@@ -200,10 +200,12 @@ namespace Vit.Core.Module.Serialization
 
             Type type = typeof(T);
 
+            if (type.GetUnderlyingTypeIfNullable().IsEnum)
+                return value.StringToEnum<T>();
+
             if (type.TypeIsValueTypeOrStringType())
-            {
                 return (T)DeserializeStruct(value, type);
-            }
+
 
             //if (string.IsNullOrWhiteSpace(value)) return type.DefaultValue();
 
@@ -222,10 +224,11 @@ namespace Vit.Core.Module.Serialization
         {
             if (null == value || null == type) return null;
 
+            if (type.GetUnderlyingTypeIfNullable().IsEnum)
+                return value.StringToEnum(type);
+
             if (type.TypeIsValueTypeOrStringType())
-            {
                 return DeserializeStruct(value, type);
-            }
 
             //if (string.IsNullOrWhiteSpace(value)) return type.DefaultValue();
 

@@ -9,7 +9,7 @@ export basePath=/root/temp/svn
 
 export version=`grep '<Version>' $(grep '<pack>\|<publish>' ${basePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
 
-export name=ServiceAdaptor
+export APPNAME=xxxxxx
 
 # "
 
@@ -23,7 +23,7 @@ export name=ServiceAdaptor
 
 
 
-echo "release_name=${name}-${version}" >> $GITHUB_ENV
+echo "release_name=${APPNAME}-${version}" >> $GITHUB_ENV
 echo "release_tag=${version}" >> $GITHUB_ENV
 
 echo "release_draft=false" >> $GITHUB_ENV
@@ -38,7 +38,7 @@ echo "release_version=${version}" >> $GITHUB_ENV
 #filePath=$basePath/Publish/release/release-zip/Sers-ServiceCenter(net5.0)-${version}.zip
 #fileType="${filePath##*.}"
 #echo "release_assetPath=${filePath}" >> $GITHUB_ENV
-#echo "release_assetName=${name}-${version}.${fileType}" >> $GITHUB_ENV
+#echo "release_assetName=${APPNAME}-${version}.${fileType}" >> $GITHUB_ENV
 #echo "release_contentType=application/zip" >> $GITHUB_ENV
 
 

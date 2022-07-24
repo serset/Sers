@@ -1,19 +1,18 @@
 ﻿using System;
-using System.IO;
 
 namespace Vit.Core.Util.ConfigurationManager
 {
-    public class ConfigurationManager: JsonFile
+    public class Appsettings : JsonFile
     {
-        #region Instance        
-        private static JsonFile instance;
+        #region json
+        private static JsonFile _json;
         /// <summary>
-        /// 获取appsettings.json中的配置
+        /// get config from appsettings.json
         /// </summary>
-        public static JsonFile Instance
+        public static JsonFile json
         {
-            get { return instance ?? (instance = new ConfigurationManager()); }
-            set { instance = value; }
+            get { return _json ?? (_json = new Appsettings()); }
+            set { _json = value; }
         }
         #endregion
 
@@ -24,12 +23,12 @@ namespace Vit.Core.Util.ConfigurationManager
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected static string GetDefaultPath()
         {
-            return fileName; 
+            return fileName;
         }
 
- 
-        public ConfigurationManager(string configPath = null):base(configPath ?? GetDefaultPath())
-        {           
+
+        private Appsettings(string configPath = null) : base(configPath ?? GetDefaultPath())
+        {
         }
 
         public override void SaveToFile()

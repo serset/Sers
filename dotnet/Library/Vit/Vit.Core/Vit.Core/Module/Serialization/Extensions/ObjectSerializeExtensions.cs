@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+
 using Vit.Core.Module.Serialization;
 
 namespace Vit.Extensions
@@ -20,7 +21,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string Serialize(this object value)
         {
-            return Serialization.Instance.SerializeToString(value);
+            return Json.SerializeToString(value);
         }
         #endregion
 
@@ -36,7 +37,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object Deserialize(this string value, Type type)
         {
-            return Serialization.Instance.DeserializeFromString(value, type);
+            return Json.DeserializeFromString(value, type);
         }
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Deserialize<T>(this string value)
         {
-            return Serialization.Instance.DeserializeFromString<T>(value);
+            return Json.DeserializeFromString<T>(value);
         }
 
         #endregion
@@ -67,7 +68,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] SerializeToBytes(this object value)
         {
-            return Serialization.Instance.SerializeToBytes(value);
+            return Json.SerializeToBytes(value);
         }
         #endregion
 
@@ -81,7 +82,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T DeserializeFromBytes<T>(this byte[] value)
         {
-            return Serialization.Instance.DeserializeFromBytes<T>(value);
+            return Json.DeserializeFromBytes<T>(value);
         }
 
         /// <summary>
@@ -93,7 +94,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object DeserializeFromBytes(this byte[] value, Type type)
         {
-            return Serialization.Instance.DeserializeFromBytes(value, type);
+            return Json.DeserializeFromBytes(value, type);
         }
         #endregion
 
@@ -102,7 +103,7 @@ namespace Vit.Extensions
 
         #region (x.3)object <--> ArraySegmentByte
 
-        #region SerializeToArraySegmentByte
+
         /// <summary>
         /// 
         /// </summary>
@@ -111,12 +112,12 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ArraySegment<byte> SerializeToArraySegmentByte(this object value)
         {
-            return Serialization.Instance.SerializeToBytes(value).BytesToArraySegmentByte();
+            return Json.SerializeToArraySegmentByte(value);
         }
-        #endregion
 
 
-        #region DeserializeFromArraySegmentByte
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -126,7 +127,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T DeserializeFromArraySegmentByte<T>(this ArraySegment<byte> value)
         {
-            return Serialization_Newtonsoft.Instance.DeserializeFromArraySegmentByte<T>(value);
+            return Json.DeserializeFromArraySegmentByte<T>(value);
         }
 
         /// <summary>
@@ -138,12 +139,12 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object DeserializeFromArraySegmentByte(this ArraySegment<byte> value, Type type)
         {
-            return Serialization_Newtonsoft.Instance.DeserializeFromArraySegmentByte(value, type);
+            return Json.DeserializeFromArraySegmentByte(value, type);
         }
-        #endregion
+
         #endregion
 
-               
+
 
 
 
@@ -160,8 +161,8 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object ConvertBySerialize(this object value, Type type)
         {
-            var str = Serialization.Instance.SerializeToString(value);
-            return Serialization.Instance.DeserializeFromString(str, type); 
+            var str = Json.SerializeToString(value);
+            return Json.DeserializeFromString(str, type);
         }
 
         /// <summary>
@@ -173,13 +174,13 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TTarget ConvertBySerialize<TTarget>(this object value)
         {
-            var str = Serialization.Instance.SerializeToString(value);
-            return Serialization.Instance.DeserializeFromString<TTarget>(str);
+            var str = Json.SerializeToString(value);
+            return Json.DeserializeFromString<TTarget>(str);
         }
         #endregion
 
 
-       
+
 
 
 

@@ -18,7 +18,7 @@ namespace Vit.Extensions
             if (data == null)
             {
                 return false;
-                //throw new ArgumentNullException(nameof(type));
+                //throw new ArgumentNullException(nameof(data));
             }
             return data.GetType().TypeIsValueTypeOrStringType();
         }
@@ -28,7 +28,7 @@ namespace Vit.Extensions
         #region Convert
 
         /// <summary>
-        /// 若Type为Nullable类型（例如 long?）则转换为对应的值类型(例如long)，否则直接转换。
+        /// 若Type为Nullable类型（例如 long?）则转换为对应的值类型(例如long)，否则直接转换。（亦可为Enum类型）
         /// 若转换失败，会返回default(T)
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -42,22 +42,12 @@ namespace Vit.Extensions
                 return default(T);
                 //throw new ArgumentNullException(nameof(value));
             }
-            //try
-            //{
             return (T)System.Convert.ChangeType(value, typeof(T).GetUnderlyingTypeIfNullable());
-            //}
-            //catch (System.Exception)
-            //{
-
-            //    throw;
-            //    return default(T);
-            //}
-
         }
 
 
         /// <summary>
-        /// 若为Nullable类型（例如 long?）则转换为对应的值类型(例如long)，否则直接转换。
+        /// 若为Nullable类型（例如 long?）则转换为对应的值类型(例如long)，否则直接转换。（亦可为Enum类型）
         /// </summary>
         /// <param name="type"></param>
         /// <param name="value"></param>

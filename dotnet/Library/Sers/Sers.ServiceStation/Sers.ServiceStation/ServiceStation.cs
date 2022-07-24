@@ -105,7 +105,7 @@ namespace Sers.ServiceStation
 
         public ServiceStation()
         {
-            appEventList = AppEventLoader.LoadAppEvent(Vit.Core.Util.ConfigurationManager.ConfigurationManager.Instance.GetByPath<JArray>("Sers.AppEvent"))
+            appEventList = AppEventLoader.LoadAppEvent(Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<JArray>("Sers.AppEvent"))
                 ?.ToList();
         }
 
@@ -126,8 +126,13 @@ namespace Sers.ServiceStation
 
         public void InitStation()
         {
-
-            Logger.Info("[ServiceStation] init...");
+            string FileVersion = null;
+            try
+            {
+                FileVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetEntryAssembly().Location).FileVersion;
+            }
+            catch { }
+            Logger.Info("[ServiceStation] initializing", new { FileVersion });
 
             //(x.0) appEvent BeforeStart
             appEventList?.ForEach(ev => ev.BeforeStart());
@@ -292,7 +297,7 @@ namespace Sers.ServiceStation
                     localApiService.apiNodes
                 }.Serialize();
 
-                if (true == ConfigurationManager.Instance.GetByPath<bool?>("Sers.ServiceStation.StationRegist_PrintRegistArg"))
+                if (true == Appsettings.json.GetByPath<bool?>("Sers.ServiceStation.StationRegist_PrintRegistArg"))
                 {
                     Logger.Info("[ServiceStation] regist - arg:" + serviceStationData);
                 }

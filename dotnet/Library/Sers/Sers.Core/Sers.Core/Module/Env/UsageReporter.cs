@@ -91,7 +91,7 @@ namespace Sers.Core.Module.Env
         /// </summary>
         public static void UseUsageReporter()
         {
-            var intervalSecond = ConfigurationManager.Instance.GetByPath<double?>("Sers.ServiceStation.UsageReporter.intervalSecond");
+            var intervalSecond = Appsettings.json.GetByPath<double?>("Sers.ServiceStation.UsageReporter.intervalSecond");
             if (!intervalSecond.HasValue || intervalSecond.Value <= 0)
             {
                 return;

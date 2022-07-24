@@ -73,7 +73,7 @@ namespace Vit.Extensions.ObjectExt
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetProperty(this object instance, string propertyName, object value)
         {
-            instance.GetType().GetField(propertyName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).SetValue(instance, value);            
+            instance.GetType().GetProperty(propertyName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).SetValue(instance, value);            
         }
 
         #endregion

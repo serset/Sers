@@ -174,7 +174,7 @@ namespace Sers.Core.Module.App
         {
             #region (x.1)serviceStationInfo
             {
-                serviceStationInfo = ConfigurationManager.Instance.GetByPath<ServiceStationInfo>("Sers.ServiceStation.serviceStationInfo") 
+                serviceStationInfo = Appsettings.json.GetByPath<ServiceStationInfo>("Sers.ServiceStation.serviceStationInfo") 
                     ?? new ServiceStationInfo();
 
                 //(x.1) stationVersion

@@ -5,6 +5,7 @@ using System.Net.WebSockets;
 using System.Threading;
 using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
+using Vit.Extensions.ObjectExt;
 
 namespace Sers.CL.WebSocket
 {
@@ -27,13 +28,34 @@ namespace Sers.CL.WebSocket
         public string host = "ws://127.0.0.1:4503";
 
 
+        /// <summary>
+        /// 是否校验服务端证书(使用wss时有效)，default:true
+        /// </summary>
+        public bool? validateRemoteCertificate;
+
         public bool Connect()
         {
             try
             {
                 Logger.Info("[CL.DeliveryClient] WebSocket,connecting", new { host });
 
+
                 ClientWebSocket _webSocket = new ClientWebSocket();
+
+                if (validateRemoteCertificate == false)
+                {
+                    try
+                    {
+                        System.Net.Security.RemoteCertificateValidationCallback callback = delegate { return true; };
+                        _webSocket.Options.SetProperty("RemoteCertificateValidationCallback", callback);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error(ex);
+                    }
+                }
+
+
                 _webSocket.ConnectAsync(new Uri(host), new CancellationToken()).GetAwaiter().GetResult();
                 _conn.Init(_webSocket);                
 
