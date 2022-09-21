@@ -318,7 +318,8 @@ namespace Did.Serslot.Demo.Controllers
         [HttpGet("423/result")]
         public async Task<string> Result4()
         {
-            await Task.Run(() => { Thread.Sleep(2000); });
+            //await Task.Run(() => { Thread.Sleep(2000); });
+            await Task.Delay(2000);
 
             return Request.Method + " " + Request.Path;
         }
@@ -330,7 +331,8 @@ namespace Did.Serslot.Demo.Controllers
         [HttpGet("424/result")]
         public async Task<ActionResult<string>> Result5()
         {
-            await Task.Run(() => { Thread.Sleep(2000); });
+            //await Task.Run(() => { Thread.Sleep(2000); });
+            await Task.Delay(2000);
 
             return Request.Method + " " + Request.Path;
         }
