@@ -5,6 +5,7 @@ using Vit.Core.Module.Log;
 using Vit.Core.Util.Common;
 using System;
 using System.IO;
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Vit.Core.Util.ConfigurationManager
 {

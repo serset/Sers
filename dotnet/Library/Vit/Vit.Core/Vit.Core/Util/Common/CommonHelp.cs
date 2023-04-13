@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Security.Cryptography;
 using System.Runtime.CompilerServices;
-using Vit.Extensions;
+using Vit.Extensions.Json_Extensions;
 
 namespace Vit.Core.Util.Common
 {

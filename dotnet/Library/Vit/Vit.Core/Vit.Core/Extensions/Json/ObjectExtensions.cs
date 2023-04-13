@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-namespace Vit.Extensions
+namespace Vit.Extensions.Json_Extensions
 {
     public static partial class ObjectExtensions
     {
@@ -39,7 +39,7 @@ namespace Vit.Extensions
         {
             if (value == null)
             {
-                return default(T);
+                return default;
                 //throw new ArgumentNullException(nameof(value));
             }
             return (T)System.Convert.ChangeType(value, typeof(T).GetUnderlyingTypeIfNullable());
@@ -53,7 +53,7 @@ namespace Vit.Extensions
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static object Convert(this object value, global::System.Type type)
+        public static object Convert(this object value, Type type)
         {
             if (value == null)
             {

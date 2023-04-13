@@ -8,6 +8,7 @@ using Vit.Extensions;
 using Vit.Core.Module.Log;
 using Vit.Core.Module.Log.LogCollector.ElasticSearch.Client;
 using Newtonsoft.Json;
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.Core.Module.ApiTrace.Collector
 {

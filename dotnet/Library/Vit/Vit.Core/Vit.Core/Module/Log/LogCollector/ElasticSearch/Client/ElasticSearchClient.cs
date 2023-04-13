@@ -1,9 +1,8 @@
 ﻿using System.Net.Http;
-
-using Vit.Extensions;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
+using Vit.Extensions.Json_Extensions;
 
 namespace Vit.Core.Module.Log.LogCollector.ElasticSearch.Client
 {

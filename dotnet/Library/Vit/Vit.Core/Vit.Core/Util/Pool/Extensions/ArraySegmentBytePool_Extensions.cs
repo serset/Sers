@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System.Text;
-using Vit.Core.Module.Serialization;
+
 using Vit.Core.Util.Pool;
 
-namespace Vit.Extensions
+namespace Vit.Extensions.Json_Extensions
 {
-    public static partial class ArraySegmentByteExtensions
+    public static partial class ArraySegmentBytePool_Extensions
     {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

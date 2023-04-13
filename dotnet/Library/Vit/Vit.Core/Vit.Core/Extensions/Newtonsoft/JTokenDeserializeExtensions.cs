@@ -1,9 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Vit.Extensions
+using Vit.Extensions.Json_Extensions;
+
+namespace Vit.Extensions.Newtonsoft_Extensions
 {
     public static partial class JTokenDeserializeExtensions
     {
@@ -36,7 +39,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T DeserializeByString<T>(this JToken token)
         {
-            return (T)DeserializeByString(token, typeof(T));
+            return (T)token.DeserializeByString(typeof(T));
         }
 
 
@@ -115,7 +118,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Deserialize<T>(this JToken token)
         {
-            return (T)Deserialize(token, typeof(T));
+            return (T)token.Deserialize(typeof(T));
         }
         #endregion
 

@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
+
 using System.Runtime.CompilerServices;
 
-namespace Vit.Extensions
+namespace Vit.Extensions.Newtonsoft_Extensions
 {
     public static partial class JArrayExtensions
     {
@@ -15,7 +16,7 @@ namespace Vit.Extensions
         /// <param name="destinationIndex">开始赋值的位置偏移量，从0开始</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static object[] ToArray(this JToken jArray, long extCount=0, long destinationIndex=0)
+        public static object[] ToArray(this JToken jArray, long extCount = 0, long destinationIndex = 0)
         {
             if (!jArray.TypeMatch(JTokenType.Array)) return null;
 
@@ -43,7 +44,7 @@ namespace Vit.Extensions
         /// <param name="destinationIndex">开始赋值的位置偏移量，从0开始</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T[] ToArray<T>(JToken jArray, long extCount=0, long destinationIndex=0)
+        public static T[] ToArray<T>(JToken jArray, long extCount = 0, long destinationIndex = 0)
         {
             if (!jArray.TypeMatch(JTokenType.Array)) return null;
 

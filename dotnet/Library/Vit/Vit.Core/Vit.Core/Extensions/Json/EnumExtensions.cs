@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-namespace Vit.Extensions
+namespace Vit.Extensions.Json_Extensions
 {
     public static partial class EnumExtensions
     {
@@ -18,7 +18,7 @@ namespace Vit.Extensions
         /// <param name="enumType"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static object StringToEnum(this string data,Type enumType)
+        public static object StringToEnum(this string data, Type enumType)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace Vit.Extensions
                 return (T)Enum.Parse(typeof(T).GetUnderlyingTypeIfNullable(), data);
             }
             catch { }
-            return default(T);
+            return default;
         }
 
 

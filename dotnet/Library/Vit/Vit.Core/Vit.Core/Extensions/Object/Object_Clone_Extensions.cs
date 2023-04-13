@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace Vit.Extensions.ObjectExt
+namespace Vit.Extensions.Object_Extensions
 {
     public static partial class Object_Clone_Extensions
     {

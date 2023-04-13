@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Sers.CL.Ipc.SharedMemory.Stream;
 using Sers.Core.CL.MessageDelivery;
+
 using Vit.Core.Module.Log;
-using Vit.Extensions;
+using Vit.Extensions.Json_Extensions;
 
 namespace Sers.CL.Ipc.SharedMemory
 {

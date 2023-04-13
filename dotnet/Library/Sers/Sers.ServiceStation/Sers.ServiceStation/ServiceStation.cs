@@ -20,6 +20,8 @@ using Sers.SersLoader;
 using Sers.Core.Module.App.AppEvent;
 using Newtonsoft.Json.Linq;
 using Vit.Core.Util.Pipelines;
+using Vit.Extensions.Newtonsoft_Extensions;
+using Vit.Extensions.Json_Extensions;
 
 namespace Sers.ServiceStation
 {

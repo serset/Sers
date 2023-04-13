@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using Vit.Core.Util.Reflection;
 using Vit.Extensions;
 using Vit.Core.Module.Log.LogCollector.Splunk;
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Vit.Core.Module.Log
 {

@@ -1,8 +1,12 @@
 ﻿using System;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Newtonsoft.Json.Linq;
+
 using Vit.Core.Module.Serialization;
-using Vit.Extensions;
+using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Vit.Core.MsTest.Module
 {

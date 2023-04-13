@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO.Pipes;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Sers.Core.CL.MessageDelivery;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Pipelines;
 using Vit.Core.Util.Pool;
-using Vit.Extensions;
+using Vit.Extensions.Json_Extensions;
 
 namespace Sers.CL.Ipc.NamedPipe
 {
@@ -43,7 +44,7 @@ namespace Sers.CL.Ipc.NamedPipe
         {
             if (data == null || stream == null) return;
 
-            if (!stream.IsConnected) 
+            if (!stream.IsConnected)
             {
                 Task.Run((Action)Close);
                 return;
@@ -51,10 +52,10 @@ namespace Sers.CL.Ipc.NamedPipe
             try
             {
                 Int32 len = data.Count();
-                data.Insert(0, len.Int32ToArraySegmentByte());               
+                data.Insert(0, len.Int32ToArraySegmentByte());
 
                 var bytes = data.ToBytes();
-                _securityManager?.Encryption(new ArraySegment<byte>(bytes,4, bytes.Length-4));
+                _securityManager?.Encryption(new ArraySegment<byte>(bytes, 4, bytes.Length - 4));
 
                 stream.WriteAsync(bytes, 0, bytes.Length);
                 stream.FlushAsync();
@@ -77,7 +78,7 @@ namespace Sers.CL.Ipc.NamedPipe
             {
                 stream.Close();
                 stream.Dispose();
- 
+
             }
             catch (Exception ex)
             {
@@ -118,7 +119,7 @@ namespace Sers.CL.Ipc.NamedPipe
             class AsyncState
             {
                 public PipeStream stream { get; set; }
-                public byte[] buffer { get; set; }        
+                public byte[] buffer { get; set; }
             }
 
             /// <summary>
@@ -182,7 +183,7 @@ namespace Sers.CL.Ipc.NamedPipe
         }
 
 
-        PipeFrame pipe = new PipeFrame() { OnDequeueData = ArraySegmentByteExtensions.ReturnToPool };
+        PipeFrame pipe = new PipeFrame() { OnDequeueData = ArraySegmentBytePool_Extensions.ReturnToPool };
 
         public void AppendData(ArraySegment<byte> data)
         {
@@ -200,11 +201,11 @@ namespace Sers.CL.Ipc.NamedPipe
             {
                 stream = stream,
                 OnReadData = AppendData,
-                OnClose=Close
+                OnClose = Close
             }.Start();
         }
 
- 
+
         #endregion
 
 

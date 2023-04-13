@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+
 using Sers.Core.CL.MessageDelivery;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Common;
-using Vit.Extensions;
+using Vit.Extensions.Json_Extensions;
+
 using ZeroMQ;
 
 namespace Sers.CL.ClrZmq.ThreadWait

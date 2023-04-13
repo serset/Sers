@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
+
 using Sers.Core.CL.MessageDelivery;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Pipelines;
-using Vit.Extensions;
+using Vit.Extensions.Json_Extensions;
 
 namespace Sers.CL.Socket.Iocp.Base
 {
@@ -96,7 +98,7 @@ namespace Sers.CL.Socket.Iocp.Base
 
         #region AppendData        
 
-        PipeFrame pipe = new PipeFrame() { OnDequeueData = ArraySegmentByteExtensions.ReturnToPool };
+        PipeFrame pipe = new PipeFrame() { OnDequeueData = ArraySegmentBytePool_Extensions.ReturnToPool };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AppendData(ArraySegment<byte> data)

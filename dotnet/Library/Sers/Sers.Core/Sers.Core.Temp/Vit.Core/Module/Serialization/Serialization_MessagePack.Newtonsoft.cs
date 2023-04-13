@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+
 using MessagePack;
 using MessagePack.Formatters;
 using MessagePack.Resolvers;
-using Vit.Extensions;
 
- 
+
 
 #region 适配 Newtonsoft
 
 namespace Vit.Core.Module.Serialization
 {
     using Newtonsoft.Json.Linq;
+
+    using Vit.Extensions.Newtonsoft_Extensions;
 
     public partial class Serialization_MessagePack
     {

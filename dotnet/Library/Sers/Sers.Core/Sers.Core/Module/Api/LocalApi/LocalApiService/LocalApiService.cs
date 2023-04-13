@@ -14,6 +14,7 @@ using Sers.Core.Util.Consumer;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json.Linq;
 using Vit.Core.Util.Threading.Worker;
+using Vit.Extensions.Json_Extensions;
 
 namespace Sers.Core.Module.Api.LocalApi
 {

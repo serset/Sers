@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
-using Vit.Extensions;
+
 using System.Text.RegularExpressions;
+
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Vit.Core.Util.SsExp
 {

@@ -3,10 +3,9 @@ using System.Runtime.CompilerServices;
 using MessagePack.Formatters;
 using MessagePack;
 using Newtonsoft.Json.Linq;
-using Vit.Extensions;
 
 using static Vit.Core.Module.Serialization.Serialization_MessagePack;
-
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Vit.Core.Module.Serialization
 {

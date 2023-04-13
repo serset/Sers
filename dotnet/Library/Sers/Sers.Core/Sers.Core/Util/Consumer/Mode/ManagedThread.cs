@@ -2,10 +2,10 @@
 
 using System;
 using System.Runtime.CompilerServices;
+
 using Vit.Core.Util.Threading.Worker;
 using Vit.Extensions;
-
-
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.Core.Util.Consumer
 {

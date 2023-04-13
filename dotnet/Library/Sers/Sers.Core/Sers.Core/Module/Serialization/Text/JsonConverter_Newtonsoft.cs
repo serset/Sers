@@ -2,9 +2,11 @@
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+
 using Newtonsoft.Json.Linq;
+
 using Vit.Core.Module.Serialization;
-using Vit.Extensions;
+using Vit.Extensions.Newtonsoft_Extensions;
 
 #region 适配 Newtonsoft
 

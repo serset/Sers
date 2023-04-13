@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
+
 using System;
 using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
 
 using Vit.Core.Util.Threading.Worker;
 using Vit.Extensions;
-
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.Core.Util.Consumer.Mode
 {

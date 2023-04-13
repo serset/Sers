@@ -2,7 +2,7 @@
 using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Extensions;
 using Vit.Core.Util.SsExp;
-
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.Core.Module.Valid.Sers2
 {

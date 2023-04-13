@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+
 using Newtonsoft.Json.Linq;
+
 using Sers.Core.CL.MessageOrganize;
 using Sers.Core.CL.MessageOrganize.DefaultOrganize;
-using Vit.Extensions;
+
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.CL.ClrZmq.ThreadWait
 {

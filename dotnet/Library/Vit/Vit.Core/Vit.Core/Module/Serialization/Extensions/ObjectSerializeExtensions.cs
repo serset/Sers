@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 using Vit.Core.Module.Serialization;
 
-namespace Vit.Extensions
+namespace Vit.Extensions.Json_Extensions
 {
     public static partial class ObjectSerializeExtensions
     {

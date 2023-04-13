@@ -1,6 +1,8 @@
 ﻿using System;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Vit.Extensions;
+
+using Vit.Extensions.Json_Extensions;
 
 namespace Vit.Core.MsTest.Extensions
 {

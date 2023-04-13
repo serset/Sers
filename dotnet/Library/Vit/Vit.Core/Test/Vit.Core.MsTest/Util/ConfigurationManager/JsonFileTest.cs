@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Vit.Extensions;
+
 using Vit.Core.Util.ConfigurationManager;
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Vit.Core.MsTest.Util.ConfigurationManager
 {
