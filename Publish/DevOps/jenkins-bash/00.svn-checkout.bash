@@ -1,10 +1,11 @@
 
 #(x.1)参数
+args_="
 basePath=/root/docker-data/dev/jenkins/jenkins_home/workspace/Repo/Sers
 export SVN_PATH=svn://svn.ki.lith.cloud/Sers2.1/Sers
 export SVN_USERNAME=jenkins
 export SVN_PASSWORD=xxxxxx
-
+# "
 
 #(x.2)创建文件夹
 mkdir -p $basePath/code

@@ -33,7 +33,7 @@ cd $curPath
 #---------------------------------------------- 
 echo '(x.4)build'
 cd $basePath/Publish/DevOps/build-bash; bash startup.bash;
-
+cd $basePath/Publish/DevOps/build-multiple-bash; bash startup.bash;
 
 
 #---------------------------------------------- 

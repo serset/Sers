@@ -9,6 +9,7 @@ export basePath=/root/temp/svn
 
 export version=`grep '<Version>' $(grep '<pack>\|<publish>' ${basePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
 
+export DOCKER_SERVER=
 export DOCKER_USERNAME=serset
 export DOCKER_PASSWORD=xxx
 
@@ -19,6 +20,10 @@ export DOCKER_PASSWORD=xxx
 
 #---------------------------------------------------------------------
 echo "(x.2)docker - init buildx"
+
+
+export builderName="mybuilder-$version"
+echo "builderName: $builderName"
 
 echo "开启实验特性"
 export DOCKER_CLI_EXPERIMENTAL=enabled
@@ -34,10 +39,10 @@ ls -al /proc/sys/fs/binfmt_misc/
 
 
 echo "创建构建器"
-if [ ! "$(docker buildx ls | grep mybuilder)" ]; then docker buildx create --use --name mybuilder; fi
+if [ ! "$(docker buildx ls | grep $builderName)" ]; then docker buildx create --use --name $builderName; fi
 
 echo "启动构建器"
-docker buildx inspect mybuilder --bootstrap
+docker buildx inspect $builderName --bootstrap
 
 echo "查看当前使用的构建器及构建器支持的CPU架构"
 docker buildx ls
@@ -47,8 +52,8 @@ docker buildx ls
 #---------------------------------------------------------------------
 echo "(x.3)docker - build and push"
 
-docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-
+# login if UserName is not empty
+if [ -z "$DOCKER_USERNAME" ]; then docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD; fi
 
 dockerPath=$basePath/Publish/release/release/docker-image
 
@@ -60,11 +65,11 @@ do
     if [ -f "$dockerPath/$dockerName/Dockerfile.platform" ]; then platform=`cat "$dockerPath/$dockerName/Dockerfile.platform"`; fi
 
     echo "docker build $dockerName, platform: $platform"
-    docker buildx build $dockerPath/$dockerName -t $DOCKER_USERNAME/$dockerName:$version -t $DOCKER_USERNAME/$dockerName --platform=$platform --push
+    docker buildx build $dockerPath/$dockerName -t $DOCKER_SERVER$DOCKER_USERNAME/$dockerName:$version -t $DOCKER_SERVER$DOCKER_USERNAME/$dockerName --platform=$platform --push --builder $builderName
   fi
 done
 
 
 #---------------------------------------------------------------------
 echo "(x.4)docker - remove buildx"
-if [ "$(docker buildx ls | grep mybuilder)" ]; then docker buildx rm mybuilder; fi
+if [ "$(docker buildx ls | grep $builderName)" ]; then docker buildx rm $builderName; fi
