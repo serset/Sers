@@ -34,7 +34,7 @@ echo "releaseVersion: $releaseVersion"
 
 
 #----------------------------------------------
-if [ -z "$versionSuffix" ]; then
+if [ -n "$versionSuffix" ]; then
 	echo "(x.4) change release version from [$version] to [$releaseVersion]" 
 	 
 	cd $basePath

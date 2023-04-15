@@ -53,7 +53,7 @@ docker buildx ls
 echo "(x.3)docker - build and push"
 
 # login if UserName is not empty
-if [ -z "$DOCKER_USERNAME" ]; then docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD; fi
+if [ -n "$DOCKER_USERNAME" ]; then docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD; fi
 
 dockerPath=$basePath/Publish/release/release/docker-image
 
