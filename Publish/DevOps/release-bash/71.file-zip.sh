@@ -22,6 +22,7 @@ serset/filezip bash -c "
 set -e
 
 releasePath=/root/code/Publish/release
+rm -rf \$releasePath/release-zip
 
 for dirname in \`ls /root/code/Publish/release/release\`
 do

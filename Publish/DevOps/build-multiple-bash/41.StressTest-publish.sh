@@ -52,7 +52,7 @@ echo 'copy bat'
 echo ------------------------------------------------------------------
 echo '(x.4)发布Sers压测'
 
-for netVersion in net5.0
+for netVersion in netcoreapp2.1
 do
 	appPath=${basePath}/Publish/release/release/Station\(${netVersion}\)
 
