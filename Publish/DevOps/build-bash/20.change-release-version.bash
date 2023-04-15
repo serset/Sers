@@ -38,7 +38,7 @@ if [ -n "$versionSuffix" ]; then
 	echo "(x.4) change release version from [$version] to [$releaseVersion]" 
 	 
 	cd $basePath
-	sed -i 's/'"$version"'/'"$releaseVersion"'/g'  `grep -a '<publish>' . -rl --include *.csproj`
+	sed -i 's/'"$version"'/'"$releaseVersion"'/g'  `grep -a '<pack>\|<publish>' . -rl --include *.csproj`
 fi
 
 
