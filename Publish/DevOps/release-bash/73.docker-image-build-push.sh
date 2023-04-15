@@ -65,7 +65,7 @@ do
     if [ -f "$dockerPath/$dockerName/Dockerfile.platform" ]; then platform=`cat "$dockerPath/$dockerName/Dockerfile.platform"`; fi
 
     echo "docker build $dockerName, platform: $platform"
-    docker buildx build $dockerPath/$dockerName -t $DOCKER_SERVER$DOCKER_USERNAME/$dockerName:$version -t $DOCKER_SERVER$DOCKER_USERNAME/$dockerName --platform=$platform --push --builder $builderName
+    docker buildx build $dockerPath/$dockerName -t $DOCKER_SERVER/$dockerName:$version -t $DOCKER_SERVER/$dockerName --platform=$platform --push --builder $builderName
   fi
 done
 
