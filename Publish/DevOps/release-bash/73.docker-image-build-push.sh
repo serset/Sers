@@ -39,7 +39,7 @@ ls -al /proc/sys/fs/binfmt_misc/
 
 
 echo "创建构建器"
-if [ ! "$(docker buildx ls | grep $builderName)" ]; then docker buildx create --use --name $builderName; fi
+if [ ! "$(docker buildx ls | grep $builderName)" ]; then docker buildx create --use --name $builderName --buildkitd-flags '--allow-insecure-entitlement security.insecure'; fi
 
 echo "启动构建器"
 docker buildx inspect $builderName --bootstrap
@@ -65,7 +65,7 @@ do
     if [ -f "$dockerPath/$dockerName/Dockerfile.platform" ]; then platform=`cat "$dockerPath/$dockerName/Dockerfile.platform"`; fi
 
     echo "docker build $dockerName, platform: $platform"
-    docker buildx build $dockerPath/$dockerName -t $DOCKER_SERVER/$dockerName:$version -t $DOCKER_SERVER/$dockerName --platform=$platform --push --builder $builderName
+    docker buildx build $dockerPath/$dockerName -t $DOCKER_SERVER/$dockerName:$version -t $DOCKER_SERVER/$dockerName --platform=$platform --push  --output=type=registry,registry.insecure=true --builder $builderName
   fi
 done
 
