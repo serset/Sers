@@ -3,7 +3,7 @@ set -e
 # cd /root/docker-data/dev/jenkins/jenkins_home/workspace/Repo/Sers/code/Publish/DevOps/build-bash;bash startup.bash;
 
 #----------------------------------------------
-#(x.1)当前路径 
+# cur path 
 curPath=$PWD
 
 cd $curPath/../../..
@@ -15,29 +15,18 @@ cd $curPath
 
 
 #----------------------------------------------
-echo "(x.2)get version" 
-export version=`grep '<Version>' $(grep '<pack>\|<publish>' ${basePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
-echo $version
-
- 
-
-
-#----------------------------------------------
-echo "(x.3)build $version"
+echo "build-bash/startup.bash"
 
 for file in *.sh
 do
-    echo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    echo "[$(date "+%H:%M:%S")]" bash $file
-    bash $file
+    echo "\n\n\n\n\n-----------------------------------------------------------------"
+    echo "[$(date "+%H:%M:%S")] sh $file"
+    sh $file
 done
 
 
 
-
-
-
  
 #----------------------------------------------
-#(x.9)
+#9
 cd $curPath

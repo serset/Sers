@@ -1,93 +1,114 @@
-pipeline { 
+pipeline {
     agent any
 
     environment {
-        basePath = "xx/develop/${env.build_number}"
+        basePath = "/root/docker-cache/jenkins/jenkins_home/workspace/Sers/develop/${env.build_number}"
         APPNAME = "Sers"
-        SVN_PATH = "  "
+
+        SVN_PATH = "svn://svn.ki.lith.cloud/Sers"
         SVN_USERNAME = "jenkins"
-        SVN_PASSWORD = "  "
+        SVN_PASSWORD = "**"
+
         NUGET_PATH = "/root/docker-cache/jenkins/jenkins_home/workspace/.nuget"
 
-        DEV_NUGET_SERVER = "http://nuget.lith.cloud:8"
-        DEV_NUGET_KEY = "  "
-        DEV_DOCKER_SERVER = "cache.docker.lith.cloud:8"
-        DEV_DOCKER_USERNAME = " "
-        DEV_DOCKER_PASSWORD = " "
+        NUGET_SERVER = "http://nuget.lith.cloud:8"
+        NUGET_KEY = "**"
 
-        PRD_NUGET_SERVER = "https://api.nuget.org/v3/index.json"
-        PRD_NUGET_KEY = "  "
-        PRD_DOCKER_SERVER = "serset"
-        PRD_DOCKER_USERNAME = "serset"
-        PRD_DOCKER_PASSWORD = "  "
+        DOCKER_SERVER = "docker-dev.lith.cloud:8"
+        DOCKER_USERNAME = " "
+        DOCKER_PASSWORD = " "
 
+        DOCKER_SERVER_Prd = "docker.lith.cloud:8"
+        DOCKER_USERNAME_Prd = " "
+        DOCKER_PASSWORD_Prd = " "
     }
     stages {
-        stage('#1.1 develop - init code') { 
+        stage('#1.1 develop - init code') {
             steps {
-                echo "build_number: ${env.build_number}"
-                echo "pull code from svn to Path: $basePath/develop"
-                sh "chroot /host bash -c 'set -e; mkdir -p $basePath/develop;chmod 777 $basePath/develop;    docker run -i --rm -v $basePath/develop:/root/svn docker.lith.cloud:8/dockerhub/serset/svn-client svn checkout \"$SVN_PATH\" /root/svn --username \"$SVN_USERNAME\" --password \"$SVN_PASSWORD\" --no-auth-cache > /dev/null;  '"
+                script {
+                    env.codePath = "$basePath/develop"
+                }
 
-		sh "chroot /host bash -c 'set -e; export versionSuffix=.${env.build_number}-preview;   cd $basePath/develop/Publish/DevOps/build-bash; bash 20.change-release-version.bash;  '"
+                echo "#1 build_number: ${env.build_number}"
+
+                echo "#1.1 pull code from svn to Path: $codePath"
+                sh "docker exec -i jenkins-dind sh -c 'set -e; mkdir -p $codePath;chmod 777 $codePath;    docker run -i --rm -v $codePath:/root/svn docker.lith.cloud:8/dockerhub/serset/svn-client svn checkout \"$SVN_PATH/branches/develop\" /root/svn --username \"$SVN_USERNAME\" --password \"$SVN_PASSWORD\" --no-auth-cache > /dev/null;  '"
+
+                echo "#1.2 change-app-version"
+                sh "docker exec -i jenkins-dind sh -c 'set -e; export versionSuffix=-preview${env.build_number};   cd $codePath/Publish/DevOps/build-bash; sh 20.change-app-version.bash;  '"
             } 
         }
 
         stage('#1.2 develop - build') {
             steps {
-                sh "chroot /host bash -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $basePath/develop/Publish/DevOps/build-bash; bash startup.bash;  '"
-            } 
+                sh "docker exec -i jenkins-dind sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps/build-bash; sh startup.bash;  '"
+            }
         }
 
-        stage('#1.3 develop - push') { 
+        stage('#1.3 develop - push') {
             steps {
-                sh "chroot /host bash -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    export NUGET_SERVER=$DEV_NUGET_SERVER; export NUGET_KEY=$DEV_NUGET_KEY;  export DOCKER_SERVER=${env.DEV_DOCKER_SERVER};export DOCKER_USERNAME=${env.DEV_DOCKER_USERNAME};export DOCKER_PASSWORD=${env.DEV_DOCKER_PASSWORD};    cd $basePath/develop/Publish/DevOps/release-bash; bash startup.bash;  '"
-            } 
+                sh "docker exec -i jenkins-dind sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    export NUGET_SERVER=$NUGET_SERVER; export NUGET_KEY=$NUGET_KEY;  export DOCKER_SERVER=${env.DOCKER_SERVER};export DOCKER_USERNAME=${env.DOCKER_USERNAME};export DOCKER_PASSWORD=${env.DOCKER_PASSWORD};    cd $codePath/Publish/DevOps/release-bash; sh startup.bash;  '"
+            }
         }
 
-        stage('#2 deploy to prod?') { 
+        stage('#2 deploy to prod?') {
             steps {
                 timeout(time:1800,unit:'SECONDS') {
                     script { 
-                        inputData = input message: "Are you sure to continue to release to prod?", ok: 'Proceed?', parameters: [string(defaultValue: '', description: 'text comment', name: 'comment')], submitterParameter: 'APPROVER' 
-                    } 
+                        inputData = input message: "release to prod?", ok: 'Proceed?', parameters: [string(defaultValue: '', description: 'text comment', name: 'comment')], submitterParameter: 'APPROVER' 
+                    }
                 }
-            } 
+            }
         }
 
-        stage('#3.1 prd - init code') { 
+        stage('#3.1 prd - init code') {
             steps {
-                echo "build_number: ${env.build_number}"
-                echo "pull code from svn to Path: $basePath/prd"
-                sh "chroot /host bash -c 'set -e; mkdir -p $basePath/prd;chmod 777 $basePath/prd;    docker run -i --rm -v $basePath/prd:/root/svn docker.lith.cloud:8/dockerhub/serset/svn-client svn checkout \"$SVN_PATH\" /root/svn --username \"$SVN_USERNAME\" --password \"$SVN_PASSWORD\" --no-auth-cache > /dev/null;  '"
+                script {
+                    env.codePath = "$basePath/prd"
+                }
 
-                sh "chroot /host bash -c 'set -e; export versionSuffix=.${env.build_number};   cd $basePath/prd/Publish/DevOps/build-bash; bash 20.change-release-version.bash;  '"
-            } 
+                echo "#1 build_number: ${env.build_number}"
+
+                echo "#1.1 pull code from svn to Path: $codePath"
+                sh "docker exec -i jenkins-dind sh -c 'set -e; mkdir -p $codePath;chmod 777 $codePath;    docker run -i --rm -v $codePath:/root/svn docker.lith.cloud:8/dockerhub/serset/svn-client svn checkout \"$SVN_PATH/branches/develop\" /root/svn --username \"$SVN_USERNAME\" --password \"$SVN_PASSWORD\" --no-auth-cache > /dev/null;  '"
+
+                echo "#1.2 change-app-version"
+                sh "docker exec -i jenkins-dind sh -c 'set -e; export versionSuffix=;   cd $codePath/Publish/DevOps/build-bash; sh 20.change-app-version.bash;  '"
+            }
         }
 
         stage('#3.2 prd - build') {
             steps {
-		sh "chroot /host bash -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $basePath/prd/Publish/DevOps/build-bash; bash startup.bash;  '"
-		sh "chroot /host bash -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $basePath/prd/Publish/DevOps/build-multiple-bash; bash startup.bash;  '"
-            } 
+                sh "docker exec -i jenkins-dind sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps/build-bash; sh startup.bash;  '"
+
+                sh "docker exec -i jenkins-dind sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps/build-bash; sh 40.Station-publish-multiple.bash;  '"
+            }
         }
 
-        stage('#3.3 prd - push') { 
+        stage('#3.3 prd - push') {
             steps {
-                sh "chroot /host bash -c 'set -e; export APPNAME=$APPNAME;export NUGET_PATH=$NUGET_PATH;    export NUGET_SERVER=$DEV_NUGET_SERVER;export NUGET_KEY=$DEV_NUGET_KEY;  export DOCKER_SERVER=${env.DEV_DOCKER_SERVER};export DOCKER_USERNAME=${env.DEV_DOCKER_USERNAME};export DOCKER_PASSWORD=${env.DEV_DOCKER_PASSWORD};    cd $basePath/prd/Publish/DevOps/release-bash; bash startup.bash;  '"
-            } 
+                sh "docker exec -i jenkins-dind sh -c 'set -e; export APPNAME=$APPNAME;export NUGET_PATH=$NUGET_PATH;    export NUGET_SERVER=$NUGET_SERVER;export NUGET_KEY=$NUGET_KEY;  export DOCKER_SERVER=${env.DOCKER_SERVER_Prd};export DOCKER_USERNAME=${env.DOCKER_USERNAME_Prd};export DOCKER_PASSWORD=${env.DOCKER_PASSWORD_Prd};    cd $codePath/Publish/DevOps/release-bash; sh startup.bash;  '"
+            }
+        }
+
+        stage('#3.4 prd - publish code') {
+            steps {
+                echo "build_number: ${env.build_number}"
+
+                sh "docker exec -i jenkins-dind sh -c 'set -e; export codePath=$basePath/code-with-prod-version;export SVN_PATH=$SVN_PATH;export SVN_USERNAME=$SVN_USERNAME;export SVN_PASSWORD=$SVN_PASSWORD;  export versionSuffix=;   cd $basePath/prd/Publish/DevOps/jenkins-bash; sh 05.svn-merge.bash;  '"
+            }
         }
  
-    } 
+    }
 
     post {
         always {
             timeout(time:3600,unit:'SECONDS') {
-                script { 
-                  env.inputData = input message: "Continue to clean temp files, will be waiting for 3600 seconds. click abort will skip clean.", ok: 'Proceed', parameters: [string(defaultValue: '', description: 'text comment', name: 'comment')], submitterParameter: 'approver'
-		  echo "input: ${env.inputData}"
+                script {
+                    env.inputData = input message: "Clean temp files, \n will wait for 3600 seconds. \n click abort to skip clean.", ok: 'Proceed', parameters: [string(defaultValue: '', description: 'text comment', name: 'comment')], submitterParameter: 'approver'
+                    echo "input: ${env.inputData}"
                }
-            }	    
+            }
             echo "clean temp files"
             sh "rm -rf /var/jenkins_home/workspace/Sers/develop/${env.build_number}"
         }
@@ -100,5 +121,5 @@ pipeline {
         aborted {
             echo "build aborted !"
         }
-    } 
-} 
+    }
+}
