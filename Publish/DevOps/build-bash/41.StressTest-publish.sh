@@ -2,7 +2,7 @@ set -e
 
 
 #---------------------------------------------------------------------
-#(x.1)参数
+# 参数
 args_="
 
 export basePath=/root/temp/svn
@@ -14,14 +14,11 @@ if [ ! $NUGET_PATH ]; then NUGET_PATH=$basePath/Publish/release/.nuget; fi
 
 
 #---------------------------------------------------------------------
-#(x.2)
+echo '41.StressTest-publish.sh  #1 发布CL压测'
+
 publishPath=$basePath/Publish/release/release/StressTest
 mkdir -p $publishPath
 
-
-
-echo ------------------------------------------------------------------
-echo '(x.3)发布CL压测'
 
 docker run -i --rm \
 --env LANG=C.UTF-8 \
@@ -49,10 +46,11 @@ echo 'copy bat'
 
 
 
-echo ------------------------------------------------------------------
-echo '(x.4)发布Sers压测'
+#---------------------------------------------------------------------
+echo '41.StressTest-publish.sh  #2 发布Sers压测'
 
-for netVersion in netcoreapp2.1 net5.0
+# for netVersion in net5.0 netcoreapp2.1
+for netVersion in net5.0
 do
 	appPath=${basePath}/Publish/release/release/Station\(${netVersion}\)
 

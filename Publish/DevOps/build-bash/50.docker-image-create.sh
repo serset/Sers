@@ -2,7 +2,7 @@ set -e
 
 
 #---------------------------------------------------------------------
-#(x.1)参数
+# 参数
 args_="
 
 export basePath=/root/temp/svn
@@ -11,37 +11,31 @@ export basePath=/root/temp/svn
 
  
 #---------------------------------------------------------------------
-#(x.2)
+echo "#1 copy docker-image from ReleaseFile"
+
 publishPath="$basePath/Publish/release/release/Station(net5.0)"
 dockerPath=$basePath/Publish/release/release/docker-image
 
 
-
-#---------------------------------------------------------------------
-echo "(x.3)copy dir"
 \cp -rf "$basePath/Publish/ReleaseFile/docker-image/." "$dockerPath"
 
 
 #---------------------------------------------------------------------
-echo "(x.4)copy station"
-#查找所有需要发布的项目并copy
-cd $basePath
-for file in $(grep -a '<docker>' . -rl --include *.csproj)
+echo "#2 copy station"
+for file in $(find $basePath -name *.csproj -exec grep '<docker>' -l {} \;)
 do
 	cd $basePath
 	
-	#get publishName
-	publishName=`grep '<publish>' $file -r | grep -oP '>(.*)<' | tr -d '<>'`
+	publishName=`grep '<publish>' $file -r | grep -oE '\>(.*)\<' | tr -d '<>/'`
 	
-	#get dockerName
-	dockerName=`grep '<docker>' $file -r | grep -oP '>(.*)<' | tr -d '<>'`
+	dockerName=`grep '<docker>' $file -r | grep -oE '\>(.*)\<' | tr -d '<>/'`
 
-	echo copy $dockerName
+	echo "#2.* copy $dockerName, publishName:$publishName"
 	\cp -rf "$publishPath/$publishName/." "$dockerPath/$dockerName/app"
 done
 
 
-#copy单体压测
+echo "#3 copy 单体压测"
 \cp -rf "$basePath/Publish/release/release/StressTest/单体压测net5.0/ServiceCenter/." "$dockerPath/sers-demo-sersall/app"
  
 
