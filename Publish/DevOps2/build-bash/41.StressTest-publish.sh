@@ -50,7 +50,7 @@ echo 'copy bat'
 echo '41.StressTest-publish.sh  #2 发布Sers压测'
 
 # for netVersion in net5.0 netcoreapp2.1
-for netVersion in net5.0
+for netVersion in net6.0
 do
 	appPath=${basePath}/Publish/release/release/Station\(${netVersion}\)
 
