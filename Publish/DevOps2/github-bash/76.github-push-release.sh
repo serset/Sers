@@ -35,7 +35,7 @@ echo "release_body=" >> $GITHUB_ENV
 echo "release_dirPath=${basePath}/Publish/release/release-zip" >> $GITHUB_ENV
 echo "release_version=${version}" >> $GITHUB_ENV
 
-#filePath=$basePath/Publish/release/release-zip/Sers-ServiceCenter(net5.0)-${version}.zip
+#filePath=$basePath/Publish/release/release-zip/Sers-ServiceCenter(net6.0)-${version}.zip
 #fileType="${filePath##*.}"
 #echo "release_assetPath=${filePath}" >> $GITHUB_ENV
 #echo "release_assetName=${APPNAME}-${version}.${fileType}" >> $GITHUB_ENV

@@ -27,7 +27,7 @@ svn checkout $SVN_PATH/branches/develop $codePath --username $SVN_USERNAME --pas
 
 # (x.x.2) change version in csproj
 export versionSuffix=$versionSuffix
-cd $codePath/Publish/DevOps/build-bash; source 20.change-app-version.bash; 
+cd $codePath/Publish/DevOps2/build-bash; source 20.change-app-version.bash; 
 echo "appVersion: $appVersion"
 cd $codePath;
 
@@ -67,7 +67,7 @@ svn checkout $SVN_PATH/branches/develop $codePath --username $SVN_USERNAME --pas
 
 # (x.x.2) change version in csproj
 export versionSuffix="-temp"
-cd $codePath/Publish/DevOps/build-bash; source 21.change-to-next-version.bash; 
+cd $codePath/Publish/DevOps2/build-bash; source 21.change-to-next-version.bash; 
 echo "appVersion: $appVersion"
 cd $codePath;
 

@@ -7,14 +7,14 @@
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
 		<Version>2.1.19</Version>
 		<Description>https://github.com/serset/Sers</Description>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<DocumentationFile>bin\Debug\net5.0\App.Robot.Station.xml</DocumentationFile>
+		<DocumentationFile>bin\Debug\net6.0\App.Robot.Station.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
