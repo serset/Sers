@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json.Linq;
-using Vit.Extensions;
 using Sers.Core.Module.Api.LocalApi;
 using Vit.Core.Module.Log;
 using System;
 using System.Collections.Generic;
 using Vit.Core.Util.Reflection;
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.Core.Module.ApiLoader
 {

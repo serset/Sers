@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using Vit.Extensions;
 using Vit.Core.Module.Log;
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.Core.Module.ApiTrace.Collector
 {

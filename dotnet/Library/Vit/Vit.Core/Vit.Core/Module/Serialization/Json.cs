@@ -2,7 +2,7 @@
 using System;
 using System.Runtime.CompilerServices;
 
-using Vit.Extensions;
+using Vit.Extensions.Json_Extensions;
 
 namespace Vit.Core.Module.Serialization
 {

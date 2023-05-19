@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Vit.Extensions
+namespace Vit.Extensions.Newtonsoft_Extensions
 {
     public class DateConverter : DateTimeConverterBase
     {

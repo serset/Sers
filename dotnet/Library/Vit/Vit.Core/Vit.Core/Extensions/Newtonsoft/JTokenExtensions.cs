@@ -1,9 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Vit.Extensions
+using Vit.Extensions.Json_Extensions;
+
+namespace Vit.Extensions.Newtonsoft_Extensions
 {
     public static partial class JTokenExtensions
     {
@@ -46,10 +49,10 @@ namespace Vit.Extensions
                 else
                 {
                     cur = next;
-                }                 
+                }
             }
             name = path[t];
-            cur[name] = jtValue; 
+            cur[name] = jtValue;
         }
         #endregion
 
@@ -83,7 +86,7 @@ namespace Vit.Extensions
         /// <param name="path">value在data中的路径，可不指定。例如：new []{"taskList"}</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static String StringGetByPath(this JToken data, params object[] path)
+        public static string StringGetByPath(this JToken data, params object[] path)
         {
             return data?.JTokenGetByPath(path).ConvertToString();
         }
@@ -163,9 +166,9 @@ namespace Vit.Extensions
             //lock (v)
             //{
             var token = v[key];
-            if (!(token is JObject jo))           
+            if (!(token is JObject jo))
             {
-                v[key] = jo = new JObject();               
+                v[key] = jo = new JObject();
             }
             return jo;
 
@@ -204,7 +207,7 @@ namespace Vit.Extensions
                 case JTokenType.Float: return t.Value<double>();
                 case JTokenType.Integer: return t.Value<long>();
                 case JTokenType.Object: return t.Value<JObject>();
-                case JTokenType.String: return t.Value<String>();
+                case JTokenType.String: return t.Value<string>();
                 case JTokenType.Comment: return t.ToString();
                 case JTokenType.None: return null;
                 case JTokenType.Null: return null;
@@ -231,7 +234,7 @@ namespace Vit.Extensions
             }
             if (JTokenType.String == token.Type)
             {
-                return token.Value<String>();
+                return token.Value<string>();
             }
             return token.ToString();
         }
@@ -248,7 +251,7 @@ namespace Vit.Extensions
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TypeMatch(this JToken token, JToken token2)
-        {             
+        {
             return null != token && token2 != null && token.Type == token2.Type;
         }
         #endregion
@@ -264,14 +267,14 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryParse(this JToken token, out JObject value)
         {
-            if (TypeMatch(token, JTokenType.Object))
+            if (token.TypeMatch(JTokenType.Object))
             {
                 value = token.Value<JObject>();
                 return true;
             }
 
             value = null;
-            return false; 
+            return false;
         }
         #endregion
 
@@ -285,7 +288,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryParse(this JToken token, out JArray value)
         {
-            if (TypeMatch(token, JTokenType.Array))
+            if (token.TypeMatch(JTokenType.Array))
             {
                 value = token.Value<JArray>();
                 return true;
@@ -330,7 +333,7 @@ namespace Vit.Extensions
                         value = token.Value<bool>();
                         return true;
                 }
-            value = default(bool);
+            value = default;
             return false;
         }
         #endregion
@@ -358,7 +361,7 @@ namespace Vit.Extensions
                     value = (int)token.Value<double>();
                     return true;
             }
-            value = default(int);
+            value = default;
             return false;
         }
 
@@ -384,7 +387,7 @@ namespace Vit.Extensions
                     value = (long)token.Value<double>();
                     return true;
             }
-            value = default(long);
+            value = default;
             return false;
         }
         #endregion
@@ -412,7 +415,7 @@ namespace Vit.Extensions
                     value = token.Value<double>();
                     return true;
             }
-            value = default(double);
+            value = default;
             return false;
         }
         #endregion
@@ -428,17 +431,17 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryParseIgnore(this JToken token, out DateTime value)
         {
-            if (TypeMatch(token, JTokenType.Date))
+            if (token.TypeMatch(JTokenType.Date))
             {
                 value = token.Value<DateTime>();
                 return true;
             }
-            if (TypeMatch(token, JTokenType.String))
+            if (token.TypeMatch(JTokenType.String))
             {
-                if (DateTime.TryParse(token.Value<String>(), out value))
+                if (DateTime.TryParse(token.Value<string>(), out value))
                     return true;
             }
-            value = default(DateTime);
+            value = default;
             return false;
         }
         #endregion
@@ -453,31 +456,31 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equal(this JToken token, bool value)
         {
-            return TypeMatch(token, JTokenType.Boolean) && value == token.Value<bool>();
+            return token.TypeMatch(JTokenType.Boolean) && value == token.Value<bool>();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equal(this JToken token, string value)
         {
-            return TypeMatch(token, JTokenType.String) && value == token.Value<string>();
+            return token.TypeMatch(JTokenType.String) && value == token.Value<string>();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equal(this JToken token, long value)
         {
-            return TypeMatch(token, JTokenType.Integer) && value == token.Value<long>();
+            return token.TypeMatch(JTokenType.Integer) && value == token.Value<long>();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equal(this JToken token, double value)
         {
-            return TypeMatch(token, JTokenType.Float) && value == token.Value<double>();
+            return token.TypeMatch(JTokenType.Float) && value == token.Value<double>();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equal(this JToken token, DateTime value)
         {
-            return TypeMatch(token, JTokenType.Date) && value == token.Value<DateTime>();
+            return token.TypeMatch(JTokenType.Date) && value == token.Value<DateTime>();
         }
         #endregion
 
@@ -493,7 +496,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool EqualIgnore(this JToken token, bool value)
         {
-            if (!TryParseIgnore(token, out bool dest)) return false;
+            if (!token.TryParseIgnore(out bool dest)) return false;
             return dest == value;
         }
 
@@ -507,7 +510,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool EqualIgnore(this JToken token, long value)
         {
-            if (!TryParseIgnore(token, out long dest)) return false;
+            if (!token.TryParseIgnore(out long dest)) return false;
             return dest == value;
         }
 
@@ -521,7 +524,7 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool EqualIgnore(this JToken token, string value)
         {
-            return value == ConvertToString(token);
+            return value == token.ConvertToString();
         }
 
 

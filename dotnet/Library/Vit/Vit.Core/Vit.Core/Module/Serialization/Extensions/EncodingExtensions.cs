@@ -3,16 +3,16 @@ using System.Text;
 
 using Vit.Core.Module.Serialization;
 
-namespace Vit.Extensions
+namespace Vit.Extensions.Json_Extensions
 {
     public static partial class EncodingExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string GetCharset(this Encoding value)
         {
-            if(value== Encoding.UTF8)
+            if (value == Encoding.UTF8)
                 return "UTF-8";
-             
+
             return value.ToString();
         }
 

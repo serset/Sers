@@ -5,7 +5,7 @@ using System.Net.WebSockets;
 using System.Threading;
 using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
-using Vit.Extensions.ObjectExt;
+using Vit.Extensions.Object_Extensions;
 
 namespace Sers.CL.WebSocket
 {

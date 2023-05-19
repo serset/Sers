@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-using Vit.Extensions;
+using Vit.Extensions.Json_Extensions;
 
 namespace Vit.Core.Module.Log.LogCollector
 {

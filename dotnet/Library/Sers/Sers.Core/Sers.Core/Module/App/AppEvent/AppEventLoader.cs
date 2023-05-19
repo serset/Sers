@@ -3,7 +3,7 @@ using Vit.Core.Util.Reflection;
 using System;
 using System.Collections.Generic;
 using Vit.Core.Module.Log;
-using Vit.Extensions;
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.Core.Module.App.AppEvent
 {

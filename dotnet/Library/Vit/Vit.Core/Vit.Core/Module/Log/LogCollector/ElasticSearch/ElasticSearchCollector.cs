@@ -5,6 +5,8 @@ using System;
 using Vit.Extensions;
 using System.Linq;
 using Vit.Core.Module.Log.LogCollector.ElasticSearch.Client;
+using Vit.Extensions.Newtonsoft_Extensions;
+using Vit.Extensions.Json_Extensions;
 
 namespace Vit.Core.Module.Log.LogCollector.ElasticSearch
 {

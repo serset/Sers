@@ -2,7 +2,7 @@ set -e
 
 
 #---------------------------------------------------------------------
-#(x.1)参数
+# 参数
 args_="
 
 export basePath=/root/temp/svn
@@ -14,20 +14,10 @@ if [ ! $NUGET_PATH ]; then NUGET_PATH=$basePath/Publish/release/.nuget; fi
 
 
 #----------------------------------------------
-echo "(x.2)获取netVersion" 
-netVersion=`grep '<TargetFramework>' $(grep '<publish>' ${basePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
+echo "40.Station-publish.sh 查找所有需要发布的项目并发布"
 
 
-publishPath=$basePath/Publish/release/release/Station\($netVersion\)
-echo publish Station
-echo dotnet version: $netVersion
 
-
-#----------------------------------------------
-echo "(x.3)查找所有需要发布的项目并发布"
-
-
-mkdir -p $publishPath
 
 docker run -i --rm \
 --env LANG=C.UTF-8 \
@@ -37,10 +27,16 @@ serset/dotnet:sdk-6.0 \
 bash -c "
 set -e
 
-basePath=/root/code
-publishPath=\$basePath/Publish/release/release/Station\($netVersion\)
+echo '#1 get netVersion'
+netVersion=\$(grep '<TargetFramework>' \$(grep '<publish>' -rl --include *.csproj /root/code | head -n 1) | grep -oP '>(.*)<' | tr -d '<>')
+echo netVersion: \$netVersion
 
-#(x.3)查找所有需要发布的项目并发布
+
+basePath=/root/code
+publishPath=\$basePath/Publish/release/release/Station\(\$netVersion\)
+mkdir -p \$publishPath
+
+echo '#2 publish Station'
 cd \$basePath
 for file in \$(grep -a '<publish>' . -rl --include *.csproj)
 do
@@ -57,19 +53,19 @@ do
 	dotnet publish --configuration Release --output \"\$publishPath/\$publishName\"
 
 	#copy xml
-	for filePath in bin/Release/$netVersion/*.xml ; do \\cp -rf \$filePath \"\$publishPath/\$publishName\";done
+	for filePath in bin/Release/\$netVersion/*.xml ; do \\cp -rf \$filePath \"\$publishPath/\$publishName\";done
 done
 
 
-#(x.4)copy dir
+echo '#3 copy ReleaseFile'
 \cp -rf \$basePath/Publish/ReleaseFile/Station/. \"\$publishPath\"
 
 
-#(x.5)copy ServiceCenter
-mkdir -p \"\$basePath/Publish/release/release/ServiceCenter($netVersion)\"
-\cp -rf \$publishPath/ServiceCenter/. \"\$basePath/Publish/release/release/ServiceCenter($netVersion)/ServiceCenter\"
-\cp -rf \"\$publishPath/01.ServiceCenter.bat\" \"\$basePath/Publish/release/release/ServiceCenter($netVersion)\"
-\cp -rf \"\$publishPath/01.Start-4580.bat\" \"\$basePath/Publish/release/release/ServiceCenter($netVersion)\"
+echo '#4 copy ServiceCenter'
+mkdir -p \"\$basePath/Publish/release/release/ServiceCenter(\$netVersion)\"
+\cp -rf \$publishPath/ServiceCenter/. \"\$basePath/Publish/release/release/ServiceCenter(\$netVersion)/ServiceCenter\"
+\cp -rf \"\$publishPath/01.ServiceCenter.bat\" \"\$basePath/Publish/release/release/ServiceCenter(\$netVersion)\"
+\cp -rf \"\$publishPath/01.Start-4580.bat\" \"\$basePath/Publish/release/release/ServiceCenter(\$netVersion)\"
 
 
 "

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-namespace Vit.Extensions
+namespace Vit.Extensions.Json_Extensions
 {
     public static partial class HexStringExtensions
     {
@@ -20,7 +20,7 @@ namespace Vit.Extensions
         {
             var bytes = new byte[hex.Length / 2];
             for (var x = 0; x < bytes.Length; x++)
-            {                
+            {
                 var i = Convert.ToInt32(hex.Substring(x * 2, 2), 16);
                 bytes[x] = (byte)i;
             }
@@ -33,17 +33,17 @@ namespace Vit.Extensions
         #region Int64 <--> HexString
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string Int64ToHexString(this Int64 data)
+        public static string Int64ToHexString(this long data)
         {
             return Convert.ToString(data, 16);
         }
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Int64 HexStringToInt64(this string hex)
+        public static long HexStringToInt64(this string hex)
         {
             //return Convert.ToInt64(hex, 16);
-            return Int64.Parse(hex, System.Globalization.NumberStyles.AllowHexSpecifier);
+            return long.Parse(hex, System.Globalization.NumberStyles.AllowHexSpecifier);
         }
         #endregion
 

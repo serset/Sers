@@ -4,6 +4,7 @@ using System;
 
 using Vit.Core.Module.Log.LogCollector.Splunk.Client;
 using Vit.Extensions;
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Vit.Core.Module.Log.LogCollector.Splunk
 {

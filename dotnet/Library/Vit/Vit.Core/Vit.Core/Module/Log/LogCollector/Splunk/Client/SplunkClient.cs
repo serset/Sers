@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Net.Http.Headers;
 using System.Net.Http;
-
-using Vit.Extensions;
 using System.Collections.Concurrent;
+using Vit.Extensions.Json_Extensions;
 
 namespace Vit.Core.Module.Log.LogCollector.Splunk.Client
 {

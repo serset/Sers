@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using Vit.Core.Module.Log;
 using Vit.Extensions;
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.Core.Util.StreamSecurity
 {

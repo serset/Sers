@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Vit.Core.Util.Pipelines;
 using Vit.Extensions;
+using Vit.Extensions.Json_Extensions;
 
 namespace Sers.Core.Module.Message
 {

@@ -1,9 +1,8 @@
-﻿using Vit.Core.Module.Serialization;
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace Vit.Extensions
+namespace Vit.Extensions.Json_Extensions
 {
     public static partial class ArraySegmentByteExtensions
     {

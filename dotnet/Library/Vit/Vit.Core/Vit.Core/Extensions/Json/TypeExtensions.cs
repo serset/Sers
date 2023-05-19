@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-namespace Vit.Extensions
+namespace Vit.Extensions.Json_Extensions
 {
     public static partial class TypeExtensions
     {
@@ -14,8 +14,8 @@ namespace Vit.Extensions
         /// <param name="type"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsStringType(this global::System.Type type)
-        {             
+        public static bool IsStringType(this Type type)
+        {
             return type == typeof(string);
         }
         #endregion
@@ -30,7 +30,7 @@ namespace Vit.Extensions
         /// <param name="type"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TypeIsValueTypeOrStringType(this global::System.Type type)
+        public static bool TypeIsValueTypeOrStringType(this Type type)
         {
             if (type == null)
             {
@@ -64,7 +64,7 @@ namespace Vit.Extensions
         /// <param name="type"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static global::System.Type GetUnderlyingTypeIfNullable(this global::System.Type type)
+        public static Type GetUnderlyingTypeIfNullable(this Type type)
         {
             return type.IsNullable() ? type.GetGenericArguments()[0] : type;
 
@@ -98,7 +98,7 @@ namespace Vit.Extensions
         }
         #endregion
 
-       
+
 
 
     }

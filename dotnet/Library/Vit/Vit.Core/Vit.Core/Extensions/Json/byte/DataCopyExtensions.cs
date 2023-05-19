@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-namespace Vit.Extensions
+namespace Vit.Extensions.Json_Extensions
 {
     public static partial class DataCopyExtensions
     {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void CopyTo(this ArraySegment<byte> source, byte[] dest, int destOffset=0, int? count = null)
+        public static void CopyTo(this ArraySegment<byte> source, byte[] dest, int destOffset = 0, int? count = null)
         {
             unsafe
             {
@@ -20,7 +20,7 @@ namespace Vit.Extensions
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void CopyTo(this byte[] source, int sourceOffset, int count, byte[] dest, int destOffset=0)
+        public static void CopyTo(this byte[] source, int sourceOffset, int count, byte[] dest, int destOffset = 0)
         {
             unsafe
             {

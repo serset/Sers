@@ -8,6 +8,7 @@ using System.Collections.Immutable;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Reflection;
 using Vit.Extensions;
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.Core.Module.ApiTrace
 {

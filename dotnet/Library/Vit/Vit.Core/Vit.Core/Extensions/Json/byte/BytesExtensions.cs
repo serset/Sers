@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+
 using Vit.Core.Module.Serialization;
 
-namespace Vit.Extensions
+namespace Vit.Extensions.Json_Extensions
 {
     public static partial class BytesExtensions
     {
@@ -13,8 +14,8 @@ namespace Vit.Extensions
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string BytesToString(this byte[] data, Encoding encoding = null)
-        {             
-            return Serialization_Newtonsoft.Instance.BytesToString(data, encoding); 
+        {
+            return Serialization_Newtonsoft.Instance.BytesToString(data, encoding);
         }
 
 
@@ -28,14 +29,14 @@ namespace Vit.Extensions
         #region bytes <--> Int32
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Int32 BytesToInt32(this byte[] data,int startIndex=0)
+        public static int BytesToInt32(this byte[] data, int startIndex = 0)
         {
-            return  BitConverter.ToInt32(data, startIndex);
+            return BitConverter.ToInt32(data, startIndex);
         }
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] Int32ToBytes(this Int32 data)
+        public static byte[] Int32ToBytes(this int data)
         {
             return BitConverter.GetBytes(data);
         }
@@ -44,14 +45,14 @@ namespace Vit.Extensions
         #region bytes <--> Int64
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Int64 BytesToInt64(this byte[] data, int startIndex = 0)
+        public static long BytesToInt64(this byte[] data, int startIndex = 0)
         {
             return BitConverter.ToInt64(data, startIndex);
         }
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] Int64ToBytes(this Int64 data)
+        public static byte[] Int64ToBytes(this long data)
         {
             return BitConverter.GetBytes(data);
         }
@@ -61,14 +62,14 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ArraySegment<byte> BytesToArraySegmentByte(this byte[] bytes)
         {
-            return null == bytes? ArraySegmentByteExtensions.Null: new ArraySegment<byte>(bytes, 0,bytes.Length);
+            return null == bytes ? ArraySegmentByteExtensions.Null : new ArraySegment<byte>(bytes, 0, bytes.Length);
         }
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<ArraySegment<byte>> BytesToByteData(this byte[] bytes)
         {
-            return null == bytes?null: new List<ArraySegment<byte>> { bytes.BytesToArraySegmentByte() };
+            return null == bytes ? null : new List<ArraySegment<byte>> { bytes.BytesToArraySegmentByte() };
         }
         #endregion
 

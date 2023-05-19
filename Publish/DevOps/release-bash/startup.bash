@@ -30,9 +30,9 @@ cd $curPath
 
 
 #----------------------------------------------
-echo "(x.3)get version" 
-export version=`grep '<Version>' $(grep '<pack>\|<publish>' ${basePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
-echo $version
+echo "(x.3)get appVersion"
+export appVersion=`grep '<Version>' $(find ${basePath} -name *.csproj -exec grep '<pack>\|<publish>' -l {} \; | head -n 1) | grep -oE '\>(.*)\<' | tr -d '<>/'`
+echo appVersion: $appVersion
 
 
 
@@ -44,9 +44,9 @@ echo $version
 
 for file in *.sh
 do
-    echo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    echo "[$(date "+%H:%M:%S")]" bash $file
-    bash $file
+    echo "\n\n\n\n\n-----------------------------------------------------------------"
+    echo "[$(date "+%H:%M:%S")] sh $file"
+    sh $file
 done
 
 
