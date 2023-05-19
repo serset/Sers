@@ -8,6 +8,7 @@ args_="
 
 export APPNAME=xxxxxx
 
+export DOCKER_ImagePrefix=serset/
 export DOCKER_USERNAME=serset
 export DOCKER_PASSWORD=xxx
 
