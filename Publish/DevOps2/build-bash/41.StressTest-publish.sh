@@ -31,15 +31,15 @@ set -e
 echo 'publish Client'
 cd /root/code/dotnet/Library/Sers/Sers.CL/Test/CommunicationManage/CmClient
 dotnet build --configuration Release
-dotnet publish --configuration Release --output /root/code/Publish/release/release/StressTest/CL压测net5.0/CmClient
+dotnet publish --configuration Release --output /root/code/Publish/release/release/StressTest/CL压测net6.0/CmClient
 
 echo 'publish Server'
 cd /root/code/dotnet/Library/Sers/Sers.CL/Test/CommunicationManage/CmServer
 dotnet build --configuration Release
-dotnet publish --configuration Release --output /root/code/Publish/release/release/StressTest/CL压测net5.0/CmServer
+dotnet publish --configuration Release --output /root/code/Publish/release/release/StressTest/CL压测net6.0/CmServer
 
 echo 'copy bat'
-\cp -rf /root/code/Publish/ReleaseFile/StressTest/CL压测/. /root/code/Publish/release/release/StressTest/CL压测net5.0
+\cp -rf /root/code/Publish/ReleaseFile/StressTest/CL压测/. /root/code/Publish/release/release/StressTest/CL压测net6.0
 
 " 
 
@@ -49,8 +49,8 @@ echo 'copy bat'
 #---------------------------------------------------------------------
 echo '41.StressTest-publish.sh  #2 发布Sers压测'
 
-# for netVersion in net5.0 netcoreapp2.1
-for netVersion in net5.0
+# for netVersion in net6.0 netcoreapp2.1
+for netVersion in net6.0
 do
 	appPath=${basePath}/Publish/release/release/Station\(${netVersion}\)
 

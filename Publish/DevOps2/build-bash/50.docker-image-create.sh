@@ -13,7 +13,7 @@ export basePath=/root/temp/svn
 #---------------------------------------------------------------------
 echo "#1 copy docker-image from ReleaseFile"
 
-publishPath="$basePath/Publish/release/release/Station(net5.0)"
+publishPath="$basePath/Publish/release/release/Station(net6.0)"
 dockerPath=$basePath/Publish/release/release/docker-image
 
 
@@ -36,7 +36,7 @@ done
 
 
 echo "#3 copy 单体压测"
-\cp -rf "$basePath/Publish/release/release/StressTest/单体压测net5.0/ServiceCenter/." "$dockerPath/sers-demo-sersall/app"
+\cp -rf "$basePath/Publish/release/release/StressTest/单体压测net6.0/ServiceCenter/." "$dockerPath/sers-demo-sersall/app"
  
 
 

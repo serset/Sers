@@ -12,7 +12,7 @@ export basePath=/root/temp/svn
  
 #---------------------------------------------------------------------
 #(x.2)
-publishPath="$basePath/Publish/release/release/Station(net5.0)"
+publishPath="$basePath/Publish/release/release/Station(net6.0)"
 deployPath=$basePath/Publish/release/release/docker-deploy
 
 
@@ -31,7 +31,7 @@ echo "(x.4)copy station"
 \cp -rf "$publishPath/Gover/appsettings.json" "$deployPath/sers-gover"
 \cp -rf "$publishPath/Demo/appsettings.json" "$deployPath/sers-demo"
 \cp -rf "$publishPath/Robot/appsettings.json" "$deployPath/sers-demo-robot"
-\cp -rf "$basePath/Publish/release/release/StressTest/单体压测net5.0/ServiceCenter/appsettings.json" "$deployPath/sers-demo-sersall"
+\cp -rf "$basePath/Publish/release/release/StressTest/单体压测net6.0/ServiceCenter/appsettings.json" "$deployPath/sers-demo-sersall"
  
 
 
