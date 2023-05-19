@@ -26,25 +26,25 @@ echo "(x.3)∑¢≤ºCL—π≤‚"
 ::Client
 cd /d "%basePath%\dotnet\Library\Sers\Sers.CL\Test\CommunicationManage\CmClient"
 dotnet build --configuration Release
-dotnet publish --configuration Release --output "%publishPath%\CL—π≤‚net5.0\CmClient"
+dotnet publish --configuration Release --output "%publishPath%\CL—π≤‚net6.0\CmClient"
 @if errorlevel 1 (echo . & echo .  & echo ≥ˆ¥Ì£¨«Î≈≈≤È£°& pause) 
 
 ::Server
 cd /d "%basePath%\dotnet\Library\Sers\Sers.CL\Test\CommunicationManage\CmServer"
 dotnet build --configuration Release
-dotnet publish --configuration Release --output "%publishPath%\CL—π≤‚net5.0\CmServer"
+dotnet publish --configuration Release --output "%publishPath%\CL—π≤‚net6.0\CmServer"
 @if errorlevel 1 (echo . & echo .  & echo ≥ˆ¥Ì£¨«Î≈≈≤È£°& pause) 
 
 
 ::copy bat
-xcopy  "%basePath%\Publish\ReleaseFile\StressTest\CL—π≤‚" "%publishPath%\CL—π≤‚net5.0" /e /i /r /y
+xcopy  "%basePath%\Publish\ReleaseFile\StressTest\CL—π≤‚" "%publishPath%\CL—π≤‚net6.0" /e /i /r /y
 
 
 
 
 echo ------------------------------------------------------------------
 ::(x.4)∑¢≤ºSers—π≤‚
-for %%i in (netcoreapp2.1,net5.0) do (  
+for %%i in (net6.0) do (  
 	set netVersion=%%i
 	set appPath=%basePath%/Publish/release/release/Station^(!netVersion!^)
 

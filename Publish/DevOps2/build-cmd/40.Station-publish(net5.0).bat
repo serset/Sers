@@ -2,7 +2,7 @@
 
 
 ::(x.1)初始化
-set netVersion=netcoreapp2.1
+set netVersion=net5.0
 
 
 ::(x.2)修改要发布项目的netcore版本号

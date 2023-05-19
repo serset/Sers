@@ -4,7 +4,7 @@
 echo %~n0.bat start...
 
 
-::(x.1)»ñÈ¡basePath
+::(x.1)è·å–basePath
 set curPath=%cd%
 cd /d "%~dp0"
 cd /d ..\..\..
@@ -12,7 +12,7 @@ set basePath=%cd%
 
 
 ::(x.2)
-set publishPath=%basePath%\Publish\release\release\Station(net5.0)
+set publishPath=%basePath%\Publish\release\release\Station(net6.0)
 set dockerPath=%basePath%\Publish\release\release\docker-deploy
 rd /s /q "%dockerPath%"
 
@@ -27,11 +27,11 @@ xcopy "%publishPath%\Gateway\appsettings.json" "%dockerPath%\sers-gateway"
 xcopy "%publishPath%\Gover\appsettings.json" "%dockerPath%\sers-gover"
 xcopy "%publishPath%\Demo\appsettings.json" "%dockerPath%\sers-demo"
 xcopy "%publishPath%\Robot\appsettings.json" "%dockerPath%\sers-demo-robot"
-xcopy "%basePath%\Publish\release\release\Ñ¹²â\µ¥ÌåÑ¹²ânet5.0\ServiceCenter\appsettings.json" "%dockerPath%\sers-demo-sersall"
+xcopy "%basePath%\Publish\release\release\å‹æµ‹\å•ä½“å‹æµ‹net6.0\ServiceCenter\appsettings.json" "%dockerPath%\sers-demo-sersall"
 
 
 
 
-echo %~n0.bat Ö´ĞĞ³É¹¦£¡
+echo %~n0.bat æ‰§è¡ŒæˆåŠŸï¼
 
 cd /d "%curPath%"

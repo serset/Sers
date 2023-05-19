@@ -1,4 +1,4 @@
-FROM serset/dotnet:runtime-5.0
+FROM serset/dotnet:runtime-6.0
 COPY app /root/app
 WORKDIR /root/app
 CMD dotnet App.Robot.Station.dll
