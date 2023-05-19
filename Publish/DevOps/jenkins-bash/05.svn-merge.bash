@@ -51,9 +51,9 @@ svn commit $codePath -m "[trunk] merge from develop:$appVersion" --username $SVN
 
 
 
-# (x.4) create tags branch from trunk
+# (x.4) create tag branch from trunk
 echo "appVersion: $appVersion"
-svn copy $SVN_PATH/trunk $SVN_PATH/tags/2.1/$appVersion -m "[tags] Sers $appVersion" --username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-cache
+svn copy $SVN_PATH/trunk $SVN_PATH/tags/2.1/$appVersion -m "[tag] Sers $appVersion" --username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-cache
 
 
 
