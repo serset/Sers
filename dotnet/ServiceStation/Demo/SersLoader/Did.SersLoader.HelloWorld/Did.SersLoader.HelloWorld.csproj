@@ -2,11 +2,11 @@
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<DocumentationFile>bin\Debug\net5.0\Did.SersLoader.HelloWorld.xml</DocumentationFile>
+		<DocumentationFile>bin\Debug\net6.0\Did.SersLoader.HelloWorld.xml</DocumentationFile>
 	</PropertyGroup>
 
 
