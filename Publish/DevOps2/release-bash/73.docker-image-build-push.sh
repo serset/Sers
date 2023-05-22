@@ -59,8 +59,8 @@ do
     if [ -f "$dockerPath/$dockerName/Dockerfile.platform" ]; then platform=`cat "$dockerPath/$dockerName/Dockerfile.platform"`; fi
 
     echo "#2.* docker build $dockerName, platform: $platform"
-    echo "docker buildx build $dockerPath/$dockerName -t ${DOCKER_ImagePrefix}$dockerName:$appVersion -t ${DOCKER_ImagePrefix}$dockerName --platform=$platform --push --builder $builderName"
-    docker buildx build $dockerPath/$dockerName -t ${DOCKER_ImagePrefix}$dockerName:$appVersion -t ${DOCKER_ImagePrefix}$dockerName --platform=$platform --push --builder $builderName
+    echo "docker buildx build $dockerPath/$dockerName -t ${DOCKER_ImagePrefix}$dockerName:$appVersion -t ${DOCKER_ImagePrefix}$dockerName --platform=$platform --push --allow security.insecure --builder $builderName"
+    docker buildx build $dockerPath/$dockerName -t ${DOCKER_ImagePrefix}$dockerName:$appVersion -t ${DOCKER_ImagePrefix}$dockerName --platform=$platform --push --allow security.insecure --builder $builderName
   fi
 done
 
