@@ -39,7 +39,7 @@ pipeline {
                     echo "#1 build_number: ${env.build_number}"
 
                     echo "#1.1 pull code from svn to Path: $codePath"
-                    sshCommand remote: remote, command:  "sh -c 'set -e; mkdir -p $codePath;chmod 777 $codePath;    docker run -i --rm -v $codePath:/root/svn docker.lith.cloud:8/dockerhub/serset/svn-client svn checkout \"$SVN_PATH/branches/develop\" /root/svn --username \"$SVN_USERNAME\" --password \"$SVN_PASSWORD\" --no-auth-cache > /dev/null;  '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; mkdir -p $codePath;chmod 777 $codePath;    docker run -i --rm -v $codePath:/root/svn serset/svn-client svn checkout \"$SVN_PATH/branches/develop\" /root/svn --username \"$SVN_USERNAME\" --password \"$SVN_PASSWORD\" --no-auth-cache > /dev/null;  '"
 
                     echo "#1.2 change-app-version"
                     sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=-preview${env.build_number};   cd $codePath/Publish/DevOps2/build-bash; sh 20.change-app-version.bash;  '"
@@ -81,7 +81,7 @@ pipeline {
                     echo "#1 build_number: ${env.build_number}"
 
                     echo "#1.1 pull code from svn to Path: $codePath"
-                    sshCommand remote: remote, command:  "sh -c 'set -e; mkdir -p $codePath;chmod 777 $codePath;    docker run -i --rm -v $codePath:/root/svn docker.lith.cloud:8/dockerhub/serset/svn-client svn checkout \"$SVN_PATH/branches/develop\" /root/svn --username \"$SVN_USERNAME\" --password \"$SVN_PASSWORD\" --no-auth-cache > /dev/null;  '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; mkdir -p $codePath;chmod 777 $codePath;    docker run -i --rm -v $codePath:/root/svn serset/svn-client svn checkout \"$SVN_PATH/branches/develop\" /root/svn --username \"$SVN_USERNAME\" --password \"$SVN_PASSWORD\" --no-auth-cache > /dev/null;  '"
 
                     echo "#1.2 change-app-version"
                     sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=;   cd $codePath/Publish/DevOps2/build-bash; sh 20.change-app-version.bash;  '"
@@ -128,7 +128,7 @@ pipeline {
             }
             script {
                 echo "clean temp files"
-                sshCommand remote: remote, command:  "rm -rf /var/jenkins_home/workspace/Sers/develop/${env.build_number}"
+                sshCommand remote: remote, command:  "rm -rf $basePath"
             }
         }
         success {
