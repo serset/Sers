@@ -1,3 +1,11 @@
+def remote = [:]
+remote.name = 'dind-ssh'
+remote.host = 'dind'
+remote.port = 22
+remote.user = 'root'
+remote.password = '**'
+remote.allowAnyHosts = true
+
 pipeline {
     agent any
 
@@ -27,27 +35,31 @@ pipeline {
             steps {
                 script {
                     env.codePath = "$basePath/develop"
+
+                    echo "#1 build_number: ${env.build_number}"
+
+                    echo "#1.1 pull code from svn to Path: $codePath"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; mkdir -p $codePath;chmod 777 $codePath;    docker run -i --rm -v $codePath:/root/svn docker.lith.cloud:8/dockerhub/serset/svn-client svn checkout \"$SVN_PATH/branches/develop\" /root/svn --username \"$SVN_USERNAME\" --password \"$SVN_PASSWORD\" --no-auth-cache > /dev/null;  '"
+
+                    echo "#1.2 change-app-version"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=-preview${env.build_number};   cd $codePath/Publish/DevOps2/build-bash; sh 20.change-app-version.bash;  '"
                 }
-
-                echo "#1 build_number: ${env.build_number}"
-
-                echo "#1.1 pull code from svn to Path: $codePath"
-                sh "docker exec -i jenkins-dind sh -c 'set -e; mkdir -p $codePath;chmod 777 $codePath;    docker run -i --rm -v $codePath:/root/svn docker.lith.cloud:8/dockerhub/serset/svn-client svn checkout \"$SVN_PATH/branches/develop\" /root/svn --username \"$SVN_USERNAME\" --password \"$SVN_PASSWORD\" --no-auth-cache > /dev/null;  '"
-
-                echo "#1.2 change-app-version"
-                sh "docker exec -i jenkins-dind sh -c 'set -e; export versionSuffix=-preview${env.build_number};   cd $codePath/Publish/DevOps2/build-bash; sh 20.change-app-version.bash;  '"
-            } 
+            }
         }
 
         stage('#1.2 develop - build') {
             steps {
-                sh "docker exec -i jenkins-dind sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps2/build-bash; sh startup.bash;  '"
+                script {
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps2/build-bash; sh startup.bash;  '"
+                }
             }
         }
 
         stage('#1.3 develop - push') {
             steps {
-                sh "docker exec -i jenkins-dind sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    export NUGET_SERVER=$NUGET_SERVER; export NUGET_KEY=$NUGET_KEY;  export DOCKER_ImagePrefix=${env.DOCKER_ImagePrefix};export DOCKER_USERNAME=${env.DOCKER_USERNAME};export DOCKER_PASSWORD=${env.DOCKER_PASSWORD};    cd $codePath/Publish/DevOps2/release-bash; sh startup.bash;  '"
+                script {
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    export NUGET_SERVER=$NUGET_SERVER; export NUGET_KEY=$NUGET_KEY;  export DOCKER_ImagePrefix=${env.DOCKER_ImagePrefix};export DOCKER_USERNAME=${env.DOCKER_USERNAME};export DOCKER_PASSWORD=${env.DOCKER_PASSWORD};export DOCKER_BuildxExtArgs=\"--output=type=registry,registry.insecure=true\";    cd $codePath/Publish/DevOps2/release-bash; sh startup.bash;  '"
+                }
             }
         }
 
@@ -65,40 +77,45 @@ pipeline {
             steps {
                 script {
                     env.codePath = "$basePath/prd"
+
+                    echo "#1 build_number: ${env.build_number}"
+
+                    echo "#1.1 pull code from svn to Path: $codePath"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; mkdir -p $codePath;chmod 777 $codePath;    docker run -i --rm -v $codePath:/root/svn docker.lith.cloud:8/dockerhub/serset/svn-client svn checkout \"$SVN_PATH/branches/develop\" /root/svn --username \"$SVN_USERNAME\" --password \"$SVN_PASSWORD\" --no-auth-cache > /dev/null;  '"
+
+                    echo "#1.2 change-app-version"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=;   cd $codePath/Publish/DevOps2/build-bash; sh 20.change-app-version.bash;  '"
                 }
-
-                echo "#1 build_number: ${env.build_number}"
-
-                echo "#1.1 pull code from svn to Path: $codePath"
-                sh "docker exec -i jenkins-dind sh -c 'set -e; mkdir -p $codePath;chmod 777 $codePath;    docker run -i --rm -v $codePath:/root/svn docker.lith.cloud:8/dockerhub/serset/svn-client svn checkout \"$SVN_PATH/branches/develop\" /root/svn --username \"$SVN_USERNAME\" --password \"$SVN_PASSWORD\" --no-auth-cache > /dev/null;  '"
-
-                echo "#1.2 change-app-version"
-                sh "docker exec -i jenkins-dind sh -c 'set -e; export versionSuffix=;   cd $codePath/Publish/DevOps2/build-bash; sh 20.change-app-version.bash;  '"
             }
         }
 
         stage('#3.2 prd - build') {
             steps {
-                sh "docker exec -i jenkins-dind sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps2/build-bash; sh startup.bash;  '"
+                script {
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps2/build-bash; sh startup.bash;  '"
 
-                sh "docker exec -i jenkins-dind sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps2/build-bash; sh 40.Station-publish-multiple.bash;  '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps2/build-bash; sh 40.Station-publish-multiple.bash;  '"
+                }
             }
         }
 
         stage('#3.3 prd - push') {
             steps {
-                sh "docker exec -i jenkins-dind sh -c 'set -e; export APPNAME=$APPNAME;export NUGET_PATH=$NUGET_PATH;    export NUGET_SERVER=$NUGET_SERVER;export NUGET_KEY=$NUGET_KEY;  export DOCKER_ImagePrefix=${env.DOCKER_ImagePrefix_Prd};export DOCKER_USERNAME=${env.DOCKER_USERNAME_Prd};export DOCKER_PASSWORD=${env.DOCKER_PASSWORD_Prd};    cd $codePath/Publish/DevOps2/release-bash; sh startup.bash;  '"
+                script {
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME;export NUGET_PATH=$NUGET_PATH;    export NUGET_SERVER=$NUGET_SERVER;export NUGET_KEY=$NUGET_KEY;  export DOCKER_ImagePrefix=${env.DOCKER_ImagePrefix_Prd};export DOCKER_USERNAME=${env.DOCKER_USERNAME_Prd};export DOCKER_PASSWORD=${env.DOCKER_PASSWORD_Prd};export DOCKER_BuildxExtArgs=\"--output=type=registry,registry.insecure=true\";    cd $codePath/Publish/DevOps2/release-bash; sh startup.bash;  '"
+                }
             }
         }
 
         stage('#3.4 prd - publish code') {
             steps {
-                echo "build_number: ${env.build_number}"
+                script {
+                    echo "build_number: ${env.build_number}"
 
-                sh "docker exec -i jenkins-dind sh -c 'set -e; export codePath=$basePath/code-with-prod-version;export SVN_PATH=$SVN_PATH;export SVN_USERNAME=$SVN_USERNAME;export SVN_PASSWORD=$SVN_PASSWORD;  export versionSuffix=;   cd $basePath/prd/Publish/DevOps2/jenkins-bash; sh 05.svn-merge.bash;  '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export codePath=$basePath/code-with-prod-version;export SVN_PATH=$SVN_PATH;export SVN_USERNAME=$SVN_USERNAME;export SVN_PASSWORD=$SVN_PASSWORD;  export versionSuffix=;   cd $basePath/prd/Publish/DevOps2/jenkins-bash; sh 05.svn-merge.bash;  '"
+                }
             }
         }
- 
     }
 
     post {
@@ -109,8 +126,10 @@ pipeline {
                     echo "input: ${env.inputData}"
                }
             }
-            echo "clean temp files"
-            sh "rm -rf /var/jenkins_home/workspace/Sers/develop/${env.build_number}"
+            script {
+                echo "clean temp files"
+                sshCommand remote: remote, command:  "rm -rf /var/jenkins_home/workspace/Sers/develop/${env.build_number}"
+            }
         }
         success {
             echo "build success !"
