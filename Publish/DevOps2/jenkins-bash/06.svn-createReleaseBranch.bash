@@ -1,6 +1,6 @@
 set -e
 
-# source 05.svn-merge.bash
+# source 06.svn-createReleaseBranch.bash
 
 
 #---------------------------------------------------------------------
@@ -19,60 +19,43 @@ docker run -i --rm -v $codePath:/root/svn \
 docker.lith.cloud:8/dockerhub/serset/svn-client bash -c '
 set -e
 
-# (x.2) change version in csproj and commit to develop branch
-# (x.x.1) pull code from develop branch
+echo "06.svn-createReleaseBranch.bash"
+echo "06.svn-createReleaseBranch.bash  -->  #1 change version in csproj and commit to develop branch"
+echo "06.svn-createReleaseBranch.bash  -->  #1.1 pull code from develop branch"
 codePath=/root/svn/branch-develop
 mkdir -p $codePath;cd $codePath;
 svn checkout $SVN_PATH/branches/develop $codePath --username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-cache  > /dev/null;
 
-# (x.x.2) change version in csproj
+echo "06.svn-createReleaseBranch.bash  -->  #1.2 change version in csproj"
 export versionSuffix=$versionSuffix
 cd $codePath/Publish/DevOps2/build-bash; source 20.change-app-version.bash; 
 echo "appVersion: $appVersion"
 cd $codePath;
 
-# (x.x.3) commit to develop branch
+echo "06.svn-createReleaseBranch.bash  -->  #1.3 commit to develop branch"
 svn commit $codePath -m "[tag] Sers $appVersion" --username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-cache
 
 
 
 
-# (x.3) merge to trunk
-# (x.x.1) pull code from trunk branch
+echo "06.svn-createReleaseBranch.bash  -->  #2 merge to trunk"
+echo "06.svn-createReleaseBranch.bash  -->  #2.1 pull code from trunk branch"
 codePath=/root/svn/branch-trunk
 mkdir -p $codePath;cd $codePath;
 svn checkout $SVN_PATH/trunk $codePath --username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-cache > /dev/null;
 
-# (x.x.2) merge to trunk
+echo "06.svn-createReleaseBranch.bash  -->  #2.2 merge to trunk"
 svn merge $SVN_PATH/branches/develop --username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-cache
 
-# (x.x.3) commit to trunk branch
+echo "06.svn-createReleaseBranch.bash  -->  #2.3 commit to trunk branch"
 svn commit $codePath -m "[trunk] merge from develop:$appVersion" --username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-cache
 
 
 
-# (x.4) create tag branch from trunk
+echo "06.svn-createReleaseBranch.bash  -->  #3 create tag branch from trunk"
 echo "appVersion: $appVersion"
-svn copy $SVN_PATH/trunk $SVN_PATH/tags/2.1/$appVersion -m "[tag] Sers $appVersion" --username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-cache
+svn copy $SVN_PATH/trunk $SVN_PATH/tags/$appVersion -m "[tag] Sers $appVersion" --username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-cache
 
-
-
-
-
-# (x.5) change to next version in csproj and commit to develop branch
-# (x.x.1) pull code from develop branch
-codePath=/root/svn/branch-develop-next
-mkdir -p $codePath;cd $codePath;
-svn checkout $SVN_PATH/branches/develop $codePath --username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-cache
-
-# (x.x.2) change version in csproj
-export versionSuffix="-temp"
-cd $codePath/Publish/DevOps2/build-bash; source 21.change-to-next-version.bash; 
-echo "appVersion: $appVersion"
-cd $codePath;
-
-# (x.x.3) commit to develop branch
-svn commit $codePath -m "[develop] $appVersion" --username $SVN_USERNAME --password $SVN_PASSWORD --no-auth-cache
 
 
 '
