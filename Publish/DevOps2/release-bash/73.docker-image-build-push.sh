@@ -12,6 +12,7 @@ export appVersion=1.0
 export DOCKER_ImagePrefix=serset/
 export DOCKER_USERNAME=serset
 export DOCKER_PASSWORD=xxx
+export DOCKER_BuildxExtArgs=
 
 # "
 
@@ -59,8 +60,8 @@ do
     if [ -f "$dockerPath/$dockerName/Dockerfile.platform" ]; then platform=`cat "$dockerPath/$dockerName/Dockerfile.platform"`; fi
 
     echo "#2.* docker build $dockerName, platform: $platform"
-    echo "docker buildx build $dockerPath/$dockerName -t ${DOCKER_ImagePrefix}$dockerName:$appVersion -t ${DOCKER_ImagePrefix}$dockerName --platform=$platform --push  --output=type=registry,registry.insecure=true --builder $builderName"
-    docker buildx build $dockerPath/$dockerName -t ${DOCKER_ImagePrefix}$dockerName:$appVersion -t ${DOCKER_ImagePrefix}$dockerName --platform=$platform --push  --output=type=registry,registry.insecure=true --builder $builderName
+    echo "docker buildx build --allow security.insecure $dockerPath/$dockerName -t ${DOCKER_ImagePrefix}$dockerName:$appVersion -t ${DOCKER_ImagePrefix}$dockerName --platform=$platform --push $DOCKER_BuildxExtArgs --builder $builderName"
+    docker buildx build --allow security.insecure $dockerPath/$dockerName -t ${DOCKER_ImagePrefix}$dockerName:$appVersion -t ${DOCKER_ImagePrefix}$dockerName --platform=$platform --push $DOCKER_BuildxExtArgs --builder $builderName
   fi
 done
 

@@ -45,7 +45,7 @@ echo appVersion: $appVersion
 
 for file in *.sh
 do
-    echo "\n\n\n\n\n-----------------------------------------------------------------"
+    echo "-----------------------------------------------------------------"
     echo "[$(date "+%H:%M:%S")] sh $file"
     sh $file
 done
