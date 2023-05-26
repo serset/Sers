@@ -8,10 +8,12 @@ set -e
 #(x.1)参数
 args_="
 
-export versionSuffix=''
+export versionSuffix='  '
 
 # "
 
+# remove spaces
+versionSuffix=${versionSuffix// /}
 
 #----------------------------------------------
 #(x.2)当前路径 
