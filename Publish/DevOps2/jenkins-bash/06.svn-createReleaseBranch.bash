@@ -13,6 +13,8 @@ args_="
   export      versionSuffix=.158
 # "
 
+# remove spaces
+versionSuffix=${versionSuffix// /}
 
 docker run -i --rm -v $codePath:/root/svn \
 -e codePath="$codePath" -e SVN_PATH="$SVN_PATH" -e SVN_USERNAME="$SVN_USERNAME" -e SVN_PASSWORD="$SVN_PASSWORD" -e versionSuffix="$versionSuffix" \

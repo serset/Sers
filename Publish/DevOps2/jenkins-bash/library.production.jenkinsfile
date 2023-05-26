@@ -11,8 +11,8 @@ pipeline {
 
     environment {
         APPNAME = "Sers"
-        stageName = "develop"
-        versionSuffix = "-${stageName}${env.build_number}"
+        stageName = "production"
+        versionSuffix = "  "
 
         basePath = "/root/docker-cache/jenkins/jenkins_home/workspace/${APPNAME}/${stageName}/${env.build_number}"
 
@@ -33,8 +33,8 @@ pipeline {
         DOCKER_PASSWORD = " "
 
         build_crossPlatform = "no"
-        svn_createReleaseBranch = "no"
-        svn_changeToNextTempVersion = "no"
+        svn_createReleaseBranch = "yes"
+        svn_changeToNextTempVersion = "yes"
 
         dind_ssh_account = credentials("dind_ssh_account")
     }
