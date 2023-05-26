@@ -81,7 +81,7 @@ pipeline {
         }
 
         stage('#3.2 build - cross platform') {
-            when { expression { env.inputChoice == 'yes' && env.build_crossPlatform == true } }
+            when { expression { env.inputChoice == 'yes' && env.build_crossPlatform == 'yes' } }
             steps {
                 script {
                     sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps2/build-bash; sh 40.Station-publish-multiple.bash;  '"
