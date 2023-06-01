@@ -15,6 +15,7 @@ pipeline {
         versionSuffix = "-${stageName}${env.build_number}"
 
         basePath = "/root/docker-cache/jenkins/jenkins_home/workspace/${APPNAME}/${stageName}/${env.build_number}"
+        releasePath = "/root/docker-cache/jenkins/jenkins_home/jenkinsReleaseFile/${stageName}/${APPNAME}"
 
 
         SVN_PATH = "svn://svn.ki.lith.cloud/Sers"
@@ -85,6 +86,15 @@ pipeline {
             steps {
                 script {
                     sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps2/build-bash; sh 40.Station-publish-multiple.bash;  '"
+                }
+            }
+        }
+
+        stage('#3.3 build - copy release file') {
+            when { expression { env.inputChoice == 'yes' } }
+            steps {
+                script {
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/build-bash; sh 20.change-app-version.bash;    echo \"\\cp -rf $codePath/Publish/release/release-zip/. $releasePath/$appVersion;\";  \\cp -rf $codePath/Publish/release/release-zip/. $releasePath/$appVersion;    '"
                 }
             }
         }
