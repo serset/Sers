@@ -15,6 +15,7 @@ pipeline {
         versionSuffix = "-${stageName}${env.build_number}"
 
         basePath = "/root/docker-cache/jenkins/jenkins_home/workspace/${APPNAME}/${stageName}/${env.build_number}"
+        // set to "  "  if want to skip copy
         releasePath = "/root/docker-cache/jenkins/jenkins_home/jenkinsReleaseFile/${stageName}/${APPNAME}"
 
 
@@ -60,7 +61,7 @@ pipeline {
         }
 
         stage('#2 pull code') {
-            when { expression { env.inputChoice == 'yes' } }
+            when { expression { env.inputChoice == "yes" } }
             steps {
                 script {
                     echo "#1.1 pull code from svn to Path: $codePath"
@@ -73,7 +74,7 @@ pipeline {
         }
 
         stage('#3.1 build - single platflorm') {
-            when { expression { env.inputChoice == 'yes' } }
+            when { expression { env.inputChoice == "yes" } }
             steps {
                 script {
                     sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps2/build-bash; sh startup.bash;  '"
@@ -82,7 +83,7 @@ pipeline {
         }
 
         stage('#3.2 build - cross platform') {
-            when { expression { env.inputChoice == 'yes' && env.build_crossPlatform == 'yes' } }
+            when { expression { env.inputChoice == "yes" && env.build_crossPlatform == "yes" } }
             steps {
                 script {
                     sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps2/build-bash; sh 40.Station-publish-multiple.bash;  '"
@@ -90,17 +91,8 @@ pipeline {
             }
         }
 
-        stage('#3.3 build - copy release file') {
-            when { expression { env.inputChoice == 'yes' } }
-            steps {
-                script {
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/build-bash; sh 20.change-app-version.bash;    echo \"\\cp -rf $codePath/Publish/release/release-zip/. $releasePath/$appVersion;\";  \\cp -rf $codePath/Publish/release/release-zip/. $releasePath/$appVersion;    '"
-                }
-            }
-        }
-
         stage('#4 publish') {
-            when { expression { env.inputChoice == 'yes' } }
+            when { expression { env.inputChoice == "yes" } }
             steps {
                 script {
                     sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME;export NUGET_PATH=$NUGET_PATH;    export NUGET_SERVER=$NUGET_SERVER;export NUGET_KEY=$NUGET_KEY;  export DOCKER_ImagePrefix=${env.DOCKER_ImagePrefix};export DOCKER_USERNAME=${env.DOCKER_USERNAME};export DOCKER_PASSWORD=${env.DOCKER_PASSWORD};export DOCKER_BuildxExtArgs=\"--output=type=registry,registry.insecure=true\";    cd $codePath/Publish/DevOps2/release-bash; sh startup.bash;  '"
@@ -108,8 +100,17 @@ pipeline {
             }
         }
 
-        stage('#5.1 code - create release branch') {
-            when { expression { env.inputChoice == 'yes' && env.svn_createReleaseBranch == 'yes' } }
+        stage('#5 copy release files') {
+            when { expression { env.inputChoice == "yes" && env.releasePath != "  " } }
+            steps {
+                script {
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/build-bash; source 19.get-app-version.bash;    echo \"copy release files : $codePath/Publish/release/release-zip/. $releasePath/\$appVersion;\"; mkdir -p $releasePath;  \\cp -rf $codePath/Publish/release/release-zip/. $releasePath/\$appVersion;    '"
+                }
+            }
+        }
+
+        stage('#6.1 code - create release branch') {
+            when { expression { env.inputChoice == "yes" && env.svn_createReleaseBranch == "yes" } }
             steps {
                 script {
                     sshCommand remote: remote, command:  "sh -c 'set -e; export codePath=\"$basePath/code-createReleaseBranch\";export SVN_PATH=$SVN_PATH;export SVN_USERNAME=\"$svn_USR\";export SVN_PASSWORD=\"$svn_PSW\";  export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/jenkins-bash; sh 06.svn-createReleaseBranch.bash;  '"
@@ -117,8 +118,8 @@ pipeline {
             }
         }
 
-        stage('#5.2 code - next temp version') {
-            when { expression { env.inputChoice == 'yes' && env.svn_changeToNextTempVersion == 'yes' } }
+        stage('#6.2 code - next temp version') {
+            when { expression { env.inputChoice == "yes" && env.svn_changeToNextTempVersion == "yes" } }
             steps {
                 script {
                     sshCommand remote: remote, command:  "sh -c 'set -e; export codePath=\"$basePath/code-nextTempVersion\";export SVN_PATH=$SVN_PATH;export SVN_USERNAME=\"$svn_USR\";export SVN_PASSWORD=\"$svn_PSW\";   cd $codePath/Publish/DevOps2/jenkins-bash; sh 07.svn-changeToNextTempVersion.bash;  '"
