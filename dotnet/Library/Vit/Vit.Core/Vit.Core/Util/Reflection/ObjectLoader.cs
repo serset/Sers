@@ -12,11 +12,13 @@
 
 
 using Microsoft.Extensions.DependencyModel;
+
 using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Common;
 
@@ -93,7 +95,7 @@ namespace Vit.Core.Util.Reflection
             }
             #endregion
 
-            #region (x.3)Get from ReferencedAssemblies               
+            #region (x.3)Get from ReferencedAssemblies
             if (assembly == null)
             {
                 assembly = Assembly.GetEntryAssembly().GetReferencedAssemblies()

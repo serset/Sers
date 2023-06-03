@@ -2,7 +2,7 @@ set -e
 
 
 #---------------------------------------------------------------------
-# 参数
+# args
 args_="
 
 export basePath=/root/temp/svn
@@ -37,6 +37,6 @@ done
 
 echo "#3 copy 单体压测"
 \cp -rf "$basePath/Publish/release/release/StressTest/单体压测net6.0/ServiceCenter/." "$dockerPath/sers-demo-sersall/app"
- 
+
 
 

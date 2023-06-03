@@ -3,7 +3,7 @@ set -e
 # cd /root/temp/svn/Publish/DevOps2/github-bash;bash startup.bash;
 
 #---------------------------------------------------------------------
-#(x.1)参数
+# args
 args_="
 
 export APPNAME=xxxxxx
@@ -19,7 +19,7 @@ export GIT_SSH_SECRET=xxxxxx
 # "
 
 #----------------------------------------------
-#(x.2)当前路径
+# cur path
 curPath=$PWD
 
 cd $curPath/../../..
@@ -31,26 +31,26 @@ cd $curPath
 
 
 #---------------------------------------------- 
-echo '(x.4)build'
+echo '#1 build'
 cd $basePath/Publish/DevOps2/build-bash; bash startup.bash;
 cd $basePath/Publish/DevOps2/build-bash; bash 40.Station-publish-multiple.bash;
 
 
 #---------------------------------------------- 
-echo '(x.5)release-bash'
+echo '#2 release-bash'
 cd $basePath/Publish/DevOps2/release-bash; bash startup.bash;
  
 
 
 #----------------------------------------------
-echo "(x.3)get version" 
+echo "#3 get version" 
 export version=`grep '<Version>' $(grep '<pack>\|<publish>' ${basePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
 echo $version
 
 
 
 #----------------------------------------------
-#(x.4)bash
+echo "#4 bash"
 cd $curPath
 for file in *.sh
 do

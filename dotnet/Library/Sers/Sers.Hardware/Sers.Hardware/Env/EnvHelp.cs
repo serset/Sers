@@ -12,12 +12,13 @@ namespace Sers.Hardware.Env
     {
         #region GetDeviceInfo
 
-       
+
         public static DeviceInfo GetDeviceInfo()
         {
             var osPlatform = GetOSPlatform();
 
-            var osInfo= new DeviceInfo {
+            var osInfo = new DeviceInfo
+            {
                 OSPlatform = "" + osPlatform,
                 OSArchitecture = "" + RuntimeInformation.OSArchitecture,
                 OSDescription = "" + RuntimeInformation.OSDescription,
@@ -26,8 +27,8 @@ namespace Sers.Hardware.Env
                 ProcessorCount = Environment.ProcessorCount,
                 MachineName = "" + Environment.MachineName,
                 OSVersion = "" + Environment.OSVersion,
-                WorkingSet =   Environment.WorkingSet
-            }; 
+                WorkingSet = Environment.WorkingSet
+            };
 
             if (osPlatform == OSPlatform.Linux)
             {
@@ -123,7 +124,7 @@ namespace Sers.Hardware.Env
                 AddItem("OSVersion", "" + Environment.OSVersion);
                 #endregion
 
-                return string.IsNullOrWhiteSpace(oriData)?null: oriData;
+                return string.IsNullOrWhiteSpace(oriData) ? null : oriData;
             }
             #endregion
         }
@@ -160,7 +161,7 @@ namespace Sers.Hardware.Env
 
         #region GetAppUnqueInfo
         public static string GetAppUnqueInfo()
-        {         
+        {
             if (MachineUnqueKey == null) return null;
 
 
@@ -172,7 +173,7 @@ namespace Sers.Hardware.Env
 
 
             //(x.1)MachineUnqueKey
-            AddItem("MachineUnqueKey", MachineUnqueKey);          
+            AddItem("MachineUnqueKey", MachineUnqueKey);
 
 
             #region (x.2) app directory
@@ -221,7 +222,7 @@ namespace Sers.Hardware.Env
         /// <returns>加密后的字符串</returns>
         internal static string MD5(string source)
         {
-            return Vit.Core.Util.Common.CommonHelp.MD5(source); 
+            return Vit.Core.Util.Common.CommonHelp.MD5(source);
         }
 
 

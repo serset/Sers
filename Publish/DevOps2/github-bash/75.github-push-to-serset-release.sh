@@ -2,7 +2,7 @@ set -e
 
 
 #---------------------------------------------------------------------
-#(x.1)参数
+# args
 args_="
 
 export basePath=/root/temp/svn
@@ -20,14 +20,14 @@ export GIT_SSH_SECRET=xxxxxx
 
 
 #----------------------------------------------
-echo "github-提交release文件到serset/release仓库"
+echo "github-push release file to repo serset/release"
 # releaseFile=$basePath/Publish/release/release-zip
 
-#复制ssh key
+# ssh key
 echo "${GIT_SSH_SECRET}" > $basePath/Publish/release/serset
 chmod 600 $basePath/Publish/release/serset
 
-#推送到github
+# push to github
 docker run -i --rm \
 -v $basePath/Publish/release:/root/release serset/git-client bash -c "
 set -e
