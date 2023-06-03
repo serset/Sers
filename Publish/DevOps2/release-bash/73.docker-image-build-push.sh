@@ -25,9 +25,9 @@ export DOCKER_BuildxExtArgs=
 echo "73.docker-image-build-push.sh"
 
 if [ "$DOCKER_Buildx" != "false" ]; then
-	source 75.docker-image-build-push_cross.bash
+	sh 75.docker-image-build-push_cross.bash
 else
-	source 74.docker-image-build-push_amd64.bash
+	sh 74.docker-image-build-push_amd64.bash
 fi
 
 

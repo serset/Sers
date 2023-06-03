@@ -32,13 +32,13 @@ cd $curPath
 
 #---------------------------------------------- 
 echo '#1 build'
-cd $basePath/Publish/DevOps2/build-bash; sh startup.bash;
-cd $basePath/Publish/DevOps2/build-bash; sh 40.Station-publish-multiple.bash;
+cd $basePath/Publish/DevOps2/build-bash; bash startup.bash;
+cd $basePath/Publish/DevOps2/build-bash; bash 40.Station-publish-multiple.bash;
 
 
 #---------------------------------------------- 
 echo '#2 release-bash'
-cd $basePath/Publish/DevOps2/release-bash; sh startup.bash;
+cd $basePath/Publish/DevOps2/release-bash; bash startup.bash;
  
 
 
@@ -54,7 +54,7 @@ cd $curPath
 for file in *.sh
 do
     echo "-----------------------------------------------------------------"
-    echo "[$(date "+%H:%M:%S")]" bash $file
+    echo "[$(date "+%H:%M:%S")]" sh $file
     sh $file
 done
 
