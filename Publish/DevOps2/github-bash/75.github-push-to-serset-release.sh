@@ -7,7 +7,7 @@ args_="
 
 export basePath=/root/temp/svn
 
-export version=`grep '<Version>' $(grep '<pack>\|<publish>' ${basePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
+export appVersion=1.0-preview
 
 export APPNAME=xxxxxx
 
@@ -39,10 +39,10 @@ git config --global user.name 'lith'
 mkdir -p /root/code
 cd /root/code
 git clone git@github.com:serset/release.git /root/code
-mkdir -p /root/code/file/${APPNAME}/${APPNAME}-${version}
-\\cp -rf  /root/release/release-zip/. /root/code/file/${APPNAME}/${APPNAME}-${version}
-git add /root/code/file/${APPNAME}/${APPNAME}-${version}/.
-git commit -m 'auto commit ${version}'
+mkdir -p /root/code/file/${APPNAME}/${APPNAME}-${appVersion}
+\\cp -rf  /root/release/release-zip/. /root/code/file/${APPNAME}/${APPNAME}-${appVersion}
+git add /root/code/file/${APPNAME}/${APPNAME}-${appVersion}/.
+git commit -m 'auto commit ${appVersion}'
 git push -u origin master \" "
 
 

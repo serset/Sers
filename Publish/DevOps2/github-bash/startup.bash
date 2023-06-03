@@ -43,9 +43,8 @@ cd $basePath/Publish/DevOps2/release-bash; bash startup.bash;
 
 
 #----------------------------------------------
-echo "#3 get version" 
-export version=`grep '<Version>' $(grep '<pack>\|<publish>' ${basePath}/dotnet/ServiceCenter -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
-echo $version
+echo "#3 get appVersion" 
+cd $basePath/Publish/DevOps2/build-bash; sh 19.get-app-version.bash;
 
 
 

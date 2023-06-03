@@ -105,7 +105,7 @@ pipeline {
             when { expression { env.inputChoice == "yes" && env.releasePath != "  " } }
             steps {
                 script {
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/build-bash; source 19.get-app-version.bash;    echo \"copy release files : $codePath/Publish/release/release-zip/. $releasePath/\$appVersion;\"; mkdir -p $releasePath;  \\cp -rf $codePath/Publish/release/release-zip/. $releasePath/\$appVersion;    '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/build-bash; source 19.get-app-version.bash; export appVersion=$nextAppVersion;    echo \"copy release files : $codePath/Publish/release/release-zip/. $releasePath/\$appVersion;\"; mkdir -p $releasePath;  \\cp -rf $codePath/Publish/release/release-zip/. $releasePath/\$appVersion;    '"
                 }
             }
         }
