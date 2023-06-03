@@ -31,7 +31,7 @@ namespace Sers.ServiceStation
     {
 
         #region static
- 
+
         public static readonly ServiceStation Instance = new ServiceStation();
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Sers.ServiceStation
 
             //(x.4) RunAwait
             ServiceStation.RunAwait();
- 
+
         }
 
 
@@ -72,11 +72,11 @@ namespace Sers.ServiceStation
             Instance.InitStation();
         }
         #endregion
-       
 
 
-   
-        #region (x.2) Start        
+
+
+        #region (x.2) Start
         /// <summary>
         /// 是否成功启动站点
         /// </summary>
@@ -128,20 +128,14 @@ namespace Sers.ServiceStation
 
         public void InitStation()
         {
-            string FileVersion = null;
-            try
-            {
-                FileVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetEntryAssembly().Location).FileVersion;
-            }
-            catch { }
-            Logger.Info("[ServiceStation] initializing", new { FileVersion });
+            Logger.Info("[ServiceStation] initializing", new { AssemblyVersion = SersEnvironment.GetEntryAssemblyVersion() });
 
             //(x.0) appEvent BeforeStart
             appEventList?.ForEach(ev => ev.BeforeStart());
 
 
-            #region (x.1)CL add builder for Iocp、ThreadWait
-            communicationManage.BeforeBuildOrganize = (configs,  organizeList) => 
+            #region (x.1)CL add builder for Iocp/ThreadWait
+            communicationManage.BeforeBuildOrganize = (configs, organizeList) =>
             {
                 var builderTypeList = new[] {
                     typeof(Sers.CL.Socket.Iocp.OrganizeClientBuilder),
@@ -150,7 +144,7 @@ namespace Sers.ServiceStation
 
                 foreach (var config in configs)
                 {
-                    var className = config["className"].ConvertToString();                    
+                    var className = config["className"].ConvertToString();
 
                     var type = builderTypeList.FirstOrDefault(t => t.FullName == className);
                     if (type != null)
@@ -158,8 +152,8 @@ namespace Sers.ServiceStation
                         var builder = Activator.CreateInstance(type) as IOrganizeClientBuilder;
                         builder.Build(organizeList, config);
                         config["className"] = null;
-                    } 
-                }                
+                    }
+                }
             };
             #endregion
 
@@ -237,11 +231,11 @@ namespace Sers.ServiceStation
 
             communicationManage.conn_OnGetMessage = MessageClient.Instance.OnGetMessage;
 
-            communicationManage.conn_OnGetRequest = (IOrganizeConnection conn,Object sender, ArraySegment<byte> requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback) => 
+            communicationManage.conn_OnGetRequest = (IOrganizeConnection conn, Object sender, ArraySegment<byte> requestData, Action<object, Vit.Core.Util.Pipelines.ByteData> callback) =>
             {
                 localApiService.InvokeApiAsync(sender, new ApiMessage(requestData), (object sender1, ApiMessage apiReplyMessage) =>
                 {
-                     callback(sender1, apiReplyMessage.Package());
+                    callback(sender1, apiReplyMessage.Package());
                 });
             };
 
@@ -255,7 +249,7 @@ namespace Sers.ServiceStation
             #region (x.3) CL 连接服务器
 
             Logger.Info("[CL] Connect - trying...");
-            
+
             if (!communicationManage.Start())
             {
                 Logger.Error("[CL] Connect - failed");
@@ -269,15 +263,16 @@ namespace Sers.ServiceStation
 
             #region (x.4) 初始化ApiClient
             ApiClient.SetOnSendRequest(
-                communicationManage.organizeList.Select(organize=> organize.conn)
+                communicationManage.organizeList.Select(organize => organize.conn)
                 .Select<IOrganizeConnection, Action<ApiMessage, Action<ArraySegment<byte>>>>(
                 conn =>
                 {
-                    return (apiRequestMessage,callback) => {
-                        conn.SendRequestAsync(null, apiRequestMessage.Package(), (sender,replyData)=> 
+                    return (apiRequestMessage, callback) =>
+                    {
+                        conn.SendRequestAsync(null, apiRequestMessage.Package(), (sender, replyData) =>
                         {
                             callback(replyData.ToArraySegment());
-                        });                         
+                        });
                     };
                 }
                 ).ToArray(), communicationManage.requestTimeoutMs);
@@ -293,7 +288,7 @@ namespace Sers.ServiceStation
                 Logger.Info("[ServiceStation] regist serviceStation to ServiceCenter...");
 
                 var serviceStationData = new
-                {                
+                {
                     serviceStationInfo = SersApplication.serviceStationInfo,
                     deviceInfo = SersApplication.deviceInfo,
                     localApiService.apiNodes
@@ -305,7 +300,7 @@ namespace Sers.ServiceStation
                 }
 
 
-               
+
                 try
                 {
                     foreach (var apiClient in ApiClient.Instances)
@@ -321,17 +316,18 @@ namespace Sers.ServiceStation
 
 
                     #region (x.x.2)后台获取机器码，并向服务中心提交（获取机器码比较耗时，故后台获取）
-                    Task.Run(()=> {
+                    Task.Run(() =>
+                    {
                         try
                         {
                             //(x.x.x.1)计算  DeviceUnqueKey 和 ServiceStationUnqueKey
                             SersApplication.CalculateUniquekey();
 
-                           //(x.x.x.2)构建api参数
+                            //(x.x.x.2)构建api参数
                             var strServiceStationData = new
                             {
                                 serviceStationInfo = SersApplication.serviceStationInfo,
-                                deviceInfo = SersApplication.deviceInfo                           
+                                deviceInfo = SersApplication.deviceInfo
                             }.Serialize();
 
                             //(x.x.x.3)调用api
@@ -348,8 +344,8 @@ namespace Sers.ServiceStation
                         catch (Exception ex)
                         {
                             Logger.Error(ex);
-                        }                    
-                    
+                        }
+
                     });
                     #endregion
                 }
@@ -357,7 +353,7 @@ namespace Sers.ServiceStation
                 {
                     Logger.Error("[ServiceStation] regist - failed", ex);
                     return false;
-                }               
+                }
 
                 Logger.Info("[ServiceStation] regist - succeed");
 
@@ -368,13 +364,13 @@ namespace Sers.ServiceStation
             #region (x.7)PubSub 初始化消息订阅 PubSubClient          
             MessageClient.Instance.OnSendMessage = communicationManage.SendMessageAsync;
             #endregion
-                            
+
 
             //(x.8) 调用SersApp事件
             SersApplication.ResistConsoleCancelKey(Stop);
             SersApplication.OnStart();
 
-            Logger.Info("[ServiceStation] started",SersApplication.serviceStationInfo.serviceStationName);
+            Logger.Info("[ServiceStation] started", SersApplication.serviceStationInfo.serviceStationName);
 
             //(x.9) appEvent AfterStart
             appEventList?.ForEach(ev => ev.AfterStart());
@@ -389,7 +385,7 @@ namespace Sers.ServiceStation
 
 
         public void StopStation()
-        {       
+        {
             Logger.Info("[ServiceStation] stoping...");
 
             //(x.1) appEvent BeforeStop
@@ -435,7 +431,7 @@ namespace Sers.ServiceStation
 
 
 
-       
+
 
 
     }

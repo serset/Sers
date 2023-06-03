@@ -78,7 +78,7 @@ namespace Sers.ServiceCenter
 
         List<IAppEvent> appEventList { get; set; }
 
-        public   ApiCenterService apiCenterService { get; set; }  
+        public ApiCenterService apiCenterService { get; set; }
 
 
         private readonly CommunicationManageServer communicationManage = new CommunicationManageServer();
@@ -104,9 +104,9 @@ namespace Sers.ServiceCenter
             {
                 localApiService.InvokeApiAsync(sender, new ApiMessage(requestData.ToArraySegment()), (sender_, apiReplyMessage) =>
                 {
-                    callback(sender_,apiReplyMessage.Package());
+                    callback(sender_, apiReplyMessage.Package());
                 });
-            }            
+            }
 
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -116,7 +116,7 @@ namespace Sers.ServiceCenter
             }
 
 
-            public void Close() 
+            public void Close()
             {
                 ServiceCenter.Instance.StopCenter();
             }
@@ -134,16 +134,10 @@ namespace Sers.ServiceCenter
 
         public void InitCenter()
         {
-            string FileVersion = null;
-            try
-            {
-                FileVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetEntryAssembly().Location).FileVersion;
-            }
-            catch { }
-            Logger.Info("[ServiceCenter] initializing", new { FileVersion });
+            Logger.Info("[ServiceCenter] initializing", new { AssemblyVersion = SersEnvironment.GetEntryAssemblyVersion() });
 
             //(x.0) appEvent BeforeStart
-            appEventList?.ForEach(ev=>ev.BeforeStart());
+            appEventList?.ForEach(ev => ev.BeforeStart());
 
 
             #region (x.1)CL add builder for Iocp、ThreadWait            
@@ -277,7 +271,8 @@ namespace Sers.ServiceCenter
 
 
                 #region (x.x.2)后台获取机器码，并向服务中心提交（获取机器码比较耗时，故后台获取）
-                Task.Run(() => {
+                Task.Run(() =>
+                {
                     try
                     {
                         //(x.x.x.1)计算  DeviceUnqueKey 和 ServiceStationUnqueKey
@@ -294,7 +289,7 @@ namespace Sers.ServiceCenter
                         serviceStation.connection = connForLocalStationService;
 
                         //(x.x.x.3)调用api
-                        apiCenterService.ServiceStation_UpdateStationInfo(serviceStation);                        
+                        apiCenterService.ServiceStation_UpdateStationInfo(serviceStation);
                     }
                     catch (Exception ex)
                     {
@@ -325,17 +320,17 @@ namespace Sers.ServiceCenter
 
 
             #region (x.6) 初始化ApiClient
-            Action<ApiMessage, Action<ArraySegment<byte>>> OnSendRequest = ((apiRequestMessage,callback) =>
+            Action<ApiMessage, Action<ArraySegment<byte>>> OnSendRequest = ((apiRequestMessage, callback) =>
             {
                 apiCenterService.CallApiAsync(connForLocalStationService, null, apiRequestMessage,
                     (sender, replyData) =>
                     {
                         callback(replyData.ToArraySegment());
                     }
-                 );                
+                 );
             });
 
-            ApiClient.SetOnSendRequest(new[] { OnSendRequest },communicationManage.requestTimeoutMs);
+            ApiClient.SetOnSendRequest(new[] { OnSendRequest }, communicationManage.requestTimeoutMs);
             #endregion
 
 
@@ -365,7 +360,7 @@ namespace Sers.ServiceCenter
 
         #region (x.5) StopCenter
         public void StopCenter()
-        { 
+        {
             Logger.Info("[ServiceCenter] stoping");
 
             //(x.1) appEvent BeforeStop
@@ -407,7 +402,7 @@ namespace Sers.ServiceCenter
             //(x.4)调用SersApp 事件
             SersApplication.OnStop();
 
-           
+
         }
         #endregion
 

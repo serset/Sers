@@ -2,7 +2,7 @@ set -e
 
 
 #---------------------------------------------------------------------
-#(x.1)参数
+# args
 args_="
 
 export basePath=/root/temp/svn
@@ -18,7 +18,7 @@ export APPNAME=xxxxxx
 
 
 #---------------------------------------------------------------------
-#(x.2)构建github release环境变量
+#2 init environment for github release
 
 
 
