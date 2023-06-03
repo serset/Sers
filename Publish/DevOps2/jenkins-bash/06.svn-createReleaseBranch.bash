@@ -31,7 +31,8 @@ svn checkout $SVN_PATH/branches/develop $codePath --username $SVN_USERNAME --pas
 echo "06.svn-createReleaseBranch.bash  -->  #1.2 change version in csproj"
 export versionSuffix=$versionSuffix
 cd $codePath/Publish/DevOps2/build-bash; source 20.change-app-version.bash; 
-echo "appVersion: $appVersion"
+echo "appVersion: [$appVersion] -> [$nextAppVersion]"
+export appVersion=$nextAppVersion
 cd $codePath;
 
 echo "06.svn-createReleaseBranch.bash  -->  #1.3 commit to develop branch"

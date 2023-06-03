@@ -1,36 +1,37 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<pack>nuget</pack>
-	</PropertyGroup>
+    <PropertyGroup>
+        <pack>nuget</pack>
+        <appVersion></appVersion>
+    </PropertyGroup>
 
-	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
-		<Version>2.1.20-preview11</Version>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Version>2.1.20-preview12</Version>
+    </PropertyGroup>
 
-	<PropertyGroup>
-		<Authors>Lith</Authors>
-		<Description>Sers微服务-核心库</Description>
-		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
-	</PropertyGroup>
+    <PropertyGroup>
+        <Authors>Lith</Authors>
+        <Description>Sers微服务-核心库</Description>
+        <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
+    </PropertyGroup>
 
-	<PropertyGroup>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<DocumentationFile>bin\Debug\netstandard2.0\Sers.Core.xml</DocumentationFile>
-	</PropertyGroup>
-
-
-	<ItemGroup>
-		<PackageReference Include="System.Text.Json" Version="5.0.2" />
-		<PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
-	</ItemGroup>
+    <PropertyGroup>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <DocumentationFile>bin\Debug\netstandard2.0\Sers.Core.xml</DocumentationFile>
+    </PropertyGroup>
 
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\Vit\Vit.Core\Vit.Core\Vit.Core.csproj" />
-		<ProjectReference Include="..\..\Sers.Hardware\Sers.Hardware\Sers.Hardware.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="System.Text.Json" Version="5.0.2" />
+        <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Vit\Vit.Core\Vit.Core\Vit.Core.csproj" />
+        <ProjectReference Include="..\..\Sers.Hardware\Sers.Hardware\Sers.Hardware.csproj" />
+    </ItemGroup>
 
 
 </Project>

@@ -28,7 +28,8 @@ svn checkout $SVN_PATH/branches/develop $codePath --username $SVN_USERNAME --pas
 echo "07.svn-changeToNextTempVersion.bash  -->  #2 change version in csproj"
 export versionSuffix="-temp"
 cd $codePath/Publish/DevOps2/build-bash; source 21.change-to-next-version.bash; 
-echo "appVersion: $appVersion"
+echo "appVersion: [$appVersion] -> [$nextAppVersion]"
+export appVersion=$nextAppVersion
 cd $codePath;
 
 echo "07.svn-changeToNextTempVersion.bash  -->  #3 commit to develop branch"
