@@ -44,7 +44,7 @@ cd $basePath/Publish/DevOps2/release-bash; bash startup.bash;
 
 #----------------------------------------------
 echo "#3 get version" 
-export version=`grep '<Version>' $(grep '<pack>\|<publish>' ${basePath} -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
+export version=`grep '<Version>' $(grep '<pack>\|<publish>' ${basePath}/dotnet/ServiceCenter -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
 echo $version
 
 
