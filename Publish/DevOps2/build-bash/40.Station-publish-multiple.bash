@@ -28,9 +28,9 @@ do
 	sed -i 's/net6.0/'"$netVersion"'/g' `find ${basePath} -name *.csproj -exec grep '<publish>' -l {} \;`
 
 
-	echo "#2.3 bash 40.Station-publish.sh"
+	echo "#2.3 sh 40.Station-publish.sh"
 	cd $curPath
-	bash 40.Station-publish.sh
+	sh 40.Station-publish.sh
 
 
 	echo "#2.4 change back netVersion to net6.0 in csproj"

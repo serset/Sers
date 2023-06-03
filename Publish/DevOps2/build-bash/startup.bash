@@ -20,8 +20,8 @@ echo "build-bash/startup.bash"
 for file in *.sh
 do
     echo "-----------------------------------------------------------------"
-    echo "[$(date "+%H:%M:%S")] bash $file"
-    bash $file
+    echo "[$(date "+%H:%M:%S")] sh $file"
+    sh $file
 done
 
 
