@@ -16,6 +16,7 @@ if [ ! $NUGET_PATH ]; then NUGET_PATH=$basePath/Publish/release/.nuget; fi
 
 
 nugetPath=Publish/release/release/nuget
+mkdir -p $basePath/Publish/release/release
 
 
 
