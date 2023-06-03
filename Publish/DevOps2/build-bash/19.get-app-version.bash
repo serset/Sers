@@ -16,12 +16,8 @@ export versionSuffix='  '
 versionSuffix=${versionSuffix// /}
 
 #----------------------------------------------
-# curPath
-curPath=$PWD
-
-cd $curPath/../../..
-export basePath=$PWD
-cd $curPath
+# basePath
+if [ -n "$basePath" ]; then basePath=$PWD/../../..; fi
 
 
 
@@ -43,8 +39,3 @@ v3=$(echo $appVersion | tr '.-' '\n' | sed -n 3p)
 export nextAppVersion="$v1.$v2.$v3$versionSuffix"
 echo "nextAppVersion: $nextAppVersion"
 
-
-
-#----------------------------------------------
-#9
-cd $curPath

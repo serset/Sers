@@ -16,12 +16,8 @@ export versionSuffix='  '
 versionSuffix=${versionSuffix// /}
 
 #----------------------------------------------
-# curPath
-curPath=$PWD
-
-cd $curPath/../../..
-export basePath=$PWD
-cd $curPath
+# basePath
+if [ -n "$basePath" ]; then basePath=$PWD/../../..; fi
 
 
 
@@ -48,9 +44,3 @@ echo "nextAppVersion: $nextAppVersion"
 echo "#2 change app version from [$appVersion] to [$nextAppVersion]" 
 sed -i 's/'"$appVersion"'/'"$nextAppVersion"'/g'  `find ${basePath} -name *.csproj -exec grep '<pack>\|<publish>' -l {} \;`
 
-
-
-
-#----------------------------------------------
-#9
-cd $curPath
