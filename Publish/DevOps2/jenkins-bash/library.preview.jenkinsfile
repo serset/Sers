@@ -69,7 +69,7 @@ pipeline {
                     sshCommand remote: remote, command:  "sh -c 'set -e; mkdir -p $codePath;chmod 777 $codePath;    docker run -i --rm -v $codePath:/root/svn serset/svn-client svn checkout \"$SVN_PATH/branches/develop\" /root/svn --username \"$svn_USR\" --password \"$svn_PSW\" --no-auth-cache > /dev/null;  '"
 
                     echo "#1.2 change-app-version"
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/build-bash; bash 20.change-app-version.bash;  '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/build-bash; sh 20.change-app-version.bash;  '"
                 }
             }
         }
@@ -78,7 +78,7 @@ pipeline {
             when { expression { env.inputChoice == "yes" } }
             steps {
                 script {
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps2/build-bash; bash startup.bash;  '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps2/build-bash; sh startup.bash;  '"
                 }
             }
         }
@@ -87,7 +87,7 @@ pipeline {
             when { expression { env.inputChoice == "yes" && env.build_crossPlatform == "yes" } }
             steps {
                 script {
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps2/build-bash; bash 40.Station-publish-multiple.bash;  '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps2/build-bash; sh 40.Station-publish-multiple.bash;  '"
                 }
             }
         }
@@ -96,7 +96,7 @@ pipeline {
             when { expression { env.inputChoice == "yes" } }
             steps {
                 script {
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME;export NUGET_PATH=$NUGET_PATH;    export NUGET_SERVER=$NUGET_SERVER;export NUGET_KEY=$NUGET_KEY;  export DOCKER_Buildx=${env.DOCKER_Buildx};export DOCKER_ImagePrefix=${env.DOCKER_ImagePrefix};export DOCKER_USERNAME=${env.DOCKER_USERNAME};export DOCKER_PASSWORD=${env.DOCKER_PASSWORD};export DOCKER_BuildxExtArgs=\"--output=type=registry,registry.insecure=true\";    cd $codePath/Publish/DevOps2/release-bash; bash startup.bash;  '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME;export NUGET_PATH=$NUGET_PATH;    export NUGET_SERVER=$NUGET_SERVER;export NUGET_KEY=$NUGET_KEY;  export DOCKER_Buildx=${env.DOCKER_Buildx};export DOCKER_ImagePrefix=${env.DOCKER_ImagePrefix};export DOCKER_USERNAME=${env.DOCKER_USERNAME};export DOCKER_PASSWORD=${env.DOCKER_PASSWORD};export DOCKER_BuildxExtArgs=\"--output=type=registry,registry.insecure=true\";    cd $codePath/Publish/DevOps2/release-bash; sh startup.bash;  '"
                 }
             }
         }
@@ -114,7 +114,7 @@ pipeline {
             when { expression { env.inputChoice == "yes" && env.svn_createReleaseBranch == "yes" } }
             steps {
                 script {
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export codePath=\"$basePath/code-createReleaseBranch\";export SVN_PATH=$SVN_PATH;export SVN_USERNAME=\"$svn_USR\";export SVN_PASSWORD=\"$svn_PSW\";  export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/jenkins-bash; bash 06.svn-createReleaseBranch.bash;  '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export codePath=\"$basePath/code-createReleaseBranch\";export SVN_PATH=$SVN_PATH;export SVN_USERNAME=\"$svn_USR\";export SVN_PASSWORD=\"$svn_PSW\";  export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/jenkins-bash; sh 06.svn-createReleaseBranch.bash;  '"
                 }
             }
         }
@@ -123,7 +123,7 @@ pipeline {
             when { expression { env.inputChoice == "yes" && env.svn_changeToNextTempVersion == "yes" } }
             steps {
                 script {
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export codePath=\"$basePath/code-nextTempVersion\";export SVN_PATH=$SVN_PATH;export SVN_USERNAME=\"$svn_USR\";export SVN_PASSWORD=\"$svn_PSW\";   cd $codePath/Publish/DevOps2/jenkins-bash; bash 07.svn-changeToNextTempVersion.bash;  '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export codePath=\"$basePath/code-nextTempVersion\";export SVN_PATH=$SVN_PATH;export SVN_USERNAME=\"$svn_USR\";export SVN_PASSWORD=\"$svn_PSW\";   cd $codePath/Publish/DevOps2/jenkins-bash; sh 07.svn-changeToNextTempVersion.bash;  '"
                 }
             }
         }
