@@ -32,20 +32,19 @@ cd $curPath
 
 #---------------------------------------------- 
 echo '#1 build'
-cd $basePath/Publish/DevOps2/build-bash; bash startup.bash;
-cd $basePath/Publish/DevOps2/build-bash; bash 40.Station-publish-multiple.bash;
+cd $basePath/Publish/DevOps2/build-bash; sh startup.bash;
+cd $basePath/Publish/DevOps2/build-bash; sh 40.Station-publish-multiple.bash;
 
 
 #---------------------------------------------- 
 echo '#2 release-bash'
-cd $basePath/Publish/DevOps2/release-bash; bash startup.bash;
+cd $basePath/Publish/DevOps2/release-bash; sh startup.bash;
  
 
 
 #----------------------------------------------
-echo "#3 get version" 
-export version=`grep '<Version>' $(grep '<pack>\|<publish>' ${basePath}/dotnet/ServiceCenter -r --include *.csproj -l | head -n 1) | grep -oP '>(.*)<' | tr -d '<>'`
-echo $version
+echo "#3 get appVersion" 
+cd $basePath/Publish/DevOps2/build-bash; source 19.get-app-version.bash;
 
 
 
@@ -56,7 +55,7 @@ for file in *.sh
 do
     echo "-----------------------------------------------------------------"
     echo "[$(date "+%H:%M:%S")]" bash $file
-    bash $file
+    sh $file
 done
 
 

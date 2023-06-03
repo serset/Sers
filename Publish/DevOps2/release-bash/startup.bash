@@ -32,8 +32,7 @@ cd $curPath
 
 #----------------------------------------------
 echo "#1 get appVersion"
-export appVersion=`grep '<Version>' $(find ${basePath} -name *.csproj -exec grep '<pack>\|<publish>' -l {} \; | head -n 1) | grep -oE '\>(.*)\<' | tr -d '<>/'`
-echo appVersion: $appVersion
+cd $basePath/Publish/DevOps2/build-bash; source 19.get-app-version.bash;
 
 
 
@@ -42,7 +41,7 @@ echo appVersion: $appVersion
 
 #----------------------------------------------
 echo "#2 bash"
-
+cd $curPath
 for file in *.sh
 do
     echo "-----------------------------------------------------------------"
