@@ -26,19 +26,19 @@ cd $curPath
 
 
 #----------------------------------------------
-echo "#1 get version" 
-export version=`grep '<Version>' $(find ${basePath} -name *.csproj -exec grep '<pack>\|<publish>' -l {} \; | head -n 1) | grep -oE '\>(.*)\<' | tr -d '<>/'`
-echo "version from csproj: $version"
+echo "#1 get appVersion" 
+export appVersion=`grep '<Version>' $(find ${basePath} -name *.csproj -exec grep '<appVersion>' -l {} \; | head -n 1) | grep -oE '\>(.*)\<' | tr -d '<>/'`
+echo "appVersion from csproj: $appVersion"
 
 # get v1 v2 v3
-v1=$(echo $version | tr '.' '\n' | sed -n 1p)
-v2=$(echo $version | tr '.' '\n' | sed -n 2p)
-v3=$(echo $version | tr '.-' '\n' | sed -n 3p)
+v1=$(echo $appVersion | tr '.' '\n' | sed -n 1p)
+v2=$(echo $appVersion | tr '.' '\n' | sed -n 2p)
+v3=$(echo $appVersion | tr '.-' '\n' | sed -n 3p)
 
 
-#export appVersion="${version%%-*}$versionSuffix"
-export appVersion="$v1.$v2.$v3$versionSuffix"
-echo "appVersion: $appVersion"
+#export nextAppVersion="${appVersion%%-*}$versionSuffix"
+export nextAppVersion="$v1.$v2.$v3$versionSuffix"
+echo "nextAppVersion: $nextAppVersion"
 
 
 
