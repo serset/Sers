@@ -72,7 +72,7 @@ mkdir -p \"\$basePath/Publish/release/release/ServiceCenter(\$netVersion)\"
 
 
 
-echo 'publish succeed£¡'
+echo 'publish succeed!'
 
 
 
