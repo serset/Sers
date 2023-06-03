@@ -2,7 +2,7 @@ set -e
 
 
 #---------------------------------------------------------------------
-# 参数
+# args
 args_="
 
 export basePath=/root/temp/svn
@@ -14,7 +14,7 @@ if [ ! $NUGET_PATH ]; then NUGET_PATH=$basePath/Publish/release/.nuget; fi
 
 
 #----------------------------------------------
-echo "40.Station-publish.sh 查找所有需要发布的项目并发布"
+echo "40.Station-publish.sh find projects and build"
 
 
 
@@ -72,7 +72,7 @@ mkdir -p \"\$basePath/Publish/release/release/ServiceCenter(\$netVersion)\"
 
 
 
-echo 'publish succeed！'
+echo 'publish succeed��'
 
 
 

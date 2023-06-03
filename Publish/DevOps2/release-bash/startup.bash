@@ -3,7 +3,7 @@ set -e
 # cd /root/temp/svn/Publish/DevOps/release-bash;bash startup.bash;
 
 #---------------------------------------------------------------------
-#(x.1)参数
+# args
 args_="
 
 export APPNAME=xxxxxx
@@ -19,7 +19,7 @@ export NUGET_KEY=xxxxxxxxxx
 
 
 #----------------------------------------------
-#(x.2)当前路径
+# cur path
 curPath=$PWD
 
 cd $curPath/../../..
@@ -31,7 +31,7 @@ cd $curPath
 
 
 #----------------------------------------------
-echo "(x.3)get appVersion"
+echo "#1 get appVersion"
 export appVersion=`grep '<Version>' $(find ${basePath} -name *.csproj -exec grep '<pack>\|<publish>' -l {} \; | head -n 1) | grep -oE '\>(.*)\<' | tr -d '<>/'`
 echo appVersion: $appVersion
 
@@ -41,7 +41,7 @@ echo appVersion: $appVersion
 
 
 #----------------------------------------------
-#(x.4)bash
+echo "#2 bash"
 
 for file in *.sh
 do

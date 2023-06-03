@@ -4,7 +4,7 @@ set -e
 
 
 #---------------------------------------------------------------------
-# (x.1)参数
+# args
 args_="
   export      codePath=/root/docker-cache/jenkins/jenkins_home/workspace/Sers/develop/20/code-with-prod-version
   export      SVN_PATH=svn://svn.ki.lith.cloud/Sers

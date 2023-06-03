@@ -4,7 +4,7 @@ set -e
 
 
 #---------------------------------------------------------------------
-#(x.1)参数
+# args
 args_="
 
 export basePath=/root/temp/svn
@@ -20,7 +20,7 @@ nugetPath=Publish/release/release/nuget
 
 
 #----------------------------------------------
-echo "(x.2)nuget-pack"
+echo "30.nuget-pack.sh"
 docker run -i --rm \
 --env LANG=C.UTF-8 \
 -v $NUGET_PATH:/root/.nuget \

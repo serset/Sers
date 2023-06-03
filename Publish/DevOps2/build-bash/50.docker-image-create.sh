@@ -2,7 +2,7 @@ set -e
 
 
 #---------------------------------------------------------------------
-# 鍙傛暟
+# args
 args_="
 
 export basePath=/root/temp/svn
@@ -35,8 +35,8 @@ do
 done
 
 
-echo "#3 copy 鍗曚綋鍘嬫祴"
-\cp -rf "$basePath/Publish/release/release/StressTest/鍗曚綋鍘嬫祴net6.0/ServiceCenter/." "$dockerPath/sers-demo-sersall/app"
- 
+echo "#3 copy 单体压测"
+\cp -rf "$basePath/Publish/release/release/StressTest/单体压测net6.0/ServiceCenter/." "$dockerPath/sers-demo-sersall/app"
+
 
 

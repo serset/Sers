@@ -5,7 +5,7 @@ set -e
 
 
 #---------------------------------------------------------------------
-#(x.1)参数
+# args
 args_="
 
 export versionSuffix='  '
@@ -16,7 +16,7 @@ export versionSuffix='  '
 versionSuffix=${versionSuffix// /}
 
 #----------------------------------------------
-#(x.2)当前路径 
+# curPath
 curPath=$PWD
 
 cd $curPath/../../..

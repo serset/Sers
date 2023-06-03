@@ -2,7 +2,7 @@ set -e
 
 
 #---------------------------------------------------------------------
-#(x.1)参数
+# args
 args_="
 
 export basePath=/root/temp/svn
@@ -14,7 +14,7 @@ export APPNAME=xxxxxx
 # "
 
 #----------------------------------------------
-echo "压缩文件"
+echo "71.file-zip.sh"
 
 docker run --rm -i \
 -v $basePath:/root/code \

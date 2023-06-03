@@ -2,7 +2,7 @@ set -e
 
 
 #---------------------------------------------------------------------
-#(x.1)å‚æ•°
+# args
 args_="
 
 export basePath=/root/temp/svn
@@ -31,8 +31,8 @@ echo "(x.4)copy station"
 \cp -rf "$publishPath/Gover/appsettings.json" "$deployPath/sers-gover"
 \cp -rf "$publishPath/Demo/appsettings.json" "$deployPath/sers-demo"
 \cp -rf "$publishPath/Robot/appsettings.json" "$deployPath/sers-demo-robot"
-\cp -rf "$basePath/Publish/release/release/StressTest/å•ä½“å‹æµ‹net6.0/ServiceCenter/appsettings.json" "$deployPath/sers-demo-sersall"
- 
+\cp -rf "$basePath/Publish/release/release/StressTest/µ¥ÌåÑ¹²ânet6.0/ServiceCenter/appsettings.json" "$deployPath/sers-demo-sersall"
+
 
 
 

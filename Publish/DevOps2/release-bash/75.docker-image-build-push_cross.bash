@@ -2,7 +2,7 @@ set -e
 
 
 #---------------------------------------------------------------------
-#(x.1)参数
+# args
 args_="
 
 export basePath=/root/temp/svn
@@ -27,19 +27,19 @@ export builderName="mybuilder__${appVersion}__"
 echo "builderName: $builderName"
 
 
-echo "#1.1 验证是否开启"
+echo "#1.1 docker buildx version"
 docker buildx version
 
-echo "#1.2 启用binfmt_misc"
+echo "#1.2 install binfmt_misc"
 docker run --privileged --rm tonistiigi/binfmt --install all
 
-echo "#1.3 创建构建器"
+echo "#1.3 create builder"
 if [ ! "$(docker buildx ls | grep $builderName)" ]; then docker buildx create --use --name $builderName --buildkitd-flags '--allow-insecure-entitlement security.insecure'; fi
 
-echo "#1.4 启动构建器"
+echo "#1.4 start builder"
 docker buildx inspect $builderName --bootstrap
 
-echo "#1.5 查看当前使用的构建器及支持的CPU架构"
+echo "#1.5 show builders and supported CPU platform"
 docker buildx ls
 
 
@@ -67,5 +67,5 @@ done
 
 
 #---------------------------------------------------------------------
-echo "75.docker-image-build-push_cross.bash -> #3 docker - remove buildx"
+echo "75.docker-image-build-push_cross.bash -> #3 remove builder"
 if [ "$(docker buildx ls | grep $builderName)" ]; then docker buildx rm $builderName; fi
