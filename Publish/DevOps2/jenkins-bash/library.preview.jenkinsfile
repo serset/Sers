@@ -31,6 +31,7 @@ pipeline {
         NUGET_KEY = credentials("nuget_key")
 
         DOCKER_ImagePrefix = "docker.lith.cloud:8/develop/"
+        DOCKER_Buildx = true
         DOCKER_USERNAME = " "
         DOCKER_PASSWORD = " "
 
@@ -95,7 +96,7 @@ pipeline {
             when { expression { env.inputChoice == "yes" } }
             steps {
                 script {
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME;export NUGET_PATH=$NUGET_PATH;    export NUGET_SERVER=$NUGET_SERVER;export NUGET_KEY=$NUGET_KEY;  export DOCKER_ImagePrefix=${env.DOCKER_ImagePrefix};export DOCKER_USERNAME=${env.DOCKER_USERNAME};export DOCKER_PASSWORD=${env.DOCKER_PASSWORD};export DOCKER_BuildxExtArgs=\"--output=type=registry,registry.insecure=true\";    cd $codePath/Publish/DevOps2/release-bash; sh startup.bash;  '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME;export NUGET_PATH=$NUGET_PATH;    export NUGET_SERVER=$NUGET_SERVER;export NUGET_KEY=$NUGET_KEY;  export DOCKER_Buildx=${env.DOCKER_Buildx};export DOCKER_ImagePrefix=${env.DOCKER_ImagePrefix};export DOCKER_USERNAME=${env.DOCKER_USERNAME};export DOCKER_PASSWORD=${env.DOCKER_PASSWORD};export DOCKER_BuildxExtArgs=\"--output=type=registry,registry.insecure=true\";    cd $codePath/Publish/DevOps2/release-bash; sh startup.bash;  '"
                 }
             }
         }
