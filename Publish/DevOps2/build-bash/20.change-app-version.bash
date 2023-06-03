@@ -17,7 +17,7 @@ versionSuffix=${versionSuffix// /}
 
 #----------------------------------------------
 # basePath
-if [ -n "$basePath" ]; then basePath=$PWD/../../..; fi
+if [ -z "$basePath" ]; then basePath=$PWD/../../..; fi
 
 
 
