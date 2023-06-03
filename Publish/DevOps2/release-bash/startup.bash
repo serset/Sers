@@ -32,7 +32,7 @@ cd $curPath
 
 #----------------------------------------------
 echo "#1 get appVersion"
-cd $basePath/Publish/DevOps2/build-bash; sh 19.get-app-version.bash;
+cd $basePath/Publish/DevOps2/build-bash; source 19.get-app-version.bash;
 
 
 
