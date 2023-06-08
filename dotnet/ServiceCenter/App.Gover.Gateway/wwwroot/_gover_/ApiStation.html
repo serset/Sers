@@ -156,11 +156,11 @@
                             }, methods: {
                                 start: function (station) {
                                     sers.apiClient.apiStation_start(station.stationName, function (data) {
-                                        rendStations();
+                                        reloadStations();
                                     });
                                 }, pause: function (station) {
                                     sers.apiClient.apiStation_pause(station.stationName, function (data) {
-                                        rendStations();
+                                        reloadStations();
                                     });
                                 }
                             }

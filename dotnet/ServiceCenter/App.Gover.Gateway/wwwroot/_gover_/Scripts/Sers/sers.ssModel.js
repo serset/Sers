@@ -17,35 +17,35 @@
 
 
     var obj = scope[objName] = {};
-     
+
 
     function getExampleBySsModel(ssModel) {
         /*
 //SsModel
 {
-	"type":"type1",
-	"mode":"object",
-	"description":"用户手机号"
-	"defaultValue":"",
-	"example":"15000000000",
-	"models":[ {SsModelEntity1} , {SsModelEntity2}  ]
+    "type":"type1",
+    "mode":"object",
+    "description":"用户手机号"
+    "defaultValue":"",
+    "example":"15000000000",
+    "models":[ {SsModelEntity1} , {SsModelEntity2}  ]
 }
 
 //SsModelEntity
 {
-	"type":"type1",
-	"mode":"object",
-	"propertys":[ {SsModelProperty} , {SsModelProperty}  ]
+    "type":"type1",
+    "mode":"object",
+    "propertys":[ {SsModelProperty} , {SsModelProperty}  ]
 }
 
 //SsModelProperty
 {
-	"name":"mobile",
-	"type":"type1",
-	"mode":"object",
-	"description":"用户手机号",
-	"defaultValue":"",
-	"example":"15000000000"
+    "name":"mobile",
+    "type":"type1",
+    "mode":"object",
+    "description":"用户手机号",
+    "defaultValue":"",
+    "example":"15000000000"
 }
 
 */
@@ -53,29 +53,28 @@
         //if (!ssModel.models || ssModel.models.length == 0) return {};
 
         //(x.1) mode 为 value
-        if (ssModel.mode == 'value')
-        {
+        if (ssModel.mode == 'value') {
             return parseValue(ssModel.type, ssModel.example);
         }
 
         //(x.2)指定了example，直接返回
         try {
             if ('string' == typeof (ssModel.example) && ssModel.example != '') {
-                return eval('(' + ssModel.example + ')');                 
+                return eval('(' + ssModel.example + ')');
             }
         } catch (e) {
 
         }
 
- 
 
 
 
-    
+
+
         var typeMap = {};
 
         for (var t in ssModel.models) {
-            var m = ssModel.models[t];           
+            var m = ssModel.models[t];
             typeMap[m.type] = m;
         }
 
@@ -89,7 +88,7 @@
         return buildModelEntity(modelEntity);
 
 
-        function buildModelEntity(modelEntity) {       
+        function buildModelEntity(modelEntity) {
 
             //(x.1) mode 为 array
             if (modelEntity.mode == 'array') {
@@ -105,7 +104,7 @@
                 var property = propertys[t];
 
                 var key = property.name;
-                var value = getExampleValueByModelProperty(property);                
+                var value = getExampleValueByModelProperty(property);
 
                 model[key] = value;
             }
@@ -113,7 +112,7 @@
         }
 
         // mode 必须为 "value"
-        function parseValue(type, example) {           
+        function parseValue(type, example) {
             var value = example;
 
             if (type == 'int32' || type == 'int64') {
@@ -122,21 +121,21 @@
                     if (isNaN(value)) value = 1;
                 } catch (e) {
                     value = 1;
-                }               
-            } else if (type == 'float' || type == 'double') {                
+                }
+            } else if (type == 'float' || type == 'double') {
                 try {
                     value = parseFloat(example);
                     if (isNaN(value)) value = 0.1;
                 } catch (e) {
                     value = 0.1;
-                } 
-            } else if (type == 'bool') {                
+                }
+            } else if (type == 'bool') {
                 try {
                     value = Boolean(example);
                     if (value !== true || value !== false) value = true;
                 } catch (e) {
                     value = true;
-                } 
+                }
             } else if (type == 'string') {
                 if (!value) value = '';
             }
@@ -150,8 +149,8 @@
             var example = property.example;
 
             //子模型
-            if (property.mode == 'value') {        
-                value = parseValue(property.type, example);                 
+            if (property.mode == 'value') {
+                value = parseValue(property.type, example);
                 return value;
             }
 
@@ -166,7 +165,7 @@
 
             }
 
-            
+
 
             if (property.mode == 'object') {
 
@@ -174,23 +173,30 @@
                 var childEntity = typeMap[type];
 
                 if (childEntity) {
-                    if (typepath.indexOf(property.type) < 0) {     
+                    if (childEntity.mode != 'value') {
+                        if (childEntity.__getExampleBySsModel_loaded) {
+                            return value;
+                        }
+                        childEntity.__getExampleBySsModel_loaded = true;
+                    }
+
+                    if (typepath.indexOf(property.type) < 0) {
                         typepath.push(property.type);
-                        value = buildModelEntity(childEntity);       
+                        value = buildModelEntity(childEntity);
                         typepath.pop();
-                    }                    
+                    }
                 }
 
             } else if (property.mode == 'array') {
 
                 var type = property.type;
                 var childEntity = typeMap[type];
-               
+
                 if (childEntity) {
                     typepath.push(property.type);
                     try {
-                        var property = childEntity.propertys[0];                       
-                        value = getExampleValueByModelProperty(property);                        
+                        var property = childEntity.propertys[0];
+                        value = getExampleValueByModelProperty(property);
                     } catch (e) {
                     }
                     typepath.pop();
@@ -198,7 +204,7 @@
                 value = [value];
             }
 
-            
+
             return value;
         }
 
