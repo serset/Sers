@@ -85,7 +85,7 @@ namespace Sers.SersLoader
             #endregion
 
 
-            #region (x.2)LoadSubscriber            
+            #region (x.2)LoadSubscriber
             Core.Module.PubSub.Controller.SubscriberLoader.LoadSubscriber(config.assembly);
             #endregion
 
@@ -109,15 +109,15 @@ namespace Sers.SersLoader
                 var types = LoadControllers(config);
 
 
-                //(x.2)遍历Controller                
+                //(x.2)遍历Controller
                 foreach (var type in types)
                 {
                     //(x.x.1) 获取 routePrefix
                     List<String> routePrefixs = GetRoutePrefixs(config, type);
 
 
-                    #region (x.x.3) 遍历method 构建apiNodes             
-                    var methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);             
+                    #region (x.x.3) 遍历method 构建apiNodes
+                    var methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
                     foreach (var method in methods)
                     {
                         //(x.x.x.1) sampleApiDesc
@@ -267,7 +267,7 @@ namespace Sers.SersLoader
 
 
         protected virtual ParameterInfo[] MethodInfoGetArgInfos(MethodInfo method)
-        {           
+        {
             return method.GetParameters();
         }
 
@@ -293,10 +293,10 @@ namespace Sers.SersLoader
             apiDesc.description = method.GetCustomAttribute<SsDescriptionAttribute>()?.Value;
 
             //(x.3) rpcValidations from code
-            //apiDesc.rpcValidations = SersValidMng.GetRpcValidationsFromMethod(method);    
+            //apiDesc.rpcValidations = SersValidMng.GetRpcValidationsFromMethod(method);
             apiDesc.rpcVerify2 = RpcVerify2Loader.GetRpcVerify2FromMethod(method);
 
-            //(x.4)ArgType        
+            //(x.4)ArgType
             apiDesc.argType = ssModelBuilder.BuildSsModel_Arg(MethodInfoGetArgInfos(method), xmlComment);
 
             //(x.5)ReturnType
@@ -339,7 +339,7 @@ namespace Sers.SersLoader
             if (null == attrs || attrs.Count() == 0) return null;
 
             #region (x.1)获取 apiDescs
-            
+
             List<SsApiDesc> apiDescs = new List<SsApiDesc>();
 
             foreach (var attr in attrs)
@@ -367,7 +367,7 @@ namespace Sers.SersLoader
                     foreach (var routePrefix in routePrefixs)
                     {
                         //  /{stationName}/{routePrefix}/route
-                        var absRoute = routePrefix + "/" + route;                        
+                        var absRoute = routePrefix + "/" + route;
 
                         var apiDesc = CreateApiDesc();
                         apiDesc.route = absRoute;
@@ -388,7 +388,7 @@ namespace Sers.SersLoader
             //(x.2) apiDescs -> apiNode
             return apiDescs.Select(apiDesc =>
             {
-                IApiNode apiNode = new LocalApiNode(apiDesc, method, apiController_Obj);
+                IApiNode apiNode = LocalApiNode.CreateLocalApiNode(apiDesc, method, apiController_Obj);
                 return apiNode;
             }).ToList();
         }
