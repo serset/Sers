@@ -11,8 +11,8 @@ pipeline {
 
     environment {
         //APPNAME = "Sers"
-        stageName = "develop"
-        versionSuffix = "-${stageName}${env.build_number}"
+        stageName = "prod"
+        versionSuffix = "  "
 
         basePath = "/root/docker-cache/jenkins/jenkins_home/workspace/${APPNAME}/${stageName}/${env.build_number}"
         // set to "  "  if want to skip copy
@@ -30,14 +30,14 @@ pipeline {
         //NUGET_KEY = " "
         NUGET_KEY = credentials("nuget_key")
 
-        DOCKER_ImagePrefix = "docker.lith.cloud:8/develop/"
-        DOCKER_Buildx = false
+        DOCKER_ImagePrefix = "docker.lith.cloud:8/prod/"
+        DOCKER_Buildx = true
         DOCKER_USERNAME = " "
         DOCKER_PASSWORD = " "
 
-        build_crossPlatform = "no"
-        svn_createReleaseBranch = "no"
-        svn_changeToNextTempVersion = "no"
+        build_crossPlatform = "yes"
+        svn_createReleaseBranch = "yes"
+        svn_changeToNextTempVersion = "yes"
 
         dind_ssh_account = credentials("dind_ssh_account")
     }
