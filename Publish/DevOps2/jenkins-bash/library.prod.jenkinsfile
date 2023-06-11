@@ -30,7 +30,7 @@ pipeline {
         //NUGET_KEY = " "
         NUGET_KEY = credentials("nuget_key")
 
-        DOCKER_ImagePrefix = "docker.lith.cloud:8/prod/"
+        DOCKER_ImagePrefix = "docker.lith.cloud:8/${stageName}/"
         DOCKER_Buildx = true
         DOCKER_USERNAME = " "
         DOCKER_PASSWORD = " "
