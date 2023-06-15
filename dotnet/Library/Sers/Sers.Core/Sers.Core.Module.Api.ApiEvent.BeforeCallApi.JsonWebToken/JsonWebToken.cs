@@ -26,10 +26,10 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.JsonWebToken
 
         public void Init(JObject config)
         {
-            Secret = config["Secret"].Value<String>();
-            CallerSource = config["CallerSource"].Value<String>();
-            Issuer = config["Issuer"].Value<String>();
-            Audience = config["Audience"].ToObject<List<string>>();
+            Secret = config["Secret"]?.Value<String>();
+            CallerSource = config["CallerSource"]?.Value<String>();
+            Issuer = config["Issuer"]?.Value<String>();
+            Audience = config["Audience"]?.Value<List<string>>();
         }
 
 

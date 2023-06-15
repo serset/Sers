@@ -54,6 +54,8 @@
                 expires_time: localStorage.getItem('jwt_token_expires_time')
             };
         };
+
+        //{access_token:'xx',expires_time:'1686857267655'}
         this.getToken = function () {
             var expires_time = parseInt(localStorage.getItem('jwt_token_expires_time'));
             if (expires_time) {
@@ -77,8 +79,9 @@
     function AuthService() {
         this.audience;
         this.loginUrl = '/login.html';
+        this.indexUrl = '/';
         this.ssoBaseUrl = 'https://sso.lith.cloud';
-
+        this.onLoginSuccess = null;
 
         this.accessToken = null;
         let self = this;
@@ -95,6 +98,8 @@
             if (redirect_uri) {
                 localStorage.removeItem('jwt_redirect_uri');
                 window.location.href = redirect_uri;
+            } else {
+                window.location.href = self.indexUrl;
             }
         };
 
@@ -107,6 +112,11 @@
                 var expires_time = authStore.getQueryString('expires_time');
                 this.accessToken = authStore.cacheToken({ access_token, expires_time });
                 if (this.accessToken) {
+                    try {
+                        if (this.onLoginSuccess) this.onLoginSuccess(this.accessToken);
+                    } catch (e) {
+                        console.log(e);
+                    }
                     jumpToPrevUrl();
                     return this.accessToken;
                 }
@@ -123,7 +133,8 @@
         this.logoff = function (redirect_uri) {
             this.accessToken = null;
             authStore.clearToken();
-            window.location.href = self.ssoBaseUrl + '/logoff.html?redirect_uri=' + encodeURIComponent(redirect_uri || location.href);
+            if (!redirect_uri) redirect_uri = new URL(this.indexUrl, location.origin).toString();
+            window.location.href = self.ssoBaseUrl + '/logoff.html?redirect_uri=' + encodeURIComponent(redirect_uri);
         };
 
 
@@ -146,6 +157,8 @@
         let config = (typeof (AuthService_Config) == 'object') ? AuthService_Config : {};
 
         if (config.loginUrl) authService.loginUrl = config.loginUrl;
+        if (config.indexUrl) authService.indexUrl = config.indexUrl;
+        if (config.onLoginSuccess) authService.onLoginSuccess = config.onLoginSuccess;
         if (config.ssoBaseUrl) authService.ssoBaseUrl = config.ssoBaseUrl;
         if (config.audience) authService.audience = config.audience;
 
