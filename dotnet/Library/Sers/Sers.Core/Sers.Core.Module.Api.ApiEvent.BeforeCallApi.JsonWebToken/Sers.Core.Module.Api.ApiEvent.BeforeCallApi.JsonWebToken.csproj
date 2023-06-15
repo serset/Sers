@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <pack>nuget</pack>
@@ -11,23 +11,17 @@
 
     <PropertyGroup>
         <Authors>Lith</Authors>
-        <Description>Sers微服务-通信层</Description>
+        <Description>Sers - jwt validate</Description>
         <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
     </PropertyGroup>
 
-    <PropertyGroup>
-        <DocumentationFile>bin\Debug\netstandard2.0\Sers.CL.Ipc.NamedPipe.xml</DocumentationFile>
-    </PropertyGroup>
-
-
     <ItemGroup>
-        <Compile Remove="Doc\**" />
-        <EmbeddedResource Remove="Doc\**" />
-        <None Remove="Doc\**" />
+        <ProjectReference Include="..\Sers.Core\Sers.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Sers.Core\Sers.Core\Sers.Core.csproj" />
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.31.0" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.31.0" />
     </ItemGroup>
 
 </Project>
