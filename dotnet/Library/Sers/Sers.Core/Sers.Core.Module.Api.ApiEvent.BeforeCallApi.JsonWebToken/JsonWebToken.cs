@@ -5,7 +5,8 @@ using Sers.Core.Module.Message;
 using Vit.Core.Module.Log;
 using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
-using System.Collections.Generic;
+using Vit.SSO;
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.JsonWebToken
 {
@@ -19,17 +20,14 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.JsonWebToken
         //"BlockIfInvalid": false,
         //bool? BlockIfInvalid;
 
-        string Secret;
+  
         string CallerSource;
-        string Issuer;
-        List<string> Audience;
+        JwtService_RS256_Validate jwtService;
 
         public void Init(JObject config)
-        {
-            Secret = config["Secret"]?.Value<String>();
-            CallerSource = config["CallerSource"]?.Value<String>();
-            Issuer = config["Issuer"]?.Value<String>();
-            Audience = config["Audience"]?.Value<List<string>>();
+        { 
+            CallerSource = config["CallerSource"]?.Value<String>(); 
+            jwtService = config.Deserialize<JwtService_RS256_Validate>();
         }
 
 
@@ -55,7 +53,7 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.JsonWebToken
                     return;
 
                 // #2 ValidateToken
-                var userInfo = Vit.SSO.JwtValidator.ValidateToken(token, Secret, Issuer, Audience);
+                var userInfo = jwtService.ValidateToken(token);
 
                 // #3 set rpcData.user
                 if (null != userInfo)
