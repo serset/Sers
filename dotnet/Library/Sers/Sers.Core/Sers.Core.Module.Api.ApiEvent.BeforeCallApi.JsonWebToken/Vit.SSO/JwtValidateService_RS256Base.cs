@@ -1,8 +1,8 @@
-﻿#region << version 1.2 >>
+﻿#region << version 1.3 >>
 /* ========================================================================
  * Author  : Lith
- * Version : 1.2
- * Date    : 2023-06-17
+ * Version : 1.3
+ * Date    : 2023-06-18
  * Email   : serset@yeah.net
  * ======================================================================== */
 #endregion
@@ -17,29 +17,23 @@ using Microsoft.IdentityModel.Tokens;
 
 using Vit.Core.Module.Log;
 using Vit.Extensions.Json_Extensions;
+using Vit.SSO.Model;
 
-
-namespace Vit.SSO
+namespace Vit.SSO.Service.RS256
 {
-    public class UserInfo
+    public class JwtValidateService_RS256Base
     {
-        public Dictionary<string, string> Claims { get; set; }
-        public IEnumerable<string> Audiences { get; set; }
-        public string Issuer { get; set; }
-        public DateTime ValidTo { get; set; }
-    }
+        public string issuer { get; set; }
 
-    public class JwtService_RS256_Validate
-    {
-
-
-        #region validate token
+        public List<string> audiences { get; set; }
 
         public string publicKeysDiscovery_Url { get; set; }
-        public List<JsonWebKey> GetPublicJsonWebKeysFromUrl()
+
+        public List<JsonWebKey> GetPublicJsonWebKeysByUrl()
         {
             if (!string.IsNullOrWhiteSpace(publicKeysDiscovery_Url))
             {
+
                 using (var client = new HttpClient())
                 {
                     var strPublicKey = client.GetStringAsync(publicKeysDiscovery_Url).Result;
@@ -49,39 +43,36 @@ namespace Vit.SSO
             }
             return null;
         }
-        public List<string> audiences { get; set; }
-
-
 
 
 
         protected SecurityKey _publicSecurityKey = null;
-        SecurityKey GetPublicSecurityKey()
+        protected virtual SecurityKey GetPublicSecurityKey()
         {
-            if (_publicSecurityKey != null) return _publicSecurityKey;
-
-            if (!string.IsNullOrWhiteSpace(publicKeysDiscovery_Url))
+            if (_publicSecurityKey == null)
             {
-                try
+                if (!string.IsNullOrWhiteSpace(publicKeysDiscovery_Url))
                 {
-                    var jwkList = GetPublicJsonWebKeysFromUrl();
-                    var jwk = jwkList?.FirstOrDefault();
+                    try
+                    {
+                        var jwkList = GetPublicJsonWebKeysByUrl();
+                        var jwk = jwkList?.FirstOrDefault();
 
-                    var _credentials = new SigningCredentials(jwk, SecurityAlgorithms.RsaSha256, SecurityAlgorithms.Sha256);
-                    _publicSecurityKey = _credentials.Key;
-                    return _publicSecurityKey;
+                        var _credentials = new SigningCredentials(jwk, SecurityAlgorithms.RsaSha256, SecurityAlgorithms.Sha256);
+                        _publicSecurityKey = _credentials.Key;
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error(ex);
+                    }
+                    publicKeysDiscovery_Url = null;
                 }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex);
-                }
-                publicKeysDiscovery_Url = null;
             }
-            return null;
+            return _publicSecurityKey;
         }
 
 
-        public UserInfo ValidateToken(string token, string issuer = null, List<string> audiences = null)
+        public UserInfo ValidateToken(string token, List<string> audiences = null)
         {
             //#1 get validation config
             var securityKey = GetPublicSecurityKey();
@@ -123,6 +114,5 @@ namespace Vit.SSO
                 ValidTo = jwtToken.ValidTo
             };
         }
-        #endregion
     }
 }

@@ -7,7 +7,7 @@
         let expires = new Date(parseInt(accessToken.expires_time));
         document.cookie = "Authorization=" + escape(accessToken.access_token) + ";path=/;expires=" + expires.toGMTString();
     },
-    //audience: 'common',
+    //audience: "http://localhost:4580",
     loginUrl: '/_gover_/Scripts/Vit.SSO/login.html',
     //indexUrl: '/',
     ssoBaseUrl: 'https://sso.lith.cloud:4'

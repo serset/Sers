@@ -5,8 +5,8 @@ using Sers.Core.Module.Message;
 using Vit.Core.Module.Log;
 using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
-using Vit.SSO;
 using Vit.Extensions.Newtonsoft_Extensions;
+using Vit.SSO.Service.RS256;
 
 namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.JsonWebToken
 {
@@ -22,12 +22,12 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.JsonWebToken
 
   
         string CallerSource;
-        JwtService_RS256_Validate jwtService;
+        JwtValidateService_RS256Base jwtService;
 
         public void Init(JObject config)
         { 
             CallerSource = config["CallerSource"]?.Value<String>(); 
-            jwtService = config.Deserialize<JwtService_RS256_Validate>();
+            jwtService = config.Deserialize<JwtValidateService_RS256Base>();
         }
 
 
