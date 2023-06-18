@@ -65,7 +65,6 @@ namespace Vit.SSO.Service.RS256
                     {
                         Logger.Error(ex);
                     }
-                    publicKeysDiscovery_Url = null;
                 }
             }
             return _publicSecurityKey;
