@@ -442,7 +442,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
         #region (x.6)HeartBeat
 
-        readonly SersTimer heartBeat_Timer = new SersTimer();
+        readonly VitTimer heartBeat_Timer = new VitTimer();
 
         /// <summary>
         /// 

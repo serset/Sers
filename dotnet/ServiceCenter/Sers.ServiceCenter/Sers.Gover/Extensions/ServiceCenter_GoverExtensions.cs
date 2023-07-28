@@ -81,14 +81,14 @@ namespace Vit.Extensions
 
         }
 
-        static SersTimer timer = null;
+        static VitTimer timer = null;
 
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         static void QpsTimer_Start()
         {
             if (null != timer) return;
-            timer = new SersTimer
+            timer = new VitTimer
             {
                 intervalMs = 2000,
                 timerCallback =

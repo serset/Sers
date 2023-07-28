@@ -34,14 +34,14 @@ namespace Sers.Core.Module.Env
             }
         }
 
-        static SersTimer timer = null;
+        static VitTimer timer = null;
         /// <summary>
         /// 开启自动上报Usage任务
         /// </summary>
         public static void StartReportTask(double intervalSecond)
         {
             if (null != timer) return;
-            timer = new SersTimer { 
+            timer = new VitTimer { 
                 intervalMs = (int)(intervalSecond * 1000),
                 timerCallback =
                 (object obj) =>

@@ -23,7 +23,7 @@ namespace Sers.Core.Module.App
 
 
         #region timer for System.GC.Collect();
-        static SersTimer gcTimer = new SersTimer()
+        static VitTimer gcTimer = new VitTimer()
         {
             intervalMs = 10000,
             timerCallback = (e) =>

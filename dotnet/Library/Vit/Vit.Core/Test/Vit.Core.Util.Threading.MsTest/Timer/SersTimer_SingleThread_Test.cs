@@ -13,7 +13,7 @@ namespace Vit.Core.Util.Threading.MsTest.Timer
         {
             int count = 0;
 
-            var timer = new SersTimer_SingleThread();
+            var timer = new VitTimer_SingleThread();
             timer.intervalMs = 100;
 
             string errorMessage = "";

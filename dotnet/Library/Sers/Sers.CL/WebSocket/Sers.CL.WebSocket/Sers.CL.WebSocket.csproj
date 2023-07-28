@@ -1,32 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<pack>nuget</pack>
-	</PropertyGroup>
+    <PropertyGroup>
+        <pack>nuget</pack>
+    </PropertyGroup>
 
-	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
-		<Version>2.1.21-temp</Version>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Version>2.1.21-temp</Version>
+    </PropertyGroup>
 
-	<PropertyGroup>
-		<Authors>Lith</Authors>
-		<Description>Sers微服务-通信层</Description>
-		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
-	</PropertyGroup>
-
-
-	<PropertyGroup>
-		<DocumentationFile>bin\Debug\netstandard2.0\Sers.CL.WebSocket.xml</DocumentationFile>
-	</PropertyGroup>
+    <PropertyGroup>
+        <Authors>Lith</Authors>
+        <Description>Sers微服务-通信层</Description>
+        <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
+    </PropertyGroup>
 
 
-	<ItemGroup>
-		<PackageReference Include="Fleck" Version="1.2.0" />
-	</ItemGroup>
+    <PropertyGroup>
+        <DocumentationFile>bin\Debug\netstandard2.0\Sers.CL.WebSocket.xml</DocumentationFile>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\Sers.Core\Sers.Core\Sers.Core.csproj" />
-	</ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Fleck" Version="1.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Sers.Core\Sers.Core\Sers.Core.csproj" />
+    </ItemGroup>
 
 </Project>

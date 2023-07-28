@@ -1,17 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<OutputType>Exe</OutputType>
-		<TargetFramework>net6.0</TargetFramework>
-	</PropertyGroup>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
 
-	<PropertyGroup>
-		<DocumentationFile>bin\Debug\net6.0\Did.SersLoader.HelloWorld.xml</DocumentationFile>
-	</PropertyGroup>
+    <PropertyGroup>
+        <DocumentationFile>bin\Debug\net6.0\Did.SersLoader.HelloWorld.xml</DocumentationFile>
+    </PropertyGroup>
 
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\..\Library\Sers\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\Library\Sers\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />
+    </ItemGroup>
 
 </Project>

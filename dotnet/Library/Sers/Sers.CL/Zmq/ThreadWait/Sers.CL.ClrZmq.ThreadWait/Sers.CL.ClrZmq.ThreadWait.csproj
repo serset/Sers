@@ -1,59 +1,59 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
-		<Version>2.1.19-temp</Version>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Version>2.1.19-temp</Version>
+    </PropertyGroup>
 
-	<PropertyGroup>
-		<Authors>Lith</Authors>
-		<Description>Sers微服务-通信层</Description>
-		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
-	</PropertyGroup>
-
-
-	<PropertyGroup>
-		<DocumentationFile>bin\Debug\netstandard2.0\Sers.CL.ClrZmq.ThreadWait.xml</DocumentationFile>
-	</PropertyGroup>
+    <PropertyGroup>
+        <Authors>Lith</Authors>
+        <Description>Sers微服务-通信层</Description>
+        <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
+    </PropertyGroup>
 
 
-	<ItemGroup>
-		<Compile Remove="SocketPoller.cs" />
-		<Compile Remove="SocketPoller2.cs" />
-		<Compile Remove="SocketPoller3.cs" />
-	</ItemGroup>
+    <PropertyGroup>
+        <DocumentationFile>bin\Debug\netstandard2.0\Sers.CL.ClrZmq.ThreadWait.xml</DocumentationFile>
+    </PropertyGroup>
 
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\..\Sers.Core\Sers.Core\Sers.Core.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <Compile Remove="SocketPoller.cs" />
+        <Compile Remove="SocketPoller2.cs" />
+        <Compile Remove="SocketPoller3.cs" />
+    </ItemGroup>
 
 
-	<ItemGroup>
-		<Reference Include="ZeroMQ">
-			<HintPath>ZeroMQ.dll</HintPath>
-		</Reference>
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\Sers.Core\Sers.Core\Sers.Core.csproj" />
+    </ItemGroup>
 
 
-	<ItemGroup>
-		<None Update="libsodium.dll">
-			<Pack>true</Pack>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="libzmq.dll">
-			<Pack>true</Pack>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="libzmq.dylib">
-			<Pack>true</Pack>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="libzmq.so">
-			<Pack>true</Pack>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<!--<None Update="ZeroMQ.dll">
+    <ItemGroup>
+        <Reference Include="ZeroMQ">
+            <HintPath>ZeroMQ.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <None Update="libsodium.dll">
+            <Pack>true</Pack>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="libzmq.dll">
+            <Pack>true</Pack>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="libzmq.dylib">
+            <Pack>true</Pack>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="libzmq.so">
+            <Pack>true</Pack>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <!--<None Update="ZeroMQ.dll">
       <Pack>true</Pack>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -61,7 +61,7 @@
       <Pack>true</Pack>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>-->
-	</ItemGroup>
+    </ItemGroup>
 
 
 </Project>

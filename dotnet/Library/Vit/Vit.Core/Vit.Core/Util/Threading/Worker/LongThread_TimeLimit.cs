@@ -87,7 +87,7 @@ namespace Vit.Core.Util.Threading.Worker
 
         public LongThread_TimeLimit()
         {
-            pulseMaker = new SersTimer { intervalMs = 300000, timerCallback = PulseMake };
+            pulseMaker = new VitTimer { intervalMs = 300000, timerCallback = PulseMake };
 
             threadCount = 1;
         }
@@ -107,7 +107,7 @@ namespace Vit.Core.Util.Threading.Worker
         /// <summary>
         /// 脉冲生产器
         /// </summary>
-        readonly SersTimer pulseMaker;
+        readonly VitTimer pulseMaker;
 
         /// <summary>
         /// 电子脉冲，在固定的时间间隔发送脉冲
