@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <pack>nuget</pack>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Version>2.1.21</Version>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Authors>Lith</Authors>
+        <Description>Sers - jwt validate</Description>
+        <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Sers.Core\Sers.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.31.0" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.31.0" />
+    </ItemGroup>
+
+</Project>

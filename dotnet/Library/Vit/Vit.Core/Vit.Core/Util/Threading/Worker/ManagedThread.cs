@@ -61,7 +61,7 @@ namespace Vit.Core.Util.Threading.Worker
 
         public ManagedThread()
         {
-            pulseMaker = new SersTimer { intervalMs = 300000, timerCallback = Pulse };
+            pulseMaker = new VitTimer { intervalMs = 300000, timerCallback = Pulse };
         }
 
 
@@ -80,7 +80,7 @@ namespace Vit.Core.Util.Threading.Worker
         /// <summary>
         /// 脉冲生产器
         /// </summary>
-        readonly SersTimer pulseMaker;
+        readonly VitTimer pulseMaker;
 
         /// <summary>
         /// 电子脉冲，在固定的时间间隔发送脉冲

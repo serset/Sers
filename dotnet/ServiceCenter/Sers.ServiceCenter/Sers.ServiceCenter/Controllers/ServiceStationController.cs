@@ -7,9 +7,7 @@ using Vit.Core.Util.ComponentModel.Api;
 using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.ComponentModel.Model;
 using Vit.Extensions;
-using System.Net.WebSockets;
 using System.Net;
-using System;
 
 namespace Sers.ServiceCenter.Controllers
 {
@@ -80,8 +78,8 @@ namespace Sers.ServiceCenter.Controllers
         [SsCallerSource(ECallerSource.Internal)]
         public ApiReturn UpdateStationInfo(ServiceStation serviceStation)
         {
-            serviceStation.connection = CommunicationManageServer.CurConn;          
-            return ServiceCenter.Instance.apiCenterService.ServiceStation_UpdateStationInfo(serviceStation); 
+            serviceStation.connection = CommunicationManageServer.CurConn;
+            return ServiceCenter.Instance.apiCenterService.ServiceStation_UpdateStationInfo(serviceStation);
         }
 
 

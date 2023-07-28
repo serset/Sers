@@ -1,38 +1,39 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<pack>nuget</pack>
-	</PropertyGroup>
+    <PropertyGroup>
+        <pack>nuget</pack>
+    </PropertyGroup>
 
-	<PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-		<Version>2.1.21-preview19</Version>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Version>2.1.21</Version>
+    </PropertyGroup>
 
-	<PropertyGroup>
-		<Authors>Lith</Authors>
-		<Description>Sers微服务-Serslot。AspNetCore原生WebApi的接入适配器。
-更新日志：
-    在兼容AspNetCore2.1的同时，兼容 AspNetCore3.0、 AspNetCore3.1、 AspNetCore5.0、AspNetCore6.0。
-    构造Api描述数据时剔除接口参数中指定FromService的参数。
-		</Description>
-		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
-	</PropertyGroup>
+    <PropertyGroup>
+        <Authors>Lith</Authors>
+        <Description>
+            Sers微服务-Serslot。AspNetCore原生WebApi的接入适配器。
+            更新日志：
+            在兼容AspNetCore2.1的同时，兼容 AspNetCore3.0、 AspNetCore3.1、 AspNetCore5.0、AspNetCore6.0。
+            构造Api描述数据时剔除接口参数中指定FromService的参数。
+        </Description>
+        <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
+    </PropertyGroup>
 
-	<PropertyGroup>
-		<DocumentationFile>bin\Debug\netstandard2.0\Sers.Serslot.xml</DocumentationFile>
-		<Copyright />
-	</PropertyGroup>
-
-
-	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.0" />
-	</ItemGroup>
+    <PropertyGroup>
+        <DocumentationFile>bin\Debug\netstandard2.0\Sers.Serslot.xml</DocumentationFile>
+        <Copyright />
+    </PropertyGroup>
 
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.0" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />
+    </ItemGroup>
 
 
 </Project>

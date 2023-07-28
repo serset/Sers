@@ -10,7 +10,7 @@ namespace Vit.Core.Util.Common
 {
     public static class CommonHelp
     {
-        /// <summary>            
+        /// <summary>
         /// <para> 构建绝对路径。                                                                                       </para> 
         /// <para> path可为相对路径或绝对路径，若为绝对路径则忽略程序当前路径。                                         </para>
         /// <para> demo: ["Data","Sers","Gover", "Counter.json"],将返回 /root/netapp/xxxx/Data/Sers/Gover/Counter.json  </para>

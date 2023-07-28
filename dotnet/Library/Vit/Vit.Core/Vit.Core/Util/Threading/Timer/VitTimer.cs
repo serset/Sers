@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace Vit.Core.Util.Threading.Timer
 {
-    public class SersTimer : IDisposable
+    public class VitTimer : IDisposable
     {
         protected System.Threading.Timer _timer = null;
 

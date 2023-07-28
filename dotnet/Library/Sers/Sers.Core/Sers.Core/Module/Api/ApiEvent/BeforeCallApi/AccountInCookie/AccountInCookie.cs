@@ -65,35 +65,16 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.AccountInCookie
             try
             {
                 #region (x.x.x.1)获取cookie 中的用户令牌
-                var cookie = rpcData.http.GetHeader("Cookie");
-                if (string.IsNullOrEmpty(cookie)) return;
-
-                string authUserFromCookie = null;
-                {
-                    // "a=b;c=7"
-                    string str = cookie;
-                    char entrySeparator = ';';
-                    char kvSeparator = '=';
-                    Dictionary<string, string> dictionary;
-                    {
-                        //dictionary = str.Split(new string[] { entrySeparator }, StringSplitOptions.RemoveEmptyEntries)
-                        //    .GroupBy(x => x.Split(new string[] { kvSeparator }, StringSplitOptions.None)[0], x => x.Split(new string[] { kvSeparator }, StringSplitOptions.None)[1])
-                        //    .ToDictionary(x => x.Key, x => x.First());
-                        dictionary = str.Split(new[] { entrySeparator }, StringSplitOptions.RemoveEmptyEntries)
-                           //.GroupBy(x => x.Split(new string[] { kvSeparator }, StringSplitOptions.None)[0], x => x.Split(new string[] { kvSeparator }, StringSplitOptions.None)[1])
-                           .Select(x => x.Split(new[] { kvSeparator })).ToDictionary(kv => kv[0]?.Trim(), kv => kv[1]?.Trim());
-                    } 
-
-                    authUserFromCookie = dictionary.TryGetValue("user", out var v) ? v : null;
-                }
+                string authUserFromCookie = rpcData.Cookie_Get("user");
+                if (string.IsNullOrEmpty(authUserFromCookie)) return;
                 #endregion
 
                 #region (x.x.x.2) 转换用户身份并写入 rpcData
-                if ( authUserFromCookie != null && userMap.TryGetValue(authUserFromCookie, out var account))
+                if (userMap.TryGetValue(authUserFromCookie, out var account))
                 {
                     if (account.CallerSource != null)
                     {
-                        rpcData.caller.source=account.CallerSource;
+                        rpcData.caller.source = account.CallerSource;
                     }
                     if (account.userInfo != null)
                     {

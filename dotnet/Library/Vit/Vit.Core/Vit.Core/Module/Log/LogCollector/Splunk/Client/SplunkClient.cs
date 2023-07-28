@@ -81,7 +81,7 @@ namespace Vit.Core.Module.Log.LogCollector.Splunk.Client
         #region Timer
         ConcurrentBag<SplunkRecord> recordList;
         ConcurrentBag<SplunkRecord> recordList_Swap;
-        Util.Threading.Timer.SersTimer_SingleThread time;
+        Util.Threading.Timer.VitTimer_SingleThread time;
 
         private void InitTimer()
         {
@@ -89,7 +89,7 @@ namespace Vit.Core.Module.Log.LogCollector.Splunk.Client
             {
                 recordList = new ConcurrentBag<SplunkRecord>();
                 recordList_Swap = new ConcurrentBag<SplunkRecord>();
-                time = new Util.Threading.Timer.SersTimer_SingleThread();
+                time = new Util.Threading.Timer.VitTimer_SingleThread();
                 time.intervalMs = intervalMs.Value;
                 time.timerCallback = (e) =>
                 {
