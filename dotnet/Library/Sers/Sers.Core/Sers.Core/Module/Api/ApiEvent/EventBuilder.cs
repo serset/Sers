@@ -26,7 +26,7 @@ namespace Sers.Core.Module.Api.ApiEvent
         {
             if (events == null || events.Count == 0) return null;
 
-            Action<RpcContextData, ApiMessage> BeforeCallApi = null;           
+            Action<RpcContextData, ApiMessage> BeforeCallApi = null;
 
             foreach (JObject config in events)
             {
@@ -76,7 +76,7 @@ namespace Sers.Core.Module.Api.ApiEvent
                     return null;
                 }
 
-                return ObjectLoader.CreateInstance(className, assemblyFile: assemblyFile) as IBeforeCallApi;                
+                return ObjectLoader.CreateInstance(className, assemblyFile: assemblyFile) as IBeforeCallApi;
             }
             #endregion
         }
@@ -92,8 +92,8 @@ namespace Sers.Core.Module.Api.ApiEvent
         /// <param name="events"></param>
         /// <returns></returns>
         public static IEnumerable<IApiScopeEvent> LoadEvent_OnCreateScope(JArray events)
-        {       
-            if (events == null || events.Count == 0) yield break;     
+        {
+            if (events == null || events.Count == 0) yield break;
 
             IApiScopeEvent item;
             foreach (JObject config in events)
@@ -116,7 +116,7 @@ namespace Sers.Core.Module.Api.ApiEvent
                 //(x.x.3) return
                 yield return item;
             }
-        
+
 
             #region GetInstance
             IApiScopeEvent GetInstance(JObject config)
@@ -129,7 +129,7 @@ namespace Sers.Core.Module.Api.ApiEvent
                 if (string.IsNullOrEmpty(className)) return null;
 
                 //(x.2)CreateInstance
-                return ObjectLoader.CreateInstance(className, assemblyFile: assemblyFile) as IApiScopeEvent; 
+                return ObjectLoader.CreateInstance(className, assemblyFile: assemblyFile) as IApiScopeEvent;
             }
             #endregion
         }

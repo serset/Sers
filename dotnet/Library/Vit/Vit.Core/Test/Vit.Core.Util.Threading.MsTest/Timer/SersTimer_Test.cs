@@ -15,7 +15,7 @@ namespace Vit.Core.Util.Threading.MsTest.Timer
         {
             int count = 0;
 
-            var timer = new SersTimer();
+            var timer = new VitTimer();
             timer.intervalMs = 100;
 
 

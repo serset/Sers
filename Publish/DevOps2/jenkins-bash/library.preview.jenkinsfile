@@ -10,7 +10,7 @@ pipeline {
     agent any
 
     environment {
-        APPNAME = "Sers"
+        //APPNAME = "Sers"
         stageName = "preview"
         versionSuffix = "-${stageName}${env.build_number}"
 
@@ -19,7 +19,7 @@ pipeline {
         releasePath = "/root/docker-cache/jenkins/jenkins_home/jenkinsReleaseFile/${stageName}/${APPNAME}"
 
 
-        SVN_PATH = "svn://svn.ki.lith.cloud/Sers"
+        //SVN_PATH = "svn://svn.ki.lith.cloud/Sers"
         //svn_USR = "  "
         //svn_PSW = "  "
         svn = credentials("svn_account")
@@ -30,7 +30,7 @@ pipeline {
         //NUGET_KEY = " "
         NUGET_KEY = credentials("nuget_key")
 
-        DOCKER_ImagePrefix = "docker.lith.cloud:8/preview/"
+        DOCKER_ImagePrefix = "docker.lith.cloud:8/${stageName}/"
         DOCKER_Buildx = true
         DOCKER_USERNAME = " "
         DOCKER_PASSWORD = " "

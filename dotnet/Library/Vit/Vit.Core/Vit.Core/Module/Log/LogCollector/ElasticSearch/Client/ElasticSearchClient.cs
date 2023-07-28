@@ -78,7 +78,7 @@ namespace Vit.Core.Module.Log.LogCollector.ElasticSearch.Client
         #region Timer
         ConcurrentBag<ElasticSearchRecord> recordList;
         ConcurrentBag<ElasticSearchRecord> recordList_Swap;
-        Util.Threading.Timer.SersTimer_SingleThread time;
+        Util.Threading.Timer.VitTimer_SingleThread time;
 
         private void InitTimer()
         {
@@ -87,7 +87,7 @@ namespace Vit.Core.Module.Log.LogCollector.ElasticSearch.Client
                 StringBuilder buffer = new StringBuilder();
                 recordList = new ConcurrentBag<ElasticSearchRecord>();
                 recordList_Swap = new ConcurrentBag<ElasticSearchRecord>();
-                time = new Util.Threading.Timer.SersTimer_SingleThread();
+                time = new Util.Threading.Timer.VitTimer_SingleThread();
                 time.intervalMs = intervalMs.Value;
                 time.timerCallback = (e) =>
                 {

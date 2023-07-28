@@ -12,10 +12,10 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer
     /// <summary>
     /// 在调用接口前，会获取 rpcData.http.headers.Authorization(格式为 "Bearer xxxxxx")，并作为参数调用接口api_verifyAt，把返回数据放到 rpcData.user.userInfo
     /// </summary>
-    public class Bearer: IBeforeCallApi
+    public class Bearer : IBeforeCallApi
     {
         public void Init(JObject config)
-        {   
+        {
             Api_verifyAt = config["api_verifyAt"].Value<String>();
 
             Api_httpMethod = config["api_httpMethod"].Value<String>();
@@ -47,7 +47,7 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer
             try
             {
                 #region Bearer 转换为对应的用户
-                var bear = rpcData.Bearer_Get();
+                var bear = rpcData.Authorization_Get();
                 if (string.IsNullOrWhiteSpace(bear))
                     return;
 
@@ -56,7 +56,7 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer
                 ApiReturn<Object> ret;
                 using (var rpcContext = new RpcContext())
                 {
-                    //RpcContext.Current.rpcData=rpcData;
+                    //RpcContext.Current.rpcData = rpcData;
                     rpcContext.rpcData = rpcData;
                     ret = VerifyAt(bear);
                 }

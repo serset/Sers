@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
+
 using Sers.Gateway;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Extensions;
@@ -18,7 +20,7 @@ namespace App.ServiceCenter
             #region (x.2) 初始化扩展模块
 
             #region (x.x.1)使用 Gover 服务治理 模块
-            Sers.ServiceCenter.ServiceCenter.Instance.UseGover();             
+            Sers.ServiceCenter.ServiceCenter.Instance.UseGover();
             #endregion
 
 
@@ -27,7 +29,7 @@ namespace App.ServiceCenter
             if (BeforeCallApi != null) Sers.ServiceCenter.ServiceCenter.Instance.apiCenterService.BeforeCallApi += BeforeCallApi;
             #endregion
 
-            //(x.x.3)从配置文件(appsettings.json::Sers.LocalApiService.ApiLoaders ) 加载api加载器并加载api        
+            //(x.x.3)从配置文件(appsettings.json::Sers.LocalApiService.ApiLoaders ) 加载api加载器并加载api
             Sers.ServiceCenter.ServiceCenter.Instance.LoadApi();
 
             //(x.x.4)加载系统Api

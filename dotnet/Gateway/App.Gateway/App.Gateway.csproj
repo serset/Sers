@@ -1,36 +1,37 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<publish>Gateway</publish>
-		<docker>sers-gateway</docker>
-	</PropertyGroup>
+    <PropertyGroup>
+        <publish>Gateway</publish>
+        <docker>sers-gateway</docker>
+    </PropertyGroup>
 
-	<PropertyGroup>
-		<OutputType>Exe</OutputType>
-		<TargetFramework>net6.0</TargetFramework>
-		<Version>2.1.20</Version>
-		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
-	</PropertyGroup>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+        <Version>2.1.21</Version>
+        <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
+    </PropertyGroup>
 
 
-	<ItemGroup>
-		<Content Include="appsettings.json">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
+    <ItemGroup>
+        <Content Include="appsettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
 
-		<Content Include="contentTypeMap.json">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
+        <Content Include="contentTypeMap.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.App" />
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.App" />
 
-		<ProjectReference Include="..\..\Library\Sers\Sers.CL\Ipc\Sers.CL.Ipc.SharedMemory\Sers.CL.Ipc.SharedMemory.csproj" />
-		<ProjectReference Include="..\..\Library\Sers\Sers.CL\WebSocket\Sers.CL.WebSocket\Sers.CL.WebSocket.csproj" />
-		<ProjectReference Include="..\..\Library\Sers\Sers.CL\Zmq\FullDuplex\Sers.CL.Zmq.FullDuplex\Sers.CL.Zmq.FullDuplex.csproj" />
-		<ProjectReference Include="..\..\Library\Sers\Sers.CL\Zmq\ThreadWait\Sers.CL.ClrZmq.ThreadWait\Sers.CL.ClrZmq.ThreadWait.csproj" />
-		<ProjectReference Include="..\..\Library\Sers\Sers.Gateway\Sers.Gateway\Sers.Gateway.csproj" />
-	</ItemGroup>
+        <ProjectReference Include="..\..\Library\Sers\Sers.CL\Ipc\Sers.CL.Ipc.SharedMemory\Sers.CL.Ipc.SharedMemory.csproj" />
+        <ProjectReference Include="..\..\Library\Sers\Sers.CL\WebSocket\Sers.CL.WebSocket\Sers.CL.WebSocket.csproj" />
+        <ProjectReference Include="..\..\Library\Sers\Sers.CL\Zmq\FullDuplex\Sers.CL.Zmq.FullDuplex\Sers.CL.Zmq.FullDuplex.csproj" />
+        <ProjectReference Include="..\..\Library\Sers\Sers.CL\Zmq\ThreadWait\Sers.CL.ClrZmq.ThreadWait\Sers.CL.ClrZmq.ThreadWait.csproj" />
+        <ProjectReference Include="..\..\Library\Sers\Sers.Core\Sers.Core.Module.Api.ApiEvent.BeforeCallApi.JsonWebToken\Sers.Core.Module.Api.ApiEvent.BeforeCallApi.JsonWebToken.csproj" />
+        <ProjectReference Include="..\..\Library\Sers\Sers.Gateway\Sers.Gateway\Sers.Gateway.csproj" />
+    </ItemGroup>
 
 </Project>

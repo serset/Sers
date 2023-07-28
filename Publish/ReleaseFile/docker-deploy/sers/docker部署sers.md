@@ -1,21 +1,16 @@
-#docker部署sers-servicecenter
+# docker部署sers-servicecenter
 
- 
+
 
 ---------------------------------
-#(x.1)文件
+# (x.1)文件
   (x.1)把本文件所在目录中所有文件拷贝到宿主机
   (x.2)修改配置文件 appsettings.json
  
 
 
-#(x.2)创建容器并运行
-(--name 容器名称，可自定义)
-(--restart=always 自动重启)
-(-v /etc/localtime:/etc/localtime)挂载宿主机localtime文件解决容器时间与主机时区不一致的问题
-(-v $PWD/data:/data 将主机中当前目录下的data挂载到容器的/data)
-(--net=host 网络直接使用宿主机网络)（-p 6022:6022 端口映射）
-
+# (x.2)创建容器并运行
+``` bash
 cd /root/docker
 
 cd sers
@@ -29,38 +24,39 @@ serset/sers
 cd ..
 
 
-#精简
+# 精简
 docker run --name=sers --restart=always -d -p 4580:4580 -p 4501:4501 serset/sers
 
 gover     http://ip:4580
 通信端口 tcp://ip:4501
 
+```
 
 
-#(x.3)应用已经运行
+# (x.3)应用已经运行
    可在文件夹ServiceCenter/Logs 中查看日志
 
- 
-#---------------------------------------
-#常用命令
 
-#查看容器logs
+#---------------------------------------
+# 常用命令
+
+# 查看容器logs
 docker logs sers
 
-#在容器内执行命令行
+# 在容器内执行命令行
 docker  exec -it sers bash
 
-#停止容器
+# 停止容器
 docker stop sers
 
-#打开容器
+# 打开容器
 docker start sers
 
-#重启容器
+# 重启容器
 docker restart sers
 
 
-#删除容器
+# 删除容器
 docker rm sers -f
 
 

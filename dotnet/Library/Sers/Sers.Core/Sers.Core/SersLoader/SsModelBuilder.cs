@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -66,7 +67,7 @@ namespace Sers.SersLoader
 
         #region (x.4)Getter_DefaultValue       
         public static readonly List<Func<Func<Type, System.Attribute>, object>> Getter_DefaultValue = new List<Func<Func<Type, Attribute>, object>>();
-        public static object GeDefaultValueFromAttribute(Func<Type, System.Attribute> GetAttribute) 
+        public static object GeDefaultValueFromAttribute(Func<Type, System.Attribute> GetAttribute)
         {
             foreach (var getter in Getter_DefaultValue)
             {
@@ -90,9 +91,9 @@ namespace Sers.SersLoader
             return null;
         }
         #endregion
- 
 
-        static SsModelBuilder() 
+
+        static SsModelBuilder()
         {
             SsModelBuilder.Getter_Name.Add(GetAttribute =>
             {
@@ -153,6 +154,13 @@ namespace Sers.SersLoader
         #region SsModel
         public SsModel BuildSsModel_Return(MethodInfo methodInfo, Type returnType)
         {
+            if (returnType == typeof(Task))
+            {
+                return new SsModel() { type = "null" };
+            }
+            else if (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Task<>))
+                returnType = returnType.GetGenericArguments()[0];
+
             var descType = GetTypeFromAttribute(methodInfo.ReturnParameter.GetCustomAttribute);
             if (descType != null) returnType = descType;
 
@@ -166,7 +174,7 @@ namespace Sers.SersLoader
 
             {
                 model.description = GetDescriptionFromAttribute(methodInfo.ReturnParameter.GetCustomAttribute);
-                model.example = GetExampleFromAttribute(methodInfo.ReturnParameter.GetCustomAttribute);                
+                model.example = GetExampleFromAttribute(methodInfo.ReturnParameter.GetCustomAttribute);
                 model.defaultValue = GeDefaultValueFromAttribute(methodInfo.ReturnParameter.GetCustomAttribute);
             }
             {
@@ -215,7 +223,7 @@ namespace Sers.SersLoader
                 (1 == argInfos.Length && !argInfos[0].ParameterType.TypeIsValueTypeOrStringType() && null == argInfos[0].GetCustomAttribute<SsArgPropertyAttribute>())
             )
             {
-                #region      
+                #region
                 int argCount = argInfos.Length;
                 var argType = argInfos[0].ParameterType;
                 model.OnDeserialize = (bytes) =>
@@ -288,7 +296,7 @@ namespace Sers.SersLoader
         /// <param name="refModels"></param> 
         /// <returns></returns>
         SsModelEntity CreateEntityByParameterInfo(ParameterInfo[] infos, MethodComment comment, List<SsModelEntity> refModels)
-        { 
+        {
             var rootEntity = new SsModelEntity();
             rootEntity.type = "arg";
             rootEntity.mode = "object";
@@ -325,7 +333,7 @@ namespace Sers.SersLoader
 
         SsModelProperty CreateModelProperty(Type propertyType, Func<Type, System.Attribute> GetCustomAttribute, List<SsModelEntity> refModels)
         {
-             
+
             SsModelProperty m = new SsModelProperty();
 
             m.name = GetNameFromAttribute(GetCustomAttribute);
@@ -409,9 +417,9 @@ namespace Sers.SersLoader
                 return null;
             }
             if (typeof(DataTable).IsAssignableFrom(type) || typeof(DataSet).IsAssignableFrom(type) || typeof(DataRow).IsAssignableFrom(type))
-            {               
+            {
                 return null;
-            }             
+            }
             #endregion
 
             #region (x.2)泛型 忽略 Dictionary 等  (List已作为数组处理)
@@ -423,7 +431,7 @@ namespace Sers.SersLoader
                 if (typeof(IDictionary<,>).IsAssignableFrom(genericType))
                 {
                     return null;
-                }             
+                }
             }
             #endregion
 

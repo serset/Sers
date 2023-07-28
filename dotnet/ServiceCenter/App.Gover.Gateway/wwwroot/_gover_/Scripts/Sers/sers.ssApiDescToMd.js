@@ -16,16 +16,16 @@
     if (scope[objName]) return;
 
 
-    
 
 
 
- 
-    function mdEncode(str) { return (''+(str || '')).replace('_', '\\_'); }
+
+
+    function mdEncode(str) { return ('' + (str || '')).replace('_', '\\_'); }
 
 
     //apiDescs 为apiDesc数组
-     function ssApiDescsToMd(apiDescs) {
+    function ssApiDescsToMd(apiDescs) {
 
         /*
          apiStations
@@ -57,20 +57,20 @@
             station.push(apiDesc);
         }
 
-	   //(x.2) 排序
-	   var stationArr=[];
-	   for (var stationName in apiStations) {
-            stationArr.push({stationName:stationName,station:apiStations[stationName]});
+        //(x.2) 排序
+        var stationArr = [];
+        for (var stationName in apiStations) {
+            stationArr.push({ stationName: stationName, station: apiStations[stationName] });
         }
-	   stationArr.sort(function (a, b) { return a.stationName < b.stationName ? -1 : 1; });
+        stationArr.sort(function (a, b) { return a.stationName < b.stationName ? -1 : 1; });
 
-        
+
 
         //(x.3) 构建md
         var md = '';
 
         for (var t in stationArr) {
-        	  var item=stationArr[t];
+            var item = stationArr[t];
             md += '\n\n----\n\n## ' + mdEncode(item.stationName);
             md += apiStationToMd(item.station);
         }
@@ -160,14 +160,14 @@ route:  ** {{route}} **\n\n\
             //Return
             item = item.replace(/{{Return_SsModel}}/g, ssModelToMd(apiDesc['returnType']));
             example = sers.ssModel.getExampleBySsModel(apiDesc['returnType']);
-            example = JSON.stringify(example,null,2);
+            example = JSON.stringify(example, null, 2);
             item = item.replace(/{{Return_Example}}/g, example);
 
             //counter
             // "ext": { "counter": { "sumCount": 0, "errorCount": 0 } }
             var counter = '';
             if (apiDesc.ext && apiDesc.ext.counter) {
-                counter = '\[' + apiDesc.ext.counter.sumCount + '\/' + apiDesc.ext.counter.errorCount +'\]';
+                counter = '\[' + apiDesc.ext.counter.sumCount + '\/' + apiDesc.ext.counter.errorCount + '\]';
             }
             item = item.replace(/{{counter}}/g, counter);
 
@@ -176,7 +176,7 @@ route:  ** {{route}} **\n\n\
                 value = 'all';
                 value = apiDesc.extendConfig.httpMethod;
             } catch (e) {
-            }           
+            }
             value = mdEncode(value);
             item = item.replace(/{{httpMethod}}/g, value);
 
@@ -206,29 +206,29 @@ route:  ** {{route}} **\n\n\
         /*
 //SsModel
 {
-	"type":"type1",
-	"mode":"object",
-	"description":"用户手机号"
-	"defaultValue":"",
-	"example":"15000000000",
-	"models":[ {SsModelEntity1} , {SsModelEntity2}  ]
+    "type":"type1",
+    "mode":"object",
+    "description":"用户手机号"
+    "defaultValue":"",
+    "example":"15000000000",
+    "models":[ {SsModelEntity1} , {SsModelEntity2}  ]
 }
 
 //SsModelEntity
 {
-	"type":"type1",
-	"mode":"object",
-	"propertys":[ {SsModelProperty} , {SsModelProperty}  ]
+    "type":"type1",
+    "mode":"object",
+    "propertys":[ {SsModelProperty} , {SsModelProperty}  ]
 }
 
 //SsModelProperty
 {
-	"name":"mobile",
-	"type":"type1",
-	"mode":"object",
-	"description":"用户手机号",
-	"defaultValue":"",
-	"example":"15000000000"
+    "name":"mobile",
+    "type":"type1",
+    "mode":"object",
+    "description":"用户手机号",
+    "defaultValue":"",
+    "example":"15000000000"
 }
 
 
@@ -246,29 +246,28 @@ md:
 └─ accessToken|string|访问令牌||
 
          */
-        
-        if (!ssModel || !ssModel.mode || !ssModel.type ) return '无';
+
+        if (!ssModel || !ssModel.mode || !ssModel.type) return '无';
         //if (!ssModel.models || ssModel.models.length == 0) return '无';
 
         var typeMap = {};
 
         for (var t in ssModel.models) {
-            var m = ssModel.models[t];          
+            var m = ssModel.models[t];
             typeMap[m.type] = m;
         }
 
+        var arg = { md: '' };
 
-        var arg = { md: '' };       
-
-        arg.md += '\n\n名称|类型|说明|example|默认值\n--| --| --| --| --\n';         
+        arg.md += '\n\n名称|类型|说明|example|默认值\n--| --| --| --| --\n';
 
 
         var prefixItem = '&#124;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
         var prefixItem_Null = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 
-        
 
-        function buildModelEntity(modelEntity, prefix) {            
+
+        function buildModelEntity(modelEntity, prefix) {
 
             var propertys = modelEntity.propertys;
             for (var t in propertys) {
@@ -302,10 +301,10 @@ md:
 
                 //(x.4.1)类型                
                 if (property.mode == 'value') {
-                    type = '<span title="' + property.type + '">' + property.type + '</span>';                    
+                    type = '<span title="' + property.type + '">' + property.type + '</span>';
                 } else {
                     // 为 object 或者 array 
-                    type = '<span title="' + property.type+'">' + property.mode+'</span>';
+                    type = '<span title="' + property.type + '">' + property.mode + '</span>';
                 }
 
 
@@ -315,7 +314,14 @@ md:
                 arg.md += line;
 
 
-                if (childEntity ) {                
+                if (childEntity) {
+                    if (childEntity.mode != 'value') {
+                        if (childEntity.__ssModelToMd_loaded) {
+                            continue;
+                        }
+                        childEntity.__ssModelToMd_loaded = true;
+                    }
+
                     if (typepath.indexOf(property.type) < 0) {
                         typepath.push(property.type);
                         buildModelEntity(childEntity, childPrefix);
@@ -328,10 +334,10 @@ md:
         }
 
         //添加模型信息 实体
-        {  
+        {
 
             var line = '';
-            
+
             var prefix = '';
             //(x.1) prefix
             line += prefix;
@@ -366,7 +372,7 @@ md:
         if (modelEntity) {
             buildModelEntity(modelEntity, prefixItem_Null);
             return arg.md;
-        } else {          
+        } else {
             return arg.md;
         }
         return '' + ssModel.name;

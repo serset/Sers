@@ -10,8 +10,8 @@ pipeline {
     agent any
 
     environment {
-        APPNAME = "Sers"
-        stageName = "production"
+        //APPNAME = "Sers"
+        stageName = "prod"
         versionSuffix = "  "
 
         basePath = "/root/docker-cache/jenkins/jenkins_home/workspace/${APPNAME}/${stageName}/${env.build_number}"
@@ -19,7 +19,7 @@ pipeline {
         releasePath = "/root/docker-cache/jenkins/jenkins_home/jenkinsReleaseFile/${stageName}/${APPNAME}"
 
 
-        SVN_PATH = "svn://svn.ki.lith.cloud/Sers"
+        //SVN_PATH = "svn://svn.ki.lith.cloud/Sers"
         //svn_USR = "  "
         //svn_PSW = "  "
         svn = credentials("svn_account")
@@ -30,7 +30,7 @@ pipeline {
         //NUGET_KEY = " "
         NUGET_KEY = credentials("nuget_key")
 
-        DOCKER_ImagePrefix = "docker.lith.cloud:8/"
+        DOCKER_ImagePrefix = "docker.lith.cloud:8/${stageName}/"
         DOCKER_Buildx = true
         DOCKER_USERNAME = " "
         DOCKER_PASSWORD = " "

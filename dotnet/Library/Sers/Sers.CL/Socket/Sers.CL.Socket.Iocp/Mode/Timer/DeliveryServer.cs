@@ -89,7 +89,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
         /// </summary>
         public int sendFlushInterval = 1;
 
-        SersTimer_SingleThread Send_timer = new SersTimer_SingleThread();
+        VitTimer_SingleThread Send_timer = new VitTimer_SingleThread();
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

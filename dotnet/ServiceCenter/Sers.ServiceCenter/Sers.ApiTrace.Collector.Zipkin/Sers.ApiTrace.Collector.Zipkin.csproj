@@ -1,27 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
-		<Version>2.1.19-temp</Version>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Version>2.1.19-temp</Version>
+    </PropertyGroup>
 
-	<PropertyGroup>
-		<Authors>Lith</Authors>
-		<Description>Sers微服务-Zipkin收集器,推送Api Trace到Zipkin</Description>
-		<PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
-	</PropertyGroup>
+    <PropertyGroup>
+        <Authors>Lith</Authors>
+        <Description>Sers微服务-Zipkin收集器,推送Api Trace到Zipkin</Description>
+        <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
+    </PropertyGroup>
 
-	<PropertyGroup>
-		<DocumentationFile>bin\Debug\netstandard2.0\Sers.ApiTrace.Collector.Zipkin.xml</DocumentationFile>
-	</PropertyGroup>
+    <PropertyGroup>
+        <DocumentationFile>bin\Debug\netstandard2.0\Sers.ApiTrace.Collector.Zipkin.xml</DocumentationFile>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="zipkin4net" Version="1.5.0" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="zipkin4net" Version="1.5.0" />
+    </ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\..\..\Library\Sers\Sers.Core\Sers.Core\Sers.Core.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Library\Sers\Sers.Core\Sers.Core\Sers.Core.csproj" />
+    </ItemGroup>
 
 
 </Project>
