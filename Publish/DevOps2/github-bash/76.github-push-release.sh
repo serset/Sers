@@ -43,12 +43,12 @@ echo "release_version=${appVersion}" >> $GITHUB_ENV
 
 
 # draft or preivew
-if [[ "$appVersion" =~ "preview" ]]
+if [ "preview" = "$(echo $appVersion | tr -d \"0-9\-\\.\")" ]
 then
   echo preivew
   echo "release_prerelease=true" >> $GITHUB_ENV
 else
-  if  [[ "" = "$(echo $appVersion | tr -d \"0-9\\.\")" ]]
+  if  [ "" = "$(echo $appVersion | tr -d \"0-9\-\\.\")" ]
   then
     echo release
   else
