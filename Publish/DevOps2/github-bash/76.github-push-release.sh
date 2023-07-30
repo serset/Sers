@@ -56,3 +56,4 @@ else
     echo "release_draft=true" >> $GITHUB_ENV
   fi
 fi
+
