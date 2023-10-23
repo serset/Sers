@@ -18,7 +18,8 @@ namespace Sers.Core.CL.CommunicationManage
     {
 
         #region static CurConn
-        static AsyncCache<IOrganizeConnection> curConn = new AsyncCache<IOrganizeConnection>();
+        //static AsyncCache<IOrganizeConnection> curConn = new AsyncCache<IOrganizeConnection>();
+        static System.Threading.AsyncLocal<IOrganizeConnection> curConn = new System.Threading.AsyncLocal<IOrganizeConnection>();
 
         /// <summary>
         /// 当前连接
@@ -62,7 +63,7 @@ namespace Sers.Core.CL.CommunicationManage
 
 
         #endregion
-        
+
 
         #region Start       
 
@@ -132,7 +133,7 @@ namespace Sers.Core.CL.CommunicationManage
             {
                 List<IOrganizeServer> organizeList = new List<IOrganizeServer>();
 
-   
+
                 #region (x.1) get configs
                 var configs = Appsettings.json.GetByPath<JObject[]>("Sers.CL.Server");
                 if (configs == null) return null;
@@ -147,7 +148,7 @@ namespace Sers.Core.CL.CommunicationManage
                     }
                 }
                 #endregion
-                 
+
 
                 //(x.2) BeforeBuildOrganize
                 try
@@ -197,8 +198,8 @@ namespace Sers.Core.CL.CommunicationManage
         #region Stop       
         public void Stop()
         {
-            if (organizeList == null) return;       
- 
+            if (organizeList == null) return;
+
             foreach (var organize in organizeList)
             {
                 try
