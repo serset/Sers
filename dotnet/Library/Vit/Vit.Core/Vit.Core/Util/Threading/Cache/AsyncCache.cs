@@ -1,8 +1,8 @@
-﻿#region << 版本注释 - v2 >>
+﻿#region << Comment - v3 >>
 /*
  * ========================================================================
- * 版本：v2
- * 时间：2023-10-23
+ * 版本：v3
+ * 时间：2023-11-15
  * 作者：Lith
  * 邮箱：serset@yeah.net
  * 
@@ -43,11 +43,17 @@ namespace Vit.Core.Util.Threading.Cache
 
         readonly System.Threading.AsyncLocal<DataWrap> _AsyncLocal = new System.Threading.AsyncLocal<DataWrap>();
 
-        class DataWrap
+        class DataWrap : IDisposable
         {
+            internal Action OnDispose;
             internal DataType data;
+
+            public void Dispose()
+            {
+                OnDispose?.Invoke();
+            }
         }
-        public void CreateScope( )
+        public void CreateScope()
         {
             _AsyncLocal.Value = new DataWrap();
         }
@@ -58,13 +64,15 @@ namespace Vit.Core.Util.Threading.Cache
 
         public IDisposable NewScope()
         {
-            _AsyncLocal.Value = new DataWrap();
-            return new Disposable(DisposeScope);
+            var wrap = new DataWrap { OnDispose = DisposeScope };
+            _AsyncLocal.Value = wrap;
+            return wrap;
         }
         public IDisposable NewScope(DataType value)
         {
-            _AsyncLocal.Value = new DataWrap { data = value };
-            return new Disposable(DisposeScope);
+            var wrap = new DataWrap { OnDispose = DisposeScope, data = value };
+            _AsyncLocal.Value = wrap;
+            return wrap;
         }
 
 

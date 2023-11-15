@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using System;
 using System.Threading;
+
 using Vit.Core.Util.Threading.Worker;
 
 namespace Vit.Core.Util.Threading.MsTest.Worker
@@ -15,20 +17,20 @@ namespace Vit.Core.Util.Threading.MsTest.Worker
             string errorMessage = "";
 
             var task = new ManagedThread<object>
-            {                 
+            {
                 Processor = (worker) =>
                 {
                     var _count = Interlocked.Increment(ref count);
                     Thread.Sleep(400);
                 },
-                OnFinish = (status,_count) =>
+                OnFinish = (status, _count) =>
                 {
-                    if( status == ETaskFinishStatus.timeout
+                    if (status == ETaskFinishStatus.timeout
                        || (status == ETaskFinishStatus.overload && (int)_count > 100)
-                    ) 
+                    )
                         return;
 
-                        errorMessage += Environment.NewLine + $"[{_count}]status : "+ status;
+                    errorMessage += Environment.NewLine + $"[{_count}]status : " + status;
                 }
             };
 
@@ -43,7 +45,7 @@ namespace Vit.Core.Util.Threading.MsTest.Worker
 
             for (var t = 0; t < 200; t++)
                 task.Publish(t);
-     
+
             Thread.Sleep(1050);
             task.OnFinish = null;
             task.Stop();

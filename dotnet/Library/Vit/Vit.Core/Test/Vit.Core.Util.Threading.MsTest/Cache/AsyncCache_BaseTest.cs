@@ -10,7 +10,7 @@ using Vit.Core.Util.Threading.Cache;
 
 namespace Vit.Core.Util.Threading.MsTest.Cache
 {
- 
+
     public abstract class AsyncCache_BaseTest
     {
         public abstract void RunTest(string name);
@@ -147,14 +147,14 @@ namespace Vit.Core.Util.Threading.MsTest.Cache
 
             Parallel.ForEach(Enumerable.Range(0, 10)
                 //, new ParallelOptions { MaxDegreeOfParallelism = 1 }
-                , number =>
+                , async (number, token) =>
                 {
                     Interlocked.Increment(ref threadCount);
                     for (var i = 0; i < 100; i++)
                     {
                         Interlocked.Increment(ref testCount);
                         var name = $"{number}_{i}_{System.Guid.NewGuid()}";
-                        RunTestAsync(name).Wait();
+                        await RunTestAsync(name);
                     }
                 });
         }
