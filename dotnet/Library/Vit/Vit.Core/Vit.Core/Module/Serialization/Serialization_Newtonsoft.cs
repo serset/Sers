@@ -9,7 +9,7 @@ using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Vit.Core.Module.Serialization
 {
-    public class Serialization_Newtonsoft: ISerialization
+    public class Serialization_Newtonsoft : ISerialization
     {
         #region defaultEncoding
         public static Encoding defaultEncoding { get; set; } =
@@ -20,12 +20,12 @@ namespace Vit.Core.Module.Serialization
 
 
         public static readonly Serialization_Newtonsoft Instance = new Serialization_Newtonsoft();
-        
+
 
 
         #region 基础对象
 
-      
+
 
         #region 成员对象 
 
@@ -65,7 +65,7 @@ namespace Vit.Core.Module.Serialization
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public  byte[] StringToBytes(string data, Encoding encoding = null)
+        public byte[] StringToBytes(string data, Encoding encoding = null)
         {
             return (encoding ?? this.encoding).GetBytes(data);
         }
@@ -119,7 +119,7 @@ namespace Vit.Core.Module.Serialization
 
         public readonly Newtonsoft.Json.JsonSerializerSettings serializeSetting = new Newtonsoft.Json.JsonSerializerSettings();
 
-        public Serialization_Newtonsoft() 
+        public Serialization_Newtonsoft()
         {
 
             //忽略空值
@@ -154,8 +154,8 @@ namespace Vit.Core.Module.Serialization
         public string SerializeToString<T>(T value)
         {
             if (null == value) return null;
-         
-            return SerializeToString(value, value.GetType()); 
+
+            return SerializeToString(value, value.GetType());
         }
 
         /// <summary>
@@ -170,10 +170,15 @@ namespace Vit.Core.Module.Serialization
             if (null == value) return null;
 
             if (value is Newtonsoft.Json.Linq.JToken token)
-            {             
-                if(token.TypeMatch(JTokenType.String)) return token.ToString();
+            {
+                if (token.TypeMatch(JTokenType.String)) return token.ToString();
 
                 return token.ToString(serializeSetting.Formatting);
+            }
+
+            if (value is DateTime time)
+            {
+                return time.ToString(serializeSetting.DateFormatString);
             }
 
             if (type.TypeIsValueTypeOrStringType())
@@ -191,7 +196,7 @@ namespace Vit.Core.Module.Serialization
         /// <summary>
         /// 使用Newtonsoft反序列化。T也可为值类型（例如 int?、bool） 
         /// </summary>
-        /// <param name="value"></param>    
+        /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T DeserializeFromString<T>(string value)
@@ -256,9 +261,9 @@ namespace Vit.Core.Module.Serialization
         /// <param name="obj"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public byte[] SerializeToBytes<T>(T obj) 
+        public byte[] SerializeToBytes<T>(T obj)
         {
-            return SerializeToBytes<T>(obj,null);
+            return SerializeToBytes<T>(obj, null);
         }
 
         /// <summary>
@@ -409,10 +414,10 @@ namespace Vit.Core.Module.Serialization
 
 
         #region DeserializeFromArraySegmentByte
- 
+
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public  T DeserializeFromArraySegmentByte<T>(ArraySegment<byte> bytes)
+        public T DeserializeFromArraySegmentByte<T>(ArraySegment<byte> bytes)
         {
             if (bytes.Count == 0) return default;
             return (T)DeserializeFromArraySegmentByte(bytes, typeof(T));

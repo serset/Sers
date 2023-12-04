@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,16 +18,16 @@ namespace Vit.Core.MsTest.Module
         {
             public int? id;
             public string name;
-            public DateTime time;         
+            public DateTime time;
         }
-        
+
 
         [TestMethod]
         public void TestMethod()
         {
-            string testString = "testString中文12—=￥$《》<> \n\r\t😀"+ DateTime.Now;
+            string testString = "testString中文12—=￥$《》<> \n\r\t😀" + DateTime.Now;
 
-            var modelA = new ModelA { id=1,name = testString, time=DateTime.Now };
+            var modelA = new ModelA { id = 1, name = testString, time = DateTime.Now };
 
             #region (x.1)bytes <--> String      
             Assert.AreEqual(testString.StringToBytes().BytesToString(), testString);
@@ -43,25 +44,26 @@ namespace Vit.Core.MsTest.Module
             Assert.AreEqual(Json.DeserializeFromBytes<ModelA>(Json.SerializeToBytes(modelA))?.name, testString);
             Assert.AreEqual(modelA.SerializeToBytes().DeserializeFromBytes<ModelA>()?.name, testString);
             #endregion
- 
+
 
             #region (x.5)ConvertBySerialize
             var obj_ori = new { id = 1, name = testString, time = DateTime.Now };
- 
+
             Assert.AreEqual(obj_ori.ConvertBySerialize<ModelA>()?.name, testString);
             #endregion
 
 
             #region (x.6)DateTimeFormat           
 
-            var obj = new {
+            var obj = new
+            {
                 Date = DateTime.Parse("2019-01-01 01:01:01"),
-                obj =new { Date2 = DateTime.Parse("2019-02-02 01:01:01") }
+                obj = new { Date2 = DateTime.Parse("2019-02-02 01:01:01") }
             };
 
             string str = obj.Serialize();
 
-            Serialization_Newtonsoft.Instance.serializeSetting.DateFormatString="yyyy-MM-dd";
+            Serialization_Newtonsoft.Instance.serializeSetting.DateFormatString = "yyyy-MM-dd";
 
             string str2 = obj.Serialize();
             var jtObj = str2.Deserialize<JObject>();
@@ -73,6 +75,16 @@ namespace Vit.Core.MsTest.Module
 
 
 
+        }
+
+
+
+        [TestMethod]
+        public void TestMethod_DateTime()
+        {
+            var time = DateTime.Now;
+            var str = Json.SerializeToString(time);
+            Assert.AreEqual(time.ToString("yyyy-MM-dd HH:mm:ss"), str);
         }
 
 

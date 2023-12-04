@@ -12,7 +12,7 @@ namespace Vit.Core.MsTest.Extensions
     {
         [TestMethod]
         public void GetUnderlyingTypeIfNullable_Test()
-        {   
+        {
 
             Assert.AreEqual(typeof(int?).GetUnderlyingTypeIfNullable(), typeof(int));
 
@@ -29,16 +29,16 @@ namespace Vit.Core.MsTest.Extensions
         [TestMethod]
         public void Convert_Test()
         {
-           
+
             #region (x.1)string
-            
+
             int int1 = "5".Convert<int>();
             Assert.AreEqual(int1, 5);
 
             int int2 = (int)("5.1".Convert<float>());
             Assert.AreEqual(int2, 5);
 
-            int int3 =  "5.1".Convert<float>().Convert<int>();
+            int int3 = "5.1".Convert<float>().Convert<int>();
             Assert.AreEqual(int3, 5);
 
             try
@@ -47,10 +47,10 @@ namespace Vit.Core.MsTest.Extensions
                 //将会抛异常           
                 "5.1".Convert<int?>();
 
-                "5.1".Convert<int>();             
+                "5.1".Convert<int>();
             }
             catch (Exception ex)
-            {                
+            {
             }
 
 
