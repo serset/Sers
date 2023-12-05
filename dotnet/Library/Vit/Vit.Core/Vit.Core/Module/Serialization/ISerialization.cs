@@ -28,7 +28,7 @@ namespace Vit.Core.Module.Serialization
         /// <summary>
         /// 使用Newtonsoft反序列化。T也可为值类型（例如 int?、bool） 
         /// </summary>
-        /// <param name="value"></param>    
+        /// <param name="value"></param>
         /// <returns></returns>
         T DeserializeFromString<T>(string value);
 

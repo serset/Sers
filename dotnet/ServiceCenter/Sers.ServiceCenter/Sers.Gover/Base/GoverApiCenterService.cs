@@ -33,7 +33,7 @@ namespace Sers.Gover.Base
         public static readonly GoverApiCenterService Instance = LoadFromFile();
         static GoverApiCenterService LoadFromFile()
         {
-            var mng=new GoverApiCenterService();
+            var mng = new GoverApiCenterService();
 
             Persistence_ApiDesc.ApiDesc_LoadAllFromJsonFile(mng.apiStationMng);
             Persistence_Counter.LoadCounterFromJsonFile(mng.apiStationMng);
@@ -42,11 +42,11 @@ namespace Sers.Gover.Base
         }
         public static void SaveToFile()
         {
-            Persistence_Counter.SaveCounterToJsonFile(Instance.apiStationMng); 
+            Persistence_Counter.SaveCounterToJsonFile(Instance.apiStationMng);
         }
         #endregion
 
- 
+
 
 
 
@@ -67,7 +67,7 @@ namespace Sers.Gover.Base
             apiStationMng.Init(this);
         }
 
-        
+
 
         internal readonly ApiLoadBalancingMng apiLoadBalancingMng;
 
@@ -93,7 +93,7 @@ namespace Sers.Gover.Base
         public IEnumerable<SsApiDesc> ApiDesc_GetActive()
         {
             return apiLoadBalancingMng.GetAllApiDesc();
-        
+
         }
 
         public IEnumerable<SsApiDesc> ApiDesc_GetAll()
@@ -138,7 +138,7 @@ namespace Sers.Gover.Base
                 #endregion
 
 
-                #region (x.1)route 判空               
+                #region (x.1)route 判空
                 if (string.IsNullOrWhiteSpace(rpcData.route))
                 {
                     //返回api 不存在
@@ -148,7 +148,7 @@ namespace Sers.Gover.Base
                 #endregion
 
 
-                #region (x.2) 服务限流 BeforeLoadBalancing               
+                #region (x.2) 服务限流 BeforeLoadBalancing
                 var error = rateLimitMng.BeforeLoadBalancing(rpcData, requestMessage);
                 if (null != error)
                 {
@@ -157,7 +157,7 @@ namespace Sers.Gover.Base
                 }
                 #endregion
 
-                #region (x.3) 负载均衡，获取对应服务端                
+                #region (x.3) 负载均衡，获取对应服务端
                 var apiNode = apiLoadBalancingMng.GetCurApiNodeByLoadBalancing(rpcData, out var routeType);
 
                 if (null == apiNode)
@@ -231,14 +231,15 @@ namespace Sers.Gover.Base
 
 
                 //(x.x.2) 修正 requestMessage
-                if (requestMessage.rpcContextData_OriData.Count <= 0) {
+                if (requestMessage.rpcContextData_OriData.Count <= 0)
+                {
                     requestMessage.RpcContextData_OriData_Set(rpcData);
                 }
-                #endregion             
+                #endregion
 
 
                 #region (x.8)服务调用
-                apiNode.CallApiAsync(rpcData, requestMessage, sender,callback);                
+                apiNode.CallApiAsync(rpcData, requestMessage, sender, callback);
                 #endregion
 
             }
@@ -247,7 +248,7 @@ namespace Sers.Gover.Base
                 Logger.Error(ex);
 
                 ApiSysError.LogSysError(rpcData, requestMessage, ex.ToSsError());
- 
+
                 SendReply(SsError.Err_SysErr);
                 return;
             }
@@ -259,7 +260,7 @@ namespace Sers.Gover.Base
                 callback(sender, new ApiMessage().InitAsApiReplyMessageByError(error).Package());
             }
 
-          
+
 
         }
         #endregion
@@ -290,9 +291,9 @@ namespace Sers.Gover.Base
         }
 
 
-        public override void ServiceStation_Remove(IOrganizeConnection  conn)
+        public override void ServiceStation_Remove(IOrganizeConnection conn)
         {
-            string connKey = ""+ conn.GetHashCode();
+            string connKey = "" + conn.GetHashCode();
             var serviceStation = serviceStationMng.ServiceStation_Remove(connKey);
             if (serviceStation != null)
             {
@@ -307,7 +308,7 @@ namespace Sers.Gover.Base
             if (serviceStation != null)
             {
                 Logger.Info("[ApiCenterService]Pause serviceStation", new { stationName = serviceStation?.serviceStationInfo?.serviceStationName });
-            } 
+            }
             return serviceStation != null;
         }
 
@@ -318,7 +319,7 @@ namespace Sers.Gover.Base
             {
                 Logger.Info("[ApiCenterService]Start serviceStation", new { stationName = serviceStation?.serviceStationInfo?.serviceStationName });
             }
-            return serviceStation != null; 
+            return serviceStation != null;
         }
 
         public bool ServiceStation_Stop(string connKey)
@@ -367,9 +368,9 @@ namespace Sers.Gover.Base
         /// 在调用api前调用onScope，若onScope返回的结果（onDispose）不为空，则在api调用结束前调用onDispose
         /// </summary>
         /// <param name="apiScopeEvent"></param>
-        public void AddApiScopeEvent(Func<RpcContextData, ApiMessage, Action<Object, Vit.Core.Util.Pipelines.ByteData>> apiScopeEvent) 
+        public void AddApiScopeEvent(Func<RpcContextData, ApiMessage, Action<Object, Vit.Core.Util.Pipelines.ByteData>> apiScopeEvent)
         {
-            if (apiScopeEventList == null) apiScopeEventList=new List<Func<RpcContextData, ApiMessage, Action<Object, Vit.Core.Util.Pipelines.ByteData>>>();
+            if (apiScopeEventList == null) apiScopeEventList = new List<Func<RpcContextData, ApiMessage, Action<Object, Vit.Core.Util.Pipelines.ByteData>>>();
 
             apiScopeEventList.Add(apiScopeEvent);
         }

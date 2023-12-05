@@ -59,14 +59,15 @@ namespace Vit.Extensions.Json_Extensions
         #region GetUnderlyingTypeIfNullable
 
         /// <summary>
-        /// 若为Nullable类型（例如 long?）则获取对应的值类型(例如long)，否则返回自身。
+        /// If it is NULLABLE, then get the underlying type. eg if "Nullable&lt;long&gt;" then this will return just "long"
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Type GetUnderlyingTypeIfNullable(this Type type)
         {
-            return type.IsNullable() ? type.GetGenericArguments()[0] : type;
+            //return type.IsNullable() ? type.GetGenericArguments()[0] : type;
+            return type.IsNullable() ? Nullable.GetUnderlyingType(type) : type;
 
 
             //if (type == null)
@@ -77,7 +78,6 @@ namespace Vit.Extensions.Json_Extensions
             ////Nullable.GetUnderlyingType(type);
 
             //// We need to check whether the property is NULLABLE
-            //// If it is NULLABLE, then get the underlying type. eg if "Nullable<long>" then this will return just "long"
             //return (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>)) ? type.GetGenericArguments()[0] : type;
         }
         #endregion
