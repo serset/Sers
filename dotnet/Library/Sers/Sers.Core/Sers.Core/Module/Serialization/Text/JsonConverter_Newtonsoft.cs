@@ -61,11 +61,11 @@ namespace Sers.Core.Module.Serialization.Text
                             case JTokenType.Boolean: writer.WriteBooleanValue(jv.Value<bool>()); break;
                             case JTokenType.Date: writer.WriteStringValue(jv.Value<DateTime>().ToString("yyyy-MM-dd HH:mm:ss")); break;
 
-                            default: writer.WriteStringValue(Serialization_Newtonsoft.Instance.SerializeToString(jv)); break;
+                            default: writer.WriteStringValue(Serialization_Newtonsoft.Instance.Serialize(jv)); break;
                         }
                         break;
                     default:
-                        string str = Serialization_Newtonsoft.Instance.SerializeToString(kv.Value);
+                        string str = Serialization_Newtonsoft.Instance.Serialize(kv.Value);
                         writer.WriteStringValue(str);
                         break;
                 }
@@ -209,11 +209,11 @@ namespace Sers.Core.Module.Serialization.Text
                             case JTokenType.Boolean: writer.WriteBooleanValue(jv.Value<bool>()); break;
                             case JTokenType.Date: writer.WriteStringValue(jv.Value<DateTime>().ToString("yyyy-MM-dd HH:mm:ss")); break;
 
-                            default: writer.WriteStringValue(Serialization_Newtonsoft.Instance.SerializeToString(jv)); break;
+                            default: writer.WriteStringValue(Serialization_Newtonsoft.Instance.Serialize(jv)); break;
                         }
                         break;
                     default:
-                        string str = Serialization_Newtonsoft.Instance.SerializeToString(token);
+                        string str = Serialization_Newtonsoft.Instance.Serialize(token);
                         writer.WriteStringValue(str);
                         break;
                 }

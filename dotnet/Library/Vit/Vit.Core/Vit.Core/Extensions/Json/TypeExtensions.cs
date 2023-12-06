@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace Vit.Extensions.Json_Extensions
@@ -79,6 +80,35 @@ namespace Vit.Extensions.Json_Extensions
 
             //// We need to check whether the property is NULLABLE
             //return (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>)) ? type.GetGenericArguments()[0] : type;
+        }
+        #endregion
+
+
+        #region IsNumericType
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsNumericType(this Type type) 
+        {
+            type = GetUnderlyingTypeIfNullable(type);
+            switch (Type.GetTypeCode(type))
+            {
+                case TypeCode.Byte:
+                case TypeCode.SByte:
+                case TypeCode.UInt16:
+                case TypeCode.UInt32:
+                case TypeCode.UInt64:
+                case TypeCode.Int16:
+                case TypeCode.Int32:
+                case TypeCode.Int64:
+                case TypeCode.Decimal:
+                case TypeCode.Double:
+                case TypeCode.Single: 
+                    return true;
+            }
+            return false;
         }
         #endregion
 
