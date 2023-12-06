@@ -13,7 +13,7 @@ namespace Vit.Core.Module.Serialization
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        string SerializeToString<T>(T value);
+        string Serialize<T>(T value);
 
         /// <summary>
         /// T也可为值类型（例如 int?、bool） 
@@ -21,7 +21,7 @@ namespace Vit.Core.Module.Serialization
         /// <param name="value"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        string SerializeToString(object value, Type type);
+        string Serialize(object value, Type type);
 
 
 
@@ -30,7 +30,7 @@ namespace Vit.Core.Module.Serialization
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        T DeserializeFromString<T>(string value);
+        T Deserialize<T>(string value);
 
         /// <summary>
         /// 使用Newtonsoft反序列化。T也可为值类型（例如 int?、bool） 
@@ -38,7 +38,7 @@ namespace Vit.Core.Module.Serialization
         /// <param name="value"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        object DeserializeFromString(string value, Type type);
+        object Deserialize(string value, Type type);
 
         #endregion
 

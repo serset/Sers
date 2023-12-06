@@ -74,11 +74,11 @@ namespace Vit.Core.Module.Serialization
                                 case JTokenType.Float: writer.Write(jv.Value<double>()); break;
                                 case JTokenType.Boolean: writer.Write(jv.Value<bool>()); break;
                                 case JTokenType.Date: writer.Write(jv.Value<DateTime>().ToString("yyyy-MM-dd HH:mm:ss")); break;
-                                default: writer.Write(Serialization_Newtonsoft.Instance.SerializeToString(jv)); break;
+                                default: writer.Write(Serialization_Newtonsoft.Instance.Serialize(jv)); break;
                             }
                             break;
                         default:
-                            string str = Serialization_Newtonsoft.Instance.SerializeToString(kv.Value);
+                            string str = Serialization_Newtonsoft.Instance.Serialize(kv.Value);
                             writer.Write(str);
                             break;
                     }
@@ -177,11 +177,11 @@ namespace Vit.Core.Module.Serialization
                                 case JTokenType.Float: writer.Write(jv.Value<double>()); break;
                                 case JTokenType.Boolean: writer.Write(jv.Value<bool>()); break;
                                 case JTokenType.Date: writer.Write(jv.Value<DateTime>().ToString("yyyy-MM-dd HH:mm:ss")); break;
-                                default: writer.Write(Serialization_Newtonsoft.Instance.SerializeToString(jv)); break;
+                                default: writer.Write(Serialization_Newtonsoft.Instance.Serialize(jv)); break;
                             }
                             break;
                         default:
-                            string str = Serialization_Newtonsoft.Instance.SerializeToString(token);
+                            string str = Serialization_Newtonsoft.Instance.Serialize(token);
                             writer.Write(str);
                             break;
                     }
@@ -262,7 +262,7 @@ namespace Vit.Core.Module.Serialization
                     return;
                 }
 
-                var str = Serialization_Newtonsoft.Instance.SerializeToString(value);
+                var str = Serialization_Newtonsoft.Instance.Serialize(value);
                 writer.Write(str);
             }
 

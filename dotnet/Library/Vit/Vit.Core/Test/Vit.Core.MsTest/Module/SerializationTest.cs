@@ -53,7 +53,7 @@ namespace Vit.Core.MsTest.Module
             #endregion
 
 
-            #region (x.6)DateTimeFormat           
+            #region (x.6)DateTimeFormat
 
             var obj = new
             {
@@ -62,15 +62,21 @@ namespace Vit.Core.MsTest.Module
             };
 
             string str = obj.Serialize();
+            var DateFormatString = Serialization_Newtonsoft.Instance.serializeSetting.DateFormatString;
+            try
+            {
+                Serialization_Newtonsoft.Instance.serializeSetting.DateFormatString = "yyyy-MM-dd";
 
-            Serialization_Newtonsoft.Instance.serializeSetting.DateFormatString = "yyyy-MM-dd";
+                string str2 = obj.Serialize();
+                var jtObj = str2.Deserialize<JObject>();
 
-            string str2 = obj.Serialize();
-            var jtObj = str2.Deserialize<JObject>();
-
-            Assert.AreEqual(jtObj.StringGetByPath("Date"), "2019-01-01");
-            Assert.AreEqual(jtObj.StringGetByPath("obj", "Date2"), "2019-02-02");
-
+                Assert.AreEqual(jtObj.StringGetByPath("Date"), "2019-01-01");
+                Assert.AreEqual(jtObj.StringGetByPath("obj", "Date2"), "2019-02-02");
+            }
+            finally
+            {
+                Serialization_Newtonsoft.Instance.serializeSetting.DateFormatString = DateFormatString;
+            }
             #endregion
 
 
