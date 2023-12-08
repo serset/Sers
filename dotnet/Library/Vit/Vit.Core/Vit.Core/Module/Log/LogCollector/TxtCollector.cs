@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-using Vit.Extensions.Json_Extensions;
+using Vit.Core.Module.Serialization;
 
 namespace Vit.Core.Module.Log.LogCollector
 {
@@ -41,7 +41,7 @@ namespace Vit.Core.Module.Log.LogCollector
             builder.Append(DateTime.Now.ToString("[HH:mm:ss.ffff]")).Append(msg.message);
             foreach (var obj in msg.metadata)
             {
-                builder.Append(metadataSeparator).Append(obj.Serialize());
+                builder.Append(metadataSeparator).Append(Json.Serialize(obj));
             }
             return builder.ToString();
         }

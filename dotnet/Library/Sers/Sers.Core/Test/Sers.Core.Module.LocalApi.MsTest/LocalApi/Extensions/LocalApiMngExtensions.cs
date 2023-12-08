@@ -6,7 +6,7 @@ using Sers.Core.Module.Api.LocalApi;
 using Sers.Core.Module.Message;
 
 using Vit.Extensions;
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions
 {

@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
-using Vit.Extensions.Json_Extensions;
+using Vit.Core.Module.Serialization;
 
 namespace Vit.Core.Module.Log.LogCollector.ElasticSearch.Client
 {
@@ -33,7 +33,7 @@ namespace Vit.Core.Module.Log.LogCollector.ElasticSearch.Client
         /// <summary>
         /// 若指定则在指定时间间隔统一推送数据，若不指定则立即推送。单位:ms
         /// </summary>
-        public int? intervalMs; 
+        public int? intervalMs;
 
 
 
@@ -94,8 +94,8 @@ namespace Vit.Core.Module.Log.LogCollector.ElasticSearch.Client
                     (recordList_Swap, recordList) = (recordList, recordList_Swap);
                     if (recordList_Swap.Count > 0)
                     {
-                        lock(buffer)
-                             SendToServer(recordList_Swap, buffer);
+                        lock (buffer)
+                            SendToServer(recordList_Swap, buffer);
                         while (recordList_Swap.TryTake(out _)) ;
                     }
                 };
@@ -116,7 +116,7 @@ namespace Vit.Core.Module.Log.LogCollector.ElasticSearch.Client
             if (buffer == null) buffer = new StringBuilder();
             foreach (var record in records)
             {
-                buffer.AppendLine("{\"create\":{}}").AppendLine(record.Serialize());
+                buffer.AppendLine("{\"create\":{}}").AppendLine(Json.Serialize(record));
             }
             request.Content = new StringContent(buffer.ToString(), Vit.Core.Module.Serialization.Serialization_Newtonsoft.defaultEncoding, "application/json");
             buffer.Clear();

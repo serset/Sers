@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Runtime.CompilerServices;
 
+using Vit.Core.Module.Serialization;
 using Vit.Extensions.Json_Extensions;
 
 namespace Vit.Extensions.Newtonsoft_Extensions
@@ -110,7 +111,7 @@ namespace Vit.Extensions.Newtonsoft_Extensions
                 return new JValue(value);
             else
             {
-                return JsonConvert.DeserializeObject(value.Serialize()) as JToken;
+                return JsonConvert.DeserializeObject(Json.Serialize(value)) as JToken;
             }
         }
         #endregion

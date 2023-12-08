@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 
 using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Vit.Extensions
 {

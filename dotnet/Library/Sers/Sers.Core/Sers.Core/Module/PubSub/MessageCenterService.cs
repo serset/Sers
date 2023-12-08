@@ -7,6 +7,7 @@ using Vit.Core.Module.Log;
 using Sers.Core.Module.Message;
 using System.Runtime.CompilerServices;
 using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.Core.Module.PubSub
 {
@@ -14,8 +15,8 @@ namespace Sers.Core.Module.PubSub
     {
         public static readonly MessageCenterService Instance = new MessageCenterService();
 
-        
-        public void Conn_OnDisconnected(IOrganizeConnection  conn)
+
+        public void Conn_OnDisconnected(IOrganizeConnection conn)
         {
             //移除conn的所有订阅
             foreach (var msgTitle in subscriberMap.Keys.ToList())
@@ -25,13 +26,13 @@ namespace Sers.Core.Module.PubSub
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void OnGetMessage(IOrganizeConnection  conn, ArraySegment<byte> messageData)
+        public void OnGetMessage(IOrganizeConnection conn, ArraySegment<byte> messageData)
         {
             SersFile frame = new SersFile().Unpack(messageData);
 
             try
             {
-               
+
                 //byte msgType = frame.GetFile(0).AsSpan()[0];
                 var file0 = frame.GetFile(0);
                 byte msgType = file0.Array[file0.Offset];
@@ -55,22 +56,22 @@ namespace Sers.Core.Module.PubSub
                 Logger.Error(ex);
             }
         }
-       
 
-      
-        
 
-       
+
+
+
+
 
         /// <summary>
         /// 消息订阅者   msgTitle ->    connList
         /// </summary>
-        ConcurrentDictionary<string, ConcurrentDictionary<int, IOrganizeConnection >> subscriberMap = new ConcurrentDictionary<string, ConcurrentDictionary<int, IOrganizeConnection >>();
+        ConcurrentDictionary<string, ConcurrentDictionary<int, IOrganizeConnection>> subscriberMap = new ConcurrentDictionary<string, ConcurrentDictionary<int, IOrganizeConnection>>();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void Publish(string msgTitle,ArraySegment<byte> msgData)
+        void Publish(string msgTitle, ArraySegment<byte> msgData)
         {
-            if (!subscriberMap.TryGetValue(msgTitle, out var connList)) return;   
+            if (!subscriberMap.TryGetValue(msgTitle, out var connList)) return;
 
             //message,msgTitle,msgData
             var frame = new SersFile().SetFiles(
@@ -78,7 +79,7 @@ namespace Sers.Core.Module.PubSub
                  msgTitle.SerializeToArraySegmentByte(),
                  msgData
                 ).Package().ToBytes();
-        
+
             foreach (var conn in connList.Values)
             {
                 conn.SendMessageAsync(new Vit.Core.Util.Pipelines.ByteData(frame.BytesToArraySegmentByte()));
@@ -86,7 +87,7 @@ namespace Sers.Core.Module.PubSub
         }
 
 
-        public void Subscribe(IOrganizeConnection  conn, string msgTitle)
+        public void Subscribe(IOrganizeConnection conn, string msgTitle)
         {
             lock (this)
             {
@@ -96,7 +97,7 @@ namespace Sers.Core.Module.PubSub
             }
         }
 
-        public void SubscribeCancel(IOrganizeConnection  conn, string msgTitle)
+        public void SubscribeCancel(IOrganizeConnection conn, string msgTitle)
         {
             lock (this)
             {

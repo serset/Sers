@@ -16,7 +16,7 @@ using System.Net.Http;
 using Microsoft.IdentityModel.Tokens;
 
 using Vit.Core.Module.Log;
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Object_Serialize_Extensions;
 using Vit.SSO.Model;
 
 namespace Vit.SSO.Service.RS256

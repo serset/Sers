@@ -16,7 +16,7 @@ namespace Vit.Core.Module.Serialization
         #region (x.1)object <--> String
 
         /// <summary>
-        /// T也可为值类型（例如 int?、bool）
+        /// T could be ValueType（example: int? , bool）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -28,7 +28,7 @@ namespace Vit.Core.Module.Serialization
         }
 
         /// <summary>
-        /// T也可为值类型（例如 int?、bool）
+        /// T could be ValueType（example: int? , bool）
         /// </summary>
         /// <param name="value"></param>
         /// <param name="type"></param>
@@ -42,7 +42,7 @@ namespace Vit.Core.Module.Serialization
 
 
         /// <summary>
-        /// 使用Newtonsoft反序列化。T也可为值类型（例如 int?、bool）
+        /// 使用Newtonsoft反序列化。T could be ValueType（example: int? , bool）
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -53,7 +53,7 @@ namespace Vit.Core.Module.Serialization
         }
 
         /// <summary>
-        /// 使用Newtonsoft反序列化。T也可为值类型（例如 int?、bool）
+        /// 使用Newtonsoft反序列化。T could be ValueType（example: int? , bool）
         /// </summary>
         /// <param name="value"></param>
         /// <param name="type"></param>
@@ -163,7 +163,7 @@ namespace Vit.Core.Module.Serialization
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ArraySegment<byte> SerializeToArraySegmentByte(this object value)
+        public static ArraySegment<byte> SerializeToArraySegmentByte(object value)
         {
             return Instance.SerializeToBytes(value).BytesToArraySegmentByte();
         }

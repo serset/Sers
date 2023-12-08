@@ -6,7 +6,7 @@ namespace Vit.Core.Module.Serialization
     public static partial class Json
     {
 
-        #region (x.1)object <--> String
+        #region object <--> String
 
         /// <summary>
         /// T也可为值类型（例如 int?、bool） 
