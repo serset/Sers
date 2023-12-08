@@ -18,6 +18,7 @@ using Vit.Core.Util.Threading.Timer;
 using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
+using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 {

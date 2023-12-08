@@ -1,9 +1,11 @@
 ﻿
 using Sers.Core.Module.Rpc.Serialization;
 using Sers.Core.Module.Rpc.Serialization.Fast;
+
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+
 using Vit.Core.Util.ConfigurationManager;
 
 namespace Sers.Core.Module.Rpc
@@ -22,18 +24,18 @@ namespace Sers.Core.Module.Rpc
             // 可为 Newtonsoft、Text、BytePointor。
             // 效率依次递增。BytePointor 序列化为二进制数据而不是json字符串。
             string rpcDataSerializeMode = Appsettings.json.GetByPath<string>("Sers.RpcDataSerializeMode");
- 
-            switch (rpcDataSerializeMode) 
+
+            switch (rpcDataSerializeMode)
             {
                 case "Newtonsoft": Serialization = Newtonsoft_RpcContextData.Instance; break;
                 case "Text": Serialization = Text_RpcContextData.Instance; break;
                 //case "StringBuilder": Serialization = StringBuilder_RpcContextData.Instance; break;
                 //case "MessagePack": Serialization = MessagePack_RpcContextData.Instance; break;
-                case "BytePointor": Serialization = BytePointor_RpcContextData.Instance; break;           
-                          
+                case "BytePointor": Serialization = BytePointor_RpcContextData.Instance; break;
+
                 default: Serialization = Text_RpcContextData.Instance; break;
             }
-        
+
         }
 
         #endregion
@@ -47,21 +49,21 @@ namespace Sers.Core.Module.Rpc
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
         //public string Serialize()
         //{    
-        //    return StringBuilder_RpcContextData.SerializeToString(this);
+        //    return StringBuilder_RpcContextData.Serialize(this);
         //}
 
-       
+
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public byte[] ToBytes() 
+        public byte[] ToBytes()
         {
-            return Serialization.SerializeToBytes(this);     
+            return Serialization.SerializeToBytes(this);
         }
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static RpcContextData FromBytes(ArraySegment<byte>data)
+        public static RpcContextData FromBytes(ArraySegment<byte> data)
         {
             return Serialization.DeserializeFromBytes(data);
         }
@@ -119,9 +121,9 @@ namespace Sers.Core.Module.Rpc
 
         #region caller
 
-        public Caller caller=new Caller();
+        public Caller caller = new Caller();
 
-        public class Caller 
+        public class Caller
         {
             public string rid;
             public List<string> callStack;
@@ -157,7 +159,7 @@ namespace Sers.Core.Module.Rpc
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public Dictionary<string, string> Headers()
             {
-                return headers??(headers = new Dictionary<string, string>());
+                return headers ?? (headers = new Dictionary<string, string>());
             }
 
             /// <summary>
@@ -168,7 +170,7 @@ namespace Sers.Core.Module.Rpc
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public Dictionary<string, string> Headers(int capacity)
             {
-                return headers??(headers = new Dictionary<string, string>(capacity));
+                return headers ?? (headers = new Dictionary<string, string>(capacity));
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -185,9 +187,9 @@ namespace Sers.Core.Module.Rpc
         #endregion
 
 
- 
+
         public object error;
- 
+
         public object user;
 
 

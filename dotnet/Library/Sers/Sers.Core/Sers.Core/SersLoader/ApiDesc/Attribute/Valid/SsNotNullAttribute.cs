@@ -1,6 +1,6 @@
 ﻿using Sers.SersLoader.ApiDesc.Attribute.RpcVerify;
 
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.SersLoader.ApiDesc.Attribute.Valid
 {
@@ -10,7 +10,7 @@ namespace Sers.SersLoader.ApiDesc.Attribute.Valid
     /// [SsNotNull(path = "http.headers.Authorization",   errorMessage = "必须指定Authorization")]
     /// </summary>
     public class SsNotNullAttribute : SsRpcVerifyAttribute
-    {  
+    {
 
         #region path        
         string _path;
@@ -22,12 +22,12 @@ namespace Sers.SersLoader.ApiDesc.Attribute.Valid
                 _path = value;
 
                 // { "type":"NotNull","path":"caller.source"  } 
-                condition = new { type = "NotNull", path = path }.Serialize();              
+                condition = new { type = "NotNull", path = path }.Serialize();
             }
         }
         #endregion
 
 
- 
+
     }
 }

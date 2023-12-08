@@ -9,6 +9,7 @@ using Vit.Core.Module.Log;
 using Vit.Core.Module.Log.LogCollector.Splunk.Client;
 using Vit.Extensions.Newtonsoft_Extensions;
 using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.Core.Module.ApiTrace.Collector
 {

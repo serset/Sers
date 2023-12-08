@@ -201,7 +201,7 @@ namespace Vit.Core.Module.Serialization
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T Deserialize<T>(string value)
         {
-            //return (T)DeserializeFromString(value,typeof(T));
+            //return (T)Deserialize(value,typeof(T));
             if (null == value) return default;
 
             Type type = typeof(T);

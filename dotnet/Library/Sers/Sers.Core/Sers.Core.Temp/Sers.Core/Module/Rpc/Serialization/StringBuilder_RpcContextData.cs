@@ -17,7 +17,7 @@ namespace Sers.Core.Module.Rpc.Serialization
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] SerializeToBytes(RpcContextData data)
         {
-            return Encoding.UTF8.GetBytes(SerializeToString(data));
+            return Encoding.UTF8.GetBytes(Serialize(data));
         }
 
 
@@ -25,7 +25,6 @@ namespace Sers.Core.Module.Rpc.Serialization
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public RpcContextData DeserializeFromBytes(ArraySegment<byte> data)
         {
-            //throw new NotImplementedException();
             return Text_RpcContextData.Instance.DeserializeFromBytes(data);
         }
 
@@ -36,7 +35,7 @@ namespace Sers.Core.Module.Rpc.Serialization
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string SerializeToString(RpcContextData data)
+        public string Serialize(RpcContextData data)
         {
             if (buffer == null)
             {

@@ -22,6 +22,7 @@ using Newtonsoft.Json.Linq;
 using Vit.Core.Util.Pipelines;
 using Vit.Extensions.Newtonsoft_Extensions;
 using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.ServiceStation
 {

@@ -23,6 +23,7 @@ using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.Gover.Base
 {
@@ -197,7 +198,7 @@ namespace Sers.Gover.Base
                 //(x.x.1) rpcValidations Sers1校验
                 if (apiNode.apiDesc.rpcValidations != null && apiNode.apiDesc.rpcValidations.Count > 0)
                 {
-                    if (oriJson == null) oriJson = rpcData.Serialize().Deserialize<JObject>();
+                    if (oriJson == null) oriJson = rpcData.ConvertBySerialize<JObject>();
 
                     if (!Sers.Core.Module.Valid.Sers1.RpcVerify1.Verify(oriJson, apiNode.apiDesc.rpcValidations, out var validError))
                     {
@@ -209,7 +210,7 @@ namespace Sers.Gover.Base
                 //(x.x.2) rpcVerify2 Sers2校验
                 if (apiNode.apiDesc.rpcVerify2 != null && apiNode.apiDesc.rpcVerify2.Count > 0)
                 {
-                    if (oriJson == null) oriJson = rpcData.Serialize().Deserialize<JObject>();
+                    if (oriJson == null) oriJson = rpcData.ConvertBySerialize<JObject>();
 
                     if (!Sers.Core.Module.Valid.Sers2.RpcVerify2.Verify(oriJson, apiNode.apiDesc.rpcVerify2, out var verifyError))
                     {

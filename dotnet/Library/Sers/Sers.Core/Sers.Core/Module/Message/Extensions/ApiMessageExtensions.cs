@@ -6,6 +6,8 @@ using Vit.Core.Util.ComponentModel.SsError;
 using Newtonsoft.Json.Linq;
 using System.Runtime.CompilerServices;
 using Vit.Extensions.Json_Extensions;
+using Vit.Core.Module.Serialization;
+using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Vit.Extensions
 {
@@ -39,7 +41,7 @@ namespace Vit.Extensions
             data.RpcContextData_OriData_Set(rpcData);
 
 
-            #region (x.3) set body          
+            #region (x.3) set body
             ApiReturn ret = error;
             data.value_OriData = ret.SerializeToArraySegmentByte();
             #endregion
