@@ -63,7 +63,7 @@ pipeline {
             steps {
                 script {
                     echo "#2.1 change-app-version"
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps3/build-bash; source 20.change-app-version.bash;    echo \$nextAppVersion > $codePath/Publish/appVersion.txt '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/build-bash; source 20.change-app-version.bash;    echo \$nextAppVersion > $codePath/Publish/appVersion.txt '"
 		    
                     echo "#2.2 get app version"
 		    def data = readFile("Publish/appVersion.txt")
