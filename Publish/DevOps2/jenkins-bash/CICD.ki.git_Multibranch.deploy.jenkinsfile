@@ -22,12 +22,6 @@ pipeline {
         // set to "  "  if want to skip copy
         releasePath = "/root/docker-cache/jenkins/jenkins_home/jenkinsReleaseFile/${stageName}/${env.BRANCH_NAME}/${APPNAME}"
 
-
-        //SVN_PATH = "svn://svn.ki.lith.cloud/Sers"
-        //svn_USR = "  "
-        //svn_PSW = "  "
-        svn = credentials("svn_account")
-
         NUGET_PATH = "/root/docker-cache/jenkins/jenkins_home/workspace/.nuget"
 
         NUGET_SERVER = "http://nuget.lith.cloud:8"
