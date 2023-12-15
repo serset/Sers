@@ -47,8 +47,7 @@ pipeline {
                         env.codePath = "/root/docker-cache/jenkins/" + basePath.substring(5, basePath.length()) 
 
                         // get APPNAME
-                        def APPNAME = readFile("Publish/DevOps2/jenkins-bash/env.appVersion.txt")
-                        env.APPNAME = "${APPNAME}"
+                        env.APPNAME = readFile("Publish/DevOps2/jenkins-bash/env.APPNAME.txt")
 
                         env.releasePath = "/root/docker-cache/jenkins/jenkins_home/jenkinsReleaseFile/${stageName}/${env.BRANCH_NAME}/${APPNAME}"
 
