@@ -47,7 +47,8 @@ pipeline {
                         env.codePath = "/root/docker-cache/jenkins/" + basePath.substring(5, basePath.length()) 
 
                         // get APPNAME
-                        env.APPNAME = readFile("Publish/DevOps2/jenkins-bash/env.appVersion.txt")
+                        def APPNAME = readFile("Publish/DevOps2/jenkins-bash/env.appVersion.txt")
+                        env.APPNAME = "${APPNAME}"
 
                         env.releasePath = "/root/docker-cache/jenkins/jenkins_home/jenkinsReleaseFile/${stageName}/${env.BRANCH_NAME}/${APPNAME}"
 
@@ -73,9 +74,10 @@ pipeline {
                 script {
                     echo "#2.1 change-app-version"
                     sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/build-bash; source 22.add-suffix-to-app-version.bash;    echo \$nextAppVersion > $codePath/Publish/DevOps2/jenkins-bash/env.appVersion.txt '"
-		    
+
                     echo "#2.2 get app version"
-                    env.appVersion = readFile("Publish/DevOps2/jenkins-bash/env.appVersion.txt")
+                    def appVersion = readFile("Publish/DevOps2/jenkins-bash/env.appVersion.txt")
+                    env.appVersion = "${appVersion}"
                     echo "appVersion: [${env.appVersion}]"
                 }
             }
