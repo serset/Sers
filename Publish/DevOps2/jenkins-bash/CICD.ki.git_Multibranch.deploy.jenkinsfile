@@ -10,15 +10,18 @@ pipeline {
     agent any
 
     environment {
-        //APPNAME = "Sers"
+        // get APPNAME
+        // APPNAME = "Sers"
+        APPNAME = readFile("Publish/DevOps2/jenkins-bash/env.APPNAME.txt")
 
         stageName = "ki"
         versionSuffix = "-${stageName}${env.build_number}"
 
         //basePath = "/root/docker-cache/jenkins/jenkins_home/workspace/${APPNAME}/${stageName}/${env.BRANCH_NAME}/${env.build_number}"
-        basePath="${env.WORKSPACE}"
+        basePath = "${env.WORKSPACE}"
         // set to "  "  if want to skip copy
-        releasePath = "  "
+        // releasePath = "  "
+        releasePath = "/root/docker-cache/jenkins/jenkins_home/jenkinsReleaseFile/${stageName}/${env.BRANCH_NAME}/${APPNAME}"
 
         NUGET_PATH = "/root/docker-cache/jenkins/jenkins_home/workspace/.nuget"
 
@@ -46,12 +49,6 @@ pipeline {
 
                         env.codePath = "/root/docker-cache/jenkins/" + basePath.substring(5, basePath.length()) 
 
-                        // get APPNAME
-                        env.APPNAME = readFile("Publish/DevOps2/jenkins-bash/env.APPNAME.txt")
-
-                        env.releasePath = "/root/docker-cache/jenkins/jenkins_home/jenkinsReleaseFile/${stageName}/${env.BRANCH_NAME}/${APPNAME}"
-
-
                         echo "-------- APPNAME: [$APPNAME]"
                         echo "-------- basePath: [$basePath]"
                         echo "-------- releasePath: [$releasePath]"
@@ -72,12 +69,11 @@ pipeline {
             steps {
                 script {
                     echo "#2.1 change-app-version"
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/build-bash; source 22.add-suffix-to-app-version.bash;    echo \$nextAppVersion > $codePath/Publish/DevOps2/jenkins-bash/env.appVersion.txt '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/build-bash; source 22.add-suffix-to-app-version.bash;    echo \"\$nextAppVersion\" > $codePath/Publish/DevOps2/jenkins-bash/env.appVersion.txt '"
 
                     echo "#2.2 get app version"
-                    def appVersion = readFile("Publish/DevOps2/jenkins-bash/env.appVersion.txt")
-                    env.appVersion = "${appVersion}"
-                    echo "appVersion: [${env.appVersion}]"
+                    env.appVersion = readFile("Publish/DevOps2/jenkins-bash/env.appVersion.txt")
+                    echo "-------- appVersion: [${env.appVersion}]"
                 }
             }
         }
