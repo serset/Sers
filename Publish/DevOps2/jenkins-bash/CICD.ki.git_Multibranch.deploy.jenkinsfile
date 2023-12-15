@@ -11,8 +11,6 @@ pipeline {
 
     environment {
         //APPNAME = "Sers"
-        APPNAME = "${env.JOB_NAME}"
-
 
         stageName = "ki"
         versionSuffix = "-${stageName}${env.build_number}"
@@ -48,11 +46,11 @@ pipeline {
 
                         env.codePath = "/root/docker-cache/jenkins/" + basePath.substring(5, basePath.length()) 
 
-                        echo "APPNAME: [$APPNAME]"
-                        echo "basePath: [$basePath]"
-                        echo "releasePath: [$releasePath]"
-                        echo "DOCKER_ImagePrefix: [$DOCKER_ImagePrefix]"
-                        echo "codePath: [$codePath]"
+                        echo "-------- APPNAME: [$APPNAME]"
+                        echo "-------- basePath: [$basePath]"
+                        echo "-------- releasePath: [$releasePath]"
+                        echo "-------- DOCKER_ImagePrefix: [$DOCKER_ImagePrefix]"
+                        echo "-------- codePath: [$codePath]"
 
                         env.inputChoice = "no"
                         env.inputChoice = input message: "deploy ?", 
