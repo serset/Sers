@@ -27,7 +27,7 @@ namespace Vit.Core.Util.Net
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public async Task<HttpResponse<T>> SendAsync<T>(HttpRequest request)
         {
-            #region (x.1)构建请求            
+            #region (x.1)构建请求
 
             #region (x.x.1)创建对象           
             var url = request.url;
@@ -51,7 +51,7 @@ namespace Vit.Core.Util.Net
                         httpRequest.Content = httpContent;
                         break;
                     default:
-                        var content = Json.SerializeToString(request.body);
+                        var content = Json.Serialize(request.body);
                         httpRequest.Content = new StringContent(content, request.requestEncoding, "application/json");
                         break;
                 }
@@ -101,7 +101,7 @@ namespace Vit.Core.Util.Net
                 else
                 {
                     string data = await response.Content.ReadAsStringAsync();
-                    httpResponse.data = data.Deserialize<T>();
+                    httpResponse.data = Json.Deserialize<T>(data);
                 }
             }
             return httpResponse;

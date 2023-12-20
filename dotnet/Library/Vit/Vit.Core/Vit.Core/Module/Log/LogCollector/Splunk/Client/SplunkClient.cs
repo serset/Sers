@@ -2,7 +2,7 @@
 using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Collections.Concurrent;
-using Vit.Extensions.Json_Extensions;
+using Vit.Core.Module.Serialization;
 
 namespace Vit.Core.Module.Log.LogCollector.Splunk.Client
 {
@@ -112,10 +112,10 @@ namespace Vit.Core.Module.Log.LogCollector.Splunk.Client
         private System.Net.Http.HttpClient httpClient = null;
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        private void SendToServer(object record) 
+        private void SendToServer(object record)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, url);
-            request.Content = new StringContent(record.Serialize(), Vit.Core.Module.Serialization.Serialization_Newtonsoft.defaultEncoding, "application/json");
+            request.Content = new StringContent(Json.Serialize(record), Vit.Core.Module.Serialization.Serialization_Newtonsoft.defaultEncoding, "application/json");
 
             // TODO:    retry when fail. 
             //          batch:  batchIntervalInSeconds, batchSizeLimit, queueLimit

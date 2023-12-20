@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+
 using MessagePack;
 using MessagePack.Formatters;
 using MessagePack.Resolvers;
+
 using Vit.Extensions;
 
 namespace Vit.Core.Module.Serialization
@@ -54,10 +56,10 @@ namespace Vit.Core.Module.Serialization
 
         #region (x.1)object <--> String
 
-        #region SerializeToString
+        #region Serialize
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string SerializeToString<T>(T value)
+        public string Serialize<T>(T value)
         {
             return MessagePackSerializer.ConvertToJson(SerializeToBytes(value), options);
         }
@@ -65,28 +67,25 @@ namespace Vit.Core.Module.Serialization
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string SerializeToString(object value, Type type)
+        public string Serialize(object value, Type type)
         {
             return MessagePackSerializer.ConvertToJson(SerializeToBytes(value), options);
         }
 
         #endregion
 
-        #region DeserializeFromString
+        #region Deserialize
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public T DeserializeFromString<T>(string value)
+        public T Deserialize<T>(string value)
         {
-            //throw new NotImplementedException();
             var bytes = MessagePackSerializer.ConvertFromJson(value, options);
             return DeserializeFromBytes<T>(bytes);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public object DeserializeFromString(string value, Type type)
+        public object Deserialize(string value, Type type)
         {
-            //throw new NotImplementedException();
-
             var bytes = MessagePackSerializer.ConvertFromJson(value, options);
             return DeserializeFromBytes(bytes, type);
         }

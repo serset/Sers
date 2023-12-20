@@ -4,6 +4,7 @@ using Vit.Core.Module.Log;
 using Sers.Core.Module.Rpc;
 using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.Core.Module.Api.Data
 {
@@ -15,7 +16,7 @@ namespace Sers.Core.Module.Api.Data
             try
             {
                 string msg = "[ApiCallError]route:" + rpcContextData.route;
-                msg += Environment.NewLine+"error:" + error.Serialize();
+                msg += Environment.NewLine + "error:" + error.Serialize();
                 msg += Environment.NewLine + "rpcData:" + rpcContextData.Serialize();
                 try
                 {

@@ -8,6 +8,7 @@ using Vit.Core.Util.ConfigurationManager;
 using Vit.Core.Util.Common;
 using System.Collections.Generic;
 using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
 {

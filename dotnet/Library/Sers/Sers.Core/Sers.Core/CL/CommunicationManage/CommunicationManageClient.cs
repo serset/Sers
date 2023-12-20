@@ -12,6 +12,7 @@ using Vit.Core.Util.ConfigurationManager;
 using Vit.Core.Util.Reflection;
 using Vit.Extensions.Json_Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
+using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.Core.CL.CommunicationManage
 {
@@ -20,7 +21,7 @@ namespace Sers.Core.CL.CommunicationManage
 
         public CommunicationManageClient()
         {
-            defaultConfig= Appsettings.json.GetByPath<JObject>("Sers.CL.Config") ?? new JObject();
+            defaultConfig = Appsettings.json.GetByPath<JObject>("Sers.CL.Config") ?? new JObject();
 
             requestTimeoutMs = defaultConfig["requestTimeoutMs"]?.ConvertBySerialize<int?>() ?? 300000;
         }
@@ -43,13 +44,13 @@ namespace Sers.Core.CL.CommunicationManage
         /// <summary>
         /// 会在内部线程中被调用 
         /// </summary>
-        public Action<IOrganizeConnection,object, ArraySegment<byte>, Action<object, Vit.Core.Util.Pipelines.ByteData>> conn_OnGetRequest{   get;set;    }
+        public Action<IOrganizeConnection, object, ArraySegment<byte>, Action<object, Vit.Core.Util.Pipelines.ByteData>> conn_OnGetRequest { get; set; }
 
-        public Action<IOrganizeConnection,ArraySegment<byte>> conn_OnGetMessage{   get; set;   }
+        public Action<IOrganizeConnection, ArraySegment<byte>> conn_OnGetMessage { get; set; }
         #endregion
 
         #region SendMessageAsync    
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SendMessageAsync(Vit.Core.Util.Pipelines.ByteData message)
         {
@@ -57,7 +58,7 @@ namespace Sers.Core.CL.CommunicationManage
             {
                 conn.SendMessageAsync(message);
             }
-        }     
+        }
         #endregion
 
 
@@ -68,11 +69,11 @@ namespace Sers.Core.CL.CommunicationManage
             {
                 Stop();
                 return false;
-            }      
+            }
             return true;
         }
 
-       
+
         private bool BuildOrganizeAndConnect()
         {
             #region (x.1)build
@@ -110,7 +111,7 @@ namespace Sers.Core.CL.CommunicationManage
             #endregion
 
             //(x.4) get  connList
-            connList = organizeList.Select(organize=>organize.conn).ToArray();
+            connList = organizeList.Select(organize => organize.conn).ToArray();
 
             return true;
         }
@@ -130,7 +131,7 @@ namespace Sers.Core.CL.CommunicationManage
 
                 #region (x.1) get configs
                 var configs = Appsettings.json.GetByPath<JObject[]>("Sers.CL.Client");
-                if (configs == null) 
+                if (configs == null)
                 {
                     //return null;
                     configs = DefaultClientConfig.Deserialize<JObject[]>();
@@ -208,7 +209,7 @@ namespace Sers.Core.CL.CommunicationManage
         #endregion
 
 
-        
+
 
     }
 }

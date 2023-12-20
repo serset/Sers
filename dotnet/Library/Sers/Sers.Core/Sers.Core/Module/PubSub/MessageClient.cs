@@ -6,6 +6,7 @@ using System.Collections.Concurrent;
 using Sers.Core.CL.MessageOrganize;
 using System.Runtime.CompilerServices;
 using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.Core.Module.PubSub
 {

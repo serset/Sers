@@ -142,7 +142,7 @@ namespace Vit.Core.Module.Serialization
 
         #region (x.1)object <--> String
 
-        #region SerializeToString
+        #region Serialize
 
         /// <summary>
         /// T也可为值类型（例如 int?、bool） 
@@ -151,11 +151,11 @@ namespace Vit.Core.Module.Serialization
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string SerializeToString<T>(T value)
+        public string Serialize<T>(T value)
         {
             if (null == value) return null;
 
-            return SerializeToString(value, value.GetType());
+            return Serialize(value, value.GetType());
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace Vit.Core.Module.Serialization
         /// <param name="type"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string SerializeToString(object value, Type type)
+        public string Serialize(object value, Type type)
         {
             if (null == value) return null;
 
@@ -191,7 +191,7 @@ namespace Vit.Core.Module.Serialization
 
         #endregion
 
-        #region DeserializeFromString
+        #region Deserialize
 
         /// <summary>
         /// 使用Newtonsoft反序列化。T也可为值类型（例如 int?、bool） 
@@ -199,9 +199,9 @@ namespace Vit.Core.Module.Serialization
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public T DeserializeFromString<T>(string value)
+        public T Deserialize<T>(string value)
         {
-            //return (T)DeserializeFromString(value,typeof(T));
+            //return (T)Deserialize(value,typeof(T));
             if (null == value) return default;
 
             Type type = typeof(T);
@@ -226,7 +226,7 @@ namespace Vit.Core.Module.Serialization
         /// <param name="type"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public object DeserializeFromString(string value, Type type)
+        public object Deserialize(string value, Type type)
         {
             if (null == value || null == type) return null;
 
@@ -287,7 +287,7 @@ namespace Vit.Core.Module.Serialization
                     return asbs.ArraySegmentByteToBytes();
                 case string str:
                     strValue = str; break;
-                default: strValue = SerializeToString(obj); break;
+                default: strValue = Serialize(obj); break;
             }
 
             return StringToBytes(strValue, encoding);
@@ -346,7 +346,7 @@ namespace Vit.Core.Module.Serialization
             {
                 return strValue;
             }
-            return DeserializeFromString(strValue, type);
+            return Deserialize(strValue, type);
         }
         #endregion
 
@@ -369,7 +369,7 @@ namespace Vit.Core.Module.Serialization
             {
                 return strValue;
             }
-            return DeserializeFromString(strValue, type);
+            return Deserialize(strValue, type);
         }
         #endregion
 
@@ -441,7 +441,7 @@ namespace Vit.Core.Module.Serialization
             {
                 return strValue;
             }
-            return DeserializeFromString(strValue, type);
+            return Deserialize(strValue, type);
         }
         #endregion
 

@@ -1,6 +1,6 @@
 ﻿using Sers.SersLoader.ApiDesc.Attribute.RpcVerify;
 
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.SersLoader.ApiDesc.Attribute.Valid
 {
@@ -46,7 +46,7 @@ namespace Sers.SersLoader.ApiDesc.Attribute.Valid
 
         protected virtual void FlushCondition()
         {
-            //  { "type":"==","path":"caller.source",  "value":SsExp  }  
+            //  { "type":"==","path":"caller.source",  "value":SsExp  }
             condition = new { type= type, path= path, value = value }.Serialize();
         }
  

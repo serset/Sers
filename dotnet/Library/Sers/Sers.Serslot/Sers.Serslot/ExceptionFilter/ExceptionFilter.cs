@@ -8,6 +8,7 @@ using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.Serslot.ExceptionFilter
 {

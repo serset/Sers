@@ -274,7 +274,7 @@ namespace App
                             //data.user = jo;
 
 
-                            //str = Instance.SerializeToString(data);
+                            //str = Instance.Serialize(data);
 
                             //bytes = Instance.SerializeToBytes(data);
 

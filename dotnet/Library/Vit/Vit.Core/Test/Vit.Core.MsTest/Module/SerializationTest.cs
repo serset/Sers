@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -8,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using Vit.Core.Module.Serialization;
 using Vit.Extensions.Json_Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
+using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Vit.Core.MsTest.Module
 {
@@ -35,7 +35,7 @@ namespace Vit.Core.MsTest.Module
 
 
             #region (x.2)object <--> String
-            Assert.AreEqual(Json.DeserializeFromString<ModelA>(Json.SerializeToString(modelA))?.name, testString);
+            Assert.AreEqual(Json.Deserialize<ModelA>(Json.Serialize(modelA))?.name, testString);
             Assert.AreEqual(modelA.Serialize().Deserialize<ModelA>()?.name, testString);
             #endregion
 
@@ -53,7 +53,7 @@ namespace Vit.Core.MsTest.Module
             #endregion
 
 
-            #region (x.6)DateTimeFormat           
+            #region (x.6)DateTimeFormat
 
             var obj = new
             {
@@ -62,15 +62,21 @@ namespace Vit.Core.MsTest.Module
             };
 
             string str = obj.Serialize();
+            var DateFormatString = Serialization_Newtonsoft.Instance.serializeSetting.DateFormatString;
+            try
+            {
+                Serialization_Newtonsoft.Instance.serializeSetting.DateFormatString = "yyyy-MM-dd";
 
-            Serialization_Newtonsoft.Instance.serializeSetting.DateFormatString = "yyyy-MM-dd";
+                string str2 = obj.Serialize();
+                var jtObj = str2.Deserialize<JObject>();
 
-            string str2 = obj.Serialize();
-            var jtObj = str2.Deserialize<JObject>();
-
-            Assert.AreEqual(jtObj.StringGetByPath("Date"), "2019-01-01");
-            Assert.AreEqual(jtObj.StringGetByPath("obj", "Date2"), "2019-02-02");
-
+                Assert.AreEqual(jtObj.StringGetByPath("Date"), "2019-01-01");
+                Assert.AreEqual(jtObj.StringGetByPath("obj", "Date2"), "2019-02-02");
+            }
+            finally
+            {
+                Serialization_Newtonsoft.Instance.serializeSetting.DateFormatString = DateFormatString;
+            }
             #endregion
 
 
@@ -83,7 +89,7 @@ namespace Vit.Core.MsTest.Module
         public void TestMethod_DateTime()
         {
             var time = DateTime.Now;
-            var str = Json.SerializeToString(time);
+            var str = Json.Serialize(time);
             Assert.AreEqual(time.ToString("yyyy-MM-dd HH:mm:ss"), str);
         }
 

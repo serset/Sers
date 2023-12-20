@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Unicode;
+
 using Vit.Core.Module.Serialization;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Extensions;
@@ -35,13 +36,14 @@ namespace Sers.Core.Module.Serialization.Text
         public Serialization_Text()
         {
             options.AddConverter_Newtonsoft();
- 
+
 
             //日期格式化
             var DateTimeFormat = Appsettings.json.GetByPath<string>("Vit.Serialization.DateTimeFormat")
               ?? "yyyy-MM-dd HH:mm:ss";
 
             jsonConverter_DateTime = options.AddConverter_DateTime(DateTimeFormat);
+
         }
 
 
@@ -55,10 +57,10 @@ namespace Sers.Core.Module.Serialization.Text
 
         #region (x.1)object <--> String
 
-        #region SerializeToString
+        #region Serialize
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string SerializeToString<T>(T value)
+        public string Serialize<T>(T value)
         {
             return JsonSerializer.Serialize(value, options);
         }
@@ -66,7 +68,7 @@ namespace Sers.Core.Module.Serialization.Text
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string SerializeToString(object value, Type type)
+        public string Serialize(object value, Type type)
         {
             return JsonSerializer.Serialize(value, type, options);
         }
@@ -75,17 +77,17 @@ namespace Sers.Core.Module.Serialization.Text
 
 
 
-        #region DeserializeFromString   
+        #region Deserialize 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public T DeserializeFromString<T>(string value)
+        public T Deserialize<T>(string value)
         {
-            return (T)DeserializeFromString(value, typeof(T));
+            return (T)Deserialize(value, typeof(T));
         }
 
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public object DeserializeFromString(string value, Type type)
+        public object Deserialize(string value, Type type)
         {
             return JsonSerializer.Deserialize(value, type, options);
         }

@@ -58,7 +58,7 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
                 //(x.x.2)caller_callStack
                 if (data.caller.callStack != null)
                 {
-                    AppendStringValue(bytes, ref t, ERpcPropertyName.caller_callStack, Serialization.SerializeToString(data.caller.callStack));
+                    AppendStringValue(bytes, ref t, ERpcPropertyName.caller_callStack, Serialization.Serialize(data.caller.callStack));
                 }
 
                 //(x.x.3)caller_source
@@ -100,7 +100,7 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
                 //(x.x.5)http_headers
                 if (data.http.headers != null)
                 {
-                    AppendStringValue(bytes, ref t, ERpcPropertyName.http_headers, Serialization.SerializeToString(data.http.headers));
+                    AppendStringValue(bytes, ref t, ERpcPropertyName.http_headers, Serialization.Serialize(data.http.headers));
                 }
 
                 #endregion
@@ -109,13 +109,13 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
                 //(x.4)error
                 if (data.error != null)
                 {
-                    AppendStringValue(bytes, ref t, ERpcPropertyName.error, Serialization.SerializeToString(data.error));
+                    AppendStringValue(bytes, ref t, ERpcPropertyName.error, Serialization.Serialize(data.error));
                 }
 
                 //(x.5)user
                 if (data.user != null)
                 {
-                    AppendStringValue(bytes, ref t, ERpcPropertyName.user, Serialization.SerializeToString(data.user));
+                    AppendStringValue(bytes, ref t, ERpcPropertyName.user, Serialization.Serialize(data.user));
                 }
 
             }

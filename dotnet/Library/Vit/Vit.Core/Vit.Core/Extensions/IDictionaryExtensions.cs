@@ -22,7 +22,7 @@ namespace Vit.Extensions
         {
             if (data == null || data.ContainsKey(key))
             {
-                return false;               
+                return false;
             }
             data.Add(key, value);
             return true;

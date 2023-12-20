@@ -109,7 +109,7 @@ namespace Sers.Core.Module.Rpc.Serialization
             {
                 writer.Write("error");
                 //MessagePack_Newtonsoft_Object.Instance.Serialize(ref writer, value.error, options);
-                var str = Serialization_Newtonsoft.Instance.SerializeToString(value.error);
+                var str = Serialization_Newtonsoft.Instance.Serialize(value.error);
                 writer.Write(str);
             }
 
@@ -119,7 +119,7 @@ namespace Sers.Core.Module.Rpc.Serialization
             {
                 writer.Write("user");
                 //MessagePack_Newtonsoft_Object.Instance.Serialize(ref writer, value.user, options);
-                var str = Serialization_Newtonsoft.Instance.SerializeToString(value.user);
+                var str = Serialization_Newtonsoft.Instance.Serialize(value.user);
                 writer.Write(str);
             }
         }
@@ -231,14 +231,14 @@ namespace Sers.Core.Module.Rpc.Serialization
                         if (!reader.TryReadNil())
                         {
                             //result.error = MessagePack_Newtonsoft_Object.Instance.Deserialize(ref reader, options);
-                            result.error = Serialization_Newtonsoft.Instance.DeserializeFromString<object>(reader.ReadString());
+                            result.error = Serialization_Newtonsoft.Instance.Deserialize<object>(reader.ReadString());
                         }
                         break;
                     case "user":
                         if (!reader.TryReadNil())
                         {
                             //result.user = MessagePack_Newtonsoft_Object.Instance.Deserialize(ref reader, options);
-                            result.user = Serialization_Newtonsoft.Instance.DeserializeFromString<object>(reader.ReadString());
+                            result.user = Serialization_Newtonsoft.Instance.Deserialize<object>(reader.ReadString());
                         }
                         break;
                     default:
