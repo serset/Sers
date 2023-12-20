@@ -9,7 +9,7 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>net6.0</TargetFramework>
         <RunPostBuildEvent>Always</RunPostBuildEvent>
-        <Version>2.1.22-temp</Version>
+        <Version>2.1.22-preview</Version>
         <Description>https://github.com/serset/Sers</Description>
     </PropertyGroup>
 
