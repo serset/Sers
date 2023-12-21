@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <pack>nuget</pack>
@@ -12,7 +12,7 @@
 
     <PropertyGroup>
         <Authors>Lith</Authors>
-        <Description>Sers微服务-核心库</Description>
+        <Description>Sers Microservices - Core Library</Description>
         <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
     </PropertyGroup>
 

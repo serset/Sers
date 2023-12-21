@@ -6,7 +6,7 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <Version>2.1.19-preview3</Version>
+        <Version>2.1.19-preview4</Version>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -17,7 +17,6 @@
             Serialize(Vit.Core.Module.Serialization.Json),
             ConfigurationManager(Vit.Core.Util.ConfigurationManager.Appsettings.json),
             DynamicMethodExecutor, Guid, Reflection, Shell etc.
-            Send email to serset@yeah.net if you have any questions.
         </Description>
         <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
     </PropertyGroup>
