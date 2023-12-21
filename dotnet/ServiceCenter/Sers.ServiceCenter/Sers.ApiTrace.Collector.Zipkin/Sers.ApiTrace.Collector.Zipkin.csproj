@@ -7,7 +7,7 @@
 
     <PropertyGroup>
         <Authors>Lith</Authors>
-        <Description>Sers微服务-Zipkin收集器,推送Api Trace到Zipkin</Description>
+        <Description>Sers Microservices - trace collector for Zipkin , could push ApiTrace data to Zipkin</Description>
         <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
     </PropertyGroup>
 

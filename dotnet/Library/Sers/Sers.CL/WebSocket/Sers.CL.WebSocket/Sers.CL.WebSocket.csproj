@@ -11,7 +11,7 @@
 
     <PropertyGroup>
         <Authors>Lith</Authors>
-        <Description>Sers微服务-通信层</Description>
+        <Description>Sers Microservices - Communication Layer</Description>
         <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
     </PropertyGroup>
 
