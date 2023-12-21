@@ -11,7 +11,7 @@
 
     <PropertyGroup>
         <Authors>Lith</Authors>
-        <Description>Sers微服务-服务中心，服务治理库</Description>
+        <Description>Sers Microservices - service manager library for ServiceCenter</Description>
         <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
     </PropertyGroup>
 

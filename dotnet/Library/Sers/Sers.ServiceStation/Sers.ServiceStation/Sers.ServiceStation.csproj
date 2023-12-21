@@ -11,7 +11,7 @@
 
     <PropertyGroup>
         <Authors>Lith</Authors>
-        <Description>Sers微服务-服务站点核心库</Description>
+        <Description>Sers Microservices - SerivceStation core libary</Description>
         <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
     </PropertyGroup>
 
