@@ -6,7 +6,7 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <Version>2.1.19-preview4</Version>
+        <Version>2.1.19</Version>
     </PropertyGroup>
 
     <PropertyGroup>
