@@ -36,7 +36,7 @@ jobs:
         run: |
            set -e
            echo start build
-           export APPNAME="Sers"
+
            export DOCKER_ImagePrefix="serset/"
            export DOCKER_USERNAME="${{ secrets.DOCKER_USERNAME  }}"
            export DOCKER_PASSWORD="${{ secrets.DOCKER_PASSWORD }}"
@@ -48,7 +48,7 @@ jobs:
            bash startup.bash
            echo build succeed!
            
-           echo "appName=Sers" >> $GITHUB_ENV
+           # echo "appName=${APPNAME}" >> $GITHUB_ENV
            
            
       - name: release_create
