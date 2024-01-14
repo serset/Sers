@@ -32,7 +32,7 @@ export netVersion=\$(grep '<TargetFramework>' \$(grep '<publish>' -rl --include 
 echo netVersion: \$netVersion
 
 
-basePath=/root/code
+export basePath=/root/code
 export publishPath=\$basePath/Publish/release/release/Station\(\$netVersion\)
 mkdir -p \$publishPath
 
