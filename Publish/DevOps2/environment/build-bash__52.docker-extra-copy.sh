@@ -13,7 +13,7 @@ export NUGET_PATH=$basePath/Publish/release/.nuget
 
 
 #---------------------------------------------------------------------
-echo '52.docker-extra-copy.sh -> #1 copy image files'
+echo '#52.docker-extra-copy.sh -> #1 copy image files'
 
 dockerPath="$basePath/Publish/release/release/docker-image"
 
@@ -24,7 +24,7 @@ echo "copy 单体压测"
 
 
 #---------------------------------------------------------------------
-echo '52.docker-extra-copy.sh -> #2 copy deploy files'
+echo '#52.docker-extra-copy.sh -> #2 copy deploy files'
 
 
 publishPath="$basePath/Publish/release/release/Station(net6.0)"
