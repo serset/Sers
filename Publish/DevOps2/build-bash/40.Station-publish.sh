@@ -14,7 +14,7 @@ if [ ! $NUGET_PATH ]; then NUGET_PATH=$basePath/Publish/release/.nuget; fi
 
 
 #----------------------------------------------
-echo "40.Station-publish.sh find projects and build"
+echo "#40.Station-publish.sh -> find projects and build"
 
 
 
@@ -26,6 +26,13 @@ docker run -i --rm \
 serset/dotnet:sdk-6.0 \
 bash -c "
 set -e
+
+if grep '<publish>' -r --include *.csproj /root/code; then
+	echo '#40.Station-publish.sh -> got projects need to be built'
+else
+	echo '#40.Station-publish.sh -> skip for no project needs to be built'
+	exit 0
+fi
 
 echo '#1 get netVersion'
 export netVersion=\$(grep '<TargetFramework>' \$(grep '<publish>' -rl --include *.csproj /root/code | head -n 1) | grep -oP '>(.*)<' | tr -d '<>')
@@ -78,7 +85,7 @@ fi
 
 
 
-echo 'publish succeed!'
+echo '#40.Station-publish.sh -> success!'
 
 
 
