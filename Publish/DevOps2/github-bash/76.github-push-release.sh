@@ -22,6 +22,7 @@ export APPNAME=xxxxxx
 
 
 
+echo "appName=${APPNAME}" >> $GITHUB_ENV
 
 echo "release_name=${APPNAME}-${appVersion}" >> $GITHUB_ENV
 echo "release_tag=${appVersion}" >> $GITHUB_ENV

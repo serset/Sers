@@ -12,12 +12,12 @@ pipeline {
     environment {
         // get APPNAME
         // APPNAME = "Sers"
-        APPNAME = readFile("Publish/DevOps2/jenkins-bash/env.APPNAME.txt")
+        APPNAME = readFile("Publish/DevOps2/environment/env.APPNAME.txt")
 
-        stageName = "ki"
-        versionSuffix = "-${stageName}${env.build_number}"
+        envName = readFile("Publish/DevOps2/environment/env.envName.txt")
+        versionSuffix = "-${envName}${env.build_number}"
 
-        //basePath = "/root/docker-cache/jenkins/jenkins_home/workspace/${APPNAME}/${stageName}/${env.BRANCH_NAME}/${env.build_number}"
+        //basePath = "/root/docker-cache/jenkins/jenkins_home/workspace/${APPNAME}/${envName}/${env.BRANCH_NAME}/${env.build_number}"
         basePath = "${env.WORKSPACE}"
 
         NUGET_PATH = "/root/docker-cache/jenkins/jenkins_home/workspace/.nuget"
@@ -26,7 +26,7 @@ pipeline {
         //NUGET_KEY = " "
         NUGET_KEY = credentials("nuget_key")
 
-        DOCKER_ImagePrefix = "docker.lith.cloud:8/${stageName}/"
+        DOCKER_ImagePrefix = "docker.lith.cloud:8/${envName}/"
         DOCKER_Buildx = false
         DOCKER_USERNAME = " "
         DOCKER_PASSWORD = " "
@@ -70,10 +70,10 @@ pipeline {
             steps {
                 script {
                     echo "#2.1 change-app-version"
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/build-bash; source 22.add-suffix-to-app-version.bash;    echo -n \"\$nextAppVersion\" > $codePath/Publish/DevOps2/jenkins-bash/env.appVersion.txt '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/build-bash; source 22.add-suffix-to-app-version.bash;    echo -n \"\$nextAppVersion\" > $codePath/Publish/DevOps2/environment/env.appVersion.txt '"
 
                     echo "#2.2 get app version"
-                    env.appVersion = readFile("Publish/DevOps2/jenkins-bash/env.appVersion.txt")
+                    env.appVersion = readFile("Publish/DevOps2/environment/env.appVersion.txt")
                     echo "-------- appVersion: [${env.appVersion}]"
                 }
             }

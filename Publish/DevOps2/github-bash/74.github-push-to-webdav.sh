@@ -7,8 +7,8 @@ args_="
 
 export basePath=/root/temp/svn
 
-export APPNAME=Vit.Library
-export appVersion=2.2.14
+export APPNAME=xxxx
+export appVersion=xxxx
 
 export WebDav_BaseUrl="https://nextcloud.xxx.com/remote.php/dav/files/release/releaseFiles/ki_jenkins"
 export WebDav_User="username:pwd"
