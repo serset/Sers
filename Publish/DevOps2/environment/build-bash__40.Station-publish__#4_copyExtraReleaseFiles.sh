@@ -6,7 +6,7 @@ args_="
 
 export basePath=/root/temp/svn
 export netVersion=net6.0
-export publishPath="$basePath/Publish/release/release/Station($netVersion)"
+export publishPath=\"$basePath/Publish/release/release/Station($netVersion)\"
 
 # "
 
