@@ -14,7 +14,8 @@ if [ ! $NUGET_PATH ]; then NUGET_PATH=$basePath/Publish/release/.nuget; fi
 
 
 #---------------------------------------------------------------------
-echo '#41.StressTest-publish.sh -> #1 发布CL压测'
+echo '#build-bash__41.extra-publish.sh'
+echo '  -> #1 发布CL压测'
 
 publishPath=$basePath/Publish/release/release/StressTest
 mkdir -p $publishPath
@@ -47,7 +48,8 @@ echo 'copy bat'
 
 
 #---------------------------------------------------------------------
-echo '#41.StressTest-publish.sh -> #2 发布Sers压测'
+echo '#build-bash__41.extra-publish.sh'
+echo '  -> #2 发布Sers压测'
 
 # for netVersion in net6.0 netcoreapp2.1
 for netVersion in net6.0
