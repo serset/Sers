@@ -1,11 +1,11 @@
 @echo off
 
-::启用变量延迟
+::enable delayed arguments
 setlocal EnableDelayedExpansion
 
 
 
-::(x.1)获取basePath
+:: #1 get 获取basePath
 set curPath=%cd%
 cd /d "%~dp0"
 cd /d ../../..
@@ -13,7 +13,7 @@ set basePath=%cd%
 
 
 
-::(x.2)
+:: #2
 set publishPath=%basePath%/Publish/release/release/StressTest
 
 
@@ -21,19 +21,19 @@ set publishPath=%basePath%/Publish/release/release/StressTest
 
 
 echo ------------------------------------------------------------------
-echo "(x.3)发布CL压测"
+echo "#3 publish CL stressTest"
 
 ::Client
 cd /d "%basePath%\dotnet\Library\Sers\Sers.CL\Test\CommunicationManage\CmClient"
 dotnet build --configuration Release
 dotnet publish --configuration Release --output "%publishPath%\CL压测net6.0\CmClient"
-@if errorlevel 1 (echo . & echo .  & echo 出错，请排查！& pause) 
+@if errorlevel 1 (echo . & echo .  & echo error & pause) 
 
 ::Server
 cd /d "%basePath%\dotnet\Library\Sers\Sers.CL\Test\CommunicationManage\CmServer"
 dotnet build --configuration Release
 dotnet publish --configuration Release --output "%publishPath%\CL压测net6.0\CmServer"
-@if errorlevel 1 (echo . & echo .  & echo 出错，请排查！& pause) 
+@if errorlevel 1 (echo . & echo .  & echo error & pause) 
 
 
 ::copy bat
@@ -43,7 +43,7 @@ xcopy  "%basePath%\Publish\ReleaseFile\StressTest\CL压测" "%publishPath%\CL压测n
 
 
 echo ------------------------------------------------------------------
-::(x.4)发布Sers压测
+:: #4 publish Sers stressTest
 for %%i in (net6.0) do (  
 	set netVersion=%%i
 	set appPath=%basePath%/Publish/release/release/Station^(!netVersion!^)
@@ -90,8 +90,7 @@ for %%i in (net6.0) do (
  
 
 
-echo %~n0.bat 执行成功！
-
+echo %~n0.bat success
 cd /d "%curPath%"
 
 
