@@ -6,7 +6,7 @@ set -e
 # args
 args_="
 
-export APPNAME=xxxxxx
+#export APPNAME=xxxxxx
 
 export DOCKER_USERNAME=serset
 export DOCKER_PASSWORD=xxxxxx
@@ -14,7 +14,8 @@ export DOCKER_PASSWORD=xxxxxx
 export NUGET_SERVER=https://api.nuget.org/v3/index.json
 export NUGET_KEY=xxxxxx
 
-export GIT_SSH_SECRET=xxxxxx
+export WebDav_BaseUrl="https://nextcloud.xxx.com/remote.php/dav/files/release/releaseFiles/ki_jenkins"
+export WebDav_User="username:pwd"
 
 # "
 
@@ -28,13 +29,18 @@ cd $curPath
 
 # export basePath=/root/temp/svn
 
-
+if [ ! $APPNAME ]; then 
+	export APPNAME=$(cat "$basePath/Publish/DevOps2/environment/env.APPNAME.txt" | tr -d '\n')
+	echo "APPNAME: [${APPNAME}]" 
+fi
 
 #---------------------------------------------- 
 echo '#1 build'
 cd $basePath/Publish/DevOps2/build-bash; bash startup.bash;
-cd $basePath/Publish/DevOps2/build-bash; bash 40.Station-publish-multiple.bash;
 
+if [ -f "$basePath/Publish/DevOps2/environment/github-bash__publish-multiple-netcore-version.txt" ]; then
+	cd $basePath/Publish/DevOps2/build-bash; bash 40.Station-publish-multiple.bash;
+fi
 
 #---------------------------------------------- 
 echo '#2 release-bash'

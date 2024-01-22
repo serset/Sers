@@ -8,8 +8,8 @@ Sers was a set of cross-platform and cross-language open source micro-service ar
  
 
 | Build | NuGet | Docker |
-|--|--|--|
-|![](https://github.com/serset/Sers/workflows/CI/badge.svg) | [![](https://img.shields.io/nuget/v/Sers.ServiceStation.svg)](https://www.nuget.org/packages/Sers.ServiceStation/) ![](https://img.shields.io/nuget/dt/Sers.ServiceStation.svg)   | ![](https://img.shields.io/docker/v/serset/sers/latest.svg) ![](https://img.shields.io/docker/pulls/serset/sers.svg) ![](https://img.shields.io/docker/image-size/serset/sers/latest.svg)
+| -------- | -------- | -------- |
+|![](https://github.com/serset/Sers/workflows/ki_multibranch/badge.svg) | [![](https://img.shields.io/nuget/v/Sers.ServiceStation.svg)](https://www.nuget.org/packages/Sers.ServiceStation/) ![](https://img.shields.io/nuget/dt/Sers.ServiceStation.svg)   | ![](https://img.shields.io/docker/v/serset/sers/latest.svg) ![](https://img.shields.io/docker/pulls/serset/sers.svg) ![](https://img.shields.io/docker/image-size/serset/sers/latest.svg) |
 
  
 Sers has the following features:  
@@ -25,7 +25,7 @@ Sers has the following features:
 # Station classification
  Sers was a centralized micro-service architecture protocol, which was divided into service center and service station according to identity.
 
-## (x.1)Service Center
+## 1. Service Center
 ServiceCenter provides services such as service registration, service discovery, request distribution (load balancing), API management, service station management, message subscription, etc.
 
 All service sites need to register with this service center. All requests are forwarded through the service center.
@@ -37,7 +37,7 @@ The service governance entry address is http://ip:6022/_gover_/index.html
 The port number is configured in the appsettings.json configuration file.
 
 
-## (x.2)Service Station
+## 2. Service Station
 Service Station provides application layer services.
 
 Service station can have multiple, connected to each other through a service center. When the service station is started, it initiates a service registration request to the service center to register the service.
@@ -48,7 +48,7 @@ The service provided is identified by a URL (Route).
 
 The service station can be attached directly to the service center (dispensing with the communication layer, monomer mode) to provide services. The performance data of 2 million QPS was measured in this mode.
 
-## (x.3)Service Gateway
+## 3. Service Gateway
 The Service Gateway exposes internal services to the outside world over HTTP.
 
 A service gateway is a special service station. The gateway listens for the request using HTTP and forwards the request to the service center. The service gateway is the external gateway to the service.

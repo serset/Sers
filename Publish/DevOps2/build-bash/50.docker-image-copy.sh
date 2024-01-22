@@ -11,17 +11,22 @@ export basePath=/root/temp/svn
 
  
 #---------------------------------------------------------------------
-echo "#1 copy docker-image from ReleaseFile"
+#1 copy docker image from ReleaseFile
 
 publishPath="$basePath/Publish/release/release/Station(net6.0)"
 dockerPath=$basePath/Publish/release/release/docker-image
 
 
-\cp -rf "$basePath/Publish/ReleaseFile/docker-image/." "$dockerPath"
+if [ -d "$basePath/Publish/ReleaseFile/docker-image" ]; then
+	echo "50.docker-image-copy.sh -> #1 copy docker image from ReleaseFile"
+	\cp -rf "$basePath/Publish/ReleaseFile/docker-image/." "$dockerPath"
+fi
+
+
 
 
 #---------------------------------------------------------------------
-echo "#2 copy station"
+echo "50.docker-image-copy.sh -> #2 copy station"
 for file in $(find $basePath -name *.csproj -exec grep '<docker>' -l {} \;)
 do
 	cd $basePath
@@ -35,8 +40,7 @@ do
 done
 
 
-echo "#3 copy 单体压测"
-\cp -rf "$basePath/Publish/release/release/StressTest/单体压测net6.0/ServiceCenter/." "$dockerPath/sers-demo-sersall/app"
+
 
 
 

@@ -36,18 +36,19 @@ jobs:
         run: |
            set -e
            echo start build
-           export APPNAME="Sers"
+
            export DOCKER_ImagePrefix="serset/"
            export DOCKER_USERNAME="${{ secrets.DOCKER_USERNAME  }}"
            export DOCKER_PASSWORD="${{ secrets.DOCKER_PASSWORD }}"
            export NUGET_SERVER="${{ secrets.NUGET_SERVER  }}"
            export NUGET_KEY="${{ secrets.NUGET_KEY }}"
-           export GIT_SSH_SECRET="${{ secrets.GIT_SSH_SECRET }}"
+           export WebDav_BaseUrl="${{ secrets.WebDav_BaseUrl }}"
+           export WebDav_User="${{ secrets.WebDav_User }}"
            cd ./Publish/DevOps2/github-bash
            bash startup.bash
            echo build succeed!
            
-           echo "appName=Sers" >> $GITHUB_ENV
+           # echo "appName=${APPNAME}" >> $GITHUB_ENV
            
            
       - name: release_create

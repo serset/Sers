@@ -12,17 +12,13 @@ pipeline {
     environment {
         // get APPNAME
         // APPNAME = "Sers"
-        APPNAME = readFile("Publish/DevOps2/jenkins-bash/env.APPNAME.txt")
+        APPNAME = readFile("Publish/DevOps2/environment/env.APPNAME.txt")
 
-        stageName = "ki"
-        versionSuffix = "-${stageName}${env.build_number}"
+        envName = readFile("Publish/DevOps2/environment/env.envName.txt")
+        versionSuffix = "-${envName}${env.build_number}"
 
-        //basePath = "/root/docker-cache/jenkins/jenkins_home/workspace/${APPNAME}/${stageName}/${env.BRANCH_NAME}/${env.build_number}"
+        //basePath = "/root/docker-cache/jenkins/jenkins_home/workspace/${APPNAME}/${envName}/${env.BRANCH_NAME}/${env.build_number}"
         basePath = "${env.WORKSPACE}"
-
-        // set to "  "  if want to skip copy
-        // releasePath = "  "
-        releasePath = "/root/docker-cache/jenkins/jenkins_home/jenkinsReleaseFile/${stageName}/${env.BRANCH_NAME}/${APPNAME}"
 
         NUGET_PATH = "/root/docker-cache/jenkins/jenkins_home/workspace/.nuget"
 
@@ -30,10 +26,15 @@ pipeline {
         //NUGET_KEY = " "
         NUGET_KEY = credentials("nuget_key")
 
-        DOCKER_ImagePrefix = "docker.lith.cloud:8/${stageName}/"
+        DOCKER_ImagePrefix = "docker.lith.cloud:8/${envName}/"
         DOCKER_Buildx = false
         DOCKER_USERNAME = " "
         DOCKER_PASSWORD = " "
+
+        // set to "  "  if want to skip save releaseFiles to WebDav
+        WebDav_BaseUrl = "https://pan.lith.cloud:4/remote.php/dav/files/release/releaseFiles/ki_jenkins"
+        // "username:pwd"
+        WebDav_User = credentials("WebDav_User")
 
         build_crossPlatform = "no"
 
@@ -52,7 +53,6 @@ pipeline {
 
                         echo "-------- APPNAME: [$APPNAME]"
                         echo "-------- basePath: [$basePath]"
-                        echo "-------- releasePath: [$releasePath]"
                         echo "-------- DOCKER_ImagePrefix: [$DOCKER_ImagePrefix]"
                         echo "-------- codePath: [$codePath]"
 
@@ -70,10 +70,10 @@ pipeline {
             steps {
                 script {
                     echo "#2.1 change-app-version"
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/build-bash; source 22.add-suffix-to-app-version.bash;    echo -n \"\$nextAppVersion\" > $codePath/Publish/DevOps2/jenkins-bash/env.appVersion.txt '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/build-bash; source 22.add-suffix-to-app-version.bash;    echo -n \"\$nextAppVersion\" > $codePath/Publish/DevOps2/environment/env.appVersion.txt '"
 
                     echo "#2.2 get app version"
-                    env.appVersion = readFile("Publish/DevOps2/jenkins-bash/env.appVersion.txt")
+                    env.appVersion = readFile("Publish/DevOps2/environment/env.appVersion.txt")
                     echo "-------- appVersion: [${env.appVersion}]"
                 }
             }
@@ -106,11 +106,11 @@ pipeline {
             }
         }
 
-        stage('#5 copy release files') {
-            when { expression { env.inputChoice == "yes" && env.releasePath != "  " } }
+        stage('#5 save releaseFiles') {
+            when { expression { env.inputChoice == "yes" && env.WebDav_BaseUrl != "  " } }
             steps {
                 script {
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/build-bash; source 19.get-app-version.bash; export appVersion=\$nextAppVersion;    echo \"copy release files : $codePath/Publish/release/release-zip/. $releasePath/\$appVersion;\"; mkdir -p $releasePath;  \\cp -rf $codePath/Publish/release/release-zip/. $releasePath/\$appVersion;    '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export basePath=\"$codePath\"; export APPNAME=$APPNAME; export appVersion=\"$appVersion\";   export WebDav_BaseUrl=\"$WebDav_BaseUrl\"; export WebDav_User=\"$WebDav_User\";    cd $codePath/Publish/DevOps2/release-bash; sh 78.push-releaseFiles-to-webdav.bash;  '"
                 }
             }
         }
