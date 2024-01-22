@@ -30,7 +30,7 @@ echo "release_tag=${appVersion}" >> $GITHUB_ENV
 echo "release_draft=false" >> $GITHUB_ENV
 echo "release_prerelease=false" >> $GITHUB_ENV
 
-echo "release_body=" >> $GITHUB_ENV
+echo "release_body=${APPNAME} ${appVersion}" >> $GITHUB_ENV
 
 
 echo "release_dirPath=${basePath}/Publish/release/release-zip" >> $GITHUB_ENV
