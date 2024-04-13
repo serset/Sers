@@ -44,14 +44,13 @@ namespace Vit.Core.MsTest.Extensions
             try
             {
 
-                //将会抛异常           
+                // will throw error
                 "5.1".Convert<int?>();
 
                 "5.1".Convert<int>();
             }
-            catch (Exception ex)
-            {
-            }
+            catch
+            { }
 
 
             double double1 = "5.123456".Convert<double>();

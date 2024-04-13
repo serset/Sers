@@ -87,8 +87,6 @@ namespace Vit.Core.Util.XmlComment
 
         public string Type_GetSummary(Type type)
         {
-            Xml.XmlHelp s;
-          
             var memberName = "T:" + type.FullName;
 
             if (!members.TryGetValue(memberName, out var list)) return null;

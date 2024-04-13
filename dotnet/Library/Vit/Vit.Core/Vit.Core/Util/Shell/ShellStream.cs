@@ -46,9 +46,7 @@ namespace Vit.Core.Util.Shell
                                 process = null;
                             }
                         }
-                        catch (System.Exception ex)
-                        {
-                        }
+                        catch { }
                     }
                 };
             #endregion

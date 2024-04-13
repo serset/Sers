@@ -155,7 +155,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sers.ApiTrace.Collector.Zip
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vit.Core.Util.Threading.MsTest", "Library\Vit\Vit.Core\Test\Vit.Core.Util.Threading.MsTest\Vit.Core.Util.Threading.MsTest.csproj", "{6A154DEE-D6EB-4DD5-B1EC-CF23ED89D743}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sers.Core.Module.Api.ApiEvent.BeforeCallApi.JsonWebToken", "Library\Sers\Sers.Core\Sers.Core.Module.Api.ApiEvent.BeforeCallApi.JsonWebToken\Sers.Core.Module.Api.ApiEvent.BeforeCallApi.JsonWebToken.csproj", "{39A9BA34-1369-40C6-BABF-FEC57787165B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sers.Core.Module.Api.ApiEvent.BeforeCallApi.JsonWebToken", "Library\Sers\Sers.Core\Sers.Core.Module.Api.ApiEvent.BeforeCallApi.JsonWebToken\Sers.Core.Module.Api.ApiEvent.BeforeCallApi.JsonWebToken.csproj", "{39A9BA34-1369-40C6-BABF-FEC57787165B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D5E1F6A4-53C3-4C31-ABD8-8A5D13CE4E72}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

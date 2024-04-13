@@ -50,9 +50,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
 
                         qpsInfo.RequestCount++;
                     }
-                    catch (Exception ex)
-                    {
-                    }
+                    catch { }
                 }
 
             });

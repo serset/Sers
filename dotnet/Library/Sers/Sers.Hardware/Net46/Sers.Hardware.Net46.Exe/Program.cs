@@ -26,13 +26,6 @@ namespace Sers.Hardware.Net46.Exe
                     Console.Write("NetworkIn:" + infos[2] + ",");
                     Console.WriteLine("NetworkOut:" + infos[3] + "");
 
-                    //Console.Write("Cpu使用情况:" + infos[0] + "%   ");
-                    //Console.Write("内存使用情况:" + infos[1] + "%   ");
-                    //Console.Write("network:" + infos[2] + "/" + infos[3] + " Mbps   ");
-
-
-
-
 
                     //Console.WriteLine("");
                     //Thread.Sleep(100);
@@ -41,7 +34,7 @@ namespace Sers.Hardware.Net46.Exe
 
 
 
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 }

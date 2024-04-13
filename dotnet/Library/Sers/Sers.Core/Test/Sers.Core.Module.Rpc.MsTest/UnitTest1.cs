@@ -1,5 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using System;
+
 using Vit.Extensions;
 
 namespace Sers.Core.Module.Rpc.MsTest
@@ -16,7 +18,7 @@ namespace Sers.Core.Module.Rpc.MsTest
                 {
                     var rpcData = new RpcContextData();
                     rpcContext.rpcData = rpcData;
-                    rpcData.http.method="POST";
+                    rpcData.http.method = "POST";
 
 
                     var rpcData2 = RpcContextData.FromBytes(rpcData.ToBytes());
@@ -24,10 +26,10 @@ namespace Sers.Core.Module.Rpc.MsTest
 
                     Assert.AreEqual(rpcData.http.method, rpcData2.http.method);
                 }
-                 
+
             }
-            catch (Exception ex)
-            {              
+            catch
+            {
                 Assert.Fail();
             }
 
@@ -35,6 +37,6 @@ namespace Sers.Core.Module.Rpc.MsTest
 
         }
 
-      
+
     }
 }
