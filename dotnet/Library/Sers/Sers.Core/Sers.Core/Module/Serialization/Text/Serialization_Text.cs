@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.Unicode;
-
-using Newtonsoft.Json.Linq;
 
 using Vit.Core.Module.Serialization;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
-using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.Core.Module.Serialization.Text
 {
@@ -40,6 +38,9 @@ namespace Sers.Core.Module.Serialization.Text
         public Serialization_Text()
         {
             options.AddConverter_Newtonsoft();
+
+            // serialize enum to string not int
+            options.Converters.Add(new JsonStringEnumConverter());
 
             // format DateTime
             var DateTimeFormat = Appsettings.json.GetByPath<string>("Vit.Serialization.DateTimeFormat") ?? "yyyy-MM-dd HH:mm:ss";

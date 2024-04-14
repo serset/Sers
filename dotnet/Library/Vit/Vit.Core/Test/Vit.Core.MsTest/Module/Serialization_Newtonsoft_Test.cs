@@ -9,12 +9,21 @@ namespace Vit.Core.MsTest.Module
     [TestClass]
     public class Serialization_Newtonsoft_Test
     {
-        class ModelA
+        class Person
         {
             public int? id;
             public string name;
-            public DateTime time;
+            public DateTime birth;
+            public ESex sex;
         }
+
+        enum ESex
+        {
+            unknow,
+            man,
+            woman
+        }
+
         static readonly string testString = "testString中文12—=￥$《》<> \n\r\t😀" + DateTime.Now;
         static Serialization_Newtonsoft Instance => Serialization_Newtonsoft.Instance;
 
@@ -22,18 +31,7 @@ namespace Vit.Core.MsTest.Module
         public void TestMethod_String()
         {
 
-
-            // #1 object
-            {
-                var modelA = new ModelA { id = 1, name = testString };
-                var objA = new { id = 1, name = testString };
-
-
-                Assert.AreEqual(testString, Instance.Deserialize<ModelA>(Instance.Serialize(modelA))?.name);
-                Assert.AreEqual(testString, Instance.Deserialize<ModelA>(Instance.Serialize(objA))?.name);
-            }
-
-            // #2 ValueType
+            // #1 ValueType
             {
                 // string
                 TestBySerialize(testString);
@@ -64,7 +62,48 @@ namespace Vit.Core.MsTest.Module
                 TestBySerialize(date, "\"2019-01-01 01:01:01\"");
                 TestBySerialize((DateTime?)date);
                 TestBySerialize((DateTime?)null);
+
             }
+
+            // #2 enum
+            {
+                TestBySerialize(ESex.man);
+                TestBySerialize((ESex?)ESex.man);
+                TestBySerialize((ESex?)null);
+
+                var sex = Instance.Deserialize<ESex>("\"man\"");
+                Assert.AreEqual(ESex.man, sex);
+            }
+
+            // #3 ModelA
+            {
+                var date = DateTime.Parse("2019-01-01 01:01:01");
+                var expected = new Person { id = 1, name = testString, sex = ESex.man, birth = date };
+
+                var str = Instance.Serialize(expected);
+                var actual = Instance.Deserialize<Person>(str);
+
+
+                Assert.AreEqual(expected.id, actual.id);
+                Assert.AreEqual(expected.name, actual.name);
+                Assert.AreEqual(expected.sex, actual.sex);
+                Assert.AreEqual(expected.birth, actual.birth);
+            }
+
+            // #4 object
+            {
+                var date = DateTime.Parse("2019-01-01 01:01:01");
+                var expected = new { id = 1, name = testString, sex = ESex.man, birth = date };
+
+                var str = Instance.Serialize(expected);
+                var actual = Instance.Deserialize<Person>(str);
+
+                Assert.AreEqual(expected.id, actual.id);
+                Assert.AreEqual(expected.name, actual.name);
+                Assert.AreEqual(expected.sex, actual.sex);
+                Assert.AreEqual(expected.birth, actual.birth);
+            }
+
         }
 
         public void TestBySerialize<T>(T value)
@@ -87,7 +126,7 @@ namespace Vit.Core.MsTest.Module
         public void TestMethod_DateTimeFormat()
         {
             var date = DateTime.Parse("2019-01-01 01:01:01");
-            var objA = new { time = date };
+            var objA = new { birth = date };
 
 
             var dateFormatString = Instance.serializeSetting.DateFormatString;
@@ -97,9 +136,9 @@ namespace Vit.Core.MsTest.Module
                 Instance.serializeSetting.DateFormatString = format;
 
                 string str = Instance.Serialize(objA);
-                var obj2 = Instance.Deserialize<ModelA>(str);
+                var obj2 = Instance.Deserialize<Person>(str);
 
-                Assert.AreEqual(DateTime.Parse("2019-01-01"), obj2.time);
+                Assert.AreEqual(DateTime.Parse("2019-01-01"), obj2.birth);
             }
             finally
             {
@@ -113,11 +152,35 @@ namespace Vit.Core.MsTest.Module
         [TestMethod]
         public void TestMethod_Bytes()
         {
-            var modelA = new ModelA { id = 1, name = testString, time = DateTime.Now };
-            var objA = new { id = 1, name = testString, time = DateTime.Now };
+            // #1 Model
+            {
+                var date = DateTime.Parse("2019-01-01 01:01:01");
+                var expected = new Person { id = 1, name = testString, sex = ESex.man, birth = date };
 
-            Assert.AreEqual(Instance.DeserializeFromBytes<ModelA>(Instance.SerializeToBytes(modelA))?.name, testString);
-            Assert.AreEqual(Instance.DeserializeFromBytes<ModelA>(Instance.SerializeToBytes(objA))?.name, testString);
+                var bytes = Instance.SerializeToBytes(expected);
+                var actual = Instance.DeserializeFromBytes<Person>(bytes);
+
+
+                Assert.AreEqual(expected.id, actual.id);
+                Assert.AreEqual(expected.name, actual.name);
+                Assert.AreEqual(expected.sex, actual.sex);
+                Assert.AreEqual(expected.birth, actual.birth);
+            }
+
+            // #2 object
+            {
+                var date = DateTime.Parse("2019-01-01 01:01:01");
+                var expected = new { id = 1, name = testString, sex = ESex.man, birth = date };
+
+                var bytes = Instance.SerializeToBytes(expected);
+                var actual = Instance.DeserializeFromBytes<Person>(bytes);
+
+
+                Assert.AreEqual(expected.id, actual.id);
+                Assert.AreEqual(expected.name, actual.name);
+                Assert.AreEqual(expected.sex, actual.sex);
+                Assert.AreEqual(expected.birth, actual.birth);
+            }
         }
 
 

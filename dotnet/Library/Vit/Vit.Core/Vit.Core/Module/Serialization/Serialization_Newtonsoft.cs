@@ -3,9 +3,8 @@ using System;
 using Vit.Core.Util.ConfigurationManager;
 using System.Runtime.CompilerServices;
 using System.Text;
-using Newtonsoft.Json.Linq;
 using Vit.Extensions.Json_Extensions;
-using Vit.Extensions.Newtonsoft_Extensions;
+using Newtonsoft.Json.Converters;
 
 namespace Vit.Core.Module.Serialization
 {
@@ -23,7 +22,6 @@ namespace Vit.Core.Module.Serialization
 
 
 
-        #region Basic Fields
 
 
         #region Member
@@ -65,7 +63,7 @@ namespace Vit.Core.Module.Serialization
         {
             return (encoding ?? this.encoding).GetBytes(data);
         }
-        #endregion
+        #endregion 
 
 
 
@@ -92,14 +90,7 @@ namespace Vit.Core.Module.Serialization
             return type.DefaultValue();
         }
 
-
         #endregion
-
-        #endregion
-
-
-
-
 
 
 
@@ -113,9 +104,11 @@ namespace Vit.Core.Module.Serialization
             // no pretty style
             serializeSetting.Formatting = Formatting.None;
 
+            // serialize enum to string not int
+            serializeSetting.Converters.Add(new StringEnumConverter());
+
             // DateTimeFormat
             var DateTimeFormat = Appsettings.json.GetByPath<string>("Vit.Serialization.DateTimeFormat") ?? "yyyy-MM-dd HH:mm:ss";
-
             serializeSetting.DateFormatHandling = global::Newtonsoft.Json.DateFormatHandling.IsoDateFormat;
             serializeSetting.DateFormatString = DateTimeFormat;
         }
@@ -218,8 +211,6 @@ namespace Vit.Core.Module.Serialization
         #endregion
 
         #endregion
-
-
 
 
 
@@ -340,9 +331,6 @@ namespace Vit.Core.Module.Serialization
         #endregion
 
         #endregion
-
-
-
 
 
 
