@@ -13,7 +13,7 @@
 
 
     <ItemGroup>
-        <PackageReference Include="System.Threading.Channels" Version="5.0.0" />
+        <PackageReference Include="System.Threading.Channels" Version="8.0.0" />
     </ItemGroup>
 
 
