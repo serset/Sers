@@ -24,7 +24,7 @@ if [ -z "$WebDav_BaseUrl" ]; then
 	echo "github skip pushing release file to WebDav because invalid WebDav endpoint"
 else
 	echo "github push release file to WebDav"
-	bash $basePath/Publish/DevOps2/release-bash/78.push-releaseFiles-to-webdav.bash;
+	bash "$PWD/../release-bash/78.push-releaseFiles-to-webdav.bash";
 fi
 
 

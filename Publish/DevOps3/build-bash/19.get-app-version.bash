@@ -1,7 +1,7 @@
 set -e
 
 # export versionSuffix='.1234.preview'
-# bash 20.change-release-version.bash
+# bash 19.get-app-version.bash
 
 
 #---------------------------------------------------------------------

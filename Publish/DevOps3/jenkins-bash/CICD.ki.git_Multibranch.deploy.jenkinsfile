@@ -12,9 +12,9 @@ pipeline {
     environment {
         // get APPNAME
         // APPNAME = "Sers"
-        APPNAME = readFile("Publish/DevOps2/environment/env.APPNAME.txt")
+        APPNAME = readFile("Publish/DevOps3/environment/env.APPNAME.txt")
 
-        envName = readFile("Publish/DevOps2/environment/env.envName.txt")
+        envName = readFile("Publish/DevOps3/environment/env.envName.txt")
         versionSuffix = "-${envName}${env.build_number}"
 
         //basePath = "/root/docker-cache/jenkins/jenkins_home/workspace/${APPNAME}/${envName}/${env.BRANCH_NAME}/${env.build_number}"
@@ -70,10 +70,10 @@ pipeline {
             steps {
                 script {
                     echo "#2.1 change-app-version"
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps2/build-bash; source 22.add-suffix-to-app-version.bash;    echo -n \"\$nextAppVersion\" > $codePath/Publish/DevOps2/environment/env.appVersion.txt '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps3/build-bash; source 22.add-suffix-to-app-version.bash;    echo -n \"\$nextAppVersion\" > $codePath/Publish/DevOps3/environment/env.appVersion.txt '"
 
                     echo "#2.2 get app version"
-                    env.appVersion = readFile("Publish/DevOps2/environment/env.appVersion.txt")
+                    env.appVersion = readFile("Publish/DevOps3/environment/env.appVersion.txt")
                     echo "-------- appVersion: [${env.appVersion}]"
                 }
             }
@@ -83,7 +83,7 @@ pipeline {
             when { expression { env.inputChoice == "yes" } }
             steps {
                 script {
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps2/build-bash; sh startup.bash;  '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps3/build-bash; sh startup.bash;  '"
                 }
             }
         }
@@ -92,7 +92,7 @@ pipeline {
             when { expression { env.inputChoice == "yes" && env.build_crossPlatform == "yes" } }
             steps {
                 script {
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps2/build-bash; sh 40.Station-publish-multiple.bash;  '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME; export NUGET_PATH=$NUGET_PATH;    cd $codePath/Publish/DevOps3/build-bash; sh 40.Station-publish-multiple.bash;  '"
                 }
             }
         }
@@ -101,7 +101,7 @@ pipeline {
             when { expression { env.inputChoice == "yes" } }
             steps {
                 script {
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME;export NUGET_PATH=$NUGET_PATH;    export NUGET_SERVER=$NUGET_SERVER;export NUGET_KEY=$NUGET_KEY;  export DOCKER_Buildx=${env.DOCKER_Buildx};export DOCKER_ImagePrefix=${env.DOCKER_ImagePrefix};export DOCKER_USERNAME=${env.DOCKER_USERNAME};export DOCKER_PASSWORD=${env.DOCKER_PASSWORD};export DOCKER_BuildxExtArgs=\"--output=type=registry,registry.insecure=true\";    cd $codePath/Publish/DevOps2/release-bash; sh startup.bash;  '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export APPNAME=$APPNAME;export NUGET_PATH=$NUGET_PATH;    export NUGET_SERVER=$NUGET_SERVER;export NUGET_KEY=$NUGET_KEY;  export DOCKER_Buildx=${env.DOCKER_Buildx};export DOCKER_ImagePrefix=${env.DOCKER_ImagePrefix};export DOCKER_USERNAME=${env.DOCKER_USERNAME};export DOCKER_PASSWORD=${env.DOCKER_PASSWORD};export DOCKER_BuildxExtArgs=\"--output=type=registry,registry.insecure=true\";    cd $codePath/Publish/DevOps3/release-bash; sh startup.bash;  '"
                 }
             }
         }
@@ -110,7 +110,7 @@ pipeline {
             when { expression { env.inputChoice == "yes" && env.WebDav_BaseUrl != "  " } }
             steps {
                 script {
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export basePath=\"$codePath\"; export APPNAME=$APPNAME; export appVersion=\"$appVersion\";   export WebDav_BaseUrl=\"$WebDav_BaseUrl\"; export WebDav_User=\"$WebDav_User\";    cd $codePath/Publish/DevOps2/release-bash; sh 78.push-releaseFiles-to-webdav.bash;  '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export basePath=\"$codePath\"; export APPNAME=$APPNAME; export appVersion=\"$appVersion\";   export WebDav_BaseUrl=\"$WebDav_BaseUrl\"; export WebDav_User=\"$WebDav_User\";    cd $codePath/Publish/DevOps3/release-bash; sh 78.push-releaseFiles-to-webdav.bash;  '"
                 }
             }
         }
