@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: ki_multibranch
+name: ki_multibranch_3.1
 
 # Controls when the action will run. 
 on:
@@ -44,7 +44,7 @@ jobs:
            export NUGET_KEY="${{ secrets.NUGET_KEY }}"
            export WebDav_BaseUrl="${{ secrets.WebDav_BaseUrl }}"
            export WebDav_User="${{ secrets.WebDav_User }}"
-           cd ./Publish/DevOps2/github-bash
+           cd ./Publish/DevOps3/github-bash
            bash startup.bash
            echo build succeed!
            
@@ -110,15 +110,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-ServiceCenter(net5.0)-${{ env.release_version }}.zip
-          asset_name: ${{ env.appName }}-ServiceCenter-net5.0-${{ env.release_version }}.zip
-          asset_content_type: application/zip
-
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-ServiceCenter(net6.0)-${{ env.release_version }}.zip
           asset_name: ${{ env.appName }}-ServiceCenter-net6.0-${{ env.release_version }}.zip
           asset_content_type: application/zip
@@ -128,87 +119,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-ServiceCenter(netcoreapp2.1)-${{ env.release_version }}.zip
-          asset_name: ${{ env.appName }}-ServiceCenter-netcoreapp2.1-${{ env.release_version }}.zip
-          asset_content_type: application/zip
-
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-ServiceCenter(netcoreapp2.2)-${{ env.release_version }}.zip
-          asset_name: ${{ env.appName }}-ServiceCenter-netcoreapp2.2-${{ env.release_version }}.zip
-          asset_content_type: application/zip
-
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-ServiceCenter(netcoreapp3.0)-${{ env.release_version }}.zip
-          asset_name: ${{ env.appName }}-ServiceCenter-netcoreapp3.0-${{ env.release_version }}.zip
-          asset_content_type: application/zip
-
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-ServiceCenter(netcoreapp3.1)-${{ env.release_version }}.zip
-          asset_name: ${{ env.appName }}-ServiceCenter-netcoreapp3.1-${{ env.release_version }}.zip
-          asset_content_type: application/zip
-
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-Station(net5.0)-${{ env.release_version }}.zip
-          asset_name: ${{ env.appName }}-Station-net5.0-${{ env.release_version }}.zip
-          asset_content_type: application/zip
-
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-Station(net6.0)-${{ env.release_version }}.zip
           asset_name: ${{ env.appName }}-Station-net6.0-${{ env.release_version }}.zip
-          asset_content_type: application/zip
-
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-Station(netcoreapp2.1)-${{ env.release_version }}.zip
-          asset_name: ${{ env.appName }}-Station-netcoreapp2.1-${{ env.release_version }}.zip
-          asset_content_type: application/zip
-
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-Station(netcoreapp2.2)-${{ env.release_version }}.zip
-          asset_name: ${{ env.appName }}-Station-netcoreapp2.2-${{ env.release_version }}.zip
-          asset_content_type: application/zip
-
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-Station(netcoreapp3.0)-${{ env.release_version }}.zip
-          asset_name: ${{ env.appName }}-Station-netcoreapp3.0-${{ env.release_version }}.zip
-          asset_content_type: application/zip
-
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-Station(netcoreapp3.1)-${{ env.release_version }}.zip
-          asset_name: ${{ env.appName }}-Station-netcoreapp3.1-${{ env.release_version }}.zip
           asset_content_type: application/zip
