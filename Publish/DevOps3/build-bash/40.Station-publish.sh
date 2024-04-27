@@ -16,13 +16,13 @@ if [ ! $NUGET_PATH ]; then NUGET_PATH=$basePath/Publish/release/.nuget; fi
 #----------------------------------------------
 echo "#40.Station-publish.sh -> find projects and build"
 
-
-
+export devOpsPath="$PWD/.."
 
 docker run -i --rm \
 --env LANG=C.UTF-8 \
 -v $NUGET_PATH:/root/.nuget \
--v $basePath:/root/code \
+-v "$basePath":/root/code \
+-v "$basePath":"$basePath" \
 serset/dotnet:sdk-6.0 \
 bash -c "
 set -e
@@ -72,7 +72,7 @@ fi
 
 
 #4 copy extra release files
-bashFile=\"\$basePath/Publish/DevOps2/environment/build-bash__40.Station-publish__#4_copyExtraReleaseFiles.sh\"
+bashFile=\"$devOpsPath/environment/build-bash__40.Station-publish__#4_copyExtraReleaseFiles.sh\"
 if [ -f \"\$bashFile\" ]; then
 	echo '#4 copy extra release files'
 	sh \"\$bashFile\"
