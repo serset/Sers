@@ -84,9 +84,7 @@ namespace Vit.Core.Module.Log
 
                     log.AddCollector(collector);
                 }
-                catch (Exception ex)
-                {
-                }
+                catch { }
             });
 
 

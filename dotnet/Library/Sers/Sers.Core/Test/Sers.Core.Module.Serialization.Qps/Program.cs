@@ -71,7 +71,6 @@ namespace App
 
 
                 byte[] bytes;
-                JObject jo;
                 string str;
                 RpcContextData data2;
 

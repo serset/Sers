@@ -2,9 +2,12 @@
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
+
 using CLClient.Statistics;
+
 using Sers.Core.Util.PubSub;
 using Sers.Core.Util.PubSub.Test.Queue;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Pool;
 
@@ -54,7 +57,7 @@ namespace CLClient1
 
             for (var t = 0; t < 1; t++)
             {
-               Start();
+                Start();
             }
 
             while (true)
@@ -65,7 +68,7 @@ namespace CLClient1
 
 
 
-        class Product 
+        class Product
         {
             public static Product Pop()
             {
@@ -91,7 +94,7 @@ namespace CLClient1
         {
 
             var worker = new Queue_Channel<Product>();
- 
+
             int pubThreadCount = 4;
             int subThreadCount = 6;
 
@@ -111,15 +114,15 @@ namespace CLClient1
                             //product = Product.Pop();
                             //product.ms = 0;
                             //product.IncrementCount = 0;
-                             worker.Publish(product);
-                   
+                            worker.Publish(product);
+
 
                         }
                         //product = Product.Pop();
                         //product.ms = 1;
                         //product.IncrementCount = 10000;
-                         worker.Publish(product);
-               
+                        worker.Publish(product);
+
                         qpsPub.IncrementRequest(10000);
 
                         //Thread.Sleep(1);
@@ -161,9 +164,9 @@ namespace CLClient1
 
         #region RingBuffer      
         static void Start_RingBuffer()
-        { 
+        {
             var worker = new RingBuffer<Product>();
-    
+
 
             int pubThreadCount = 4;
             int subThreadCount = 6;
@@ -184,13 +187,13 @@ namespace CLClient1
                             //product = Product.Pop();
                             //product.ms = 0;
                             //product.IncrementCount = 0;
-                            worker.Publish(product);                  
+                            worker.Publish(product);
 
                         }
                         //product = Product.Pop();
                         //product.ms = 1;
                         //product.IncrementCount = 10000;
-                        worker.Publish(product);       
+                        worker.Publish(product);
                         qpsPub.IncrementRequest(10000);
                         //Thread.Sleep(1);
                     }
@@ -233,8 +236,8 @@ namespace CLClient1
 
 
         #region ConcurrentQueue      
-        static void Start2() 
-        { 
+        static void Start2()
+        {
             var worker = new ConcurrentQueue<Product>();
 
             int pubThreadCount = 4;
@@ -279,7 +282,7 @@ namespace CLClient1
                 Task.Run(() =>
                 {
 
-                    SpinWait spin = new SpinWait();
+                    //SpinWait spin = new SpinWait();
                     for (; ; )
                     {
                         worker.TryDequeue(out var p);
@@ -323,10 +326,10 @@ namespace CLClient1
                     for (; ; )
                     {
                         for (var t = 1; t < 10000; t++)
-                        { 
+                        {
                             worker.Add(product);
                         }
-             
+
                         worker.Add(product);
                         qpsPub.IncrementRequest(10000);
 
@@ -341,19 +344,19 @@ namespace CLClient1
             for (int i = subThreadCount; i > 0; i--)
             {
                 Task.Run(() =>
-                {                   
+                {
                     for (; ; )
                     {
 
                         worker.TryTake(out var p);
 
 
-                      
+
                         //if (p == null) 
                         //{
                         //    spin.SpinOnce();
                         //}
- 
+
                     }
                 });
             }

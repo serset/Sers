@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+
 using CLClient.Statistics;
+
 using Sers.Core.Util.PubSub;
 using Sers.Core.Util.PubSub.Test.Queue;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Pool;
 
@@ -39,7 +42,7 @@ namespace CLClient1
 
 
 
-        class Product 
+        class Product
         {
             public static Product Pop()
             {
@@ -62,14 +65,14 @@ namespace CLClient1
 
         ConcurrentLinkedQueue<Product> worker;
         string name;
-        public void Start() 
+        public void Start()
         {
-    
-           
-            worker = new ConcurrentLinkedQueue<Product>();
- 
 
- 
+
+            worker = new ConcurrentLinkedQueue<Product>();
+
+
+
 
 
             for (int i = pubThreadCount; i > 0; i--)
@@ -85,18 +88,18 @@ namespace CLClient1
         }
 
 
-        static int pubThreadCount =4;
+        static int pubThreadCount = 4;
         static int subThreadCount = 4;
-      
+
         void StartThreadPublish()
         {
             Task.Run(() =>
             {
-                Product product=new Product();
+                Product product = new Product();
 
                 for (int i = 0; i < int.MaxValue; i++)
                 {
-                    for (var t = 1; t <10000; t++)
+                    for (var t = 1; t < 10000; t++)
                     {
 
 
@@ -113,7 +116,7 @@ namespace CLClient1
                     //worker.Publish(product);         
                     worker.Enqueue(product);
                     qpsPub.IncrementRequest(10000);
-                   
+
                     //Thread.Sleep(1);
 
                 }
@@ -126,13 +129,13 @@ namespace CLClient1
             Task.Run(() =>
             {
 
-                SpinWait spin = new SpinWait();
+                //SpinWait spin = new SpinWait();
                 for (int i = 0; i < int.MaxValue; i++)
                 {
                     worker.TryDequeue(out var product);
-     
 
-                    if (product == null) 
+
+                    if (product == null)
                     {
                         //spin.SpinOnce();
                     }

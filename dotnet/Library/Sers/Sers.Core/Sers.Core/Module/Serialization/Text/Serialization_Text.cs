@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.Unicode;
 
 using Vit.Core.Module.Serialization;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Extensions;
+using Vit.Extensions.Json_Extensions;
 
 namespace Sers.Core.Module.Serialization.Text
 {
     /// <summary>
     ///  https://github.com/dotnet/runtime/tree/main/src/libraries/System.Text.Json
     ///  
-    /// System.Text.Json 自定义Converter实现时间转换 https://my.oschina.net/u/4359742/blog/3314243
+    /// System.Text.Json convert DateTime https://my.oschina.net/u/4359742/blog/3314243
     /// </summary>
     public partial class Serialization_Text : ISerialization
     {
@@ -23,7 +25,7 @@ namespace Sers.Core.Module.Serialization.Text
 
         public readonly JsonSerializerOptions options = new JsonSerializerOptions
         {
-            //中文不转义 如 {"title":"\u4ee3\u7801\u6539\u53d8\u4e16\u754c"}
+            // Do not escape Chinese , for example {"title":"\u4ee3\u7801\u6539\u53d8\u4e16\u754c"}
             Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.All),
             IncludeFields = true,
             DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
@@ -37,40 +39,28 @@ namespace Sers.Core.Module.Serialization.Text
         {
             options.AddConverter_Newtonsoft();
 
+            // serialize enum to string not int
+            options.Converters.Add(new JsonStringEnumConverter());
 
-            //日期格式化
-            var DateTimeFormat = Appsettings.json.GetByPath<string>("Vit.Serialization.DateTimeFormat")
-              ?? "yyyy-MM-dd HH:mm:ss";
+            // format DateTime
+            var DateTimeFormat = Appsettings.json.GetByPath<string>("Vit.Serialization.DateTimeFormat") ?? "yyyy-MM-dd HH:mm:ss";
 
             jsonConverter_DateTime = options.AddConverter_DateTime(DateTimeFormat);
-
         }
 
 
 
 
 
-
-
-
-
-
-        #region (x.1)object <--> String
+        #region #1 object <--> String
 
         #region Serialize
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string Serialize<T>(T value)
+        public string Serialize(object value, Type type = null)
         {
-            return JsonSerializer.Serialize(value, options);
-        }
-
-
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string Serialize(object value, Type type)
-        {
-            return JsonSerializer.Serialize(value, type, options);
+            if (value == default) return null;
+            return JsonSerializer.Serialize(value, type ?? value?.GetType(), options);
         }
 
         #endregion
@@ -89,6 +79,7 @@ namespace Sers.Core.Module.Serialization.Text
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object Deserialize(string value, Type type)
         {
+            if (string.IsNullOrWhiteSpace(value)) return type.DefaultValue();
             return JsonSerializer.Deserialize(value, type, options);
         }
 
@@ -98,23 +89,15 @@ namespace Sers.Core.Module.Serialization.Text
 
 
 
-        #region  (x.2)object <--> bytes
+        #region  #2 object <--> bytes
 
         #region SerializeToBytes
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public byte[] SerializeToBytes<T>(T value)
+        public byte[] SerializeToBytes(object value, Type type = null)
         {
-
-            return JsonSerializer.SerializeToUtf8Bytes(value, options);
-        }
-
-
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public byte[] SerializeToBytes(object value, Type type)
-        {
-            return JsonSerializer.SerializeToUtf8Bytes(value, type, options);
+            if (value == default) return null;
+            return JsonSerializer.SerializeToUtf8Bytes(value, type ?? value?.GetType(), options);
         }
         #endregion
 
@@ -124,12 +107,14 @@ namespace Sers.Core.Module.Serialization.Text
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T DeserializeFromBytes<T>(byte[] bytes)
         {
+            if (bytes == null) return (T)typeof(T).DefaultValue();
             return JsonSerializer.Deserialize<T>(bytes, options);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object DeserializeFromBytes(byte[] bytes, Type type)
         {
+            if (bytes == null) return type.DefaultValue();
             return JsonSerializer.Deserialize(bytes, type, options);
         }
         #endregion
@@ -139,25 +124,25 @@ namespace Sers.Core.Module.Serialization.Text
 
 
 
-        #region (x.3)DeserializeFromSpan
+        #region #3 DeserializeFromSpan
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T DeserializeFromSpan<T>(ReadOnlySpan<byte> bytes)
         {
-            if (bytes.Length == 0) return default;
+            if (bytes.Length == 0) return (T)typeof(T).DefaultValue();
             return JsonSerializer.Deserialize<T>(bytes, options);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object DeserializeFromSpan(ReadOnlySpan<byte> bytes, Type type)
         {
-            if (bytes.Length == 0) return default;
+            if (bytes.Length == 0) return type.DefaultValue();
             return JsonSerializer.Deserialize(bytes, type, options);
         }
         #endregion
 
 
-        #region (x.4)DeserializeFromArraySegmentByte
+        #region #4 DeserializeFromArraySegmentByte
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T DeserializeFromArraySegmentByte<T>(ArraySegment<byte> bytes)

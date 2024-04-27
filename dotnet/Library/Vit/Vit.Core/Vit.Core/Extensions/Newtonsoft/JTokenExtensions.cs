@@ -84,12 +84,12 @@ namespace Vit.Extensions.Newtonsoft_Extensions
         /// 
         /// </summary>
         /// <param name="data"></param>
-        /// <param name="path">value在data中的路径，可不指定。例如：new []{"taskList"}</param>
+        /// <param name="path">value path in data, could be null. (example: new []{"taskList"} ) </param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string StringGetByPath(this JToken data, params object[] path)
         {
-            return data?.JTokenGetByPath(path).ConvertToString();
+            return data?.JTokenGetByPath(path)?.ConvertToString();
         }
 
         #endregion
@@ -190,8 +190,7 @@ namespace Vit.Extensions.Newtonsoft_Extensions
         /// 返回具体的值。（若t为null则返回null）
         /// 例如 若为 double 则返回其double值
         /// （JArray、bool、byte[]、DateTime、double、long、JObject、String）
-        /// 注：JTokenType.Comment 类型会返回 其 t.ToString()
-        /// 其他返回null（JTokenType.None、JTokenType.Null、JTokenType.Undefined 等）。
+        /// 其他返回null（JTokenType.None、JTokenType.Null、JTokenType.Undefined、JTokenType.Comment 等）。
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -209,10 +208,10 @@ namespace Vit.Extensions.Newtonsoft_Extensions
                 case JTokenType.Integer: return t.Value<long>();
                 case JTokenType.Object: return t.Value<JObject>();
                 case JTokenType.String: return t.Value<string>();
-                case JTokenType.Comment: return t.ToString();
-                case JTokenType.None: return null;
-                case JTokenType.Null: return null;
-                case JTokenType.Undefined: return null;
+                //case JTokenType.Comment: return t.ToString();
+                //case JTokenType.None: return null;
+                //case JTokenType.Null: return null;
+                //case JTokenType.Undefined: return null;
                 default: return null;
             }
         }
@@ -239,7 +238,7 @@ namespace Vit.Extensions.Newtonsoft_Extensions
             }
             return token.ToString();
         }
-        #endregion                                    
+        #endregion
 
 
 
@@ -248,12 +247,12 @@ namespace Vit.Extensions.Newtonsoft_Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TypeMatch(this JToken token, JTokenType type)
         {
-            return null != token && type == token.Type;
+            return token?.Type == type;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TypeMatch(this JToken token, JToken token2)
         {
-            return null != token && token2 != null && token.Type == token2.Type;
+            return token != null && token?.Type == token2?.Type;
         }
         #endregion
 

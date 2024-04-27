@@ -8,13 +8,12 @@ namespace Vit.Extensions.Object_Serialize_Extensions
     public static partial class Object_Serialize_Extensions
     {
 
-        #region (x.1)object <--> String
+        #region #1 object <--> String
 
         #region Serialize
 
         /// <summary>
-        /// 使用Newtonsoft序列化。
-        /// value 可为 struct(int bool string 等) 或者 class（模型 Array JObject等）
+        /// value type could be:   byte[] / string / Object / Array / struct or ValueType(int? / bool)
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -29,7 +28,7 @@ namespace Vit.Extensions.Object_Serialize_Extensions
         #region Deserialize
 
         /// <summary>
-        /// 使用Newtonsoft反序列化。T也可为值类型（例如 int?、bool） 
+        /// Deserialize to type, type could be:   byte[] / string / Object / Array / struct or ValueType(int? / bool)
         /// </summary>
         /// <param name="value"></param>
         /// <param name="type"></param>
@@ -41,7 +40,7 @@ namespace Vit.Extensions.Object_Serialize_Extensions
         }
 
         /// <summary>
-        /// 使用Newtonsoft反序列化。T也可为值类型（例如 int?、bool） 
+        /// Deserialize to T, T could be:   byte[] / string / Object / Array / struct or ValueType(int? / bool)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -57,7 +56,7 @@ namespace Vit.Extensions.Object_Serialize_Extensions
         #endregion
 
 
-        #region (x.2)object <--> bytes
+        #region #2 object <--> bytes
 
         #region SerializeToBytes
         /// <summary>
@@ -101,7 +100,7 @@ namespace Vit.Extensions.Object_Serialize_Extensions
         #endregion
 
 
-        #region (x.3)object <--> ArraySegmentByte
+        #region #3 object <--> ArraySegmentByte
 
 
         /// <summary>
