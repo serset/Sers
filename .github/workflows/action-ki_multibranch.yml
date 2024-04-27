@@ -44,7 +44,7 @@ jobs:
            export NUGET_KEY="${{ secrets.NUGET_KEY }}"
            export WebDav_BaseUrl="${{ secrets.WebDav_BaseUrl }}"
            export WebDav_User="${{ secrets.WebDav_User }}"
-           cd ./Publish/DevOps2/github-bash
+           cd ./Publish/DevOps3/github-bash
            bash startup.bash
            echo build succeed!
            
