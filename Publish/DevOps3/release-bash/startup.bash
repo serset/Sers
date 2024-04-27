@@ -20,11 +20,11 @@ export NUGET_KEY=xxxxxxxxxx
 
 #----------------------------------------------
 # cur path
-curPath=$PWD
+curPath="$PWD"
 
-cd $curPath/../../..
-export basePath=$PWD
-cd $curPath
+cd "$curPath/../../.."
+export basePath="$PWD"
+cd "$curPath"
 
 # export basePath=/root/temp/svn
 
@@ -32,7 +32,7 @@ cd $curPath
 
 #----------------------------------------------
 echo "#1 get appVersion"
-cd $basePath/Publish/DevOps2/build-bash; source 19.get-app-version.bash;
+cd "$curPath/../build-bash"; source 19.get-app-version.bash;
 
 
 
@@ -46,11 +46,11 @@ for file in *.sh
 do
     echo "-----------------------------------------------------------------"
     echo "[$(date "+%H:%M:%S")] sh $file"
-    sh $file
+    sh "$file"
 done
 
 
-
+cd "$curPath"
 
 
 
