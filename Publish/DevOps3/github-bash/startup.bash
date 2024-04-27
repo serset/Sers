@@ -40,10 +40,6 @@ fi
 echo '#1 build'
 cd "$devOpsPath/build-bash"; bash startup.bash;
 
-if [ -f "$devOpsPath/environment/github-bash__publish-multiple-netcore-version.txt" ]; then
-	cd "$devOpsPath/build-bash"; bash 40.Station-publish-multiple.bash;
-fi
-
 #---------------------------------------------- 
 echo '#2 release-bash'
 cd "$devOpsPath/release-bash"; bash startup.bash;
