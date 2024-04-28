@@ -1,4 +1,4 @@
-cd Publish\DevOps2\build-cmd
+cd Publish\DevOps3\build-cmd
 VsTool.exe delete --path "..\..\.." --file "*.suo|*.user" --directory "obj|bin|.vs|packages"
 
 
