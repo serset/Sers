@@ -1,10 +1,10 @@
 ﻿#region << Comment - v3 >>
 /*
  * ========================================================================
- * 版本：v3
- * 时间：2023-11-15
- * 作者：Lith
- * 邮箱：serset@yeah.net
+ * Version: v3
+ * Time   : 2023-11-15
+ * Author : Lith
+ * Email  : LithWang@outlook.com
  * 
  * ========================================================================
 */
@@ -34,9 +34,11 @@ namespace Vit.Core.Util.Threading.Cache
 
 
     /// <summary>
-    /// 切换线程时依然可以传递数据。(若切换线程不传递则可使用System.Threading.ThreadLocal ,或者使用[ThreadStatic]特性)
-    /// 多包裹一层的原因是 子异步任务结束时会还原子异步任务对AsyncLocal做的更改(即子异步任务对AsyncLocal做的更改不会保留到子异步任务结束后的父异步任务中)
-    /// 参见 https://blog.csdn.net/kkfd1002/article/details/80102244
+    /// Allows passing data across thread switches. (If data passing is not required during thread switching, 
+    ///   System.Threading.ThreadLocal can be used, or [ThreadStatic] attribute can be applied.)
+    /// The reason for adding an additional layer is that child asynchronous tasks will restore changes made to AsyncLocal when they finish 
+    ///  (i.e., changes made to AsyncLocal by child asynchronous tasks will not persist in the parent asynchronous tasks after the child asynchronous tasks finish).
+    /// See https://blog.csdn.net/kkfd1002/article/details/80102244 for reference.
     /// </summary>
     public class AsyncCache<DataType>
     {
