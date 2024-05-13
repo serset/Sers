@@ -13,6 +13,7 @@ namespace Vit.Core.Util.Threading.MsTest.Cache
 
     public abstract class AsyncCache_BaseTest
     {
+        public int testCountPerThread = 100;
         public abstract void RunTest(string name);
         public abstract Task RunTestAsync(string name);
 
@@ -26,7 +27,7 @@ namespace Vit.Core.Util.Threading.MsTest.Cache
             var tasks = Enumerable.Range(0, 10).Select(number => Task.Run(() =>
                 {
                     Interlocked.Increment(ref threadCount);
-                    for (var i = 0; i < 100; i++)
+                    for (var i = 0; i < testCountPerThread; i++)
                     {
                         Interlocked.Increment(ref testCount);
                         var name = $"{number}_{i}_{System.Guid.NewGuid()}";
@@ -47,7 +48,7 @@ namespace Vit.Core.Util.Threading.MsTest.Cache
             var tasks = Enumerable.Range(0, 10).Select(number => Task.Run(async () =>
                 {
                     Interlocked.Increment(ref threadCount);
-                    for (var i = 0; i < 100; i++)
+                    for (var i = 0; i < testCountPerThread; i++)
                     {
                         Interlocked.Increment(ref testCount);
                         var name = $"{number}_{i}_{System.Guid.NewGuid()}";
@@ -72,7 +73,7 @@ namespace Vit.Core.Util.Threading.MsTest.Cache
             Thread_ForEach(Enumerable.Range(0, 100), number =>
             {
                 Interlocked.Increment(ref threadCount);
-                for (var i = 0; i < 100; i++)
+                for (var i = 0; i < testCountPerThread; i++)
                 {
                     Interlocked.Increment(ref testCount);
                     var name = $"{number}_{i}_{System.Guid.NewGuid()}";
@@ -90,7 +91,7 @@ namespace Vit.Core.Util.Threading.MsTest.Cache
             Thread_ForEach(Enumerable.Range(0, 100), number =>
             {
                 Interlocked.Increment(ref threadCount);
-                for (var i = 0; i < 100; i++)
+                for (var i = 0; i < testCountPerThread; i++)
                 {
                     Interlocked.Increment(ref testCount);
                     var name = $"{number}_{i}_{System.Guid.NewGuid()}";
@@ -130,7 +131,7 @@ namespace Vit.Core.Util.Threading.MsTest.Cache
                 , number =>
                 {
                     Interlocked.Increment(ref threadCount);
-                    for (var i = 0; i < 100; i++)
+                    for (var i = 0; i < testCountPerThread; i++)
                     {
                         Interlocked.Increment(ref testCount);
                         var name = $"{number}_{i}_{System.Guid.NewGuid()}";
@@ -150,7 +151,7 @@ namespace Vit.Core.Util.Threading.MsTest.Cache
                 , async (number, token) =>
                 {
                     Interlocked.Increment(ref threadCount);
-                    for (var i = 0; i < 100; i++)
+                    for (var i = 0; i < testCountPerThread; i++)
                     {
                         Interlocked.Increment(ref testCount);
                         var name = $"{number}_{i}_{System.Guid.NewGuid()}";
