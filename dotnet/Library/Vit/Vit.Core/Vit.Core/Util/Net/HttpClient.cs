@@ -47,6 +47,9 @@ namespace Vit.Core.Util.Net
                     case byte[] bytes:
                         httpRequest.Content = new ByteArrayContent(bytes);
                         break;
+                    case string str:
+                        httpRequest.Content = new System.Net.Http.StringContent(str);
+                        break;
                     case HttpContent httpContent:
                         httpRequest.Content = httpContent;
                         break;
@@ -93,9 +96,14 @@ namespace Vit.Core.Util.Net
 
             //if (response.IsSuccessStatusCode)
             {
-                if (typeof(byte[]).IsAssignableFrom(typeof(T)))
+                if (typeof(T) == typeof(byte[]))
                 {
                     object data = await response.Content.ReadAsByteArrayAsync();
+                    httpResponse.data = (T)data;
+                }
+                else if (typeof(T) == typeof(string))
+                {
+                    object data = await response.Content.ReadAsStringAsync();
                     httpResponse.data = (T)data;
                 }
                 else
