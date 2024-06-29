@@ -52,7 +52,7 @@ namespace Vit.Core.Util.Reflection
         #endregion
 
 
-        #region LoadAssemblyFromFile       
+        #region LoadAssemblyFromFile
         /// <summary>
         /// 
         /// </summary>
@@ -140,7 +140,7 @@ namespace Vit.Core.Util.Reflection
             #endregion
 
 
-            #region (x.2) get type from assembly            
+            #region (x.2) get type from assembly
             if (assembly == null)
             {
                 //(x.x.1)
