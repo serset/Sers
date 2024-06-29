@@ -22,14 +22,10 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <!--<LangVersion>latest</LangVersion>-->
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <DocumentationFile>bin\Debug\netstandard2.0\Vit.Core.xml</DocumentationFile>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Compile Remove="Module\Serialization\Json.Extensions.cs" />
-    </ItemGroup>
 
 
     <ItemGroup>
