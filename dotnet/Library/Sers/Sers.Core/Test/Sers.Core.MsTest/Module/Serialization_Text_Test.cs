@@ -36,6 +36,10 @@ namespace Sers.Core.MsTest.Module
                 // string
                 TestBySerialize(testString);
                 TestBySerialize((string)null);
+                Assert.AreEqual("null", Instance.Serialize((string)null));
+                Assert.AreEqual(null, Instance.Deserialize<string>(null));
+                Assert.AreEqual(null, Instance.Deserialize<string>(" "));
+                Assert.AreEqual(null, Instance.Deserialize<string>("null"));
 
                 // int
                 TestBySerialize(10);

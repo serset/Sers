@@ -3,6 +3,8 @@ using System.Reflection;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+using Newtonsoft.Json.Linq;
+
 using Vit.Core.Module.Serialization;
 
 namespace Vit.Core.MsTest.Module
@@ -37,6 +39,10 @@ namespace Vit.Core.MsTest.Module
                 // string
                 TestBySerialize(testString);
                 TestBySerialize((string)null);
+                Assert.AreEqual("null", Instance.Serialize((string)null));
+                Assert.AreEqual(null, Instance.Deserialize<string>(null));
+                Assert.AreEqual(null, Instance.Deserialize<string>(" "));
+                Assert.AreEqual(null, Instance.Deserialize<string>("null"));
 
                 // int
                 TestBySerialize(10);
