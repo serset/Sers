@@ -172,18 +172,18 @@ namespace Sers.Core.Module.App
 
         static SersApplication()
         {
-            #region (x.1)serviceStationInfo
+            #region #1 serviceStationInfo
             {
                 serviceStationInfo = Appsettings.json.GetByPath<ServiceStationInfo>("Sers.ServiceStation.serviceStationInfo") 
                     ?? new ServiceStationInfo();
 
-                //(x.1) stationVersion
+                // ##1 stationVersion
                 if (string.IsNullOrEmpty(serviceStationInfo.stationVersion))
                 {
                     serviceStationInfo.stationVersion = SersEnvironment.GetEntryAssemblyVersion();
                 }
 
-                //(x.2) serviceStationKey
+                // ##2 serviceStationKey
                 serviceStationInfo.serviceStationKey = null;
                 //if (string.IsNullOrEmpty(serviceStationInfo.serviceStationKey))
                 //{
@@ -192,7 +192,7 @@ namespace Sers.Core.Module.App
             }
             #endregion
 
-            #region (x.2)deviceInfo
+            #region #2 deviceInfo
             {
                 deviceInfo = EnvHelp.GetDeviceInfo();
 

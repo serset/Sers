@@ -41,7 +41,7 @@ namespace Vit.Net.Http.FormFile
     /// </summary>
     public class MultipartForm
     {
-        public Dictionary<string,string> form { get; private set; }
+        public Dictionary<string, string> form { get; private set; }
         public List<FormFile> files { get; private set; }
 
 
@@ -57,12 +57,12 @@ namespace Vit.Net.Http.FormFile
             {
                 ReadMultipartForm(this, stream, ContentType);
             }
-           
+
         }
 
 
         #region ReadMultipartForm
-        private static async Task<MultipartForm> ReadMultipartForm(MultipartForm formData,Stream Body, string ContentType)
+        private static MultipartForm ReadMultipartForm(MultipartForm formData, Stream Body, string ContentType)
         {
             var boundary = HeaderUtilities.RemoveQuotes(MediaTypeHeaderValue.Parse(ContentType).Boundary).Value;
             var reader = new MultipartReader(boundary, Body);
@@ -70,27 +70,26 @@ namespace Vit.Net.Http.FormFile
 
             formData.files = new List<FormFile>();
             formData.form = new Dictionary<string, string>();
-     
 
 
             MultipartSection section;
-            while ((section = await reader.ReadNextSectionAsync()) != null)
-            {        
+            while ((section = reader.ReadNextSectionAsync().Result) != null)
+            {
                 ContentDispositionHeaderValue contentDisposition = section.GetContentDispositionHeader();
                 if (contentDisposition == null) continue;
 
                 if (contentDisposition.IsFileDisposition())
                 {
                     var file = section.AsFileSection();
-                    byte[] buff = await section.Body.ToBytesAsync();
-                    //byte[] buff = await file.FileStream.ToBytesAsync();                    
+                    byte[] buff = section.Body.ToBytes();
+                    //byte[] buff = await file.FileStream.ToBytesAsync();
 
                     formData.files.Add(new FormFile { formKey = file.Name, fileName = contentDisposition.FileName.ToString(), content = buff });
                 }
                 else if (contentDisposition.IsFormDisposition())
                 {
                     var form = section.AsFormDataSection();
-                    formData.form[form.Name] = await form.GetValueAsync();                     
+                    formData.form[form.Name] = form.GetValueAsync().Result;
                 }
             }
             return formData;

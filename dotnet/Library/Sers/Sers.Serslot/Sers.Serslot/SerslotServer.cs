@@ -2,9 +2,11 @@ using System;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Http.Features;
+
 using Vit.Core.Module.Log;
 using Vit.Extensions;
 
@@ -42,11 +44,11 @@ namespace Sers.Serslot
             OnProcessRequest(features);
 
             return _responseFeature;
-        } 
+        }
 
         #endregion
 
- 
+
 
 
         public IFeatureCollection Features { get; } = new FeatureCollection();
@@ -56,7 +58,7 @@ namespace Sers.Serslot
         {
             try
             {
-                #region (x.1) build OnProcessRequest               
+                #region #1 build OnProcessRequest
                 OnProcessRequest = (features) =>
                 {
 
@@ -83,7 +85,7 @@ namespace Sers.Serslot
 
                         //var _responseFeature = features.Get<IHttpResponseFeature>() as SerslotResponseFeature;
                         //if (_responseFeature != null)
-                        //{                           
+                        //{
                         //    _responseFeature.FireOnStarting();
                         //    _responseFeature.FireOnCompleted();
                         //}
@@ -98,9 +100,9 @@ namespace Sers.Serslot
                 #endregion
 
 
-                #region (x.2) start ServiceStation                
+                #region #2 start ServiceStation
 
-                #region (x.x.1) Init
+                #region ##1 Init
                 ServiceStation.ServiceStation.Init();
                 Sers.Core.Module.App.SersApplication.onStop += () =>
                 {
@@ -113,7 +115,7 @@ namespace Sers.Serslot
 
                 Logger.Info("[Serslot] Mode: BackgroundTask");
 
-                #region (x.x.2)º”‘ÿapi           
+                #region ##2 load apis
 
                 ServiceStation.ServiceStation.Instance.LoadApi();
 
@@ -121,7 +123,7 @@ namespace Sers.Serslot
 
                 #endregion
 
-                //(x.x.3)Start ServiceStation
+                // ##3 Start ServiceStation
                 if (!ServiceStation.ServiceStation.Start())
                 {
                     Dispose();

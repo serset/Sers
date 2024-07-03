@@ -24,7 +24,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.App" />
         <ProjectReference Include="..\..\Library\Sers\Sers.CL\Ipc\Sers.CL.Ipc.SharedMemory\Sers.CL.Ipc.SharedMemory.csproj" />
         <ProjectReference Include="..\..\Library\Sers\Sers.CL\WebSocket\Sers.CL.WebSocket\Sers.CL.WebSocket.csproj" />
         <ProjectReference Include="..\..\Library\Sers\Sers.CL\Zmq\FullDuplex\Sers.CL.Zmq.FullDuplex\Sers.CL.Zmq.FullDuplex.csproj" />
