@@ -32,7 +32,7 @@ namespace Vit.WebHost
 
 
 
-            #region (x.1)允许跨域访问
+            #region #1 AllowAnyOrigin
             if (arg.allowAnyOrigin)
             {
                 OnConfigureServices += IServiceCollectionExtensions_AllowAnyOrigin.AllowAnyOrigin_ConfigureServices;
@@ -40,7 +40,7 @@ namespace Vit.WebHost
             }
             #endregion
 
-            #region (x.2)UseStaticFiles
+            #region #2 UseStaticFiles
             if (arg.staticFiles != null)
             {
                 OnConfigure += (app) =>
@@ -51,7 +51,7 @@ namespace Vit.WebHost
             #endregion 
 
 
-            #region (x.3) Build host
+            #region #3 Build host
 
             OnConfigureServices += arg.OnConfigureServices;
             OnConfigure += arg.OnConfigure;
@@ -65,7 +65,7 @@ namespace Vit.WebHost
             #endregion
 
 
-            #region (x.4) Run
+            #region #4 Run
             if (arg.RunAsync)
             {
                 host.RunAsync();

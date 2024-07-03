@@ -1,11 +1,11 @@
-﻿#region << 版本注释 >>
+﻿#region << Version-v4 >>
 /*
  * ========================================================================
- * 版本：v4
- * 时间：2021-04-26
- * 作者：lith
- * 邮箱：serset@yeah.net
- * 说明： 
+ * Version： v4
+ * Time   ： 2021-04-26
+ * Author ： lith
+ * Email  ： serset@yeah.net
+ * Remarks： 
  * ========================================================================
 */
 #endregion
@@ -28,15 +28,15 @@ namespace Vit.Core.Util.Reflection
     {
 
 
-        #region (x.1)Assembly
+        #region #1 Assembly
 
 
-        #region LoadAssembly       
+        #region LoadAssembly
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="assemblyFile">如： "Vit.Core.dll"</param>
-        /// <param name="assemblyName">如： "Vit.Core"</param>
+        /// <param name="assemblyFile">for example : "Vit.Core.dll"</param>
+        /// <param name="assemblyName">for example : "Vit.Core"</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Assembly LoadAssembly(string assemblyFile = null, string assemblyName = null)
@@ -56,7 +56,7 @@ namespace Vit.Core.Util.Reflection
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="assemblyFile">如： "Vit.Core.dll"</param>
+        /// <param name="assemblyFile">for example : "Vit.Core.dll"</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Assembly LoadAssemblyFromFile(string assemblyFile)
@@ -86,7 +86,7 @@ namespace Vit.Core.Util.Reflection
 
             var assemblyFileName = Path.GetFileNameWithoutExtension(assemblyFile);
 
-            #region (x.2)Get from DependencyContext               
+            #region (x.2)Get from DependencyContext
             if (assembly == null)
             {
                 assembly = DependencyContext.Default.RuntimeLibraries
@@ -119,20 +119,20 @@ namespace Vit.Core.Util.Reflection
         #endregion
 
 
-        #region (x.2)Class
+        #region #2 Class
 
         /// <summary>
-        /// 若未指定assembly，则从当前加载的所有Assembly中查找
+        /// If no assembly is specified, it will search through all currently loaded assemblies
         /// </summary>
-        /// <param name="className">如： "Vit.Core.Util.ConfigurationManager.JsonFile"、"Vit.Core.Util.ConfigurationManager.JsonFile,Vit.Core"</param>
+        /// <param name="className">for example : "Vit.Core.Util.ConfigurationManager.JsonFile" , "Vit.Core.Util.ConfigurationManager.JsonFile,Vit.Core"</param>
         /// <param name="assembly"></param>
-        /// <param name="assemblyFile">如： "Vit.Core.dll"</param>
-        /// <param name="assemblyName">如： "Vit.Core"</param>
+        /// <param name="assemblyFile">for example : "Vit.Core.dll"</param>
+        /// <param name="assemblyName">for example : "Vit.Core"</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Type GetType(string className, Assembly assembly = null, string assemblyFile = null, string assemblyName = null)
         {
-            #region (x.1) get assembly
+            #region #1 get assembly
             if (assembly == null)
             {
                 assembly = LoadAssembly(assemblyFile, assemblyName);
@@ -140,17 +140,17 @@ namespace Vit.Core.Util.Reflection
             #endregion
 
 
-            #region (x.2) get type from assembly
+            #region #2 get type from assembly
             if (assembly == null)
             {
-                //(x.x.1)
+                // ##1
                 {
                     var obj = Type.GetType(className, false);
                     if (obj != null) return obj;
                 }
 
 
-                //(x.x.2)load from CurrentDomain
+                // ##2 load from CurrentDomain
                 foreach (var asm in System.AppDomain.CurrentDomain.GetAssemblies())
                 {
                     var obj = asm?.GetType(className);
@@ -177,14 +177,14 @@ namespace Vit.Core.Util.Reflection
 
 
 
-        #region (x.3)CreateInstance
+        #region #3 CreateInstance
 
         /// <summary>
-        /// 若未指定assembly，则从当前加载的所有Assembly中查找
+        /// If no assembly is specified, it will search through all currently loaded assemblies
         /// </summary>
-        /// <param name="className">如： "Vit.Core.Util.ConfigurationManager.JsonFile"、"Vit.Core.Util.ConfigurationManager.JsonFile,Vit.Core"</param>
-        /// <param name="assemblyFile">如： "Vit.Core.dll"</param>
-        /// <param name="assemblyName">如： "Vit.Core"</param>
+        /// <param name="className">for example : "Vit.Core.Util.ConfigurationManager.JsonFile" , "Vit.Core.Util.ConfigurationManager.JsonFile,Vit.Core"</param>
+        /// <param name="assemblyFile">for example : "Vit.Core.dll"</param>
+        /// <param name="assemblyName">for example : "Vit.Core"</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object CreateInstance(string className, string assemblyFile = null, string assemblyName = null)
         {

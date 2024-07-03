@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.Hosting;
 
 using Vit.Core.Module.Log;
 using Vit.Extensions;
@@ -32,7 +33,7 @@ namespace Sers.Serslot
 
 
 
-        #region ProcessRequest       
+        #region ProcessRequest
 
         Action<FeatureCollection> OnProcessRequest;
 
@@ -106,7 +107,7 @@ namespace Sers.Serslot
                 ServiceStation.ServiceStation.Init();
                 Sers.Core.Module.App.SersApplication.onStop += () =>
                 {
-                    if (serviceProvider.GetService(typeof(IApplicationLifetime)) is IApplicationLifetime lifetime)
+                    if (serviceProvider.GetService(typeof(IHostApplicationLifetime)) is IHostApplicationLifetime lifetime)
                     {
                         lifetime.StopApplication();
                     }
