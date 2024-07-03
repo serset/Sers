@@ -1,15 +1,16 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
-using System.Linq;
-using Vit.Extensions;
-using Microsoft.AspNetCore.Http;
-using Vit.Core.Util.ConfigurationManager;
 using System.Collections.Generic;
-using Microsoft.Extensions.Logging;
+using System.Linq;
+
+using Microsoft.AspNetCore.Http;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.SsError;
+using Vit.Core.Util.ConfigurationManager;
 using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.Gateway.RateLimit
@@ -30,7 +31,7 @@ namespace Sers.Gateway.RateLimit
         ConcurrentDictionary<string, IRateLimit> limit_Map = new ConcurrentDictionary<string, IRateLimit>();
 
 
-        private IRateLimit[] limits=new IRateLimit[0];
+        private IRateLimit[] limits = Array.Empty<IRateLimit>();
 
 
         public RateLimitMng()
@@ -90,9 +91,9 @@ namespace Sers.Gateway.RateLimit
 
         public bool RateLimit_Add(JObject rateLimit)
         {
-            if (!limitType_Map.TryGetValue(rateLimit["rateLimitType"].Value<string>(),out var type)) return false;
+            if (!limitType_Map.TryGetValue(rateLimit["rateLimitType"].Value<string>(), out var type)) return false;
 
-            var limitItem=rateLimit.Deserialize(type) as IRateLimit;
+            var limitItem = rateLimit.Deserialize(type) as IRateLimit;
 
             if (null == limitItem) return false;
 
@@ -127,7 +128,7 @@ namespace Sers.Gateway.RateLimit
         }
 
 
-        
+
 
         public void OnFinally(HttpContext context)
         {

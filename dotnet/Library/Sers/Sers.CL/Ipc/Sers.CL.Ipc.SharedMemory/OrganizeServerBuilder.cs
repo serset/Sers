@@ -32,6 +32,6 @@ namespace Sers.CL.Ipc.SharedMemory
             organizeList.Add(new OrganizeServer(delivery, config));
         }
 
-         
+
     }
 }

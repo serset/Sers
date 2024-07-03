@@ -236,10 +236,10 @@ namespace Sers.SersLoader
 
                 var argDescType = GetTypeFromAttribute(argInfos[0].GetCustomAttribute) ?? argType;
 
-                var modelEntitys = new List<SsModelEntity>();
-                var mEntity = CreateEntityByType(argDescType, modelEntitys);
+                var modelEntities = new List<SsModelEntity>();
+                var mEntity = CreateEntityByType(argDescType, modelEntities);
 
-                model.models = modelEntitys;
+                model.models = modelEntities;
 
                 model.mode = mEntity.mode;
                 model.type = mEntity.type;
@@ -304,7 +304,7 @@ namespace Sers.SersLoader
 
             refModels.Add(rootEntity);
 
-            var propertys = rootEntity.propertys = new List<SsModelProperty>();
+            var properties = rootEntity.propertys = new List<SsModelProperty>();
             for (var t = 0; t < infos.Length; t++)
             {
                 var info = infos[t];
@@ -325,7 +325,7 @@ namespace Sers.SersLoader
                 {
                     Logger.Error(ex);
                 }
-                propertys.Add(m);
+                properties.Add(m);
 
             }
             return rootEntity;
@@ -382,34 +382,29 @@ namespace Sers.SersLoader
 
             if (m.mode == "object")
             {
-                m.propertys = ObjectMode_BuildPropertysByType(baseT, refModels);
+                m.propertys = ObjectMode_BuildPropertiesByType(baseT, refModels);
             }
             else
             {
-                m.propertys = ArrayMode_BuildPropertysByType(info, baseT, refModels);
+                m.propertys = ArrayMode_BuildPropertiesByType(info, baseT, refModels);
             }
             return m;
         }
 
-        List<SsModelProperty> ArrayMode_BuildPropertysByType(Type type, Type baseT, List<SsModelEntity> refModels)
+        List<SsModelProperty> ArrayMode_BuildPropertiesByType(Type type, Type baseT, List<SsModelEntity> refModels)
         {
-            var propertys = new List<SsModelProperty>();
+            var properties = new List<SsModelProperty>();
 
-            #region MyRegion
             var m = CreateModelProperty(baseT, baseT.GetCustomAttribute, refModels);
-
-            propertys.Add(m);
-
+            properties.Add(m);
             m.name = "0";
 
-            #endregion
-
-            return propertys;
+            return properties;
         }
 
-        List<SsModelProperty> ObjectMode_BuildPropertysByType(Type type, List<SsModelEntity> refModels)
+        List<SsModelProperty> ObjectMode_BuildPropertiesByType(Type type, List<SsModelEntity> refModels)
         {
-            var propertys = new List<SsModelProperty>();
+            var properties = new List<SsModelProperty>();
 
             #region (x.1)忽略 JToken(JObject JArray)、DataTable、DataSet、DataRow等 
             if (typeof(JToken).IsAssignableFrom(type))
@@ -485,7 +480,7 @@ namespace Sers.SersLoader
             {
                 m = CreateModelProperty(property.PropertyType, property.GetCustomAttribute, refModels);
 
-                propertys.Add(m);
+                properties.Add(m);
 
                 #region 获取propertyName               
                 // 以JsonPropertyAttribute为主，若为空则使用反射的名称
@@ -508,7 +503,7 @@ namespace Sers.SersLoader
             {
                 m = CreateModelProperty(field.FieldType, field.GetCustomAttribute, refModels);
 
-                propertys.Add(m);
+                properties.Add(m);
 
 
                 #region 获取propertyName               
@@ -527,7 +522,7 @@ namespace Sers.SersLoader
                     m.description = xmlHelp?.Field_GetSummary(field);
                 }
             }
-            return propertys;
+            return properties;
 
             #endregion
         }

@@ -17,23 +17,23 @@ pipeline {
         envName = readFile("Publish/DevOps3/environment/env.envName.txt")
         versionSuffix = "-${envName}${env.build_number}"
 
-        //basePath = "/root/docker-cache/jenkins/jenkins_home/workspace/${APPNAME}/${envName}/${env.BRANCH_NAME}/${env.build_number}"
+        // basePath = "/root/docker-cache/jenkins/jenkins_home/workspace/${APPNAME}/${envName}/${env.BRANCH_NAME}/${env.build_number}"
         basePath = "${env.WORKSPACE}"
 
-        NUGET_PATH = "/root/docker-cache/jenkins/jenkins_home/workspace/.nuget"
+        // NUGET_PATH = "/root/docker-cache/jenkins/jenkins_home/workspace/.nuget"
+        NUGET_PATH = credentials("NUGET_PATH")
+        NUGET_SERVER = credentials("NUGET_SERVER")
+        NUGET_KEY = credentials("NUGET_KEY")
 
-        NUGET_SERVER = "http://nuget.lith.cloud:8"
-        //NUGET_KEY = " "
-        NUGET_KEY = credentials("nuget_key")
-
-        DOCKER_ImagePrefix = "docker.lith.cloud:8/${envName}/"
+        DOCKER_SERVER = credentials("DOCKER_SERVER")
+        DOCKER_ImagePrefix = "${DOCKER_SERVER}/${envName}/"
         DOCKER_Buildx = false
         DOCKER_USERNAME = " "
         DOCKER_PASSWORD = " "
 
         // set to "  "  if want to skip save releaseFiles to WebDav
-        WebDav_BaseUrl = "https://pan.lith.cloud:4/remote.php/dav/files/release/releaseFiles/ki_jenkins"
-        // "username:pwd"
+        WebDav_BaseUrl = credentials("WebDav_BaseUrl")
+        // WebDav_User = "username:pwd"
         WebDav_User = credentials("WebDav_User")
 
         build_crossPlatform = "no"

@@ -6,7 +6,7 @@ using Vit.Extensions.Json_Extensions;
 
 namespace Vit.Extensions
 {
-    public static partial class Exception_Extensions 
+    public static partial class Exception_Extensions
     {
         #region Data
 
@@ -18,10 +18,10 @@ namespace Vit.Extensions
         /// <param name="key"></param>
         /// <param name="data"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void Data_Set<Type>(this Exception ex, string key,Type data)
+        public static void Data_Set<Type>(this Exception ex, string key, Type data)
         {
             if (ex == null)
-            {              
+            {
                 throw new ArgumentNullException(nameof(ex));
             }
             ex.Data[key] = data;
@@ -42,7 +42,7 @@ namespace Vit.Extensions
             {
                 throw new ArgumentNullException(nameof(ex));
             }
-            return (ex.Data[key]).ConvertBySerialize<Type>() ;
+            return (ex.Data[key]).ConvertBySerialize<Type>();
         }
         #endregion
 
@@ -56,7 +56,7 @@ namespace Vit.Extensions
         /// <param name="ErrorCode"></param>
         /// <returns></returns>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static Exception ErrorCode_Set(this Exception ex,int? ErrorCode)
+        public static Exception ErrorCode_Set(this Exception ex, int? ErrorCode)
         {
             ex.Data_Set("ErrorCode", ErrorCode);
             return ex;
@@ -93,7 +93,7 @@ namespace Vit.Extensions
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string ErrorMessage_Get(this Exception ex)
         {
-            return ex.Data_Get<string>("ErrorMessage")??ex.Message;
+            return ex.Data_Get<string>("ErrorMessage") ?? ex.Message;
         }
         #endregion
 

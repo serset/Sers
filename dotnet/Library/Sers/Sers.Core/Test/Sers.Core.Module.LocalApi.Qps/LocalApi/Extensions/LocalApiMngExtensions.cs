@@ -28,12 +28,12 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void CallLocalApiAsync(this LocalApiService data,string route, Object arg,Action<ApiMessage> onSuc)
+        public static void CallLocalApiAsync(this LocalApiService data, string route, Object arg, Action<ApiMessage> onSuc)
         {
-            var apiRequestMessage = new ApiMessage().InitAsApiRequestMessage(route, arg);                   
+            var apiRequestMessage = new ApiMessage().InitAsApiRequestMessage(route, arg);
 
-            data.InvokeApiAsync(null, apiRequestMessage, (sender, apiReplyMessage) => 
-            {               
+            data.InvokeApiAsync(null, apiRequestMessage, (sender, apiReplyMessage) =>
+            {
                 onSuc(apiReplyMessage);
             });
 
@@ -42,7 +42,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void CallLocalApiAsync<ReturnType>(this LocalApiService data, string route, Object arg,Action<ReturnType> onSuc)
+        public static void CallLocalApiAsync<ReturnType>(this LocalApiService data, string route, Object arg, Action<ReturnType> onSuc)
         {
             data.CallLocalApiAsync(route, arg, replyMessage =>
               {

@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.RegularExpressions;
 
-using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
 
 using Vit.Extensions.Newtonsoft_Extensions;
 
@@ -67,14 +67,14 @@ namespace Vit.Core.Util.SsExp
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static JToken Calculate(JToken baseValue, JToken ssExp)
-        {       
+        {
             if (!ssExp.TypeMatch(JTokenType.Object))
             {
                 //if (ssExp.IsNull()) return null;
                 //if (ssExp.IsNull()) return baseValue;
                 return ssExp;
             }
-           
+
             var joSsValue = ssExp.Value<JObject>();
             var curValue = GetCurValue(baseValue, joSsValue);
             switch (ssExp["type"].Value<string>())
@@ -90,10 +90,10 @@ namespace Vit.Core.Util.SsExp
                 case "Value":
                     //{"type":"Value", "value":Value  }     //Value为值            
                     return ssExp["value"];
-                
+
                 case "_":
                     //{ "type":"_", ...  }  //直接返回当前表达式             
-                    return ssExp;             
+                    return ssExp;
                 case "Switch":
                     // {"type":"Switch", "path":"a.b"  ,   "body":[  {"condition":SsExp,"value":SsExp } ,...   ] , "default":SsExp   }
                     #region (x.3) 
@@ -103,7 +103,7 @@ namespace Vit.Core.Util.SsExp
                             if (JTokenToBool(Calculate(curValue, item["condition"])))
                                 return Calculate(curValue, item["value"]);
                         }
-                        return  Calculate(curValue, ssExp["default"]);
+                        return Calculate(curValue, ssExp["default"]);
                     }
                 #endregion
 
@@ -121,7 +121,7 @@ namespace Vit.Core.Util.SsExp
                     else
                     {
                         return GetResult(false);
-                    }              
+                    }
                 #endregion
                 case "And":
                     //{"type":"And",    "path":"a.b",    "value":[  SsExp1,SsExp2 ...        ]   }
@@ -164,9 +164,9 @@ namespace Vit.Core.Util.SsExp
                         else
                         {
                             destValue = Calculate(curValue, ssExp_child);
-                        }                  
+                        }
                         bool calculatedValue = !JTokenToBool(destValue);
-                        return GetResult(calculatedValue );
+                        return GetResult(calculatedValue);
                     }
                 #endregion
 
@@ -183,8 +183,8 @@ namespace Vit.Core.Util.SsExp
                         else
                         {
                             destValue = Calculate(curValue, ssExp_child);
-                        }          
-                      
+                        }
+
                         bool calculatedValue = !destValue.IsNull();
                         return GetResult(calculatedValue);
                     }
@@ -196,14 +196,14 @@ namespace Vit.Core.Util.SsExp
                         var ssExp_Value = Calculate(curValue, ssExp["value"]).ConvertToString();
                         var curValue_Str = curValue.ConvertToString();
 
-                        bool ? calculatedValue;
+                        bool? calculatedValue;
                         if (null == ssExp_Value || null == curValue_Str)
                         {
                             calculatedValue = null;
                         }
                         else
                         {
-                            calculatedValue= new Regex(ssExp_Value).IsMatch(curValue_Str);
+                            calculatedValue = new Regex(ssExp_Value).IsMatch(curValue_Str);
                         }
                         return GetResult(calculatedValue);
                     }
@@ -214,11 +214,11 @@ namespace Vit.Core.Util.SsExp
                     {
                         var ssExp_Value = Calculate(curValue, ssExp["value"]).ConvertToString();
                         var curValue_Str = curValue.ConvertToString();
-              
+
                         if (null == ssExp_Value || null == curValue_Str)
                         {
                             return GetResult(null);
-                        }                                
+                        }
                         return GetResult(curValue_Str == ssExp_Value);
                     }
                 #endregion
@@ -227,14 +227,14 @@ namespace Vit.Core.Util.SsExp
                     //{"type":"!=",    "path":"a.b",    "value":SsExp   }
                     #region (x.x)
                     {
-                        var ssExp_Value = Calculate(curValue, ssExp["value"]).ConvertToString(); 
-                        var curValue_Str = curValue.ConvertToString();                       
-                     
+                        var ssExp_Value = Calculate(curValue, ssExp["value"]).ConvertToString();
+                        var curValue_Str = curValue.ConvertToString();
+
                         if (null == ssExp_Value || null == curValue_Str)
                         {
                             return GetResult(null);
                         }
-                       
+
                         return GetResult(curValue_Str != ssExp_Value);
                     }
                 #endregion
@@ -248,7 +248,7 @@ namespace Vit.Core.Util.SsExp
                         {
                             return GetResult(null);
                         }
-                        return GetResult(curValue_Double > ssExp_Value);                     
+                        return GetResult(curValue_Double > ssExp_Value);
                     }
                 #endregion
                 case ">=":
@@ -309,9 +309,9 @@ namespace Vit.Core.Util.SsExp
 
                         foreach (var item in ssExp_Value_Array)
                         {
-                            if ( curValue_Str == item.ConvertToString()) return GetResult(true);
+                            if (curValue_Str == item.ConvertToString()) return GetResult(true);
                         }
-                        return GetResult(false); 
+                        return GetResult(false);
                     }
                 #endregion
 
@@ -357,18 +357,19 @@ namespace Vit.Core.Util.SsExp
                     var result = ssExp["resultWhenTrue"];
                     if (result.IsNull()) return true;
                     return Calculate(curValue, result);
-                }else
+                }
+                else
                 {
                     var result = ssExp["resultWhenFalse"];
                     if (result.IsNull()) return false;
                     return Calculate(curValue, result);
-                }       
+                }
             }
             #endregion
         }
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        static bool  JTokenToBool(JToken value)
+        static bool JTokenToBool(JToken value)
         {
             if (value.TryParseIgnore(out bool v)) return v;
 

@@ -13,7 +13,7 @@ namespace Vit.Core.Util.Extensible
     /// </summary>
     public class Extensible
     {
- 
+
 
         [JsonIgnore]
         public IDictionary<string, object> extensionData { get; protected set; }
@@ -26,7 +26,7 @@ namespace Vit.Core.Util.Extensible
         /// <param name="key"></param>
         /// <param name="value"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void SetData<T>(string key,T value)
+        public void SetData<T>(string key, T value)
         {
             (extensionData ?? (extensionData = new Dictionary<string, object>()))[key] = value;
         }
@@ -40,7 +40,7 @@ namespace Vit.Core.Util.Extensible
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public T GetData<T>(string key)
         {
-            if (extensionData !=null && extensionData.TryGetValue(key,out var value))
+            if (extensionData != null && extensionData.TryGetValue(key, out var value))
             {
                 if (value is T data)
                 {
@@ -49,7 +49,7 @@ namespace Vit.Core.Util.Extensible
                 //if (typeof(T).IsAssignableFrom(value?.GetType()))
                 //    return (T)value;
             }
-            return default(T);
+            return default;
         }
 
         /// <summary>
@@ -77,9 +77,9 @@ namespace Vit.Core.Util.Extensible
                 catch (Exception ex)
                 {
                     Logger.Error(ex);
-                }                
+                }
             }
-            return default(T);
+            return default;
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace Vit.Core.Util.Extensible
                     Logger.Error(ex);
                 }
             }
-            return default(T);
+            return default;
         }
 
     }

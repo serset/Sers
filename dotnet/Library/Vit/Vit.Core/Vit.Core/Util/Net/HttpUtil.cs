@@ -12,8 +12,6 @@
 
 
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.IO;
@@ -21,6 +19,9 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Vit.Core.Util.Net
 {
@@ -199,29 +200,29 @@ namespace Vit.Core.Util.Net
             }
 
 
-            if (parameters is IDictionary)
+            if (parameters is IDictionary dic)
             {
                 StringBuilder buff = new StringBuilder();
-                foreach (DictionaryEntry kv in (IDictionary)parameters)
+                foreach (DictionaryEntry kv in dic)
                 {
                     buff.Append(UrlEncode(kv.Key.ToString())).Append("=").Append(UrlEncode(kv.Value.ToString())).Append("&");
                 }
                 if (buff.Length > 0) buff.Length--;
                 return buff.ToString();
             }
-            else if (parameters is JObject)
+            else if (parameters is JObject jobj)
             {
                 StringBuilder buff = new StringBuilder();
-                foreach (var kv in (JObject)parameters)
+                foreach (var kv in jobj)
                 {
                     buff.Append(UrlEncode(kv.Key.ToString())).Append("=").Append(UrlEncode(kv.Value.Value<string>())).Append("&");
                 }
                 if (buff.Length > 0) buff.Length--;
                 return buff.ToString();
             }
-            else if (parameters is string)
+            else if (parameters is string str)
             {
-                return (string)parameters;
+                return str;
             }
             throw new Exception("Url_BuildParam,不支持的url参数格式[" + parameters.GetType().Name + "]");
         }
@@ -256,7 +257,7 @@ namespace Vit.Core.Util.Net
 
         #endregion
 
-               
+
 
         #region GetRequest
         /// <summary>
@@ -336,7 +337,7 @@ namespace Vit.Core.Util.Net
         #region SendRequestBody
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        static void SendRequestBody(WebRequest request,string _contentType, byte[] _dataToWrite)
+        static void SendRequestBody(WebRequest request, string _contentType, byte[] _dataToWrite)
         {
             //(x.1)
             if (!String.IsNullOrEmpty(_contentType))
@@ -350,7 +351,7 @@ namespace Vit.Core.Util.Net
                     stream.Write(_dataToWrite, 0, _dataToWrite.Length);
                 }
             }
-            
+
         }
 
         #endregion
@@ -372,7 +373,7 @@ namespace Vit.Core.Util.Net
             if (!string.IsNullOrEmpty(requestParam.Method))
                 request.Method = requestParam.Method;
 
-            requestParam.GetRequestBodyData(out string contentType, out byte[] dataToWrite);            
+            requestParam.GetRequestBodyData(out string contentType, out byte[] dataToWrite);
             SendRequestBody(request, contentType, dataToWrite);
 
 
@@ -414,7 +415,7 @@ namespace Vit.Core.Util.Net
         {
             using (System.IO.Stream respStream = response.GetResponseStream())
             {
-                using (System.IO.StreamReader reader = new System.IO.StreamReader(respStream, requestParam.responseEncoding??GetResponseEncoding(response)))
+                using (System.IO.StreamReader reader = new System.IO.StreamReader(respStream, requestParam.responseEncoding ?? GetResponseEncoding(response)))
                 {
                     return reader.ReadToEnd();
                 }
@@ -430,8 +431,8 @@ namespace Vit.Core.Util.Net
         /// <param name="responseContentType">可为"json",若不指定有效值则默认为'string'</param>
         /// <returns></returns>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public virtual Object FormatResponseData(HttpWebResponse response, String data,string responseContentType)
-        {            
+        public virtual Object FormatResponseData(HttpWebResponse response, String data, string responseContentType)
+        {
             if (0 <= responseContentType.IndexOf("json"))
             {
                 return JsonConvert.DeserializeObject(data);
@@ -480,8 +481,8 @@ namespace Vit.Core.Util.Net
         /// <returns></returns>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public virtual T Ajax<T>(RequestParam requestParam)
-        {          
-            return JsonConvert.DeserializeObject<T>(Ajax_String(requestParam)); 
+        {
+            return JsonConvert.DeserializeObject<T>(Ajax_String(requestParam));
         }
         #endregion
 
@@ -519,7 +520,7 @@ namespace Vit.Core.Util.Net
                 while (readedLen < length)
                 {
                     readedLen += stream.Read(bytes, readedLen, bytes.Length - readedLen);
-                }              
+                }
                 return bytes;
             }
         }
@@ -610,7 +611,7 @@ namespace Vit.Core.Util.Net
         #endregion
 
 
-       
+
 
 
         #region 异步
@@ -846,14 +847,14 @@ BASH<method> <request-URL> <version>
         /// </summary>
         /// <returns></returns>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal void GetRequestBodyData(out string contentType, out  byte[] dataToWrite)
+        internal void GetRequestBodyData(out string contentType, out byte[] dataToWrite)
         {
             contentType = null;
             dataToWrite = null;
             if (null == body)
-            {               
+            {
                 return;
-            }       
+            }
 
             switch (body)
             {
@@ -879,7 +880,7 @@ BASH<method> <request-URL> <version>
                 case byte[] param:
                     dataToWrite = param;
                     break;
-                case Object param:       
+                case Object param:
                     dataToWrite = requestEncoding.GetBytes(JsonConvert.SerializeObject(param));
                     contentType = "application/json";
                     break;

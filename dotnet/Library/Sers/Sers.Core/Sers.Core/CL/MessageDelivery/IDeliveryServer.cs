@@ -14,7 +14,7 @@ namespace Sers.Core.CL.MessageDelivery
         /// <summary>
         /// 请勿处理耗时操作，需立即返回
         /// </summary>
-        Action<IDeliveryConnection> Conn_OnDisconnected { set; } 
+        Action<IDeliveryConnection> Conn_OnDisconnected { set; }
 
         IEnumerable<IDeliveryConnection> ConnectedList { get; }
 

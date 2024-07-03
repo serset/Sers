@@ -1,9 +1,11 @@
 ﻿using System;
-using Microsoft.AspNetCore.Http.Features;
-using Sers.Core.Module.Rpc;
 using System.IO;
-using Microsoft.AspNetCore.Http;
 using System.Runtime.CompilerServices;
+
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
+
+using Sers.Core.Module.Rpc;
 
 namespace Vit.Extensions
 {
@@ -23,10 +25,7 @@ namespace Vit.Extensions
             // "http://127.0.0.1/Station1/fold1/a/1/2.html?c=9"
             var http_url = rpcData.http.url;
             Uri uri = new Uri(http_url);
-            //var Query = Uri.UnescapeDataString(uri.Query);
-            var Query = uri.Query;
             var AbsolutePath = Uri.UnescapeDataString(uri.AbsolutePath);
-            //var AbsolutePath = uri.AbsolutePath;
 
             requestFeature = new HttpRequestFeature
             {
@@ -40,7 +39,6 @@ namespace Vit.Extensions
 
                 Path = AbsolutePath,
                 RawTarget = AbsolutePath,
-
             };
 
             #region http header

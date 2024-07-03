@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace Sers.Core.Module.Api.RouteMap
 {
-    public class RouteMap<T>: IDataMap<T>
-        where T:class
+    public class RouteMap<T> : IDataMap<T>
+        where T : class
     {
 
 
@@ -70,8 +68,8 @@ namespace Sers.Core.Module.Api.RouteMap
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T Get(string route)
-        {  
-            return normalRouteMap.Get(route)?? genericRouteMap.Get(route);
+        {
+            return normalRouteMap.Get(route) ?? genericRouteMap.Get(route);
         }
 
 
@@ -82,7 +80,7 @@ namespace Sers.Core.Module.Api.RouteMap
         /// <param name="routeType"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public T Routing(string route,out ERouteType routeType)
+        public T Routing(string route, out ERouteType routeType)
         {
             var t = normalRouteMap.Routing(route);
             if (null != t)
@@ -102,7 +100,7 @@ namespace Sers.Core.Module.Api.RouteMap
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T Routing(string route)
         {
-            return Routing(route,out _);
+            return Routing(route, out _);
         }
 
         public IEnumerable<T> GetAll()
@@ -112,6 +110,6 @@ namespace Sers.Core.Module.Api.RouteMap
 
 
 
-        
+
     }
 }

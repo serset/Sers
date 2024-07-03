@@ -1,6 +1,8 @@
 ﻿using System;
+
 using Sers.Gateway;
 using Sers.ServiceStation;
+
 using Vit.Core.Module.Log;
 
 namespace App.Gateway
@@ -12,16 +14,15 @@ namespace App.Gateway
             try
             {
 
-                #region (x.1)初始化ServiceStation
+                #region init ServiceStation
                 ServiceStation.Init();
 
                 //ServiceStation.Discovery(typeof(Program).Assembly);
                 if (!ServiceStation.Start())
                 {
-                    Logger.Error("无法连接服务中心。站点关闭");
+                    Logger.Error("can not connect to ServiceCenter. Closing station now.");
                     return;
                 }
-
                 #endregion
 
                 GatewayHelp.Bridge();

@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json;
-using System;
-using Vit.Core.Util.ConfigurationManager;
+﻿using System;
 using System.Runtime.CompilerServices;
 using System.Text;
-using Vit.Extensions.Json_Extensions;
+
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+using Vit.Core.Util.ConfigurationManager;
+using Vit.Extensions.Json_Extensions;
 
 namespace Vit.Core.Module.Serialization
 {
@@ -122,7 +124,8 @@ namespace Vit.Core.Module.Serialization
         #region Serialize
 
         /// <summary>
-        /// value and type could be:   byte[] / string / Object / Array / struct or ValueType(int? / bool)
+        /// value and type could be:   byte[] / string / Object / Array / struct or ValueType(int? / bool) .
+        /// will get "null" if value is null
         /// </summary>
         /// <param name="value"></param>
         /// <param name="type"></param>
@@ -159,7 +162,8 @@ namespace Vit.Core.Module.Serialization
         #region Deserialize
 
         /// <summary>
-        /// T could be:   byte[] / string / Object / Array / struct or ValueType(int? / bool)
+        /// T could be:   byte[] / string / Object / Array / struct or ValueType(int? / bool) .
+        /// will get default value of T if value is null or whiteSpace
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -179,14 +183,15 @@ namespace Vit.Core.Module.Serialization
             //    return (T)DeserializeStruct(value, type);
 
 
-            ////if (string.IsNullOrWhiteSpace(value)) return type.DefaultValue();
+            if (string.IsNullOrWhiteSpace(value)) return default;
 
             return JsonConvert.DeserializeObject<T>(value, serializeSetting);
         }
 
 
         /// <summary>
-        /// value and type could be:   byte[] / string / Object / Array / struct or ValueType(int? / bool)
+        /// value and type could be:   byte[] / string / Object / Array / struct or ValueType(int? / bool) .
+        /// will get default value of T if value is null or whiteSpace
         /// </summary>
         /// <param name="value"></param>
         /// <param name="type"></param>
@@ -203,7 +208,7 @@ namespace Vit.Core.Module.Serialization
             //if (type.IsValueType && type.GetUnderlyingTypeIfNullable() != typeof(DateTime))
             //    return DeserializeStruct(value, type);
 
-            ////if (string.IsNullOrWhiteSpace(value)) return type.DefaultValue();
+            if (string.IsNullOrWhiteSpace(value)) return type.DefaultValue();
 
             return JsonConvert.DeserializeObject(value, type, serializeSetting);
         }

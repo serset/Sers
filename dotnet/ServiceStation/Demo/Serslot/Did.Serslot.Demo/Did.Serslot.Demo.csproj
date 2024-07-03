@@ -8,15 +8,6 @@
         <DocumentationFile>bin\Debug\net6.0\Did.Serslot.Demo.xml</DocumentationFile>
     </PropertyGroup>
 
-
-    <ItemGroup>
-        <Folder Include="wwwroot\" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.App" />
-    </ItemGroup>
-
     <ItemGroup>
         <ProjectReference Include="..\..\..\..\Library\Sers\Sers.Serslot\Sers.Serslot\Sers.Serslot.csproj" />
     </ItemGroup>
@@ -26,6 +17,5 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
-
 
 </Project>

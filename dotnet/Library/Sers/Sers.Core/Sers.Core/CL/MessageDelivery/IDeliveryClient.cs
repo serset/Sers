@@ -11,7 +11,7 @@ namespace Sers.Core.CL.MessageDelivery
         Action<IDeliveryConnection, ArraySegment<byte>> Conn_OnGetFrame { set; }
 
 
-        Action<IDeliveryConnection> Conn_OnDisconnected { set;}
+        Action<IDeliveryConnection> Conn_OnDisconnected { set; }
 
 
         IDeliveryConnection conn { get; }

@@ -1,15 +1,18 @@
 ﻿using System;
-using Statistics;
+using System.Threading.Tasks;
+
 using Sers.Core.Module.Api.LocalApi;
 using Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions;
-using System.Threading.Tasks;
+
+using Statistics;
+
 using Vit.Extensions;
 
 namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
 {
     public class LocalApiTest
-    {        
-    
+    {
+
         public static int threadCount = 4;
 
         static StatisticsQpsAsync statisticsQps = new StatisticsQpsAsync();
@@ -18,7 +21,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
         {
             //(x.1)构建
             localApiService = LocalApiServiceFactory.CreateLocalApiService() as LocalApiService;
-            localApiService.threadCount = threadCount; 
+            localApiService.threadCount = threadCount;
             localApiService.LoadSersApi(typeof(LocalApiTest).Assembly);
 
             localApiService.Start();
@@ -45,7 +48,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
                             //string arg = "asfsdf";
                             //object argValue = new { arg };
 
-                            var apiReplyMessage = localApiService.CallLocalApi("/a", null);                    
+                            var apiReplyMessage = localApiService.CallLocalApi("/a", null);
                         }
 
                         qpsInfo.RequestCount++;

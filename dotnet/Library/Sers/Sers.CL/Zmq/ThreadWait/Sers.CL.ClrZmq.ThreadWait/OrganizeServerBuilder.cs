@@ -27,6 +27,6 @@ namespace Sers.CL.ClrZmq.ThreadWait
 
             organizeList.Add(new OrganizeServer(delivery, config));
         }
- 
+
     }
 }

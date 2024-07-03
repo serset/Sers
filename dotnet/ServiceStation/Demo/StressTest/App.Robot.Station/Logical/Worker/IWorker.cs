@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace App.Robot.Station.Logical.Worker
+﻿namespace App.Robot.Station.Logical.Worker
 {
     public interface IWorker
     {

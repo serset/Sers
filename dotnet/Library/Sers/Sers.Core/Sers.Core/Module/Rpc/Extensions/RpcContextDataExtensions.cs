@@ -1,8 +1,10 @@
 ﻿using System;
-using Sers.Core.Module.Rpc;
-using Vit.Core.Util.Common;
 using System.IO;
 using System.Runtime.CompilerServices;
+
+using Sers.Core.Module.Rpc;
+
+using Vit.Core.Util.Common;
 
 namespace Vit.Extensions
 {
@@ -196,7 +198,7 @@ namespace Vit.Extensions
             return data;
         }
         #endregion
-        
+
 
 
 

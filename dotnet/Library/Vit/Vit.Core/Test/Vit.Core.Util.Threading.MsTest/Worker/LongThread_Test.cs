@@ -1,6 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Threading;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Vit.Core.Util.Threading.Worker;
 
 namespace Vit.Core.Util.Threading.MsTest.Worker

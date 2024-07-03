@@ -7,7 +7,7 @@
         public double networkIn;
         public double networkOut;
 
-        public void CopyFrom(UsageStatus ori) 
+        public void CopyFrom(UsageStatus ori)
         {
             if (ori == null) return;
 

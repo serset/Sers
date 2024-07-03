@@ -12,7 +12,7 @@ namespace Vit.Core.Util.ComponentModel.Api
         /// 
         /// </summary>
         public string Value { get; set; }
-       
+
         public SsStationNameAttribute(string Value = null)
         {
             this.Value = Value;

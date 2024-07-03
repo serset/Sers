@@ -1,10 +1,12 @@
-﻿using Vit.Core.Module.Log;
-using System;
-using System.Threading.Tasks;
-using Sers.Core.Module.Message;
+﻿using System;
 using System.Collections.Concurrent;
-using Sers.Core.CL.MessageOrganize;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+
+using Sers.Core.CL.MessageOrganize;
+using Sers.Core.Module.Message;
+
+using Vit.Core.Module.Log;
 using Vit.Extensions.Json_Extensions;
 using Vit.Extensions.Object_Serialize_Extensions;
 
@@ -17,7 +19,7 @@ namespace Sers.Core.Module.PubSub
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void OnGetMessage(IOrganizeConnection conn,ArraySegment<byte> messageData)
+        public void OnGetMessage(IOrganizeConnection conn, ArraySegment<byte> messageData)
         {
             SersFile frame = new SersFile().Unpack(messageData);
 
@@ -70,7 +72,7 @@ namespace Sers.Core.Module.PubSub
                 }
             }
         }
- 
+
 
         #region 延迟发送队列
         readonly ConcurrentQueue<Vit.Core.Util.Pipelines.ByteData> msgFrameToSend = new ConcurrentQueue<Vit.Core.Util.Pipelines.ByteData>();
@@ -80,16 +82,16 @@ namespace Sers.Core.Module.PubSub
         {
             if (null == _OnSendMessage)
             {
-                msgFrameToSend.Enqueue(frame);           
+                msgFrameToSend.Enqueue(frame);
             }
             else
             {
                 _OnSendMessage(frame);
-            }           
+            }
         }
         #endregion
 
-               
+
 
         internal Action<string, ArraySegment<byte>> Message_Consumer { get; set; }
 

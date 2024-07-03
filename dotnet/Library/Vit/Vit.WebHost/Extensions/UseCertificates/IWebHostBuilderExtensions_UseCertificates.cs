@@ -31,7 +31,7 @@ namespace Vit.Extensions
         /// <returns></returns>
         public static IWebHostBuilder UseCertificates(this IWebHostBuilder data, string configPath = "server.certificates")
         {
-            data?.ConfigureServices(services=> services.UseCertificates(configPath)); 
+            data?.ConfigureServices(services => services.UseCertificates(configPath));
             return data;
         }
 

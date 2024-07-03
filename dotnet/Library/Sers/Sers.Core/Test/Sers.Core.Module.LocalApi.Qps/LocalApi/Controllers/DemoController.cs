@@ -3,6 +3,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 
 using Sers.SersLoader;
+
 using Vit.Core.Util.ComponentModel.Api;
 
 namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Controllers
@@ -19,13 +20,13 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Controllers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [SsRoute("/a")]
         public void A()
-        {    
+        {
         }
 
         [SsRoute("api/GetDeviceGuidList")]
         public string GetDeviceGuidList(string arg)
         {
-            return arg+ "Test";
+            return arg + "Test";
         }
 
 

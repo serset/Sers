@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+
 using Sers.Gover.Base;
 using Sers.Gover.Base.Model;
 using Sers.ServiceCenter.Entity;
@@ -11,9 +12,9 @@ namespace Vit.Extensions
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static EServiceStationStatus  Status_Get(this ApiNode data)
+        public static EServiceStationStatus Status_Get(this ApiNode data)
         {
-            return data?.GetDataByConvert<EServiceStationStatus?>("Status")?? EServiceStationStatus.暂停;
+            return data?.GetDataByConvert<EServiceStationStatus?>("Status") ?? EServiceStationStatus.暂停;
         }
 
 
@@ -22,7 +23,7 @@ namespace Vit.Extensions
         public static void Status_Set(this ApiNode data, EServiceStationStatus value)
         {
             data?.SetData("Status", value);
-        }      
+        }
 
 
 
@@ -47,16 +48,16 @@ namespace Vit.Extensions
         }
 
         #region reason
-        static void StopReason_Add(this ApiNode data,string reason)
+        static void StopReason_Add(this ApiNode data, string reason)
         {
-            var reasons = data.GetData<Dictionary<string,string>>("StopReason");
+            var reasons = data.GetData<Dictionary<string, string>>("StopReason");
 
             if (null == reasons)
             {
                 reasons = new Dictionary<string, string>();
                 data.SetData("StopReason", reasons);
             }
-            reasons.IDictionaryTryAdd(reason, reason);            
+            reasons.IDictionaryTryAdd(reason, reason);
         }
         /// <summary>
         /// 返回 移除后是否仍有StopReason
@@ -77,7 +78,7 @@ namespace Vit.Extensions
 
         #endregion
 
-        public static void StopReason_Add(this ApiNode apiNode, ApiLoadBalancingMng apiLoadBalancingMng,string reason)
+        public static void StopReason_Add(this ApiNode apiNode, ApiLoadBalancingMng apiLoadBalancingMng, string reason)
         {
             apiNode.StopReason_Add(reason);
             apiNode.Stop(apiLoadBalancingMng);
@@ -88,7 +89,7 @@ namespace Vit.Extensions
             if (!apiNode.StopReason_Remove(reason))
             {
                 apiNode.Start(apiLoadBalancingMng);
-            }           
+            }
         }
 
     }

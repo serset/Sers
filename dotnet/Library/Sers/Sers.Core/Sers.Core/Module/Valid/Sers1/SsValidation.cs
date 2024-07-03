@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+
 using Vit.Core.Util.ComponentModel.Model;
 using Vit.Core.Util.ComponentModel.SsError;
 
@@ -22,7 +23,7 @@ namespace Sers.Core.Module.Valid.Sers1
         /// <summary>
         /// 验证方式
         /// </summary>
-        [SsExample("{\"type\":\"Equal\",\"value\":\"Logined\"}")]  
+        [SsExample("{\"type\":\"Equal\",\"value\":\"Logined\"}")]
         [SsDescription("验证方式")]
         public JObject ssValid;
     }

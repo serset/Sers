@@ -57,7 +57,7 @@ namespace ZeroMQ
             private set
             {
                 publicTxt = value.ToCharArray();
-                publicKey = Z85.DecodeBytes(value, Encoding.UTF8);                   
+                publicKey = Z85.DecodeBytes(value, Encoding.UTF8);
             }
         }
 
@@ -71,7 +71,7 @@ namespace ZeroMQ
             private set
             {
                 secretTxt = value.ToCharArray();
-                secretKey = Z85.DecodeBytes(value, Encoding.UTF8);                
+                secretKey = Z85.DecodeBytes(value, Encoding.UTF8);
             }
         }
 
@@ -98,7 +98,7 @@ namespace ZeroMQ
 
             publicTxt = Encoding.UTF8.GetString(Z85.Encode(publicKey)).ToCharArray();
             secretTxt = Encoding.UTF8.GetString(Z85.Encode(secretKey)).ToCharArray();
-            
+
             byte[] e = Z85.Encode(publicTxt.Select(c => (byte)c).ToArray());
         }
 

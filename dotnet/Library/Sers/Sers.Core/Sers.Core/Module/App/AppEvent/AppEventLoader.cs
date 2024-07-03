@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json.Linq;
-using Vit.Core.Util.Reflection;
-using System;
+﻿using System;
 using System.Collections.Generic;
+
+using Newtonsoft.Json.Linq;
+
 using Vit.Core.Module.Log;
+using Vit.Core.Util.Reflection;
 using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.Core.Module.App.AppEvent
@@ -52,7 +54,7 @@ namespace Sers.Core.Module.App.AppEvent
                 var assemblyFile = config["assemblyFile"].ConvertToString();
                 if (string.IsNullOrEmpty(assemblyFile)) return null;
 
-                return ObjectLoader.CreateInstance(className, assemblyFile: assemblyFile) as IAppEvent;            
+                return ObjectLoader.CreateInstance(className, assemblyFile: assemblyFile) as IAppEvent;
             }
             #endregion
         }

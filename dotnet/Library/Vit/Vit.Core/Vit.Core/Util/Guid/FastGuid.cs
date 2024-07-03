@@ -1,7 +1,8 @@
-﻿using Vit.Core.Util.Common;
-using System;
-using System.Threading;
+﻿using System;
 using System.Runtime.CompilerServices;
+using System.Threading;
+
+using Vit.Core.Util.Common;
 
 namespace Vit.Core.Util.Guid
 {
@@ -17,7 +18,7 @@ namespace Vit.Core.Util.Guid
         private static long machineId = CommonHelp.Random(0, 127);//机器ID
         private static long dataCenterId = CommonHelp.Random(0, 255);//数据ID
         //private static int seconds;
-        private static int curId=0;
+        private static int curId = 0;
 
 
 
@@ -30,10 +31,10 @@ namespace Vit.Core.Util.Guid
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static double GetTimestamp()
         {
-            return  (DateTime.UtcNow - start).TotalMilliseconds;
+            return (DateTime.UtcNow - start).TotalMilliseconds;
         }
 
-    
+
 
 
         /// <summary>

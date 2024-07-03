@@ -355,7 +355,7 @@ namespace ZeroMQ
             {
                 //s_zap_request_reply(request, "400", "No access", (unsigned char *) "", 0);
                 request.RequestReply("400", "No access", new byte[0]);
-                
+
             }
         }
 

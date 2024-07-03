@@ -21,7 +21,7 @@ namespace Sers.CL.Socket.Iocp
                 securityManager = Sers.Core.Util.StreamSecurity.SecurityManager.BuildSecurityManager(securityConfigs);
             }
             #endregion
- 
+
 
 
             string mode = config["mode"]?.ToString();
@@ -29,7 +29,7 @@ namespace Sers.CL.Socket.Iocp
             switch (mode)
             {
                 default:
-                //case "Simple":
+                    //case "Simple":
                     {
                         var delivery = new Mode.Simple.DeliveryClient();
 
@@ -76,7 +76,7 @@ namespace Sers.CL.Socket.Iocp
                         organizeList.Add(new OrganizeClient(delivery, config));
                     }
                     break;
-                case "ThreadWait":           
+                case "ThreadWait":
                     {
                         var delivery = new Mode.ThreadWait.DeliveryClient();
 
@@ -98,7 +98,7 @@ namespace Sers.CL.Socket.Iocp
                         delivery.sendBufferSize = config["sendBufferSize"].ConvertBySerialize<int?>() ?? delivery.sendBufferSize;
 
                         // 发送缓冲区个数（默认1024）  
-                        delivery.sendBufferCount = config["sendBufferCount"].ConvertBySerialize<int?>() ?? delivery.sendBufferSize;                         
+                        delivery.sendBufferCount = config["sendBufferCount"].ConvertBySerialize<int?>() ?? delivery.sendBufferSize;
                         #endregion
 
                         organizeList.Add(new OrganizeClient(delivery, config));

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+
 using CLClient.Statistics;
+
 using Sers.Core.Util.Consumer;
+
 using Vit.Core.Module.Log;
 
 namespace CLClient
@@ -48,7 +51,7 @@ namespace CLClient
 
             for (var t = 0; t < 1; t++)
             {
-                new ProgramQps() {  }.Start();
+                new ProgramQps() { }.Start();
             }
 
             while (true)
@@ -59,8 +62,8 @@ namespace CLClient
 
 
 
-        class Product 
-        {     
+        class Product
+        {
 
             public int ms = 0;
             public int IncrementCount = 0;
@@ -68,12 +71,12 @@ namespace CLClient
 
 
         IConsumer<Product> consumer;
-    
+
         public void Start()
         {
             //consumerType = "LongTask";
 
-            switch (consumerType) 
+            switch (consumerType)
             {
                 case "LongThread":
                     consumer = new LongThread<Product>();  //16 16 1600千            //ori:16 16 440万          2  2  800万
@@ -122,12 +125,12 @@ namespace CLClient
                 //    break;
 
                 default:
-                    consumer= ConsumerFactory.CreateConsumer<Product>(); 
+                    consumer = ConsumerFactory.CreateConsumer<Product>();
                     break;
             }
 
 
-            Console.WriteLine("consumer: "+ consumer.GetType().FullName);       
+            Console.WriteLine("consumer: " + consumer.GetType().FullName);
 
 
 
@@ -143,20 +146,20 @@ namespace CLClient
         }
 
 
-  
+
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="obj"></param>
-        void Processor(Product obj) 
+        void Processor(Product obj)
         {
             if (obj.ms > 0)
                 Thread.Sleep(obj.ms);
 
 
             if (obj.IncrementCount > 0)
-                qpsSub.IncrementRequest(); 
+                qpsSub.IncrementRequest();
         }
 
 
@@ -171,7 +174,7 @@ namespace CLClient
 
                 for (int i = 0; i < int.MaxValue; i++)
                 {
-                    for (var t = 1; t <1000; t++)
+                    for (var t = 1; t < 1000; t++)
                     {
                         //new Product { ms = t == 0 ? 1 : 0 };
                         //if (t % 100 == 0) qpsPub.IncrementRequest(100);

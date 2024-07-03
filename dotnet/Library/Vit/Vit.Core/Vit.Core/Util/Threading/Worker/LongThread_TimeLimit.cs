@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading;
-using Vit.Extensions;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Threading.Timer;
+using Vit.Extensions;
 
 namespace Vit.Core.Util.Threading.Worker
 {
@@ -11,7 +12,7 @@ namespace Vit.Core.Util.Threading.Worker
     /// 请勿处理ThreadInterruptedException异常，否则导致线程无法正常结束
     /// 若在超时时间内未清理状态，则强制关闭任务。拉任务的模式。
     /// </summary>
-    public class LongThread_TimeLimit<T>:IDisposable
+    public class LongThread_TimeLimit<T> : IDisposable
     {
 
         /// <summary>
@@ -29,7 +30,7 @@ namespace Vit.Core.Util.Threading.Worker
         /// status: success/error/timeout
         /// </summary>
         public Action<ETaskFinishStatus, T> OnFinish;
- 
+
 
 
         /// <summary>
@@ -75,9 +76,9 @@ namespace Vit.Core.Util.Threading.Worker
         int runningThreadCount = 0;
         public int RunningThreadCount => runningThreadCount;
 
-        public bool IsRunning => runningThreadCount!=0;//threads != null && threads.Any(item=> item.IsAlive);
+        public bool IsRunning => runningThreadCount != 0;//threads != null && threads.Any(item=> item.IsAlive);
 
-        bool NeedRunning { get; set; } = false;      
+        bool NeedRunning { get; set; } = false;
 
         /// <summary>
         /// 超时时间。脉冲间隔。（主动关闭超过此时间的任务,实际任务强制关闭的时间会在1倍超时时间到2倍超时时间内)。单位：ms。(默认300000)
@@ -124,18 +125,18 @@ namespace Vit.Core.Util.Threading.Worker
             }
         }
         #endregion
- 
-    
-         
 
-     
+
+
+
+
         public void Start()
         {
             if (IsRunning)
             {
                 throw WorkerHelp.Error_CannotStartWhileRunning.ToException();
             }
-            if (threadCount <=0)
+            if (threadCount <= 0)
             {
                 workers = null;
                 return;
@@ -144,8 +145,8 @@ namespace Vit.Core.Util.Threading.Worker
             workers = new Worker[threadCount];
             for (int i = 0; i < threadCount; i++)
             {
-                var worker = workers[i] = new Worker() { GetWork = GetWork , Processor = Processor, OnFinish = OnFinish};
-                worker.Start(threadName + "-" + i,this);               
+                var worker = workers[i] = new Worker() { GetWork = GetWork, Processor = Processor, OnFinish = OnFinish };
+                worker.Start(threadName + "-" + i, this);
             }
 
             //(x.2)开启脉冲生产器
@@ -163,11 +164,11 @@ namespace Vit.Core.Util.Threading.Worker
             NeedRunning = false;
 
             if (null != workers)
-            {                
+            {
                 foreach (var threadItem in workers)
                 {
                     threadItem.TryStop();
-                }               
+                }
             }
 
             try
@@ -193,7 +194,7 @@ namespace Vit.Core.Util.Threading.Worker
                 流程为：    获取任务GetWork、执行任务Processor、任务结束后回调OnFinish
             */
 
-            public T workArg; 
+            public T workArg;
 
             /// <summary>
             /// 任务是否在执行中
@@ -207,12 +208,12 @@ namespace Vit.Core.Util.Threading.Worker
             /// 不可抛异常
             /// </summary>
             public Action<T> Processor;
- 
+
             /// <summary>
             /// 不可抛异常
             /// status: success/error/timeout
             /// </summary>
-            public Action<ETaskFinishStatus, T> OnFinish;  
+            public Action<ETaskFinishStatus, T> OnFinish;
 
 
             /// <summary>
@@ -227,7 +228,7 @@ namespace Vit.Core.Util.Threading.Worker
             {
                 this.task = task;
 
-                thread = new Thread(Run);              
+                thread = new Thread(Run);
                 thread.IsBackground = true;
                 thread.Name = threadName;
                 thread.Start();
@@ -275,7 +276,7 @@ namespace Vit.Core.Util.Threading.Worker
                             {
                                 IsDealing = false;
                                 status = ETaskFinishStatus.timeout;
-                               
+
                             }
                             catch (Exception ex)
                             {
@@ -289,7 +290,7 @@ namespace Vit.Core.Util.Threading.Worker
                                 }
                             }
                             finally
-                            {                           
+                            {
                                 try
                                 {
                                     OnFinish?.Invoke(status, workArg);

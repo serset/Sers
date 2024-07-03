@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using System.Collections.Generic;
+
+using Newtonsoft.Json.Linq;
 
 using Sers.Core.Module.ApiTrace.Collector;
 using Sers.Core.Module.Message;
 using Sers.Core.Module.Rpc;
-
-using System;
-using System.Collections.Generic;
 
 using Vit.Core.Module.Log;
 using Vit.Extensions;
@@ -18,9 +18,9 @@ using zipkin4net.Transport.Http;
 
 namespace Sers.ApiTrace.Collector.Zipkin
 {
-    public class ZipKinCollector : IApiTraceCollector,IDisposable
+    public class ZipKinCollector : IApiTraceCollector, IDisposable
     {
-        ~ZipKinCollector() 
+        ~ZipKinCollector()
         {
             Dispose();
         }
@@ -30,7 +30,7 @@ namespace Sers.ApiTrace.Collector.Zipkin
             config = arg.Deserialize<Config>();
             if (string.IsNullOrEmpty(config.rpcName)) config.rpcName = "ServiceCenter";
             Logger.Info("[ApiTrace.ZipKinCollector] init ...", config);
- 
+
             if (config == null) return;
             #region (x.1)注册和启动 Zipkin
             if (config.SamplingRate <= 0) config.SamplingRate = 1;

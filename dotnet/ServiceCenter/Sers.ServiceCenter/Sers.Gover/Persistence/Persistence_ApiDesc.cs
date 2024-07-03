@@ -21,7 +21,7 @@ namespace Sers.Gover.Persistence
             foreach (char invalidChar in Path.GetInvalidFileNameChars())
                 jsonFileName = jsonFileName.Replace(invalidChar, '_');
 
-            return CommonHelp.GetAbsPath(new[] { "Data", "Sers", "Gover", "ApiDesc", jsonFileName });            
+            return CommonHelp.GetAbsPath(new[] { "Data", "Sers", "Gover", "ApiDesc", jsonFileName });
         }
 
         /// <summary>
@@ -36,9 +36,9 @@ namespace Sers.Gover.Persistence
 
                 var apiDescs = data.apiServices.Values.Select(m => m.apiDesc).ToList();
 
-                if (apiDescs.Count == 0) 
+                if (apiDescs.Count == 0)
                 {
-                    if(File.Exists(filePath))
+                    if (File.Exists(filePath))
                         File.Delete(filePath);
                 }
                 else
@@ -68,7 +68,7 @@ namespace Sers.Gover.Persistence
                 foreach (string filePath in files)
                 {
                     try
-                    {                
+                    {
                         ArraySegment<byte> fileContent = File.ReadAllBytes(filePath).BytesToArraySegmentByte();
 
                         var apiDescs = fileContent.DeserializeFromArraySegmentByte<List<SsApiDesc>>();
@@ -88,7 +88,7 @@ namespace Sers.Gover.Persistence
             {
                 Logger.Error(ex);
             }
-            
+
         }
 
 

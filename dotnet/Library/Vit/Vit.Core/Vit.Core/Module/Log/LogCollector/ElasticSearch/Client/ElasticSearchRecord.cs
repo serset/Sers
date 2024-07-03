@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
 
-using System;
+using Newtonsoft.Json;
 
 namespace Vit.Core.Module.Log.LogCollector.ElasticSearch.Client
 {
@@ -39,7 +39,7 @@ namespace Vit.Core.Module.Log.LogCollector.ElasticSearch.Client
         public object appInfo;
 
 
-        public DateTime Time 
+        public DateTime Time
         {
             set
             {

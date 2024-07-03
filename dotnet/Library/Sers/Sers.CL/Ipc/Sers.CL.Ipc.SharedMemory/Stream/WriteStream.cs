@@ -12,7 +12,7 @@ namespace Sers.CL.Ipc.SharedMemory.Stream
     {
 
         //public Action  OnDisconnected;
-        public WriteStream(int boundedCapacity= 10000000)
+        public WriteStream(int boundedCapacity = 10000000)
         {
             msgToSend = new BlockingCollection<byte[]>(boundedCapacity);
         }
@@ -80,9 +80,9 @@ namespace Sers.CL.Ipc.SharedMemory.Stream
             return true;
         }
 
-     
 
-       
+
+
 
         public void SendMessageAsync(byte[] msg)
         {

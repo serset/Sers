@@ -17,7 +17,7 @@ namespace Vit.Extensions.Object_Extensions
         /// <returns>私有字段值 T</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T GetField<T>(this object instance, string fieldName)
-        {          
+        {
             return (T)instance.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).GetValue(instance);
         }
 
@@ -29,7 +29,7 @@ namespace Vit.Extensions.Object_Extensions
         /// <param name="value">私有字段新值 object</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetField(this object instance, string fieldname, object value)
-        {             
+        {
             instance.GetType().GetField(fieldname, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).SetValue(instance, value);
         }
 
@@ -61,7 +61,7 @@ namespace Vit.Extensions.Object_Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T GetProperty<T>(this object instance, string propertyName)
         {
-            return (T)GetProperty(instance, propertyName); 
+            return (T)GetProperty(instance, propertyName);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Vit.Extensions.Object_Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetProperty(this object instance, string propertyName, object value)
         {
-            instance.GetType().GetProperty(propertyName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).SetValue(instance, value);            
+            instance.GetType().GetProperty(propertyName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).SetValue(instance, value);
         }
 
         #endregion
@@ -91,7 +91,7 @@ namespace Vit.Extensions.Object_Extensions
         /// <returns>调用方法返回值</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T CallMethod<T>(this object instance, string methodName, params object[] param)
-        {      
+        {
             return (T)instance.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Invoke(instance, param);
         }
 

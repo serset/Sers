@@ -25,9 +25,9 @@ namespace Sers.CL.Ipc.NamedPipe
 
 
             delivery.serverName = config["serverName"].ConvertToString();
-            delivery.pipeName = config["pipeName"].ConvertToString();      
+            delivery.pipeName = config["pipeName"].ConvertToString();
 
-            organizeList.Add(new OrganizeClient(delivery, config)); 
+            organizeList.Add(new OrganizeClient(delivery, config));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+
 using Sers.Gover.Base.Model;
 using Sers.ServiceCenter.Entity;
 
@@ -30,7 +31,7 @@ namespace Vit.Extensions
 
         public static List<string> ApiStationNames_Get(this ServiceStation data)
         {
-            return data.apiNodes.Select((apiNode) => apiNode.apiDesc.ApiStationNameGet()).Distinct().OrderBy(m=>m).ToList();
+            return data.apiNodes.Select((apiNode) => apiNode.apiDesc.ApiStationNameGet()).Distinct().OrderBy(m => m).ToList();
         }
 
 

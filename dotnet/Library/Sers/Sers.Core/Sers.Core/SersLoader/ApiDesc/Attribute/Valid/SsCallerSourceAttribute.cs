@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Sers.Core.Module.Rpc;
 using Sers.SersLoader.ApiDesc.Attribute.RpcVerify;
 
@@ -21,11 +22,11 @@ namespace Sers.SersLoader.ApiDesc.Attribute.Valid
         }
 
 
-        public SsCallerSourceAttribute(ECallerSource  callerSource)
-        {      
-                this.callerSource = callerSource;
+        public SsCallerSourceAttribute(ECallerSource callerSource)
+        {
+            this.callerSource = callerSource;
         }
-      
+
 
         #region callerSourceString
 
@@ -87,7 +88,7 @@ namespace Sers.SersLoader.ApiDesc.Attribute.Valid
                 }
 
                 //(x.2)
-                callerSourceString = String.Join(",", values);                
+                callerSourceString = String.Join(",", values);
             }
         }
 

@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Vit.Extensions.Newtonsoft_Extensions
 {

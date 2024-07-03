@@ -1,16 +1,18 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Threading;
+
 using Newtonsoft.Json;
+
 using Sers.Core.Module.Api;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.Data;
-using Vit.Extensions;
 
 namespace App.Robot.Station.Logical.Worker
 {
 
 
-    public class Worker_ApiClientAsync: IWorker
+    public class Worker_ApiClientAsync : IWorker
     {
         [JsonIgnore]
         protected TaskItem taskItem;
@@ -22,7 +24,7 @@ namespace App.Robot.Station.Logical.Worker
             interval = taskItem.config.interval;
             logError = taskItem.config.logError;
             apiRoute = taskItem.config.apiRoute;
-            apiArg = taskItem.config.apiArg;      
+            apiArg = taskItem.config.apiArg;
             httpMethod = taskItem.config.httpMethod;
         }
 
@@ -42,20 +44,20 @@ namespace App.Robot.Station.Logical.Worker
         string httpMethod;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected  void CallApi()
+        protected void CallApi()
         {
             if (!needRunning || Interlocked.Decrement(ref leftCount) < 0)
             {
                 needRunning = false;
                 Interlocked.Decrement(ref runningThreadCount);
                 return;
-            } 
+            }
 
-            ApiClient.CallRemoteApiAsync<ApiReturn>(OnSuc, apiRoute,apiArg, httpMethod);                
+            ApiClient.CallRemoteApiAsync<ApiReturn>(OnSuc, apiRoute, apiArg, httpMethod);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void OnSuc(ApiReturn ret) 
+        void OnSuc(ApiReturn ret)
         {
             bool success = false;
             if (ret == null || ret.success)
@@ -89,7 +91,7 @@ namespace App.Robot.Station.Logical.Worker
 
             needRunning = true;
 
-            for (var t = 0; t < taskItem.config.threadCount; t++) 
+            for (var t = 0; t < taskItem.config.threadCount; t++)
             {
                 Interlocked.Increment(ref runningThreadCount);
                 CallApi();

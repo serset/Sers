@@ -52,7 +52,7 @@ namespace Sers.CL.Ipc.SharedMemory.Stream
                 Logger.Error(ex);
                 return false;
             }
-           
+
         }
 
         public bool SharedMemory_Attach(string name = "")
@@ -76,7 +76,7 @@ namespace Sers.CL.Ipc.SharedMemory.Stream
             if (buffer == null) return false;
 
             // start receiveMsg Thread
-            receiveMsg_Thread.threadName = "CL-Ipc-SharedMemory-receiveMsg-"+ buffer.Name;
+            receiveMsg_Thread.threadName = "CL-Ipc-SharedMemory-receiveMsg-" + buffer.Name;
             receiveMsg_Thread.threadCount = 1;
             receiveMsg_Thread.Processor = ReceiveMsg_Thread;
             receiveMsg_Thread.Start();
@@ -85,8 +85,8 @@ namespace Sers.CL.Ipc.SharedMemory.Stream
             return true;
         }
 
- 
-      
+
+
 
         public void Stop()
         {
@@ -112,7 +112,7 @@ namespace Sers.CL.Ipc.SharedMemory.Stream
 
         #region ReceiveMsg_Thread
 
-        LongThread receiveMsg_Thread = new LongThread();
+        readonly LongThread receiveMsg_Thread = new LongThread();
 
         void ReceiveMsg_Thread()
         {

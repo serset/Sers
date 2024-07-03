@@ -2,7 +2,6 @@
 
 using Newtonsoft.Json;
 
-using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.ComponentModel.Model;
 using Vit.Extensions;
 
@@ -95,7 +94,7 @@ namespace Vit.Core.Util.ComponentModel.SsError
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static implicit operator SsError(Exception ex)
         {
-           return new SsError().LoadFromException(ex);
-        } 
+            return new SsError().LoadFromException(ex);
+        }
     }
 }

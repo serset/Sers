@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+
 using Vit.Core.Util.Pipelines;
-using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
 
 namespace Sers.Core.Module.Message
@@ -26,7 +26,7 @@ namespace Sers.Core.Module.Message
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public SersFile Unpack(ArraySegment<byte> oriData)
         {
-            Files = UnpackOriData(oriData); 
+            Files = UnpackOriData(oriData);
             return this;
         }
 
@@ -38,7 +38,7 @@ namespace Sers.Core.Module.Message
             return PackageArraySegmentByte(Files);
         }
 
-         
+
         #endregion
 
 
@@ -56,7 +56,7 @@ namespace Sers.Core.Module.Message
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AddFile(ArraySegment<byte>file)
+        public void AddFile(ArraySegment<byte> file)
         {
             Files.Add(file);
         }
@@ -130,7 +130,7 @@ namespace Sers.Core.Module.Message
             List<ArraySegment<byte>> files = new List<ArraySegment<byte>>();
             int index = 0;
             int fileLen;
-           
+
             while (index < oriData.Count)
             {
                 fileLen = oriData.ArraySegmentByteToInt32(index);

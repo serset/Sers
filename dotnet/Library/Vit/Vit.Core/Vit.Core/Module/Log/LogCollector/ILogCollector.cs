@@ -1,12 +1,10 @@
 ﻿using Newtonsoft.Json.Linq;
 
-using System.Threading.Tasks;
-
 namespace Vit.Core.Module.Log.LogCollector
 {
     public interface ILogCollector
     {
         void Init(JObject config);
-        void Write(LogMessage msg); 
+        void Write(LogMessage msg);
     }
 }

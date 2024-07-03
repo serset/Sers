@@ -15,7 +15,8 @@ namespace Vit.Core.Module.Serialization
 
         #region #1 object <--> String
         /// <summary>
-        /// value and type could be:   byte[] / string / Object / Array / struct or ValueType(int? / bool)
+        /// value and type could be:   byte[] / string / Object / Array / struct or ValueType(int? / bool) .
+        /// will get "null" if value is null
         /// </summary>
         /// <param name="value"></param>
         /// <param name="type"></param>
@@ -26,10 +27,23 @@ namespace Vit.Core.Module.Serialization
             return Instance.Serialize(value, type);
         }
 
+        /// <summary>
+        /// value and type could be:   byte[] / string / Object / Array / struct or ValueType(int? / bool) .
+        /// will get "null" if value is null
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string Serialize<T>(T value)
+        {
+            return Instance.Serialize(value, typeof(T));
+        }
+
 
 
         /// <summary>
-        /// Deserialize to T, T could be:   byte[] / string / Object / Array / struct or ValueType(int? / bool)
+        /// Deserialize to T, T could be:   byte[] / string / Object / Array / struct or ValueType(int? / bool) .
+        /// will get default value of T if value is null or whiteSpace
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -40,7 +54,8 @@ namespace Vit.Core.Module.Serialization
         }
 
         /// <summary>
-        /// Deserialize to type, type could be:   byte[] / string / Object / Array / struct or ValueType(int? / bool)
+        /// Deserialize to type, type could be:   byte[] / string / Object / Array / struct or ValueType(int? / bool) .
+        /// will get default value of T if value is null or whiteSpace
         /// </summary>
         /// <param name="value"></param>
         /// <param name="type"></param>
@@ -144,5 +159,30 @@ namespace Vit.Core.Module.Serialization
 
         #endregion
 
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <typeparam name="TTarget"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="valueType"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static TTarget ConvertBySerialize<TTarget>(object value, Type valueType = null)
+        {
+            return Deserialize<TTarget>(Serialize(value, valueType));
+        }
+        /// <summary>
+        ///
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <typeparam name="TTarget"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static TTarget ConvertBySerialize<TValue, TTarget>(TValue value)
+        {
+            return ConvertBySerialize<TTarget>(value, typeof(TValue));
+        }
     }
 }

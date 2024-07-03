@@ -117,7 +117,7 @@ namespace Sers.CL.Socket.Iocp.Base
 
 
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)] 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public abstract void SendFrameAsync(ByteData data);
     }
 }

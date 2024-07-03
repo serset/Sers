@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+
+using Newtonsoft.Json.Linq;
 
 using Sers.Core.Module.Api.ApiEvent.ApiScope;
 using Sers.Core.Module.ApiTrace;
 using Sers.Core.Module.ApiTrace.Collector;
-
-using System;
 
 using Vit.Core.Module.Log;
 
@@ -13,7 +13,7 @@ namespace Sers.Core.Module.Api.LocalApi.ApiTrace
     public class ApiTracePublisher : IApiScopeEvent
     {
         IApiTraceCollector collector;
-      
+
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Init(JObject arg)

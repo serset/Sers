@@ -13,6 +13,6 @@
         /// <summary>
         /// 单向数据
         /// </summary>
-        message=3
+        message = 3
     }
 }

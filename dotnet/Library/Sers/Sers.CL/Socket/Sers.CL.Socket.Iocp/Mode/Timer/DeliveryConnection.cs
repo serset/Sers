@@ -29,17 +29,17 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
         /// <summary>
         /// 发送缓冲区数据块的最小大小（单位：byte）
         /// </summary>
-        public int sendBufferSize ;
+        public int sendBufferSize;
 
         /// <summary>
         /// 发送缓冲区个数
         /// </summary>
         int sendBufferCount;
 
-        ByteData[] buffer ;
-        int[] bufferItemCount ;
+        ByteData[] buffer;
+        int[] bufferItemCount;
 
-   
+
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -54,7 +54,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
         public void FlushSendFrameQueue()
         {
             int curIndex;
-             
+
             try
             {
                 while (true)
@@ -99,7 +99,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
         /// <param name="stopIndex">不包含</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void FlushData(int stopIndex)
-        {      
+        {
             int curCount;
             ByteData byteData;
             byte[] bytes;
@@ -140,7 +140,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
 
                     sumCount = 0;
                     startIndex = curIndex;
-                }           
+                }
             }
         }
 
@@ -152,7 +152,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
         /// <param name="sumCount"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        unsafe byte[] BufferToBytes(int startIndex, int stopIndex,int sumCount)
+        unsafe byte[] BufferToBytes(int startIndex, int stopIndex, int sumCount)
         {
             var bytes = new byte[sumCount + (stopIndex - startIndex) * 4];
 

@@ -13,36 +13,36 @@ namespace App.ServiceCenter
         public static void Main(string[] args)
         {
 
-            //(x.1) Init
+            // #1 Init
             Sers.ServiceCenter.ServiceCenter.Init();
 
 
-            #region (x.2) 初始化扩展模块
+            #region #2 init extension modules
 
-            #region (x.x.1)使用 Gover 服务治理 模块
+            #region  ##1 use Gover service manage module
             Sers.ServiceCenter.ServiceCenter.Instance.UseGover();
             #endregion
 
 
-            #region (x.x.2)加载 ServiceCenter ApiEvent BeforeCallApi
+            #region ##2 load ServiceCenter ApiEvent BeforeCallApi
             var BeforeCallApi = Sers.Core.Module.Api.ApiEvent.EventBuilder.LoadEvent_BeforeCallApi(Appsettings.json.GetByPath<JArray>("Sers.ServiceCenter.BeforeCallApi"));
             if (BeforeCallApi != null) Sers.ServiceCenter.ServiceCenter.Instance.apiCenterService.BeforeCallApi += BeforeCallApi;
             #endregion
 
-            //(x.x.3)从配置文件(appsettings.json::Sers.LocalApiService.ApiLoaders ) 加载api加载器并加载api
+            // ##3 Load ApiLoadera then load apis from configuration (appsettings.json::Sers.LocalApiService.ApiLoaders )
             Sers.ServiceCenter.ServiceCenter.Instance.LoadApi();
 
-            //(x.x.4)加载系统Api
+            // ##4 Load system manage apis
             Sers.ServiceCenter.ServiceCenter.Instance.LoadSsApi(typeof(Sers.ServiceCenter.Controllers.ServiceStationController).Assembly);
 
             #endregion
 
 
-            //(x.3) Start ServiceCenter
+            // #3 Start ServiceCenter
             if (!Sers.ServiceCenter.ServiceCenter.Start()) return;
 
 
-            #region (x.4) Start gateway if needed
+            #region #4 Start gateway if needed
             try
             {
                 GatewayHelp.Bridge();
@@ -55,7 +55,7 @@ namespace App.ServiceCenter
             #endregion
 
 
-            //(x.5) RunAwait
+            // #5 RunAwait
             Sers.ServiceCenter.ServiceCenter.RunAwait();
 
         }

@@ -1,15 +1,14 @@
 ﻿
-using Newtonsoft.Json.Linq;
-
-using Sers.Core.Module.Serialization.Text;
-
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
+using Newtonsoft.Json.Linq;
+
+using Sers.Core.Module.Serialization.Text;
+
 using Vit.Core.Module.Serialization;
-using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
 
 namespace Sers.Core.Module.Rpc.Serialization.Fast
@@ -31,7 +30,7 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
 
         [ThreadStatic]
         static byte[] fileContent;
- 
+
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -40,12 +39,12 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
             if (fileContent == null) fileContent = new byte[102400];
             int t = 0;
             fixed (byte* bytes = fileContent)
-            { 
+            {
 
                 //(x.1)route
                 if (data.route != null)
                 {
-                    AppendStringValue(bytes, ref t, ERpcPropertyName.route, data.route);               
+                    AppendStringValue(bytes, ref t, ERpcPropertyName.route, data.route);
                 }
 
                 #region (x.2)caller             
@@ -161,7 +160,7 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
                 while (t < data.Count)
                 {
                     rpcKey = (ERpcPropertyName)bytes[t];
-                    short len = ((short*)(bytes+t+1))[0];
+                    short len = ((short*)(bytes + t + 1))[0];
                     t += 3;
                     switch (rpcKey)
                     {
@@ -173,7 +172,7 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
                         //(x.2)
                         case ERpcPropertyName.caller_rid:
                             result.caller.rid = BytesToString(bytes + t, len);
-                            break;                     
+                            break;
                         case ERpcPropertyName.caller_callStack:
                             result.caller.callStack = Serialization.DeserializeFromArraySegmentByte<List<string>>(data.Slice(t, len));
                             break;

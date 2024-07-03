@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace Sers.Hardware.Usage
 {
@@ -46,7 +45,7 @@ namespace Sers.Hardware.Usage
             return new UsageStatus();
 
             // Cpu:2.8,Memory:34.72,NetworkIn:0,NetworkOut:0
-            string usageInfo=null;           
+            string usageInfo = null;
             try
             {
                 lock (this)
@@ -112,12 +111,12 @@ namespace Sers.Hardware.Usage
 
                 try
                 {
-                    process.Kill(); 
+                    process.Kill();
                 }
                 catch { }
 
                 try
-                {                   
+                {
                     process.Dispose();
                 }
                 catch { }

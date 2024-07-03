@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Vit.Core.Module.Log
+﻿namespace Vit.Core.Module.Log
 {
     /*
 OFF > FATAL > ERROR > WARN > INFO > DEBUG  > ALL 

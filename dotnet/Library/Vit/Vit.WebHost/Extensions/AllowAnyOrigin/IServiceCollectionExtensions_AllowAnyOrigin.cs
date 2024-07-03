@@ -11,7 +11,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection AllowAnyOrigin(this IServiceCollection services )
+        public static IServiceCollection AllowAnyOrigin(this IServiceCollection services)
         {
             AllowAnyOrigin_ConfigureServices(services);
 

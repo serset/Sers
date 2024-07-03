@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Http.Features;
-
-using Sers.Core.Module.Rpc;
-
-using System;
+﻿using System;
 using System.IO;
 using System.Runtime.CompilerServices;
+
+using Microsoft.AspNetCore.Http.Features;
+
+using Sers.Core.Module.Rpc;
 
 using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
@@ -17,7 +17,7 @@ namespace Sers.Serslot
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] ProcessRequestByRpc(ArraySegment<byte> arg_OriData)
         {
-         
+
             HttpRequestFeature requestFeature = null;
             IHttpResponseFeature responseFeature = null;
             try
@@ -28,7 +28,7 @@ namespace Sers.Serslot
                 requestFeature = rpcContext.BuildHttpRequestFeature();
 
                 //(x.2) ProcessRequest
-                responseFeature = ProcessRequest(requestFeature);         
+                responseFeature = ProcessRequest(requestFeature);
 
 
                 #region (x.3)build reply

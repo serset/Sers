@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.Json;
-using Vit.Extensions;
 
 namespace Sers.Core.Module.Rpc.Serialization.Fast
 {
@@ -25,7 +22,7 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] SerializeToBytes(RpcContextData data)
-        { 
+        {
             using (var stream = new MemoryStream(1000))
             {
                 byte[] bytes;
@@ -67,7 +64,7 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
                 #endregion
 
                 return stream.ToArray();
-            }      
+            }
 
         }
         #endregion
@@ -78,10 +75,10 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
 
 
 
- 
 
 
-       
+
+
 
 
     }

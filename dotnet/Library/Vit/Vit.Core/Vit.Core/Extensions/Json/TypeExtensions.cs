@@ -89,7 +89,7 @@ namespace Vit.Extensions.Json_Extensions
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsNumericType(this Type type) 
+        public static bool IsNumericType(this Type type)
         {
             type = GetUnderlyingTypeIfNullable(type);
             switch (Type.GetTypeCode(type))
@@ -104,7 +104,7 @@ namespace Vit.Extensions.Json_Extensions
                 case TypeCode.Int64:
                 case TypeCode.Decimal:
                 case TypeCode.Double:
-                case TypeCode.Single: 
+                case TypeCode.Single:
                     return true;
             }
             return false;

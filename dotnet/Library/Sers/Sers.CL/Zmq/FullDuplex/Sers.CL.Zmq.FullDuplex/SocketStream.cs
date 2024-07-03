@@ -1,9 +1,9 @@
-﻿using Sers.CL.Zmq.FullDuplex.Zmq;
-
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
+
+using Sers.CL.Zmq.FullDuplex.Zmq;
 
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Threading.Worker;
@@ -15,7 +15,7 @@ namespace Sers.CL.Zmq.FullDuplex
         ZSocket socketReader;
         ZSocket socketWriter;
 
- 
+
 
         public Action<List<byte[]>> OnReceiveMessage;
 
@@ -97,7 +97,7 @@ namespace Sers.CL.Zmq.FullDuplex
             {
                 Logger.Error(ex);
             }
-            
+
         }
 
 

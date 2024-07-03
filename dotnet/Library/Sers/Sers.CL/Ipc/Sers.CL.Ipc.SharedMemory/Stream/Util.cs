@@ -12,7 +12,7 @@
         /// <param name="nodeBufferSize">共享内存节点大小</param>
         /// <returns></returns>
         public static global::SharedMemory.CircularBuffer SharedMemory_Malloc(string name, int nodeCount, int nodeBufferSize)
-        {             
+        {
             string ipcName = "sers.ipc." + name;
             return new global::SharedMemory.CircularBuffer(name: ipcName, nodeCount: nodeCount, nodeBufferSize: nodeBufferSize);
         }

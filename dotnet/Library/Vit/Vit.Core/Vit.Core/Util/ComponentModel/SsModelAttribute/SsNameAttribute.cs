@@ -9,7 +9,7 @@
         /// name
         /// </summary>
         public string Value { get; set; }
-       
+
         public SsNameAttribute(string Value = null)
         {
             this.Value = Value;

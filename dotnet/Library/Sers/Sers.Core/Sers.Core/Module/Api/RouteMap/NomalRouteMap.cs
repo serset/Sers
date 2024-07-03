@@ -1,20 +1,19 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Concurrent;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace Sers.Core.Module.Api.RouteMap
 {
     public class NomalRouteMap<T> : IDataMap<T>
-        where T: class
+        where T : class
     {
 
         /// <summary>
         ///  映射表 route ->  ApiService 
         /// </summary>
-         //protected ConcurrentDictionary<string, T> apiRouteMap = new ConcurrentDictionary<string, T>();
+        //protected ConcurrentDictionary<string, T> apiRouteMap = new ConcurrentDictionary<string, T>();
 
-            
+
         protected SortedDictionary<string, T> apiRouteMap = new SortedDictionary<string, T>();
 
         public int Count => apiRouteMap.Count;
@@ -42,12 +41,12 @@ namespace Sers.Core.Module.Api.RouteMap
             {
                 return apiService;
             }
-            return default(T);
+            return default;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual T Routing(string route)
-        {             
+        {
             return Get(route);
         }
 

@@ -1,9 +1,11 @@
-﻿using Sers.Core.Module.Env;
+﻿using System;
+using System.Threading;
+
+using Sers.Core.Module.Env;
+using Sers.Hardware.Env;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ConfigurationManager;
-using System;
-using System.Threading;
-using Sers.Hardware.Env;
 using Vit.Core.Util.Threading.Timer;
 
 namespace Sers.Core.Module.App
@@ -36,7 +38,7 @@ namespace Sers.Core.Module.App
 
         #region Start
         public static void OnStart()
-        {    
+        {
 
             IsRunning = true;
             try
@@ -71,7 +73,7 @@ namespace Sers.Core.Module.App
             {
                 Logger.Error(ex);
             }
-          
+
 
             IsRunning = false;
 
@@ -86,10 +88,10 @@ namespace Sers.Core.Module.App
 
             stopEvent.Set();
 
-          
+
 
             try
-            {            
+            {
                 //退出当前进程
                 System.Diagnostics.Process.GetCurrentProcess().Kill();
             }
@@ -157,7 +159,7 @@ namespace Sers.Core.Module.App
         public static readonly DeviceInfo deviceInfo;
 
 
-        public static void CalculateUniquekey() 
+        public static void CalculateUniquekey()
         {
             if (string.IsNullOrEmpty(deviceInfo.deviceKey))
             {
@@ -172,18 +174,18 @@ namespace Sers.Core.Module.App
 
         static SersApplication()
         {
-            #region (x.1)serviceStationInfo
+            #region #1 serviceStationInfo
             {
-                serviceStationInfo = Appsettings.json.GetByPath<ServiceStationInfo>("Sers.ServiceStation.serviceStationInfo") 
+                serviceStationInfo = Appsettings.json.GetByPath<ServiceStationInfo>("Sers.ServiceStation.serviceStationInfo")
                     ?? new ServiceStationInfo();
 
-                //(x.1) stationVersion
+                // ##1 stationVersion
                 if (string.IsNullOrEmpty(serviceStationInfo.stationVersion))
                 {
                     serviceStationInfo.stationVersion = SersEnvironment.GetEntryAssemblyVersion();
                 }
 
-                //(x.2) serviceStationKey
+                // ##2 serviceStationKey
                 serviceStationInfo.serviceStationKey = null;
                 //if (string.IsNullOrEmpty(serviceStationInfo.serviceStationKey))
                 //{
@@ -192,7 +194,7 @@ namespace Sers.Core.Module.App
             }
             #endregion
 
-            #region (x.2)deviceInfo
+            #region #2 deviceInfo
             {
                 deviceInfo = EnvHelp.GetDeviceInfo();
 
@@ -203,7 +205,7 @@ namespace Sers.Core.Module.App
             }
             #endregion
         }
-       
+
         #endregion
 
     }

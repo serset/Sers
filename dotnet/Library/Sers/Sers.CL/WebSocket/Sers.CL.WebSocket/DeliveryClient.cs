@@ -3,20 +3,22 @@
 using System;
 using System.Net.WebSockets;
 using System.Threading;
+
 using Sers.Core.CL.MessageDelivery;
+
 using Vit.Core.Module.Log;
 using Vit.Extensions.Object_Extensions;
 
 namespace Sers.CL.WebSocket
 {
-    public class DeliveryClient: IDeliveryClient
+    public class DeliveryClient : IDeliveryClient
     {
 
 
         DeliveryClient_Connection _conn = new DeliveryClient_Connection();
         public IDeliveryConnection conn => _conn;
 
-        public Action<IDeliveryConnection, ArraySegment<byte>> Conn_OnGetFrame { set { _conn.OnGetFrame = value; }  }
+        public Action<IDeliveryConnection, ArraySegment<byte>> Conn_OnGetFrame { set { _conn.OnGetFrame = value; } }
 
 
         public Action<IDeliveryConnection> Conn_OnDisconnected { set => _conn.Conn_OnDisconnected = value; }
@@ -57,7 +59,7 @@ namespace Sers.CL.WebSocket
 
 
                 _webSocket.ConnectAsync(new Uri(host), new CancellationToken()).GetAwaiter().GetResult();
-                _conn.Init(_webSocket);                
+                _conn.Init(_webSocket);
 
                 _conn.StartBackThreadToReceiveMsg();
 
@@ -71,7 +73,7 @@ namespace Sers.CL.WebSocket
             return false;
         }
 
-    
+
         public void Close()
         {
             if (null == _conn) return;
@@ -79,9 +81,9 @@ namespace Sers.CL.WebSocket
             _conn = null;
             conn.Close();
         }
- 
- 
- 
+
+
+
 
 
 

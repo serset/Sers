@@ -1,14 +1,16 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using System.Collections.Generic;
+
+using Newtonsoft.Json.Linq;
+
 using Sers.Core.Module.Message;
 using Sers.Core.Module.Rpc;
 
-using System;
-using System.Collections.Generic;
-using Vit.Extensions;
 using Vit.Core.Module.Log;
 using Vit.Core.Module.Log.LogCollector.Splunk.Client;
-using Vit.Extensions.Newtonsoft_Extensions;
+using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Newtonsoft_Extensions;
 using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.Core.Module.ApiTrace.Collector
@@ -98,7 +100,7 @@ namespace Sers.Core.Module.ApiTrace.Collector
             JObject eventData = new JObject();
             eventData["level"] = "ApiTrace";
 
-            if (beginTime is DateTime _beginTime) 
+            if (beginTime is DateTime _beginTime)
             {
                 var endTime = DateTime.Now;
 

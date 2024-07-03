@@ -59,7 +59,7 @@ namespace Sers.Core.Module.Serialization.Text
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string Serialize(object value, Type type = null)
         {
-            if (value == default) return null;
+            //if (value == default) return null;
             return JsonSerializer.Serialize(value, type ?? value?.GetType(), options);
         }
 

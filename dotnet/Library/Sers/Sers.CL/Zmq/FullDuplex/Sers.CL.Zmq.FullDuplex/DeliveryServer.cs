@@ -18,7 +18,7 @@ namespace Sers.CL.Zmq.FullDuplex
         public Sers.Core.Util.StreamSecurity.SecurityManager securityManager;
 
         public Action<IDeliveryConnection> Conn_OnDisconnected { private get; set; }
-        public Action<IDeliveryConnection> Conn_OnConnected { private get; set; } 
+        public Action<IDeliveryConnection> Conn_OnConnected { private get; set; }
 
         /// <summary>
         ///  connGuid -> conn
@@ -35,7 +35,7 @@ namespace Sers.CL.Zmq.FullDuplex
         public string endpoint = "tcp://*:4504";
         ZSocket socketRouter;
         SocketStream stream = new SocketStream();
- 
+
         #region Start
 
         /// <summary>
@@ -54,13 +54,13 @@ namespace Sers.CL.Zmq.FullDuplex
 
                 //(x.2) create zmq socketWriter
                 var socketWriter = new ZSocket(ZSocketType.DEALER);
-                socketWriter.Identity = ((long) 0).Int64ToBytes();
+                socketWriter.Identity = ((long)0).Int64ToBytes();
                 socketWriter.Connect(endpoint.Replace("*", "127.0.0.1"));
 
 
                 //(x.3) Start stream
                 stream.OnReceiveMessage = OnReceiveMessage;
-                stream.BeforeStop = () => 
+                stream.BeforeStop = () =>
                 {
                     Logger.Info("[CL.DeliveryServer] Zmq.FullDuplex,stoping");
 
@@ -71,7 +71,7 @@ namespace Sers.CL.Zmq.FullDuplex
                     //以防 关闭命令 没有发送出去
                     Thread.Sleep(100);
                 };
-                stream.AfterStop = () => {            Logger.Info("[CL.DeliveryServer] Zmq.FullDuplex,stoped");    };
+                stream.AfterStop = () => { Logger.Info("[CL.DeliveryServer] Zmq.FullDuplex,stoped"); };
                 stream.Start(socketRouter, socketWriter);
                 Logger.Info("[CL.DeliveryServer] Zmq.FullDuplex,started");
                 return true;
@@ -87,7 +87,7 @@ namespace Sers.CL.Zmq.FullDuplex
         {
             if (null == msg || msg.Count < 2) return;
 
-            long identityOfWriter  = msg[0].BytesToInt64();
+            long identityOfWriter = msg[0].BytesToInt64();
 
             if (identityOfWriter != 0)
             {
@@ -143,13 +143,13 @@ namespace Sers.CL.Zmq.FullDuplex
                 msg.RemoveAt(0);
                 socketRouter.SendMessage(msg.ToArray());
                 #endregion
-            }   
+            }
 
         }
 
-        void SendMessageAsync(DeliveryConnection conn,byte[] data)
+        void SendMessageAsync(DeliveryConnection conn, byte[] data)
         {
-            stream.SendMessageAsync( conn.identityOfReader, data  );
+            stream.SendMessageAsync(conn.identityOfReader, data);
         }
 
         void SendCloseSignal(DeliveryConnection conn)
@@ -221,7 +221,7 @@ namespace Sers.CL.Zmq.FullDuplex
 
 
 
-      
+
 
 
 

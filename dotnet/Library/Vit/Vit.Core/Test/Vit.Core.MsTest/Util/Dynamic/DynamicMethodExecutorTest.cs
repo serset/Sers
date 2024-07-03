@@ -1,9 +1,11 @@
 ﻿
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Vit.Core.Util.Dynamic;
-using System.Reflection;
-using System.Diagnostics;
 using System;
+using System.Diagnostics;
+using System.Reflection;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using Vit.Core.Util.Dynamic;
 
 namespace Vit.Core.MsTest.Util.Dynamic
 {
@@ -74,7 +76,7 @@ namespace Vit.Core.MsTest.Util.Dynamic
                 Console.WriteLine(watch1.Elapsed + " (Reflection  invoke)");
 
             }
-      
+
 
         }
 

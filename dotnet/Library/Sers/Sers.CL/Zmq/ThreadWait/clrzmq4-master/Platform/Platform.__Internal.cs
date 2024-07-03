@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 
 /* Example: sqlite3.cs
 
@@ -60,34 +59,34 @@ namespace lib
 
 namespace ZeroMQ.lib
 {
-	public static partial class Platform
-	{
-		public static class __Internal
-		{
-			public static UnmanagedLibrary LoadUnmanagedLibrary(string libraryName)
-			{
-				return null;
-			}
+    public static partial class Platform
+    {
+        public static class __Internal
+        {
+            public static UnmanagedLibrary LoadUnmanagedLibrary(string libraryName)
+            {
+                return null;
+            }
 
-			public static SafeLibraryHandle OpenHandle(string fileName)
-			{
-				throw new NotSupportedException();
-			}
+            public static SafeLibraryHandle OpenHandle(string fileName)
+            {
+                throw new NotSupportedException();
+            }
 
-			public static IntPtr LoadProcedure(SafeLibraryHandle libHandle, string functionName)
-			{
-				throw new NotSupportedException();
-			}
+            public static IntPtr LoadProcedure(SafeLibraryHandle libHandle, string functionName)
+            {
+                throw new NotSupportedException();
+            }
 
-			public static bool ReleaseHandle(IntPtr handle)
-			{
-				throw new NotSupportedException();
-			}
+            public static bool ReleaseHandle(IntPtr handle)
+            {
+                throw new NotSupportedException();
+            }
 
-			public static Exception GetLastLibraryError()
-			{
-				return new NotSupportedException();
-			}
-		}
-	}
+            public static Exception GetLastLibraryError()
+            {
+                return new NotSupportedException();
+            }
+        }
+    }
 }

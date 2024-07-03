@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Channels;
+﻿using System.Threading;
 
 namespace Sers.Core.Util.PubSub.Test.Queue
 {
-    public class RingBuffer<T> where T:class
+    public class RingBuffer<T> where T : class
     {
 
         T[] buffer;
         int power;
         int length;
         int mouban;
-        public RingBuffer(int power=20) 
+        public RingBuffer(int power = 20)
         {
             this.power = power;
             this.length = 2 << power;
@@ -21,7 +17,7 @@ namespace Sers.Core.Util.PubSub.Test.Queue
 
 
             mouban = 1;
-            while (--power > 0) 
+            while (--power > 0)
             {
                 mouban <<= 1;
                 mouban++;
@@ -36,18 +32,18 @@ namespace Sers.Core.Util.PubSub.Test.Queue
 
         public void Publish(T t)
         {
-            var index=Interlocked.Increment(ref headIndex);
+            var index = Interlocked.Increment(ref headIndex);
 
             buffer[index & mouban] = t;
         }
 
- 
+
 
 
         public T Take()
         {
             var index = Interlocked.Increment(ref tailIndex) & mouban;
-            var t= buffer[index];
+            var t = buffer[index];
             buffer[index] = null;
 
             return t;

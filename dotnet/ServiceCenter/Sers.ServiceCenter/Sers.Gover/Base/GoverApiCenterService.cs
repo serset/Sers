@@ -23,7 +23,6 @@ using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
-using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.Gover.Base
 {

@@ -1,6 +1,8 @@
-﻿using Sers.Core.Module.LocalApi.MsTest.LocalApi;
-using System;
+﻿using System;
 using System.Threading;
+
+using Sers.Core.Module.LocalApi.MsTest.LocalApi;
+
 using Vit.Core.Module.Log;
 
 namespace DeliveryTest
@@ -16,12 +18,12 @@ namespace DeliveryTest
         {
             try
             {
-                
+
                 LocalApiTest.threadCount = 16;
                 int requestTreadCount = 16;
                 if (args != null)
                 {
-                    if (args.Length >=1)
+                    if (args.Length >= 1)
                     {
                         int.TryParse(args[0], out LocalApiTest.threadCount);
                     }
@@ -35,7 +37,7 @@ namespace DeliveryTest
                 {
                     //LocalApiTest.StartThread();
                     LocalApiTest.StartThread_Async();
-                    
+
                 }
 
 
@@ -50,7 +52,7 @@ namespace DeliveryTest
             }
         }
 
-         
+
 
 
 

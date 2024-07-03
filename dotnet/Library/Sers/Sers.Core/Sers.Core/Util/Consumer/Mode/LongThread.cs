@@ -1,13 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
-
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
+using Newtonsoft.Json.Linq;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Threading.Worker;
-using Vit.Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
 
 using WorkTask = Vit.Core.Util.Threading.Worker.LongThread;
@@ -44,25 +43,25 @@ namespace Sers.Core.Util.Consumer
 
 
         public void Init(JObject config)
-        { 
+        {
             threadCount = config["threadCount"]?.Deserialize<int?>() ?? 16;
         }
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Publish(T t) 
+        public void Publish(T t)
         {
             queue.Add(t);
         }
 
 
-        public void Start() 
-        { 
-            task.Stop();      
+        public void Start()
+        {
+            task.Stop();
             task.Start();
         }
 
-        public void Stop() 
+        public void Stop()
         {
             task.Stop();
         }

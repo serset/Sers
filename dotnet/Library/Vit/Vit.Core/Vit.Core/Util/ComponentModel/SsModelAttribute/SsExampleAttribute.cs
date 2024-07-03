@@ -6,7 +6,7 @@
     public class SsExampleAttribute : System.Attribute
     {
         public object Value { get; set; }
-       
+
         public SsExampleAttribute(object Value = null)
         {
             this.Value = Value;

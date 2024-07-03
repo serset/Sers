@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using System;
 
 namespace Vit.Extensions
 {
     public static partial class IWebHostBuilderExtensions_ConfigureApp
-    {      
+    {
 
 
         /// <summary>
@@ -15,13 +16,14 @@ namespace Vit.Extensions
         /// <param name="beforeConfig"></param>
         /// <param name="afterConfig"></param>
         /// <returns></returns>
-        public static IWebHostBuilder ConfigureApp(this IWebHostBuilder builder, Action<IApplicationBuilder> beforeConfig=null, Action<IApplicationBuilder> afterConfig=null)
+        public static IWebHostBuilder ConfigureApp(this IWebHostBuilder builder, Action<IApplicationBuilder> beforeConfig = null, Action<IApplicationBuilder> afterConfig = null)
         {
-            return builder.ConfigureServices(services=> {
+            return builder.ConfigureServices(services =>
+            {
                 services.ConfigureApp(beforeConfig, afterConfig);
             });
         }
 
-        
+
     }
 }

@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 namespace Vit.Core.Util.Pool
 {
     public class ObjectPool<T>
-        where T:class,new()
+        where T : class, new()
     {
 
         public static readonly ObjectPool<T> Shared = new ObjectPool<T>();
@@ -16,7 +16,7 @@ namespace Vit.Core.Util.Pool
         /// <summary>
         /// Gets or sets the total number of elements the internal data structure can hold without resizing.(default:100000)
         /// </summary>
-        public int Capacity = 2<<16;
+        public int Capacity = 2 << 16;
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -39,5 +39,5 @@ namespace Vit.Core.Util.Pool
             _objects.Add(item);
         }
     }
- 
+
 }

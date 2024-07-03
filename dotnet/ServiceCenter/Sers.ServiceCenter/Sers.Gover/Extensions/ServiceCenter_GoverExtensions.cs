@@ -97,7 +97,7 @@ namespace Vit.Extensions
                     QpsTimer_Calc();
                 }
             };
-            timer.Start();           
+            timer.Start();
         }
 
 
@@ -116,7 +116,7 @@ namespace Vit.Extensions
             catch (System.Exception ex)
             {
                 Logger.Error(ex);
-            }            
+            }
 
         }
         #endregion

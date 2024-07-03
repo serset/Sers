@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+
 using Newtonsoft.Json;
+
 using Sers.Core.Module.Api.ApiDesc;
 using Sers.Core.Module.Counter;
 
@@ -13,7 +15,7 @@ namespace Sers.ServiceCenter.Entity
     {
 
         [JsonIgnore]
-        public readonly List<ApiNode> apiNodes=new List<ApiNode>();
+        public readonly List<ApiNode> apiNodes = new List<ApiNode>();
 
         public int apiNodeCount => apiNodes.Count;
 
@@ -42,11 +44,11 @@ namespace Sers.ServiceCenter.Entity
         {
             apiNodes.Remove(apiNode);
 
-            if (apiNode.apiService==this)
-                apiNode.apiService = null;       
+            if (apiNode.apiService == this)
+                apiNode.apiService = null;
         }
 
 
-        
+
     }
 }

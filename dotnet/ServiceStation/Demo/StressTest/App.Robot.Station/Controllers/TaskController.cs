@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+
 using App.Robot.Station.Logical;
+
+using Sers.Core.Module.Rpc;
 using Sers.SersLoader;
 using Sers.SersLoader.ApiDesc.Attribute.Valid;
-using Sers.Core.Module.Rpc;
+
 using Vit.Core.Util.ComponentModel.Api;
 using Vit.Core.Util.ComponentModel.Data;
 
@@ -45,7 +48,7 @@ namespace App.Robot.Station.Controllers
         [SsCallerSource(ECallerSource.Internal)]
         public ApiReturn Add(TaskConfig config)
         {
-            return TaskMng.Instance.Add(config);         
+            return TaskMng.Instance.Add(config);
         }
 
 

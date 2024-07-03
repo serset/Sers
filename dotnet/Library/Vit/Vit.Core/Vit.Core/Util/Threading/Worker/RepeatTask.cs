@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
+
 using Vit.Core.Module.Log;
 using Vit.Extensions;
 
@@ -30,14 +31,14 @@ namespace Vit.Core.Util.Threading.Worker
         /// <summary>
         /// 线程数,默认为1
         /// </summary>
-        public long threadCount=1;
+        public long threadCount = 1;
         /// <summary>
         /// 每个线程重复执行的次数,默认为1。若指定为0则重复无限次数
         /// </summary>
-        public long repeatCountPerThread =1;
+        public long repeatCountPerThread = 1;
 
 
- 
+
         /// <summary>
         /// 出现异常时是否终止,默认false
         /// </summary>
@@ -55,7 +56,7 @@ namespace Vit.Core.Util.Threading.Worker
         /// <summary>
         /// 执行中的线程数
         /// </summary>
-        public int RunningThreadCount => runningThreadCount;     
+        public int RunningThreadCount => runningThreadCount;
 
         public bool IsRunning => runningThreadCount != 0;//threads != null && threads.Any(item=> item.IsAlive);
 
@@ -121,7 +122,7 @@ namespace Vit.Core.Util.Threading.Worker
             }
             finally
             {
-                Interlocked.Decrement(ref runningThreadCount);                
+                Interlocked.Decrement(ref runningThreadCount);
             }
         }
 

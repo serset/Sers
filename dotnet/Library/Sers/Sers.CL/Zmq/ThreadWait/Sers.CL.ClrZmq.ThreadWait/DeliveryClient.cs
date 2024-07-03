@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 
 using Sers.Core.CL.MessageDelivery;
@@ -23,12 +22,12 @@ namespace Sers.CL.ClrZmq.ThreadWait
 
 
 
-        public Action<IDeliveryConnection, ArraySegment<byte>> Conn_OnGetFrame {  set => _conn.OnGetFrame = value; }
+        public Action<IDeliveryConnection, ArraySegment<byte>> Conn_OnGetFrame { set => _conn.OnGetFrame = value; }
 
-        public Action<IDeliveryConnection> Conn_OnDisconnected {  set => _conn.Conn_OnDisconnected = value; }
+        public Action<IDeliveryConnection> Conn_OnDisconnected { set => _conn.Conn_OnDisconnected = value; }
 
 
-        
+
 
 
         SocketPoller poller = new SocketPoller();
@@ -40,7 +39,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
         public string endpoint = "tcp://127.0.0.1:4502";
 
         public bool Connect()
-        {         
+        {
 
             try
             {
@@ -107,12 +106,12 @@ namespace Sers.CL.ClrZmq.ThreadWait
             _conn.OnGetFrame(_conn, msgFrame.BytesToArraySegmentByte());
         }
 
-        void Zmq_SendMessageAsync(DeliveryConnection conn,byte[] data)
+        void Zmq_SendMessageAsync(DeliveryConnection conn, byte[] data)
         {
-            poller.SendMessageAsync(new ZMessage() { new ZFrame(data) });            
+            poller.SendMessageAsync(new ZMessage() { new ZFrame(data) });
         }
 
-       
+
 
 
         public void Close()
@@ -142,7 +141,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
             {
                 Logger.Error(ex);
             }
- 
+
         }
 
         private void SendCloseSignal()

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
+
 using Vit.Core.Module.Log;
 
 namespace DeliveryTest
@@ -8,7 +8,7 @@ namespace DeliveryTest
     class Program
     {
 
-   
+
         static void Main(string[] args)
         {
             Logger.PrintToConsole = true;
@@ -26,7 +26,7 @@ namespace DeliveryTest
 
 
 
-      
+
         static void StartServer()
         {
 
@@ -36,7 +36,7 @@ namespace DeliveryTest
             //var server = new Sers.CL.Zmq.FullDuplex.DeliveryServer();
             var server = new Sers.CL.Ipc.NamedPipe.DeliveryServer();
 
-            server.Conn_OnConnected = (conn) => 
+            server.Conn_OnConnected = (conn) =>
             {
                 conn.OnGetFrame = (conn_, data) =>
                 {
@@ -47,15 +47,15 @@ namespace DeliveryTest
                     conn_.SendFrameAsync(byteData);
                 };
             };
-           
+
 
             server.Start();
 
         }
 
-        static Vit.Core.Util.Pipelines.ByteData staticByteData => new Vit.Core.Util.Pipelines.ByteData( new ArraySegment<byte>(new byte[] { 0, 1, 2, 3 }));
+        static Vit.Core.Util.Pipelines.ByteData staticByteData => new Vit.Core.Util.Pipelines.ByteData(new ArraySegment<byte>(new byte[] { 0, 1, 2, 3 }));
 
- 
+
         static void StartClient()
         {
             //var client = new Sers.CL.WebSocket.DeliveryClient();
@@ -73,10 +73,10 @@ namespace DeliveryTest
                 conn.SendFrameAsync(byteData);
             };
 
-            var connected = client.Connect() ;
+            var connected = client.Connect();
 
-            Thread.Sleep(1000);           
-         
+            Thread.Sleep(1000);
+
             client.conn.SendFrameAsync(staticByteData);
 
 

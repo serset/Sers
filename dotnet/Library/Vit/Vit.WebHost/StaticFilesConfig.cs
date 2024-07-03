@@ -1,9 +1,12 @@
 ﻿using System;
-using Microsoft.AspNetCore.Builder;
-using Vit.Core.Util.Common;
-using Newtonsoft.Json;
 using System.Collections.Generic;
+
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.StaticFiles;
+
+using Newtonsoft.Json;
+
+using Vit.Core.Util.Common;
 
 namespace Vit.WebHost
 {

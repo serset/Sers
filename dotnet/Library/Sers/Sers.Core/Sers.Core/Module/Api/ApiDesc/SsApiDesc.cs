@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+
 using Sers.Core.Module.Valid.Sers1;
+
 using Vit.Core.Util.ComponentModel.Model;
 using Vit.Core.Util.Extensible;
 
@@ -12,21 +15,22 @@ namespace Sers.Core.Module.Api.ApiDesc
     /// Api描述
     /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
-    public class SsApiDesc: Extensible
+    public class SsApiDesc : Extensible
     {
         public SsApiDesc Clone()
         {
-           return new SsApiDesc{
-               name=name,
-               argType=argType,
-               description=description,
-               ext=ext,
-               returnType=returnType,
-               route=route,
-               extendConfig= extendConfig?.DeepClone()as JObject,
-               rpcValidations =rpcValidations,
-               rpcVerify2=rpcVerify2
-           };
+            return new SsApiDesc
+            {
+                name = name,
+                argType = argType,
+                description = description,
+                ext = ext,
+                returnType = returnType,
+                route = route,
+                extendConfig = extendConfig?.DeepClone() as JObject,
+                rpcValidations = rpcValidations,
+                rpcVerify2 = rpcVerify2
+            };
         }
 
         /// <summary>
@@ -105,7 +109,7 @@ namespace Sers.Core.Module.Api.ApiDesc
         public Object ext { get; set; }
 
 
-        
+
 
 
 

@@ -1,13 +1,17 @@
-﻿using Newtonsoft.Json.Linq;
-using Vit.Core.Module.Log;
-using Sers.Core.Module.Rpc;
-using System;
-using Sers.Core.Module.Message;
-using Sers.Core.Module.Api.ApiEvent.BeforeCallApi;
-using Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer;
-using Sers.Core.Module.Api.ApiEvent.BeforeCallApi.AccountInCookie;
-using Sers.Core.Module.Api.ApiEvent.ApiScope;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
+using Newtonsoft.Json.Linq;
+
+using Sers.Core.Module.Api.ApiEvent.ApiScope;
+using Sers.Core.Module.Api.ApiEvent.BeforeCallApi;
+using Sers.Core.Module.Api.ApiEvent.BeforeCallApi.AccountInCookie;
+using Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer;
+using Sers.Core.Module.Message;
+using Sers.Core.Module.Rpc;
+
+using Vit.Core.Module.Log;
 using Vit.Core.Util.Reflection;
 using Vit.Extensions.Newtonsoft_Extensions;
 
@@ -28,7 +32,7 @@ namespace Sers.Core.Module.Api.ApiEvent
 
             Action<RpcContextData, ApiMessage> BeforeCallApi = null;
 
-            foreach (JObject config in events)
+            foreach (JObject config in events.Cast<JObject>())
             {
                 try
                 {

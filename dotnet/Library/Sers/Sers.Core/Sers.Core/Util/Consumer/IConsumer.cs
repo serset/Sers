@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
+
+using Newtonsoft.Json.Linq;
 
 using Vit.Core.Util.Threading.Worker;
 

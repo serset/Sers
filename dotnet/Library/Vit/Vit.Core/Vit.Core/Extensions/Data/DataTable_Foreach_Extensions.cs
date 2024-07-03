@@ -8,7 +8,7 @@ namespace Vit.Extensions
     public static partial class DataTable_Foreach_Extensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Foreach(this DataTable dt,Action<DataRow> action)
+        public static void Foreach(this DataTable dt, Action<DataRow> action)
         {
             foreach (DataRow dr in dt.Rows)
             {

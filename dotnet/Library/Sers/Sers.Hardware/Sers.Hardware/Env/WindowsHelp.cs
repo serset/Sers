@@ -1,20 +1,21 @@
 ﻿using System;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
 using Vit.Core.Util.Shell;
 
 namespace Sers.Hardware.Env
 {
     public class WindowsHelp
-    {    
+    {
 
         #region GetMachineUnqueInfo
         internal static string GetMachineUnqueInfo()
         {
             string oriData = "";
-            void AddItem(string name,string value)
+            void AddItem(string name, string value)
             {
                 if (!string.IsNullOrWhiteSpace(value)) oriData += name + ":" + value + Environment.NewLine;
             }
@@ -33,9 +34,9 @@ namespace Sers.Hardware.Env
             #endregion
 
             #region (x.2)CpuSerialNumber
-            AddItem("CpuSerialNumber", GetCpuSerialNumber());          
+            AddItem("CpuSerialNumber", GetCpuSerialNumber());
             #endregion
- 
+
 
 
             #region (x.3)网卡mac地址（包含虚拟网卡）
@@ -55,7 +56,7 @@ namespace Sers.Hardware.Env
 
             macs = macs.Distinct().OrderBy(m => m).ToList();
 
-            AddItem("mac list", String.Join("  ", macs));         
+            AddItem("mac list", String.Join("  ", macs));
             #endregion
 
             oriData = oriData.Trim();
@@ -65,7 +66,7 @@ namespace Sers.Hardware.Env
         #endregion
 
 
-        
+
 
         #region GetCpuSerialNumber
         public static string GetCpuSerialNumber()
@@ -81,10 +82,10 @@ namespace Sers.Hardware.Env
                 foreach (Match item in mc)
                 {
                     return item.Value.ToUpper();
-                }               
+                }
             }
             catch (System.Exception)
-            {               
+            {
             }
             return null;
         }
@@ -167,9 +168,9 @@ E8-4E-06-43-A9-17   \Device\Tcpip_{2B617931-B9AD-4CE1-8A33-7A94B13C4A6C}
             }
             return null;
         }
-        #endregion        
+        #endregion
 
-       
+
 
     }
 }

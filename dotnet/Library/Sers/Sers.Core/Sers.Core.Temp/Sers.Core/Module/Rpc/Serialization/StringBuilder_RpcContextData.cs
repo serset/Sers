@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Text;
+
 using Sers.Core.Module.Serialization.Text;
+
 using Vit.Core.Module.Serialization;
 
 namespace Sers.Core.Module.Rpc.Serialization
@@ -84,7 +86,7 @@ namespace Sers.Core.Module.Rpc.Serialization
 
 
 
-       
+
 
 
     }

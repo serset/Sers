@@ -8,15 +8,15 @@ using Vit.Extensions.Json_Extensions;
 namespace Sers.SersLoader.ApiDesc.Attribute.RpcVerify
 {
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = true)]
-    public  class SsRpcVerifyAttribute : SsRpcVerifyBaseAttribute
+    public class SsRpcVerifyAttribute : SsRpcVerifyBaseAttribute
     {
         //{"condition":{"type":"!=","path":"caller.source"  ,  "value":"Internal"  },    "value": {"type":"_", ssError}  } 
 
-      
+
 
 
         public override void GetApiRpcVerify(JArray rpcVerifySwitchBody)
-        {            
+        {
             //(x.1)
             if (string.IsNullOrEmpty(condition)) return;
 
@@ -30,10 +30,10 @@ namespace Sers.SersLoader.ApiDesc.Attribute.RpcVerify
             item["value"] = errorValue;
 
             #region (x.4)condition
-          
+
             //(x.x.1)原始条件
             var joCon = JObject.Parse(condition);
-            if (verifiedWhenNull) 
+            if (verifiedWhenNull)
             {
                 joCon["resultWhenNull"] = true;
             }
@@ -44,7 +44,7 @@ namespace Sers.SersLoader.ApiDesc.Attribute.RpcVerify
             // {"type":"Not",  "value":SsExp    }
             item["condition"] = new JObject
             {
-                ["type"]="Not",
+                ["type"] = "Not",
                 ["value"] = joCon
             };
             #endregion
@@ -92,7 +92,7 @@ namespace Sers.SersLoader.ApiDesc.Attribute.RpcVerify
         /// </summary>
         public int errorCode
         {
-            get => ssError?.errorCode??0;
+            get => ssError?.errorCode ?? 0;
             set
             {
                 if (null == ssError) ssError = new SsError();
@@ -101,7 +101,7 @@ namespace Sers.SersLoader.ApiDesc.Attribute.RpcVerify
         }
         #endregion
 
-      
+
 
     }
 }

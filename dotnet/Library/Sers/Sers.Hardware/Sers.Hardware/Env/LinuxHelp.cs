@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
-using System.Linq;
-using System.IO;
+
 using Vit.Core.Util.Shell;
 
 namespace Sers.Hardware.Env
@@ -11,7 +12,7 @@ namespace Sers.Hardware.Env
     public class LinuxHelp
     {
 
-        
+
 
         #region GetMachineUnqueInfo
         internal static string GetMachineUnqueInfo()
@@ -22,7 +23,7 @@ namespace Sers.Hardware.Env
                 if (!string.IsNullOrWhiteSpace(value)) oriData += name + ":" + value + Environment.NewLine;
             }
 
-           
+
 
             #region (x.1)系统硬件信息  
             AddItem("OSArchitecture", "" + RuntimeInformation.OSArchitecture);
@@ -35,14 +36,14 @@ namespace Sers.Hardware.Env
             AddItem("OSVersion", "" + Environment.OSVersion);
 
 
-            AddItem("OsVersion", GetOsVersion());           
+            AddItem("OsVersion", GetOsVersion());
             #endregion
 
             #region (x.2)CpuSerialNumber
             AddItem("CpuSerialNumber", GetCpuSerialNumber());
             #endregion
 
-  
+
 
 
             #region (x.4)网卡mac地址（包含虚拟网卡）
@@ -69,8 +70,8 @@ namespace Sers.Hardware.Env
             return oriData;
         }
         #endregion
-                              
-        
+
+
 
         #region GetCpuSerialNumber    
 
@@ -86,17 +87,17 @@ namespace Sers.Hardware.Env
                 //ID: C3 06 03 00 FF FB EB BF
 
                 if (info == null) return null;
-                foreach (var item in info.Split(new string[] { Environment.NewLine },StringSplitOptions.RemoveEmptyEntries))
+                foreach (var item in info.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    var line = Regex.Replace(item??"", @"\s", "").ToUpper();
+                    var line = Regex.Replace(item ?? "", @"\s", "").ToUpper();
                     if (line.StartsWith("ID"))
                     {
                         return line.Replace("ID", "").Replace(":", "");
                     }
-                } 
+                }
             }
             catch
-            {    
+            {
             }
             return null;
         }

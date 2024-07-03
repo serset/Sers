@@ -1,7 +1,8 @@
-﻿using System.IO;
-using Vit.Core.Util.Common;
+﻿using System.Collections.Generic;
+
 using Newtonsoft.Json;
-using System.Collections.Generic;
+
+using Vit.Core.Util.Common;
 
 namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
 {
@@ -12,7 +13,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
     {
 
         #region rootPath       
-  
+
         private string _rootPath = null;
 
         /// <summary>
@@ -21,7 +22,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
         [JsonProperty]
         public string rootPath
         {
-            get => _rootPath?? CommonHelp.GetAbsPath();
+            get => _rootPath ?? CommonHelp.GetAbsPath();
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -32,7 +33,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
                 else
                 {
                     _rootPath = CommonHelp.GetAbsPath(value);
-                }                 
+                }
             }
         }
         #endregion
@@ -42,7 +43,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
         /// 回应静态文件时额外添加的http回应头。可不指定。
         /// </summary>       
         [JsonProperty]
-        public IDictionary<string,string> responseHeaders { get; set; }
+        public IDictionary<string, string> responseHeaders { get; set; }
 
 
 
@@ -58,7 +59,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
         #endregion
 
 
- 
+
 
 
     }

@@ -9,7 +9,9 @@ using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Sers.Core.CL.MessageDelivery;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Net;
 using Vit.Core.Util.Pool;
@@ -127,7 +129,7 @@ namespace Sers.CL.Socket.Iocp.Base
         /// 停止服务
         /// </summary>
         public virtual void Stop()
-        {     
+        {
 
             if (listenSocket == null) return;
 
@@ -319,7 +321,7 @@ namespace Sers.CL.Socket.Iocp.Base
         #endregion
 
 
-    
+
 
 
         #region Delivery_Event
