@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using Disruptor;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Linq;
+
+using Disruptor;
 
 namespace Sers.Core.Util.PubSub.Test.Test
 {
@@ -15,7 +16,7 @@ namespace Sers.Core.Util.PubSub.Test.Test
     public class Test
     {
 
-        public static void Main111() 
+        public static void Main111()
         {
             new Test().Start();
         }
@@ -74,7 +75,8 @@ namespace Sers.Core.Util.PubSub.Test.Test
                 });
             }
 
-            producerWorkerList.ToList().ForEach(w => {
+            producerWorkerList.ToList().ForEach(w =>
+            {
 
                 Task.Run(delegate { Run(w); });
             });
@@ -141,11 +143,11 @@ namespace Sers.Core.Util.PubSub.Test.Test
     public class Workers<TProduct> where TProduct : Producer<TProduct>, new()
     {
 
-       
+
 
         private Disruptor.WorkerPool<TProduct> _workerPool;
 
-        public Workers(List<IWorkHandler<TProduct>> handers, IWaitStrategy waitStrategy = null, int bufferSize = /*Test.repeat **/ (2<<16)) //1024 * 64
+        public Workers(List<IWorkHandler<TProduct>> handers, IWaitStrategy waitStrategy = null, int bufferSize = /*Test.repeat **/ (2 << 16)) //1024 * 64
         {
 
             if (handers == null || handers.Count == 0)

@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
+
 using Sers.Core.Util.Consumer.Mode;
 
 namespace Sers.Core.Util.Consumer
 {
     public class ConsumerFactory
     {
-        public static IConsumer<T> CreateConsumer<T>(JObject config=null) 
+        public static IConsumer<T> CreateConsumer<T>(JObject config = null)
         {
             if (config == null) config = new JObject();
 

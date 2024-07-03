@@ -28,11 +28,10 @@ namespace Sers.Serslot
             #region #1 api from host
             var config = new SersLoader.ApiLoaderConfig { assembly = assembly };
 
-            Func<SsApiDesc, ApiLoaderConfig, IApiNode> CreateApiNode =
-                (apiDesc, _) =>
-                {
-                    return new LocalApiNode(apiDesc, this);
-                };
+            IApiNode CreateApiNode(SsApiDesc apiDesc, ApiLoaderConfig _)
+            {
+                return new LocalApiNode(apiDesc, this);
+            }
 
             var apiLoader = new Sers.Serslot.ApiLoader(CreateApiNode);
 

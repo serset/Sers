@@ -18,7 +18,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
 
         public Action<IDeliveryConnection> Conn_OnDisconnected { private get; set; }
         public Action<IDeliveryConnection> Conn_OnConnected { private get; set; }
- 
+
 
         /// <summary>
         ///  connGuid -> conn
@@ -117,7 +117,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
             if (!connMap.TryGetValue(connGuid, out var conn))
             {
                 //新连接
-                conn=Delivery_OnConnected(connGuid);
+                conn = Delivery_OnConnected(connGuid);
             }
             #endregion
 

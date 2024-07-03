@@ -28,7 +28,7 @@ namespace Sers.CL.Socket.ThreadWait
             delivery.host = config["host"].ConvertToString();
             delivery.port = config["port"].Convert<int>();
 
-            organizeList.Add(new OrganizeClient(delivery, config)); 
+            organizeList.Add(new OrganizeClient(delivery, config));
         }
     }
 }

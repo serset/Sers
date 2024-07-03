@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+
 using Vit.WebHost.Extensions.HttpsRedirection;
 
 namespace Vit.Extensions

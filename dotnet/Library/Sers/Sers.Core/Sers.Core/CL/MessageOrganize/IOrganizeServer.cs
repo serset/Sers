@@ -1,5 +1,4 @@
 ﻿using System;
-using Sers.Core.Module.Message;
 namespace Sers.Core.CL.MessageOrganize
 {
     public interface IOrganizeServer

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using Sers.Core.CL.MessageDelivery;
 
@@ -9,7 +8,7 @@ using Vit.Extensions.Json_Extensions;
 namespace Sers.CL.ClrZmq.ThreadWait
 {
     public class DeliveryConnection : IDeliveryConnection
-    {       
+    {
         ~DeliveryConnection()
         {
             Close();
@@ -30,10 +29,10 @@ namespace Sers.CL.ClrZmq.ThreadWait
         Action<IDeliveryConnection, ArraySegment<byte>> _OnGetFrame;
         public Action<IDeliveryConnection, ArraySegment<byte>> OnGetFrame
         {
-            internal get=> _OnGetFrame;
+            internal get => _OnGetFrame;
             set
             {
-              
+
                 if (_securityManager != null)
                 {
                     value =
@@ -51,16 +50,16 @@ namespace Sers.CL.ClrZmq.ThreadWait
             var bytes = data.ToBytes();
 
             _securityManager?.Encryption(bytes.BytesToArraySegmentByte());
-         
+
             OnSendFrameAsync(this, bytes);
         }
-        
+
 
         public Action<IDeliveryConnection> Conn_OnDisconnected { get; set; }
 
         public void Close()
-        {             
-            state = DeliveryConnState.closed;             
+        {
+            state = DeliveryConnState.closed;
             try
             {
                 Conn_OnDisconnected?.Invoke(this);

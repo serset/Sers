@@ -27,6 +27,6 @@ namespace Sers.CL.Zmq.FullDuplex
 
             organizeList.Add(new OrganizeServer(delivery, config));
         }
- 
+
     }
 }

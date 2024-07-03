@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+
 using Sers.Core.Module.Api.LocalApi;
 using Sers.Core.Module.Api.LocalApi.StaticFileTransmit;
 using Sers.Core.Module.Api.LocalApi.StaticFileTransmit.Extensions;
-using System;
+
 using Vit.Core.Module.Log;
 
 
@@ -10,7 +11,7 @@ namespace Vit.Extensions
 {
     public static partial class ILocalApiService_StaticFileMap_Extensions
     {
-  
+
 
         #region LoadApi_StaticFileMap
 
@@ -48,13 +49,14 @@ namespace Vit.Extensions
         {
 
             #region (x.1)创建并初始化StaticFileMap
-            StaticFileMap staticFileMap = new StaticFileMap(config);          
+            StaticFileMap staticFileMap = new StaticFileMap(config);
             #endregion
 
             #region (x.2)onInvoke
-            Func<ArraySegment<byte>, byte[]> onInvoke = (ArraySegment<byte> arg_OriData) => {
+            byte[] onInvoke(ArraySegment<byte> arg_OriData)
+            {
                 return staticFileMap.TransmitFile();
-            };
+            }
             #endregion
 
             var apiNode = new ApiNode_Original(onInvoke, config.route);
@@ -65,14 +67,14 @@ namespace Vit.Extensions
 
             var msg = "[LocalApiService] 已加载静态文件映射器";
             msg += "," + Environment.NewLine + "apiName:  " + config.apiName;
-            msg += ","+ "     route:  " + config.route;
+            msg += "," + "     route:  " + config.route;
             msg += "," + Environment.NewLine + "staticFileDirectory:  " + staticFileMap.fileBasePath;
             if (!string.IsNullOrEmpty(config.contentTypeMapFile))
             {
-                msg += ","+Environment.NewLine+"contentTypeMapFile:  "+ config.contentTypeMapFile;
+                msg += "," + Environment.NewLine + "contentTypeMapFile:  " + config.contentTypeMapFile;
             }
             Logger.Info(msg);
-        }     
+        }
 
 
         #endregion

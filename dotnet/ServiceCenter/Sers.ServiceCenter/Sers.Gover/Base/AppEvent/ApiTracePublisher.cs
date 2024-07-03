@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+
+using Newtonsoft.Json.Linq;
 
 using Sers.Core.Module.ApiTrace;
 using Sers.Core.Module.ApiTrace.Collector;
 using Sers.Core.Module.App.AppEvent;
 using Sers.Core.Module.Message;
 using Sers.Core.Module.Rpc;
-
-using System;
 
 using Vit.Core.Module.Log;
 
@@ -18,7 +18,7 @@ namespace Sers.Gover.Base.AppEvent
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         Action<Object, Vit.Core.Util.Pipelines.ByteData> ApiScopeEvent(RpcContextData rpcData, ApiMessage apiRequestMessage)
         {
-             
+
             var traceData = collector.TraceStart(rpcData);
 
 
@@ -37,18 +37,18 @@ namespace Sers.Gover.Base.AppEvent
                 });
             };
         }
- 
+
         public void InitEvent(JObject arg)
         {
             var collectorName = arg?["collectorName"]?.ToString();
-            if (string.IsNullOrEmpty(collectorName)) 
+            if (string.IsNullOrEmpty(collectorName))
             {
                 Logger.Warn("[Gover.ApiTracePublisher]跳过初始化，没有指定collectorName");
                 return;
             }
 
             ApiTraceMng.InitCollector();
-            
+
             Logger.Info("[Gover.ApiTracePublisher]初始化中");
             if (ApiTraceMng.collectorMap.TryGetValue(collectorName, out collector))
             {
@@ -96,5 +96,5 @@ namespace Sers.Gover.Base.AppEvent
     }
 
 
-   
+
 }

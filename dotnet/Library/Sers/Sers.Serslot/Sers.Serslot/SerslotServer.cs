@@ -152,7 +152,7 @@ namespace Sers.Serslot
                 {
                     Logger.Error(ex);
                 }
-            });
+            }, cancellationToken);
         }
 
         // Ungraceful shutdown

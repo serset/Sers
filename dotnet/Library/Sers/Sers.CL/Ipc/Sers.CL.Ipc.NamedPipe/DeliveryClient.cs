@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO.Pipes;
+
 using Sers.Core.CL.MessageDelivery;
+
 using Vit.Core.Module.Log;
 
 namespace Sers.CL.Ipc.NamedPipe
 {
-    public class DeliveryClient: IDeliveryClient
+    public class DeliveryClient : IDeliveryClient
     {
 
         /// <summary>
@@ -13,7 +15,7 @@ namespace Sers.CL.Ipc.NamedPipe
         /// </summary>
         public int connectTimeoutMs = 1000;
 
-        DeliveryConnection _conn  = new DeliveryConnection();
+        DeliveryConnection _conn = new DeliveryConnection();
         public IDeliveryConnection conn => _conn;
 
         /// <summary>
@@ -21,7 +23,7 @@ namespace Sers.CL.Ipc.NamedPipe
         /// </summary>
         public Action<IDeliveryConnection, ArraySegment<byte>> Conn_OnGetFrame { set { _conn.OnGetFrame = value; } }
 
-        public Action<IDeliveryConnection> Conn_OnDisconnected { set=> _conn.Conn_OnDisconnected=value; }
+        public Action<IDeliveryConnection> Conn_OnDisconnected { set => _conn.Conn_OnDisconnected = value; }
 
 
         /// <summary>
@@ -32,7 +34,7 @@ namespace Sers.CL.Ipc.NamedPipe
         /// 默认 "Sers.CL.Ipc"
         /// </summary>
         public string pipeName = "Sers.CL.Ipc";
- 
+
 
         public bool Connect()
         {
@@ -58,7 +60,7 @@ namespace Sers.CL.Ipc.NamedPipe
                 Logger.Error("[CL.DeliveryClient] Ipc.NamedPipe, connect - Error", ex);
                 return false;
             }
-             
+
 
             _conn.Init(client);
 

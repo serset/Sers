@@ -5,8 +5,8 @@ using Newtonsoft.Json.Linq;
 using Sers.Core.Module.PubSub;
 
 using Vit.Core.Module.Log;
-using Vit.Extensions.Newtonsoft_Extensions;
 using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Did.SersLoader.Demo.Controllers.PubSub
 {
@@ -14,13 +14,13 @@ namespace Did.SersLoader.Demo.Controllers.PubSub
     {
         #region Demo
         public static void Subscribe()
-        { 
+        {
             #region Demo1
             {
                 string msgTitle = "SersEvent.ServiceStation.Add";
                 Action<ArraySegment<byte>> OnMessage = (msgBody) =>
                 {
-             
+
                     var serviceStation = msgBody.ArraySegmentByteToString().ConvertBySerialize<JObject>();
                     var serviceStationName = serviceStation?["serviceStationInfo"]?["serviceStationName"]?.ConvertToString();
                     var msgContext = "[Subscribe1][" + msgTitle + "] " + serviceStationName;
@@ -43,7 +43,7 @@ namespace Did.SersLoader.Demo.Controllers.PubSub
                 {
                     var serviceStation = msgBody;
                     var serviceStationName = serviceStation?["serviceStationInfo"]?["serviceStationName"]?.ConvertToString();
-                    
+
                     var msgContext = "[Subscribe2][" + msgTitle + "] " + serviceStationName;
                     Logger.Info(msgContext);
                     //Console.WriteLine(msgContext);

@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json.Linq;
-using Vit.Core.Util.Common;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Vit.Core.Util.Extensible;
 
 namespace Vit.Core.MsTest.Util
@@ -9,7 +7,7 @@ namespace Vit.Core.MsTest.Util
     [TestClass]
     public class ExtensibleTest
     {
-      
+
         [TestMethod]
         public void Test()
         {
@@ -39,7 +37,7 @@ namespace Vit.Core.MsTest.Util
             {
                 var obj = new object();
 
-                ext.SetData("ext", new { hello = "world"});
+                ext.SetData("ext", new { hello = "world" });
                 Assert.AreEqual("world", ext.GetDataBySerialize<ModelA>("ext").hello);
             }
             #endregion

@@ -1,8 +1,10 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
+
 using Sers.CL.Socket.Iocp.Base;
 using Sers.CL.Socket.Iocp.Mode.Timer;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Threading.Worker;
 
@@ -110,7 +112,7 @@ namespace Sers.CL.Socket.Iocp.Mode.ThreadWait
                 {
                     Logger.Error(ex);
                 }
-            }            
+            }
         }
 
         #endregion         

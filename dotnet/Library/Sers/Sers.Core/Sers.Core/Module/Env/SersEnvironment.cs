@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+
 using Sers.Hardware.Env;
 
 namespace Sers.Core.Module.Env
@@ -8,7 +9,7 @@ namespace Sers.Core.Module.Env
         /// <summary>
         /// deviceKey of every server machines is always unique at anytime
         /// </summary>
-        public static   string deviceKey => EnvHelp.MachineUnqueKey;
+        public static string deviceKey => EnvHelp.MachineUnqueKey;
 
         /// <summary>
         /// serviceStationKey of every service station is always unique at anytime

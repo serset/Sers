@@ -11,13 +11,13 @@
 #endregion
 
 
-using Microsoft.Extensions.DependencyModel;
-
 using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+
+using Microsoft.Extensions.DependencyModel;
 
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Common;

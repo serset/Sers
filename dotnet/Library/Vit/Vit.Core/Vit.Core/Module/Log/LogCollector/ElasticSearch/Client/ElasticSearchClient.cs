@@ -1,7 +1,8 @@
-﻿using System.Net.Http;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
+
 using Vit.Core.Module.Serialization;
 
 namespace Vit.Core.Module.Log.LogCollector.ElasticSearch.Client

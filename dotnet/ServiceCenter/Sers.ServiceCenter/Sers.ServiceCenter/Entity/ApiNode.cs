@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+
 using Newtonsoft.Json;
+
 using Sers.Core.Module.Api.ApiDesc;
 using Sers.Core.Module.Counter;
 using Sers.Core.Module.Message;
 using Sers.Core.Module.Rpc;
+
 using Vit.Core.Util.Extensible;
 
 namespace Sers.ServiceCenter.Entity
@@ -17,7 +20,7 @@ namespace Sers.ServiceCenter.Entity
     {
         [JsonProperty]
         public SsApiDesc apiDesc;
-  
+
         public ServiceStation serviceStation;
 
         /// <summary>
@@ -35,7 +38,7 @@ namespace Sers.ServiceCenter.Entity
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void CallApiAsync(RpcContextData rpcContextData, ApiMessage reqMessage, Object sender,  Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
+        public void CallApiAsync(RpcContextData rpcContextData, ApiMessage reqMessage, Object sender, Action<object, Vit.Core.Util.Pipelines.ByteData> callback)
         {
             //count
             bool success = true;

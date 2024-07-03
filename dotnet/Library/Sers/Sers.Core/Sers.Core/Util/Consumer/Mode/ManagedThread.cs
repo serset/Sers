@@ -1,16 +1,15 @@
-﻿using Newtonsoft.Json.Linq;
-
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 
+using Newtonsoft.Json.Linq;
+
 using Vit.Core.Util.Threading.Worker;
-using Vit.Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.Core.Util.Consumer
 {
 
-    public class ManagedThread<T> : IConsumer<T> 
+    public class ManagedThread<T> : IConsumer<T>
     {
 
         Vit.Core.Util.Threading.Worker.ManagedThread<T> task = new Vit.Core.Util.Threading.Worker.ManagedThread<T>();
@@ -70,6 +69,6 @@ namespace Sers.Core.Util.Consumer
             task.Stop();
         }
 
-         
+
     }
 }

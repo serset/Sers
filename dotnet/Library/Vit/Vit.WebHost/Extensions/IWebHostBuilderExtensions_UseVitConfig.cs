@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+
 using Newtonsoft.Json.Linq;
 
 namespace Vit.Extensions
@@ -17,7 +18,7 @@ namespace Vit.Extensions
             data.ConfigureServices(delegate (Microsoft.AspNetCore.Hosting.WebHostBuilderContext context, Microsoft.Extensions.DependencyInjection.IServiceCollection services)
             {
                 services.Configure(delegate (Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions options)
-                {                    
+                {
                     //限制body的大小
                     options.Limits.MaxRequestBodySize = Vit.Core.Util.ConfigurationManager.Appsettings
                     .json.GetByPath<long?>("Vit.Kestrel.MaxRequestBodySize");
@@ -26,7 +27,7 @@ namespace Vit.Extensions
                 //解决Multipart body length limit 134217728 exceeded
                 services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(x =>
                 {
-                    
+
                     var ValueLengthLimit = Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<int?>("Vit.Kestrel.ValueLengthLimit");
                     if (ValueLengthLimit.HasValue)
                     {
@@ -37,7 +38,7 @@ namespace Vit.Extensions
                     if (MultipartBodyLengthLimit.HasValue)
                     {
                         x.MultipartBodyLengthLimit = MultipartBodyLengthLimit.Value;// In case of multipart
-                    }        
+                    }
                 });
             });
 
@@ -47,7 +48,7 @@ namespace Vit.Extensions
                 {
                     logging.ClearProviders();
                 });
-            }         
+            }
 
             return data;
         }

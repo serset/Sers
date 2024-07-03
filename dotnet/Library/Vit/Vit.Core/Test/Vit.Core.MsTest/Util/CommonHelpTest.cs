@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Vit.Core.Util.Common;
 
 namespace Vit.Core.MsTest.Util

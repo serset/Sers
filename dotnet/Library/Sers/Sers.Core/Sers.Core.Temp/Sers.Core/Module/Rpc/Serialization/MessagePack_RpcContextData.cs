@@ -1,9 +1,11 @@
-﻿using System.Runtime.CompilerServices;
-using MessagePack.Formatters;
-using MessagePack;
+﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+
+using MessagePack;
+using MessagePack.Formatters;
+
 using Vit.Core.Module.Serialization;
-using System;
 
 namespace Sers.Core.Module.Rpc.Serialization
 {
@@ -25,7 +27,7 @@ namespace Sers.Core.Module.Rpc.Serialization
         public RpcContextData DeserializeFromBytes(ArraySegment<byte> data)
         {
             MessagePackReader reader = new MessagePackReader(data);
-            
+
             return Instance.Deserialize(ref reader, MessagePackSerializer.DefaultOptions);
         }
 
@@ -43,12 +45,12 @@ namespace Sers.Core.Module.Rpc.Serialization
                 writer.WriteNil();
                 return;
             }
-             
-    
+
+
             //(x.1)route
             writer.WriteMapHeader(
                 3
-                + (value.error != null ? 1 : 0) 
+                + (value.error != null ? 1 : 0)
                 + (value.user != null ? 1 : 0)
                 );
             writer.Write("route"); writer.Write(value.route);
@@ -61,7 +63,7 @@ namespace Sers.Core.Module.Rpc.Serialization
                 );
             writer.Write("rid"); writer.Write(value.caller.rid);
             writer.Write("source"); writer.Write(value.caller.source);
-      
+
             if (value.caller.callStack != null)
             {
                 writer.Write("callStack");
@@ -81,19 +83,19 @@ namespace Sers.Core.Module.Rpc.Serialization
                 );
             writer.Write("url"); writer.Write(value.http.url);
             writer.Write("method"); writer.Write(value.http.method);
-            
+
             if (value.http.statusCode.HasValue)
             {
-                writer.Write("statusCode"); 
-                writer.Write(value.http.statusCode.Value); 
+                writer.Write("statusCode");
+                writer.Write(value.http.statusCode.Value);
             }
 
-            if (value.http.protocol != null) 
+            if (value.http.protocol != null)
             {
                 writer.Write("protocol"); writer.Write(value.http.protocol);
             }
-            
-            if (value.http.headers != null)            
+
+            if (value.http.headers != null)
             {
                 writer.Write("headers");
                 writer.WriteMapHeader(value.http.headers.Count);
@@ -149,7 +151,7 @@ namespace Sers.Core.Module.Rpc.Serialization
                     case "route":
                         result.route = reader.ReadString();
                         break;
-                  
+
                     case "caller":
                         itemCount = reader.ReadMapHeader();
                         options.Security.DepthStep(ref reader);
@@ -179,7 +181,7 @@ namespace Sers.Core.Module.Rpc.Serialization
                                     }
                                     break;
                                 default:
-                                    reader.Skip(); break; 
+                                    reader.Skip(); break;
                             }
                         }
 
@@ -212,10 +214,10 @@ namespace Sers.Core.Module.Rpc.Serialization
                                     if (arrayCount > 0)
                                     {
                                         options.Security.DepthStep(ref reader);
-                                        var headers=new Dictionary<string, string>(arrayCount);
+                                        var headers = new Dictionary<string, string>(arrayCount);
                                         while ((arrayCount--) > 0)
                                         {
-                                            headers[reader.ReadString()]= reader.ReadString();
+                                            headers[reader.ReadString()] = reader.ReadString();
                                         }
                                         result.http.headers = headers;
                                         reader.Depth--;

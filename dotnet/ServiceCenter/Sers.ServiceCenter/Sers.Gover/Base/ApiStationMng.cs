@@ -26,7 +26,7 @@ namespace Sers.Gover.Base
 
         GoverApiCenterService goverManage;
         public ApiStationMng()
-        {            
+        {
         }
 
         public ApiStationMng Init(GoverApiCenterService goverManage)
@@ -45,13 +45,13 @@ namespace Sers.Gover.Base
         public IEnumerable<SsApiDesc> ApiDesc_GetAll()
         {
             var apiServices = (from apiStation in apiStations.Values
-                       from apiService in apiStation.apiServices.Values
-                       select apiService);
+                               from apiService in apiStation.apiServices.Values
+                               select apiService);
 
-            var res = apiServices.Select((apiService)=> 
+            var res = apiServices.Select((apiService) =>
             {
                 var apiDesc = apiService.apiDesc.ConvertBySerialize<SsApiDesc>();
-                apiDesc.ext = new { apiService.counter};
+                apiDesc.ext = new { apiService.counter };
                 return apiDesc;
             });
             return res;
@@ -65,10 +65,10 @@ namespace Sers.Gover.Base
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public List<ApiStationData> ApiStation_GetAll()
         {
-            return apiStations.Values.OrderBy(m=>m.stationName).ToList();
+            return apiStations.Values.OrderBy(m => m.stationName).ToList();
         }
 
-         
+
         public bool ApiStation_Pause(string stationName)
         {
             lock (this)
@@ -76,13 +76,13 @@ namespace Sers.Gover.Base
                 if (!apiStations.TryGetValue(stationName, out var apiStationData))
                 {
                     return false;
-                }               
+                }
 
                 if (apiStationData.eStatus == EServiceStationStatus.暂停)
                 {
                     return true;
                 }
-                apiStationData.eStatus=EServiceStationStatus.暂停;
+                apiStationData.eStatus = EServiceStationStatus.暂停;
 
                 foreach (var apiNode in apiStationData.apiServices.Values.SelectMany((m) => m.apiNodes))
                 {
@@ -91,7 +91,7 @@ namespace Sers.Gover.Base
             }
             return true;
         }
-   
+
         public bool ApiStation_Start(string stationName)
         {
             lock (this)
@@ -109,7 +109,7 @@ namespace Sers.Gover.Base
 
 
 
-                foreach (var apiNode in apiStationData.apiServices.Values.SelectMany((m)=>m.apiNodes))
+                foreach (var apiNode in apiStationData.apiServices.Values.SelectMany((m) => m.apiNodes))
                 {
                     apiNode.StopReason_Remove(goverManage.apiLoadBalancingMng, "stopByApiStation");
                 }
@@ -139,7 +139,7 @@ namespace Sers.Gover.Base
 
         void ApiStation_Remove(ApiStationData apiStation)
         {
-            apiStations.TryRemove(apiStation.stationName,out _);
+            apiStations.TryRemove(apiStation.stationName, out _);
         }
 
         #endregion
@@ -153,13 +153,13 @@ namespace Sers.Gover.Base
         public void ApiService_RemoveOffline()
         {
             List<ApiStationData> changedApiStationList;
- 
+
             lock (this)
             {
                 var apiServiceItems = (from apiStation in apiStations.Values
-                                   from apiService in apiStation.apiServices.Values
-                                   where apiService.apiNodeCount==0
-                                   select (apiStation,apiService)).ToList();
+                                       from apiService in apiStation.apiServices.Values
+                                       where apiService.apiNodeCount == 0
+                                       select (apiStation, apiService)).ToList();
 
                 foreach (var (apiStation, apiService) in apiServiceItems)
                 {
@@ -171,10 +171,10 @@ namespace Sers.Gover.Base
 
                 foreach (var apiStation in changedApiStationList)
                 {
-                    if (apiStation.apiServiceCount == 0) 
+                    if (apiStation.apiServiceCount == 0)
                     {
                         ApiStation_Remove(apiStation);
-                    } 
+                    }
                 }
             }
 
@@ -212,7 +212,7 @@ namespace Sers.Gover.Base
                 {
                     Logger.Info("[ApiCenterService]Add ApiNode", apiNode.apiDesc.ServiceKeyGet());
                 }
-                
+
 
                 //ApiStation 添加ApiNode
                 var apiStation = ApiStation_GetOrAddByRoute(route);
@@ -249,11 +249,11 @@ namespace Sers.Gover.Base
             //}
 
             //ApiLoadBalancingMng 注销ApiNode
-            apiNode.Stop(goverManage.apiLoadBalancingMng); 
+            apiNode.Stop(goverManage.apiLoadBalancingMng);
         }
 
 
-       
+
 
 
 
@@ -327,7 +327,7 @@ namespace Sers.Gover.Base
             {
                 foreach (var apiNode in serviceStation.apiNodes)
                 {
-                    apiNode.StopReason_Add(goverManage.apiLoadBalancingMng, "stopByServiceStation");             
+                    apiNode.StopReason_Add(goverManage.apiLoadBalancingMng, "stopByServiceStation");
                 }
             }
         }
@@ -340,7 +340,7 @@ namespace Sers.Gover.Base
             {
                 foreach (var apiNode in serviceStation.apiNodes)
                 {
-                    apiNode.StopReason_Remove(goverManage.apiLoadBalancingMng, "stopByServiceStation");          
+                    apiNode.StopReason_Remove(goverManage.apiLoadBalancingMng, "stopByServiceStation");
                 }
             }
         }

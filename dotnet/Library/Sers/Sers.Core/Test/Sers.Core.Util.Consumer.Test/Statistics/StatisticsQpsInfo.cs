@@ -24,7 +24,8 @@ namespace CLClient.Statistics
             startTime = DateTime.Now;
             Console.WriteLine("蝕兵");
 
-            Task.Run(() => {
+            Task.Run(() =>
+            {
 
                 while (!finished)
                 {
@@ -98,10 +99,10 @@ namespace CLClient.Statistics
                 msg += $" ReqCount: {curCount}認";
                 ms = (curTime - lastTime).TotalMilliseconds;
                 d = (curCount - lastCount) / ms * 1000;
-                msg += $",qps:{ d.ToString("0.00") }認";
+                msg += $",qps:{d.ToString("0.00")}認";
                 ms = 1.0 * (curRequestTicks - lastRequestTicks) / TimeSpan.TicksPerMillisecond;
                 d = (curCount <= lastCount ? 0 : ms / (curCount - lastCount));
-                msg += $",ms/req:{ d.ToString("0.00") }認";
+                msg += $",ms/req:{d.ToString("0.00")}認";
 
 
                 lastRequestTicks = curRequestTicks;

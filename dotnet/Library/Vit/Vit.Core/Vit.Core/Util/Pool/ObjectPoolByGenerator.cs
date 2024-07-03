@@ -3,12 +3,12 @@ using System.Runtime.CompilerServices;
 
 namespace Vit.Core.Util.Pool
 {
-    public class ObjectPoolGenerator<T>       
+    public class ObjectPoolGenerator<T>
     {
         public static readonly ObjectPoolGenerator<T> Shared = new ObjectPoolGenerator<T>();
 
 
-        private PoolCache<T> _objects = new PoolCache<T>(); 
+        private PoolCache<T> _objects = new PoolCache<T>();
 
         public Func<T> objectGenerator;
 
@@ -20,7 +20,7 @@ namespace Vit.Core.Util.Pool
         public int Capacity = 2 << 16;
 
 
-        public ObjectPoolGenerator(Func<T> objectGenerator=null)
+        public ObjectPoolGenerator(Func<T> objectGenerator = null)
         {
             this.objectGenerator = objectGenerator;
             //this.objectGenerator = objectGenerator ?? throw new ArgumentNullException("objectGenerator");          
@@ -32,7 +32,7 @@ namespace Vit.Core.Util.Pool
             //return objectGenerator.Invoke();
 
             if (_objects.TryTake(out var item)) return item;
-            if(objectGenerator!=null) return objectGenerator.Invoke();
+            if (objectGenerator != null) return objectGenerator.Invoke();
             return default;
         }
 
@@ -49,5 +49,5 @@ namespace Vit.Core.Util.Pool
             _objects.Add(item);
         }
     }
- 
+
 }

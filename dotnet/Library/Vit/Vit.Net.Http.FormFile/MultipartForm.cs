@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Net.Http.Headers;
-using System.IO;
-using System.Threading.Tasks;
+
 using Vit.Extensions;
 
 namespace Vit.Net.Http.FormFile
@@ -53,11 +54,8 @@ namespace Vit.Net.Http.FormFile
 
         public MultipartForm(byte[] Body, string ContentType)
         {
-            using (var stream = new MemoryStream(Body))
-            {
-                ReadMultipartForm(this, stream, ContentType);
-            }
-
+            using var stream = new MemoryStream(Body);
+            ReadMultipartForm(this, stream, ContentType);
         }
 
 

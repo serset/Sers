@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using Sers.SersLoader;
+
 using Vit.Core.Util.ComponentModel.Api;
 
 namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Controllers
@@ -15,11 +17,11 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Controllers
         }
 
 
-       
+
         [SsRoute("api/GetDeviceGuidList")]
         public string GetDeviceGuidList(string arg)
         {
-            return arg+ "Test";
+            return arg + "Test";
         }
 
 

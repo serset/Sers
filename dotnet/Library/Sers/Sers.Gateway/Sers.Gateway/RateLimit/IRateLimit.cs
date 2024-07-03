@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+
 using Vit.Core.Util.ComponentModel.SsError;
 
 
@@ -19,7 +20,7 @@ namespace Sers.Gateway.RateLimit
         SsError BeforeCall(HttpContext context);
 
 
-       
+
 
         void OnFinally(HttpContext context);
     }

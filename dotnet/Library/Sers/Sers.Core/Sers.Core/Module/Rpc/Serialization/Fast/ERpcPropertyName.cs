@@ -8,8 +8,8 @@ namespace Sers.Core.Module.Rpc.Serialization.Fast
         route = 10,
 
         caller_rid = 20,
-        caller_callStack =21,
-        caller_source=22,
+        caller_callStack = 21,
+        caller_source = 22,
 
         http_url = 30,
         http_method = 31,

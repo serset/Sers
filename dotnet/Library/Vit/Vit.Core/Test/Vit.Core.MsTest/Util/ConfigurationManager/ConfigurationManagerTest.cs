@@ -1,6 +1,7 @@
 ﻿using System;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
- 
+
 namespace Vit.Core.MsTest.Util.ConfigurationManager
 {
     [TestClass]
@@ -15,7 +16,7 @@ namespace Vit.Core.MsTest.Util.ConfigurationManager
         [TestMethod]
         public void Test()
         {
-            var Instance= Vit.Core.Util.ConfigurationManager.Appsettings.json;
+            var Instance = Vit.Core.Util.ConfigurationManager.Appsettings.json;
 
             #region (x.1)DateTime 
             var date = Instance.Get<DateTime>("Test", "DateTime");
@@ -34,7 +35,7 @@ namespace Vit.Core.MsTest.Util.ConfigurationManager
 
 
             //(x.3)long
-            long l = Instance.Get<long>("Test","long");
+            long l = Instance.Get<long>("Test", "long");
             Assert.AreEqual(l, 1234567890123L);
 
             //(x.4)double

@@ -1,8 +1,10 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
+
 using Sers.CL.Socket.Iocp.Base;
 using Sers.CL.Socket.Iocp.Mode.Timer;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Threading.Worker;
 
@@ -46,7 +48,7 @@ namespace Sers.CL.Socket.Iocp.Mode.ThreadWait
                     return false;
                 }
 
-                           
+
                 //(x.4)   
                 Send_task.threadCount = 1;
                 Send_task.Processor = Send_Flush;
@@ -75,7 +77,7 @@ namespace Sers.CL.Socket.Iocp.Mode.ThreadWait
             {
                 Logger.Error(ex);
             }
-        
+
 
             base.Close();
         }
@@ -93,24 +95,24 @@ namespace Sers.CL.Socket.Iocp.Mode.ThreadWait
 
         LongThread Send_task = new LongThread();
 
- 
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void Send_Flush()
         {
-            while (true) 
+            while (true)
             {
                 try
                 {
                     _conn.FlushSendFrameQueue();
- 
+
                     //global::System.Threading.SpinWait.SpinUntil(() => false, sendFlushInterval);
-                    Thread.Sleep(sendFlushInterval); 
+                    Thread.Sleep(sendFlushInterval);
                 }
                 catch (Exception ex) when (!(ex.GetBaseException() is ThreadInterruptedException))
                 {
                     Logger.Error(ex);
                 }
-            }           
+            }
         }
 
         #endregion

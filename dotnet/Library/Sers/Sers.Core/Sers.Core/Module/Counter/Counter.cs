@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Threading;
+
 using Newtonsoft.Json;
 
 namespace Sers.Core.Module.Counter
@@ -41,7 +42,7 @@ namespace Sers.Core.Module.Counter
         public void Increment(bool success)
         {
             Interlocked.Increment(ref sumCount);
-            if(!success) Interlocked.Increment(ref errorCount);
+            if (!success) Interlocked.Increment(ref errorCount);
 
             parentCounter?.Increment(success);
         }

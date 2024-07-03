@@ -3,7 +3,7 @@
 namespace Vit.Extensions
 {
     public static partial class IWebHostBuilderExtensions_AllowAnyOrigin
-    {       
+    {
 
         /// <summary>
         /// 允许跨域访问。（尽早调用）

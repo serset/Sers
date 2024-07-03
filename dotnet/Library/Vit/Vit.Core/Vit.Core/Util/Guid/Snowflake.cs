@@ -1,9 +1,8 @@
-﻿using Vit.Core.Module.Log;
-using Vit.Core.Util.Common;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 using System.Threading;
+
+using Vit.Core.Module.Log;
+using Vit.Core.Util.Common;
 
 namespace Vit.Core.Util.Guid
 {
@@ -14,7 +13,7 @@ namespace Vit.Core.Util.Guid
     /// </summary>
     public class Snowflake
     {
-        private static long machineId=0;//机器ID
+        private static long machineId = 0;//机器ID
         private static long datacenterId = 0L;//数据ID
 
 
@@ -61,7 +60,7 @@ namespace Vit.Core.Util.Guid
             catch (Exception ex)
             {
                 Logger.Error(ex);
-            }     
+            }
         }
         /// <summary>
         /// 5位(0~31)
@@ -85,7 +84,7 @@ namespace Vit.Core.Util.Guid
         /// </summary>
         /// <param name="datacenterId"></param>
         public static void SetDatacenterId(long datacenterId)
-        {            
+        {
 
             if (datacenterId >= 0)
             {

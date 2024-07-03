@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+
 using Vit.Core.Module.Serialization;
 
 namespace Sers.Core.Module.Rpc.Serialization
@@ -11,7 +12,7 @@ namespace Sers.Core.Module.Rpc.Serialization
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public byte[] SerializeToBytes(RpcContextData data) 
+        public byte[] SerializeToBytes(RpcContextData data)
         {
             return Serialization_Newtonsoft.Instance.SerializeToBytes(data);
         }
@@ -25,6 +26,6 @@ namespace Sers.Core.Module.Rpc.Serialization
 
 
 
- 
+
     }
 }

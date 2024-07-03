@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading;
-using Vit.Core.Util.Threading.Timer;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using Vit.Core.Util.Threading.Timer;
 
 namespace Vit.Core.Util.Threading.MsTest.Timer
 {
@@ -41,10 +43,10 @@ namespace Vit.Core.Util.Threading.MsTest.Timer
 
             timer.Stop();
 
-            Assert.AreEqual(5,count);
+            Assert.AreEqual(5, count);
 
             Thread.Sleep(200);
-            Assert.AreEqual(5,count);
+            Assert.AreEqual(5, count);
 
             if (!string.IsNullOrEmpty(errorMessage))
                 Assert.Fail(errorMessage);

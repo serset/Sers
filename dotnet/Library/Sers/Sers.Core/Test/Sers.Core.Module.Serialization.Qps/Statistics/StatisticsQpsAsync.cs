@@ -1,44 +1,45 @@
- 
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace Statistics
 {
 
 
-    public class QpsData 
+    public class QpsData
     {
-        public QpsData(StatisticsQpsAsync stat) 
+        public QpsData(StatisticsQpsAsync stat)
         {
-            lock (stat.qpsList) 
+            lock (stat.qpsList)
             {
                 stat.qpsList.Add(this);
             }
         }
 
         public long RequestCount = 0;
- 
+
     }
 
 
     public class StatisticsQpsAsync
     {
-        public  List<QpsData> qpsList = new List<QpsData>();
+        public List<QpsData> qpsList = new List<QpsData>();
 
-  
+
 
         bool finished = false;
         public void Start(string name)
         {
-            
+
             finished = false;
-       
+
             Console.WriteLine("开始");
 
-            Task.Run(() => {
+            Task.Run(() =>
+            {
 
                 while (!finished)
                 {
@@ -56,24 +57,24 @@ namespace Statistics
             Console.WriteLine("结束");
             Console.WriteLine(ToString());
         }
- 
 
-    
+
+
 
         long lastSumCount = 0;
-    
-        DateTime lastTime=DateTime.Now;
+
+        DateTime lastTime = DateTime.Now;
         public override string ToString()
         {
             var curTime = DateTime.Now;
 
-           var curSumCount = qpsList.Sum(data => Interlocked.Read(ref data.RequestCount));
+            var curSumCount = qpsList.Sum(data => Interlocked.Read(ref data.RequestCount));
             //var curSumCount = qpsList.Sum(data =>  (long)data.RequestCount);
 
             long curCount = curSumCount - lastSumCount;
             double qps = curCount / (curTime - lastTime).TotalSeconds;
             lastSumCount = curSumCount;
-            lastTime=curTime;
+            lastTime = curTime;
 
             var msg = "";
 
@@ -82,8 +83,8 @@ namespace Statistics
             msg += $" qps: {qps.ToString("0.00")}万 ";
             msg += $" curCount: {curCount} ";
             msg += $" sumCount: {curSumCount} ";
-           
-            
+
+
             return msg;
         }
     }

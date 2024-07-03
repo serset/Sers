@@ -48,7 +48,7 @@ namespace Vit.Core.Module.Log
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Error(string message, params object[] metadata)
         {
-            Log(Level.error, message,metadata);
+            Log(Level.error, message, metadata);
         }
 
 

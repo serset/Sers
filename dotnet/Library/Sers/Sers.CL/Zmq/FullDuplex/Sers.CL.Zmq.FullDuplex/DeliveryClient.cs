@@ -26,10 +26,10 @@ namespace Sers.CL.Zmq.FullDuplex
 
 
 
-        public Action<IDeliveryConnection, ArraySegment<byte>> Conn_OnGetFrame {  set => _conn.OnGetFrame = value; }
+        public Action<IDeliveryConnection, ArraySegment<byte>> Conn_OnGetFrame { set => _conn.OnGetFrame = value; }
 
-        public Action<IDeliveryConnection> Conn_OnDisconnected {  set => _conn.Conn_OnDisconnected = value; }
- 
+        public Action<IDeliveryConnection> Conn_OnDisconnected { set => _conn.Conn_OnDisconnected = value; }
+
 
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Sers.CL.Zmq.FullDuplex
 
                 //(x.4) Start stream               
                 stream.OnReceiveMessage = OnReceiveMessage;
-                stream.BeforeStop = () => 
+                stream.BeforeStop = () =>
                 {
                     SendCloseSignal();
                     _conn.Close();

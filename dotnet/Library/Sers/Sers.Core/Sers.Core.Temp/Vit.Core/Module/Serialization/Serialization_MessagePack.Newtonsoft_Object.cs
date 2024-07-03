@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using MessagePack.Formatters;
+
 using MessagePack;
+using MessagePack.Formatters;
+
 using Newtonsoft.Json.Linq;
 
-using static Vit.Core.Module.Serialization.Serialization_MessagePack;
 using Vit.Extensions.Newtonsoft_Extensions;
+
+using static Vit.Core.Module.Serialization.Serialization_MessagePack;
 
 namespace Vit.Core.Module.Serialization
 {

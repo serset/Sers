@@ -2,7 +2,7 @@
 
 namespace Sers.Core.Module.App.AppEvent
 {
-    public interface  IAppEvent
+    public interface IAppEvent
     {
         void InitEvent(JObject arg);
 

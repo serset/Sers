@@ -25,9 +25,9 @@ namespace Sers.Hardware.Process
 
 
 
-        public static ProcessInfo GetCurrentProcessInfo() 
+        public static ProcessInfo GetCurrentProcessInfo()
         {
-            var processInfo=new ProcessInfo();
+            var processInfo = new ProcessInfo();
             try
             {
                 var process = System.Diagnostics.Process.GetCurrentProcess();

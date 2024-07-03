@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
+
 using Sers.Core.Module.Message;
 using Sers.Core.Module.Rpc;
 using Sers.ServiceCenter.Entity;
+
 using Vit.Core.Util.ComponentModel.SsError;
 
 namespace Sers.Gover.RateLimit
 {
-   
+
 
 
     /// <summary>
     /// 固定时间窗口限流
     /// </summary>
-    public class FixedWindow: IRateLimit
+    public class FixedWindow : IRateLimit
     {
 
         /// <summary>
@@ -27,7 +29,7 @@ namespace Sers.Gover.RateLimit
         /// </summary>
         public string rateLimitKey { get; set; }
 
-    
+
 
         /// <summary>
         /// 时间窗口内最大请求数
@@ -45,8 +47,8 @@ namespace Sers.Gover.RateLimit
 
 
         private int reqCount = 0;
-        private long timeStampStart=0;
-        private long timeStampEnd=0;
+        private long timeStampStart = 0;
+        private long timeStampEnd = 0;
 
 
 
@@ -54,8 +56,8 @@ namespace Sers.Gover.RateLimit
         public SsError BeforeLoadBalancing(RpcContextData rpcData, ApiMessage requestMessage)
         {
             //以_开始的系统节点不限流 
-            var route = rpcData.route??"";
-            if (route.Length>1&& '_' == route[1])
+            var route = rpcData.route ?? "";
+            if (route.Length > 1 && '_' == route[1])
             {
                 return null;
             }
@@ -97,6 +99,6 @@ namespace Sers.Gover.RateLimit
             return null;
         }
 
-       
+
     }
 }

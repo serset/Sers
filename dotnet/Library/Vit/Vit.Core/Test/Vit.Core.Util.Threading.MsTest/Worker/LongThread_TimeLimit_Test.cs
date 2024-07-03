@@ -1,9 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using System;
+﻿using System;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Timers;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Vit.Core.Util.Threading.Worker;
 
@@ -20,7 +18,7 @@ namespace Vit.Core.Util.Threading.MsTest.Worker
 
             var task = new LongThread_TimeLimit<int>
             {
-                GetWork = () => 
+                GetWork = () =>
                 {
                     var _count = Interlocked.Increment(ref count);
 

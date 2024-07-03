@@ -1,11 +1,11 @@
-﻿using CLServer.Statistics;
-using Sers.Core.CL.MessageDelivery;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Threading;
-using System.Threading.Tasks;
+
+using CLServer.Statistics;
+
+using Sers.Core.CL.MessageDelivery;
+
 using Vit.Core.Module.Log;
-using Vit.Core.Util.Threading;
 
 namespace DeliveryTest
 {
@@ -94,7 +94,7 @@ namespace DeliveryTest
 
             //client = new Sers.CL.Socket.ThreadWait.DeliveryClient();
 
-       
+
 
             //client = new Sers.CL.WebSocket.DeliveryClient();
             //client = new Sers.CL.ClrZmq.ThreadWait.DeliveryClient();
@@ -108,15 +108,15 @@ namespace DeliveryTest
            {
                //Task.Run(() =>
                //{
-                   qpsInfo.IncrementRequest();
+               qpsInfo.IncrementRequest();
 
-                   //Thread.Sleep(1);
+               //Thread.Sleep(1);
 
-                   //data[0]++;
-                   //data[1] = 10;                 
+               //data[0]++;
+               //data[1] = 10;                 
 
-                   var byteData = new Vit.Core.Util.Pipelines.ByteData(data);
-                   conn.SendFrameAsync(byteData);
+               var byteData = new Vit.Core.Util.Pipelines.ByteData(data);
+               conn.SendFrameAsync(byteData);
                //});
 
            };

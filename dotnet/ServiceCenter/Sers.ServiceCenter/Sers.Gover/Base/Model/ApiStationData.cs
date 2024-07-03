@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
+
 using Newtonsoft.Json;
+
 using Sers.Core.Module.Api.ApiDesc;
 using Sers.Core.Module.Counter;
 using Sers.ServiceCenter.Entity;
+
 using Vit.Core.Util.Extensible;
 using Vit.Extensions;
 
@@ -20,7 +23,7 @@ namespace Sers.Gover.Base.Model
         public int apiServiceCount => apiServices.Count;
 
         [JsonProperty]
-        public int apiNodeCount => apiServices.Values.Sum((apiService=>apiService.apiNodeCount));
+        public int apiNodeCount => apiServices.Values.Sum((apiService => apiService.apiNodeCount));
 
 
         [JsonProperty]
@@ -30,11 +33,11 @@ namespace Sers.Gover.Base.Model
         [JsonProperty]
         public EServiceStationStatus eStatus
         {
-            get { return this.GetDataByConvert<EServiceStationStatus?>("status")??EServiceStationStatus.正常; }
+            get { return this.GetDataByConvert<EServiceStationStatus?>("status") ?? EServiceStationStatus.正常; }
             set { this.SetData("status", value); }
         }
 
-       
+
         [JsonProperty]
         public string status => eStatus.ToString();
 
@@ -77,7 +80,7 @@ namespace Sers.Gover.Base.Model
             var curTime = DateTime.Now;
             if (qps_TimeLast != null)
             {
-                qps = ((int)(100000.0f * (curSumCount - qps_SumCountLast) / (curTime - qps_TimeLast.Value).TotalMilliseconds))/100f;
+                qps = ((int)(100000.0f * (curSumCount - qps_SumCountLast) / (curTime - qps_TimeLast.Value).TotalMilliseconds)) / 100f;
             }
             qps_TimeLast = curTime;
             qps_SumCountLast = curSumCount;
@@ -96,14 +99,14 @@ namespace Sers.Gover.Base.Model
         public ApiService ApiService_Remove(string serviceKey)
         {
             if (apiServices.TryRemove(serviceKey, out var apiService)) return apiService;
-            return null;         
+            return null;
         }
 
 
         public ApiService ApiService_Get(string serviceKey)
         {
             if (apiServices.TryGetValue(serviceKey, out var apiService)) return apiService;
-            return null; 
+            return null;
         }
 
         public ApiService ApiService_GetOrAdd(SsApiDesc apiDesc)

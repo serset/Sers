@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 using Vit.Core.Module.Serialization;
 using Vit.Extensions.Json_Extensions;

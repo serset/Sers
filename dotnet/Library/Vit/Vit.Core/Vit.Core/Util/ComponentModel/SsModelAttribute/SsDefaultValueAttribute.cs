@@ -6,7 +6,7 @@
     public class SsDefaultValueAttribute : System.Attribute
     {
         public object Value { get; set; }
-       
+
         public SsDefaultValueAttribute(object Value = null)
         {
             this.Value = Value;

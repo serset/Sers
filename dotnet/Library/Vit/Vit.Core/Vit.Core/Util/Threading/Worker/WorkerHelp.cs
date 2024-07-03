@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-using Vit.Core.Util.ComponentModel.SsError;
+﻿using Vit.Core.Util.ComponentModel.SsError;
 
 namespace Vit.Core.Util.Threading.Worker
 {

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Sers.Core.Module.Api.LocalApi;
 using Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions;
+
 using Vit.Extensions;
 
 namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
@@ -46,9 +49,9 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi
                     };
                     returnValue = localApiService.CallLocalApi<string>(route, argValue);
                     var list = localApiService.CallLocalApi<List<string>>(route, argValue);
-                    Assert.AreEqual(2,list.Count);
+                    Assert.AreEqual(2, list.Count);
                     string[] arr = localApiService.CallLocalApi<string[]>(route, argValue);
-                    Assert.AreEqual(2,arr.Length);
+                    Assert.AreEqual(2, arr.Length);
 
                 }
                 finally

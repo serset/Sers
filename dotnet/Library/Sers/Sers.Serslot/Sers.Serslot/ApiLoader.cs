@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Sers.SersLoader;
+
+using Microsoft.AspNetCore.Mvc;
+
 using Sers.Core.Module.Api.ApiDesc;
 using Sers.Core.Module.Api.LocalApi;
+using Sers.SersLoader;
+
 using Vit.Extensions;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Sers.Serslot
 {
-    public class ApiLoader: SersLoader.ApiLoader
+    public class ApiLoader : SersLoader.ApiLoader
     {
 
-        Func<SsApiDesc, ApiLoaderConfig,IApiNode> CreateApiNode;
+        Func<SsApiDesc, ApiLoaderConfig, IApiNode> CreateApiNode;
 
         public ApiLoader(Func<SsApiDesc, ApiLoaderConfig, IApiNode> CreateApiNode) : base()
         {
@@ -22,7 +25,7 @@ namespace Sers.Serslot
 
         protected override IEnumerable<Type> LoadControllers(ApiLoaderConfig config)
         {
-            var types = ControllerHelp.Assembly_GetControllers(config.assembly);          
+            var types = ControllerHelp.Assembly_GetControllers(config.assembly);
 
             return types;
         }
@@ -46,7 +49,7 @@ namespace Sers.Serslot
             var argInfos = base.MethodInfoGetArgInfos(method);
 
             //剔除指定 FromServices 的函数参数
-            if (argInfos != null) 
+            if (argInfos != null)
             {
                 argInfos = argInfos.AsQueryable().Where(info => info.GetCustomAttribute<FromServicesAttribute>() == null).ToArray();
             }
@@ -73,11 +76,12 @@ namespace Sers.Serslot
         /// <param name="config"></param>
         protected override List<IApiNode> LoadApiNodes(List<String> routePrefixs, MethodInfo method, Func<SsApiDesc> CreateApiDesc, ApiLoaderConfig config)
         {
-         
+
             var routes = ControllerHelp.Action_GetRoutes(routePrefixs, method);
 
             // routes -> apiNode
-            return routes.Select(routeInfo => {
+            return routes.Select(routeInfo =>
+            {
 
                 (string route, string httpMethod, string oriRoute) = routeInfo;
 
@@ -89,11 +93,11 @@ namespace Sers.Serslot
                 apiDesc.SysDescAppend("oriRoute: " + oriRoute);
 
 
-                IApiNode apiNode = CreateApiNode(apiDesc,config);
+                IApiNode apiNode = CreateApiNode(apiDesc, config);
                 return apiNode;
-                
-            }).ToList();                 
-             
+
+            }).ToList();
+
         }
 
         #endregion

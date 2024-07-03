@@ -1,5 +1,6 @@
-﻿using Sers.Core.Module.App;
-using System;
+﻿using System;
+
+using Sers.Core.Module.App;
 
 namespace Did.SersLoader.Demo.Controllers.PubSub.Controller
 {

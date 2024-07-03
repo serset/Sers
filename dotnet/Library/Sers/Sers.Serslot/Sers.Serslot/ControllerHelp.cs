@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
+
 using Sers.SersLoader;
+
 using Vit.Extensions;
 
 namespace Sers.Serslot
@@ -34,7 +37,7 @@ namespace Sers.Serslot
             //{
             //    return GetAttribute.GetAttribute<DefaultValueAttribute>()?.Value;
             //});
-        
+
             SsModelBuilder.Getter_Type.Add(GetAttribute =>
             {
                 return GetAttribute.GetAttribute<ModelMetadataTypeAttribute>()?.MetadataType;
@@ -46,11 +49,11 @@ namespace Sers.Serslot
 
         public static IEnumerable<Type> Assembly_GetControllers(Assembly assembly)
         {
-           return assembly.GetTypes().Where(type => 
-           typeof(Microsoft.AspNetCore.Mvc.ControllerBase).IsAssignableFrom(type)
-           && type.GetCustomAttribute<NonControllerAttribute>()==null
-           && !type.IsAbstract
-           && type.IsPublic);
+            return assembly.GetTypes().Where(type =>
+            typeof(Microsoft.AspNetCore.Mvc.ControllerBase).IsAssignableFrom(type)
+            && type.GetCustomAttribute<NonControllerAttribute>() == null
+            && !type.IsAbstract
+            && type.IsPublic);
         }
         #endregion
 
@@ -72,20 +75,20 @@ namespace Sers.Serslot
             #endregion
 
             // [Route("api/[controller]")]
-            var routePrefixs = type.GetCustomAttributes<Microsoft.AspNetCore.Mvc.RouteAttribute>().Select(routeAttribute => 
+            var routePrefixs = type.GetCustomAttributes<Microsoft.AspNetCore.Mvc.RouteAttribute>().Select(routeAttribute =>
             {
                 var routePrefix = routeAttribute.Template;
                 if (routePrefix.StartsWith("/"))
                 {
                     routePrefix = routePrefix.Substring(1);
-                }              
+                }
                 return routePrefix?.Replace("[controller]", controllerName);
             }).ToList();
 
             if (routePrefixs.Count == 0)
-            { 
+            {
                 routePrefixs.Add("");
-            } 
+            }
             return routePrefixs;
         }
         #endregion
@@ -124,13 +127,13 @@ namespace Sers.Serslot
         {
             var routes = new List<(string route, string httpMethod, string oriRoute)>();
 
-            if (null!=method.GetCustomAttribute<NonActionAttribute>())
+            if (null != method.GetCustomAttribute<NonActionAttribute>())
                 return routes;
 
             var attrs = method.GetCustomAttributes<Microsoft.AspNetCore.Mvc.Routing.HttpMethodAttribute>();
-            if (null == attrs || attrs.Count() == 0) return routes;
-            
-            var attrRoute = method.GetCustomAttribute<Microsoft.AspNetCore.Mvc.RouteAttribute>()?.Template ?? ""; 
+            if (attrs?.Any() != true) return routes;
+
+            var attrRoute = method.GetCustomAttribute<Microsoft.AspNetCore.Mvc.RouteAttribute>()?.Template ?? "";
 
             foreach (var attr in attrs)
             {
@@ -139,12 +142,12 @@ namespace Sers.Serslot
                 if (route.StartsWith("/"))
                 {
                     // (x.1)  绝对路径。  /Station1/fold1/fold2/api1
-                    AddAbsRoute(route); 
+                    AddAbsRoute(route);
                 }
                 else
                 {
                     // (x.2)  相对路径。  fold1/fold2/api1  
-                    routePrefixs.ForEach(routePrefix=> 
+                    routePrefixs.ForEach(routePrefix =>
                     {
                         string absRoute = "/" + routePrefix;
 
@@ -152,7 +155,7 @@ namespace Sers.Serslot
                             absRoute += "/" + route;
 
                         AddAbsRoute(absRoute);
-                    });                 
+                    });
                 }
 
                 #region Method AddAbsRoute
@@ -165,14 +168,14 @@ namespace Sers.Serslot
                     #region 处理特殊路由
                     {
                         //(x.x.1)   /api/{action}/a
-                        Route = Route.Replace("[action]",method.Name);
+                        Route = Route.Replace("[action]", method.Name);
 
 
                         //(x.x.2) /api/Value/a?i=1
                         int index = Route.IndexOf("?");
                         if (index > 0)
                         {
-                            Route = Route.Substring(0, index);                            
+                            Route = Route.Substring(0, index);
                         }
 
                         //(x.x.3)   /api/Value/{id}
@@ -185,13 +188,13 @@ namespace Sers.Serslot
                         }
                     }
                     #endregion
-                
+
                     var HttpMethods = attr.HttpMethods;
-                    if (HttpMethods != null || HttpMethods.Count() > 0)
+                    if (HttpMethods?.Any() == true)
                     {
                         foreach (var httpMethod in HttpMethods)
                         {
-                            routes.Add((Route, httpMethod,oriRoute)); 
+                            routes.Add((Route, httpMethod, oriRoute));
                         }
                     }
                 }

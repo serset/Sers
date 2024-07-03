@@ -9,13 +9,12 @@ using Sers.Core.Module.Api;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.Threading.Worker;
-using Vit.Extensions;
 
 namespace App.Robot.Station.Logical.Worker
 {
 
 
-    public class Worker_ApiClient: IWorker
+    public class Worker_ApiClient : IWorker
     {
         [JsonIgnore]
         protected TaskItem taskItem;
@@ -23,7 +22,7 @@ namespace App.Robot.Station.Logical.Worker
         public Worker_ApiClient(TaskItem taskItem)
         {
             this.taskItem = taskItem;
- 
+
 
             tasks.threadCount = taskItem.config.threadCount;
             tasks.repeatCountPerThread = taskItem.config.loopCountPerThread;
@@ -32,7 +31,7 @@ namespace App.Robot.Station.Logical.Worker
         }
 
 
-  
+
 
 
 
@@ -43,9 +42,9 @@ namespace App.Robot.Station.Logical.Worker
 
 
         public bool IsRunning => tasks.IsRunning;
- 
-  
-    
+
+
+
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -54,7 +53,7 @@ namespace App.Robot.Station.Logical.Worker
             bool success = false;
             try
             {
-                
+
                 var ret = ApiClient.CallRemoteApi<ApiReturn>(taskItem.config.apiRoute, taskItem.config.apiArg, taskItem.config.httpMethod);
                 if (ret == null || ret.success)
                 {
@@ -62,12 +61,12 @@ namespace App.Robot.Station.Logical.Worker
                 }
                 else
                 {
-                    if(taskItem.config.logError)
-                    Logger.Error("[App.Robot.Station] Worker_ApiClient.cs Processor 失败", ret);
+                    if (taskItem.config.logError)
+                        Logger.Error("[App.Robot.Station] Worker_ApiClient.cs Processor 失败", ret);
                 }
             }
             catch (Exception ex)
-            {               
+            {
                 Logger.Error(ex);
             }
 
@@ -79,7 +78,7 @@ namespace App.Robot.Station.Logical.Worker
 
         public void Start()
         {
-            tasks.threadName = "Robot-"+ taskItem.config.name;
+            tasks.threadName = "Robot-" + taskItem.config.name;
 
             taskItem.curCount = 0;
             taskItem.failCount = 0;

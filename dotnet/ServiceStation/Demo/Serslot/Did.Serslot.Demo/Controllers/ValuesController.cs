@@ -28,7 +28,7 @@ namespace Did.Serslot.Demo.Controllers
         /// <returns></returns>
         [HttpGet]
         [HttpPost]
-        public object Route0([FromQuery]string a)
+        public object Route0([FromQuery] string a)
         {
             //SpinWait.SpinUntil(()=> false, 1000);
             //var requestFeature = Request.HttpContext.Features.Get<IHttpRequestFeature>();             
@@ -108,8 +108,8 @@ namespace Did.Serslot.Demo.Controllers
         /// <returns></returns>
         [HttpGet("301/arg/{name}/{age}")]
         public object Arg301(
-             [SsExample("lith"), SsDefaultValue("NoName"), SsDescription("姓名")]string name,
-             [SsExample("30"), SsDefaultValue("0"), SsDescription("年龄，请指定在16-50中间的整数")]int age)
+             [SsExample("lith"), SsDefaultValue("NoName"), SsDescription("姓名")] string name,
+             [SsExample("30"), SsDefaultValue("0"), SsDescription("年龄，请指定在16-50中间的整数")] int age)
         {
             return new
             {
@@ -128,8 +128,8 @@ namespace Did.Serslot.Demo.Controllers
         /// <returns></returns>
         [HttpGet("302/arg")]
         public object Arg302(
-             [FromQuery, SsExample("lith"),SsDescription("姓名")]string name,
-             [FromQuery, SsExample("30"), SsDescription("年龄，请指定在16-50中间的整数")]int age)
+             [FromQuery, SsExample("lith"), SsDescription("姓名")] string name,
+             [FromQuery, SsExample("30"), SsDescription("年龄，请指定在16-50中间的整数")] int age)
         {
             return new
             {
@@ -149,7 +149,7 @@ namespace Did.Serslot.Demo.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("303/arg")]
-        public object Arg3([FromBody, SsExample("\"lith\""), SsDescription("姓名,请以双引号开始和结束")]string name)
+        public object Arg3([FromBody, SsExample("\"lith\""), SsDescription("姓名,请以双引号开始和结束")] string name)
         {
             return new
             {
@@ -205,7 +205,7 @@ namespace Did.Serslot.Demo.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("305/arg")]
-        public object Arg5([FromForm]ArgModel arg)
+        public object Arg5([FromForm] ArgModel arg)
         {
             return new
             {
@@ -269,7 +269,7 @@ namespace Did.Serslot.Demo.Controllers
             /// <summary>
             /// 姓名
             /// </summary>
-            [SsExample("lith"), SsDefaultValue("NoName")] 
+            [SsExample("lith"), SsDefaultValue("NoName")]
             public string name { get; set; }
         }
 
@@ -279,7 +279,7 @@ namespace Did.Serslot.Demo.Controllers
 
         #region (x.x.2)异步返回
 
-       
+
 
         /// <summary>
         /// GET did_serslot/Values/201/result
@@ -351,9 +351,9 @@ namespace Did.Serslot.Demo.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("500/type")]
-        [return: SsType(typeof(List<string>)),SsExample("[5,6]"), SsDescription("返回原值")]
+        [return: SsType(typeof(List<string>)), SsExample("[5,6]"), SsDescription("返回原值")]
         public string Type(
-            [SsType(typeof(List<string>)), SsExample("[5,6]"), SsDescription("id数组")]string ids
+            [SsType(typeof(List<string>)), SsExample("[5,6]"), SsDescription("id数组")] string ids
             )
         {
             return ids;
@@ -460,7 +460,7 @@ namespace Did.Serslot.Demo.Controllers
             [SsExample("/did_serslot/Values")] string apiRoute,
             [SsExample("{\"a\":\"aaa111\"}")] dynamic arg)
         {
-            var apiRet = ApiClient.CallRemoteApi<string>((string)arg.apiRoute,(object) arg.arg, "POST");
+            var apiRet = ApiClient.CallRemoteApi<string>((string)arg.apiRoute, (object)arg.arg, "POST");
             return new ApiReturn<Object>(new
             {
                 RpcContext.RpcData,
@@ -489,8 +489,8 @@ namespace Did.Serslot.Demo.Controllers
         [HttpPost("703/ApiClient")]
         public string ApiClient703()
         {
-            var rpc=RpcContext.RpcData;
-            var apiRet = ApiClient.CallRemoteApi<string>("/did_serslot/v1/702/ApiClient", null,"POST");
+            var rpc = RpcContext.RpcData;
+            var apiRet = ApiClient.CallRemoteApi<string>("/did_serslot/v1/702/ApiClient", null, "POST");
             return apiRet;
         }
         #endregion

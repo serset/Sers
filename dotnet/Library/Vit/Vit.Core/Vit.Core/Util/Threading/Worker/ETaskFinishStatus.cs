@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Vit.Core.Util.Threading.Worker
+﻿namespace Vit.Core.Util.Threading.Worker
 {
     public enum ETaskFinishStatus : byte
     {

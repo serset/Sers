@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+
 using Sers.Core.Module.Serialization.Text;
 
 namespace Vit.Extensions
@@ -25,7 +26,7 @@ namespace Vit.Extensions
 
         #region AddConverter_DateTime
 
-        public static JsonConverter_DateTime AddConverter_DateTime(this JsonSerializerOptions options,string dateFormatString = "yyyy-MM-dd HH:mm:ss")
+        public static JsonConverter_DateTime AddConverter_DateTime(this JsonSerializerOptions options, string dateFormatString = "yyyy-MM-dd HH:mm:ss")
         {
             if (options == null) return null;
 

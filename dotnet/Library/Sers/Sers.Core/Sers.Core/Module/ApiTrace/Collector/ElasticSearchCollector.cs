@@ -1,13 +1,14 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using System.Collections.Generic;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 using Sers.Core.Module.Message;
 using Sers.Core.Module.Rpc;
 
-using System;
-using System.Collections.Generic;
-using Vit.Extensions;
 using Vit.Core.Module.Log;
 using Vit.Core.Module.Log.LogCollector.ElasticSearch.Client;
-using Newtonsoft.Json;
 using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.Core.Module.ApiTrace.Collector
@@ -64,7 +65,7 @@ namespace Sers.Core.Module.ApiTrace.Collector
 
             client?.Init();
         }
-        
+
 
         public object TraceStart(RpcContextData rpcData)
         {

@@ -7,7 +7,7 @@ namespace Vit.WebHost.Extensions.UseCertificates
     [JsonObject(MemberSerialization.OptIn)]
     public class CertificateInfo
     {
-      
+
         [JsonProperty]
         public string filePath { get; set; }
 

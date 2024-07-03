@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Reflection;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using Newtonsoft.Json.Linq;
 
 using Vit.Core.Module.Serialization;
 

@@ -46,7 +46,7 @@ namespace Sers.Core.Module.Valid.Sers1
          */
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static bool Verify(JObject obj, List<SsValidation> validations,   out SsError ssError)
+        public static bool Verify(JObject obj, List<SsValidation> validations, out SsError ssError)
         {
             ssError = null;
 
@@ -58,7 +58,7 @@ namespace Sers.Core.Module.Valid.Sers1
                     ssError = validation.ssError;
                     return false;
                 }
-            }           
+            }
             return true;
         }
 
@@ -67,13 +67,13 @@ namespace Sers.Core.Module.Valid.Sers1
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         static bool Valid(JObject obj, SsValidation validation)
         {
-           
+
             var ssValid = validation.ssValid;
 
-            JToken value= obj.SelectToken(validation.path);
+            JToken value = obj.SelectToken(validation.path);
 
 
-            EValidType validType= EValidType.Null;
+            EValidType validType = EValidType.Null;
 
             #region get  validType
             try
@@ -85,7 +85,7 @@ namespace Sers.Core.Module.Valid.Sers1
             }
             #endregion
 
-          
+
             switch (validType)
             {
 
@@ -97,7 +97,7 @@ namespace Sers.Core.Module.Valid.Sers1
 
                         if (ssValid["value"].ConvertToString() == value.ConvertToString())
                             return true;
-                        return false;                
+                        return false;
                     }
                 #endregion
 
@@ -152,13 +152,13 @@ namespace Sers.Core.Module.Valid.Sers1
 
                             if (ssValid["min"].TryParseIgnore(out double min))
                             {
-                                if(dValue < min)
+                                if (dValue < min)
                                     return false;
                             }
 
                             if (ssValid["max"].TryParseIgnore(out double max))
                             {
-                                if (max < dValue )
+                                if (max < dValue)
                                     return false;
                             }
                             return true;
@@ -173,7 +173,7 @@ namespace Sers.Core.Module.Valid.Sers1
 
                 case EValidType.Null:
                     return true;
-            }           
+            }
             return false;
         }
 

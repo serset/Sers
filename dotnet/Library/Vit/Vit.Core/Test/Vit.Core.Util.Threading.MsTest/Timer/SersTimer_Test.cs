@@ -1,8 +1,9 @@
-﻿using Vit.Core.Util.Threading;
-using System;
+﻿using System;
 using System.Threading;
-using Vit.Core.Util.Threading.Timer;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using Vit.Core.Util.Threading.Timer;
 
 namespace Vit.Core.Util.Threading.MsTest.Timer
 {
@@ -26,13 +27,13 @@ namespace Vit.Core.Util.Threading.MsTest.Timer
 
                 Console.Out.WriteLine($"[{curCount}]start ");
 
-                if (count != curCount) 
-                    errorMessage += Environment.NewLine+ $"error in times [{curCount}]" + count;
+                if (count != curCount)
+                    errorMessage += Environment.NewLine + $"error in times [{curCount}]" + count;
 
                 Thread.Sleep(150);
 
-                if (timer.isRunning && count != (curCount+1)) 
-                    errorMessage += Environment.NewLine + $"error2 in times [{curCount}]"+ count;
+                if (timer.isRunning && count != (curCount + 1))
+                    errorMessage += Environment.NewLine + $"error2 in times [{curCount}]" + count;
 
                 Console.Out.WriteLine($"[{curCount}]stop  ");
             };
@@ -44,12 +45,12 @@ namespace Vit.Core.Util.Threading.MsTest.Timer
 
             timer.Stop();
 
-            Assert.AreEqual(10,count);
+            Assert.AreEqual(10, count);
 
             Thread.Sleep(100);
-            Assert.AreEqual(10,count);
+            Assert.AreEqual(10, count);
 
-            if(!string.IsNullOrEmpty(errorMessage))
+            if (!string.IsNullOrEmpty(errorMessage))
                 Assert.Fail(errorMessage);
         }
     }

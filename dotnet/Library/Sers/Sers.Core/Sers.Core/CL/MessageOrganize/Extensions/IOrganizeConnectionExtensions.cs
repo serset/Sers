@@ -1,8 +1,10 @@
-﻿using System.Runtime.CompilerServices;
-using Sers.Core.CL.MessageOrganize;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
+
+using Sers.Core.CL.MessageOrganize;
+
 using Vit.Core.Util.Pipelines;
-using System;
 
 namespace Vit.Extensions
 {
@@ -33,7 +35,8 @@ namespace Vit.Extensions
             AutoResetEvent mEvent = curAutoResetEvent;
             mEvent.Reset();
 
-            conn.SendRequestAsync(null, requestData, (sender, replyData_) => {
+            conn.SendRequestAsync(null, requestData, (sender, replyData_) =>
+            {
                 _replyData = replyData_;
                 mEvent?.Set();
             });
@@ -55,12 +58,12 @@ namespace Vit.Extensions
                 return true;
             }
             else
-            {                
+            {
                 replyData = null;
                 return false;
             }
-        }      
-    
- 
+        }
+
+
     }
 }

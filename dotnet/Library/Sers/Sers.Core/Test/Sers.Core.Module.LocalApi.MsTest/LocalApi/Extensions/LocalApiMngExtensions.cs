@@ -16,22 +16,22 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions
         #region CallLocalApi
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ArraySegment<byte> CallLocalApi(this LocalApiService data,string route, Object arg)
+        public static ArraySegment<byte> CallLocalApi(this LocalApiService data, string route, Object arg)
         {
             var apiRequestMessage = new ApiMessage().InitAsApiRequestMessage(route, arg);
 
-            ApiMessage apiReplyMessage=null;
+            ApiMessage apiReplyMessage = null;
 
             AutoResetEvent mEvent = new AutoResetEvent(false);
             mEvent.Reset();
 
-            data.InvokeApiAsync(null, apiRequestMessage, (sender,_apiReplyMessage)=> 
+            data.InvokeApiAsync(null, apiRequestMessage, (sender, _apiReplyMessage) =>
             {
                 apiReplyMessage = _apiReplyMessage;
                 mEvent?.Set();
             });
 
-  
+
             //TODO
             int millisecondsTimeout = 60000;
             mEvent.WaitOne(millisecondsTimeout);
@@ -50,7 +50,7 @@ namespace Sers.Core.Module.LocalApi.MsTest.LocalApi.Extensions
 
         #endregion
 
-      
+
 
     }
 }

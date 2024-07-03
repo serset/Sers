@@ -1,6 +1,7 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Threading;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.SsError;
@@ -23,7 +24,7 @@ namespace Vit.Core.MsTest.Module
             Logger.Error(new Exception("hello world!"));
             Logger.Error("error", new Exception("hello world!"), new { a = 10 }, "message2", 12);
             Logger.Error(new SsError { errorCode = 404, errorMessage = "hello world!", errorTag = "150721_lith_1" });
-            Logger.Error("error",new SsError { errorCode = 404, errorMessage = "hello world!", errorTag = "150721_lith_1" });
+            Logger.Error("error", new SsError { errorCode = 404, errorMessage = "hello world!", errorTag = "150721_lith_1" });
 
 
             Thread.Sleep(3000);

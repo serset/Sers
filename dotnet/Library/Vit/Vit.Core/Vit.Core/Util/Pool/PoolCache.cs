@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace Vit.Core.Util.Pool
 {
@@ -39,13 +36,13 @@ namespace Vit.Core.Util.Pool
         public int Count => queue.Count;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool TryTake(out T result) 
+        public bool TryTake(out T result)
         {
             return queue.TryTake(out result);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Add(T item) 
+        public void Add(T item)
         {
             queue.Add(item);
         }

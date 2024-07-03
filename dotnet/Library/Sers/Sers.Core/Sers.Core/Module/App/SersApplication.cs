@@ -1,9 +1,11 @@
-﻿using Sers.Core.Module.Env;
+﻿using System;
+using System.Threading;
+
+using Sers.Core.Module.Env;
+using Sers.Hardware.Env;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ConfigurationManager;
-using System;
-using System.Threading;
-using Sers.Hardware.Env;
 using Vit.Core.Util.Threading.Timer;
 
 namespace Sers.Core.Module.App
@@ -36,7 +38,7 @@ namespace Sers.Core.Module.App
 
         #region Start
         public static void OnStart()
-        {    
+        {
 
             IsRunning = true;
             try
@@ -71,7 +73,7 @@ namespace Sers.Core.Module.App
             {
                 Logger.Error(ex);
             }
-          
+
 
             IsRunning = false;
 
@@ -86,10 +88,10 @@ namespace Sers.Core.Module.App
 
             stopEvent.Set();
 
-          
+
 
             try
-            {            
+            {
                 //退出当前进程
                 System.Diagnostics.Process.GetCurrentProcess().Kill();
             }
@@ -157,7 +159,7 @@ namespace Sers.Core.Module.App
         public static readonly DeviceInfo deviceInfo;
 
 
-        public static void CalculateUniquekey() 
+        public static void CalculateUniquekey()
         {
             if (string.IsNullOrEmpty(deviceInfo.deviceKey))
             {
@@ -174,7 +176,7 @@ namespace Sers.Core.Module.App
         {
             #region #1 serviceStationInfo
             {
-                serviceStationInfo = Appsettings.json.GetByPath<ServiceStationInfo>("Sers.ServiceStation.serviceStationInfo") 
+                serviceStationInfo = Appsettings.json.GetByPath<ServiceStationInfo>("Sers.ServiceStation.serviceStationInfo")
                     ?? new ServiceStationInfo();
 
                 // ##1 stationVersion
@@ -203,7 +205,7 @@ namespace Sers.Core.Module.App
             }
             #endregion
         }
-       
+
         #endregion
 
     }

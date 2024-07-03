@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace Vit.Extensions
 {
@@ -40,7 +41,7 @@ namespace Vit.Extensions
         }
 
 
-         
-        
+
+
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
 using System.Threading;
-using Vit.Extensions;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Threading.Timer;
-using System.Runtime.CompilerServices;
-using System.Collections.Concurrent;
+using Vit.Extensions;
 
 namespace Vit.Core.Util.Threading.Worker
 {
@@ -163,8 +164,7 @@ namespace Vit.Core.Util.Threading.Worker
                     //(x.3)清空等待队列
                     if (OnFinish != null)
                     {
-                        T arg;
-                        while (info.pendingQueue.TryTake(out arg))
+                        while (info.pendingQueue.TryTake(out T arg))
                         {
                             OnFinish?.Invoke(ETaskFinishStatus.overload, arg);
                         }
@@ -224,9 +224,9 @@ namespace Vit.Core.Util.Threading.Worker
 
             public CasualThreadManager casualThreadManager;
 
- 
+
             public RunInfo(ManagedThread<T> task)
-            {   
+            {
 
                 this.Processor = task.Processor;
                 this.OnFinish = task.OnFinish;
@@ -241,7 +241,7 @@ namespace Vit.Core.Util.Threading.Worker
             }
 
 
-            public void Start() 
+            public void Start()
             {
                 longThreadManager.Start();
             }
@@ -287,7 +287,7 @@ namespace Vit.Core.Util.Threading.Worker
                 threads = new LongThread[task.threadCount];
                 for (int i = 0; i < threads.Length; i++)
                 {
-                    threads[i] = new LongThread(task,i);
+                    threads[i] = new LongThread(task, i);
                 }
             }
 
@@ -340,7 +340,7 @@ namespace Vit.Core.Util.Threading.Worker
                 }
 
                 Interlocked.Decrement(ref this.curThreadCount);
-                return false; 
+                return false;
             }
 
 
@@ -377,7 +377,7 @@ namespace Vit.Core.Util.Threading.Worker
             Thread thread;
 
 
-            public LongThread(ManagedThread<T> task,int index)
+            public LongThread(ManagedThread<T> task, int index)
             {
                 this.runInfo = task.runInfo;
                 this.manager = runInfo.longThreadManager;

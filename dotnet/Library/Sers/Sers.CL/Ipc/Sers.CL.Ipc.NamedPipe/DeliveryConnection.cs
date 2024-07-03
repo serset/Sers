@@ -183,7 +183,7 @@ namespace Sers.CL.Ipc.NamedPipe
         }
 
 
-        PipeFrame pipe = new PipeFrame() { OnDequeueData = ArraySegmentBytePool_Extensions.ReturnToPool };
+        readonly PipeFrame pipe = new PipeFrame() { OnDequeueData = ArraySegmentBytePool_Extensions.ReturnToPool };
 
         public void AppendData(ArraySegment<byte> data)
         {

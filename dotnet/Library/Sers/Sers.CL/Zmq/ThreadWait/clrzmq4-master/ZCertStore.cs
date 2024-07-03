@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace ZeroMQ
 {
@@ -102,7 +100,7 @@ namespace ZeroMQ
         public void Insert(ZCert cert)
         {
             lock (certs)
-            { 
+            {
                 certs[cert.PublicTxt] = cert;
             }
         }

@@ -6,7 +6,9 @@ using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Sers.Core.CL.MessageDelivery;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Net;
 using Vit.Core.Util.Pool;
@@ -14,7 +16,7 @@ using Vit.Core.Util.Pool;
 namespace Sers.CL.Socket.Iocp.Base
 {
     public class DeliveryClient_Base<DeliveryConnection> : IDeliveryClient
-        where DeliveryConnection : DeliveryConnection_Base,new()
+        where DeliveryConnection : DeliveryConnection_Base, new()
     {
         public virtual DeliveryConnection NewConnection()
         {
@@ -104,8 +106,8 @@ namespace Sers.CL.Socket.Iocp.Base
                 if (connectArgs.SocketError != SocketError.Success)
                 {
                     return false;
-                }          
-                 
+                }
+
                 return true;
 
             }
@@ -210,7 +212,7 @@ namespace Sers.CL.Socket.Iocp.Base
                         {
                             ProcessReceive(e);
                         });
-                    }           
+                    }
                     return;
                 }
             }
@@ -224,7 +226,7 @@ namespace Sers.CL.Socket.Iocp.Base
         #endregion
 
 
-   
+
 
 
 

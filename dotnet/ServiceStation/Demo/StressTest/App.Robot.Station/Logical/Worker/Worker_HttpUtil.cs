@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.Data;
-using Vit.Extensions;
 using Vit.Core.Util.Net;
 
 namespace App.Robot.Station.Logical.Worker
@@ -11,7 +11,7 @@ namespace App.Robot.Station.Logical.Worker
 
 
     public class Worker_HttpUtil : Worker_ApiClient
-    {       
+    {
 
         HttpUtil httpUtil;
         RequestParam httpUtil_Request;
@@ -47,7 +47,7 @@ namespace App.Robot.Station.Logical.Worker
             }
             catch (Exception ex)
             {
-               
+
                 Logger.Error(ex);
             }
 

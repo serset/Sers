@@ -1,7 +1,8 @@
-﻿using Vit.Core.Module.Log;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Threading;
+
+using Vit.Core.Module.Log;
 
 namespace Vit.Core.Util.Threading.Worker
 {

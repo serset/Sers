@@ -1,6 +1,6 @@
 ﻿namespace Sers.SersLoader
 {
-    public interface  IApiController
+    public interface IApiController
     {
     }
 }

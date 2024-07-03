@@ -67,6 +67,6 @@ namespace Vit.Extensions
             return data?.GetEnumerator().IEnumerator_ToList();
         }
 
-       
+
     }
 }

@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.Extensions.FileProviders;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.Extensions.FileProviders;
+
 using Vit.Core.Util.Common;
 using Vit.WebHost;
 
@@ -111,10 +113,10 @@ namespace Vit.Extensions
 
 
             #region (x.x.2)FileProvider
-            IFileProvider fileProvider=null;
+            IFileProvider fileProvider = null;
             string rootPath;
 
-            if (!string.IsNullOrWhiteSpace(rootPath=config.rootPath) && Directory.Exists(rootPath))
+            if (!string.IsNullOrWhiteSpace(rootPath = config.rootPath) && Directory.Exists(rootPath))
             {
                 fileProvider = new PhysicalFileProvider(rootPath);
             }
@@ -122,10 +124,10 @@ namespace Vit.Extensions
             {
                 fileProvider = new PhysicalFileProvider(rootPath);
             }
-            else 
+            else
             {
                 var dir = new DirectoryInfo("wwwroot");
-                if(dir.Exists)
+                if (dir.Exists)
                     fileProvider = new PhysicalFileProvider(dir.FullName);
             }
             staticfileOptions.FileProvider = fileProvider;
@@ -164,9 +166,9 @@ namespace Vit.Extensions
                 data.UseDefaultFiles(new DefaultFilesOptions
                 {
                     DefaultFileNames = config.defaultFileNames,
-                    FileProvider= fileProvider
+                    FileProvider = fileProvider
                 });
-            }    
+            }
 
 
             //(x.x.7)UseStaticFiles
@@ -179,10 +181,11 @@ namespace Vit.Extensions
             //(x.2)UseDirectoryBrowser
             if (config.useDirectoryBrowser == true)
             {
-                var options = new DirectoryBrowserOptions {                   
+                var options = new DirectoryBrowserOptions
+                {
                     RequestPath = staticfileOptions.RequestPath,
                     FileProvider = fileProvider,
-                    Formatter = new SortedHtmlDirectoryFormatter()                
+                    Formatter = new SortedHtmlDirectoryFormatter()
                 };
                 data.UseDirectoryBrowser(options);
             }

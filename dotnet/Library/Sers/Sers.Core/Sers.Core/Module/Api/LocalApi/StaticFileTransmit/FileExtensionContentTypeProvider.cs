@@ -4,7 +4,6 @@
 #endregion
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 
 namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
@@ -12,18 +11,18 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
     /// <summary>
     /// Provides a mapping between file extensions and MIME types.
     /// </summary>
-    public class FileExtensionContentTypeProvider 
+    public class FileExtensionContentTypeProvider
     {
         /// <summary>
         /// The cross reference table of file extensions and content-types.
         /// </summary>
         public IDictionary<string, string> Mappings
         {
-        
+
             get;
-         
+
             private set;
-        } 
+        }
 
         /// <summary>
         /// Creates a new provider with a set of default mappings.
@@ -425,12 +424,8 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
         /// <param name="mapping"></param>
         public FileExtensionContentTypeProvider(IDictionary<string, string> mapping)
         {
-            //IL_000e: Unknown result type (might be due to invalid IL or missing references)
-            if (mapping == null)
-            {
-                throw new ArgumentNullException("mapping");
-            }
-            Mappings = mapping;
+            //IL_000e: Unknown result type (might be due to invalid IL or missing references)            
+            Mappings = mapping ?? throw new ArgumentNullException(nameof(mapping));
         }
 
         /// <summary>

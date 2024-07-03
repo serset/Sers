@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
-using Vit.Extensions;
-using Vit.Core.Module.Log;
-using Sers.Core.Module.Rpc;
-using Vit.Core.Util.ConfigurationManager;
+
+using Newtonsoft.Json.Linq;
+
 using Sers.Core.CL.CommunicationManage;
 using Sers.Core.CL.MessageOrganize;
-using Sers.Core.Module.Message;
-using Vit.Core.Util.ComponentModel.SsError;
 using Sers.Core.Module.Api.LocalApi.Event;
+using Sers.Core.Module.Message;
+using Sers.Core.Module.Rpc;
 using Sers.Core.Util.Consumer;
-using System.Runtime.CompilerServices;
-using Newtonsoft.Json.Linq;
+
+using Vit.Core.Module.Log;
+using Vit.Core.Util.ComponentModel.SsError;
+using Vit.Core.Util.ConfigurationManager;
 using Vit.Core.Util.Threading.Worker;
+using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
 
 namespace Sers.Core.Module.Api.LocalApi
 {
-    public class LocalApiService: ILocalApiService
+    public class LocalApiService : ILocalApiService
     {
 
         /// <summary>
@@ -69,7 +72,7 @@ namespace Sers.Core.Module.Api.LocalApi
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ApiMessage CallLocalApi(ApiMessage apiRequest)
-        {           
+        {
             using (var rpcContext = new RpcContext())
             using (var localApiEvent = localApiEventMng.CreateApiEvent())
             {
@@ -137,7 +140,7 @@ namespace Sers.Core.Module.Api.LocalApi
         #region 后台服务
         class RequestInfo
         {
-            public IOrganizeConnection  conn;
+            public IOrganizeConnection conn;
             public ApiMessage apiRequest;
             public ApiMessage apiReply;
             public Object sender;
@@ -156,14 +159,14 @@ namespace Sers.Core.Module.Api.LocalApi
             requestInfo.apiRequest = apiRequest;
             requestInfo.callback = callback;
 
-            Consumer_Publish(requestInfo);  
+            Consumer_Publish(requestInfo);
         }
         #endregion
 
 
 
         #region Consumer
-       
+
 
         readonly IConsumer<RequestInfo> workThread;
 
@@ -231,7 +234,7 @@ namespace Sers.Core.Module.Api.LocalApi
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void Consumer_OnFinish(ETaskFinishStatus status,RequestInfo requestInfo)
+        void Consumer_OnFinish(ETaskFinishStatus status, RequestInfo requestInfo)
         {
             ApiMessage apiReply;
             switch (status)
@@ -263,7 +266,7 @@ namespace Sers.Core.Module.Api.LocalApi
             requestInfo.callback(requestInfo.sender, apiReply);
         }
 
-       
+
 
         #endregion
 

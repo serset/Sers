@@ -1,13 +1,15 @@
 using System;
+
 using Sers.CL.Socket.Iocp.Base;
+
 using Vit.Core.Module.Log;
 
 namespace Sers.CL.Socket.Iocp.Mode.Simple
 {
     public class DeliveryClient : DeliveryClient_Base<DeliveryConnection>
-    {         
+    {
 
-         
+
         public override bool Connect()
         {
             try
@@ -15,7 +17,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Simple
                 Logger.Info("[CL.DeliveryClient] Socket.Iocp,connecting", new { host, port });
 
 
-                if (!base.Connect()) 
+                if (!base.Connect())
                 {
                     return false;
                 }

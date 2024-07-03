@@ -12,7 +12,7 @@ namespace Sers.CL.Socket.ThreadWait
 {
     public class OrganizeServerBuilder : IOrganizeServerBuilder
     {
-        public void Build(List<IOrganizeServer> organizeList,JObject config)
+        public void Build(List<IOrganizeServer> organizeList, JObject config)
         {
             var delivery = new DeliveryServer();
 
@@ -27,7 +27,7 @@ namespace Sers.CL.Socket.ThreadWait
             delivery.host = config["host"].ConvertToString();
             delivery.port = config["port"].Convert<int>();
 
-            organizeList.Add(new OrganizeServer(delivery, config)); 
+            organizeList.Add(new OrganizeServer(delivery, config));
         }
     }
 }

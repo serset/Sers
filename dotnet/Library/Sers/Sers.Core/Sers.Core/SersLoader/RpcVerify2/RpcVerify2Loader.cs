@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Reflection;
+
 using Newtonsoft.Json.Linq;
+
 using Sers.SersLoader.ApiDesc.Attribute.RpcVerify;
 
 namespace Sers.SersLoader.RpcVerify2
@@ -14,11 +16,12 @@ namespace Sers.SersLoader.RpcVerify2
             if (attrs.Count() == 0) return null;
 
             var switchBody = new JArray();
-            var rpcVerify2 = new JObject {
-                ["type"]= "Switch",
+            var rpcVerify2 = new JObject
+            {
+                ["type"] = "Switch",
                 ["body"] = switchBody
             };
-          
+
             foreach (var attr in attrs)
             {
                 attr.GetApiRpcVerify(switchBody);
@@ -32,7 +35,7 @@ namespace Sers.SersLoader.RpcVerify2
 
 
 
-      
+
 
 
 

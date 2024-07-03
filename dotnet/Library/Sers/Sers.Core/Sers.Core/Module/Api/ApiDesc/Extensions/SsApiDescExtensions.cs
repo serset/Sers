@@ -34,7 +34,7 @@ namespace Vit.Extensions
         {
             try
             {
-                return data.route+"_" + data.HttpMethodGet() ;
+                return data.route + "_" + data.HttpMethodGet();
             }
             catch
             {
@@ -55,7 +55,7 @@ namespace Vit.Extensions
 
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void HttpMethodSet(this SsApiDesc data,string httpMethod)
+        public static void HttpMethodSet(this SsApiDesc data, string httpMethod)
         {
             if (data.extendConfig == null)
                 data.extendConfig = new Newtonsoft.Json.Linq.JObject();
@@ -108,7 +108,7 @@ namespace Vit.Extensions
         public static string SysDescAppend(this SsApiDesc data, string value)
         {
             value = SysDescGet(data) + value;
-            SysDescSet(data,value);
+            SysDescSet(data, value);
             return value;
         }
 

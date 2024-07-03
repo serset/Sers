@@ -24,14 +24,14 @@ namespace App.Robot.Station.Logical
         public static readonly TaskQueue MainTask = new TaskQueue() { threadName = "Robot-MainTaskToStartTask" };
 
         public static readonly TaskMng Instance;
-       
+
         static TaskMng()
         {
             //TaskController.MainTask
             SersApplication.onStart += () => MainTask.Start();
             SersApplication.onStop += () => MainTask.Stop();
 
-            Instance = JsonFile.GetFromFile<TaskMng>(new[] { "Data", "App.Robot.json" }) ;
+            Instance = JsonFile.GetFromFile<TaskMng>(new[] { "Data", "App.Robot.json" });
 
             if (null == Instance)
             {
@@ -46,11 +46,11 @@ namespace App.Robot.Station.Logical
 
 
             if (SersApplication.IsRunning) Task.Run(MainTask.Start);
-         
+
         }
 
-      
-                     
+
+
         public void TaskMngSaveToCache()
         {
             JsonFile.SetToFile(this, new[] { "Data", "App.Robot.json" });
@@ -61,7 +61,7 @@ namespace App.Robot.Station.Logical
         [JsonProperty]
         ConcurrentDictionary<int, TaskItem> tasks = new ConcurrentDictionary<int, TaskItem>();
 
-               
+
 
 
         public bool Add(TaskConfig config)
@@ -91,7 +91,7 @@ namespace App.Robot.Station.Logical
                 }
                 TaskMngSaveToCache();
                 return true;
-            }                     
+            }
         }
         public bool Start(int id)
         {
@@ -100,7 +100,7 @@ namespace App.Robot.Station.Logical
                 MainTask.AddTask(() =>
                 {
                     taskItem.worker.Start();
-                });           
+                });
                 return true;
             }
             return false;
@@ -127,16 +127,16 @@ namespace App.Robot.Station.Logical
 
                 return true;
             }
-            return false;             
+            return false;
         }
 
 
-        public  List<TaskItem> GetAll()
+        public List<TaskItem> GetAll()
         {
             return tasks.Values.ToList();
         }
 
-      
+
 
     }
 }

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Threading;
+
 using CLServer.Statistics;
+
 using Sers.Core.CL.CommunicationManage;
 using Sers.Core.CL.MessageOrganize;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Pipelines;
 
@@ -21,7 +24,7 @@ namespace CLServer
             qpsInfo.Start("Msg");
 
             CommunicationManageServer cm = new CommunicationManageServer();
-           
+
 
             cm.conn_OnGetMessage = (conn, msg) =>
             {
@@ -30,7 +33,7 @@ namespace CLServer
             };
 
 
-            cm.conn_OnGetRequest = (IOrganizeConnection  conn, Object sender, ArraySegment<byte> apiRequest, Action<object, Vit.Core.Util.Pipelines.ByteData> callback) =>
+            cm.conn_OnGetRequest = (IOrganizeConnection conn, Object sender, ArraySegment<byte> apiRequest, Action<object, Vit.Core.Util.Pipelines.ByteData> callback) =>
             {
                 qpsInfo.IncrementRequest();
                 callback(sender, new ByteData(apiRequest));

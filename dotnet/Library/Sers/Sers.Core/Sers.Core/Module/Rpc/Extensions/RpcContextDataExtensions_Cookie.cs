@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using Sers.Core.Module.Rpc;
-using System.Linq;
 
 namespace Vit.Extensions
 {

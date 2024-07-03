@@ -1,8 +1,9 @@
-﻿using Vit.Core.Module.Log;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
-using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+
+using Vit.Core.Module.Log;
 
 namespace Sers.Core.Module.PubSub
 {
@@ -45,8 +46,8 @@ namespace Sers.Core.Module.PubSub
                     }
                     catch (Exception ex)
                     {
-                        Logger.Error("EndpointManage.Message_Consume", ex);                         
-                    }                    
+                        Logger.Error("EndpointManage.Message_Consume", ex);
+                    }
                 });
             }
         }
@@ -76,7 +77,7 @@ namespace Sers.Core.Module.PubSub
                     subscriberMap.TryRemove(subscriber.msgTitle, out _);
                     MessageClient.Instance.Message_UnSubscribe(subscriber.msgTitle);
                 }
-            }     
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

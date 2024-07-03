@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+
+using Microsoft.Extensions.DependencyInjection;
+
 using Vit.Core.Util.Common;
 using Vit.WebHost.Extensions.UseCertificates;
 

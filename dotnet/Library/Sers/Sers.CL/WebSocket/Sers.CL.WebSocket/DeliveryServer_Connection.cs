@@ -49,9 +49,9 @@ namespace Sers.CL.WebSocket
             {
                 Logger.Error(ex);
                 Close();
-            }         
+            }
         }
-     
+
 
         public void Close()
         {
@@ -60,11 +60,11 @@ namespace Sers.CL.WebSocket
             state = DeliveryConnState.closed;
 
             var socket_ = socket;
-            socket = null;          
+            socket = null;
 
             try
             {
-                socket_.Close();     
+                socket_.Close();
             }
             catch (Exception ex)
             {
@@ -83,13 +83,13 @@ namespace Sers.CL.WebSocket
         }
         public void Init(IWebSocketConnection socket)
         {
-            this.socket = socket;          
+            this.socket = socket;
         }
- 
+
         /// <summary>
         /// 通信SOCKET
         /// </summary>
-        public IWebSocketConnection socket { get;private set; }
+        public IWebSocketConnection socket { get; private set; }
 
 
 
