@@ -1,8 +1,9 @@
 ﻿
-using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Text;
 using System.Xml;
+
+using Newtonsoft.Json.Linq;
 
 namespace Vit.Core.Util.Xml
 {

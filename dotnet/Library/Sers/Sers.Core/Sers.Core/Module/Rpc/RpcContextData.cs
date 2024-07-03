@@ -1,10 +1,10 @@
 ﻿
-using Sers.Core.Module.Rpc.Serialization;
-using Sers.Core.Module.Rpc.Serialization.Fast;
-
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+
+using Sers.Core.Module.Rpc.Serialization;
+using Sers.Core.Module.Rpc.Serialization.Fast;
 
 using Vit.Core.Util.ConfigurationManager;
 
@@ -176,8 +176,7 @@ namespace Sers.Core.Module.Rpc
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public string GetHeader(string key)
             {
-                string value = null;
-                if (true == headers?.TryGetValue(key, out value)) return value;
+                if (true == headers?.TryGetValue(key, out var value)) return value;
                 return null;
             }
             #endregion

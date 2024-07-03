@@ -11,7 +11,6 @@ using Sers.Core.Module.Rpc;
 using Sers.ServiceCenter.Entity;
 
 using Vit.Core.Util.ComponentModel.SsError;
-using Vit.Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.Gover.RateLimit
@@ -32,7 +31,7 @@ namespace Sers.Gover.RateLimit
         ConcurrentDictionary<string, IRateLimit> limit_Map = new ConcurrentDictionary<string, IRateLimit>();
 
 
-        private IRateLimit[] limits=new IRateLimit[0];
+        private IRateLimit[] limits = new IRateLimit[0];
 
 
         public RateLimitMng()
@@ -77,9 +76,9 @@ namespace Sers.Gover.RateLimit
 
         public bool RateLimit_Add(JObject rateLimit)
         {
-            if (!limitType_Map.TryGetValue(rateLimit["rateLimitType"].Value<string>(),out var type)) return false;
+            if (!limitType_Map.TryGetValue(rateLimit["rateLimitType"].Value<string>(), out var type)) return false;
 
-            var limitItem=rateLimit.Deserialize(type) as IRateLimit;
+            var limitItem = rateLimit.Deserialize(type) as IRateLimit;
 
             if (null == limitItem) return false;
 
@@ -122,7 +121,7 @@ namespace Sers.Gover.RateLimit
         /// <param name="apiNode"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public SsError BeforeCallRemoteApi(RpcContextData rpcData, ApiMessage requestMessage,ApiNode apiNode)
+        public SsError BeforeCallRemoteApi(RpcContextData rpcData, ApiMessage requestMessage, ApiNode apiNode)
         {
             foreach (var rateLimit in limits)
             {
@@ -133,7 +132,7 @@ namespace Sers.Gover.RateLimit
             return null;
         }
 
-        
+
         #endregion
 
     }

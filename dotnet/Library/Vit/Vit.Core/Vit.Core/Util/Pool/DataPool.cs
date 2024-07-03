@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Buffers;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace Vit.Core.Util.Pool
@@ -28,7 +27,7 @@ namespace Vit.Core.Util.Pool
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ArraySegment<byte> ArraySegmentByteGet(int length)
         {
-            return new ArraySegment<byte>(BytesGet(length), 0, length);           
+            return new ArraySegment<byte>(BytesGet(length), 0, length);
         }
 
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]

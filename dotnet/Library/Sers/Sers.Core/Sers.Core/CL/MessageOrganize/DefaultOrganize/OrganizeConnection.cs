@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+
 using Sers.Core.CL.MessageDelivery;
 
 namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
@@ -28,9 +29,9 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         {
             requestAdaptor.SendRequestAsync(this, sender, requestData, callback);
         }
-       
 
-        public void Close() 
+
+        public void Close()
         {
             deliveryConn?.Close();
             deliveryConn = null;

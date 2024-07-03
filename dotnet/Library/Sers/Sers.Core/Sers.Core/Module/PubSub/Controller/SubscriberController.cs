@@ -1,7 +1,7 @@
-﻿using Vit.Core.Module.Log;
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
-using Vit.Extensions.Json_Extensions;
+
+using Vit.Core.Module.Log;
 using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.Core.Module.PubSub.Controller
@@ -10,7 +10,7 @@ namespace Sers.Core.Module.PubSub.Controller
     {
         public SubscriberController(string msgTitle)
         {
-            this.msgTitle= msgTitle;
+            this.msgTitle = msgTitle;
         }
 
         public string msgTitle { get; protected set; }
@@ -22,7 +22,7 @@ namespace Sers.Core.Module.PubSub.Controller
             T t;
             try
             {
-                t= msgBody.DeserializeFromArraySegmentByte<T>();
+                t = msgBody.DeserializeFromArraySegmentByte<T>();
             }
             catch (Exception ex)
             {
@@ -46,6 +46,6 @@ namespace Sers.Core.Module.PubSub.Controller
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public abstract void Handle(T msgBody);
 
-      
+
     }
 }

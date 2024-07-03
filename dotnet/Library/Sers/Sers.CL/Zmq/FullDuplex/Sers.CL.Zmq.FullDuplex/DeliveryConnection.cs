@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using Sers.Core.CL.MessageDelivery;
 
@@ -9,7 +8,7 @@ using Vit.Extensions.Json_Extensions;
 namespace Sers.CL.Zmq.FullDuplex
 {
     public class DeliveryConnection : IDeliveryConnection
-    {       
+    {
         ~DeliveryConnection()
         {
             Close();
@@ -28,13 +27,13 @@ namespace Sers.CL.Zmq.FullDuplex
         {
             identity <<= 1;
             identityOfWriter = identity.Int64ToBytes();
-            identityOfReader = (++ identity ).Int64ToBytes();
+            identityOfReader = (++identity).Int64ToBytes();
         }
 
         internal byte[] identityOfReader { get; set; }
         internal byte[] identityOfWriter { get; set; }
 
- 
+
         Action<IDeliveryConnection, ArraySegment<byte>> _OnGetFrame;
         public Action<IDeliveryConnection, ArraySegment<byte>> OnGetFrame
         {
@@ -57,17 +56,17 @@ namespace Sers.CL.Zmq.FullDuplex
         {
             var bytes = data.ToBytes();
 
-            _securityManager?.Encryption(bytes.BytesToArraySegmentByte()); 
+            _securityManager?.Encryption(bytes.BytesToArraySegmentByte());
 
             OnSendFrameAsync(this, bytes);
         }
-        
+
 
         public Action<IDeliveryConnection> Conn_OnDisconnected { get; set; }
 
         public void Close()
-        {             
-            state = DeliveryConnState.closed;             
+        {
+            state = DeliveryConnState.closed;
             try
             {
                 Conn_OnDisconnected?.Invoke(this);

@@ -1,7 +1,10 @@
-﻿using Newtonsoft.Json.Linq;
-using Sers.Core.Module.Rpc;
-using System;
+﻿using System;
+
+using Newtonsoft.Json.Linq;
+
 using Sers.Core.Module.Message;
+using Sers.Core.Module.Rpc;
+
 using Vit.Core.Module.Log;
 using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
@@ -20,13 +23,13 @@ namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.JsonWebToken
         //"BlockIfInvalid": false,
         //bool? BlockIfInvalid;
 
-  
+
         string CallerSource;
         JwtValidateService_RS256Base jwtService;
 
         public void Init(JObject config)
-        { 
-            CallerSource = config["CallerSource"]?.Value<String>(); 
+        {
+            CallerSource = config["CallerSource"]?.Value<String>();
             jwtService = config.Deserialize<JwtValidateService_RS256Base>();
         }
 

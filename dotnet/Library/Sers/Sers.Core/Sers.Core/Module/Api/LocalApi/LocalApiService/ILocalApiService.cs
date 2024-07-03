@@ -6,7 +6,7 @@ using Sers.Core.Module.Message;
 
 namespace Sers.Core.Module.Api.LocalApi
 {
-    public interface ILocalApiService 
+    public interface ILocalApiService
     {
         void Init();
 

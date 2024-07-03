@@ -12,7 +12,7 @@ namespace Vit.Core.Util.ComponentModel.Model
         /// 
         /// </summary>
         public Type Value { get; set; }
-       
+
         public SsTypeAttribute(Type Value = null)
         {
             this.Value = Value;

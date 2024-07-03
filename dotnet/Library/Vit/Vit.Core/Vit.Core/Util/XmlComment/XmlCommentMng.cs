@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Vit.Core.Util.XmlComment
 {
-    public class XmlCommentMng:IDisposable
+    public class XmlCommentMng : IDisposable
     {
         public void Dispose()
         {
@@ -25,8 +25,8 @@ namespace Vit.Core.Util.XmlComment
         /// <param name="xmlFilePath"></param>
         public void AddXml(string xmlFilePath)
         {
-            var xmlHelp=new XmlCommentHelp(xmlFilePath);
-            if(!string.IsNullOrEmpty(xmlHelp.assemblyName))
+            var xmlHelp = new XmlCommentHelp(xmlFilePath);
+            if (!string.IsNullOrEmpty(xmlHelp.assemblyName))
                 assemblys[xmlHelp.assemblyName] = xmlHelp;
         }
 
@@ -35,24 +35,24 @@ namespace Vit.Core.Util.XmlComment
         /// 添加bin目录下的所有xml注释文件
         /// </summary>
         /// <param name="path"></param>
-        public void AddBin(string path=null)
+        public void AddBin(string path = null)
         {
-            foreach (FileInfo fi in new DirectoryInfo(path??AppContext.BaseDirectory).GetFiles("*.xml"))
+            foreach (FileInfo fi in new DirectoryInfo(path ?? AppContext.BaseDirectory).GetFiles("*.xml"))
             {
                 try
                 {
                     AddXml(fi.FullName);
                 }
                 catch (Exception)
-                {                     
+                {
                 }
-               
+
             }
         }
 
         public XmlCommentHelp GetXmlHelp(Type type)
-        {   
-            var assemblyName = type.Assembly.FullName+",";
+        {
+            var assemblyName = type.Assembly.FullName + ",";
             assemblyName = assemblyName.Split(',')[0];
             assemblys.TryGetValue(assemblyName, out var value);
             return value;
@@ -63,6 +63,6 @@ namespace Vit.Core.Util.XmlComment
             return GetXmlHelp(method.ReflectedType);
         }
 
-      
+
     }
 }

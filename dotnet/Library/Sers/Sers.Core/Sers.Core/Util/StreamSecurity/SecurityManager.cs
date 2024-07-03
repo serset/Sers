@@ -1,9 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
-using Vit.Core.Util.Reflection;
-using Sers.Core.Util.StreamSecurity.Security;
-using System;
+﻿using System;
 using System.Linq;
+
+using Newtonsoft.Json.Linq;
+
+using Sers.Core.Util.StreamSecurity.Security;
+
 using Vit.Core.Module.Log;
+using Vit.Core.Util.Reflection;
 using Vit.Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
 
@@ -13,18 +16,18 @@ namespace Sers.Core.Util.StreamSecurity
     {
 
         public static SecurityManager BuildSecurityManager(JArray configs = null)
-        {          
+        {
             if (configs == null || configs.Count == 0) return null;
 
 
             Logger.Info("[CL.SecurityManager] initing");
 
             //(x.1) Build security
-            var securitys =configs.Select(config =>
+            var securitys = configs.Select(config =>
             {
                 //(x.x.1) get assemblyFile className    
                 var className = config["className"].ConvertToString();
-                if (string.IsNullOrEmpty(className)) className=typeof(SampleSecurity).FullName;
+                if (string.IsNullOrEmpty(className)) className = typeof(SampleSecurity).FullName;
                 var assemblyFile = config["assemblyFile"].ConvertToString();
 
                 #region (x.x.2) CreateInstance
@@ -46,7 +49,7 @@ namespace Sers.Core.Util.StreamSecurity
 
 
             Logger.Info("[CL.SecurityManager] inited");
-            return new SecurityManager { securitys= securitys };
+            return new SecurityManager { securitys = securitys };
         }
 
 
@@ -62,13 +65,13 @@ namespace Sers.Core.Util.StreamSecurity
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Decryption(ArraySegment<byte> data)
         {
-            for(int t= securitys.Length-1;t>=0;t--)
+            for (int t = securitys.Length - 1; t >= 0; t--)
             {
                 securitys[t].Decryption(data);
             }
         }
 
- 
+
         ISecurity[] securitys;
     }
 }

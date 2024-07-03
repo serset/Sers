@@ -1,9 +1,11 @@
 ﻿using System;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Http;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
+
 using Vit.Core.Module.Log;
 
 
@@ -15,9 +17,9 @@ namespace Vit.Extensions
 
         static Type Type_IResponseBodyFeature = Vit.Core.Util.Reflection.ObjectLoader.GetType("Microsoft.AspNetCore.Http.Features.IHttpResponseBodyFeature", assemblyName: "Microsoft.AspNetCore.Http.Features");
 
-        static  Type Type_ResponseBodyFeature = Vit.Core.Util.Reflection.ObjectLoader.GetType("Microsoft.AspNetCore.Http.StreamResponseBodyFeature", assemblyName: "Microsoft.AspNetCore.Http");
+        static Type Type_ResponseBodyFeature = Vit.Core.Util.Reflection.ObjectLoader.GetType("Microsoft.AspNetCore.Http.StreamResponseBodyFeature", assemblyName: "Microsoft.AspNetCore.Http");
 
-        internal static void InitForSerslot(this HttpRequestFeature requestFeature,string pairingToken,out HttpResponseFeature _responseFeature, out FeatureCollection features)
+        internal static void InitForSerslot(this HttpRequestFeature requestFeature, string pairingToken, out HttpResponseFeature _responseFeature, out FeatureCollection features)
         {
 
             if (requestFeature.Headers == null)
@@ -137,7 +139,7 @@ namespace Vit.Extensions
 
 
             [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-            private Task FireOnStartingMayAwait(Stack<KeyValuePair<Func<object, Task>, object>> onStarting)
+            private static Task FireOnStartingMayAwait(Stack<KeyValuePair<Func<object, Task>, object>> onStarting)
             {
                 try
                 {
@@ -161,7 +163,7 @@ namespace Vit.Extensions
             }
 
             [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-            private async Task FireOnStartingAwaited(Task currentTask, Stack<KeyValuePair<Func<object, Task>, object>> onStarting)
+            private static async Task FireOnStartingAwaited(Task currentTask, Stack<KeyValuePair<Func<object, Task>, object>> onStarting)
             {
                 try
                 {
@@ -216,7 +218,7 @@ namespace Vit.Extensions
             }
 
             [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-            private async Task FireOnCompletedAwaited(Stack<KeyValuePair<Func<object, Task>, object>> onCompleted)
+            private static async Task FireOnCompletedAwaited(Stack<KeyValuePair<Func<object, Task>, object>> onCompleted)
             {
                 foreach (var entry in onCompleted)
                 {

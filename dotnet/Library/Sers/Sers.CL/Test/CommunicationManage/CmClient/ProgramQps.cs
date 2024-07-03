@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading;
-using System.Threading.Tasks;
+
 using CLClient.Statistics;
+
 using Sers.Core.CL.CommunicationManage;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Pipelines;
-using Vit.Core.Util.Threading;
 
 namespace CLClient
 {
@@ -21,7 +22,7 @@ namespace CLClient
             qpsInfo.Start("Msg");
 
 
-            for (int i = Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<int>("PressureTest.clientCount"); i >0; i--)
+            for (int i = Vit.Core.Util.ConfigurationManager.Appsettings.json.GetByPath<int>("PressureTest.clientCount"); i > 0; i--)
             {
                 StartThreadSendMessage();
             }
@@ -29,7 +30,7 @@ namespace CLClient
             Sers.Core.Module.App.SersApplication.OnStart();
 
             while (true)
-            {              
+            {
                 Thread.Sleep(5000);
             }
 
@@ -37,28 +38,28 @@ namespace CLClient
 
 
 
-      
+
         static void StartThreadSendMessage()
         {
 
             CommunicationManageClient cm = new CommunicationManageClient();
-         
+
 
             cm.Conn_OnDisconnected = (conn) =>
             {
-                Logger.Info("Conn_OnDisconnected");       
+                Logger.Info("Conn_OnDisconnected");
 
                 Sers.Core.Module.App.SersApplication.OnStop();
             };
 
-         
 
-            cm.conn_OnGetMessage = (conn,msg) => 
+
+            cm.conn_OnGetMessage = (conn, msg) =>
             {
                 //Task.Run(() =>
                 //{
-                    qpsInfo.IncrementRequest();
-                    cm.SendMessageAsync(new ByteData(msg));
+                qpsInfo.IncrementRequest();
+                cm.SendMessageAsync(new ByteData(msg));
                 //});
             };
 
@@ -126,7 +127,7 @@ namespace CLClient
             }
 
 
- 
+
 
 
 

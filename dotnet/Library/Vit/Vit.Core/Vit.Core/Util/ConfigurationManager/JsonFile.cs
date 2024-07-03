@@ -1,10 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.IO;
+
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Vit.Extensions;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Common;
-using System;
-using System.IO;
 using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Vit.Core.Util.ConfigurationManager
@@ -42,7 +43,7 @@ namespace Vit.Core.Util.ConfigurationManager
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                return default(T);
+                return default;
             }
         }
 

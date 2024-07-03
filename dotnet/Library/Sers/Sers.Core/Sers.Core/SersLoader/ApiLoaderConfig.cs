@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Reflection;
+
 using Vit.Core.Util.Extensible;
 
 namespace Sers.SersLoader
 {
-    public class ApiLoaderConfig: Extensible
+    public class ApiLoaderConfig : Extensible
     {
 
         /// <summary>

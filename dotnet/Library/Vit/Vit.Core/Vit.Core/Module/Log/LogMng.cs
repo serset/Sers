@@ -1,6 +1,7 @@
 ﻿using System;
-using Vit.Core.Module.Log.LogCollector;
 using System.Collections.Generic;
+
+using Vit.Core.Module.Log.LogCollector;
 using Vit.Core.Util.ConfigurationManager;
 
 namespace Vit.Core.Module.Log
@@ -35,7 +36,7 @@ namespace Vit.Core.Module.Log
                 foreach (var collector in collectors)
                     collector.Write(msg);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 if (PrintLogErrorToConsole == true)
                     Console.WriteLine("[Vit.Core.Module.Log] error: " + e.Message);

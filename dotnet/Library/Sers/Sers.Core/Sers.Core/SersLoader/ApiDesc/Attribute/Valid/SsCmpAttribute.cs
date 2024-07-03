@@ -47,12 +47,12 @@ namespace Sers.SersLoader.ApiDesc.Attribute.Valid
         protected virtual void FlushCondition()
         {
             //  { "type":"==","path":"caller.source",  "value":SsExp  }
-            condition = new { type= type, path= path, value = value }.Serialize();
+            condition = new { type = type, path = path, value = value }.Serialize();
         }
- 
-         
 
-     
+
+
+
 
     }
 }

@@ -1,9 +1,10 @@
-﻿using Vit.Core.Util.Guid;
-using System;
+﻿using System;
 using System.IO;
-using System.Text;
-using System.Security.Cryptography;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
+using System.Text;
+
+using Vit.Core.Util.Guid;
 using Vit.Extensions.Json_Extensions;
 
 namespace Vit.Core.Util.Common
@@ -49,7 +50,7 @@ namespace Vit.Core.Util.Common
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string NewGuid()
         {
-           return global::System.Guid.NewGuid().ToString("N");
+            return global::System.Guid.NewGuid().ToString("N");
             /*
 var guid = Guid.NewGuid();
 Debug.WriteLine(guid.ToString());   //1f3c6041-c68f-4ab3-ae19-f66f541e3209
@@ -80,7 +81,7 @@ Debug.WriteLine(guid.ToString("X"));//{0x1f3c6041,0xc68f,0x4ab3,{0xae,0x19,0xf6,
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long NewSnowflakeGuidLong()
         {
-            return Snowflake.GetId();           
+            return Snowflake.GetId();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -135,7 +136,7 @@ Debug.WriteLine(guid.ToString("X"));//{0x1f3c6041,0xc68f,0x4ab3,{0xae,0x19,0xf6,
         public static string MD5(byte[] bytes)
         {
             using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
-            {            
+            {
                 string result = BitConverter.ToString(md5.ComputeHash(bytes));
                 return result.Replace("-", "");
             }

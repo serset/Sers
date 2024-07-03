@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
-
-using System;
+﻿using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
+
+using Newtonsoft.Json.Linq;
 
 using Vit.Core.Util.Threading.Worker;
 using Vit.Extensions;
@@ -16,8 +16,8 @@ namespace Sers.Core.Util.Consumer
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="Consumer"></typeparam>
-    public class ConsumerCascade<T,Consumer> : IConsumer<T>
-        where Consumer:IConsumer<T>,new()
+    public class ConsumerCascade<T, Consumer> : IConsumer<T>
+        where Consumer : IConsumer<T>, new()
     {
 
         public int threadCount { get; set; } = 16;
@@ -26,12 +26,12 @@ namespace Sers.Core.Util.Consumer
 
 
         public Action<T> Processor { get; set; }
-        public Action<ETaskFinishStatus,T> OnFinish { get; set; } 
+        public Action<ETaskFinishStatus, T> OnFinish { get; set; }
 
 
         int curRootIndex;
 
-        Consumer [] rootWorkerList;
+        Consumer[] rootWorkerList;
 
 
 
@@ -55,9 +55,9 @@ namespace Sers.Core.Util.Consumer
                 var worker = new Consumer();
                 worker.Init(config);
                 worker.Processor = Processor;
-                worker.OnFinish = OnFinish;              
+                worker.OnFinish = OnFinish;
                 worker.threadCount = 1;
-                worker.threadName = threadName;      
+                worker.threadName = threadName;
                 return worker;
             }).ToArray();
 

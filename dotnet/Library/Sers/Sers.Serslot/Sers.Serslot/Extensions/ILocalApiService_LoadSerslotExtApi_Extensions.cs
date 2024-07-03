@@ -1,11 +1,10 @@
 ﻿
-using Sers.Core.Module.Api.ApiDesc;
-using Sers.Core.Module.Api.LocalApi;
-
 using System;
 using System.Collections.Generic;
 
-using Vit.Extensions.Json_Extensions;
+using Sers.Core.Module.Api.ApiDesc;
+using Sers.Core.Module.Api.LocalApi;
+
 using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Vit.Extensions
@@ -38,10 +37,10 @@ namespace Vit.Extensions
                     //(x.x.2)直接返回 指定的数据
                     var replyBytes = reply.SerializeToBytes();
                     #region onInvoke
-                    Func<ArraySegment<byte>, byte[]> onInvoke = (ArraySegment<byte> arg_OriData) =>
+                    byte[] onInvoke(ArraySegment<byte> arg_OriData)
                     {
                         return replyBytes;
-                    };
+                    }
                     #endregion
 
                     apiNode = new ApiNode_Original(onInvoke, apiDesc);

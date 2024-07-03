@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
+
 using Sers.Core.Module.Rpc;
 using Sers.Gover.Base;
 using Sers.Gover.RateLimit;
 using Sers.SersLoader;
 using Sers.SersLoader.ApiDesc.Attribute.Valid;
+
 using Vit.Core.Util.ComponentModel.Api;
 using Vit.Core.Util.ComponentModel.Data;
 
@@ -26,7 +28,7 @@ namespace Sers.Gover.Controllers.ApiControllers
         //[CallFromGover]        
         public ApiReturn<IRateLimit[]> GetAll()
         {
-            return rateLimitMng.RateLimit_GetAll(); 
+            return rateLimitMng.RateLimit_GetAll();
         }
 
 
@@ -54,7 +56,7 @@ namespace Sers.Gover.Controllers.ApiControllers
         //[CallFromGover]
         public ApiReturn Add(JObject rateLimit)
         {
-            return rateLimitMng.RateLimit_Add(rateLimit);        
+            return rateLimitMng.RateLimit_Add(rateLimit);
         }
 
 

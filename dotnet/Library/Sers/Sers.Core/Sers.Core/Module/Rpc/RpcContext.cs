@@ -1,6 +1,4 @@
-﻿using System;
-
-using Sers.Core.Module.Message;
+﻿using Sers.Core.Module.Message;
 
 using Vit.Core.Util.Threading.Cache;
 

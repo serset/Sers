@@ -7,7 +7,7 @@ namespace Vit.Core.MsTest.Util.ConfigurationManager
 {
     [TestClass]
     public class JsonFileTest
-    { 
+    {
         [TestMethod]
         public void Test()
         {

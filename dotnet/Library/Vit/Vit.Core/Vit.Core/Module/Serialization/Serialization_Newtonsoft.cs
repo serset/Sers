@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json;
-using System;
-using Vit.Core.Util.ConfigurationManager;
+﻿using System;
 using System.Runtime.CompilerServices;
 using System.Text;
-using Vit.Extensions.Json_Extensions;
+
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+using Vit.Core.Util.ConfigurationManager;
+using Vit.Extensions.Json_Extensions;
 
 namespace Vit.Core.Module.Serialization
 {

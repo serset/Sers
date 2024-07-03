@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-using Vit.Core.Util.Pool;
 using Vit.Extensions.Json_Extensions;
 
 namespace Vit.Core.Util.Pipelines
@@ -47,13 +46,13 @@ namespace Vit.Core.Util.Pipelines
         //    byteArrayList = new List<ArraySegment<byte>>(capacity);
         //}
 
-        public ByteData(ArraySegment<byte> data):this()
+        public ByteData(ArraySegment<byte> data) : this()
         {
             byteArrayList.Add(data);
         }
 
-        public ByteData(byte[] bytes):this(bytes.BytesToArraySegmentByte())
-        {     
+        public ByteData(byte[] bytes) : this(bytes.BytesToArraySegmentByte())
+        {
         }
         //public ByteData(List<ArraySegment<byte>> byteArrayList)
         //{

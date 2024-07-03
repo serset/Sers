@@ -1,6 +1,5 @@
 ﻿using System;
 
-using Sers.CL.Ipc.SharedMemory.Stream;
 using Sers.Core.CL.MessageDelivery;
 
 using Vit.Core.Module.Log;

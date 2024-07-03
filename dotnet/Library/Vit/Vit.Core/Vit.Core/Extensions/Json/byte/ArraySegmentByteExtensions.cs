@@ -17,13 +17,13 @@ namespace Vit.Extensions.Json_Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasData<T>(this ArraySegment<T> seg)
         {
-            return seg!=null && seg.Array!=null && seg.Count>0;
+            return seg != null && seg.Array != null && seg.Count > 0;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ArraySegment<T> Slice<T>(this ArraySegment<T> seg,int Offset,int? count=null)
+        public static ArraySegment<T> Slice<T>(this ArraySegment<T> seg, int Offset, int? count = null)
         {
-            return new ArraySegment<T>(seg.Array,seg.Offset+ Offset, count?? (seg.Count-Offset) );
+            return new ArraySegment<T>(seg.Array, seg.Offset + Offset, count ?? (seg.Count - Offset));
         }
 
 
@@ -35,7 +35,7 @@ namespace Vit.Extensions.Json_Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string ArraySegmentByteToString(this ArraySegment<byte> data, Encoding encoding = null)
         {
-            if (null == data || data.Array==null) return null;
+            if (null == data || data.Array == null) return null;
             ReadOnlySpan<byte> span = data;
             return span.SpanToString(encoding);
         }
@@ -60,7 +60,7 @@ namespace Vit.Extensions.Json_Extensions
             var bytes = new byte[data.Count];
             if (data.Count > 0)
             {
-                data.CopyTo(bytes);                
+                data.CopyTo(bytes);
             }
             return bytes;
         }
@@ -72,9 +72,9 @@ namespace Vit.Extensions.Json_Extensions
         #region ArraySegmentByte <--> Int32
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Int32 ArraySegmentByteToInt32(this ArraySegment<byte> data,int startIndex=0)
-        {             
-            return  BitConverter.ToInt32(data.Array, data.Offset+startIndex);
+        public static Int32 ArraySegmentByteToInt32(this ArraySegment<byte> data, int startIndex = 0)
+        {
+            return BitConverter.ToInt32(data.Array, data.Offset + startIndex);
         }
 
 

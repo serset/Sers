@@ -3,9 +3,6 @@ using System.Runtime.CompilerServices;
 
 using MessagePack;
 using MessagePack.Formatters;
-using MessagePack.Resolvers;
-
-using Vit.Extensions;
 
 namespace Vit.Core.Module.Serialization
 {

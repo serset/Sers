@@ -16,7 +16,7 @@ namespace Vit.Extensions
             //return data.ToString(); 相对比较慢
             switch (data)
             {
-                case ECallerSource.Internal:return "Internal";
+                case ECallerSource.Internal: return "Internal";
                 case ECallerSource.OutSide: return "OutSide";
             }
             return null;

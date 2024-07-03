@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+
 using Sers.Core.Module.Serialization.Text;
 
 namespace Sers.Core.Module.Rpc.Serialization
@@ -29,13 +30,13 @@ namespace Sers.Core.Module.Rpc.Serialization
         };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public byte[] SerializeToBytes(RpcContextData data) 
+        public byte[] SerializeToBytes(RpcContextData data)
         {
             using (var stream = new MemoryStream())
             using (Utf8JsonWriter writer = new Utf8JsonWriter(stream, writerOptions))
             {
-                Instance.Write(writer, data,options);     
-                writer.Flush();        
+                Instance.Write(writer, data, options);
+                writer.Flush();
                 return stream.ToArray();
             }
         }
@@ -63,7 +64,7 @@ namespace Sers.Core.Module.Rpc.Serialization
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Write(Utf8JsonWriter writer, RpcContextData value, JsonSerializerOptions options)
         {
-            if (value==null)
+            if (value == null)
             {
                 writer.WriteNullValue();
                 return;
@@ -73,18 +74,18 @@ namespace Sers.Core.Module.Rpc.Serialization
             writer.WriteStartObject();
 
             //(x.1)route         
-            writer.WriteString("route",value.route);
+            writer.WriteString("route", value.route);
 
             //(x.2)caller
             writer.WritePropertyName("caller");
             writer.WriteStartObject();
             writer.WriteString("rid", value.caller.rid);
-            writer.WriteString("source", value.caller.source); 
+            writer.WriteString("source", value.caller.source);
 
             if (value.caller.callStack != null)
             {
                 writer.WritePropertyName("callStack");
-                writer.WriteStartArray(); 
+                writer.WriteStartArray();
                 foreach (var v in value.caller.callStack)
                     writer.WriteStringValue(v);
                 writer.WriteEndArray();
@@ -106,7 +107,7 @@ namespace Sers.Core.Module.Rpc.Serialization
 
             if (value.http.protocol != null)
             {
-                writer.WriteString("protocol", value.http.protocol);            
+                writer.WriteString("protocol", value.http.protocol);
             }
 
             if (value.http.headers != null)
@@ -114,15 +115,15 @@ namespace Sers.Core.Module.Rpc.Serialization
                 writer.WritePropertyName("headers");
                 writer.WriteStartObject();
                 foreach (var kv in value.http.headers)
-                    writer.WriteString(kv.Key,kv.Value);
-                writer.WriteEndObject();                 
+                    writer.WriteString(kv.Key, kv.Value);
+                writer.WriteEndObject();
             }
             writer.WriteEndObject();
 
             //(x.4)error          
             if (value.error != null)
             {
-                writer.WritePropertyName("error");           
+                writer.WritePropertyName("error");
                 JsonSerializer.Serialize(writer, value.error, options);
             }
 
@@ -131,7 +132,7 @@ namespace Sers.Core.Module.Rpc.Serialization
             if (value.user != null)
             {
                 writer.WritePropertyName("user");
-                JsonSerializer.Serialize(writer, value.user,options);
+                JsonSerializer.Serialize(writer, value.user, options);
             }
 
 
@@ -144,7 +145,7 @@ namespace Sers.Core.Module.Rpc.Serialization
         {
             if (reader.TokenType != JsonTokenType.StartObject) return null;
 
- 
+
 
             var result = new RpcContextData();
             while (true)
@@ -237,7 +238,7 @@ namespace Sers.Core.Module.Rpc.Serialization
                                 default:
                                     reader.Skip(); break;
                             }
-                        } 
+                        }
                         break;
 
                     case "http":
@@ -276,7 +277,7 @@ namespace Sers.Core.Module.Rpc.Serialization
                                     result.http.method = reader.GetString();
                                     break;
                                 case "statusCode":
-                                    if (reader.TokenType == JsonTokenType.Number)  
+                                    if (reader.TokenType == JsonTokenType.Number)
                                         result.http.statusCode = reader.GetInt32();
                                     break;
                                 case "protocol":
@@ -306,7 +307,7 @@ namespace Sers.Core.Module.Rpc.Serialization
                                         }
                                         headers[key] = reader.GetString();
                                     }
-                                    break;                                                 
+                                    break;
 
                             }
                         }

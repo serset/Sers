@@ -7,7 +7,6 @@ using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Pipelines;
 using Vit.Core.Util.Threading.Worker;
-using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
 
 namespace Sers.CL.WebSocket
@@ -53,8 +52,8 @@ namespace Sers.CL.WebSocket
             {
                 Logger.Error(ex);
                 Close();
-            }       
-   
+            }
+
         }
 
         CancellationToken _cancellation = new CancellationToken();
@@ -70,10 +69,10 @@ namespace Sers.CL.WebSocket
 
             try
             {
-                socket_.CloseAsync(WebSocketCloseStatus.NormalClosure,"", _cancellation).GetAwaiter().GetResult();
+                socket_.CloseAsync(WebSocketCloseStatus.NormalClosure, "", _cancellation).GetAwaiter().GetResult();
                 //socket_.Abort();
 
-                socket_.Dispose();     
+                socket_.Dispose();
             }
             catch (Exception ex)
             {
@@ -92,13 +91,13 @@ namespace Sers.CL.WebSocket
         }
         public void Init(ClientWebSocket socket)
         {
-            this.socket = socket;          
+            this.socket = socket;
         }
- 
+
         /// <summary>
         /// 通信SOCKET
         /// </summary>
-        public ClientWebSocket socket { get;private set; }
+        public ClientWebSocket socket { get; private set; }
 
 
 
@@ -140,9 +139,9 @@ namespace Sers.CL.WebSocket
                 {
                     while (socket != null)
                     {
-                        var data =  new byte[receiveBufferSize];
-                        var result= socket.ReceiveAsync(new ArraySegment<byte>(data), _cancellation).GetAwaiter().GetResult();                        
-                        AppendData(new ArraySegment<byte>(data,0, result.Count));
+                        var data = new byte[receiveBufferSize];
+                        var result = socket.ReceiveAsync(new ArraySegment<byte>(data), _cancellation).GetAwaiter().GetResult();
+                        AppendData(new ArraySegment<byte>(data, 0, result.Count));
                     }
                 }
                 catch (Exception ex) when (!(ex.GetBaseException() is ThreadInterruptedException))

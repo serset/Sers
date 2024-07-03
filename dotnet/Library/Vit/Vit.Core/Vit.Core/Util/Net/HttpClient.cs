@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+
+using Newtonsoft.Json.Linq;
 
 using Vit.Core.Module.Serialization;
 using Vit.Extensions.Json_Extensions;
@@ -182,17 +182,15 @@ namespace Vit.Core.Util.Net
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         static String FormatUrlParams(Object parameters)
         {
-
             if (null == parameters)
             {
                 return null;
             }
 
-
-            if (parameters is IDictionary)
+            if (parameters is IDictionary dic)
             {
                 StringBuilder buff = new StringBuilder();
-                foreach (DictionaryEntry kv in (IDictionary)parameters)
+                foreach (DictionaryEntry kv in dic)
                 {
                     buff.Append(UrlEncode(kv.Key.ToString())).Append("=").Append(UrlEncode(kv.Value.ToString())).Append("&");
                 }
@@ -204,9 +202,9 @@ namespace Vit.Core.Util.Net
                 return FormatJObject(jo);
 
             }
-            else if (parameters is string)
+            else if (parameters is string str)
             {
-                return (string)parameters;
+                return str;
             }
 
             return FormatJObject(parameters.ConvertBySerialize<JObject>());

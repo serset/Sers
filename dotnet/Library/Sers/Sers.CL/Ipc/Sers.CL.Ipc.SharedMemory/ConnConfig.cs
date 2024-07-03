@@ -1,7 +1,7 @@
 ﻿namespace Sers.CL.Ipc.SharedMemory
 {
     class ConnConfig
-    { 
+    {
 
         /// <summary>
         /// 共享内存名称

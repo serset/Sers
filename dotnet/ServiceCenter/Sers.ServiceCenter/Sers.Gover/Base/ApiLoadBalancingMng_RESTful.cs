@@ -1,7 +1,9 @@
-﻿using Sers.Core.Module.Api.RouteMap;
+﻿using System.Runtime.CompilerServices;
+
+using Sers.Core.Module.Api.RouteMap;
 using Sers.Core.Module.Rpc;
 using Sers.ServiceCenter.Entity;
-using System.Runtime.CompilerServices;
+
 using Vit.Extensions;
 
 namespace Sers.Gover.Base
@@ -9,7 +11,7 @@ namespace Sers.Gover.Base
     /// <summary>
     /// 当前可调用的ApiService
     /// </summary>
-    public class ApiLoadBalancingMng_RESTful: ApiLoadBalancingMng
+    public class ApiLoadBalancingMng_RESTful : ApiLoadBalancingMng
     {
         /// <summary>
         /// 如 "GET"
@@ -35,10 +37,10 @@ namespace Sers.Gover.Base
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override ApiNode GetCurApiNodeByLoadBalancing(RpcContextData rpcData, out ERouteType routeType)
         {
-            var method= rpcData.http.method?.ToUpper();
+            var method = rpcData.http.method?.ToUpper();
             if (string.IsNullOrEmpty(method)) method = "_";
 
-            var oriRoute = rpcData.route;          
+            var oriRoute = rpcData.route;
             #region 去除query string(url ?后面的字符串)           
             //{
             //    // b2?a=c
@@ -50,7 +52,7 @@ namespace Sers.Gover.Base
             //}
             #endregion
 
-            var route = "/"+method + oriRoute;
+            var route = "/" + method + oriRoute;
             var lb = routeMap.Routing(route, out routeType);
             if (lb != null)
             {

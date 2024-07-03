@@ -6,7 +6,7 @@ namespace Sers.Core.Module.Env
     public class EnvUsageInfo
     {
         public string deviceKey;
-        public string serviceStationKey;    
+        public string serviceStationKey;
 
         public UsageStatus usageStatus;
 

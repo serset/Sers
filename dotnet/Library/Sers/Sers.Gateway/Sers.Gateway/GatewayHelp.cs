@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
 using Newtonsoft.Json.Linq;
@@ -7,11 +12,6 @@ using Sers.Core.Module.Api;
 using Sers.Core.Module.Message;
 using Sers.Core.Module.Rpc;
 using Sers.Gateway.RateLimit;
-
-using System;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ConfigurationManager;
@@ -83,7 +83,7 @@ namespace Sers.Gateway
             Logger.Info("[WebHost]listening", arg.urls);
 
             if (arg.staticFiles?.rootPath != null)
-                Logger.Info("[WebHost]wwwroot path",arg.staticFiles.rootPath);
+                Logger.Info("[WebHost]wwwroot path", arg.staticFiles.rootPath);
 
             Vit.WebHost.Host.Run(arg);
             #endregion
@@ -183,7 +183,7 @@ namespace Sers.Gateway
         static string prefixOfCopyIpToHeader = Vit.Core.Util.ConfigurationManager.Appsettings.json.GetStringByPath("Sers.Gateway.WebHost.prefixOfCopyIpToHeader");
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected void BuildHttp(RpcContextData rpcData, HttpRequest request)
+        protected static void BuildHttp(RpcContextData rpcData, HttpRequest request)
         {
             var http = rpcData.http;
 
@@ -224,7 +224,7 @@ namespace Sers.Gateway
 
         #region BuildBodyAsync
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        async Task<byte[]> BuildBodyAsync(HttpRequest request, RpcContextData rpcData)
+        static async Task<byte[]> BuildBodyAsync(HttpRequest request, RpcContextData rpcData)
         {
             #region (x.1)二进制数据
             var bytes = await request.Body.ToBytesAsync();
@@ -255,7 +255,7 @@ namespace Sers.Gateway
         #endregion
 
 
-        #region WriteApiReplyMessage     
+        #region WriteApiReplyMessage
 
         static string Rpc_CallerSource = Appsettings.json.GetStringByPath("Sers.Gateway.Rpc.CallerSource") ?? "Outside";
 
@@ -265,7 +265,7 @@ namespace Sers.Gateway
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        async Task WriteApiReplyMessage(HttpResponse response, ApiMessage apiReply)
+        static async Task WriteApiReplyMessage(HttpResponse response, ApiMessage apiReply)
         {
             RpcContextData replyRpcData = null;
 

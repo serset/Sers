@@ -9,7 +9,7 @@
         public string type = "ApiClient";
 
 
-        public string name="taskName";
+        public string name = "taskName";
 
         public string apiRoute;
         public string apiArg;
@@ -33,7 +33,7 @@
         /// <summary>
         /// 失败时是否控制台输出
         /// </summary>
-        public bool logError = false; 
+        public bool logError = false;
 
     }
 }

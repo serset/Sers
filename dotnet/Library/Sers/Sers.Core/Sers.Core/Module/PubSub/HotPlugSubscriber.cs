@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-using Vit.Extensions.Json_Extensions;
 using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.Core.Module.PubSub
 {
-    public class HotPlugSubscriber:IDisposable, ISubscriber
+    public class HotPlugSubscriber : IDisposable, ISubscriber
     {
         public HotPlugSubscriber(string msgTitle)
         {
@@ -37,7 +36,7 @@ namespace Sers.Core.Module.PubSub
                 SubscriberManage.Instance.Message_UnSubscribe(this);
                 subscribing = false;
             }
-            
+
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -52,16 +51,16 @@ namespace Sers.Core.Module.PubSub
         public Action<ArraySegment<byte>> OnGetMessage;
 
         #region IDisposable Support
-       
-         ~HotPlugSubscriber()
-        {             
+
+        ~HotPlugSubscriber()
+        {
             Dispose();
         }
 
- 
+
         public void Dispose()
         {
-            SubscribeCancel();            
+            SubscribeCancel();
         }
 
 
@@ -93,7 +92,7 @@ namespace Sers.Core.Module.PubSub
         public static HotPlugSubscriber Subscribe<T>(string msgTitle, Action<T> OnMessage)
         {
             var subscriber = new HotPlugSubscriber(msgTitle);
-            subscriber.OnGetMessage = (ArraySegment<byte> msg)=> OnMessage(msg.DeserializeFromArraySegmentByte<T>());
+            subscriber.OnGetMessage = (ArraySegment<byte> msg) => OnMessage(msg.DeserializeFromArraySegmentByte<T>());
             return subscriber;
         }
 

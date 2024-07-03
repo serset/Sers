@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.Data;
-using Vit.Extensions;
 using Vit.Core.Util.Net;
 
 namespace App.Robot.Station.Logical.Worker
 {
 
 
-    public class Worker_HttpClient: Worker_ApiClient
+    public class Worker_HttpClient : Worker_ApiClient
     {
 
         Vit.Core.Util.Net.HttpClient httpClient;
         HttpRequest httpClient_ReqParam;
-        public Worker_HttpClient(TaskItem taskItem) :base(taskItem)
+        public Worker_HttpClient(TaskItem taskItem) : base(taskItem)
         {
             httpClient = new Vit.Core.Util.Net.HttpClient();
             httpClient_ReqParam = new HttpRequest
@@ -46,7 +46,7 @@ namespace App.Robot.Station.Logical.Worker
                 }
             }
             catch (Exception ex)
-            {       
+            {
                 Logger.Error(ex);
             }
 

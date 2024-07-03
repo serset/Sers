@@ -1,15 +1,16 @@
 ﻿using Sers.Core.Module.App;
-using Vit.Core.Module.Log;
 using Sers.Core.Module.PubSub;
-using Vit.Core.Util.ConfigurationManager;
-using Sers.Hardware.Usage;
-using Vit.Core.Util.Threading.Timer;
 using Sers.Hardware.Process;
+using Sers.Hardware.Usage;
+
+using Vit.Core.Module.Log;
+using Vit.Core.Util.ConfigurationManager;
+using Vit.Core.Util.Threading.Timer;
 
 namespace Sers.Core.Module.Env
 {
     public class UsageReporter
-    {        
+    {
 
         public const string Pubsub_UsageInfoReportTitle = "Sers_Sys_UsageInfo";
 
@@ -41,7 +42,8 @@ namespace Sers.Core.Module.Env
         public static void StartReportTask(double intervalSecond)
         {
             if (null != timer) return;
-            timer = new VitTimer { 
+            timer = new VitTimer
+            {
                 intervalMs = (int)(intervalSecond * 1000),
                 timerCallback =
                 (object obj) =>

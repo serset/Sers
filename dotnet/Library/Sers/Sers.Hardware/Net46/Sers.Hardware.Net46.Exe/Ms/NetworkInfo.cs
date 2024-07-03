@@ -18,7 +18,7 @@ namespace Sers.Hardware.Net46.Exe.Ms
             {
                 try
                 {
-                    PerformanceCounter pc = new PerformanceCounter("Network Interface", "Bytes Received/sec", name.Replace('(', '[').Replace(')', ']'), ".");                   
+                    PerformanceCounter pc = new PerformanceCounter("Network Interface", "Bytes Received/sec", name.Replace('(', '[').Replace(')', ']'), ".");
                     pc.NextValue();
                     received.Add(pc);
 
@@ -74,7 +74,7 @@ namespace Sers.Hardware.Net46.Exe.Ms
                 bpsSent += Convert.ToInt32(pc.NextValue()) / 1000;
             }
 
-            return new []{ bpsRecv, bpsSent };
+            return new[] { bpsRecv, bpsSent };
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Sers.Hardware.Net46.Exe.Ms
         {
             var bps = GetBps();
 
-            return new double[] { bps[0]/1024.0f, bps[1] / 1024.0f };
+            return new double[] { bps[0] / 1024.0f, bps[1] / 1024.0f };
 
         }
 
@@ -105,4 +105,3 @@ namespace Sers.Hardware.Net46.Exe.Ms
     }
 }
 
- 

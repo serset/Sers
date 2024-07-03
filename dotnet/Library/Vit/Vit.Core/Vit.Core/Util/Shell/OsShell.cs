@@ -35,11 +35,10 @@ namespace Vit.Core.Util.Shell
                 process.StartInfo.WorkingDirectory = WorkingDirectory;
             }
 
-            #region (x.2)ProcessExit,确保程序退出时会关闭process          
-            EventHandler stopProcess = null;
-            stopProcess = (s, e) =>
+            #region (x.2)ProcessExit,确保程序退出时会关闭process
+            void stopProcess(object s, EventArgs e)
             {
-                lock (stopProcess)
+                lock ((EventHandler)stopProcess)
                 {
                     AppDomain.CurrentDomain.ProcessExit -= stopProcess;
                     try
@@ -57,7 +56,8 @@ namespace Vit.Core.Util.Shell
                     }
                     catch { }
                 }
-            };
+            }
+
             AppDomain.CurrentDomain.ProcessExit += stopProcess;
             #endregion
 
@@ -70,7 +70,7 @@ namespace Vit.Core.Util.Shell
 
 
                 //(x.x.2)write
-                if (input != null) 
+                if (input != null)
                 {
                     process.StandardInput.Write(input);
                 }
@@ -83,7 +83,7 @@ namespace Vit.Core.Util.Shell
                 var task = process.StandardOutput.ReadToEndAsync();
                 if (millisecondsOfWait.HasValue)
                 {
-                    task.Wait(millisecondsOfWait.Value); 
+                    task.Wait(millisecondsOfWait.Value);
                 }
                 else
                 {
@@ -133,11 +133,10 @@ namespace Vit.Core.Util.Shell
             }
 
 
-            #region (x.2)ProcessExit,确保程序退出时会关闭process          
-            EventHandler stopProcess = null;
-            stopProcess = (s, e) =>
+            #region (x.2)ProcessExit,确保程序退出时会关闭process
+            void stopProcess(object s, EventArgs e)
             {
-                lock (stopProcess)
+                lock ((EventHandler)stopProcess)
                 {
                     AppDomain.CurrentDomain.ProcessExit -= stopProcess;
                     try
@@ -153,18 +152,17 @@ namespace Vit.Core.Util.Shell
                             process = null;
                         }
                     }
-                    catch (System.Exception ex)
-                    {
-                    }
+                    catch { }
                 }
-            };
+            }
+
             AppDomain.CurrentDomain.ProcessExit += stopProcess;
             #endregion
 
 
-            #region (x.3)启动Process           
+            #region (x.3)启动Process
             try
-            {             
+            {
 
                 //(x.x.1)
                 process.Start();

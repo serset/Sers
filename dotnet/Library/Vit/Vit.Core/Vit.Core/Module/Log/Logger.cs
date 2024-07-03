@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Linq;
 
+using Newtonsoft.Json.Linq;
+
+using Vit.Core.Module.Log.LogCollector;
 using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Core.Util.ConfigurationManager;
-using System.Linq;
-using Vit.Core.Module.Log.LogCollector;
-using Newtonsoft.Json.Linq;
 using Vit.Core.Util.Reflection;
 using Vit.Extensions;
-using Vit.Core.Module.Log.LogCollector.Splunk;
 using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Vit.Core.Module.Log
@@ -18,7 +18,7 @@ namespace Vit.Core.Module.Log
     public static class Logger
     {
 
-        public static  readonly LogMng log = new LogMng();
+        public static readonly LogMng log = new LogMng();
 
         #region static Init
         static Logger()
@@ -183,7 +183,7 @@ namespace Vit.Core.Module.Log
 
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void Info(string message )
+        public static void Info(string message)
         {
             log.Info(message);
         }

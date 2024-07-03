@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using System.Collections.Immutable;
+
+using Newtonsoft.Json.Linq;
 
 using Sers.Core.Module.ApiTrace.Collector;
-
-using System;
-using System.Collections.Immutable;
 
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Reflection;

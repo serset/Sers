@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -7,17 +6,15 @@ using System.Threading;
 using Sers.Core.CL.MessageDelivery;
 
 using Vit.Core.Module.Log;
-using Vit.Core.Util.Pipelines;
 using Vit.Core.Util.Pool;
 using Vit.Core.Util.Threading.Worker;
-using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
 
 namespace Sers.CL.Socket.ThreadWait
 {
-    public class DeliveryConnection: IDeliveryConnection
+    public class DeliveryConnection : IDeliveryConnection
     {
- 
+
         ~DeliveryConnection()
         {
             Close();
@@ -32,15 +29,13 @@ namespace Sers.CL.Socket.ThreadWait
         public byte state { get; set; } = DeliveryConnState.waitForCertify;
 
 
-        public Action<IDeliveryConnection > Conn_OnDisconnected { get; set; }
+        public Action<IDeliveryConnection> Conn_OnDisconnected { get; set; }
 
         /// <summary>
         /// 请勿处理耗时操作，需立即返回。接收到客户端的数据事件
         /// </summary>
         public Action<IDeliveryConnection, ArraySegment<byte>> OnGetFrame { private get; set; }
 
-
-        BlockingCollection<ByteData> queue = new BlockingCollection<ByteData>();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SendFrameAsync(Vit.Core.Util.Pipelines.ByteData data)
@@ -53,18 +48,18 @@ namespace Sers.CL.Socket.ThreadWait
 
                 var bytes = data.ToBytes();
 
-                _securityManager?.Encryption(new ArraySegment<byte>(bytes, 4, bytes.Length - 4));       
+                _securityManager?.Encryption(new ArraySegment<byte>(bytes, 4, bytes.Length - 4));
 
                 socket.SendAsync(bytes.BytesToArraySegmentByte(), SocketFlags.None);
                 //socket.SendAsync(data, SocketFlags.None);
             }
             catch (Exception ex)
-            {               
+            {
                 Logger.Error(ex);
                 Close();
-            }            
+            }
         }
- 
+
 
 
         public void Close()
@@ -123,8 +118,8 @@ namespace Sers.CL.Socket.ThreadWait
         {
             this.client = client;
             socket = client.Client;
- 
-            connectTime = DateTime.Now;  
+
+            connectTime = DateTime.Now;
         }
 
 
@@ -135,11 +130,11 @@ namespace Sers.CL.Socket.ThreadWait
         public void StartBackThreadToReceiveMsg()
         {
             taskToReceiveMsg.Stop();
-             
+
             taskToReceiveMsg.threadName = "Sers.CL.Socket.ThreadWait-taskToReceiveMsg";
             taskToReceiveMsg.threadCount = 1;
             taskToReceiveMsg.Processor = TaskToReceiveMsg;
-            taskToReceiveMsg.Start();          
+            taskToReceiveMsg.Start();
         }
 
         void TaskToReceiveMsg()
@@ -148,8 +143,8 @@ namespace Sers.CL.Socket.ThreadWait
             {
                 try
                 {
-                    while (socket!=null)
-                    {       
+                    while (socket != null)
+                    {
                         OnGetFrame(this, ReadMsg());
                     }
                 }
@@ -166,7 +161,7 @@ namespace Sers.CL.Socket.ThreadWait
         /// <summary>
         /// 通信SOCKET
         /// </summary>
-        public global::System.Net.Sockets.Socket socket { get;private set; }
+        public global::System.Net.Sockets.Socket socket { get; private set; }
 
         TcpClient client;
 
@@ -198,7 +193,7 @@ namespace Sers.CL.Socket.ThreadWait
             void Receive(ArraySegment<byte> data)
             {
                 int readedCount = 0;
-                int curCount;             
+                int curCount;
                 do
                 {
                     //curCount = socket.Receive(data.Slice(readedCount, data.Count - readedCount));
@@ -206,14 +201,14 @@ namespace Sers.CL.Socket.ThreadWait
                     if (curCount == 0)
                     {
                         Logger.Error("[lith_190807_002]socket is closed.");
-                        throw new Exception("[lith_190418_002]socket is closed." );
+                        throw new Exception("[lith_190418_002]socket is closed.");
                     }
                     readedCount += curCount;
                     //var t = socket.ReceiveAsync(data.Slice(readedCount, data.Count - readedCount), SocketFlags.None);
                     //t.Wait();
                     //readedCount += t.Result;
 
-                } while (readedCount < data.Count);               
+                } while (readedCount < data.Count);
             }
 
             #endregion
@@ -222,7 +217,7 @@ namespace Sers.CL.Socket.ThreadWait
             try
             {
 
-                
+
                 //(x.1)获取 第一部分(len)  
                 Receive(bLen);
                 Int32 len = bLen.ArraySegmentByteToInt32();

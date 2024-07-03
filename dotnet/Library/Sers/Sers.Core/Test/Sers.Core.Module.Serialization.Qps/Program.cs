@@ -1,13 +1,16 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Newtonsoft.Json.Linq;
+
 using Sers.Core.Module.Rpc;
 using Sers.Core.Module.Rpc.Serialization;
 using Sers.Core.Module.Rpc.Serialization.Fast;
 using Sers.Core.Module.Serialization.Text;
+
 using Statistics;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace App
 {
@@ -78,7 +81,7 @@ namespace App
                 {
                     try
                     {
-                
+
 
                         for (var t = 0; t < 10000; t++)
                         {
@@ -139,9 +142,9 @@ namespace App
             QpsData qpsInfo = new QpsData(statisticsQps);
             Task.Run(() =>
             {
-                
- 
-                var Instance =  Serialization_Text.Instance;
+
+
+                var Instance = Serialization_Text.Instance;
 
                 byte[] bytes;
                 JObject jo;
@@ -175,10 +178,10 @@ namespace App
                 while (true)
                 {
                     try
-                    {                      
+                    {
 
                         for (var t = 0; t < 10000; t++)
-                        {           
+                        {
 
                             bytes = RpcSerialize.SerializeToBytes(data);
                             //str = bytes.BytesToString();

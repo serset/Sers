@@ -1,26 +1,30 @@
-﻿using Sers.Core.Module.App;
-using Vit.Core.Module.Log;
-using System;
-using System.Reflection;
-using Vit.Extensions;
-using Sers.Core.Module.PubSub;
+﻿using System;
 using System.Collections.Generic;
-using Sers.Core.Module.Api.LocalApi;
-using Sers.Core.Module.Api;
-using Sers.ServiceCenter.ApiCenter;
-using Newtonsoft.Json.Linq;
-using Sers.Core.Module.Env;
-using Sers.Core.Module.Message;
-using Sers.ServiceCenter.Entity;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+
+using Newtonsoft.Json.Linq;
+
 using Sers.Core.CL.CommunicationManage;
 using Sers.Core.CL.MessageOrganize;
-using System.Threading.Tasks;
-using Sers.SersLoader;
+using Sers.Core.Module.Api;
+using Sers.Core.Module.Api.LocalApi;
+using Sers.Core.Module.App;
 using Sers.Core.Module.App.AppEvent;
-using System.Runtime.CompilerServices;
-using Vit.Extensions.Newtonsoft_Extensions;
+using Sers.Core.Module.Env;
+using Sers.Core.Module.Message;
+using Sers.Core.Module.PubSub;
+using Sers.SersLoader;
+using Sers.ServiceCenter.ApiCenter;
+using Sers.ServiceCenter.Entity;
+
+using Vit.Core.Module.Log;
+using Vit.Core.Module.Serialization;
+using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Newtonsoft_Extensions;
 using Vit.Extensions.Object_Serialize_Extensions;
 
 namespace Sers.ServiceCenter
@@ -286,7 +290,7 @@ namespace Sers.ServiceCenter
                             deviceInfo = SersApplication.deviceInfo
                         }.Serialize();
 
-                        serviceStation = strServiceStationData.ConvertBySerialize<ServiceStation>();
+                        serviceStation = Json.Deserialize<ServiceStation>(strServiceStationData);
                         serviceStation.connection = connForLocalStationService;
 
                         //(x.x.x.3)调用api

@@ -2,11 +2,12 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+
 using Sers.Core.Module.Env;
 using Sers.Gover.Base.Model;
 using Sers.Gover.Service.SersEvent;
-using Sers.Hardware.Usage;
 using Sers.ServiceCenter.Entity;
+
 using Vit.Extensions;
 
 namespace Sers.Gover.Base
@@ -41,7 +42,7 @@ namespace Sers.Gover.Base
             lock (this)
             {
                 var station = serviceStationKey_Map.Get(item.serviceStationKey);
-                if (station == null) return; 
+                if (station == null) return;
 
                 if (item.usageStatus != null)
                     station.usageStatus = item.usageStatus;
@@ -89,8 +90,8 @@ namespace Sers.Gover.Base
         {
             lock (this)
             {
-                serviceStation.startTime=DateTime.Now;
-                
+                serviceStation.startTime = DateTime.Now;
+
                 serviceStation_ConnKey_Map[serviceStation.connKey] = serviceStation;
 
 

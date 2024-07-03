@@ -1,15 +1,16 @@
 ﻿using System;
+
 using Vit.Core.Util.Shell;
 
 namespace Sers.Hardware.Usage
 {
     public class LinuxUsageReader : IUsageReader
     {
-        
-        
+
+
         public LinuxUsageReader()
         {
-             
+
         }
 
         /// <summary>
@@ -62,21 +63,21 @@ namespace Sers.Hardware.Usage
         {
             var info = new UsageStatus();
 
- 
+
             try
-            {               
+            {
                 info.cpuUsage = ReadCpuUsage();
             }
             catch { }
-             
+
             return info;
         }
 
         public void Dispose()
         {
-            
+
         }
 
-       
+
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Sers.Core.Module.Counter;
 using Sers.Gover.Base;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Extensions;
@@ -11,8 +13,8 @@ namespace Sers.Gover.Persistence
 {
     public class Persistence_Counter
     {
-  
-        static readonly string[] filePath = new [] {"Data", "Sers", "Gover", "Counter.json" };
+
+        static readonly string[] filePath = new[] { "Data", "Sers", "Gover", "Counter.json" };
 
 
         /*
@@ -44,18 +46,18 @@ namespace Sers.Gover.Persistence
             {
                 #region (x.1)构建文件内容
 
-                var apiStations= apiStationMng.ApiStation_GetAll();
+                var apiStations = apiStationMng.ApiStation_GetAll();
 
 
                 var counter_ApiStations = apiStations.ToDictionary(m => m.stationName, m => m.counter);
-                var counter_ApiServices = apiStations.SelectMany(m=>m.apiServices.Values).ToDictionary(m => m.apiDesc?.ServiceKeyGet(), m => m.counter);                
+                var counter_ApiServices = apiStations.SelectMany(m => m.apiServices.Values).ToDictionary(m => m.apiDesc?.ServiceKeyGet(), m => m.counter);
 
-                var fileContent = new { ApiStations= counter_ApiStations, ApiServices= counter_ApiServices };
+                var fileContent = new { ApiStations = counter_ApiStations, ApiServices = counter_ApiServices };
                 #endregion
 
                 //(x.2) 保存到文件
                 JsonFile.SetToFile(fileContent, filePath);
- 
+
             }
             catch (System.Exception ex)
             {

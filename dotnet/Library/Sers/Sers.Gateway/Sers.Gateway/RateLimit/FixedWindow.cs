@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Threading;
+
+using Microsoft.AspNetCore.Http;
+
 using Vit.Core.Util.ComponentModel.SsError;
 
 
@@ -12,7 +14,7 @@ namespace Sers.Gateway.RateLimit
     /// <summary>
     /// 固定时间窗口限流
     /// </summary>
-    public class FixedWindow: IRateLimit
+    public class FixedWindow : IRateLimit
     {
 
         /// <summary>
@@ -25,7 +27,7 @@ namespace Sers.Gateway.RateLimit
         /// </summary>
         public string rateLimitKey { get; set; }
 
-    
+
 
         /// <summary>
         /// 时间窗口内最大请求数
@@ -43,14 +45,14 @@ namespace Sers.Gateway.RateLimit
 
 
         private int reqCount = 0;
-        private long timeStampStart=0;
-        private long timeStampEnd=0;       
+        private long timeStampStart = 0;
+        private long timeStampEnd = 0;
 
 
 
         public SsError BeforeCall(HttpContext context)
         {
-            
+
             //TODO: don't use lock !!!
             lock (this)
             {
@@ -82,9 +84,9 @@ namespace Sers.Gateway.RateLimit
                 }
             }
         }
- 
+
         public void OnFinally(HttpContext context)
-        {            
+        {
         }
     }
 }

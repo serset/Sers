@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json.Linq;
-using  System.Linq;
+using System.Linq;
 using System.Reflection;
 using System.Xml;
 
+using Newtonsoft.Json.Linq;
+
 namespace Vit.Core.Util.XmlComment
 {
-    public class XmlCommentHelp:IDisposable
+    public class XmlCommentHelp : IDisposable
     {
         /*  
 <?xml version="1.0"?>
@@ -36,8 +37,8 @@ namespace Vit.Core.Util.XmlComment
 
         #region 构造
 
-        public  string assemblyName;
-        private SortedDictionary<String, XmlNodeList> members=new SortedDictionary<string, XmlNodeList>();
+        public string assemblyName;
+        private SortedDictionary<String, XmlNodeList> members = new SortedDictionary<string, XmlNodeList>();
 
         public XmlCommentHelp(string xmlFilePath)
         {
@@ -52,24 +53,24 @@ namespace Vit.Core.Util.XmlComment
 
             #region assemblyName
 
-            assemblyName=NodeList_GetInnerText(docElem.ChildNodes, "assembly");
- 
+            assemblyName = NodeList_GetInnerText(docElem.ChildNodes, "assembly");
+
             #endregion
 
             #region members
-            var xmlMembers= (from XmlNode item in docElem.ChildNodes
-                where item is XmlElement && item.Name == "members"
-                            select ((XmlElement)item)).FirstOrDefault();
+            var xmlMembers = (from XmlNode item in docElem.ChildNodes
+                              where item is XmlElement && item.Name == "members"
+                              select ((XmlElement)item)).FirstOrDefault();
 
-            if(null== xmlMembers) return;
+            if (null == xmlMembers) return;
             ;
             foreach (XmlNode node in xmlMembers.ChildNodes)
             {
                 string name = node.Attributes?["name"]?.Value;
-                if(string.IsNullOrWhiteSpace(name))continue;
-                
+                if (string.IsNullOrWhiteSpace(name)) continue;
+
                 var ChildNodes = node.ChildNodes;
-                if (null== ChildNodes) continue;
+                if (null == ChildNodes) continue;
                 members[name] = ChildNodes;
             }
             #endregion
@@ -77,12 +78,12 @@ namespace Vit.Core.Util.XmlComment
         #endregion
 
 
-        static string NodeList_GetInnerText(XmlNodeList list,string tagName= "summary")
+        static string NodeList_GetInnerText(XmlNodeList list, string tagName = "summary")
         {
             if (null == list) return null;
             return (from XmlNode item in list
-                            where  item.Name == tagName
-                            select item.InnerText).FirstOrDefault();
+                    where item.Name == tagName
+                    select item.InnerText).FirstOrDefault();
         }
 
         public string Type_GetSummary(Type type)
@@ -95,7 +96,7 @@ namespace Vit.Core.Util.XmlComment
 
         }
 
-        
+
         public string Property_GetSummary(PropertyInfo info)
         {
             /*     <member name = "P:Sers.Core.Module.Api.MsTest.LocalApi.Controllers.DemoFullController.ArgModel.arg1" 
@@ -143,7 +144,7 @@ namespace Vit.Core.Util.XmlComment
             if (argArray.Length > 0)
             {
                 sign += "(";
-                sign += string.Join(",", (from item in argArray select item?.ParameterType?.FullName?.Replace('+','.')).ToArray());
+                sign += string.Join(",", (from item in argArray select item?.ParameterType?.FullName?.Replace('+', '.')).ToArray());
                 sign += ")";
             }
 
@@ -152,16 +153,16 @@ namespace Vit.Core.Util.XmlComment
 
             var comment = new MethodComment();
 
-            comment.summary= NodeList_GetInnerText(nodeList,"summary")?.Trim();
+            comment.summary = NodeList_GetInnerText(nodeList, "summary")?.Trim();
 
             comment.returns = NodeList_GetInnerText(nodeList, "returns");
 
             #region param
-            comment.param=new MethodComment.Param[argArray.Length];
-            
+            comment.param = new MethodComment.Param[argArray.Length];
+
             var arr = (from XmlNode item in nodeList
-                where item.Name == "param"
-                    select new MethodComment.Param(item));
+                       where item.Name == "param"
+                       select new MethodComment.Param(item));
             foreach (var param in arr)
             {
                 for (int i = 0; i < argArray.Length; i++)
@@ -169,7 +170,7 @@ namespace Vit.Core.Util.XmlComment
                     if (argArray[i].Name == param.name)
                     {
                         comment.param[i] = param;
-                    } 
+                    }
                 }
             }
             #endregion

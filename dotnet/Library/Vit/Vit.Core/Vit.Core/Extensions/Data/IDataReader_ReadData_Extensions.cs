@@ -53,7 +53,7 @@ namespace Vit.Extensions
                 curRowCount++;
 
                 if (curRowCount >= maxRowCount)
-                {                   
+                {
                     break;
                 }
 

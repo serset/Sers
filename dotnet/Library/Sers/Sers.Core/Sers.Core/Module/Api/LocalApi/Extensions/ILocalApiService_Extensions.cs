@@ -1,12 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using System.Reflection;
+
 using Sers.Core.Module.Api.LocalApi;
-using Sers.Core.Module.Api.LocalApi.StaticFileTransmit;
-using Sers.Core.Module.Api.LocalApi.StaticFileTransmit.Extensions;
 using Sers.Core.Module.ApiLoader;
 using Sers.SersLoader;
-using System;
-using System.Reflection;
-using Vit.Core.Module.Log;
 
 
 namespace Vit.Extensions
@@ -32,7 +28,7 @@ namespace Vit.Extensions
         /// </summary>
         /// <param name="data"></param>
         /// <param name="config"></param>
-        public static void LoadSersApi(this ILocalApiService data,ApiLoaderConfig config)
+        public static void LoadSersApi(this ILocalApiService data, ApiLoaderConfig config)
         {
             data.ApiNodeMng.AddApiNode(new Sers.SersLoader.ApiLoader().LoadApi(config));
         }

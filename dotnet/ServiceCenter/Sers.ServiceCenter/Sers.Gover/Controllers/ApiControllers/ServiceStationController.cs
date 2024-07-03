@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+
 using Sers.Core.Module.Rpc;
 using Sers.Gover.Base;
 using Sers.Gover.Base.Model;
 using Sers.SersLoader;
 using Sers.SersLoader.ApiDesc.Attribute.Valid;
+
 using Vit.Core.Util.ComponentModel.Api;
 using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.ComponentModel.Model;
@@ -23,7 +25,7 @@ namespace Sers.Gover.Controllers.ApiControllers
         [SsName("获取所有ServiceStation")]
         public ApiReturn<List<ServiceStationData>> GetAll()
         {
-            return new ApiReturn<List<ServiceStationData>> { data = GoverApiCenterService.Instance.ServiceStation_GetAll() }; 
+            return new ApiReturn<List<ServiceStationData>> { data = GoverApiCenterService.Instance.ServiceStation_GetAll() };
         }
 
 

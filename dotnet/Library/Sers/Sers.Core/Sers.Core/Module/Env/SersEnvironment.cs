@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+
 using Sers.Hardware.Env;
 
 namespace Sers.Core.Module.Env
@@ -6,12 +7,12 @@ namespace Sers.Core.Module.Env
     public class SersEnvironment
     {
         /// <summary>
-        /// 每台机器的deviceKey在任何时候都唯一
+        /// deviceKey of every server machines is always unique at anytime
         /// </summary>
-        public static   string deviceKey => EnvHelp.MachineUnqueKey;
+        public static string deviceKey => EnvHelp.MachineUnqueKey;
 
         /// <summary>
-        /// 每个服务站点的serviceStationKey在任何时候都唯一
+        /// serviceStationKey of every service station is always unique at anytime
         /// </summary>
         public static string serviceStationKey => EnvHelp.AppUnqueKey;
 

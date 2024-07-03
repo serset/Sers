@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.StaticFiles;
+﻿using System.IO;
+
+using Microsoft.AspNetCore.StaticFiles;
+
 using Newtonsoft.Json.Linq;
-using System.IO;
+
 using Vit.Core.Util.ConfigurationManager;
 
 namespace Vit.WebHost
@@ -14,17 +17,17 @@ namespace Vit.WebHost
         /// </summary>
         /// <param name="contentTypeMapFile"></param>
         /// <returns></returns>
-        public static FileExtensionContentTypeProvider BuildContentTypeProvider(string contentTypeMapFile) 
+        public static FileExtensionContentTypeProvider BuildContentTypeProvider(string contentTypeMapFile)
         {
             if (string.IsNullOrWhiteSpace(contentTypeMapFile))
-            {                
+            {
                 return null;
             }
 
             var jsonFile = new JsonFile(contentTypeMapFile);
             if (File.Exists(jsonFile.configPath))
             {
-                var provider = new FileExtensionContentTypeProvider();             
+                var provider = new FileExtensionContentTypeProvider();
 
                 if (jsonFile.root is JObject jo)
                 {

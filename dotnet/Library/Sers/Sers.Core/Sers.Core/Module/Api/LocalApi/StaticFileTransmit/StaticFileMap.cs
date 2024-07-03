@@ -1,12 +1,15 @@
-﻿using Newtonsoft.Json.Linq;
-using Vit.Extensions;
-using Sers.Core.Module.Rpc;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Web;
+
+using Newtonsoft.Json.Linq;
+
+using Sers.Core.Module.Rpc;
+
+using Vit.Core.Util.Common;
 using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Core.Util.ConfigurationManager;
-using Vit.Core.Util.Common;
-using System.Collections.Generic;
+using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
 using Vit.Extensions.Object_Serialize_Extensions;
 
@@ -73,7 +76,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             var jsonFile = new JsonFile(filePath);
             if (File.Exists(jsonFile.configPath))
             {
-                 
+
                 var map = contentTypeProvider.Mappings;
                 foreach (var item in (jsonFile.root as JObject))
                 {
@@ -103,7 +106,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             this.fileBasePath = fileBasePath;
         }
 
-        public StaticFileMap(StaticFilesConfig config) 
+        public StaticFileMap(StaticFilesConfig config)
         {
             this.fileBasePath = config.rootPath;
             responseHeaders = config.responseHeaders;
@@ -157,14 +160,14 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             if (!fileInfo.Exists)
             {
                 return SsError.Err_404.SerializeToBytes();
-            }           
+            }
 
             #region reply header
             var replyRpcData = new RpcContextData();
             var rpcHeaders = replyRpcData.http.Headers();
 
             if (responseHeaders != null)
-            {             
+            {
                 foreach (var item in responseHeaders)
                 {
                     rpcHeaders[item.Key] = item.Value;
@@ -173,19 +176,19 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
 
             if (contentTypeProvider.TryGetContentType(absFilePath, out var contentType))
             {
-                rpcHeaders["Content-Type"] = contentType;             
+                rpcHeaders["Content-Type"] = contentType;
             }
-    
+
             rpcHeaders["Content-Length"] = fileInfo.Length.ToString();
 
             //rpcHeaders["Cache-Control"] = "public,max-age=6000";
 
-            RpcContext.Current.apiReplyMessage.rpcContextData_OriData= replyRpcData.ToBytes().BytesToArraySegmentByte();
+            RpcContext.Current.apiReplyMessage.rpcContextData_OriData = replyRpcData.ToBytes().BytesToArraySegmentByte();
             #endregion
 
-          
+
             return File.ReadAllBytes(absFilePath);
-  
+
         }
 
         #endregion
@@ -196,7 +199,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
 
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public byte[] DownloadFile(string absFilePath, string fileName=null)
+        public byte[] DownloadFile(string absFilePath, string fileName = null)
         {
             if (string.IsNullOrEmpty(absFilePath))
             {
@@ -240,7 +243,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             headers["Content-Disposition"] = "attachment;filename=" + HttpUtility.UrlEncode(fileName, Vit.Core.Module.Serialization.Serialization_Newtonsoft.Instance.encoding);
             headers["Content-Length"] = fileInfo.Length.ToString();
             #endregion
-  
+
 
             RpcContext.Current.apiReplyMessage.rpcContextData_OriData = replyRpcData.ToBytes().BytesToArraySegmentByte();
             #endregion

@@ -1,6 +1,8 @@
 using System;
 using System.Runtime.CompilerServices;
+
 using Sers.CL.Socket.Iocp.Base;
+
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Threading.Timer;
 
@@ -10,7 +12,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
     {
 
         #region NewConnection
-      
+
         /// <summary>
         /// 发送缓冲区数据块的最小大小（单位：byte,默认 1000000）
         /// </summary>
@@ -58,7 +60,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
             }
             return false;
         }
- 
+
 
 
         /// <summary>
@@ -75,7 +77,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
                 Logger.Error(ex);
             }
 
-            base.Stop(); 
+            base.Stop();
         }
         #endregion
 
@@ -110,7 +112,7 @@ namespace Sers.CL.Socket.Iocp.Mode.Timer
 
         #endregion
 
- 
+
 
     }
 }

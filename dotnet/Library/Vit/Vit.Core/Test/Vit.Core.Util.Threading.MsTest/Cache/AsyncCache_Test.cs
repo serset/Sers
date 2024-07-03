@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Vit.Core.Util.Threading.Cache;
 
@@ -62,5 +62,5 @@ namespace Vit.Core.Util.Threading.MsTest.Cache
 
     }
 
-     
+
 }

@@ -71,9 +71,9 @@ namespace Vit.Extensions.Data
             , bool addColumnName = true, int firstRowIndex = 0, int maxRowCount = int.MaxValue
             , Encoding encoding = null)
         {
-            using (var writer = new StreamWriter(csvPath, append, encoding ?? Encoding.UTF8)) 
+            using (var writer = new StreamWriter(csvPath, append, encoding ?? Encoding.UTF8))
             {
-                return SaveToCsv(dt,writer,addColumnName:addColumnName,firstRowIndex:firstRowIndex,maxRowCount:maxRowCount);
+                return SaveToCsv(dt, writer, addColumnName: addColumnName, firstRowIndex: firstRowIndex, maxRowCount: maxRowCount);
             }
         }
 
@@ -190,7 +190,7 @@ namespace Vit.Extensions.Data
         /// <param name="encoding">default UTF8</param>
         /// <param name="maxRowCount"></param>
         /// <returns> saved data row count </returns>
-        public static int SaveToCsv(this IDataReader dr, string csvPath, bool append = false, bool addColumnName = true, int maxRowCount = int.MaxValue, Encoding encoding = null) 
+        public static int SaveToCsv(this IDataReader dr, string csvPath, bool append = false, bool addColumnName = true, int maxRowCount = int.MaxValue, Encoding encoding = null)
         {
             using (var writer = new StreamWriter(csvPath, append, encoding ?? Encoding.UTF8))
             {

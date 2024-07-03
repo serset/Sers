@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+
 using Sers.Hardware.Env;
 using Sers.Hardware.Usage;
 
@@ -49,8 +50,8 @@ namespace Sers.Hardware.Demo
                 Thread.Sleep(1000);
             }
 
- 
-             
+
+
         }
     }
 }

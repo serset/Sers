@@ -1,14 +1,16 @@
 using System;
 using System.Net.Sockets;
+
 using Sers.Core.CL.MessageDelivery;
+
 using Vit.Core.Module.Log;
 
 namespace Sers.CL.Socket.ThreadWait
 {
-    public class DeliveryClient: IDeliveryClient
+    public class DeliveryClient : IDeliveryClient
     {
 
-        DeliveryConnection _conn  = new DeliveryConnection();
+        DeliveryConnection _conn = new DeliveryConnection();
         public IDeliveryConnection conn => _conn;
 
 
@@ -17,7 +19,7 @@ namespace Sers.CL.Socket.ThreadWait
         /// </summary>
         public Action<IDeliveryConnection, ArraySegment<byte>> Conn_OnGetFrame { set { _conn.OnGetFrame = value; } }
 
-        public Action<IDeliveryConnection> Conn_OnDisconnected { set=> _conn.Conn_OnDisconnected=value; }
+        public Action<IDeliveryConnection> Conn_OnDisconnected { set => _conn.Conn_OnDisconnected = value; }
 
 
 

@@ -1,73 +1,71 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Threading;
 
- 
-namespace  Sers.CL.Zmq.FullDuplex.Zmq
+
+namespace Sers.CL.Zmq.FullDuplex.Zmq
 {
-	/// <summary>
-	/// Sends and receives messages, single frames and byte frames across ZeroMQ.
-	/// </summary>
-	public class ZSocket : IDisposable
-	{
-		  
-		private ZContext _context;
+    /// <summary>
+    /// Sends and receives messages, single frames and byte frames across ZeroMQ.
+    /// </summary>
+    public class ZSocket : IDisposable
+    {
 
-		private IntPtr _socketPtr;
+        private ZContext _context;
 
-		private ZSocketType _socketType;
-		
-		/// <summary>
-		/// Create a <see cref="ZSocket"/> instance.
-		/// You are using ZContext.Current!
-		/// </summary>
-		/// <returns><see cref="ZSocket"/></returns>
-		public ZSocket(ZSocketType socketType) : this (ZContext.Current, socketType) { }
+        private IntPtr _socketPtr;
 
-		/// <summary>
-		/// Create a <see cref="ZSocket"/> instance.
-		/// </summary>
-		/// <returns><see cref="ZSocket"/></returns>
-		public ZSocket(ZContext context, ZSocketType socketType)
-		{
-			_context = context;
-			_socketType = socketType;
+        private ZSocketType _socketType;
 
-		 
-			if (!Initialize(out var error))
-			{
+        /// <summary>
+        /// Create a <see cref="ZSocket"/> instance.
+        /// You are using ZContext.Current!
+        /// </summary>
+        /// <returns><see cref="ZSocket"/></returns>
+        public ZSocket(ZSocketType socketType) : this(ZContext.Current, socketType) { }
+
+        /// <summary>
+        /// Create a <see cref="ZSocket"/> instance.
+        /// </summary>
+        /// <returns><see cref="ZSocket"/></returns>
+        public ZSocket(ZContext context, ZSocketType socketType)
+        {
+            _context = context;
+            _socketType = socketType;
+
+
+            if (!Initialize(out var error))
+            {
                 throw new Exception("zmq error: errno " + error);
             }
-		}
+        }
 
-		protected ZSocket() { }
+        protected ZSocket() { }
 
-		protected bool Initialize(out int error)
-		{
-			error = 0;
+        protected bool Initialize(out int error)
+        {
+            error = 0;
 
-			if (IntPtr.Zero == (_socketPtr = zmq.socket(_context.ContextPtr, (Int32)_socketType)))
-			{
+            if (IntPtr.Zero == (_socketPtr = zmq.socket(_context.ContextPtr, (Int32)_socketType)))
+            {
                 error = zmq.errno();
                 return false;
-			}
-			return true;
-		}
+            }
+            return true;
+        }
 
-		/// <summary>
-		/// Finalizes an instance of the <see cref="ZSocket"/> class.
-		/// </summary>
-		~ZSocket()
-		{
-			Dispose(false);
-		}
+        /// <summary>
+        /// Finalizes an instance of the <see cref="ZSocket"/> class.
+        /// </summary>
+        ~ZSocket()
+        {
+            Dispose(false);
+        }
 
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         /// <summary>
@@ -75,85 +73,85 @@ namespace  Sers.CL.Zmq.FullDuplex.Zmq
         /// </summary>
         /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
-		{
-			if (disposing)
-			{			 
-				Close(out var error);
-			}
-		}
+        {
+            if (disposing)
+            {
+                Close(out var error);
+            }
+        }
 
-		/// <summary>
-		/// Close the current socket.
-		/// </summary>
-		public void Close()
-		{
-		 
-			if (!Close(out var error))
-			{
+        /// <summary>
+        /// Close the current socket.
+        /// </summary>
+        public void Close()
+        {
+
+            if (!Close(out var error))
+            {
                 throw new Exception("zmq error: errno " + error);
             }
-		}
+        }
 
-		/// <summary>
-		/// Close the current socket.
-		/// </summary>
-		public bool Close(out int error)
-		{
-			error = 0;
-			if (_socketPtr == IntPtr.Zero) return true;
+        /// <summary>
+        /// Close the current socket.
+        /// </summary>
+        public bool Close(out int error)
+        {
+            error = 0;
+            if (_socketPtr == IntPtr.Zero) return true;
 
-			if (-1 == zmq.close(_socketPtr))
-			{
+            if (-1 == zmq.close(_socketPtr))
+            {
                 error = zmq.errno();
                 return false;
-			}
-			_socketPtr = IntPtr.Zero;
-			return true;
-		}
+            }
+            _socketPtr = IntPtr.Zero;
+            return true;
+        }
 
-	 
 
-	 
 
-	 
 
-		/// <summary>
-		/// Bind the specified endpoint.
-		/// </summary>
-		/// <param name="endpoint">A string consisting of a transport and an address, formatted as <c><em>transport</em>://<em>address</em></c>.</param>
-		public void Bind(string endpoint)
-		{
+
+
+
+        /// <summary>
+        /// Bind the specified endpoint.
+        /// </summary>
+        /// <param name="endpoint">A string consisting of a transport and an address, formatted as <c><em>transport</em>://<em>address</em></c>.</param>
+        public void Bind(string endpoint)
+        {
             if (-1 == zmq.bind(_socketPtr, endpoint))
             {
                 int errno = zmq.errno();
                 zmq.ThrowErrno(errno);
-            }         
+            }
         }
-         
 
-		/// <summary>
-		/// Connect the specified endpoint.
-		/// </summary>
-		/// <param name="endpoint">A string consisting of a transport and an address, formatted as <c><em>transport</em>://<em>address</em></c>.</param>
-		public void Connect(string endpoint)
-		{
+
+        /// <summary>
+        /// Connect the specified endpoint.
+        /// </summary>
+        /// <param name="endpoint">A string consisting of a transport and an address, formatted as <c><em>transport</em>://<em>address</em></c>.</param>
+        public void Connect(string endpoint)
+        {
             if (-1 == zmq.connect(_socketPtr, endpoint))
             {
-                int errno = zmq.errno();               
+                int errno = zmq.errno();
                 zmq.ThrowErrno(errno);
-            } 
+            }
         }
 
-		/// <summary>
-		/// Disconnect the specified endpoint.
-		/// </summary>
-		public void Disconnect(string endpoint)
-		{			 
-			if (!Disconnect(endpoint, out var errno))
-			{
-                zmq.ThrowErrno(errno);    
+        /// <summary>
+        /// Disconnect the specified endpoint.
+        /// </summary>
+        public void Disconnect(string endpoint)
+        {
+            if (!Disconnect(endpoint, out var errno))
+            {
+                zmq.ThrowErrno(errno);
             }
-		}
+        }
 
         /// <summary>
         /// Disconnect the specified endpoint.
@@ -161,8 +159,8 @@ namespace  Sers.CL.Zmq.FullDuplex.Zmq
         /// <param name="endpoint">A string consisting of a transport and an address, formatted as <c><em>transport</em>://<em>address</em></c>.</param>
         /// <param name="errno"></param>
 		public bool Disconnect(string endpoint, out int errno)
-		{
-            errno =  0;
+        {
+            errno = 0;
 
             if (-1 == zmq.disconnect(_socketPtr, endpoint))
             {
@@ -170,7 +168,7 @@ namespace  Sers.CL.Zmq.FullDuplex.Zmq
                 return false;
             }
             return true;
-		}
+        }
 
 
         #region OptionBytes
@@ -213,7 +211,7 @@ namespace  Sers.CL.Zmq.FullDuplex.Zmq
                         continue;
                     }
                     zmq.ThrowErrno(errno);
-                }          
+                }
             }
         }
         #endregion
@@ -221,28 +219,28 @@ namespace  Sers.CL.Zmq.FullDuplex.Zmq
         #region option int32
         public bool ReceiveMore
         {
-            get { return GetOptionInt32(ZSocketOption.RCVMORE,out int value) && value == 1; }
+            get { return GetOptionInt32(ZSocketOption.RCVMORE, out int value) && value == 1; }
         }
 
         static readonly int Int32OptionLength = Marshal.SizeOf(typeof(Int32));
 
-       
+
 
         public bool GetOptionInt32(ZSocketOption option, out Int32 value)
-        {          
-            value = default(Int32);         
+        {
+            value = default(Int32);
             int optionLength = Int32OptionLength;
             using (var optionValue = new DispoIntPtr(optionLength))
             {
                 GetOption(option, optionValue.Ptr, ref optionLength);
-                
-                value = Marshal.ReadInt32(optionValue.Ptr);  
+
+                value = Marshal.ReadInt32(optionValue.Ptr);
             }
             return true;
         }
         private void GetOption(ZSocketOption option, IntPtr optionValue, ref int optionLength)
         {
-          
+
             using (var optionLengthP = new DispoIntPtr(IntPtr.Size))
             {
                 if (IntPtr.Size == 4)
@@ -258,7 +256,7 @@ namespace  Sers.CL.Zmq.FullDuplex.Zmq
                     if (errno == (int)ZError.EINTR)
                     {
                         continue;
-                    }                 
+                    }
                     zmq.ThrowErrno(errno);
                 }
 
@@ -269,12 +267,12 @@ namespace  Sers.CL.Zmq.FullDuplex.Zmq
                 else
                     throw new PlatformNotSupportedException();
             }
- 
+
         }
         #endregion
 
-        public List<byte[]>  ReceiveMessage()
-        {          
+        public List<byte[]> ReceiveMessage()
+        {
             var message = new List<byte[]>();
 
             do
@@ -291,7 +289,7 @@ namespace  Sers.CL.Zmq.FullDuplex.Zmq
         public void SendMessage(byte[][] message)
         {
             var t = 0;
-            for (; t < message.Length-1; t++)
+            for (; t < message.Length - 1; t++)
             {
                 zmq.SendMessage(_socketPtr, message[t], (int)ZSocketFlags.More);
             }

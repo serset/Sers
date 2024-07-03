@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 
 using MessagePack;
 using MessagePack.Formatters;
-using MessagePack.Resolvers;
 
 
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using Sers.CL.Ipc.SharedMemory.Stream;
 using Sers.Core.CL.MessageDelivery;
@@ -14,7 +13,7 @@ namespace Sers.CL.Ipc.SharedMemory
 
         public DeliveryConnection()
         {
-            readStream = new ReadStream() { conn=this};
+            readStream = new ReadStream() { conn = this };
             writeStream = new WriteStream();
         }
 
@@ -28,7 +27,8 @@ namespace Sers.CL.Ipc.SharedMemory
         public byte state { get; set; } = DeliveryConnState.waitForCertify;
 
 
-        public Action<IDeliveryConnection, ArraySegment<byte>> OnGetFrame {
+        public Action<IDeliveryConnection, ArraySegment<byte>> OnGetFrame
+        {
             set
             {
                 if (_securityManager != null)
@@ -45,20 +45,20 @@ namespace Sers.CL.Ipc.SharedMemory
 
         public Action<IDeliveryConnection> OnDisconnected { set => readStream.OnDisconnected = value; }
 
-        WriteStream writeStream;
-        ReadStream readStream;
+        readonly WriteStream writeStream;
+        readonly ReadStream readStream;
 
 
 
-        public bool InitAsServer(string memoryName,int nodeCount,int nodeBufferSize)
+        public bool InitAsServer(string memoryName, int nodeCount, int nodeBufferSize)
         {
             if (!writeStream.SharedMemory_Malloc(memoryName + ".ServerToClient", nodeCount, nodeBufferSize))
-            {               
+            {
                 return false;
             }
 
             if (!readStream.SharedMemory_Malloc(memoryName + ".ClientToServer", nodeCount, nodeBufferSize))
-            {               
+            {
                 return false;
             }
             return true;
@@ -68,12 +68,12 @@ namespace Sers.CL.Ipc.SharedMemory
         public bool InitAsClient(string memoryName)
         {
             if (!writeStream.SharedMemory_Attach(memoryName + ".ClientToServer"))
-            {              
+            {
                 return false;
             }
 
             if (!readStream.SharedMemory_Attach(memoryName + ".ServerToClient"))
-            {           
+            {
                 return false;
             }
             return true;
@@ -83,12 +83,12 @@ namespace Sers.CL.Ipc.SharedMemory
         public bool Start()
         {
             if (!readStream.Start())
-            {              
+            {
                 return false;
             }
             if (!writeStream.Start())
             {
-                
+
                 return false;
             }
             return true;

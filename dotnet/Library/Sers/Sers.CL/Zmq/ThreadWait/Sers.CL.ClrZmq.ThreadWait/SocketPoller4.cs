@@ -27,7 +27,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
 
         public void Dispose()
         {
-            Close(); 
+            Close();
         }
         public void Close()
         {
@@ -38,7 +38,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
                 try
                 {
                     socket.Close();
-                  
+
                 }
                 catch (Exception ex)
                 {
@@ -73,7 +73,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
                 }
                 signalForSend_pusher = null;
             }
-            
+
 
 
         }
@@ -88,14 +88,14 @@ namespace Sers.CL.ClrZmq.ThreadWait
 
         readonly BlockingCollection<ZMessage> zMessageQueueFromMq = new BlockingCollection<ZMessage>();
 
-        byte[] zfDataForSignal =  new byte[1];
+        byte[] zfDataForSignal = new byte[1];
         public void SendMessageAsync(ZMessage data)
-        {            
+        {
             try
             {
                 zMessageQueueFromMq.Add(data);
-                lock (signalForSend_pusher)                   
-                        signalForSend_pusher.Send(new ZFrame(zfDataForSignal));
+                lock (signalForSend_pusher)
+                    signalForSend_pusher.Send(new ZFrame(zfDataForSignal));
 
                 //using (data)
                 //lock (signalForSend_pusher)                   
@@ -107,7 +107,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
                 Logger.Error(ex);
             }
         }
-    
+
 
         /// <summary>
         /// 初始化并开启后台线程
@@ -118,12 +118,12 @@ namespace Sers.CL.ClrZmq.ThreadWait
             Close();
 
             this.socket = socket;
-        
-      
+
+
             signalForSend_puller = new ZSocket(ZSocketType.PULL);
             signalForSend_pusher = new ZSocket(ZSocketType.PUSH);
 
-            string inprocEndpoint = "inproc://Zmq.ClrZmq.ThreadWait_signalForSend_"+CommonHelp.NewGuid();
+            string inprocEndpoint = "inproc://Zmq.ClrZmq.ThreadWait_signalForSend_" + CommonHelp.NewGuid();
             signalForSend_puller.Bind(inprocEndpoint);
             signalForSend_pusher.Connect(inprocEndpoint);
 
@@ -131,7 +131,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
             taskToReceiveMsg.threadName = "Sers.CL.ClrZmq.ThreadWait-taskToReceiveMsg";
             taskToReceiveMsg.threadCount = 1;
             taskToReceiveMsg.Processor = TaskToReceiveMsg;
-            taskToReceiveMsg.Start();      
+            taskToReceiveMsg.Start();
 
         }
         ZSocket signalForSend_puller;
@@ -142,9 +142,9 @@ namespace Sers.CL.ClrZmq.ThreadWait
 
 
         LongThread taskToReceiveMsg = new LongThread();
-       
+
         void TaskToReceiveMsg()
-        {            
+        {
             ZError error;
             ZMessage msg;
 
@@ -156,11 +156,11 @@ namespace Sers.CL.ClrZmq.ThreadWait
                 {
                     while (socket != null)
                     {
-                        if (sockets.PollIn(items, out var msgs, out error,TimeSpan.FromMilliseconds(1000)))
+                        if (sockets.PollIn(items, out var msgs, out error, TimeSpan.FromMilliseconds(1000)))
                         {
                             if (error != null)
                             {
-                                Logger.Error("zmq.PollIn error", error.ToString());                                
+                                Logger.Error("zmq.PollIn error", error.ToString());
                             }
 
                             if (msgs[0] != null)
@@ -173,7 +173,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
                                 {
                                     using (msg)
                                         socket.Send(msg);
-                                }                                                            
+                                }
                             }
                         }
                     }
@@ -186,7 +186,7 @@ namespace Sers.CL.ClrZmq.ThreadWait
         }
         #endregion
 
- 
+
 
 
 

@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
-
-using System;
-
-using Vit.Extensions;
+﻿using System;
 using System.Linq;
+
+using Newtonsoft.Json.Linq;
+
 using Vit.Core.Module.Log.LogCollector.ElasticSearch.Client;
-using Vit.Extensions.Newtonsoft_Extensions;
+using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Vit.Core.Module.Log.LogCollector.ElasticSearch
 {

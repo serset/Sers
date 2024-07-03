@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Vit.Core.Util.Shell
 {
-    public class ShellStream: IDisposable
+    public class ShellStream : IDisposable
     {
 
         public StreamReader StandardError => process.StandardError;
@@ -57,7 +57,7 @@ namespace Vit.Core.Util.Shell
                 StartInfo = new ProcessStartInfo(fileName, arguments)
                 {
                     RedirectStandardOutput = true,
-                    RedirectStandardInput=true,
+                    RedirectStandardInput = true,
                     UseShellExecute = false,
                 }
             };

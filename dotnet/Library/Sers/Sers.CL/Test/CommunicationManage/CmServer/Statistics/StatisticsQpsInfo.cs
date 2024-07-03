@@ -24,7 +24,8 @@ namespace CLServer.Statistics
             startTime = DateTime.Now;
             Console.WriteLine("¿ªÊ¼");
 
-            Task.Run(() => {
+            Task.Run(() =>
+            {
 
                 while (!finished)
                 {
@@ -81,23 +82,23 @@ namespace CLServer.Statistics
 
                 //sum
                 var ms = (curTime - startTime.Value).TotalMilliseconds;
-                d =  curCount / ms * 1000;
-                msg += $",qps:{ d.ToString("0.00") }";
+                d = curCount / ms * 1000;
+                msg += $",qps:{d.ToString("0.00")}";
 
                 ms = 1.0 * curRequestTicks / TimeSpan.TicksPerMillisecond;
                 d = (curCount <= 0 ? 0 : ms / curCount);
-                msg += $",ms/req:{ d.ToString("0.00") }";
+                msg += $",ms/req:{d.ToString("0.00")}";
 
 
                 //cur
-                msg += $",------Cur";                
+                msg += $",------Cur";
                 msg += $",ReqCount: {curCount}";
                 ms = (curTime - lastTime).TotalMilliseconds;
                 d = (curCount - lastCount) / ms * 1000;
-                msg += $",qps:{ d.ToString("0.00")  }";
+                msg += $",qps:{d.ToString("0.00")}";
                 ms = 1.0 * (curRequestTicks - lastRequestTicks) / TimeSpan.TicksPerMillisecond;
                 d = (curCount <= lastCount ? 0 : ms / (curCount - lastCount));
-                msg += $",ms/req:{ d.ToString("0.00") }";
+                msg += $",ms/req:{d.ToString("0.00")}";
 
 
                 lastRequestTicks = curRequestTicks;

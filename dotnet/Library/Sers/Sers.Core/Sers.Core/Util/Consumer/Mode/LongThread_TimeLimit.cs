@@ -1,11 +1,10 @@
-﻿using Newtonsoft.Json.Linq;
-
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
 
+using Newtonsoft.Json.Linq;
+
 using Vit.Core.Util.Threading.Worker;
-using Vit.Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.Core.Util.Consumer.Mode
@@ -40,7 +39,7 @@ namespace Sers.Core.Util.Consumer.Mode
 
         BlockingCollection<T> queue = new BlockingCollection<T>();
 
-        public LongThread_TimeLimit() 
+        public LongThread_TimeLimit()
         {
             task.GetWork = GetWork;
         }
@@ -49,12 +48,12 @@ namespace Sers.Core.Util.Consumer.Mode
         public void Init(JObject config)
         {
             threadCount = config["threadCount"]?.Deserialize<int?>() ?? 1;
-            timeoutMs = config["timeoutMs"]?.Deserialize<int?>() ?? 300000;     
+            timeoutMs = config["timeoutMs"]?.Deserialize<int?>() ?? 300000;
         }
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Publish(T t) 
+        public void Publish(T t)
         {
             queue.Add(t);
         }
@@ -65,12 +64,12 @@ namespace Sers.Core.Util.Consumer.Mode
             task.Start();
         }
 
-        public void Stop() 
+        public void Stop()
         {
             task.Stop();
         }
 
-        
+
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         T GetWork()
@@ -78,8 +77,8 @@ namespace Sers.Core.Util.Consumer.Mode
             //堵塞获取请求
             return queue.Take();
         }
-         
-       
+
+
 
     }
 }

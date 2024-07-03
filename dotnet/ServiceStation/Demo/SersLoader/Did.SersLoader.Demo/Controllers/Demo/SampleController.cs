@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Newtonsoft.Json;
+
 using Sers.Core.Module.Api;
 using Sers.Core.Module.Api.LocalApi.StaticFileTransmit;
-using Sers.Core.Module.Rpc;
 using Sers.Core.Module.Message;
+using Sers.Core.Module.Rpc;
 using Sers.SersLoader;
 using Sers.SersLoader.ApiDesc.Attribute.RpcVerify;
 using Sers.SersLoader.ApiDesc.Attribute.Valid;
+
 using Vit.Core.Util.ComponentModel.Api;
 using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.ComponentModel.Model;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Extensions;
-using Vit.Net.Http.FormFile;
 using Vit.Extensions.Json_Extensions;
+using Vit.Net.Http.FormFile;
 
 namespace Did.SersLoader.Demo.Controllers.Demo
 {
@@ -28,7 +31,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
     public class SampleController
         : IApiController
     {
- 
+
         [SsRoute("/a")]
         public void Empty()
         {
@@ -64,7 +67,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
             var http_url = rpcData.http.url;
             var http_url_search = rpcData.http_url_search_Get();
             var http_url_RelativePath = rpcData.http_url_RelativePath_Get();
-            var http_method = rpcData.http.method ;
+            var http_method = rpcData.http.method;
 
             var data = new
             {
@@ -82,7 +85,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// HttpMethod示例GET
         /// </summary>
         /// <returns></returns>
-        [SsRoute("105/route",HttpMethod ="GET")]
+        [SsRoute("105/route", HttpMethod = "GET")]
         public ApiReturn<object> Route5_Get()
         {
             return new { apiName = "Route5_Get", rpcData = RpcContext.RpcData };
@@ -153,7 +156,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// <returns>ArgModelDesc-returns</returns>
         [SsRoute("320/arg")]
         public ApiReturn<Object> Arg320(
-             [SsExample("{\"arg\":\"arg\",\"arg2\":\"arg2\"}"), SsDefaultValue("{\"arg\":\"arg\",\"arg2\":\"arg2\"}"), SsDescription("argDescription")]ArgModel args
+             [SsExample("{\"arg\":\"arg\",\"arg2\":\"arg2\"}"), SsDefaultValue("{\"arg\":\"arg\",\"arg2\":\"arg2\"}"), SsDescription("argDescription")] ArgModel args
             )
         {
             return args;
@@ -166,7 +169,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// <returns></returns>
         [SsRoute("321/arg")]
         public ApiReturn<Object> Arg321(
-             [SsExample("[\"arg1\",\"arg2\"]"), SsDefaultValue("[\"arg1\",\"arg2\"]"), SsDescription("argDescription")]string[] args)
+             [SsExample("[\"arg1\",\"arg2\"]"), SsDefaultValue("[\"arg1\",\"arg2\"]"), SsDescription("argDescription")] string[] args)
         {
             return args;
         }
@@ -178,7 +181,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// <returns></returns>
         [SsRoute("322/arg")]
         public ApiReturn<Object> Arg322(
-            [SsExample("argExample"), SsDefaultValue("argDefaultValue"), SsDescription("argDescription"),SsArgEntity]string args)
+            [SsExample("argExample"), SsDefaultValue("argDefaultValue"), SsDescription("argDescription"), SsArgEntity] string args)
         {
             return args;
         }
@@ -190,7 +193,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// <param name="arg2"></param>
         /// <returns></returns>
         [SsRoute("323/arg")]
-        public ApiReturn<Object> Arg323([SsArgEntity]string  args,string arg2)
+        public ApiReturn<Object> Arg323([SsArgEntity] string args, string arg2)
         {
             return args;
         }
@@ -207,7 +210,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// <param name="arg1"></param>
         /// <returns></returns>
         [SsRoute("330/arg")]
-        public ApiReturn<Object> Arg330([SsExample("argExample"), SsDefaultValue("argDefaultValue"), SsDescription("argDescription")]string arg1)
+        public ApiReturn<Object> Arg330([SsExample("argExample"), SsDefaultValue("argDefaultValue"), SsDescription("argDescription")] string arg1)
         {
             return new { arg1 };
         }
@@ -221,10 +224,10 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// <returns></returns>
         [SsRoute("331/arg")]
         public ApiReturn<Object> Arg331(
-            [SsExample("example1"), SsDefaultValue("default1"), SsDescription("desc1")]string arg1,
-            [SsExample("6"), SsDefaultValue("1")]int arg2)
+            [SsExample("example1"), SsDefaultValue("default1"), SsDescription("desc1")] string arg1,
+            [SsExample("6"), SsDefaultValue("1")] int arg2)
         {
-            return new { arg1 , arg2 };
+            return new { arg1, arg2 };
         }
 
 
@@ -239,7 +242,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// <returns></returns>
         [SsRoute("332/arg")]
         public ApiReturn<Object> Arg332(ArgModel arg1,
-            [SsExample("6"), SsDefaultValue("1")]int arg2)
+            [SsExample("6"), SsDefaultValue("1")] int arg2)
         {
             return new { arg1, arg2 };
         }
@@ -251,9 +254,9 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// <param name="arg1">arg1注释</param>     
         /// <returns></returns>
         [SsRoute("333/arg")]
-        public ApiReturn<Object> Arg333([SsArgProperty]ArgModel arg1)
+        public ApiReturn<Object> Arg333([SsArgProperty] ArgModel arg1)
         {
-            return new { arg1};
+            return new { arg1 };
         }
         #endregion
 
@@ -305,7 +308,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         [SsRoute("403/ret")]
         public ApiReturn<List<string>> Return3()
         {
-            return new List<string>{ "1","2"};
+            return new List<string> { "1", "2" };
         }
 
 
@@ -369,7 +372,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         [SsRoute("409/type")]
         [return: SsType(typeof(List<int>)), SsExample("[5,6]"), SsDescription("返回原值")]
         public string Type(
-            [SsType(typeof(List<string>)), SsExample("[5,6]"), SsDescription("id数组")]string ids
+            [SsType(typeof(List<string>)), SsExample("[5,6]"), SsDescription("id数组")] string ids
             )
         {
             return ids;
@@ -406,7 +409,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
                 rpcData.route,
                 http_url = rpcData.http.url,
                 user = rpcData.user,
-                serviceId= DateTime.Now.ToString("sss")
+                serviceId = DateTime.Now.ToString("sss")
             };
 
             return new ApiReturn<Object>(data);
@@ -419,7 +422,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// <returns></returns>
 
         [SsRoute("503/RpcReplyDemo")]
-        public ApiReturn<Object> RpcReplyDemo([SsArgEntity,SsExample("requestContent")]string request)
+        public ApiReturn<Object> RpcReplyDemo([SsArgEntity, SsExample("requestContent")] string request)
         {
             #region reply header
 
@@ -427,11 +430,11 @@ namespace Did.SersLoader.Demo.Controllers.Demo
             replyRpcData.http.statusCode = 201;
             replyRpcData.http.Headers()["Content-Type"] = "application/json";
             replyRpcData.http.Headers()["testHeader"] = "abc";
-     
+
 
             RpcContext.Current.apiReplyMessage.rpcContextData_OriData = replyRpcData.ToBytes().BytesToArraySegmentByte();
 
- 
+
             #endregion
 
             var data = new
@@ -458,8 +461,8 @@ namespace Did.SersLoader.Demo.Controllers.Demo
 
         [SsRoute("610/ApiClient")]
         public ApiReturn<Object> ApiClient610(
-            [SsExample("/demo/v1/api/332/arg")]string apiRoute, 
-            [SsExample("{\"arg1\":\"dd\",\"arg2\":\"33\"}")]object arg)
+            [SsExample("/demo/v1/api/332/arg")] string apiRoute,
+            [SsExample("{\"arg1\":\"dd\",\"arg2\":\"33\"}")] object arg)
         {
             var apiRet = ApiClient.CallRemoteApi<ApiReturn<Object>>(apiRoute, arg);
             return new ApiReturn<Object>(new
@@ -479,9 +482,9 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// <returns></returns>
         [SsRoute("620/ApiClient")]
         [SsName("ApiClient demo")]
-        [return:SsExample("1122AAFF"), SsDescription("二进制数据")]
-        public byte[] ApiClient620( 
-            [SsExample("1122AAFF"), SsDescription("二进制数据")]byte[] ba)    // 使用ArraySegment<byte> 会减少一步复制的操作，若传输大数据建议使用ArraySegment<byte>
+        [return: SsExample("1122AAFF"), SsDescription("二进制数据")]
+        public byte[] ApiClient620(
+            [SsExample("1122AAFF"), SsDescription("二进制数据")] byte[] ba)    // 使用ArraySegment<byte> 会减少一步复制的操作，若传输大数据建议使用ArraySegment<byte>
         {
             return ba;
         }
@@ -495,7 +498,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         [SsName("ApiClient demo")]
         [return: SsExample("1122AAFF"), SsDescription("二进制数据")]
         public ArraySegment<byte> ApiClient621(
-            [SsExample("1122AAFF"), SsDescription("二进制数据")]ArraySegment<byte> ba)
+            [SsExample("1122AAFF"), SsDescription("二进制数据")] ArraySegment<byte> ba)
         {
             return ba;
         }
@@ -597,7 +600,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// </summary>
         /// <returns></returns>
         [SsRoute("810/SsRpcVerify")]
-        [SsRpcVerify( condition = "{\"type\":\"==\",\"path\":\"http.method\",\"value\":\"PUT\"}", verifiedWhenNull = false , errorMessage = "只接受PUT请求", errorCode = 1000)]
+        [SsRpcVerify(condition = "{\"type\":\"==\",\"path\":\"http.method\",\"value\":\"PUT\"}", verifiedWhenNull = false, errorMessage = "只接受PUT请求", errorCode = 1000)]
         // condition：   SsExp,参考 rpcVerify2.md
         // path：        RpcData中被验证的值，（参考 RpcContextData.md）。如 http.url 、http.method 、 http.headers.Authorization
         // verifiedWhenNull: 当出现空值时，是否通过验证（默认不通过，false）。例如，为fakse时，若没有指定值http.method，则禁止调用接口，返回错误消息；
@@ -662,7 +665,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// </summary>
         /// <returns></returns>
         [SsRoute("830/SsCmp")]
-        [SsCmp(path = "http.method", type = "==" , value="PUT")]
+        [SsCmp(path = "http.method", type = "==", value = "PUT")]
         public ApiReturn SsCmp830()
         {
             return new ApiReturn();
@@ -690,7 +693,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// </summary>
         /// <returns></returns>
         [SsRoute("850/SsNotEqual")]
-        [SsNotEqual(path = "http.method", value = "PUT",errorMessage = "不可为PUT请求")]
+        [SsNotEqual(path = "http.method", value = "PUT", errorMessage = "不可为PUT请求")]
         public ApiReturn SsNotEqual850()
         {
             return new ApiReturn();
@@ -704,7 +707,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// </summary>
         /// <returns></returns>
         [SsRoute("860/SsNotNull")]
-        [SsNotNull(path = "http.headers.Authorization",   errorMessage = "必须指定Authorization")]
+        [SsNotNull(path = "http.headers.Authorization", errorMessage = "必须指定Authorization")]
         public ApiReturn SsNotNull860()
         {
             return new ApiReturn();
@@ -732,7 +735,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
 
         #region (x.9)特殊示例
 
-       
+
 
         #region (x.x.1) 递归demo
         /// <summary>
@@ -740,7 +743,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// </summary>
         /// <returns></returns>
         [SsRoute("901/Recursive")]
-        public ApiReturn<int> Recursive([SsExample("4")]int n)
+        public ApiReturn<int> Recursive([SsExample("4")] int n)
         {
             if (n <= 2) return 1;
 
@@ -751,7 +754,7 @@ namespace Did.SersLoader.Demo.Controllers.Demo
             var apiRet2 = task2.Result;
             if (!apiRet1.success) return apiRet1.error;
             if (!apiRet2.success) return apiRet2.error;
-            return apiRet1.data+ apiRet2.data;
+            return apiRet1.data + apiRet2.data;
         }
         #endregion
 
@@ -763,9 +766,9 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         /// <returns></returns>
         [SsRoute("902/sleep")]
         public ApiReturn<int> Sleep(
-            [SsExample("2"),SsDescription("单位:s")]int s)
+            [SsExample("2"), SsDescription("单位:s")] int s)
         {
-            Thread.Sleep(s * 1000);            
+            Thread.Sleep(s * 1000);
             return s;
         }
         #endregion
@@ -778,11 +781,11 @@ namespace Did.SersLoader.Demo.Controllers.Demo
         ///  上传文件(测试地址 /demo/v1/api/700/static/upload.html)
         /// </summary>
         /// <returns></returns>
-        [SsRoute("903/upload",HttpMethod = "POST")]
+        [SsRoute("903/upload", HttpMethod = "POST")]
         public ApiReturn<object> Upload(byte[] data)
         {
-            MultipartForm result=new MultipartForm(data, RpcContext.RpcData.http_header_ContentType_Get());
-              
+            MultipartForm result = new MultipartForm(data, RpcContext.RpcData.http_header_ContentType_Get());
+
             return result;
         }
         #endregion

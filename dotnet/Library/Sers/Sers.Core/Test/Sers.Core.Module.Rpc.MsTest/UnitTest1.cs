@@ -1,9 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using System;
-
-using Vit.Extensions;
-
 namespace Sers.Core.Module.Rpc.MsTest
 {
     [TestClass]

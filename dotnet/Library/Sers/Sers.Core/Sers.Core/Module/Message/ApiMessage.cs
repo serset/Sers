@@ -4,16 +4,15 @@ using System.Runtime.CompilerServices;
 
 using Sers.Core.Module.Rpc;
 
-using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
 
 namespace Sers.Core.Module.Message
 {
-    public class ApiMessage: SersFile
+    public class ApiMessage : SersFile
     {
         public ApiMessage() { }
 
-        public ApiMessage(ArraySegment<byte> oriData):base(oriData)
+        public ApiMessage(ArraySegment<byte> oriData) : base(oriData)
         {
         }
 

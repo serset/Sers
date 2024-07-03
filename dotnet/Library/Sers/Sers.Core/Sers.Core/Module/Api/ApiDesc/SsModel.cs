@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Newtonsoft.Json;
+
 using Vit.Core.Util.ComponentModel.Model;
 
 namespace Sers.Core.Module.Api.ApiDesc
 {
     [JsonObject(MemberSerialization.OptIn)]
     public class SsModel
-    { 
+    {
         public Func<ArraySegment<byte>, object[]> OnDeserialize;
 
 
@@ -57,7 +59,7 @@ namespace Sers.Core.Module.Api.ApiDesc
         public object example;
 
 
-        [JsonProperty] 
+        [JsonProperty]
         [SsDescription("实体")]
         public List<SsModelEntity> models;
 

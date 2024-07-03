@@ -1,8 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
 
-using System;
-
-using Vit.Extensions;
+using Newtonsoft.Json.Linq;
 
 namespace Vit.Core.Module.Log.LogCollector
 {

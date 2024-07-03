@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Threading;
-using Vit.Extensions;
-using Vit.Core.Module.Log;
 using System.Runtime.CompilerServices;
+using System.Threading;
+
+using Vit.Core.Module.Log;
+using Vit.Extensions;
 
 namespace Vit.Core.Util.Threading.Worker
 {
@@ -26,8 +27,8 @@ namespace Vit.Core.Util.Threading.Worker
 
 
 
-        public LongThread(int threadCount=1) 
-        { 
+        public LongThread(int threadCount = 1)
+        {
             this.threadCount = threadCount;
         }
 
@@ -71,7 +72,7 @@ namespace Vit.Core.Util.Threading.Worker
             }
         }
 
-  
+
 
         /// <summary>
         /// 是否在执行完成后重新执行。
@@ -92,7 +93,7 @@ namespace Vit.Core.Util.Threading.Worker
         public bool IsRunning => runningThreadCount != 0;//threads != null && threads.Any(item=> item.IsAlive);
 
 
-        
+
         ~LongThread()
         {
             Dispose();
@@ -148,7 +149,7 @@ namespace Vit.Core.Util.Threading.Worker
                 semaphore.Release();
             }
         }
-      
+
 
 
         public void Start()

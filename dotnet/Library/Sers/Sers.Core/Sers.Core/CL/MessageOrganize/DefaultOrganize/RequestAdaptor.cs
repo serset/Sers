@@ -12,8 +12,6 @@ using Sers.Core.Util.Consumer;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Common;
 using Vit.Core.Util.Pipelines;
-using Vit.Core.Util.Pool;
-using Vit.Core.Util.Threading;
 using Vit.Core.Util.Threading.Timer;
 using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
@@ -94,7 +92,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             //SendRequest
             Delivery_SendFrameAsync(conn, (byte)EFrameType.request, (byte)requestType, reqRepFrame);
             return reqKey;
-        }       
+        }
 
         #endregion
 
@@ -106,7 +104,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         public void Start()
         {
             //(x.1) task_DeliveryToOrganize_Processor
-            task_DeliveryToOrganize_Processor.Start(); 
+            task_DeliveryToOrganize_Processor.Start();
 
             //(x.2) heartBeat thread
             heartBeat_Timer.timerCallback = (state) => { HeartBeat_Beat(); };
@@ -169,7 +167,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
         #region (x.x.1)
 
-  
+
         long reqKeyIndex = CommonHelp.NewFastGuidLong();
 
         #endregion
@@ -213,7 +211,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         #region deliveryToOrganize_MessageFrameQueue  
 
 
-        readonly IConsumer<DeliveryToOrganize_MessageFrame> task_DeliveryToOrganize_Processor; 
+        readonly IConsumer<DeliveryToOrganize_MessageFrame> task_DeliveryToOrganize_Processor;
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -223,7 +221,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             msg.conn = conn;
             msg.messageFrame = messageFrame;
 
-            task_DeliveryToOrganize_Processor.Publish(msg);    
+            task_DeliveryToOrganize_Processor.Publish(msg);
         }
 
 
@@ -239,7 +237,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         {
             public IOrganizeConnection conn { get; set; }
 
-            public long reqKey;            
+            public long reqKey;
         }
         #endregion
 
@@ -251,7 +249,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void DeliveryToOrganize_ProcessFrame(DeliveryToOrganize_MessageFrame msgFrame)
         {
-            IOrganizeConnection conn = msgFrame.conn;  
+            IOrganizeConnection conn = msgFrame.conn;
 
             if (msgFrame.messageFrame == null) return;
 
@@ -310,7 +308,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                 case ERequestType.app:
                     {
                         //app
-                        event_OnGetRequest(reqInfo.conn,reqInfo, requestData, DeliveryToOrganize_SendReply);
+                        event_OnGetRequest(reqInfo.conn, reqInfo, requestData, DeliveryToOrganize_SendReply);
                         return;
                     }
                 case ERequestType.heartBeat:
@@ -324,7 +322,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                         else
                         {
                             // send reply
-                            DeliveryToOrganize_SendReply(reqInfo, new Vit.Core.Util.Pipelines.ByteData ("error".SerializeToArraySegmentByte()));
+                            DeliveryToOrganize_SendReply(reqInfo, new Vit.Core.Util.Pipelines.ByteData("error".SerializeToArraySegmentByte()));
                         }
                         return;
                     }
@@ -340,11 +338,11 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             DeliveryToOrganize_RequestInfo reqInfo = sender as DeliveryToOrganize_RequestInfo;
             var conn = reqInfo.conn;
             var reqKey = reqInfo.reqKey;
-      
+
 
             PackageReqRepFrame(reqKey, replyData, out var repFrame);
 
-            Delivery_SendFrameAsync(conn, (byte)EFrameType.reply,0, repFrame);
+            Delivery_SendFrameAsync(conn, (byte)EFrameType.reply, 0, repFrame);
         }
 
         #endregion
@@ -453,11 +451,10 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         {
             try
             {
-                var temp = HeartBeat_info_cur;
-                HeartBeat_info_cur = HeartBeat_info_Before;
-                HeartBeat_info_Before = temp;
+                (HeartBeat_info_Before, HeartBeat_info_cur) = (HeartBeat_info_cur, HeartBeat_info_Before);
                 var conns = GetConnList();
                 if (conns != null)
+                {
                     foreach (var conn in conns)
                     {
                         try
@@ -469,6 +466,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                             Logger.Error(ex);
                         }
                     }
+                }
                 HeartBeat_info_Before.Clear();
             }
             catch (Exception ex) when (!(ex.GetBaseException() is ThreadInterruptedException))
@@ -517,7 +515,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                 }
                 return false;
             }
-       
+
         }
 
 
@@ -526,7 +524,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         {
             public DateTime timeoutTime;
             public DateTime? replyTime;
-            public IOrganizeConnection  conn;
+            public IOrganizeConnection conn;
 
             /// <summary>
             /// 是否超时  true:已经超时  false:未超时   null:未知
@@ -537,7 +535,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                 {
                     if (replyTime != null)
                     {
-                        return timeoutTime <= replyTime.Value ;
+                        return timeoutTime <= replyTime.Value;
                     }
 
                     if (timeoutTime <= DateTime.Now) return true;
@@ -545,8 +543,8 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                 }
             }
         }
-        Dictionary<IOrganizeConnection , HeartBeatInfo> HeartBeat_info_Before = new Dictionary<IOrganizeConnection , HeartBeatInfo>();
-        Dictionary<IOrganizeConnection , HeartBeatInfo> HeartBeat_info_cur = new Dictionary<IOrganizeConnection , HeartBeatInfo>();
+        Dictionary<IOrganizeConnection, HeartBeatInfo> HeartBeat_info_Before = new Dictionary<IOrganizeConnection, HeartBeatInfo>();
+        Dictionary<IOrganizeConnection, HeartBeatInfo> HeartBeat_info_cur = new Dictionary<IOrganizeConnection, HeartBeatInfo>();
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         void HeartBeat_CheckIfDisconnectedAndSendHeartBeat(IOrganizeConnection conn)
@@ -556,18 +554,18 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                 if (info.IsDisconnected(heartBeatRetryCount))
                 {
                     Logger.Info("[CL.RequestAdaptor]HeartBeat,conn disconnected", new { connKey = conn.GetConnKey() });
-                    conn.Close();                    
+                    conn.Close();
                     return;
                 }
             }
             else
             {
                 info = new HeartBeatInfo();
-            } 
+            }
 
             info.list.Add(HeartBeat_Send(conn));
 
-            HeartBeat_info_cur[conn] = info;             
+            HeartBeat_info_cur[conn] = info;
 
         }
 
@@ -580,7 +578,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         }
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        void HeartBeat_callback(object sender,Vit.Core.Util.Pipelines.ByteData replyData)
+        void HeartBeat_callback(object sender, Vit.Core.Util.Pipelines.ByteData replyData)
         {
             HeartBeatPackage package = sender as HeartBeatPackage;
 

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+
 using Sers.Core.Module.PubSub;
+
 using Vit.Core.Module.Log;
 
 namespace Sers.Gover.Service.SersEvent
@@ -18,18 +20,18 @@ namespace Sers.Gover.Service.SersEvent
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Publish(string eventName,object msgBody)
+        public static void Publish(string eventName, object msgBody)
         {
             try
             {
-                MessageClient.Publish("SersEvent.ServiceStation."+ eventName, msgBody);
+                MessageClient.Publish("SersEvent.ServiceStation." + eventName, msgBody);
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
-            }           
+            }
         }
 
     }
- 
+
 }

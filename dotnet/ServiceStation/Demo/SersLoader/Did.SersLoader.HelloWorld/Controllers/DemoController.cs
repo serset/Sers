@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+
 using Sers.SersLoader;
+
 using Vit.Core.Util.ComponentModel.Api;
 using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.ComponentModel.Model;
@@ -23,7 +25,7 @@ namespace Did.SersLoader.HelloWorld.Controllers
         //[SsCallerSource(ECallerSource.Internal)]
         public ApiReturn<string> Demo1(ArgModel arg1)
         {
-            return new ApiReturn<string>() { data= arg1?.Name };
+            return new ApiReturn<string>() { data = arg1?.Name };
         }
 
         /// <summary>
@@ -34,8 +36,8 @@ namespace Did.SersLoader.HelloWorld.Controllers
         /// <returns>是否成功</returns>
         [SsRoute("demo/2")]
         public ApiReturn Demo2(
-            [SsExample("example1"), SsDefaultValue("default1")]string arg1,
-            [SsExample("6"), SsDefaultValue("1")]int arg2)
+            [SsExample("example1"), SsDefaultValue("default1")] string arg1,
+            [SsExample("6"), SsDefaultValue("1")] int arg2)
         {
             return new ApiReturn();
         }
@@ -60,6 +62,6 @@ namespace Did.SersLoader.HelloWorld.Controllers
             public int Age { get; set; }
 
         }
-        
+
     }
 }

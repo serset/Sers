@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Channels;
+﻿using System.Threading.Channels;
 
 namespace Sers.Core.Util.PubSub.Test.Queue
 {
@@ -18,7 +15,7 @@ namespace Sers.Core.Util.PubSub.Test.Queue
         public void Publish(T t)
         {
             PublishAsync(t);
-              //channel.Writer.TryWrite(t);
+            //channel.Writer.TryWrite(t);
         }
 
 
@@ -27,7 +24,7 @@ namespace Sers.Core.Util.PubSub.Test.Queue
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public bool TryTake(out T item) 
+        public bool TryTake(out T item)
         {
             return channel.Reader.TryRead(out item);
         }
@@ -37,8 +34,8 @@ namespace Sers.Core.Util.PubSub.Test.Queue
         {
             //if (channel.Reader.WaitToReadAsync().Result)
             //{
-                if (channel.Reader.TryRead(out var item)) return item;
-               
+            if (channel.Reader.TryRead(out var item)) return item;
+
             //}
             return default;
         }

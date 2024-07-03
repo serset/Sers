@@ -1,6 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Threading;
+
 using App.Robot.Station.Logical.Worker;
+
 using Newtonsoft.Json;
 
 namespace App.Robot.Station.Logical
@@ -18,7 +20,7 @@ namespace App.Robot.Station.Logical
         public long targetCount = 0;
 
 
-        public TaskConfig config { get => config_;  set { config_ = value; EventAfterSetConfig(); }  }
+        public TaskConfig config { get => config_; set { config_ = value; EventAfterSetConfig(); } }
         private TaskConfig config_;
 
 
@@ -30,7 +32,7 @@ namespace App.Robot.Station.Logical
         [JsonIgnore]
         public IWorker worker { get; private set; }
 
-        void EventAfterSetConfig() 
+        void EventAfterSetConfig()
         {
             var config = config_;
 

@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Text;
+﻿using System.Text;
+
+using Microsoft.AspNetCore.Http;
 
 namespace Vit.Extensions
 {

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System.Threading;
 
-using Vit.Extensions;
 using Vit.Extensions.Json_Extensions;
 
 namespace Vit.Core.Util.Pipelines
@@ -23,7 +21,7 @@ namespace Vit.Core.Util.Pipelines
         int QueueBuff_dataLenOfRemoved = 0;
 
 
-        public void Clear() 
+        public void Clear()
         {
             queueBuff.Clear();
         }
@@ -73,7 +71,7 @@ namespace Vit.Core.Util.Pipelines
                 if (cur.Count <= leftCount)
                 {
                     //dataToPop 数据长
-                    cur.CopyTo(dataToPop, copyedIndex + offset_dataToPop);     
+                    cur.CopyTo(dataToPop, copyedIndex + offset_dataToPop);
                     copyedIndex += cur.Count;
                     QueueBuff_dataLenOfRemoved = 0;
 
@@ -83,7 +81,7 @@ namespace Vit.Core.Util.Pipelines
                 else
                 {
                     //queueBuff 数据长
-                    cur.CopyTo(dataToPop, copyedIndex + offset_dataToPop, leftCount);      
+                    cur.CopyTo(dataToPop, copyedIndex + offset_dataToPop, leftCount);
                     copyedIndex += leftCount;
                     QueueBuff_dataLenOfRemoved += leftCount;
                 }

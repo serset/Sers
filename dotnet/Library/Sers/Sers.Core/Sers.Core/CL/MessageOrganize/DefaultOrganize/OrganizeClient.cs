@@ -7,7 +7,6 @@ using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Pipelines;
 using Vit.Extensions;
-using Vit.Extensions.Json_Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
 using Vit.Extensions.Object_Serialize_Extensions;
 
@@ -37,11 +36,12 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             conn = new OrganizeConnection(delivery.conn, requestAdaptor);
             requestAdaptor.BindConnection(delivery.conn, conn);
 
-            
+
 
             secretKey = config["secretKey"].ConvertToString();
 
-            requestAdaptor.GetConnList = () => {
+            requestAdaptor.GetConnList = () =>
+            {
                 return new[] { conn };
             };
         }
@@ -52,7 +52,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         {
             set
             {
-                delivery.Conn_OnDisconnected = (deliveryConn)=> { value(conn); };
+                delivery.Conn_OnDisconnected = (deliveryConn) => { value(conn); };
             }
         }
 
@@ -60,7 +60,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         /// 会在内部线程中被调用 
         /// (conn,sender,requestData,callback)
         /// </summary>
-        public Action<IOrganizeConnection,object, ArraySegment<byte>, Action<object, Vit.Core.Util.Pipelines.ByteData>> conn_OnGetRequest
+        public Action<IOrganizeConnection, object, ArraySegment<byte>, Action<object, Vit.Core.Util.Pipelines.ByteData>> conn_OnGetRequest
         {
             set
             {
@@ -68,7 +68,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
             }
         }
 
-        public Action<IOrganizeConnection,ArraySegment<byte>> conn_OnGetMessage
+        public Action<IOrganizeConnection, ArraySegment<byte>> conn_OnGetMessage
         {
             set
             {
@@ -77,7 +77,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
         }
         #endregion
 
-     
+
 
 
         #region Start
@@ -121,7 +121,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
 
 
         #region Connect
-       
+
         bool Connect()
         {
             if (!delivery.Connect())
@@ -168,7 +168,7 @@ namespace Sers.Core.CL.MessageOrganize.DefaultOrganize
                     Logger.Error("[CL.OrganizeClient] Authentication - failed");
                 }
             }
-            
+
         }
 
         #endregion

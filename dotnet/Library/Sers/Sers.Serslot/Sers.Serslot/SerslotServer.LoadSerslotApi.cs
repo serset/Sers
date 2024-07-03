@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+
 using Sers.Core.Module.Api.ApiDesc;
 using Sers.Core.Module.Api.LocalApi;
 using Sers.SersLoader;
@@ -9,11 +10,11 @@ using Vit.Extensions;
 
 namespace Sers.Serslot
 {
-    public partial class SerslotServer 
+    public partial class SerslotServer
     {
 
         /// <summary>
-        /// 调用Serslot加载器加载api
+        ///  load apis by Serslot ApiLoader
         /// </summary>
         /// <param name="data"></param>
         /// <param name="assembly"></param>
@@ -24,14 +25,13 @@ namespace Sers.Serslot
                 return;
             }
 
-            #region (x.1) api from host
+            #region #1 api from host
             var config = new SersLoader.ApiLoaderConfig { assembly = assembly };
 
-            Func<SsApiDesc, ApiLoaderConfig, IApiNode> CreateApiNode =
-                (apiDesc, _) =>
-                {
-                    return new LocalApiNode(apiDesc, this);
-                };
+            IApiNode CreateApiNode(SsApiDesc apiDesc, ApiLoaderConfig _)
+            {
+                return new LocalApiNode(apiDesc, this);
+            }
 
             var apiLoader = new Sers.Serslot.ApiLoader(CreateApiNode);
 
@@ -39,8 +39,8 @@ namespace Sers.Serslot
             #endregion
 
 
-            //(x.2)load api from appsettings.json::serslot.extApi
-            data.LoadSerslotExtApi(apiDesc=> new LocalApiNode(apiDesc, this));
+            // #2 load api from appsettings.json::serslot.extApi
+            data.LoadSerslotExtApi(apiDesc => new LocalApiNode(apiDesc, this));
 
         }
     }

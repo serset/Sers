@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+
 using Sers.Core.Module.Api.ApiDesc;
 using Sers.Core.Module.Api.RouteMap;
 using Sers.Core.Module.Rpc;
@@ -14,9 +15,9 @@ namespace Sers.Gover.Base
     /// </summary>
     public class ApiLoadBalancingMng
     {
-     
+
         public ApiLoadBalancingMng()
-        {    
+        {
         }
 
         protected readonly RouteMap<LoadBalancingForApiNode> routeMap = new RouteMap<LoadBalancingForApiNode>();

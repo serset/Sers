@@ -1,27 +1,24 @@
-﻿using System.Threading;
-
-namespace ZeroMQ.lib
+﻿namespace ZeroMQ.lib
 {
-	using System;
-	using System.Text;
-	using System.Threading;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
+    using System.Text;
 
-	internal sealed partial class DispoIntPtr : IDisposable
-	{
-		public static class Ansi
-		{
-			unsafe internal static DispoIntPtr AllocStringNative(string str, out int byteCount)
-			{
-				// use builtin allocation
-				var dispPtr = new DispoIntPtr();
-				dispPtr._ptr = Marshal.StringToHGlobalAnsi(str);
-				dispPtr.isAllocated = true;
+    internal sealed partial class DispoIntPtr : IDisposable
+    {
+        public static class Ansi
+        {
+            unsafe internal static DispoIntPtr AllocStringNative(string str, out int byteCount)
+            {
+                // use builtin allocation
+                var dispPtr = new DispoIntPtr();
+                dispPtr._ptr = Marshal.StringToHGlobalAnsi(str);
+                dispPtr.isAllocated = true;
 
-				byteCount = Encoding.Default.GetByteCount(str);
-				return dispPtr;  /**/
+                byteCount = Encoding.Default.GetByteCount(str);
+                return dispPtr;  /**/
 
-				/* use encoding or Encoding.Default ( system codepage of ANSI )
+                /* use encoding or Encoding.Default ( system codepage of ANSI )
 				var enc = Encoding.Default.GetEncoder();
 
 				// var encoded = new byte[length];
@@ -50,7 +47,7 @@ namespace ZeroMQ.lib
 				// *((byte*)dispPtr._ptr + length) = 0x00;
 
 				return dispPtr; /**/
-			}
-		}
-	}
+            }
+        }
+    }
 }

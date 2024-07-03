@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Vit.Core.Module.Log
 {
     public class LogMessage
-        //: Extensible
+    //: Extensible
     {
         public Level level;
         public string message;
