@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using Vit.Extensions.Json_Extensions;
 using Vit.Core.Module.Serialization;
 using Vit.Extensions.Object_Serialize_Extensions;
+using System.Collections.Generic;
 
 namespace Vit.Extensions
 {
@@ -55,7 +56,19 @@ namespace Vit.Extensions
             #region (x.2)设置body
             {
                 ArraySegment<byte> bodyData;
-                if (arg != null && (bodyData = arg.SerializeToArraySegmentByte()).HasData())
+                if (arg is ArraySegment<byte> asByte)
+                {
+                    apiRequestMessage.value_OriData = asByte;
+                }
+                else if (arg is byte[] bytes)
+                {
+                    apiRequestMessage.value_OriData = bytes.BytesToArraySegmentByte();
+                }
+                else if (arg is string str)
+                {
+                    apiRequestMessage.value_OriData = str.StringToArraySegmentByte();
+                }
+                else if (arg != null && (bodyData = arg.SerializeToArraySegmentByte()).HasData())
                 {
                     apiRequestMessage.value_OriData = bodyData;
                 }
@@ -73,7 +86,7 @@ namespace Vit.Extensions
                             var query = url.Substring(queryIndex);
                             var kvs = System.Web.HttpUtility.ParseQueryString(query);
 
-                            JObject data = new JObject();
+                            var data = new Dictionary<string, string>();
                             foreach (string key in kvs)
                             {
                                 var value = kvs.Get(key);
@@ -103,15 +116,15 @@ namespace Vit.Extensions
         /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ApiMessage InitAsApiRequestMessage(this ApiMessage apiRequestMessage, string url, Object arg=null,string httpMethod=null,Action<RpcContextData>InitRpc=null)
-        {   
+        public static ApiMessage InitAsApiRequestMessage(this ApiMessage apiRequestMessage, string url, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)
+        {
             //(x.1)初始化rpcData
             var rpcData = new RpcContextData().InitFromRpcContext().Init(url, httpMethod);
             InitRpc?.Invoke(rpcData);
             apiRequestMessage.RpcContextData_OriData_Set(rpcData);
 
             //(x.2)设置body
-            SetValue(apiRequestMessage, url,arg);    
+            SetValue(apiRequestMessage, url, arg);
 
             return apiRequestMessage;
         }

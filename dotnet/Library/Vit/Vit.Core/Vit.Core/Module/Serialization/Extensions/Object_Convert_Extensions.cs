@@ -16,7 +16,11 @@ namespace Vit.Extensions.Json_Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object ConvertBySerialize(this object value, Type type)
         {
-            return Json.Deserialize(Json.Serialize(value), type);
+            string str;
+            if (value is string strValue) str = strValue;
+            else str = Json.Serialize(value);
+
+            return Json.Deserialize(str, type);
         }
 
         /// <summary>
@@ -28,7 +32,11 @@ namespace Vit.Extensions.Json_Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TTarget ConvertBySerialize<TTarget>(this object value)
         {
-            return Json.Deserialize<TTarget>(Json.Serialize(value));
+            string str;
+            if (value is string strValue) str = strValue;
+            else str = Json.Serialize(value);
+
+            return Json.Deserialize<TTarget>(str);
         }
 
 

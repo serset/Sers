@@ -287,7 +287,7 @@ namespace Sers.ServiceStation
             #region #6 register localApiService to ServiceCenter
             //if (0 < localApiMng.apiCount)
             {
-                Logger.Info("[ServiceStation] regist serviceStation to ServiceCenter...");
+                Logger.Info("[ServiceStation] register serviceStation to ServiceCenter...");
 
                 var serviceStationData = new
                 {
@@ -298,7 +298,7 @@ namespace Sers.ServiceStation
 
                 if (true == Appsettings.json.GetByPath<bool?>("Sers.ServiceStation.StationRegist_PrintRegistArg"))
                 {
-                    Logger.Info("[ServiceStation] regist - arg:" + serviceStationData);
+                    Logger.Info("[ServiceStation] register - arg:" + serviceStationData);
                 }
 
 
@@ -311,7 +311,7 @@ namespace Sers.ServiceStation
 
                         if (ret?.success != true)
                         {
-                            Logger.Error("[ServiceStation] regist - failed", ret);
+                            Logger.Error("[ServiceStation] register - failed", ret);
                             return false;
                         }
                     }
@@ -322,7 +322,7 @@ namespace Sers.ServiceStation
                     {
                         try
                         {
-                            // ##1 calculate DeviceUnqueKey and ServiceStationUniqueKey
+                            // ##1 calculate DeviceUniqueKey and ServiceStationUniqueKey
                             SersApplication.CalculateUniquekey();
 
                             // ##2 get arguments
@@ -330,12 +330,12 @@ namespace Sers.ServiceStation
                             {
                                 serviceStationInfo = SersApplication.serviceStationInfo,
                                 deviceInfo = SersApplication.deviceInfo
-                            }.Serialize();
+                            };
 
                             // ##3 call api to update station info
                             foreach (var apiClient in ApiClient.Instances)
                             {
-                                ApiReturn ret = apiClient.CallApi<ApiReturn>("/_sys_/serviceStation/updateStationInfo", strServiceStationData);
+                                ApiReturn ret = apiClient.CallApi<ApiReturn>(route: "/_sys_/serviceStation/updateStationInfo", arg: strServiceStationData);
 
                                 if (ret?.success != true)
                                 {
@@ -353,11 +353,11 @@ namespace Sers.ServiceStation
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error("[ServiceStation] regist - failed", ex);
+                    Logger.Error("[ServiceStation] register - failed", ex);
                     return false;
                 }
 
-                Logger.Info("[ServiceStation] regist - succeed");
+                Logger.Info("[ServiceStation] register - succeed");
 
             }
             #endregion

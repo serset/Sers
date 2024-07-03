@@ -22,6 +22,7 @@ using System.Runtime.CompilerServices;
 using Vit.Extensions.Newtonsoft_Extensions;
 using Vit.Extensions.Json_Extensions;
 using Vit.Extensions.Object_Serialize_Extensions;
+using Vit.Core.Module.Serialization;
 
 namespace Sers.ServiceCenter
 {
@@ -286,7 +287,7 @@ namespace Sers.ServiceCenter
                             deviceInfo = SersApplication.deviceInfo
                         }.Serialize();
 
-                        serviceStation = strServiceStationData.ConvertBySerialize<ServiceStation>();
+                        serviceStation = Json.Deserialize<ServiceStation>(strServiceStationData);
                         serviceStation.connection = connForLocalStationService;
 
                         //(x.x.x.3)调用api
