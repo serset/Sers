@@ -8,7 +8,7 @@ using Sers.Core.CL.MessageDelivery;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Pipelines;
 using Vit.Core.Util.Pool;
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.CL.Ipc.NamedPipe
 {

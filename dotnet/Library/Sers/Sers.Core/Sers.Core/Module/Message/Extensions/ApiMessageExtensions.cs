@@ -7,8 +7,7 @@ using Sers.Core.Module.Rpc;
 
 using Vit.Core.Util.ComponentModel.Data;
 using Vit.Core.Util.ComponentModel.SsError;
-using Vit.Extensions.Json_Extensions;
-using Vit.Extensions.Object_Serialize_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Vit.Extensions
 {
@@ -23,10 +22,9 @@ namespace Vit.Extensions
         {
             if (data == null || error == null) return data;
 
-
             var rpcData = new RpcContextData();
 
-            #region (x.1) headers
+            #region #1 headers
             var headers = rpcData.http.Headers();
             rpcData.error = error;
 
@@ -37,15 +35,14 @@ namespace Vit.Extensions
 
             #endregion
 
-            //(x.2)statusCode
+            // #2 statusCode
             rpcData.http.statusCode = error.errorCode;
             data.RpcContextData_OriData_Set(rpcData);
 
 
-            #region (x.3) set body
+            // #3 set body
             ApiReturn ret = error;
             data.value_OriData = ret.SerializeToArraySegmentByte();
-            #endregion
 
             return data;
         }
@@ -53,55 +50,48 @@ namespace Vit.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ApiMessage SetValue(this ApiMessage apiRequestMessage, string url, Object arg = null)
         {
-            #region (x.2)设置body
+            ArraySegment<byte> bodyData;
+            if (arg is ArraySegment<byte> asByte)
             {
-                ArraySegment<byte> bodyData;
-                if (arg is ArraySegment<byte> asByte)
-                {
-                    apiRequestMessage.value_OriData = asByte;
-                }
-                else if (arg is byte[] bytes)
-                {
-                    apiRequestMessage.value_OriData = bytes.BytesToArraySegmentByte();
-                }
-                else if (arg is string str)
-                {
-                    apiRequestMessage.value_OriData = str.StringToArraySegmentByte();
-                }
-                else if (arg != null && (bodyData = arg.SerializeToArraySegmentByte()).HasData())
-                {
-                    apiRequestMessage.value_OriData = bodyData;
-                }
-                else
-                {
-                    //问号的位置
-                    var queryIndex = url.IndexOf('?');
+                apiRequestMessage.value_OriData = asByte;
+            }
+            else if (arg is byte[] bytes)
+            {
+                apiRequestMessage.value_OriData = bytes.BytesToArraySegmentByte();
+            }
+            else if (arg is string str)
+            {
+                apiRequestMessage.value_OriData = str.StringToArraySegmentByte();
+            }
+            else if (arg != null && (bodyData = arg.SerializeToArraySegmentByte()).HasData())
+            {
+                apiRequestMessage.value_OriData = bodyData;
+            }
+            else
+            {
+                var queryIndex = url.IndexOf('?');
 
-                    //从 query获取数据
-                    if (queryIndex >= 0)
+                // get arguments from QueryString
+                if (queryIndex >= 0)
+                {
+                    try
                     {
-                        try
-                        {
-                            // ?a=1&b=2
-                            var query = url.Substring(queryIndex);
-                            var kvs = System.Web.HttpUtility.ParseQueryString(query);
+                        // ?a=1&b=2
+                        var query = url.Substring(queryIndex);
+                        var kvs = System.Web.HttpUtility.ParseQueryString(query);
 
-                            var data = new Dictionary<string, string>();
-                            foreach (string key in kvs)
-                            {
-                                var value = kvs.Get(key);
-                                data[key] = value;
-                            }
-                            apiRequestMessage.value_OriData = data.SerializeToArraySegmentByte();
-                        }
-                        catch
+                        var data = new Dictionary<string, string>();
+                        foreach (string key in kvs)
                         {
+                            var value = kvs.Get(key);
+                            data[key] = value;
                         }
+                        apiRequestMessage.value_OriData = data.SerializeToArraySegmentByte();
                     }
+                    catch
+                    { }
                 }
             }
-            #endregion
-
             return apiRequestMessage;
         }
 
@@ -110,20 +100,20 @@ namespace Vit.Extensions
         /// 
         /// </summary>
         /// <param name="apiRequestMessage"></param>
-        /// <param name="url"> /api/cotrollers1/value?name=lith </param>
+        /// <param name="url"> /api/controllers1/value?name=lith </param>
         /// <param name="arg"></param>
-        /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
-        /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
+        /// <param name="httpMethod"> could be GET , POST , DELETE , PUT ...  and also could be null</param>
+        /// <param name="InitRpc">extra actions to rpc, like add extra headers</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ApiMessage InitAsApiRequestMessage(this ApiMessage apiRequestMessage, string url, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)
         {
-            //(x.1)初始化rpcData
+            // #1 init rpcData
             var rpcData = new RpcContextData().InitFromRpcContext().Init(url, httpMethod);
             InitRpc?.Invoke(rpcData);
             apiRequestMessage.RpcContextData_OriData_Set(rpcData);
 
-            //(x.2)设置body
+            // #2 set body
             SetValue(apiRequestMessage, url, arg);
 
             return apiRequestMessage;

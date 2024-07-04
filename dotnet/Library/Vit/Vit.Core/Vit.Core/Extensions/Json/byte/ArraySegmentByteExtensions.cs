@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace Vit.Extensions.Json_Extensions
+namespace Vit.Extensions.Serialize_Extensions
 {
     public static partial class ArraySegmentByteExtensions
     {

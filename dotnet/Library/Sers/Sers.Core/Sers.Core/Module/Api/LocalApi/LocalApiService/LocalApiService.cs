@@ -17,7 +17,7 @@ using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Core.Util.Threading.Worker;
 using Vit.Extensions;
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.Core.Module.Api.LocalApi
 {

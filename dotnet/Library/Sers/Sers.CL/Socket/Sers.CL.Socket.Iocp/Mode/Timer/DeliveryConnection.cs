@@ -7,7 +7,7 @@ using Sers.CL.Socket.Iocp.Base;
 
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Pipelines;
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.CL.Socket.Iocp.Mode.Timer
 {

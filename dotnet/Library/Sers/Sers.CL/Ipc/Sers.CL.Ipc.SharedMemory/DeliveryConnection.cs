@@ -4,7 +4,7 @@ using Sers.CL.Ipc.SharedMemory.Stream;
 using Sers.Core.CL.MessageDelivery;
 
 using Vit.Core.Module.Log;
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.CL.Ipc.SharedMemory
 {

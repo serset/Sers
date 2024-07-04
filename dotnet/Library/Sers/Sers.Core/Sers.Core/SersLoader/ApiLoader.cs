@@ -17,7 +17,7 @@ using Vit.Core.Util.ConfigurationManager;
 using Vit.Core.Util.Reflection;
 using Vit.Core.Util.XmlComment;
 using Vit.Extensions;
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.SersLoader
 {

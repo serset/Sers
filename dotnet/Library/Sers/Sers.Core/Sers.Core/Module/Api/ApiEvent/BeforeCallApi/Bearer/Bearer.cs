@@ -8,7 +8,7 @@ using Sers.Core.Module.Rpc;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.Data;
 using Vit.Extensions;
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.Core.Module.Api.ApiEvent.BeforeCallApi.Bearer
 {

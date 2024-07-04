@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 
 using Vit.Core.Util.Guid;
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Vit.Core.Util.Common
 {

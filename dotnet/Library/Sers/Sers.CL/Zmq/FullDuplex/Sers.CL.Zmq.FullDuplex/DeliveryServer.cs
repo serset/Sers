@@ -8,7 +8,7 @@ using Sers.CL.Zmq.FullDuplex.Zmq;
 using Sers.Core.CL.MessageDelivery;
 
 using Vit.Core.Module.Log;
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.CL.Zmq.FullDuplex
 {

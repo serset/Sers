@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-namespace Vit.Extensions.Json_Extensions
+namespace Vit.Extensions.Serialize_Extensions
 {
     public static partial class TypeExtensions
     {

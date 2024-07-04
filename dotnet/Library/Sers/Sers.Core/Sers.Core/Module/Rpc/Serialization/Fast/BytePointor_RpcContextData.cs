@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 using Sers.Core.Module.Serialization.Text;
 
 using Vit.Core.Module.Serialization;
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.Core.Module.Rpc.Serialization.Fast
 {

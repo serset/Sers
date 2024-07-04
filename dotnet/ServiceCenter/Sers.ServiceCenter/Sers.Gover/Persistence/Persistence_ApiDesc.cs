@@ -9,8 +9,7 @@ using Sers.Gover.Base.Model;
 
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Common;
-using Vit.Extensions.Json_Extensions;
-using Vit.Extensions.Object_Serialize_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.Gover.Persistence
 {

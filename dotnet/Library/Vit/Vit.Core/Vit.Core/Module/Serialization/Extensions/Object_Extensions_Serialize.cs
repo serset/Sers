@@ -3,9 +3,9 @@ using System.Runtime.CompilerServices;
 
 using Vit.Core.Module.Serialization;
 
-namespace Vit.Extensions.Object_Serialize_Extensions
+namespace Vit.Extensions.Serialize_Extensions
 {
-    public static partial class Object_Serialize_Extensions
+    public static partial class Object_Extensions_Serialize
     {
 
         #region #1 object <--> String
@@ -142,7 +142,6 @@ namespace Vit.Extensions.Object_Serialize_Extensions
         }
 
         #endregion
-
 
 
 

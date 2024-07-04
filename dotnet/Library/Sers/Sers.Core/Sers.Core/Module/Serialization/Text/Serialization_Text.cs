@@ -7,7 +7,7 @@ using System.Text.Unicode;
 using Vit.Core.Module.Serialization;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Extensions;
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.Core.Module.Serialization.Text
 {
@@ -60,7 +60,9 @@ namespace Sers.Core.Module.Serialization.Text
         public string Serialize(object value, Type type = null)
         {
             //if (value == default) return null;
-            return JsonSerializer.Serialize(value, type ?? value?.GetType(), options);
+
+            if (type != null && type != typeof(object)) return JsonSerializer.Serialize(value, type, options);
+            return JsonSerializer.Serialize(value, options);
         }
 
         #endregion

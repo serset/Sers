@@ -51,21 +51,21 @@ namespace Vit.WebHost
 
         /// <summary>
         /// 默认页面（可不指定）。An ordered list of file names to select by default. List length and ordering  may affect performance
-        /// </summary>       
+        /// </summary>
         [JsonProperty]
         public List<string> defaultFileNames { get; set; }
 
 
         /// <summary>
         /// 是否可浏览目录(default false)。Enables directory browsing
-        /// </summary>       
+        /// </summary>
         [JsonProperty]
         public bool? useDirectoryBrowser { get; set; }
 
 
 
         /// <summary>
-        /// 回应静态文件时额外添加的http回应头。可不指定。
+        /// 回应静态文件时额外添加的 http 回应头。可不指定。
         /// </summary>       
         [JsonProperty]
         public IDictionary<string, string> responseHeaders { get; set; }
@@ -84,7 +84,7 @@ namespace Vit.WebHost
         {
             set
             {
-                contentTypeProvider = WebHostHelp.BuildContentTypeProvider(value);
+                contentTypeProvider = Host.BuildContentTypeProvider(value);
             }
         }
 

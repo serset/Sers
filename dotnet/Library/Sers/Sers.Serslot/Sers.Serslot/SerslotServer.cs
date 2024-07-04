@@ -15,21 +15,19 @@ namespace Sers.Serslot
 {
     public partial class SerslotServer : IServer
     {
-        /// <summary>
-        /// 
-        /// </summary>
+
         public IServiceProvider serviceProvider { get; set; }
 
-        #region PairingToken       
+
+
         string pairingToken;
         public void InitPairingToken(IWebHostBuilder hostBuilder)
         {
             //search "MS-ASPNETCORE-TOKEN" to know why
             string PairingToken = "TOKEN";
             pairingToken = hostBuilder.GetSetting(PairingToken) ?? Environment.GetEnvironmentVariable($"ASPNETCORE_{PairingToken}");
-
         }
-        #endregion
+
 
 
 
@@ -38,21 +36,17 @@ namespace Sers.Serslot
         Action<FeatureCollection> OnProcessRequest;
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public IHttpResponseFeature ProcessRequest(HttpRequestFeature requestFeature)
+        public IFeatureCollection ProcessRequest(HttpRequestFeature requestFeature)
         {
-            requestFeature.InitForSerslot(pairingToken, out var _responseFeature, out var features);
+            requestFeature.InitForSerslot(pairingToken, out var features);
 
             OnProcessRequest(features);
 
-            return _responseFeature;
+            return features;
         }
 
         #endregion
 
-
-
-
-        public IFeatureCollection Features { get; } = new FeatureCollection();
 
 
         public async Task StartAsync<TContext>(IHttpApplication<TContext> application, CancellationToken cancellationToken)
@@ -60,7 +54,7 @@ namespace Sers.Serslot
             try
             {
                 #region #1 build OnProcessRequest
-                OnProcessRequest = (features) =>
+                void ProcessRequest(IFeatureCollection features)
                 {
 
                     Exception _applicationException = null;
@@ -68,28 +62,9 @@ namespace Sers.Serslot
                     var httpContext = application.CreateContext(features);
                     try
                     {
-
-                        //var httpContext_ = httpContext.GetProperty<object>("HttpContext");
-                        //if (httpContext_ is Microsoft.AspNetCore.Http.HttpContext defaultHttpContext)
-                        //{
-                        //    //if (defaultHttpContext.Response.Body == null)                            
-                        //    defaultHttpContext.Response.Body = features.Get<IHttpResponseFeature>().Body;                           
-                        //}
-
-
-
-
                         // Run the application code for this request
                         // application.ProcessRequestAsync(httpContext).GetAwaiter().GetResult();
                         application.ProcessRequestAsync(httpContext).Wait();
-
-
-                        //var _responseFeature = features.Get<IHttpResponseFeature>() as SerslotResponseFeature;
-                        //if (_responseFeature != null)
-                        //{
-                        //    _responseFeature.FireOnStarting();
-                        //    _responseFeature.FireOnCompleted();
-                        //}
                     }
                     catch (Exception ex)
                     {
@@ -98,6 +73,7 @@ namespace Sers.Serslot
                     }
                     application.DisposeContext(httpContext, _applicationException);
                 };
+                OnProcessRequest = ProcessRequest;
                 #endregion
 
 
@@ -163,5 +139,6 @@ namespace Sers.Serslot
             StopAsync(cancelledTokenSource.Token).GetAwaiter().GetResult();
         }
 
+        public IFeatureCollection Features { get; } = new FeatureCollection();
     }
 }

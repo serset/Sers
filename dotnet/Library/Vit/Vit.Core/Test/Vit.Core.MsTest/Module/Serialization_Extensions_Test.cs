@@ -2,9 +2,8 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Vit.Extensions.Json_Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
-using Vit.Extensions.Object_Serialize_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Vit.Core.MsTest.Module
 {
@@ -32,13 +31,21 @@ namespace Vit.Core.MsTest.Module
 
 
             // #2 object <--> bytes
-            Assert.AreEqual(modelA.SerializeToBytes().DeserializeFromBytes<ModelA>()?.name, testString);
+            Assert.AreEqual(testString, modelA.SerializeToBytes().DeserializeFromBytes<ModelA>()?.name);
 
 
             // #3 ConvertBySerialize
-            var obj_ori = new { id = 1, name = testString, time = DateTime.Now };
-            Assert.AreEqual(obj_ori.ConvertBySerialize<ModelA>()?.name, testString);
-
+            {
+                var obj_ori = new { id = 1, name = testString, time = DateTime.Now };
+                Assert.AreEqual(testString, obj_ori.ConvertBySerialize<ModelA>()?.name);
+            }
+            {
+                var str = new { id = 1, name = testString, time = DateTime.Now }.Serialize();
+                Assert.AreEqual(testString, str.ConvertBySerialize<ModelA>()?.name);
+            }
+            {
+                Assert.AreEqual(testString, testString.ConvertBySerialize<string>());
+            }
 
         }
 

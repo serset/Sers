@@ -8,8 +8,8 @@ using Sers.Core.CL.MessageOrganize;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Core.Util.Reflection;
-using Vit.Extensions.Json_Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.Core.CL.CommunicationManage
 {

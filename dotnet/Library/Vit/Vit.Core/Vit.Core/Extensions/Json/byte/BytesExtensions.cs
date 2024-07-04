@@ -5,7 +5,7 @@ using System.Text;
 
 using Vit.Core.Module.Serialization;
 
-namespace Vit.Extensions.Json_Extensions
+namespace Vit.Extensions.Serialize_Extensions
 {
     public static partial class BytesExtensions
     {

@@ -4,7 +4,7 @@ using System.Threading;
 
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Threading.Worker;
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.CL.Ipc.SharedMemory.Stream
 {
