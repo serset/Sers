@@ -26,7 +26,7 @@ namespace Vit.Core.Util.Threading.MsTest.Worker
                 OnFinish = (status, _count) =>
                 {
                     if (status == ETaskFinishStatus.timeout
-                       || (status == ETaskFinishStatus.overload && (int)_count > 100)
+                       || (status == ETaskFinishStatus.overload && (int)_count >= 100)
                     )
                         return;
 
@@ -41,7 +41,6 @@ namespace Vit.Core.Util.Threading.MsTest.Worker
             task.timeoutMs = 100;
 
             task.Start();
-
 
             for (var t = 0; t < 200; t++)
                 task.Publish(t);

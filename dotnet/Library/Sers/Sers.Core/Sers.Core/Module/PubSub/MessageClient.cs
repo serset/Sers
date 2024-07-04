@@ -7,8 +7,8 @@ using Sers.Core.CL.MessageOrganize;
 using Sers.Core.Module.Message;
 
 using Vit.Core.Module.Log;
-using Vit.Extensions.Json_Extensions;
-using Vit.Extensions.Object_Serialize_Extensions;
+using Vit.Extensions.Serialize_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.Core.Module.PubSub
 {

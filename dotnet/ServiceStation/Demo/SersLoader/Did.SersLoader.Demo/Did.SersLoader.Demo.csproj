@@ -39,7 +39,7 @@
         <ProjectReference Include="..\..\..\..\Library\Sers\Sers.CL\Zmq\FullDuplex\Sers.CL.Zmq.FullDuplex\Sers.CL.Zmq.FullDuplex.csproj" />
         <ProjectReference Include="..\..\..\..\Library\Sers\Sers.CL\Zmq\ThreadWait\Sers.CL.ClrZmq.ThreadWait\Sers.CL.ClrZmq.ThreadWait.csproj" />
         <ProjectReference Include="..\..\..\..\Library\Sers\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />
-        <ProjectReference Include="..\..\..\..\Library\Vit\Vit.Net.Http.FormFile\Vit.Net.Http.FormFile.csproj" />
+        <ProjectReference Include="..\..\..\..\Library\Vit\Vit.WebHost\Vit.WebHost.csproj" />
     </ItemGroup>
 
 </Project>

@@ -4,8 +4,8 @@ using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-using Vit.Extensions.Json_Extensions;
-using Vit.Extensions.Object_Serialize_Extensions;
+using Vit.Extensions.Serialize_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Vit.Extensions.Newtonsoft_Extensions
 {

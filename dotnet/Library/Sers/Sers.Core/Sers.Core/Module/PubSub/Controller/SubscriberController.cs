@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 
 using Vit.Core.Module.Log;
-using Vit.Extensions.Object_Serialize_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.Core.Module.PubSub.Controller
 {

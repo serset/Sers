@@ -5,8 +5,9 @@ using Newtonsoft.Json.Linq;
 using Sers.Core.Module.PubSub;
 
 using Vit.Core.Module.Log;
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Did.SersLoader.Demo.Controllers.PubSub
 {
@@ -21,7 +22,7 @@ namespace Did.SersLoader.Demo.Controllers.PubSub
                 Action<ArraySegment<byte>> OnMessage = (msgBody) =>
                 {
 
-                    var serviceStation = msgBody.ArraySegmentByteToString().ConvertBySerialize<JObject>();
+                    var serviceStation = msgBody.ArraySegmentByteToString().Deserialize<JObject>();
                     var serviceStationName = serviceStation?["serviceStationInfo"]?["serviceStationName"]?.ConvertToString();
                     var msgContext = "[Subscribe1][" + msgTitle + "] " + serviceStationName;
                     Logger.Info(msgContext);

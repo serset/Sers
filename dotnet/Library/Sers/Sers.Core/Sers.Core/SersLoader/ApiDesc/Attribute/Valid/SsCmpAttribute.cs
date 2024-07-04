@@ -1,6 +1,6 @@
 ﻿using Sers.SersLoader.ApiDesc.Attribute.RpcVerify;
 
-using Vit.Extensions.Object_Serialize_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.SersLoader.ApiDesc.Attribute.Valid
 {

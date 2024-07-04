@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 using Sers.Core.CL.MessageOrganize;
 using Sers.Core.CL.MessageOrganize.DefaultOrganize;
 
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.CL.Socket.Iocp

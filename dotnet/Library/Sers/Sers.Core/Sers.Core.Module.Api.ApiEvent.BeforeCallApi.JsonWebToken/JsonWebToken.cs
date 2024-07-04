@@ -7,7 +7,7 @@ using Sers.Core.Module.Rpc;
 
 using Vit.Core.Module.Log;
 using Vit.Extensions;
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
 using Vit.SSO.Service.RS256;
 

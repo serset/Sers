@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 using Vit.Core.Util.Pool;
 
-namespace Vit.Extensions.Json_Extensions
+namespace Vit.Extensions.Serialize_Extensions
 {
     public static partial class ArraySegmentBytePool_Extensions
     {

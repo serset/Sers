@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
 
 using Vit.Core.Util.ComponentModel.SsError;
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Sers.Core.Module.Valid.Sers1

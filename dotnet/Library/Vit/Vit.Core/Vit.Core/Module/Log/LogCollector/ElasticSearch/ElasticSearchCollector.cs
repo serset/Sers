@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 using Vit.Core.Module.Log.LogCollector.ElasticSearch.Client;
 using Vit.Extensions;
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
 
 namespace Vit.Core.Module.Log.LogCollector.ElasticSearch

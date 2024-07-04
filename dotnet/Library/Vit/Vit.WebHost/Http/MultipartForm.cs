@@ -6,7 +6,7 @@ using Microsoft.Net.Http.Headers;
 
 using Vit.Extensions;
 
-namespace Vit.Net.Http.FormFile
+namespace Vit.WebHost.Http.FormFile
 {
 
 

@@ -9,7 +9,7 @@ using Sers.Core.Module.Rpc;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.ComponentModel.SsError;
 using Vit.Extensions;
-using Vit.Extensions.Object_Serialize_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.Core.Module.Api
 {
@@ -21,7 +21,7 @@ namespace Sers.Core.Module.Api
         public static ApiClient[] Instances { get; private set; }
 
         /// <summary>
-        /// callbacks长度必须大于1
+        /// callbacks must not be empty
         /// </summary>
         /// <param name="callbacks"></param>
         /// <param name="requestTimeoutMs"></param>
@@ -44,7 +44,7 @@ namespace Sers.Core.Module.Api
 
 
 
-        #region 成员变量
+        #region Members
 
         int requestTimeoutMs;
 
@@ -54,7 +54,7 @@ namespace Sers.Core.Module.Api
 
 
 
-        #region CallApiAsync 原始
+        #region CallApiAsync primitive
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CallApiAsync(ApiMessage apiRequestMessage, Action<ArraySegment<byte>> callback)
@@ -137,8 +137,8 @@ namespace Sers.Core.Module.Api
         /// </summary>
         /// <param name="route"></param>
         /// <param name="arg"></param>
-        /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
-        /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
+        /// <param name="httpMethod"> could be GET , POST , DELETE , PUT ...  and also could be null</param>
+        /// <param name="InitRpc">extra actions to rpc, like add extra headers</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ArraySegment<byte> CallApiWithBytes(string route, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)
@@ -157,8 +157,8 @@ namespace Sers.Core.Module.Api
         /// <typeparam name="ReturnType"></typeparam>
         /// <param name="route"></param>
         /// <param name="arg"></param>
-        /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
-        /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
+        /// <param name="httpMethod"> could be GET , POST , DELETE , PUT ...  and also could be null</param>
+        /// <param name="InitRpc">extra actions to rpc, like add extra headers</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ReturnType CallApi<ReturnType>(string route, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)
@@ -173,8 +173,8 @@ namespace Sers.Core.Module.Api
         /// </summary>
         /// <param name="route"></param>
         /// <param name="arg"></param>
-        /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
-        /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
+        /// <param name="httpMethod"> could be GET , POST , DELETE , PUT ...  and also could be null</param>
+        /// <param name="InitRpc">extra actions to rpc, like add extra headers</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string CallApi(string route, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)
@@ -208,8 +208,8 @@ namespace Sers.Core.Module.Api
         /// <typeparam name="ReturnType"></typeparam>
         /// <param name="route"></param>
         /// <param name="arg"></param>
-        /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
-        /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
+        /// <param name="httpMethod"> could be GET , POST , DELETE , PUT ...  and also could be null</param>
+        /// <param name="InitRpc">extra actions to rpc, like add extra headers</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public async Task<ReturnType> CallApiAsync<ReturnType>(string route, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)
@@ -228,8 +228,8 @@ namespace Sers.Core.Module.Api
         /// <param name="callback"></param>
         /// <param name="route"></param>
         /// <param name="arg"></param>
-        /// <param name="httpMethod">可为 GET、POST、DELETE、PUT等,可不指定</param>
-        /// <param name="InitRpc">对Rpc的额外处理,如添加header</param>
+        /// <param name="httpMethod"> could be GET , POST , DELETE , PUT ...  and also could be null</param>
+        /// <param name="InitRpc">extra actions to rpc, like add extra headers</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CallApiAsync<ReturnType>(Action<ReturnType> callback, string route, Object arg = null, string httpMethod = null, Action<RpcContextData> InitRpc = null)

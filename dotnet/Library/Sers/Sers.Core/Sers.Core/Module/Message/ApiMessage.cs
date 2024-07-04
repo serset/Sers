@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 using Sers.Core.Module.Rpc;
 
-using Vit.Extensions.Json_Extensions;
+using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.Core.Module.Message
 {

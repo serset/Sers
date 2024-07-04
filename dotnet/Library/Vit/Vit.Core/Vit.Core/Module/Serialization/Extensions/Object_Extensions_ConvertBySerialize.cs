@@ -3,9 +3,9 @@ using System.Runtime.CompilerServices;
 
 using Vit.Core.Module.Serialization;
 
-namespace Vit.Extensions.Json_Extensions
+namespace Vit.Extensions.Serialize_Extensions
 {
-    public static partial class Object_Convert_Extensions
+    public static partial class Object_Extensions_ConvertBySerialize
     {
         /// <summary>
         /// 
@@ -16,10 +16,13 @@ namespace Vit.Extensions.Json_Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object ConvertBySerialize(this object value, Type type)
         {
-            string str;
-            if (value is string strValue) str = strValue;
-            else str = Json.Serialize(value);
+            if (value is string str)
+            {
+                if (type == typeof(string)) return str;
+                return Json.Deserialize(str, type);
+            }
 
+            str = Json.Serialize(value);
             return Json.Deserialize(str, type);
         }
 
@@ -32,13 +35,7 @@ namespace Vit.Extensions.Json_Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TTarget ConvertBySerialize<TTarget>(this object value)
         {
-            string str;
-            if (value is string strValue) str = strValue;
-            else str = Json.Serialize(value);
-
-            return Json.Deserialize<TTarget>(str);
+            return (TTarget)ConvertBySerialize(value, typeof(TTarget));
         }
-
-
     }
 }

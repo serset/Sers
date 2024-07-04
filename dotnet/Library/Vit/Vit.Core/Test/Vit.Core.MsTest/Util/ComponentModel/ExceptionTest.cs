@@ -14,14 +14,11 @@ namespace Vit.Core.MsTest.Util.ComponentModel
         [TestMethod]
         public void ErrorSet_Test()
         {
-
             int ErrorCode = 452;
             string ErrorMessage = "error ";
-
             string ErrorDetail_Opt = "error ErrorDetail_Opt";
             try
             {
-
                 throw new System.Exception().ErrorCode_Set(ErrorCode).ErrorMessage_Set(ErrorMessage).ErrorDetail_Set(new { ErrorDetail_Opt });
             }
             catch (System.Exception ex)
@@ -29,7 +26,6 @@ namespace Vit.Core.MsTest.Util.ComponentModel
                 Assert.AreEqual(ErrorCode, ex.ErrorCode_Get());
                 Assert.AreEqual(ErrorMessage, ex.ErrorMessage_Get());
                 Assert.AreEqual(ErrorDetail_Opt, ex.ErrorDetail_Get<JObject>()[nameof(ErrorDetail_Opt)]);
-
             }
 
         }

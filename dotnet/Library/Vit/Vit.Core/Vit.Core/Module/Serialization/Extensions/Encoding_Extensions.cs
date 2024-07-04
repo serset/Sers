@@ -3,9 +3,9 @@ using System.Text;
 
 using Vit.Core.Module.Serialization;
 
-namespace Vit.Extensions.Json_Extensions
+namespace Vit.Extensions.Serialize_Extensions
 {
-    public static partial class EncodingExtensions
+    public static partial class Encoding_Extensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string GetCharset(this Encoding value)
