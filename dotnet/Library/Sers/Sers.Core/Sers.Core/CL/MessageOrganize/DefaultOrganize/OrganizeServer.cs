@@ -8,7 +8,6 @@ using Sers.Core.CL.MessageDelivery;
 
 using Vit.Core.Module.Log;
 using Vit.Extensions;
-using Vit.Extensions.Serialize_Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
 using Vit.Extensions.Serialize_Extensions;
 

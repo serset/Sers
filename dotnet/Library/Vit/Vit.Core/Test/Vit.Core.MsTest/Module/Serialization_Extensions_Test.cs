@@ -31,7 +31,7 @@ namespace Vit.Core.MsTest.Module
 
 
             // #2 object <--> bytes
-            Assert.AreEqual(testString,modelA.SerializeToBytes().DeserializeFromBytes<ModelA>()?.name );
+            Assert.AreEqual(testString, modelA.SerializeToBytes().DeserializeFromBytes<ModelA>()?.name);
 
 
             // #3 ConvertBySerialize

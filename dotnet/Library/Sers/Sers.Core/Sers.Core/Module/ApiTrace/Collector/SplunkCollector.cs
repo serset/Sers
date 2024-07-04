@@ -9,7 +9,6 @@ using Sers.Core.Module.Rpc;
 using Vit.Core.Module.Log;
 using Vit.Core.Module.Log.LogCollector.Splunk.Client;
 using Vit.Extensions;
-using Vit.Extensions.Serialize_Extensions;
 using Vit.Extensions.Newtonsoft_Extensions;
 using Vit.Extensions.Serialize_Extensions;
 

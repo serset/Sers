@@ -17,7 +17,6 @@ using Vit.Core.Module.Log;
 using Vit.Core.Util.ConfigurationManager;
 using Vit.Extensions;
 using Vit.Extensions.Serialize_Extensions;
-using Vit.Extensions.Serialize_Extensions;
 using Vit.WebHost;
 
 namespace Sers.Gateway

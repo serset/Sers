@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using Vit.Extensions.Serialize_Extensions;
-using Vit.Extensions.Serialize_Extensions;
 
 namespace Vit.Extensions.Newtonsoft_Extensions
 {

@@ -10,7 +10,6 @@ using Sers.Gover.Base.Model;
 using Vit.Core.Module.Log;
 using Vit.Core.Util.Common;
 using Vit.Extensions.Serialize_Extensions;
-using Vit.Extensions.Serialize_Extensions;
 
 namespace Sers.Gover.Persistence
 {
