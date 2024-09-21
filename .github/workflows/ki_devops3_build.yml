@@ -105,6 +105,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-Station(net6.0)-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-Station-net6.0-${{ env.release_version }}.zip
+          asset_content_type: application/zip
+
+
+      - uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-docker-image-${{ env.release_version }}.zip
           asset_name: ${{ env.appName }}-docker-image-${{ env.release_version }}.zip
           asset_content_type: application/zip
@@ -118,6 +128,7 @@ jobs:
           asset_name: ${{ env.appName }}-docker-deploy-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
+
       - uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -126,8 +137,8 @@ jobs:
           asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-StressTest-${{ env.release_version }}.zip
           asset_name: ${{ env.appName }}-StressTest-${{ env.release_version }}.zip
           asset_content_type: application/zip
-        
-        
+
+
         
       - uses: actions/upload-release-asset@v1
         env:
@@ -138,11 +149,3 @@ jobs:
           asset_name: ${{ env.appName }}-ServiceCenter-net6.0-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-Station(net6.0)-${{ env.release_version }}.zip
-          asset_name: ${{ env.appName }}-Station-net6.0-${{ env.release_version }}.zip
-          asset_content_type: application/zip
