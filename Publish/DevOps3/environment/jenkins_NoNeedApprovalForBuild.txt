@@ -1,0 +1,2 @@
+# jenkins_NoNeedApprovalForBuild.txt
+if this file exists, will not need approval for jenkins build.

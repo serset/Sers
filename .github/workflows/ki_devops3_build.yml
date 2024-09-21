@@ -1,14 +1,13 @@
 # This is a basic workflow to help you get started with Actions
 
-name: ki_devops3
+name: ki_devops3_build
 
 # Controls when the action will run. 
 on:
   
-  push:
+  #push:
     # Triggers the workflow on push events for the branches start with release
-    branches:
-      - 'release/**'
+    #branches:: [ 'release/**' ]
 
     # Triggers the workflow on push events but only for the master branch
     #branches: [ master ]
@@ -18,24 +17,49 @@ on:
     
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  merge_group:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+
+  # This workflow contains a single job called "devops3_test"
+  devops3_test:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       # Runs a set of commands using the runners shell
-      - name: Run startup.bash
+      - name: Run test
         run: |
            set -e
-           echo start build
+           echo call ./Publish/DevOps3/build-bash/10.Test.bash to test
+
+           cd ./Publish/DevOps3/build-bash
+           bash 10.Test.bash;
+           echo run test succeed!
+
+  # This workflow contains a single job called "devops3_build"
+  devops3_build:
+    # Requiring successful dependent jobs
+    needs: devops3_test
+
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      # Runs a set of commands using the runners shell
+      - name: Run build
+        run: |
+           set -e
+           echo call ./Publish/DevOps3/github-bash/startup.bash to build
 
            export DOCKER_ImagePrefix="serset/"
            export DOCKER_USERNAME="${{ secrets.DOCKER_USERNAME  }}"
@@ -47,10 +71,10 @@ jobs:
            cd ./Publish/DevOps3/github-bash
            bash startup.bash
            echo build succeed!
-           
+
            # echo "appName=${APPNAME}" >> $GITHUB_ENV
-           
-           
+
+
       - name: release_create
         id: release_create
         uses: actions/create-release@v1
