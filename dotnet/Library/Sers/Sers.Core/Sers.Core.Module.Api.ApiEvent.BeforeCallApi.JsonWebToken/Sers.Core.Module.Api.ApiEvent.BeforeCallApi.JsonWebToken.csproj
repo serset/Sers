@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\..\..\Versions.props" />
 
     <PropertyGroup>
         <pack>nuget</pack>
@@ -6,13 +7,10 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <Version>2.1.27</Version>
     </PropertyGroup>
 
     <PropertyGroup>
-        <Authors>Lith</Authors>
         <Description>Sers - jwt validate</Description>
-        <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
     </PropertyGroup>
 
     <ItemGroup>

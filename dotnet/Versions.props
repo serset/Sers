@@ -1,0 +1,15 @@
+<Project>
+    <PropertyGroup>
+        <Version>2.1.28-preview</Version>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Authors>Lith</Authors>
+        <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
+        <PackageTags>sers microservices cross-platform cross-language protocol</PackageTags>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DocumentationFile>bin\Debug\$(TargetFramework)\$(MSBuildProjectName).xml</DocumentationFile>
+    </PropertyGroup>
+</Project>

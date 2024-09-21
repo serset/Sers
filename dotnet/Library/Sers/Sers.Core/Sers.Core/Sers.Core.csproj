@@ -1,32 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\..\..\Versions.props" />
 
     <PropertyGroup>
         <pack>nuget</pack>
-        <appVersion></appVersion>
     </PropertyGroup>
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <Version>2.1.27</Version>
     </PropertyGroup>
 
     <PropertyGroup>
-        <Authors>Lith</Authors>
         <Description>Sers Microservices - Core Library</Description>
-        <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
-    </PropertyGroup>
-
-    <PropertyGroup>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <DocumentationFile>bin\Debug\netstandard2.0\Sers.Core.xml</DocumentationFile>
     </PropertyGroup>
-
 
     <ItemGroup>
         <PackageReference Include="System.Text.Json" Version="8.0.4" />
         <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
     </ItemGroup>
-
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\Vit\Vit.Core\Vit.Core\Vit.Core.csproj" />

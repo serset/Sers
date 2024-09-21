@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\..\..\Versions.props" />
 
     <PropertyGroup>
         <pack>nuget</pack>
@@ -6,28 +7,18 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <Version>2.1.27</Version>
     </PropertyGroup>
 
     <PropertyGroup>
-        <Authors>Lith</Authors>
         <Description>Sers Microservices - Serslot. An integration adapter for native AspNetCore WebApi</Description>
-        <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <DocumentationFile>bin\Debug\net6.0\Sers.Serslot.xml</DocumentationFile>
-        <Copyright />
     </PropertyGroup>
 
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
 
-
     <ItemGroup>
         <ProjectReference Include="..\..\Sers.ServiceStation\Sers.ServiceStation\Sers.ServiceStation.csproj" />
     </ItemGroup>
-
 
 </Project>

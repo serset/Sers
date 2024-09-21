@@ -1,8 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <test>MSTest</test>
+    </PropertyGroup>
 
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 

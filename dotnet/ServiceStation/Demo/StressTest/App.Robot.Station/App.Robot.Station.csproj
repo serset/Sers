@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\..\..\Versions.props" />
 
     <PropertyGroup>
         <publish>Robot</publish>
@@ -9,12 +10,6 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>net6.0</TargetFramework>
         <RunPostBuildEvent>Always</RunPostBuildEvent>
-        <Version>2.1.27</Version>
-        <Description>https://github.com/serset/Sers</Description>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <DocumentationFile>bin\Debug\net6.0\App.Robot.Station.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>

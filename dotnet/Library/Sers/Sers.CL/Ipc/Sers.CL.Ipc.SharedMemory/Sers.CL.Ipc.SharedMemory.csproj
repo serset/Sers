@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\..\..\..\Versions.props" />
 
     <PropertyGroup>
         <pack>nuget</pack>
@@ -6,23 +7,15 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <Version>2.1.27</Version>
     </PropertyGroup>
 
     <PropertyGroup>
-        <Authors>Lith</Authors>
         <Description>Sers Microservices - Communication Layer</Description>
-        <PackageProjectUrl>https://github.com/serset/Sers</PackageProjectUrl>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <DocumentationFile>bin\Debug\netstandard2.0\Sers.CL.Ipc.SharedMemory.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="SharedMemory" Version="2.3.2" />
     </ItemGroup>
-
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\Sers.Core\Sers.Core\Sers.Core.csproj" />

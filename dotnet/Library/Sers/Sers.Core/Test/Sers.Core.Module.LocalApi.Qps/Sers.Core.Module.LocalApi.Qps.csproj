@@ -9,8 +9,6 @@
         <ProjectReference Include="..\..\Sers.Core\Sers.Core.csproj" />
     </ItemGroup>
 
-
-
     <ItemGroup>
         <None Update="StartConsole.bat">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>

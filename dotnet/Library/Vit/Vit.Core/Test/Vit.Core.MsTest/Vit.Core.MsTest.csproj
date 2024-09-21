@@ -1,15 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <test>MSTest</test>
+    </PropertyGroup>
+
+    <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
-
     <ItemGroup>
         <None Remove="appsettings.json" />
-    </ItemGroup>
-
-    <ItemGroup>
         <Content Include="appsettings.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
