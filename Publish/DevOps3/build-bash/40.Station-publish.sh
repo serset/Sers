@@ -27,7 +27,9 @@ serset/dotnet:sdk-6.0 \
 bash -c "
 set -e
 
-if grep '<publish>' -r --include *.csproj /root/code; then
+cd /root/code
+
+if grep '<publish>' -r --include *.csproj; then
 	echo '#40.Station-publish.sh -> got projects need to be built'
 else
 	echo '#40.Station-publish.sh -> skip for no project needs to be built'
@@ -35,26 +37,23 @@ else
 fi
 
 echo '#1 get netVersion'
-export netVersion=\$(grep '<TargetFramework>' \$(grep '<publish>' -rl --include *.csproj /root/code | head -n 1) | grep -oP '>(.*)<' | tr -d '<>')
+export netVersion=\$(grep '<TargetFramework>' \$(grep '<publish>' -rl --include *.csproj | head -n 1) | grep -oP '>(.*)<' | tr -d '<>')
 echo netVersion: \$netVersion
 
 
-export basePath=/root/code
-export publishPath=\$basePath/Publish/release/release/Station\(\$netVersion\)
+export publishPath=/root/code/Publish/release/release/Station\(\$netVersion\)
 mkdir -p \$publishPath
 
 echo '#2 publish station'
-cd \$basePath
 for file in \$(grep -a '<publish>' . -rl --include *.csproj)
-do
-	cd \$basePath
-	
-	#get publishName
+do	
+	# get publishName
+	cd /root/code
 	publishName=\`grep '<publish>' \$file -r | grep -oP '>(.*)<' | tr -d '<>'\`
 
 	echo publish \$publishName
 
-	#publish
+	# publish
 	cd \$(dirname \"\$file\")
 	dotnet build --configuration Release
 	dotnet publish --configuration Release --output \"\$publishPath/\$publishName\"
@@ -65,9 +64,9 @@ done
 
 
 #3 copy station release files
-if [ -d \"\$basePath/Publish/ReleaseFile/Station\" ]; then
+if [ -d \"\/root/code/Publish/ReleaseFile/Station\" ]; then
 	echo '#3 copy station release files'
-	\cp -rf \$basePath/Publish/ReleaseFile/Station/. \"\$publishPath\"
+	\cp -rf \/root/code/Publish/ReleaseFile/Station/. \"\$publishPath\"
 fi
 
 

@@ -8,8 +8,8 @@ Sers为一套跨平台跨语言的开源微服务架构协议
  
 
 | Build | NuGet | Docker |
-|--|--|--|
-|![](https://github.com/serset/Sers/workflows/CI/badge.svg) | [![](https://img.shields.io/nuget/v/Sers.ServiceStation.svg)](https://www.nuget.org/packages/Sers.ServiceStation/) ![](https://img.shields.io/nuget/dt/Sers.ServiceStation.svg)   | ![](https://img.shields.io/docker/v/serset/sers/latest.svg) ![](https://img.shields.io/docker/pulls/serset/sers.svg) ![](https://img.shields.io/docker/image-size/serset/sers/latest.svg)
+| -------- | -------- | -------- |
+|![](https://github.com/serset/Sers/workflows/ki_devops3_build/badge.svg) | [![](https://img.shields.io/nuget/v/Sers.ServiceStation.svg)](https://www.nuget.org/packages/Sers.ServiceStation) ![](https://img.shields.io/nuget/dt/Sers.ServiceStation.svg)   | ![](https://img.shields.io/docker/v/serset/sers/latest.svg) ![](https://img.shields.io/docker/pulls/serset/sers.svg) ![](https://img.shields.io/docker/image-size/serset/sers/latest.svg) |
 
 Sers拥有如下特性：  
 - 跨语言、跨平台，目前已支持c#、java、c++、javascript  

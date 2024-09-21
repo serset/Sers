@@ -36,6 +36,7 @@ if [ ! $APPNAME ]; then
 	echo "APPNAME: [${APPNAME}]" 
 fi
 
+
 #---------------------------------------------- 
 echo '#1 build'
 cd "$devOpsPath/build-bash"; bash startup.bash;
