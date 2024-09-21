@@ -40,7 +40,7 @@ echo '#1 get netVersion'
 export netVersion=\$(grep '<TargetFramework>' \$(grep '<publish>' -rl --include *.csproj | head -n 1) | grep -oP '>(.*)<' | tr -d '<>')
 echo netVersion: \$netVersion
 
-
+export basePath=/root/code
 export publishPath=/root/code/Publish/release/release/Station\(\$netVersion\)
 mkdir -p \$publishPath
 

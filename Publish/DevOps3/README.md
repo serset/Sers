@@ -3,10 +3,12 @@
 
 
 # build-bash
+> ../environment/build-bash__*
 extra steps for build, all sh files are optional (remove if not need).
 
 
 # jenkins_NoNeedApprovalForBuild.txt
+> ../environment/jenkins_NoNeedApprovalForBuild.txt
 if this file exists, will not need approval for jenkins build.
 
 
@@ -26,6 +28,7 @@ if this file exists, will not need approval for jenkins build.
 # 3.7
 > 2024-09-21
 - fix can not release station bug
+- move environment dir out
 
 -----------------------
 # 3.6
