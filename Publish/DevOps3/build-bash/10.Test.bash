@@ -21,7 +21,7 @@ if [ ! $NUGET_PATH ]; then NUGET_PATH=$basePath/Publish/release/.nuget; fi
 
 #----------------------------------------------
 echo "#10.Test.bash -> #1 init test environment"
-bashFile="$devOpsPath/environment/build-bash__10.Test__#1.InitEnv.sh"
+bashFile="$devOpsPath/../environment/build-bash__10.Test__#1.InitEnv.sh"
 if [ -f "$bashFile" ]; then
 	echo "#10.Test.bash -> #1 init test environment - Run bash"
 	sh "$bashFile"
@@ -68,7 +68,7 @@ done
 "
 #----------------------------------------------
 echo "#10.Test.bash -> #3 clean test environment"
-bashFile="$devOpsPath/environment/build-bash__10.Test__#3.CleanEnv.sh"
+bashFile="$devOpsPath/../environment/build-bash__10.Test__#3.CleanEnv.sh"
 if [ -f "$bashFile" ]; then
 	echo "#10.Test.bash -> #1 Clean test environment - Run bash"
 	sh "$bashFile"

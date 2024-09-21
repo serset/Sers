@@ -12,9 +12,9 @@ pipeline {
     environment {
         // get APPNAME
         // APPNAME = "Sers"
-        APPNAME = readFile("Publish/DevOps3/environment/env.APPNAME.txt")
+        APPNAME = readFile("Publish/environment/env.APPNAME.txt")
 
-        envName = readFile("Publish/DevOps3/environment/env.envName.txt")
+        envName = readFile("Publish/environment/env.envName.txt")
         versionSuffix = "-${envName}${env.build_number}"
 
         // basePath = "/root/docker-cache/jenkins/jenkins_home/workspace/${APPNAME}/${envName}/${env.BRANCH_NAME}/${env.build_number}"
@@ -57,7 +57,7 @@ pipeline {
                         echo "-------- DOCKER_ImagePrefix: [$DOCKER_ImagePrefix]"
                         echo "-------- codePath: [$codePath]"
 
-                        if ( fileExists("Publish/DevOps3/environment/jenkins_NoNeedApprovalForBuild.txt") ) {
+                        if ( fileExists("Publish/environment/jenkins_NoNeedApprovalForBuild.txt") ) {
                             echo "-------- do not need approval for build"
 	                        env.ApprovalForBuild = "yes"
                         } else {
@@ -78,10 +78,10 @@ pipeline {
             steps {
                 script {
                     echo "#2.1 change-app-version"
-                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps3/build-bash; source 22.add-suffix-to-app-version.bash;    echo -n \"\$nextAppVersion\" > $codePath/Publish/DevOps3/environment/env.appVersion.txt '"
+                    sshCommand remote: remote, command:  "sh -c 'set -e; export versionSuffix=$versionSuffix;    cd $codePath/Publish/DevOps3/build-bash; source 22.add-suffix-to-app-version.bash;    echo -n \"\$nextAppVersion\" > $codePath/Publish/environment/env.appVersion.txt '"
 
                     echo "#2.2 get app version"
-                    env.appVersion = readFile("Publish/DevOps3/environment/env.appVersion.txt")
+                    env.appVersion = readFile("Publish/environment/env.appVersion.txt")
                     echo "-------- appVersion: [${env.appVersion}]"
                 }
             }

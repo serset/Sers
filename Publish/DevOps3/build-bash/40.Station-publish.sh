@@ -71,7 +71,7 @@ fi
 
 
 #4 copy extra release files
-bashFile=\"$devOpsPath/environment/build-bash__40.Station-publish__#4_copyExtraReleaseFiles.sh\"
+bashFile=\"$devOpsPath/../environment/build-bash__40.Station-publish__#4_copyExtraReleaseFiles.sh\"
 if [ -f \"\$bashFile\" ]; then
 	echo '#4 copy extra release files'
 	sh \"\$bashFile\"

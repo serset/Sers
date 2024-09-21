@@ -32,7 +32,7 @@ export devOpsPath="$PWD/.."
 # export basePath=/root/temp/svn
 
 if [ ! $APPNAME ]; then 
-	export APPNAME=$(cat "$devOpsPath/environment/env.APPNAME.txt" | tr -d '\n')
+	export APPNAME=$(cat "$devOpsPath/../environment/env.APPNAME.txt" | tr -d '\n')
 	echo "APPNAME: [${APPNAME}]" 
 fi
 
