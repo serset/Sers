@@ -29,6 +29,7 @@ if this file exists, will not need approval for jenkins build.
 > 2024-09-21
 - fix can not release station bug
 - move environment dir out
+- fix bug: change version not work
 
 -----------------------
 # 3.6

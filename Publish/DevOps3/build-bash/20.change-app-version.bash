@@ -44,4 +44,5 @@ echo "nextAppVersion: $nextAppVersion"
 #----------------------------------------------
 echo "#2 change app version from [$appVersion] to [$nextAppVersion]" 
 sed -i 's/'"<Version>$appVersion<\/Version>"'/'"<Version>$nextAppVersion<\/Version>"'/g'  `find ${basePath} -name *.csproj -exec grep '<pack>\|<publish>' -l {} \;`
+sed -i 's/'"<Version>$appVersion<\/Version>"'/'"<Version>$nextAppVersion<\/Version>"'/g'  `find ${basePath} -name *.props -exec grep '<Version>' -l {} \;`
 
