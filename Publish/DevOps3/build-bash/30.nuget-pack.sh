@@ -14,7 +14,7 @@ export NUGET_PATH=$basePath/Publish/release/.nuget
 
 if [ ! $NUGET_PATH ]; then NUGET_PATH=$basePath/Publish/release/.nuget; fi
 
-
+mkdir -p $basePath/Publish/release/release
 
 #----------------------------------------------
 echo "30.nuget-pack.sh"
