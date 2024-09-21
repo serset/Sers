@@ -1,5 +1,5 @@
 
-# DevOps 3.6
+# DevOps 3.7
 
 
 # build-bash
@@ -10,8 +10,22 @@ extra steps for build, all sh files are optional (remove if not need).
 if this file exists, will not need approval for jenkins build.
 
 
+
+
+
+
+
+
+
+
+
 ----------------------------------------------
 # ReleaseLog
+
+-----------------------
+# 3.7
+> 2024-09-21
+- fix can not release station bug
 
 -----------------------
 # 3.6

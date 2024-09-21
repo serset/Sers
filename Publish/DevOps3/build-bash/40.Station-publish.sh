@@ -58,15 +58,15 @@ do
 	dotnet build --configuration Release
 	dotnet publish --configuration Release --output \"\$publishPath/\$publishName\"
 
-	#copy xml
+	# copy xml
 	for filePath in bin/Release/\$netVersion/*.xml ; do \\cp -rf \$filePath \"\$publishPath/\$publishName\";done
 done
 
 
 #3 copy station release files
-if [ -d \"\/root/code/Publish/ReleaseFile/Station\" ]; then
+if [ -d \"/root/code/Publish/ReleaseFile/Station\" ]; then
 	echo '#3 copy station release files'
-	\cp -rf \/root/code/Publish/ReleaseFile/Station/. \"\$publishPath\"
+	\cp -rf /root/code/Publish/ReleaseFile/Station/. \"\$publishPath\"
 fi
 
 
