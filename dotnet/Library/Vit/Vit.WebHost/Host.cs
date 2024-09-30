@@ -55,8 +55,8 @@ namespace Vit.WebHost
 
             #region #3 Build host
 
-            OnConfigureServices += arg.OnConfigureServices;
-            OnConfigure += arg.OnConfigure;
+            OnConfigureServices += arg.OnConfigureServices ?? (_ => { });
+            OnConfigure += arg.OnConfigure ?? (_ => { });
 
             var host =
                 arg.OnCreateWebHostBuilder()
