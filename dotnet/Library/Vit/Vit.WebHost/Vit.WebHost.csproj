@@ -7,7 +7,7 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <Version>6.1.2-develop</Version>
+        <Version>6.2.0-develop</Version>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Vit.Core\Vit.Core\Vit.Core.csproj" />
+        <ProjectReference Include="..\Vit.Core\Vit.Core\Vit.Core.csproj" Version="$(VitCore_AllowedVersions)" />
     </ItemGroup>
 
 </Project>

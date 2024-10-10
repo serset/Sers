@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Vit\Vit.Core\Vit.Core\Vit.Core.csproj" />
+        <ProjectReference Include="..\..\..\Vit\Vit.Core\Vit.Core\Vit.Core.csproj"  Version="$(VitCore_AllowedVersions)" />
         <ProjectReference Include="..\..\Sers.Hardware\Sers.Hardware\Sers.Hardware.csproj" />
     </ItemGroup>
 
