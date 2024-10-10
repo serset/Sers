@@ -14,7 +14,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Vit\Vit.Core\Vit.Core\Vit.Core.csproj"  Version="$(VitCore_AllowedVersions)" />
+        <ProjectReference Include="..\..\..\Vit\Vit.Core\Vit.Core\Vit.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>

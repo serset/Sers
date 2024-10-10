@@ -1,9 +1,7 @@
 <Project>
     <PropertyGroup>
         <Version>2.2.0-develop</Version>
-        <AllowedVersions>[2.2.0, 2.3.0)</AllowedVersions>
         <VitCore_Version>2.3.0-develop</VitCore_Version>
-        <VitCore_AllowedVersions>[2.3.0, 2.4.0)</VitCore_AllowedVersions>
     </PropertyGroup>
 
     <PropertyGroup>

@@ -25,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Sers.Core\Sers.Core\Sers.Core.csproj"  Version="$(AllowedVersions)" />
+        <ProjectReference Include="..\..\..\Sers.Core\Sers.Core\Sers.Core.csproj" />
     </ItemGroup>
 
 </Project>
