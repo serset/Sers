@@ -58,9 +58,9 @@ namespace Sers.Core.Module.Api.LocalApi
         public ApiNodeMng ApiNodeMng => apiNodeMng;
 
 
-        static readonly ApiMessage const_ApiReply_Err_Timeout = new ApiMessage().InitAsApiReplyMessageByError(SsError.Err_HandleTimeout);
-        static readonly ApiMessage const_ApiReply_Err_Overload = new ApiMessage().InitAsApiReplyMessageByError(SsError.Err_RateLimit_Refuse);
-        static readonly ApiMessage const_ApiReply_Err = new ApiMessage().InitAsApiReplyMessageByError(SsError.Err_SysErr);
+        static readonly ApiMessage const_ApiReply_Err_Timeout = new ApiMessage().InitAsApiReplyMessageByError(SsError.Err_408RequestTimeout);
+        static readonly ApiMessage const_ApiReply_Err_Overload = new ApiMessage().InitAsApiReplyMessageByError(SsError.Err_429TooManyRequests);
+        static readonly ApiMessage const_ApiReply_Err = new ApiMessage().InitAsApiReplyMessageByError(SsError.Err_500InternalServerError);
 
 
 

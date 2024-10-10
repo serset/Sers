@@ -25,7 +25,7 @@ namespace Sers.SersLoader.ApiDesc.Attribute.RpcVerify
             rpcVerifySwitchBody.Add(item);
 
             //(x.3)ssError
-            var errorValue = (ssError ?? SsError.Err_NotAllowed).ConvertBySerialize<JObject>();
+            var errorValue = (ssError ?? SsError.Err_405MethodNotAllowed).ConvertBySerialize<JObject>();
             errorValue["type"] = "_";
             item["value"] = errorValue;
 

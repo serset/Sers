@@ -158,7 +158,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             var fileInfo = new FileInfo(absFilePath);
             if (!fileInfo.Exists)
             {
-                return SsError.Err_404.SerializeToBytes();
+                return SsError.Err_404NotFound.SerializeToBytes();
             }
 
             #region reply header
@@ -220,7 +220,7 @@ namespace Sers.Core.Module.Api.LocalApi.StaticFileTransmit
             var fileInfo = new FileInfo(absFilePath);
             if (!fileInfo.Exists)
             {
-                return SsError.Err_404.SerializeToBytes();
+                return SsError.Err_404NotFound.SerializeToBytes();
             }
 
             #region reply header
