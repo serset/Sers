@@ -25,7 +25,7 @@ fi
 docker run -i --rm \
 --env LANG=C.UTF-8 \
 -v $basePath:/root/code \
-serset/dotnet:sdk-6.0 \
+serset/dotnet:sdk-8.0 \
 bash -c "
 for file in /root/code/Publish/release/release/nuget/*.nupkg
 do

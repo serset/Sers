@@ -23,7 +23,7 @@ docker run -i --rm \
 -v $NUGET_PATH:/root/.nuget \
 -v "$basePath":/root/code \
 -v "$basePath":"$basePath" \
-serset/dotnet:sdk-6.0 \
+serset/dotnet:sdk-8.0 \
 bash -c "
 set -e
 

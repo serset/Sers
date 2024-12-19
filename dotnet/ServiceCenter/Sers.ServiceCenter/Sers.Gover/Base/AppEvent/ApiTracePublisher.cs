@@ -43,20 +43,20 @@ namespace Sers.Gover.Base.AppEvent
             var collectorName = arg?["collectorName"]?.ToString();
             if (string.IsNullOrEmpty(collectorName))
             {
-                Logger.Warn("[Gover.ApiTracePublisher]跳过初始化，没有指定collectorName");
+                Logger.Warn("[LocalApiService.ApiTracePublisher] skip init (can not find collectorName)");
                 return;
             }
 
             ApiTraceMng.InitCollector();
 
-            Logger.Info("[Gover.ApiTracePublisher]初始化中");
+            Logger.Info("[Gover.ApiTracePublisher] initializing");
             if (ApiTraceMng.collectorMap.TryGetValue(collectorName, out collector))
             {
-                Logger.Info("[Gover.ApiTracePublisher]已绑定collector", new { collectorName });
+                Logger.Info("[Gover.ApiTracePublisher] initialization successfully", new { collectorName });
             }
             else
             {
-                Logger.Error("[Gover.ApiTracePublisher]初始化失败，没有配置指定的collector", new { collectorName = collectorName, Message = "请在appsettings.json中配置正确的Sers.ApiTrace.Collector" });
+                Logger.Error("[Gover.ApiTracePublisher] initialization failure (can not find collector)", new { collectorName = collectorName, Message = "Please configure the correct Sers.ApiTrace.Collector in appsettings.json" });
             }
         }
 
@@ -67,7 +67,7 @@ namespace Sers.Gover.Base.AppEvent
             if (collector == null) return;
 
             GoverApiCenterService.Instance.AddApiScopeEvent(ApiScopeEvent);
-            Logger.Info("[Gover.ApiTracePublisher]加载成功");
+            Logger.Info("[Gover.ApiTracePublisher] load successfully");
         }
 
 

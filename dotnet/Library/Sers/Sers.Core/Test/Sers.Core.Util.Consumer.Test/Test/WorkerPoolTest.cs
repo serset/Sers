@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Disruptor;
+using Disruptor.Processing;
 
 namespace Sers.Core.Util.PubSub.Test.Test
 {
@@ -142,10 +143,7 @@ namespace Sers.Core.Util.PubSub.Test.Test
     /// <typeparam name="TProduct">产品</typeparam>
     public class Workers<TProduct> where TProduct : Producer<TProduct>, new()
     {
-
-
-
-        private Disruptor.WorkerPool<TProduct> _workerPool;
+        private WorkerPool<TProduct> _workerPool;
 
         public Workers(List<IWorkHandler<TProduct>> handers, IWaitStrategy waitStrategy = null, int bufferSize = /*Test.repeat **/ (2 << 16)) //1024 * 64
         {
@@ -164,7 +162,7 @@ namespace Sers.Core.Util.PubSub.Test.Test
 
             _workerPool = new WorkerPool<TProduct>(_ringBuffer
                 , _ringBuffer.NewBarrier()
-                , new FatalExceptionHandler()
+                , new FatalExceptionHandler<TProduct>()
                 , handers.ToArray());
 
             _ringBuffer.AddGatingSequences(_workerPool.GetWorkerSequences());
@@ -172,7 +170,7 @@ namespace Sers.Core.Util.PubSub.Test.Test
 
         public void Start()
         {
-            _workerPool.Start(new Disruptor.Dsl.BasicExecutor(TaskScheduler.Default));
+            _workerPool.Start();
         }
 
         public Producer<TProduct> CreateOneProducer()

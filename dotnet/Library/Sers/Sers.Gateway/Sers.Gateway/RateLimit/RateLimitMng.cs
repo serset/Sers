@@ -97,7 +97,7 @@ namespace Sers.Gateway.RateLimit
 
             if (null == limitItem) return false;
 
-            Logger.Info("[服务限流]加载成功", rateLimit);
+            Logger.Info("[RateLimit] load successfully", rateLimit);
 
             limit_Map[limitItem.rateLimitKey] = limitItem;
 

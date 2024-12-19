@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
     </PropertyGroup>
 
     <PropertyGroup>
-        <DocumentationFile>bin\Debug\net6.0\Did.Serslot.HelloWorld.xml</DocumentationFile>
+        <DocumentationFile>bin\Debug\net8.0\Did.Serslot.HelloWorld.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>

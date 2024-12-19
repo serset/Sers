@@ -21,7 +21,7 @@ namespace Sers.Core.Module.Api.LocalApi.ApiTrace
             var collectorName = arg?["collectorName"]?.ToString();
             if (string.IsNullOrEmpty(collectorName))
             {
-                Logger.Warn("[LocalApiService.ApiTracePublisher]跳过初始化，没有指定collectorName");
+                Logger.Warn("[LocalApiService.ApiTracePublisher] skip init (can not find collectorName)");
                 return;
             }
 
@@ -29,11 +29,11 @@ namespace Sers.Core.Module.Api.LocalApi.ApiTrace
 
             if (ApiTraceMng.collectorMap.TryGetValue(collectorName, out collector))
             {
-                Logger.Info("[LocalApiService.ApiTracePublisher]加载成功", new { collectorName });
+                Logger.Info("[LocalApiService.ApiTracePublisher] load successfully", new { collectorName });
             }
             else
             {
-                Logger.Warn("[LocalApiService.ApiTracePublisher]加载失败，没有配置指定的collector", new { collectorName = collectorName, Message = "请在appsettings.json中配置正确的Sers.ApiTrace.Collector" });
+                Logger.Warn("[LocalApiService.ApiTracePublisher] load failure (can not find collector)", new { collectorName = collectorName, Message = "Please configure the correct Sers.ApiTrace.Collector in appsettings.json" });
             }
         }
 

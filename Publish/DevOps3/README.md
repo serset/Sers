@@ -1,5 +1,5 @@
 
-# DevOps 3.7
+# DevOps 3.8
 
 
 # build-bash
@@ -23,6 +23,11 @@ if this file exists, will not need approval for jenkins build.
 
 ----------------------------------------------
 # ReleaseLog
+
+-----------------------
+# 3.8
+> 2024-12-19
+- upgrade net to 8.0
 
 -----------------------
 # 3.7

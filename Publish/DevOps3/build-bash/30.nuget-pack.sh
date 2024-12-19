@@ -22,7 +22,7 @@ docker run -i --rm \
 --env LANG=C.UTF-8 \
 -v $NUGET_PATH:/root/.nuget \
 -v $basePath:/root/code \
-serset/dotnet:sdk-6.0 \
+serset/dotnet:sdk-8.0 \
 bash -c "
 
 publishPath=/root/code/Publish/release/release/nuget
