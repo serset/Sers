@@ -105,8 +105,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-Station(net6.0)-${{ env.release_version }}.zip
-          asset_name: ${{ env.appName }}-Station-net6.0-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-Station(net8.0)-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-Station-net8.0-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
 
@@ -145,7 +145,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_create.outputs.upload_url }}
-          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-ServiceCenter(net6.0)-${{ env.release_version }}.zip
-          asset_name: ${{ env.appName }}-ServiceCenter-net6.0-${{ env.release_version }}.zip
+          asset_path: ${{ env.release_dirPath }}/${{ env.appName }}-ServiceCenter(net8.0)-${{ env.release_version }}.zip
+          asset_name: ${{ env.appName }}-ServiceCenter-net8.0-${{ env.release_version }}.zip
           asset_content_type: application/zip
 
