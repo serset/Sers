@@ -12,7 +12,7 @@ export basePath=/root/temp/svn
  
 #---------------------------------------------------------------------
 #2
-publishPath="$basePath/Publish/release/release/Station(net6.0)"
+publishPath="$basePath/Publish/release/release/Station(net8.0)"
 deployPath="$basePath/Publish/release/release/docker-deploy"
 
 

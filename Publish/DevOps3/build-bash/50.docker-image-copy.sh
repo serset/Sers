@@ -13,7 +13,7 @@ export basePath=/root/temp/svn
 #---------------------------------------------------------------------
 #1 copy docker image from ReleaseFile
 
-publishPath="$basePath/Publish/release/release/Station(net6.0)"
+publishPath="$basePath/Publish/release/release/Station(net8.0)"
 dockerPath=$basePath/Publish/release/release/docker-image
 
 
