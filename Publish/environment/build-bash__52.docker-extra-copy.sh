@@ -19,7 +19,7 @@ echo '  -> #1 copy image files'
 dockerPath="$basePath/Publish/release/release/docker-image"
 
 echo "copy 单体压测"
-\cp -rf "$basePath/Publish/release/release/StressTest/单体压测net6.0/ServiceCenter/." "$dockerPath/sers-demo-sersall/app"
+\cp -rf "$basePath/Publish/release/release/StressTest/单体压测net8.0/ServiceCenter/." "$dockerPath/sers-demo-sersall/app"
 
 
 
@@ -29,7 +29,7 @@ echo '#build-bash__52.docker-extra-copy.sh'
 echo '  -> #2 copy deploy files'
 
 
-publishPath="$basePath/Publish/release/release/Station(net6.0)"
+publishPath="$basePath/Publish/release/release/Station(net8.0)"
 deployPath="$basePath/Publish/release/release/docker-deploy"
  
 echo "copy station"
@@ -39,4 +39,4 @@ echo "copy station"
 \cp -rf "$publishPath/Gover/appsettings.json" "$deployPath/sers-gover"
 \cp -rf "$publishPath/Demo/appsettings.json" "$deployPath/sers-demo"
 \cp -rf "$publishPath/Robot/appsettings.json" "$deployPath/sers-demo-robot"
-\cp -rf "$basePath/Publish/release/release/StressTest/单体压测net6.0/ServiceCenter/appsettings.json" "$deployPath/sers-demo-sersall"
+\cp -rf "$basePath/Publish/release/release/StressTest/单体压测net8.0/ServiceCenter/appsettings.json" "$deployPath/sers-demo-sersall"
