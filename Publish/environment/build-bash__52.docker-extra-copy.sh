@@ -29,7 +29,7 @@ echo '#build-bash__52.docker-extra-copy.sh'
 echo '  -> #2 copy deploy files'
 
 
-publishPath="$basePath/Publish/release/release/Station(net6.0)"
+publishPath="$basePath/Publish/release/release/Station(net8.0)"
 deployPath="$basePath/Publish/release/release/docker-deploy"
  
 echo "copy station"
