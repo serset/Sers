@@ -25,7 +25,7 @@ docker run -i --rm \
 --env LANG=C.UTF-8 \
 -v $basePath:/root/code \
 -v $NUGET_PATH:/root/.nuget \
-serset/dotnet:sdk-6.0 \
+serset/dotnet:sdk-8.0 \
 bash -c "
 set -e
 
@@ -52,7 +52,7 @@ echo '#build-bash__41.extra-publish.sh'
 echo '  -> #2 发布Sers压测'
 
 # for netVersion in net6.0 netcoreapp2.1
-for netVersion in net6.0
+for netVersion in net8.0
 do
 	appPath=${basePath}/Publish/release/release/Station\(${netVersion}\)
 
