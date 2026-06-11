@@ -30,7 +30,7 @@
 
 
     <ItemGroup>
-        <PackageReference Include="MessagePack" Version="3.1.0" />
+        <PackageReference Include="MessagePack" Version="3.1.7" />
         <PackageReference Include="Disruptor" Version="6.0.0" />
         <PackageReference Include="System.Threading.Tasks.Dataflow" Version="9.0.0" />
     </ItemGroup>
